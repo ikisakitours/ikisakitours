@@ -17,13 +17,16 @@ const playfair = Playfair_Display({
   style: ["normal", "italic"],
 });
 
-export const metadata: Metadata = {
+export const metadata = {
+  description:
+    "Premium private tours, transfers, travel packages, and multilingual concierge experiences across Sri Lanka.",
+  icons: {
+    icon: "/images/bg-remove.png",
+  },
   title: {
     default: "MapMate | Premium Sri Lanka Private Tours",
     template: "%s | MapMate",
   },
-  description:
-    "Premium private tours, transfers, travel packages, and multilingual concierge experiences across Sri Lanka.",
 };
 
 export default function RootLayout({
