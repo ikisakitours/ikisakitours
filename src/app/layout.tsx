@@ -17,9 +17,6 @@ const playfair = Playfair_Display({
   style: ["normal", "italic"],
 });
 
-
-
-
 export const metadata = {
   title: {
     default: "MapMate | Premium Sri Lanka Private Tours",
@@ -27,35 +24,34 @@ export const metadata = {
   },
   description:
     "Premium private tours, transfers, travel packages, and multilingual concierge experiences across Sri Lanka.",
-  
 
-  // මෙන්න මේ කොටස අනිවාර්යයෙන්ම එක් කරන්න:
   openGraph: {
     title: "MapMate | Premium Sri Lanka Private Tours",
-    description: "Premium private tours, transfers, travel packages, and multilingual concierge experiences across Sri Lanka.",
-    url: 'https://map-mate-tours.vercel.app', // මෙතනට ඔබේ site එකේ සැබෑ ලින්ක් එක දෙන්න
-    siteName: 'MapMate',
+    description:
+      "Premium private tours, transfers, travel packages, and multilingual concierge experiences across Sri Lanka.",
+    url: "https://map-mate-tours.vercel.app",
+    siteName: "MapMate",
     images: [
       {
-        url: '/images/logo-re.jpeg', // ඔබේ ලෝගෝ එකේ path එක නිවැරදිව දෙන්න
+        url: "https://map-mate-tours.vercel.app/images/logo-re.jpeg",
         width: 1200,
         height: 630,
       },
     ],
-    locale: 'en_US',
-    type: 'website',
+    locale: "en_US",
+    type: "website",
   },
-  
-  // Twitter සඳහාත් අවශ්‍ය නම්:
+
   twitter: {
-    card: 'summary_large_image',
-    title: 'MapMate | Premium Sri Lanka Private Tours',
-    description: 'Premium private tours, transfers, travel packages, and multilingual concierge experiences across Sri Lanka.',
-    images: ['/images/logo-re.jpeg'], 
+    card: "summary_large_image",
+    title: "MapMate | Premium Sri Lanka Private Tours",
+    description:
+      "Premium private tours, transfers, travel packages, and multilingual concierge experiences across Sri Lanka.",
+    images: ["https://map-mate-tours.vercel.app/images/logo-re.jpeg"],
   },
-  
+
   icons: {
-    icon: "/images/tab.png",
+    icon: "https://map-mate-tours.vercel.app/images/tab.png",
   },
 };
 
