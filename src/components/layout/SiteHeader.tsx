@@ -1,0 +1,482 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { primaryNavigation } from "@/data/navigation";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { useRouter } from "next/navigation";
+import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
+//Icons
+import { LogOut, UserRound } from "lucide-react";
+import { type MouseEvent, useEffect, useRef, useState } from "react";
+
+const navLinkClass =
+  "relative pb-1 transition-colors duration-[400ms] after:absolute after:-bottom-0.5 after:left-1/2 after:h-px after:w-0 after:-translate-x-1/2 after:bg-[linear-gradient(90deg,transparent,var(--gold),transparent)] after:transition-all after:duration-[400ms] after:ease-[cubic-bezier(0.4,0,0.2,1)] after:content-[''] hover:text-gold hover:[text-shadow:0_0_10px_rgba(197,160,89,0.3)] hover:after:w-full";
+
+const customEase: [number, number, number, number] = [0.76, 0, 0.24, 1];
+
+// ==========================================
+// 1. Framer Motion Curve SVG Component
+// ==========================================
+const Curve = () => {
+  const [windowHeight, setWindowHeight] = useState(0);
+
+  useEffect(() => {
+    const handleResize = () => setWindowHeight(window.innerHeight);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  if (windowHeight === 0) return null;
+
+  const initialPath = `M100 0 L200 0 L200 ${windowHeight} L100 ${windowHeight} Q-100 ${windowHeight / 2} 100 0`;
+  const targetPath = `M100 0 L200 0 L200 ${windowHeight} L100 ${windowHeight} Q100 ${windowHeight / 2} 100 0`;
+
+  const curveVariants: Variants = {
+    initial: { d: initialPath },
+    enter: {
+      d: targetPath,
+      transition: { duration: 1, ease: customEase },
+    },
+    exit: {
+      d: initialPath,
+      transition: { duration: 0.8, ease: customEase },
+    },
+  };
+
+  return (
+    <svg className="absolute top-0 -left-24.75 w-25 h-full stroke-none pointer-events-none fill-[#0a0a0a]">
+      <motion.path variants={curveVariants} initial="initial" animate="enter" exit="exit" />
+    </svg>
+  );
+};
+
+export function SiteHeader() {
+  const router = useRouter();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+
+  const navRef = useRef<HTMLElement>(null);
+  const profileButtonRef = useRef<HTMLButtonElement>(null);
+  const profileDropdownRef = useRef<HTMLDivElement>(null);
+
+  const handleNavigation = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    closeMobileMenu();
+    document.body.classList.remove("overflow-hidden");
+    setTimeout(() => {
+      const elementId = href.replace("/#", "").replace("#", "");
+      const element = document.getElementById(elementId);
+
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      } else {
+        router.push(`/${href}`);
+      }
+    }, 800);
+  };
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, [isMenuOpen]);
+  // ==========================================
+  // Framer Motion Animation Variants
+  // ==========================================
+  const menuVariants: Variants = {
+    initial: { x: "calc(100% + 100px)" },
+    enter: {
+      x: "0%",
+      transition: { duration: 0.8, ease: customEase },
+    },
+    exit: {
+      x: "calc(100% + 100px)",
+      transition: { duration: 0.8, ease: customEase },
+    },
+  };
+
+  const navLinksContainerVariants: Variants = {
+    initial: {},
+    enter: {
+      transition: { staggerChildren: 0.05, delayChildren: 0.2 },
+    },
+    exit: {
+      transition: { staggerChildren: 0.05, staggerDirection: -1 },
+    },
+  };
+
+  const linkVariants: Variants = {
+    initial: { x: 40, opacity: 0 },
+    enter: {
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.6, ease: customEase },
+    },
+    exit: {
+      x: 40,
+      opacity: 0,
+      transition: { duration: 0.4, ease: customEase },
+    },
+  };
+
+  const bottomActionVariants: Variants = {
+    initial: { opacity: 0, y: 20 },
+    enter: { opacity: 1, y: 0, transition: { delay: 0.4, duration: 0.6 } },
+    exit: { opacity: 0, y: 20, transition: { duration: 0.3 } },
+  };
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const handleWindowClick = (event: PointerEvent) => {
+      const target = event.target as Node;
+
+      if (!profileDropdownRef.current?.contains(target) && !profileButtonRef.current?.contains(target)) {
+        setIsProfileOpen(false);
+      }
+    };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsMenuOpen(false);
+        setIsProfileOpen(false);
+      }
+    };
+
+    window.addEventListener("pointerdown", handleWindowClick);
+    window.addEventListener("keydown", handleEscape);
+
+    return () => {
+      window.removeEventListener("pointerdown", handleWindowClick);
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
+
+  const closeMobileMenu = () => setIsMenuOpen(false);
+  const closeProfileDropdown = () => setIsProfileOpen(false);
+
+  const handleMobileMenuClick = () => {
+    setIsMenuOpen((value) => {
+      const nextValue = !value;
+      if (nextValue) {
+        closeProfileDropdown();
+      }
+      return nextValue;
+    });
+  };
+
+  const handleProfileClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+      setTimeout(() => {
+        setIsProfileOpen(true);
+      }, 800);
+    } else {
+      setIsProfileOpen((prev) => !prev);
+    }
+  };
+
+  return (
+    <>
+      <nav
+        id="main-nav"
+        ref={navRef}
+        className={`fixed w-full z-100 border-b transition-all duration-500 ${
+          isScrolled ? "border-b-[rgba(212,175,55,0.2)] bg-[rgba(5,5,5,0.9)] backdrop-blur-[20px]" : "border-white/0"
+        }`}
+      >
+        <ContainerLayout>
+          <div
+            id="nav-container"
+            className={`flex items-center justify-between transition-all duration-500 ${
+              isScrolled ? "h-17.5" : "h-20 sm:h-24"
+            }`}
+          >
+            <Link
+              href="/"
+              onClick={closeMobileMenu}
+              className="group flex shrink-0 items-center space-x-3 relative z-101"
+            >
+              <Image
+                src="/images/logo.jpeg"
+                alt=" MapMate Logo"
+                width={160}
+                height={64}
+                className="h-10 w-auto object-contain transition-transform duration-500 group-hover:scale-105 sm:h-12"
+                priority
+                onError={(event) => {
+                  event.currentTarget.style.display = "none";
+                }}
+              />
+              <div className="text-2xl font-bold uppercase tracking-widest text-white sm:text-3xl">
+                Map<span className="text-gold">Mate</span>
+              </div>
+            </Link>
+
+            {/* Desktop Navigation - Changed lg:flex to xl:flex for iPad Pro compatibility */}
+            <div className="hidden items-center space-x-8 text-[14px] font-bold uppercase tracking-[0.2em] text-slate-200 xl:flex xl:space-x-12">
+              {primaryNavigation.map((item) => (
+                <div key={item.label} className="group relative">
+                  {"isDropdown" in item && item.isDropdown ? (
+                    // Dropdown Menu Item
+                    <>
+                      <button className={`${navLinkClass} flex items-center gap-1 uppercase`}>
+                        {item.label}
+                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </button>
+
+                      <div className="absolute left-0 top-full invisible mt-4 flex w-56 flex-col rounded-xl border border-white/10 bg-[#0a0a0a]/95 py-3 opacity-0 shadow-2xl backdrop-blur-2xl transition-all duration-300 group-hover:visible group-hover:mt-2 group-hover:opacity-100">
+                        {item.subItems?.map((sub) => (
+                          <Link
+                            key={sub.href}
+                            href={sub.href}
+                            className="px-5 py-2.5 text-xs text-white/80 hover:bg-gold/10 hover:text-gold transition-colors"
+                          >
+                            {sub.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    "href" in item && (
+                      <Link href={item.href} className={navLinkClass}>
+                        {item.label}
+                      </Link>
+                    )
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <div className="flex items-center space-x-6 relative z-101">
+              <div className="hidden items-center space-x-3 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-md sm:flex">
+                <span className="cursor-pointer transition-transform hover:scale-125" title="Japanese">
+                  🇯🇵
+                </span>
+                <span className="cursor-pointer transition-transform hover:scale-125" title="French">
+                  🇫🇷
+                </span>
+                <span className="cursor-pointer transition-transform hover:scale-125" title="Spanish">
+                  🇪🇸
+                </span>
+                <span className="cursor-pointer transition-transform hover:scale-125" title="English">
+                  🇬🇧
+                </span>
+              </div>
+
+              {/* Profile Dropdown */}
+              <div className="relative flex items-center" id="profile-dropdown-container">
+                <button
+                  id="profile-menu-btn"
+                  ref={profileButtonRef}
+                  type="button"
+                  aria-expanded={isProfileOpen}
+                  aria-label="Open profile menu"
+                  onClick={handleProfileClick}
+                  className="group flex items-center focus:outline-none"
+                >
+                  <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border-2 border-gold/30 bg-white/10 p-0.5 transition-all duration-300 group-hover:border-gold sm:h-12 sm:w-12">
+                    <span className="absolute inset-0 flex items-center justify-center text-xs font-bold uppercase tracking-tighter text-gold sm:text-sm">
+                      US
+                    </span>
+                    <Image
+                      src="https://i.pravatar.cc/96?img=12"
+                      alt="User Profile"
+                      width={48}
+                      height={48}
+                      className="relative z-10 h-full w-full rounded-full object-cover transition-opacity duration-300"
+                      onError={(event) => {
+                        event.currentTarget.style.opacity = "0";
+                      }}
+                    />
+                  </div>
+                </button>
+
+                <div
+                  id="profile-dropdown"
+                  ref={profileDropdownRef}
+                  className={`absolute right-0 top-full mt-4 w-56 origin-top-right overflow-hidden rounded-xl border border-white/10 bg-[#0a0a0a]/95 shadow-2xl backdrop-blur-2xl transition-all duration-300 ${
+                    isProfileOpen
+                      ? "pointer-events-auto scale-100 opacity-100"
+                      : "pointer-events-none scale-95 opacity-0"
+                  }`}
+                >
+                  <div className="border-b border-white/5 bg-white/5 px-6 py-4">
+                    <p className="truncate text-sm font-bold text-white" id="dropdown-user-name">
+                      Alex Thompson
+                    </p>
+                    <p
+                      className="mt-1 truncate text-[11px] uppercase tracking-widest text-slate-400"
+                      id="dropdown-user-email"
+                    >
+                      pramodpremudu10@gmail.com
+                    </p>
+                  </div>
+                  <div className="py-2">
+                    <Link
+                      href="/profile"
+                      onClick={closeProfileDropdown}
+                      className="flex items-center px-6 py-3 text-sm text-slate-200 transition-colors hover:bg-gold/10 hover:text-gold"
+                    >
+                      <UserRound className="mr-3 h-4 w-4" />
+                      See Profile
+                    </Link>
+                    <div className="mx-4 my-1 border-t border-white/5" />
+                    <button
+                      type="button"
+                      className="flex w-full items-center px-6 py-3 text-left text-sm text-red-400 transition-colors hover:bg-red-500/10"
+                    >
+                      <LogOut className="mr-3 h-4 w-4" />
+                      Log Out
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Hamburger Button - Changed lg:hidden to xl:hidden for iPad Pro compatibility */}
+              <button
+                id="mobile-menu-btn"
+                type="button"
+                aria-expanded={isMenuOpen}
+                aria-label="Toggle Menu"
+                onClick={handleMobileMenuClick}
+                className="group relative flex h-10 w-10 flex-col items-center justify-center focus:outline-none xl:hidden"
+              >
+                <span
+                  className={`h-[1.5px] w-6 bg-white transition-all duration-300 ${
+                    isMenuOpen ? "translate-y-px rotate-45" : "-translate-y-1.5"
+                  }`}
+                />
+                <span
+                  className={`h-[1.5px] w-6 bg-white transition-all duration-300 ${
+                    isMenuOpen ? "-translate-x-2.5 opacity-0" : "opacity-100"
+                  }`}
+                />
+                <span
+                  className={`h-[1.5px] w-6 bg-white transition-all duration-300 ${
+                    isMenuOpen ? "-translate-y-0.5 -rotate-45" : "translate-y-1.5"
+                  }`}
+                />
+              </button>
+            </div>
+          </div>
+        </ContainerLayout>
+      </nav>
+
+      {/* ========================================== */}
+      {/* 2. Framer Motion Animated Mobile Menu */}
+      {/* ========================================== */}
+      <AnimatePresence mode="wait">
+        {isMenuOpen && (
+          <>
+            {/* Background Overlay (Click to close) - Changed lg:hidden to xl:hidden */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeMobileMenu}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-90 xl:hidden"
+            />
+
+            {/* Mobile Menu Drawer - FULL WIDTH ON MOBILE - Changed lg:hidden to xl:hidden */}
+            <motion.div
+              id="animated-mobile-menu"
+              layout
+              variants={menuVariants}
+              initial="initial"
+              animate="enter"
+              exit="exit"
+              className="fixed top-0 right-0 h-dvh w-full sm:w-100 bg-[#0a0a0a] z-95 xl:hidden flex flex-col shadow-2xl will-change-transform border-l border-white/5"
+            >
+              <Curve />
+
+              <div className="absolute top-[-10%] right-[-10%] w-62.5 h-62.5 bg-gold/10 blur-[80px] rounded-full pointer-events-none" />
+
+              <div className="flex-1 flex flex-col justify-start px-8 pt-32 pb-10 overflow-y-auto relative z-10">
+                <motion.div
+                  variants={navLinksContainerVariants}
+                  initial="initial"
+                  animate="enter"
+                  exit="exit"
+                  className="flex flex-col space-y-8 text-center"
+                >
+                  {primaryNavigation.map((item) => (
+                    <motion.div key={item.label} variants={linkVariants}>
+                      {"isDropdown" in item && item.isDropdown ? (
+                        <div className="flex flex-col space-y-4">
+                          <span className="text-lg sm:text-xl font-bold uppercase tracking-[0.2em] text-white/40 border-b border-white/10 pb-2 mx-auto inline-block">
+                            {item.label}
+                          </span>
+                          {item.subItems?.map((sub) => (
+                            <Link
+                              key={sub.href}
+                              onClick={(e) => handleNavigation(e, sub.href)}
+                              href={sub.href}
+                              className="text-base sm:text-lg font-bold uppercase tracking-[0.2em] block transition-colors duration-300 text-white hover:text-gold hover:scale-105"
+                            >
+                              {sub.label}
+                            </Link>
+                          ))}
+                        </div>
+                      ) : (
+                        "href" in item && (
+                          <Link
+                            onClick={(e) => handleNavigation(e, item.href)}
+                            href={item.href}
+                            className="text-lg sm:text-xl font-bold uppercase tracking-[0.2em] block transition-colors duration-300 text-white hover:text-gold hover:scale-105"
+                          >
+                            {item.label}
+                          </Link>
+                        )
+                      )}
+                    </motion.div>
+                  ))}
+                </motion.div>
+
+                {/* Bottom Actions (Language Flags) */}
+                <motion.div
+                  variants={bottomActionVariants}
+                  initial="initial"
+                  animate="enter"
+                  exit="exit"
+                  className="mt-16 pt-8 border-t border-white/10 flex justify-center space-x-8"
+                >
+                  <span className="text-2xl cursor-pointer hover:scale-125 transition-transform" title="Japanese">
+                    🇯🇵
+                  </span>
+                  <span className="text-2xl cursor-pointer hover:scale-125 transition-transform" title="French">
+                    🇫🇷
+                  </span>
+                  <span className="text-2xl cursor-pointer hover:scale-125 transition-transform" title="Spanish">
+                    🇪🇸
+                  </span>
+                  <span className="text-2xl cursor-pointer hover:scale-125 transition-transform" title="English">
+                    🇬🇧
+                  </span>
+                </motion.div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
