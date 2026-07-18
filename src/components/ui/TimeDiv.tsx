@@ -40,9 +40,7 @@ export default function TimeDiv() {
       <div className="pointer-events-none absolute right-3 bottom-4 select-none text-7xl font-black uppercase text-gold/10">
         MAPMATE
       </div>
-
       {/* Top Left Watermark: LK */}
-
       <div className="pointer-events-none absolute top-2 left-4 flex items-center gap-2 select-none">
         <span className="text-xl font-black uppercase text-gold/20">LK</span>
         <span className="text-xl opacity-20 lg:hidden">🇱🇰</span>

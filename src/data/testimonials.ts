@@ -10,6 +10,7 @@ export type Testimonial = {
   date: string;
   avatar: string;
   vip: boolean;
+  rating: number;
 };
 
 export const testimonialHeroData = {
@@ -20,12 +21,7 @@ export const testimonialHeroData = {
     "Real stories from real travelers. Discover why the world's most discerning explorers choose LankaElite for their Sri Lankan odyssey.",
 } as const;
 
-export const testimonialStats = [
-  { value: "99%", label: "Success", featured: false },
-  { value: "24/7", label: "Support", featured: false },
-  { value: "1.5k+", label: "Reviews", featured: false },
-  { value: "5.0", label: "Rating", featured: true },
-] as const;
+
 
 export const testimonials: Testimonial[] = [
   {
@@ -38,6 +34,7 @@ export const testimonials: Testimonial[] = [
     date: "January 15, 2026",
     avatar: "https://i.pravatar.cc/150?u=alexander-vance",
     vip: true,
+    rating: 5,
   },
   {
     id: "isabelle-roche",
@@ -49,6 +46,7 @@ export const testimonials: Testimonial[] = [
     date: "January 15, 2026",
     avatar: "https://i.pravatar.cc/150?u=isabelle-roche",
     vip: true,
+    rating: 5,
   },
   {
     id: "yuki-tanaka",
@@ -60,6 +58,7 @@ export const testimonials: Testimonial[] = [
     date: "January 15, 2026",
     avatar: "https://i.pravatar.cc/150?u=yuki-tanaka",
     vip: true,
+    rating: 5,
   },
   {
     id: "elena-gomez",
@@ -71,5 +70,6 @@ export const testimonials: Testimonial[] = [
     date: "January 15, 2026",
     avatar: "https://i.pravatar.cc/150?u=elena-gomez",
     vip: false,
+    rating: 5,
   },
 ];

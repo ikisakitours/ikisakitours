@@ -124,9 +124,17 @@ export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) 
         </div>
 
         {isWritingReview ? (
-          <div className="mt-12">
+          <motion.div
+            initial={{ opacity: 0, y: 15, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{
+              duration: 0.7,
+              ease: [0.22, 1, 0.36, 1], 
+            }}
+            className="mt-12"
+          >
             <WriteReviewForm />
-          </div>
+          </motion.div>
         ) : (
           <>
             {/* Testimonials Grid */}

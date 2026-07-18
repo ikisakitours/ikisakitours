@@ -1,8 +1,11 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { footerLinks, socialLinks, legalLinks, contactInfo } from "@/data/navigation";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import TimeDiv from "@/components/ui/TimeDiv";
+import { usePathname } from "next/navigation";
+
 //Icons
 import { Heart, Mail, MapPin, Phone, Send } from "lucide-react";
 import { FaInstagram, FaTiktok, FaFacebookF, FaTwitter, FaYoutube, FaWhatsapp } from "react-icons/fa6";
@@ -11,6 +14,8 @@ const socialLinksIcons = [FaInstagram, FaTiktok, FaFacebookF, FaTwitter, FaYoutu
 const contactInfoIcons = [MapPin, Phone, Mail];
 
 export function Footer() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
   return (
     <footer className="relative overflow-hidden border-t border-white/5 bg-[#050505] pt-20 pb-10">
       <div className="absolute bottom-0 left-1/2 -z-10 h-75 w-75 -translate-x-1/2 rounded-full bg-gold/5 blur-[100px] md:w-200" />
@@ -63,16 +68,19 @@ export function Footer() {
           <div className="lg:col-span-2 text-center sm:text-left lg:pl-4">
             <h4 className="mb-5 text-sm sm:text-base font-black uppercase tracking-[0.3em] text-white">Explore</h4>
             <ul className="space-y-4">
-              {footerLinks.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-base font-light text-slate-300 transition-colors hover:text-gold"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+              {footerLinks.map((item) => {
+                const finalHref = isHome && item.sectionId ? item.sectionId : item.href;
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={finalHref}
+                      className="text-base font-light text-slate-300 transition-colors hover:text-gold"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 

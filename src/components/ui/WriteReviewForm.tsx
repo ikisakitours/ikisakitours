@@ -37,7 +37,7 @@ export function WriteReviewForm() {
   };
 
   return (
-    <div className="group relative overflow-hidden rounded-4xl border border-white/5 bg-linear-to-br from-surface/90 to-lanka-black px-4 pt-4 pb-10 sm:px-6 sm:pt-6 sm:pb-12 md:px-8 md:pt-8 md:pb-16 lg:px-10 lg:pt-10 lg:pb-20 xl:pb-24 2xl:pb-28 3xl:px-12 3xl:pt-12 3xl:pb-32 -mt-6 -md:mt-10 -lg:mt-14 -2xl:mt-18">
+    <div className="group relative overflow-hidden rounded-4xl border border-white/5 bg-linear-to-br from-surface/90 to-lanka-black px-4 pt-4 pb-10 sm:px-6 sm:pt-6 sm:pb-12 md:px-8 md:pt-8 md:pb-16 lg:px-10 lg:pt-10 lg:pb-20 xl:pb-24 2xl:pb-28 3xl:px-12 3xl:pt-12 3xl:pb-32 -mt-1 ">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-size-[2rem_2rem]" />
       <div className="pointer-events-none absolute -right-1/4 -top-1/4 h-[50%] w-[50%] rounded-full bg-gold/10 blur-[120px]" />
       <div

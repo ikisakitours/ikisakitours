@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
@@ -9,11 +9,15 @@ import { WriteReviewForm } from "@/components/ui/WriteReviewForm";
 import { motion, AnimatePresence } from "framer-motion";
 import { CalendarCheck, Quote, Star, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
 
-function Stars({ className }: { className: string }) {
+function Stars({ className, count = 5 }: { className: string; count?: number }) {
   return (
     <div className="flex space-x-1">
       {Array.from({ length: 5 }).map((_, index) => (
-        <Star key={index} className={className} fill="currentColor" />
+        <Star
+          key={index}
+          className={`${className} ${index < count ? "" : "opacity-20"}`}
+          fill={index < count ? "currentColor" : "none"}
+        />
       ))}
     </div>
   );
@@ -22,6 +26,25 @@ function Stars({ className }: { className: string }) {
 export function ClientExperiencesSection() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isWritingReview, setIsWritingReview] = useState(false);
+
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScrollPosition = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
+    }
+  };
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.addEventListener("scroll", checkScrollPosition);
+      return () => container.removeEventListener("scroll", checkScrollPosition);
+    }
+  }, []);
 
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
@@ -32,6 +55,18 @@ export function ClientExperiencesSection() {
       });
     }
   };
+
+  //Ratings
+  const totalReviews = testimonials.length;
+
+  const totalRating = testimonials.reduce((acc, curr) => acc + curr.rating, 0);
+
+  const averageScore = testimonials.length > 0 ? (totalRating / testimonials.length).toFixed(1) : "0.0";
+
+  const reviewCountDisplay =
+    totalReviews >= 1000 ? `${(totalReviews / 1000).toFixed(1).replace(".0", "")}k+` : `${totalReviews}+`;
+
+  const starCount = Math.round(Number(averageScore));
 
   return (
     <section
@@ -70,15 +105,15 @@ export function ClientExperiencesSection() {
               className="flex shrink-0 items-center space-x-6 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm"
             >
               <div className="border-r border-white/10 pr-6 text-center">
-                <div className="text-4xl font-light leading-none text-white">5.0</div>
+                <div className="text-4xl font-light leading-none text-white">{averageScore}</div>
                 <div className="mt-2 text-[10px] font-bold uppercase tracking-widest text-gold">Average Score</div>
               </div>
               <div>
                 <div className="mb-3">
-                  <Stars className="h-3.5 w-3.5 text-gold" />
+                  <Stars className="h-3.5 w-3.5 text-gold" count={starCount} />
                 </div>
                 <p className="text-xs font-light tracking-wide text-slate-400">
-                  Based on <span className="font-bold text-white">1,200+</span> global reviews
+                  Based on <span className="font-bold text-white">{reviewCountDisplay}</span> global reviews
                 </p>
               </div>
             </motion.div>
@@ -120,20 +155,29 @@ export function ClientExperiencesSection() {
 
           {!isWritingReview && (
             <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+              initial={{ opacity: 0, y: 15, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{
+                duration: 0.7,
+                ease: [0.22, 1, 0.36, 1], // Fluid "Out Expo" ease
+              }}
               className="flex items-center justify-end gap-3 xl:hidden"
             >
               <button
                 onClick={() => scroll("left")}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white backdrop-blur-md transition-colors hover:border-gold hover:bg-gold hover:text-black"
+                disabled={!canScrollLeft}
+                className={`flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white backdrop-blur-md transition-all 
+               ${!canScrollLeft ? "opacity-30 cursor-not-allowed" : "hover:border-gold hover:bg-gold hover:text-black cursor-pointer"}`}
+                aria-label="Scroll left"
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
               <button
                 onClick={() => scroll("right")}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white backdrop-blur-md transition-colors hover:border-gold hover:bg-gold hover:text-black"
+                disabled={!canScrollRight}
+                className={`flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white backdrop-blur-md transition-all 
+           ${!canScrollRight ? "opacity-30 cursor-not-allowed" : "hover:border-gold hover:bg-gold hover:text-black cursor-pointer"}`}
+                aria-label="Scroll right"
               >
                 <ChevronRight className="h-5 w-5" />
               </button>
@@ -144,9 +188,12 @@ export function ClientExperiencesSection() {
         {/*Main Content Area*/}
         {isWritingReview ? (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
+            initial={{ opacity: 0, y: 15, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{
+              duration: 0.7,
+              ease: [0.22, 1, 0.36, 1], 
+            }}
           >
             <WriteReviewForm />
           </motion.div>
@@ -156,14 +203,18 @@ export function ClientExperiencesSection() {
               ref={scrollContainerRef}
               className="flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto pb-12 scrollbar-none [-ms-overflow-style:none] sm:gap-6 md:gap-8 xl:grid xl:grid-cols-3 xl:overflow-visible xl:pb-0 [&::-webkit-scrollbar]:hidden"
             >
-              {testimonials.slice(0, 3).map((testimonial, idx) => (
+              {testimonials.slice(0, 3).map((testimonial) => (
                 <motion.article
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.8, delay: idx * 0.15, ease: [0.25, 1, 0.5, 1] }}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "0px" }}
+                  transition={{
+                    duration: 0.7,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  style={{ willChange: "transform, opacity" }}
                   key={testimonial.name}
-                  className="group relative flex w-[85%] shrink-0 snap-center flex-col rounded-2xl border border-white/10 bg-[#111] p-6 transition-all duration-500 hover:border-gold/30 sm:w-[60%] md:w-[45%] lg:w-[40%] md:p-8 xl:w-auto xl:min-w-0"
+                  className="group relative flex w-[85%] shrink-0 snap-center flex-col rounded-2xl border border-white/10 bg-[#111] p-6 transition-colors duration-500 hover:border-gold/30 sm:w-[60%] md:w-[45%] lg:w-[40%] md:p-8 xl:w-auto xl:min-w-0"
                 >
                   <div className="grow">
                     <div className="mb-6 flex items-start justify-between md:mb-8">

@@ -1,20 +1,28 @@
 "use client";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { LegalDocumentSection } from "@/components/legal/LegalDocumentSection";
 import { LegalHero } from "@/components/legal/LegalHero";
 import { legalDocuments, type LegalDocumentId } from "@/data/legal";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
-import { useRouter } from "next/navigation";
 
 //Icons
 import { ArrowLeft } from "lucide-react";
 
 export default function LegalBody() {
-  const [activeId, setActiveId] = useState<LegalDocumentId>("terms");
   const router = useRouter();
+  const pathname = usePathname();
+
+  const currentSlug = pathname.split("/").pop() as LegalDocumentId;
+
+  const validIds = legalDocuments.map((doc) => doc.id);
+  const activeId = validIds.includes(currentSlug) ? currentSlug : "terms";
 
   const activeDoc = legalDocuments.find((doc) => doc.id === activeId) || legalDocuments[0];
+
+  const handleTabChange = (id: LegalDocumentId) => {
+    router.push(`/legal/${id}`, { scroll: false });
+  };
 
   return (
     <ContainerLayout className="py-20 md:py-28 xl:py-20 2xl:py-32 3xl:py-40">
@@ -27,7 +35,7 @@ export default function LegalBody() {
             <Button
               key={doc.id}
               variant="details"
-              onClick={() => setActiveId(doc.id)}
+              onClick={() => handleTabChange(doc.id)}
               className={activeId === doc.id ? "bg-gold! border-gold! text-lanka-black!" : ""}
             >
               {doc.title}
@@ -46,7 +54,7 @@ export default function LegalBody() {
 
           <div className="pt-4 text-center md:pt-8">
             <button
-              onClick={() => router.back()}
+              onClick={() => router.push("/")}
               style={{ letterSpacing: "0.5em" }}
               className="group mb-7 inline-flex items-center gap-2 text-[10px] font-bold uppercase text-gold transition-all hover:text-gold-light"
             >

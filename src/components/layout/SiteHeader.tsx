@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { primaryNavigation } from "@/data/navigation";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 //Icons
 import { LogOut, UserRound } from "lucide-react";
@@ -54,6 +54,9 @@ const Curve = () => {
 
 export function SiteHeader() {
   const router = useRouter();
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -62,20 +65,40 @@ export function SiteHeader() {
   const profileButtonRef = useRef<HTMLButtonElement>(null);
   const profileDropdownRef = useRef<HTMLDivElement>(null);
 
-  const handleNavigation = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    closeMobileMenu();
-    document.body.classList.remove("overflow-hidden");
-    setTimeout(() => {
-      const elementId = href.replace("/#", "").replace("#", "");
-      const element = document.getElementById(elementId);
+  const getFinalHref = (itemHref: string, itemSectionId?: string) => {
+    if (isHome && itemSectionId) {
+      return itemSectionId;
+    }
+    return itemHref;
+  };
 
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+  const handleNavigation = (e: MouseEvent<HTMLAnchorElement>, targetHref: string, isMobileMenu: boolean) => {
+    if (isMobileMenu) {
+      closeMobileMenu();
+    }
+
+    if (targetHref.startsWith("#")) {
+      e.preventDefault();
+      const elementId = targetHref.replace("#", "");
+
+      const scrollAction = () => {
+        const element = document.getElementById(elementId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      };
+
+      if (isMobileMenu) {
+        setTimeout(scrollAction, 600);
       } else {
-        router.push(`/${href}`);
+        scrollAction();
       }
-    }, 800);
+    } else if (isMobileMenu) {
+      e.preventDefault();
+      setTimeout(() => {
+        router.push(targetHref);
+      }, 600);
+    }
   };
 
   useEffect(() => {
@@ -231,39 +254,49 @@ export function SiteHeader() {
 
             {/* Desktop Navigation - Changed lg:flex to xl:flex for iPad Pro compatibility */}
             <div className="hidden items-center space-x-8 text-[14px] font-bold uppercase tracking-[0.2em] text-slate-200 xl:flex xl:space-x-12">
-              {primaryNavigation.map((item) => (
-                <div key={item.label} className="group relative">
-                  {"isDropdown" in item && item.isDropdown ? (
-                    // Dropdown Menu Item
-                    <>
-                      <button className={`${navLinkClass} flex items-center gap-1 uppercase`}>
-                        {item.label}
-                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </button>
+              {primaryNavigation.map((item) => {
+                return (
+                  <div key={item.label} className="group relative">
+                    {"isDropdown" in item && item.isDropdown ? (
+                      // Dropdown Menu Item
+                      <>
+                        <button className={`${navLinkClass} flex items-center gap-1 uppercase`}>
+                          {item.label}
+                          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </button>
 
-                      <div className="absolute left-0 top-full invisible mt-4 flex w-56 flex-col rounded-xl border border-white/10 bg-[#0a0a0a]/95 py-3 opacity-0 shadow-2xl backdrop-blur-2xl transition-all duration-300 group-hover:visible group-hover:mt-2 group-hover:opacity-100">
-                        {item.subItems?.map((sub) => (
-                          <Link
-                            key={sub.href}
-                            href={sub.href}
-                            className="px-5 py-2.5 text-xs text-white/80 hover:bg-gold/10 hover:text-gold transition-colors"
-                          >
-                            {sub.label}
-                          </Link>
-                        ))}
-                      </div>
-                    </>
-                  ) : (
-                    "href" in item && (
-                      <Link href={item.href} className={navLinkClass}>
-                        {item.label}
-                      </Link>
-                    )
-                  )}
-                </div>
-              ))}
+                        <div className="absolute left-0 top-full invisible mt-4 flex w-56 flex-col rounded-xl border border-white/10 bg-[#0a0a0a]/95 py-3 opacity-0 shadow-2xl backdrop-blur-2xl transition-all duration-300 group-hover:visible group-hover:mt-2 group-hover:opacity-100">
+                          {item.subItems?.map((sub) => {
+                            const subFinalHref = getFinalHref(sub.href, sub.sectionId);
+                            return (
+                              <Link
+                                key={sub.href}
+                                href={subFinalHref}
+                                onClick={(e) => handleNavigation(e, subFinalHref, false)}
+                                className="px-5 py-2.5 text-[11px] tracking-[0.15em] [word-spacing:3px] text-white/80 hover:bg-gold/10 hover:text-gold transition-colors block"
+                              >
+                                {sub.label}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </>
+                    ) : (
+                      "href" in item && (
+                        <Link
+                          href={getFinalHref(item.href, item.sectionId)}
+                          onClick={(e) => handleNavigation(e, getFinalHref(item.href, item.sectionId), false)}
+                          className={`${navLinkClass} text-[13px] tracking-[0.25em] [word-spacing:3px]`}
+                        >
+                          {item.label}
+                        </Link>
+                      )
+                    )}
+                  </div>
+                );
+              })}
             </div>
 
             <div className="flex items-center space-x-6 relative z-101">
@@ -410,7 +443,7 @@ export function SiteHeader() {
 
               <div className="absolute top-[-10%] right-[-10%] w-62.5 h-62.5 bg-gold/10 blur-[80px] rounded-full pointer-events-none" />
 
-              <div className="flex-1 flex flex-col justify-start px-8 pt-32 pb-10 overflow-y-auto relative z-10">
+              <div className="flex-1 flex flex-col justify-start px-8 pt-32 pb-10 overflow-y-auto relative z-10 no-scrollbar">
                 <motion.div
                   variants={navLinksContainerVariants}
                   initial="initial"
@@ -418,37 +451,42 @@ export function SiteHeader() {
                   exit="exit"
                   className="flex flex-col space-y-8 text-center"
                 >
-                  {primaryNavigation.map((item) => (
-                    <motion.div key={item.label} variants={linkVariants}>
-                      {"isDropdown" in item && item.isDropdown ? (
-                        <div className="flex flex-col space-y-4">
-                          <span className="text-lg sm:text-xl font-bold uppercase tracking-[0.2em] text-white/40 border-b border-white/10 pb-2 mx-auto inline-block">
-                            {item.label}
-                          </span>
-                          {item.subItems?.map((sub) => (
+                  {primaryNavigation.map((item) => {
+                    return (
+                      <motion.div key={item.label} variants={linkVariants}>
+                        {"isDropdown" in item && item.isDropdown ? (
+                          <div className="flex flex-col space-y-4">
+                            <span className="text-lg sm:text-xl font-bold uppercase tracking-[0.2em] text-white/40 border-b border-white/10 pb-2 mx-auto inline-block">
+                              {item.label}
+                            </span>
+                            {item.subItems?.map((sub) => {
+                              const subFinalHref = getFinalHref(sub.href, sub.sectionId);
+                              return (
+                                <Link
+                                  key={sub.href}
+                                  onClick={(e) => handleNavigation(e, subFinalHref, true)}
+                                  href={subFinalHref}
+                                  className="text-sm sm:text-base font-bold uppercase tracking-[0.25em] [word-spacing:6px] block transition-colors duration-300 text-white hover:text-gold hover:scale-105"
+                                >
+                                  {sub.label}
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        ) : (
+                          "href" in item && (
                             <Link
-                              key={sub.href}
-                              onClick={(e) => handleNavigation(e, sub.href)}
-                              href={sub.href}
-                              className="text-base sm:text-lg font-bold uppercase tracking-[0.2em] block transition-colors duration-300 text-white hover:text-gold hover:scale-105"
+                              onClick={(e) => handleNavigation(e, getFinalHref(item.href, item.sectionId), true)}
+                              href={getFinalHref(item.href, item.sectionId)}
+                              className="text-base sm:text-lg font-bold uppercase tracking-[0.35em] [word-spacing:6px] block transition-colors duration-300 text-white hover:text-gold hover:scale-105"
                             >
-                              {sub.label}
+                              {item.label}
                             </Link>
-                          ))}
-                        </div>
-                      ) : (
-                        "href" in item && (
-                          <Link
-                            onClick={(e) => handleNavigation(e, item.href)}
-                            href={item.href}
-                            className="text-lg sm:text-xl font-bold uppercase tracking-[0.2em] block transition-colors duration-300 text-white hover:text-gold hover:scale-105"
-                          >
-                            {item.label}
-                          </Link>
-                        )
-                      )}
-                    </motion.div>
-                  ))}
+                          )
+                        )}
+                      </motion.div>
+                    );
+                  })}
                 </motion.div>
 
                 {/* Bottom Actions (Language Flags) */}

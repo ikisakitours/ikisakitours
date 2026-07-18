@@ -8,7 +8,7 @@ import { MapPin, Sparkles, Star, ArrowRight } from "lucide-react";
 
 export default function HomeContactCTA() {
   return (
-    <section className="relative overflow-hidden bg-[#050505] py-24 md:py-32 lg:py-40">
+    <section id="contact"className="relative overflow-hidden bg-[#050505] py-24 md:py-32 lg:py-40">
       {/* Background Ambient Glow */}
       <div className="absolute left-1/2 top-1/2 -z-10 h-150 w-150 -translate-x-1/2 -translate-y-1/2 pointer-events-none rounded-full bg-gold/5 blur-[120px]" />
 

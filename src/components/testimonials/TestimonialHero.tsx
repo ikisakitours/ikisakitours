@@ -1,6 +1,20 @@
-import { testimonialStats, testimonialHeroData } from "@/data/testimonials";
+import { testimonialHeroData, testimonials } from "@/data/testimonials";
 import StatCard from "./StatCard";
-import ContainerLayout from "@/components/pageLayouts/ContainerLayout"; 
+import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
+
+//Ratings
+const totalReviews = testimonials.length;
+const reviewCountDisplay =
+  totalReviews >= 1000 ? `${(totalReviews / 1000).toFixed(1).replace(".0", "")}k+` : `${totalReviews}+`;
+const totalRating = testimonials.reduce((acc, curr) => acc + curr.rating, 0);
+const averageScore = testimonials.length > 0 ? (totalRating / testimonials.length).toFixed(1) : "0.0";
+
+const testimonialStats = [
+  { value: "99%", label: "Success", featured: false },
+  { value: "24/7", label: "Support", featured: false },
+  { value: reviewCountDisplay, label: "Reviews", featured: false },
+  { value: averageScore, label: "Rating", featured: true },
+] as const;
 
 export function TestimonialHero() {
   return (
@@ -9,15 +23,16 @@ export function TestimonialHero() {
       <div className="absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-gold/30 to-transparent" />
 
       <ContainerLayout className="relative z-10">
-        
         <div className="flex flex-col items-center justify-between gap-12 xl:flex-row xl:gap-24">
           <div className="max-w-2xl text-center xl:text-left">
             <div className="mb-6 inline-block rounded-full border border-gold/20 bg-gold/5 px-4 py-1 md:mb-8">
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold">{testimonialHeroData.badge}</span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold">
+                {testimonialHeroData.badge}
+              </span>
             </div>
 
             <h1 className="premium-serif mb-6 text-5xl leading-[1.08] tracking-tight text-white md:mb-8 md:text-8xl">
-             {testimonialHeroData.titleStart} <br />
+              {testimonialHeroData.titleStart} <br />
               <span className="gold-gradient-text italic">{testimonialHeroData.titleHighlight}</span>
             </h1>
 
