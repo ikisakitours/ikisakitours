@@ -449,13 +449,13 @@ export function SiteHeader() {
                   initial="initial"
                   animate="enter"
                   exit="exit"
-                  className="flex flex-col space-y-8 text-center"
+                  className="flex flex-col space-y-4 text-center"
                 >
                   {primaryNavigation.map((item) => {
                     return (
                       <motion.div key={item.label} variants={linkVariants}>
                         {"isDropdown" in item && item.isDropdown ? (
-                          <div className="flex flex-col space-y-4">
+                          <div className="flex flex-col space-y-4 mt-4">
                             <span className="text-lg sm:text-xl font-bold uppercase tracking-[0.2em] text-white/40 border-b border-white/10 pb-2 mx-auto inline-block">
                               {item.label}
                             </span>

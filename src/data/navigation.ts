@@ -10,6 +10,7 @@ export type NavItem = NavLink | NavDropdown;
 export const primaryNavigation: NavItem[] = [
   { label: "Home", href: "/", sectionId: "" },
   { label: "The Experience", href: "/about", sectionId: "#about" },
+  { label: "Packages", href: "/packages", sectionId: "#packages" },
   {
     label: "Services",
     isDropdown: true,
@@ -19,7 +20,6 @@ export const primaryNavigation: NavItem[] = [
       { label: "Transfers", href: "/services/transfers", sectionId: "#transfers" },
     ],
   },
-  { label: "Packages", href: "/packages", sectionId: "#packages" },
   {
     label: "More",
     isDropdown: true,
