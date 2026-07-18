@@ -211,14 +211,14 @@ export function SiteHeader() {
             <Link
               href="/"
               onClick={closeMobileMenu}
-              className="group flex shrink-0 items-center space-x-3 relative z-101"
+              className="group flex shrink-0 items-center space-x-2 relative z-101"
             >
               <Image
-                src="/images/logo.jpeg"
-                alt=" MapMate Logo"
-                width={160}
-                height={64}
-                className="h-10 w-auto object-contain transition-transform duration-500 group-hover:scale-105 sm:h-12"
+                src="/images/bg-remove.png"
+                alt="MapMate Logo"
+                width={200}
+                height={80}
+                className="h-15 w-auto object-contain transition-transform duration-500 group-hover:scale-105 sm:h-16 lg:h-18"
                 priority
                 onError={(event) => {
                   event.currentTarget.style.display = "none";

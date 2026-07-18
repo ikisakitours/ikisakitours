@@ -2,10 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { footerLinks, socialLinks, legalLinks, contactInfo } from "@/data/navigation";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
+import TimeDiv from "@/components/ui/TimeDiv";
 //Icons
 import { Heart, Mail, MapPin, Phone, Send } from "lucide-react";
 import { FaInstagram, FaTiktok, FaFacebookF, FaTwitter, FaYoutube, FaWhatsapp } from "react-icons/fa6";
-import TimeDiv from "@/data/TimeDiv";
+
 const socialLinksIcons = [FaInstagram, FaTiktok, FaFacebookF, FaTwitter, FaYoutube, FaWhatsapp];
 const contactInfoIcons = [MapPin, Phone, Mail];
 
