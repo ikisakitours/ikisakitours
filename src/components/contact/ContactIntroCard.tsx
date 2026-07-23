@@ -76,12 +76,12 @@ export default function ContactIntroCard({ data }: IntroCardProps) {
           </motion.div>
         </AnimatePresence>
 
-        <div className="absolute inset-0 p-8 flex flex-col justify-end bg-linear-to-t from-black via-black/40 to-transparent">
-          <p className="text-[10px] sm:text-xs lg:text-sm 3xl:text-base font-bold uppercase tracking-widest text-gold drop-shadow-sm mb-1">
+        <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end bg-linear-to-t from-black via-black/40 to-transparent">
+          <p className="text-xs sm:text-sm lg:text-xs 3xl:text-sm font-bold uppercase tracking-widest text-gold drop-shadow-sm mb-1.5">
             {data.imageBadge}
           </p>
 
-          <p className="text-[11px] sm:text-sm lg:text-base 3xl:text-lg font-bold text-gray-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-snug">
+          <p className="text-xs sm:text-sm lg:text-xs 3xl:text-sm font-bold text-gray-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-snug">
             {data.imageDesc}
           </p>
         </div>

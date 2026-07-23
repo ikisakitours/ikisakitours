@@ -14,6 +14,7 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
   const { slug } = await params;
   const resolvedSearchParams = await searchParams;
   const filter = resolvedSearchParams?.filter as string | undefined;
+  const from = resolvedSearchParams?.from as string | undefined;
 
   let post: (typeof blogPosts)[0] | typeof bookingTour | undefined = blogPosts.find((p) => p.slug === slug);
   let isBookingTour = false;
@@ -27,10 +28,17 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
     notFound();
   }
 
-  const dynamicBackLink = isBookingTour ? `/booking/${slug}` : `/blog/${slug}`;
-  const dynamicBackLabel = isBookingTour ? "Back to Tour" : "Back to Story";
+  let dynamicBackLink = isBookingTour ? `/booking/${slug}` : `/blog/${slug}`;
+  let dynamicBackLabel = isBookingTour ? "Back to Tour" : "Back to Story";
+  if (isBookingTour && from === "reviews") {
+    dynamicBackLink = `/booking/${slug}/reviews`;
+    dynamicBackLabel = "Back to Reviews";
+  }
 
   let itemsToShow: GalleryItem[] = [];
+
+  let heroTitle = post.title;
+  let heroSubtitle = isBookingTour ? "Tour Gallery" : "Story Gallery";
 
   if (isBookingTour) {
     const tour = post as typeof bookingTour;
@@ -38,6 +46,7 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
     if (filter === "gallery") {
       // 1. Package Gallery
       itemsToShow = tour.gallery as GalleryItem[];
+      heroSubtitle = "Tour Gallery";
     } else if (filter === "moments") {
       // 2. Guest Moments
       itemsToShow = reviewMoments.map((moment) => ({
@@ -47,6 +56,8 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
         title: moment.title,
         category: "Guest Moments",
       }));
+      heroTitle = "Guest Moments";
+      heroSubtitle = `Captured memories from ${tour.title}`;
     } else if (filter && filter.startsWith("review-")) {
       const userName = filter.replace("review-", "");
 
@@ -60,6 +71,8 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
           title: photo.title,
           category: `Review by ${specificReview.name}`,
         }));
+        heroTitle = `Review by ${specificReview.name}`;
+        heroSubtitle = specificReview.country;
       } else {
         itemsToShow = tour.gallery as GalleryItem[];
       }
@@ -72,7 +85,7 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
 
   return (
     <main className="min-h-screen bg-lanka-black ">
-      <GalleryHero backLink={dynamicBackLink} backLabel={dynamicBackLabel} />
+      <GalleryHero backLink={dynamicBackLink} backLabel={dynamicBackLabel} title={heroTitle} subtitle={heroSubtitle} />
       <GalleryCollection items={itemsToShow} />
     </main>
   );

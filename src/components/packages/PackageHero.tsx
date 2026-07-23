@@ -10,7 +10,7 @@ export function PackageHero() {
         fill
         priority
         sizes="100vw"
-        className="object-cover"
+        className="object-cover object-center animate-slow-zoom"
       />
       <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/80 to-lanka-dark" />
 

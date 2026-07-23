@@ -21,15 +21,15 @@ export type BlogPost = {
   number: string;
   category: BlogCategory;
   title: string;
-  titleEmphasis?: string;
+  accent: string;
   excerpt: string;
   image: string;
+  altText: string;
   readTime: string;
   likes: number;
   published: string;
   gallery: GalleryItem[];
 };
-
 
 export const blogPosts: BlogPost[] = [
   {
@@ -37,8 +37,11 @@ export const blogPosts: BlogPost[] = [
     number: "01",
     category: "nature",
     title: "The Verdant Highlands",
+    accent: "Highlands",
     excerpt: "A guide for seasonal weather patterns and when tea estates are at their absolute greenest.",
     image: "https://images.unsplash.com/photo-1546708973-b339540b5162?w=800",
+    altText: "The Verdant Highlands",
+
     readTime: "5 min read",
     likes: 24,
     published: "January 8, 2026",
@@ -78,8 +81,10 @@ export const blogPosts: BlogPost[] = [
     number: "02",
     category: "gastronomy",
     title: "Spice Secrets of Ancient Ceylon",
+    accent: " Ancient Ceylon",
     excerpt: "Navigating authentic Sri Lankan heat while preserving complex flavor profiles.",
-    image: "https://images.unsplash.com/photo-1596797038530-2c396b57442f?w=800",
+    image: "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=95&w=1600&auto=format&fit=crop",
+    altText: "Spice Secrets of Ancient Ceylon",
     readTime: "4 min read",
     likes: 48,
     published: "January 11, 2026",
@@ -119,8 +124,10 @@ export const blogPosts: BlogPost[] = [
     number: "03",
     category: "heritage",
     title: "Kingdoms of Dust & Stone",
+    accent: " Dust & Stone",
     excerpt: "A deep dive into the architectural marvels of the Cultural Triangle.",
-    image: "https://images.unsplash.com/photo-1588598116712-426915264300?w=800",
+    image: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=95&w=1600&auto=format&fit=crop",
+    altText: "Kingdoms of Dust & Stone",
     readTime: "8 min read",
     likes: 56,
     published: "January 14, 2026",
@@ -160,8 +167,10 @@ export const blogPosts: BlogPost[] = [
     number: "04",
     category: "wellness",
     title: "Ayurvedic Rituals for the Soul",
+    accent: "for the Soul",
     excerpt: "Ancient healing practices designed to restore balance to the modern traveler.",
     image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800",
+    altText: "Ayurvedic Rituals for the Soul",
     readTime: "6 min read",
     likes: 89,
     published: "January 16, 2026",
@@ -201,8 +210,10 @@ export const blogPosts: BlogPost[] = [
     number: "05",
     category: "culture",
     title: "The Rhythm of the Low Country",
+    accent: "Low Country",
     excerpt: "Understanding the traditional mask dances and the stories they tell.",
     image: "https://images.unsplash.com/photo-1578326457399-3b34dbbf23b8?w=800",
+    altText: "The Rhythm of the Low Country",
     readTime: "7 min read",
     likes: 32,
     published: "January 18, 2026",
@@ -242,8 +253,10 @@ export const blogPosts: BlogPost[] = [
     number: "06",
     category: "lifestyle",
     title: "Island Living: Colonial Elegance",
+    accent: "Colonial Elegance",
     excerpt: "How tropical modernism is redefining the luxury villa experience.",
     image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800",
+    altText: "Island Living: Colonial Elegance",
     readTime: "4 min read",
     likes: 71,
     published: "January 20, 2026",
@@ -283,8 +296,10 @@ export const blogPosts: BlogPost[] = [
     number: "07",
     category: "wellness",
     title: "Sanctuaries of Silence",
+    accent: "Silence",
     excerpt: "A journey into the most secluded meditation retreats hidden deep within the Knuckles Range.",
     image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800",
+    altText: "Sanctuaries of Silence",
     readTime: "12 min read",
     likes: 112,
     published: "January 22, 2026",
@@ -324,8 +339,10 @@ export const blogPosts: BlogPost[] = [
     number: "08",
     category: "lifestyle",
     title: "The Art of Ceylon Tea Service",
+    accent: "Tea Service",
     excerpt: "From high-altitude estates to the porcelain cup: an exploration of the ritual.",
-    image: "https://images.unsplash.com/photo-1610413344155-7681335c0552?w=800",
+    image: "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?q=95&w=1600&auto=format&fit=crop",
+    altText: "The Art of Ceylon Tea Service",
     readTime: "6 min read",
     likes: 95,
     published: "January 24, 2026",
@@ -365,8 +382,10 @@ export const blogPosts: BlogPost[] = [
     number: "09",
     category: "culture",
     title: "Galle Fort: A Living History",
+    accent: "Living History",
     excerpt: "Navigating the cobblestone streets and architectural layers of South Asia's best-preserved bastion.",
-    image: "https://images.unsplash.com/photo-1588598116712-426915264300?w=800",
+    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=95&w=1600&auto=format&fit=crop",
+    altText: "Galle Fort: A Living History",
     readTime: "9 min read",
     likes: 142,
     published: "January 26, 2026",
@@ -406,50 +425,10 @@ export const blogPosts: BlogPost[] = [
     number: "10",
     category: "heritage",
     title: "The Lost Kingdom of Polonnaruwa",
+    accent: "Polonnaruwa",
     excerpt: "A contemplative look at the moonstones and stupas of Polonnaruwa through the eyes of a historian.",
-    image: "https://images.unsplash.com/photo-1620619767323-b95a89183081?w=800",
-    readTime: "6 min read",
-    likes: 1248,
-    published: "January 19, 2026",
-    gallery: [
-      {
-        id: "lk-1",
-        src: "https://images.unsplash.com/photo-1546708973-b339540b5162?w=1600",
-        alt: "Polonnaruwa - 1",
-        category: "heritage",
-        title: "The Lost Kingdom of Polonnaruwa",
-      },
-      {
-        id: "lk-2",
-        src: "https://images.unsplash.com/photo-1620619767323-b95a89183081?w=1600",
-        alt: "Polonnaruwa - 2",
-        category: "heritage",
-        title: "The Lost Kingdom of Polonnaruwa",
-      },
-      {
-        id: "lk-3",
-        src: "https://images.unsplash.com/photo-1546708973-b339540b5162?w=1600",
-        alt: "Polonnaruwa - 3",
-        category: "heritage",
-        title: "The Lost Kingdom of Polonnaruwa",
-      },
-      {
-        id: "lk-4",
-        src: "https://images.unsplash.com/photo-1620619767323-b95a89183081?w=1600",
-        alt: "Polonnaruwa - 4",
-        category: "heritage",
-        title: "The Lost Kingdom of Polonnaruwa",
-      },
-    ],
-  },
-
-    {
-    slug: "lost-kingdom-of-polonnaruwa",
-    number: "10",
-    category: "adventure",
-    title: "The Lost Kingdom of Polonnaruwa",
-    excerpt: "A contemplative look at the moonstones and stupas of Polonnaruwa through the eyes of a historian.",
-    image: "https://images.unsplash.com/photo-1620619767323-b95a89183081?w=800",
+    image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=95&w=1600&auto=format&fit=crop",
+    altText: "The Lost Kingdom of Polonnaruwa",
     readTime: "6 min read",
     likes: 1248,
     published: "January 19, 2026",

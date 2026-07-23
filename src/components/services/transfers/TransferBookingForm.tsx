@@ -1,7 +1,7 @@
 "use client";
 
 import { type FormEvent, useMemo, useState } from "react";
-import { transferServiceTypes, type TransferServiceId, transferLanguages } from "@/data/transfers";
+import { transferServiceTypes, type TransferServiceId } from "@/data/transfers";
 import { vehicles } from "@/data/vehicles";
 import { TransferFareSummary } from "./TransferFareSummary";
 import { TransferJourneyFields } from "./TransferJourneyFields";
@@ -27,8 +27,7 @@ export function TransferBookingForm() {
 
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const [language, setLanguage] = useState<string>(transferLanguages[0] || "English");
-
+  const [language, setLanguage] = useState<string>("");
   const [travelerCounts, setTravelerCounts] = useState<Record<string, number>>({
     adult: 0,
     couple: 0,
@@ -62,7 +61,7 @@ export function TransferBookingForm() {
   const [contact, setContact] = useState<ContactData>({
     fullName: "",
     email: "",
-    whatsapp: "",
+    phone: "",
     specialRequests: "",
   });
 
@@ -78,7 +77,7 @@ export function TransferBookingForm() {
       dropoffLocation,
       fullName: contact.fullName,
       email: contact.email,
-      whatsapp: contact.whatsapp,
+      phone: contact.phone,
       specialRequests: contact.specialRequests,
     });
 

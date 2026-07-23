@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { isValidPhoneNumber } from "react-phone-number-input";
 export interface ValidationData {
   date?: string;
   counts?: Record<string, number>;
@@ -17,7 +17,6 @@ export interface ValidationData {
   tourRequests?: string;
   specialRequests?: string;
   email?: string;
-  whatsapp?: string;
   serviceType?: string;
 
   password?: string;
@@ -25,6 +24,11 @@ export interface ValidationData {
   currentPassword?: string;
   terms?: boolean;
   otp?: string[];
+
+  phone?: string;
+  subject?: string;
+  message?: string;
+  tourInterest?: string;
 }
 
 export const useValidationForm = () => {
@@ -82,26 +86,32 @@ export const useValidationForm = () => {
       }
     }
 
-    // 6. Pickup  Location Validation
+    // 7. Pickup  Location Validation
     if (data.pickupLocation !== undefined && !data.pickupLocation.trim())
       newErrors.pickupLocation = "Pick-up location is required";
 
-    // 7. Drop-off Location Validation
+    // 8. Drop-off Location Validation
     if (data.dropoffLocation !== undefined && !data.dropoffLocation.trim())
       newErrors.dropoffLocation = "Drop-off location is required";
 
-    // 8. Language Validation
+    // 9. Language Validation
     if (data.language !== undefined && (!data.language || data.language === ""))
       newErrors.language = "Please select a language";
 
-    // 9. Eamail Validation
-    if (data.email !== undefined && !/^\S+@\S+\.\S+$/.test(data.email))
-      newErrors.email = "Please enter a valid email address";
+    // 10. Eamail Validation
+    if (data.email !== undefined) {
+      const trimmedEmail = data.email.trim();
 
-    // 10. WhatsApp Validation
-    if (data.whatsapp !== undefined && data.whatsapp.length < 9)
-      newErrors.whatsapp = "Please enter a valid WhatsApp number";
+      if (trimmedEmail === "") {
+        newErrors.email = "Email address is required";
+      } else {
+        const secureEmailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
+        if (!secureEmailRegex.exec(trimmedEmail)) {
+          newErrors.email = "Please enter a valid email address";
+        }
+      }
+    }
     // 11. Tour Requests Validation
     if (data.tourRequests !== undefined && !data.tourRequests.trim()) {
       newErrors.tourRequests = "Please describe your tour plan requests";
@@ -122,30 +132,59 @@ export const useValidationForm = () => {
       else if (data.confirmPassword !== data.password) newErrors.confirmPassword = "Passwords do not match";
     }
 
-    // 14. Current Password Validation
+    // 15. Current Password Validation
     if (data.currentPassword !== undefined) {
       if (!data.currentPassword) {
         newErrors.currentPassword = "Current password is required";
       }
     }
 
-    // 15. Terms Validation
+    // 16. Terms Validation
     if (data.terms !== undefined && data.terms === false) {
       newErrors.terms = "You must agree to the terms and privacy policy";
     }
 
-    // 16. Otp Validation
+    // 17. Otp Validation
     if (data.otp !== undefined) {
       if (data.otp.some((digit) => digit === "")) newErrors.otp = "Please enter the complete verification code";
     }
 
-    // 17. Image Validation for Profile
+    // 18. Image Validation for Profile
     if (data.images !== undefined) {
       if (data.images.length > 0) {
         const file = data.images[0];
         if (file.size > 2 * 1024 * 1024) newErrors.images = "Profile image must be less than 2MB";
       }
     }
+
+    // 19. Phone Validation
+    if (data.phone !== undefined) {
+      if (!data.phone || !data.phone.trim()) {
+        newErrors.phone = "Phone number is required";
+      } else if (!isValidPhoneNumber(data.phone)) {
+        newErrors.phone = "Please enter a valid phone number";
+      }
+    }
+
+    // 20. Tour Interest Validation
+    if (data.tourInterest !== undefined && !data.tourInterest) {
+      newErrors.tourInterest = "Please select your tour interest";
+    }
+
+    // 21. Subject Validation
+    if (data.subject !== undefined && !data.subject.trim()) {
+      newErrors.subject = "Subject is required";
+    }
+
+    // 22. Message Validation
+    if (data.message !== undefined) {
+      if (!data.message.trim()) {
+        newErrors.message = "Message is required";
+      } else if (data.message.trim().length < 10) {
+        newErrors.message = "Message must be at least 10 characters long";
+      }
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
 
 :root {
   --gold: #c5a059;
@@ -303,4 +304,59 @@ textarea {
 .accordion-content-inner {
   overflow: hidden;
   min-height: 0;
+}
+
+/* ==========================================
+   React Phone Number Input - Country Dropdown Fix
+   ========================================== */
+
+.PhoneInputCountrySelect option {
+  background-color: var(--lanka-black) !important;
+  color: var(--foreground) !important;
+  font-family: var(--font-plus-jakarta), sans-serif;
+}
+
+.PhoneInputCountrySelect option:checked {
+  background-color: var(--gold-dark) !important;
+  color: white !important;
+}
+
+.PhoneInputCountrySelect:focus + .PhoneInputCountryIcon,
+.PhoneInputCountrySelect:focus + .PhoneInputCountryIcon .PhoneInputCountryIconImg,
+.PhoneInputCountrySelect:focus ~ .PhoneInputCountryIcon {
+  box-shadow: 0 0 0 1px var(--gold) !important;
+  outline: none !important;
+}
+
+.PhoneInputCountrySelect:focus ~ .PhoneInputCountrySelectArrow {
+  color: var(--gold) !important;
+  opacity: 1 !important;
+}
+
+.PhoneInputCountrySelect:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Leaflet Popup */
+.custom-map-popup .leaflet-popup-content-wrapper,
+.custom-map-popup .leaflet-popup-tip {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.custom-map-popup .leaflet-popup-content {
+  margin: 0 !important;
+  line-height: normal !important;
+}
+
+/* Close button  */
+.custom-map-popup .leaflet-popup-close-button {
+  color: var(--gold) !important;
+  padding: 8px !important;
+  z-index: 20 !important;
+}
+.custom-map-popup .leaflet-popup-close-button {
+  display: none !important;
 }

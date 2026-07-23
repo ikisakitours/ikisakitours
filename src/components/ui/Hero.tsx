@@ -1,3 +1,4 @@
+import EyeBrow from "@/components/ui/EyeBrow";
 import Image from "next/image";
 
 type HeroProps = {
@@ -14,13 +15,18 @@ export function Hero({ image, altText, eyebrow, title, accent, strapline }: Hero
 
   return (
     <header className="relative flex min-h-130 items-center justify-center overflow-hidden px-4 pb-32 pt-36 text-center md:min-h-155 md:pt-44">
-      <Image src={image} alt={altText} fill priority sizes="100vw" className="object-cover" />
+      <Image
+        src={image}
+        alt={altText}
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-center animate-slow-zoom "
+      />
       <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/80 to-lanka-dark" />
 
       <div className="relative z-10 mx-auto w-full max-w-4xl">
-        <div className="mb-6 inline-block rounded-full border border-gold/20 bg-gold/5 px-4 py-1">
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold">{eyebrow}</span>
-        </div>
+        <EyeBrow eyebrow={eyebrow} />
 
         <h1 className="premium-serif mb-6 text-4xl leading-tight text-white md:text-6xl lg:text-7xl">
           {titleParts[0]}

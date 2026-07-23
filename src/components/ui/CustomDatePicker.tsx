@@ -74,8 +74,11 @@ export default function CustomDatePicker({ value, onChange }: CustomDatePickerPr
     <div className="relative">
       {/* Trigger Field */}
       <div
+        tabIndex={0}
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full rounded-xl border border-white/10 bg-white/3 px-4 py-3 text-sm text-white outline-none transition-all placeholder:text-slate-500 hover:border-white/20 focus:border-gold/60 focus:bg-white/[0.07] cursor-pointer flex justify-between items-center"
+        className={`w-full rounded-xl border border-white/10 bg-white/3 px-4 py-3 text-sm text-white outline-none transition-all placeholder:text-slate-500 hover:border-white/20 focus:border-gold/60 focus:bg-white/[0.07] cursor-pointer flex justify-between items-center ${
+          isOpen ? "border-gold/60! bg-white/[0.07]!" : ""
+        }`}
       >
         <span className={value ? "text-white" : "text-slate-500"}>{formatDisplayDate(value)}</span>
         <FiCalendar className="w-4 h-4 text-slate-500" />

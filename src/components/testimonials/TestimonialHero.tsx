@@ -1,6 +1,7 @@
 import { testimonialHeroData, testimonials } from "@/data/testimonials";
 import StatCard from "./StatCard";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
+import EyeBrow from "@/components/ui/EyeBrow";
 
 //Ratings
 const totalReviews = testimonials.length;
@@ -25,11 +26,7 @@ export function TestimonialHero() {
       <ContainerLayout className="relative z-10">
         <div className="flex flex-col items-center justify-between gap-12 xl:flex-row xl:gap-24">
           <div className="max-w-2xl text-center xl:text-left">
-            <div className="mb-6 inline-block rounded-full border border-gold/20 bg-gold/5 px-4 py-1 md:mb-8">
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold">
-                {testimonialHeroData.badge}
-              </span>
-            </div>
+            <EyeBrow eyebrow={testimonialHeroData.badge} />
 
             <h1 className="premium-serif mb-6 text-5xl leading-[1.08] tracking-tight text-white md:mb-8 md:text-8xl">
               {testimonialHeroData.titleStart} <br />

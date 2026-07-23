@@ -1,5 +1,5 @@
 import { transferLanguages } from "@/data/transfers";
-import { fieldLabelClass, inputClass } from "./formStyles";
+import { fieldLabelClass, inputClass } from "@/components/services/formStyles";
 import CustomDatePicker from "@/components/ui/CustomDatePicker";
 import CustomTimePicker from "@/components/ui/CustomTimePicker";
 import CustomSelect from "@/components/ui/CustomSelect";
@@ -107,6 +107,7 @@ export function BespokeJourneyFields({
             }}
             options={transferLanguages}
             icon={<Globe className="h-4 w-4" />}
+            placeholder="Select Language"
           />
           <div className="ml-2">
             <FormError message={errors.language} />

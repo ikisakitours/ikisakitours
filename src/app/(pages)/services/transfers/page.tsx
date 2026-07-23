@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { TransferBookingForm } from "@/components/services/transfers/TransferBookingForm";
-import { Hero } from "@/components/services/Hero";
+import { Hero } from "@/components/ui/Hero";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import { transferHero } from "@/data/transfers";
 

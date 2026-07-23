@@ -22,7 +22,7 @@ export default function HomePage() {
       <PackagesSection />
       <JournalPreview />
       <ClientExperiencesSection />
-      <HomeContactCTA/>
+      <HomeContactCTA />
     </UserPageLayout>
   );
 }

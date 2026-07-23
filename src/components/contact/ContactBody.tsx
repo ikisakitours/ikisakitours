@@ -1,5 +1,5 @@
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { Hero } from "@/components/services/Hero";
+import { Hero } from "@/components/ui/Hero";
 
 import ContactIntroCard from "@/components/contact/ContactIntroCard";
 import ContactSidebar from "@/components/contact/ContactSidebar";

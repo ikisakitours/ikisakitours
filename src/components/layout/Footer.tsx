@@ -1,10 +1,13 @@
 "use client";
+import { type FormEvent, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { footerLinks, socialLinks, legalLinks, contactInfo } from "@/data/navigation";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import TimeDiv from "@/components/ui/TimeDiv";
 import { usePathname } from "next/navigation";
+import { useValidationForm } from "@/hooks/useValidationForm";
+import { FormError } from "@/components/ui/FormError";
 
 //Icons
 import { Heart, Mail, MapPin, Phone, Send } from "lucide-react";
@@ -16,18 +19,39 @@ const contactInfoIcons = [MapPin, Phone, Mail];
 export function Footer() {
   const pathname = usePathname();
   const isHome = pathname === "/";
+
+  const [formData, setFormData] = useState({ email: "" });
+
+  // Validation Hook
+  const { errors, validate, setErrors } = useValidationForm();
+
+  // Form Submit Handler
+  const handleBookingSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const isValid = validate({
+      email: formData.email,
+    });
+
+    if (isValid) {
+      console.log("Form is valid, proceed to API call", { ...formData });
+    }
+  };
+
   return (
     <footer className="relative overflow-hidden border-t border-white/5 bg-[#050505] pt-20 pb-10">
       <div className="absolute bottom-0 left-1/2 -z-10 h-75 w-75 -translate-x-1/2 rounded-full bg-gold/5 blur-[100px] md:w-200" />
 
       {/* MAPMATE Watermark */}
-      <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-0 flex select-none justify-center overflow-hidden opacity-[0.03]">
-        <span className="text-[12vw] font-black uppercase leading-none tracking-tighter text-white">MAPMATE</span>
+      <div className="pointer-events-none absolute bottom-0 inset-x-0 z-0 grid w-full place-items-center overflow-hidden opacity-[0.03]">
+        <span className="whitespace-nowrap text-[4.4rem]  min-[340px]:max-[365px]:text-[3.9rem] min-[540px]:text-[6rem] sm:text-[4.4rem] md:text-[9rem] lg:text-[12.2rem] xl:text-[14rem] 2xl:text-[17rem] 3xl:text-[19rem] font-black uppercase leading-none text-white">
+          MAPMATE
+        </span>
       </div>
 
       <ContainerLayout className="relative z-10">
-        <div className="mb-20 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
-          <div className="lg:col-span-4 flex flex-col items-center space-y-6 text-center sm:items-start sm:text-left">
+        <div className="mb-20 grid grid-cols-1 gap-12 sm:grid-cols-2 xl:grid-cols-12 lg:gap-8">
+          <div className="xl:col-span-4 flex flex-col items-center space-y-6 text-center sm:items-start sm:text-left">
             <div className="flex items-center space-x-3">
               <h3 className="text-2xl font-light tracking-[0.2em] text-white">
                 MAP<span className="font-normal italic text-gold">MATE</span>
@@ -65,7 +89,7 @@ export function Footer() {
             <TimeDiv />
           </div>
 
-          <div className="lg:col-span-2 text-center sm:text-left lg:pl-4">
+          <div className="xl:col-span-2 text-center sm:text-left lg:pl-4">
             <h4 className="mb-5 text-sm sm:text-base font-black uppercase tracking-[0.3em] text-white">Explore</h4>
             <ul className="space-y-4">
               {footerLinks.map((item) => {
@@ -84,7 +108,7 @@ export function Footer() {
             </ul>
           </div>
 
-          <div className="lg:col-span-3 text-center sm:text-left">
+          <div className="xl:col-span-3 text-center sm:text-left">
             <h4 className="mb-5 text-sm sm:text-base font-black uppercase tracking-[0.3em] text-white">Contact Us</h4>
             <ul className="space-y-5">
               {contactInfo.map((item, index) => {
@@ -103,16 +127,20 @@ export function Footer() {
             </ul>
           </div>
 
-          <div className="lg:col-span-3 text-center sm:text-left">
+          <div className="xl:col-span-3 text-center sm:text-left">
             <h4 className="mb-5 text-sm sm:text-base font-black uppercase tracking-[0.3em] text-white">Newsletter</h4>
             <p className="mb-6 text-base font-light text-slate-300">
               Get weekly travel tips and exclusive hidden gems.
             </p>
-            <form className="relative mx-auto max-w-xs sm:mx-0">
+            <form onSubmit={handleBookingSubmit} className="relative mx-auto max-w-xs sm:mx-0">
               <input
-                type="email"
+                type="text"
                 placeholder="Your email..."
-                required
+                value={formData.email}
+                onChange={(e) => {
+                  setFormData({ email: e.target.value });
+                  if (errors.email) setErrors({ ...errors, email: "" });
+                }}
                 aria-label="Your email"
                 className="w-full rounded-full border border-white/20 bg-white/10 px-6 py-4 text-sm text-white transition-all placeholder:text-slate-400 focus:border-gold/60 focus:outline-none [&:-webkit-autofill]:shadow-[inset_0_0_0px_1000px_rgb(20,20,20)] [&:-webkit-autofill]:text-white [-webkit-text-fill-color:white]"
               />
@@ -124,13 +152,16 @@ export function Footer() {
                 <Send className="h-4 w-4" />
               </button>
             </form>
+            <div className="-ml-14 md:ml-7 lg:ml-5 xl:ml-7">
+              <FormError message={errors.email} />
+            </div>
           </div>
         </div>
 
         <div className="mb-10 h-px w-full bg-linear-to-r from-transparent via-white/20 to-transparent" />
 
         {/* Footer bottom section - Layout unchanged */}
-        <div className="flex flex-col items-center justify-between gap-8 lg:flex-row">
+        <div className="flex flex-col items-center justify-between gap-8 xl:flex-row">
           <p className="text-center text-[11px] font-medium uppercase tracking-[0.2em] text-slate-300 lg:text-left">
             &copy; 2026 MapMate Luxury. Crafted with
             <Heart className="inline h-3 w-3 animate-pulse text-gold" fill="currentColor" /> for travelers.

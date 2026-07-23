@@ -1,0 +1,236 @@
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Plus, Images, CircleCheck, Crown } from "lucide-react";
+import { FaRegCalendarCheck } from "react-icons/fa6";
+import { Button } from "@/components/ui/Button";
+import RatingStars from "./RatingStars";
+
+type ReviewPhoto = {
+  src: string;
+  alt: string;
+  title: string;
+};
+
+type ReviewItem = {
+  name: string;
+  country: string;
+  initials: string;
+  date: string;
+  text: string;
+  photos?: ReviewPhoto[];
+  response?: string;
+};
+
+type MomentItem = {
+  src: string;
+  alt: string;
+};
+
+type ReviewsSectionProps = {
+  tour: {
+    slug: string;
+    rating: string | number;
+    reviewCount: number;
+    reviewMoments?: MomentItem[];
+    reviews: ReviewItem[];
+  };
+};
+
+export default function ReviewsSection({ tour }: ReviewsSectionProps) {
+  const moments = tour.reviewMoments || [];
+  const totalExtraImages = 0;
+  const totalMomentsCount = moments.length + totalExtraImages;
+
+  return (
+    <section id="reviews" className="border-t border-white/5 pt-10 lg:pt-16">
+      <div className="mb-10 lg:mb-14 lg:grid lg:grid-cols-3 lg:gap-14">
+        <div>
+          <h2 className="premium-serif mb-4 text-3xl italic text-white md:text-4xl">
+            Customer <br className="hidden lg:block" />
+            Reviews
+          </h2>
+          <div className="mb-8 flex flex-wrap items-center gap-3">
+            <RatingStars className="text-xs" />
+            <span className="text-xl font-bold text-white">{tour.rating}/5</span>
+            <span className="whitespace-nowrap text-[10px] font-bold uppercase tracking-widest text-slate-500">
+              ({tour.reviewCount} reviews)
+            </span>
+          </div>
+        </div>
+
+        <div className="mt-8 lg:col-span-2 lg:mt-0">
+          <div className="mb-6 flex items-end justify-between">
+            <h3 className="text-[10px] font-bold uppercase tracking-widest text-white">Guest Moments</h3>
+
+            <Link
+              href={`/gallery/${tour.slug}?filter=moments`}
+              className="inline-flex items-center gap-1.5 text-gold transition-colors hover:text-white"
+            >
+              <span className="text-[9px] font-bold uppercase tracking-[0.2em] sm:text-[10px] sm:tracking-[0.2em] md:text-[11px]">
+                View all
+              </span>
+
+              <div className="inline-flex items-center gap-0.5">
+                <span className="text-[10px] font-black sm:text-[11px] md:text-[12px]">{totalMomentsCount}</span>
+                <Plus className="h-2.5 w-2.5 sm:h-3 sm:w-3" strokeWidth={4} />
+              </div>
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {moments.map((moment, index) => {
+              const isLast = index === moments.length - 1;
+              const content = (
+                <>
+                  <Image
+                    src={moment.src}
+                    alt={moment.alt}
+                    fill
+                    sizes={index === 0 ? "(min-width: 1024px) 380px, 90vw" : "180px"}
+                    className="image-render-visible object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  {isLast ? (
+                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/45 transition-colors duration-300 group-hover:bg-black/65">
+                      <Images className="mb-2 text-white" size={28} />
+                      <span className="px-2 text-center text-[9px] font-bold uppercase tracking-[0.2em] text-white">
+                        View Gallery
+                      </span>
+                    </div>
+                  ) : null}
+                </>
+              );
+
+              return isLast ? (
+                <Link
+                  href={`/gallery/${tour.slug}?filter=moments`}
+                  key={`${moment.src}-${index}`}
+                  className={`group relative block overflow-hidden border border-white/5 ${
+                    index === 0 ? "col-span-2 row-span-2 h-48 rounded-3xl md:h-52" : "h-22.5 rounded-xl md:h-25"
+                  }`}
+                >
+                  {content}
+                </Link>
+              ) : (
+                <div
+                  key={`${moment.src}-${index}`}
+                  className={`group relative overflow-hidden border border-white/5 ${
+                    index === 0 ? "col-span-2 row-span-2 h-48 rounded-3xl md:h-52" : "h-22.5 rounded-xl md:h-25"
+                  }`}
+                >
+                  {content}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      <div className="space-y-12">
+        {tour.reviews.slice(0, 2).map((review) => {
+          const photosArray = review.photos || [];
+
+          return (
+            <article
+              key={`${review.name}-${review.date}`}
+              className="glass-card rounded-4xl border border-white/5 p-6 md:rounded-[2.5rem] md:p-10"
+            >
+              <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row">
+                <div className="flex w-full max-w-full items-center gap-3 sm:gap-4 md:gap-6">
+                  <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border border-gold/30 bg-white/5 shadow-lg sm:h-14 sm:w-14 md:h-16 md:w-16">
+                    <span className="text-xs font-bold text-gold sm:text-sm">{review.initials}</span>
+                  </div>
+
+                  <div className="min-w-0 flex-1">
+                    <h3 className="wrap-break-word text-sm font-bold leading-tight tracking-wide text-white sm:text-base md:text-xl">
+                      {review.name} - {review.country}
+                    </h3>
+                    <div className="mt-2 flex flex-wrap items-center gap-2">
+                      <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-1 text-[9px] font-black uppercase tracking-widest text-emerald-400">
+                        <CircleCheck className="h-3 w-3" />
+                        Verified
+                      </span>
+                      <span className="inline-flex items-center gap-1 rounded-full border border-gold/30 bg-gold/10 px-2 py-1 text-[9px] font-black uppercase tracking-widest text-gold">
+                        <Crown className="h-3 w-3" />
+                        VIP Member
+                      </span>
+                    </div>
+                    <p className="mt-2 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-gold md:text-xs">
+                      <FaRegCalendarCheck className="h-3 w-3 opacity-70" />
+                      {review.date}
+                    </p>
+                  </div>
+                </div>
+
+                <RatingStars className="text-[10px]" />
+              </div>
+
+              <p className="mb-6 text-sm font-light italic leading-relaxed text-slate-300 md:text-base">
+                {review.text}
+              </p>
+
+              {photosArray.length > 0 && (
+                <div className="no-scrollbar mb-8 flex max-w-full gap-3 overflow-x-auto pb-4">
+                  {photosArray.map((photo, index) => {
+                    const isLast = index === photosArray.length - 1;
+                    const imgContent = (
+                      <>
+                        <Image
+                          src={photo.src}
+                          alt={photo.alt}
+                          title={photo.title}
+                          fill
+                          sizes="96px"
+                          className="image-render-visible object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                        {isLast && (
+                          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/45 transition-colors duration-300 group-hover:bg-black/65">
+                            <Images className="mb-1 text-white" size={16} />
+                            <span className="text-[8px] font-bold uppercase text-white">View</span>
+                          </div>
+                        )}
+                      </>
+                    );
+
+                    return isLast ? (
+                      <Link
+                        href={`/gallery/${tour.slug}?filter=review-${review.name.toLowerCase()}`}
+                        key={`${photo.src}-${index}`}
+                        className="group relative block h-20 w-20 shrink-0 overflow-hidden rounded-xl border border-white/10 md:h-24 md:w-24"
+                      >
+                        {imgContent}
+                      </Link>
+                    ) : (
+                      <div
+                        key={`${photo.src}-${index}`}
+                        className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border border-white/10 md:h-24 md:w-24"
+                      >
+                        {imgContent}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              {review.response && (
+                <div className="w-full max-w-full rounded-2xl border-l border-gold/40 bg-white/5 p-4 md:w-fit md:p-5 3xl:p-8">
+                  <span className="block text-[9px] font-bold uppercase tracking-widest text-gold md:text-[10px] 3xl:text-xs">
+                    Response from MapMate Team
+                  </span>
+                  <p className="mt-2 wrap-break-word text-xs leading-relaxed text-slate-400 md:text-[13px] 3xl:text-lg">
+                    {review.response}
+                  </p>
+                </div>
+              )}
+            </article>
+          );
+        })}
+      </div>
+
+      <div className="mt-12 flex justify-center">
+        <Button variant="explore" className="cursor-pointer" href={`/booking/${tour.slug}/reviews`}>
+          Show More Reviews
+        </Button>
+      </div>
+    </section>
+  );
+}

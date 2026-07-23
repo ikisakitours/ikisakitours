@@ -17,10 +17,7 @@ const smoothTransition: Transition = {
 
 export function HeroSection() {
   return (
-    <section
-      id="home"
-      className="relative flex min-h-fit xl:min-h-[90vh] w-full flex-col items-center justify-start overflow-hidden bg-lanka-black pt-24 sm:pt-28 md:pt-32 lg:pt-36 xl:pt-40 2xl:pt-44 3xl:pt-48 pb-12 xl:pb-16 "
-    >
+    <header className="relative flex min-h-130 items-center justify-center overflow-hidden px-4 pb-32 pt-36 text-center md:min-h-155 md:pt-44">
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/sander-traa-bfdshIHD5Y4-unsplash.webp"
@@ -77,8 +74,8 @@ export function HeroSection() {
               className="mb-6 max-w-lg border-l-2 border-gold/40 pl-4 text-sm font-light leading-relaxed text-foreground/90 sm:text-base md:mb-8 md:pl-6 md:text-xl lg:text-2xl 3xl:mb-12 3xl:max-w-4xl 3xl:pl-8 3xl:text-3xl"
             >
               Elite personalized tours with master guides in
-              <span className="font-semibold text-foreground">Japanese, French, Spanish</span> and
-              <span className="font-semibold text-foreground">English.</span>
+              <span className="font-semibold text-foreground"> Japanese, French, Spanish</span> and
+              <span className="font-semibold text-foreground"> English.</span>
             </motion.p>
 
             <motion.div
@@ -117,15 +114,22 @@ export function HeroSection() {
                 ))}
               </div>
 
-              <div className="mt-8 flex flex-col gap-4 border-t border-foreground/10 pt-6 sm:mt-10 md:mt-12 md:gap-5 3xl:mt-16 3xl:pt-10">
+              {/* HORIZONTAL SCROLL FIX: Added w-full max-w-full overflow-hidden */}
+              <div className="mt-8 flex w-full max-w-full flex-col gap-4 border-t border-foreground/10 pt-6 sm:mt-10 md:mt-12 md:gap-5 3xl:mt-16 3xl:pt-10 overflow-hidden">
                 <p className="text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-foreground/50 md:text-xs 3xl:text-base">
                   Discover Our Popular Services
                 </p>
-                <div className="flex flex-wrap items-center gap-4 3xl:gap-6">
+                <div className="flex w-full flex-wrap items-center gap-3 sm:gap-4 3xl:gap-6">
                   {heroPopularServices.map((service, idx) => {
                     const Icon = serviceIcons[idx] || Check;
                     return (
-                      <Button key={idx} variant="service" href={service.href} className="3xl:px-8 3xl:py-4">
+                      // Added relative overflow-hidden shrink-0 to prevent blur bleed and squishing
+                      <Button
+                        key={idx}
+                        variant="service"
+                        href={service.href}
+                        className="relative overflow-hidden shrink-0 3xl:px-8 3xl:py-4"
+                      >
                         <div className="absolute inset-0 rounded-full bg-gold/15 animate-pulse blur-sm" />
                         <Icon className="relative z-10 h-4 w-4 text-gold transition-colors group-hover:text-gold-light md:h-5 md:w-5 3xl:h-8 3xl:w-8" />
                         <span className="relative z-10 text-xs font-semibold tracking-wide text-foreground/90 transition-colors group-hover:text-white md:text-sm 3xl:text-lg">
@@ -169,6 +173,6 @@ export function HeroSection() {
           </div>
         </div>
       </ContainerLayout>
-    </section>
+    </header>
   );
 }

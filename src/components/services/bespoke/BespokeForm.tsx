@@ -26,8 +26,8 @@ export function BespokeForm() {
 
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const [language, setLanguage] = useState<string>(Languages[0] || "English");
-  const [tourDays, setTourDays] = useState<number>(1);
+  const [language, setLanguage] = useState<string>("");
+ const [tourDays, setTourDays] = useState<number>(0);
   const [travelerCounts, setTravelerCounts] = useState<Record<string, number>>({
     adult: 0,
     couple: 0,
@@ -40,7 +40,7 @@ export function BespokeForm() {
   const [contact, setContact] = useState<ContactData>({
     fullName: "",
     email: "",
-    whatsapp: "",
+    phone: "",
     specialRequests: "",
   });
 
@@ -57,7 +57,7 @@ export function BespokeForm() {
       tourRequests,
       fullName: contact.fullName,
       email: contact.email,
-      whatsapp: contact.whatsapp,
+      phone: contact.phone,
       specialRequests: contact.specialRequests,
     });
 
@@ -67,7 +67,7 @@ export function BespokeForm() {
   };
 
   const handleTourDaysChange = (delta: number) => {
-    setTourDays((prev) => Math.max(1, prev + delta));
+    setTourDays((prev) => Math.max(0, prev + delta));
   };
 
   const handleTravelerChange = (type: string, delta: number) => {

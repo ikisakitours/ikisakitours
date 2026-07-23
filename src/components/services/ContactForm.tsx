@@ -1,17 +1,21 @@
 import React from "react";
 import { assuranceBadges } from "@/data/privateVehicle";
-import { floatingLabelClass, inputClass, fieldLabelClass } from "./privateVehicle/formStyles";
+import { floatingLabelClass, inputClass, fieldLabelClass } from "./formStyles";
 import { Button } from "@/components/ui/Button";
 import { FormError } from "@/components/ui/FormError";
 
-//Icons
+// Phone Input Imports
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
+
+// Icons
 import { UserRound } from "lucide-react";
 import { FaCircleCheck } from "react-icons/fa6";
 
 export type ContactData = {
   fullName: string;
   email: string;
-  whatsapp: string;
+  phone: string;
   specialRequests: string;
 };
 
@@ -44,6 +48,7 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
 
       <div className="relative">
         <div className="mb-10 grid gap-6 md:grid-cols-3">
+          {/* Full Name */}
           <div className="flex flex-col gap-1">
             <label className="relative block">
               <span className={floatingLabelClass}>Full Name</span>
@@ -59,6 +64,7 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
             </div>
           </div>
 
+          {/* Email Address */}
           <div className="flex flex-col gap-1">
             <label className="relative block">
               <span className={floatingLabelClass}>Email Address</span>
@@ -75,23 +81,32 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
             </div>
           </div>
 
+          {/* Phone Number (Replaced with PhoneInput) */}
           <div className="flex flex-col gap-1">
             <label className="relative block">
-              <span className={floatingLabelClass}>WhatsApp Number</span>
-              <input
-                type="tel"
-                className={`${inputClass} pt-5`}
-                placeholder="+94 77 123 4567"
-                value={data.whatsapp}
-                onChange={(e) => updateField("whatsapp", e.target.value)}
+              <span className={floatingLabelClass}>WhatsApp Number *</span>
+              <PhoneInput
+                international
+                defaultCountry="LK"
+                value={data.phone}
+                onChange={(value) => {
+                  updateField("phone", value || "");
+                }}
+                className={`${inputClass} focus-within:border-gold/60! focus-within:bg-white/[0.07]! pt-5 flex items-center gap-3 [&_.PhoneInputCountry]:mr-2 [&_.PhoneInputCountrySelect]:outline-none [&_.PhoneInputCountryIcon]:w-6 [&_.PhoneInputCountryIcon]:h-4 [&_.PhoneInputCountryIcon]:shadow-none [&_.PhoneInputCountryIcon--border]:border-none`}
+                numberInputProps={{
+                  className:
+                    "w-full bg-transparent border-none outline-none text-white focus:ring-0 placeholder:text-slate-400 p-0 text-sm",
+                  placeholder: "+94 77 123 4567",
+                }}
               />
             </label>
             <div className="ml-2">
-              <FormError message={errors.whatsapp} />
+              <FormError message={errors.phone} />
             </div>
           </div>
         </div>
 
+        {/* Special Requests */}
         <div className="flex flex-col gap-1 mb-8">
           <label className="block group">
             <span className={fieldLabelClass}>Special Requests</span>

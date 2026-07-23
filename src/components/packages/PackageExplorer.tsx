@@ -130,7 +130,7 @@ export function PackageExplorer({ packages }: PackageExplorerProps) {
   const hasMore = visiblePackages.length < filteredPackages.length;
 
   return (
-    <section id="packages" className="bg-lanka-dark py-20 md:py-32">
+    <section id="packages" className="bg-lanka-dark ">
       <ContainerLayout>
         <div className="mb-16 space-y-8">
           <div className="flex flex-col-reverse justify-between gap-6 lg:flex-row lg:items-center">

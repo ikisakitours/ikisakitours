@@ -25,6 +25,7 @@ export const primaryNavigation: NavItem[] = [
     isDropdown: true,
     subItems: [
       { label: "Journal", href: "/blog", sectionId: "#blog" },
+      { label: "Hidden Havens", href: "/destination", sectionId: "" },
       { label: "Reviews", href: "/testimonials", sectionId: "#testimonials" },
       { label: "FAQs", href: "/faq", sectionId: "" },
       { label: "Contact", href: "/contact", sectionId: "#contact" },
@@ -35,9 +36,9 @@ export const primaryNavigation: NavItem[] = [
 export const footerLinks = [
   { label: "Home", href: "/" },
   { label: "The Experience", href: "/about", sectionId: "#about" },
-  { label: "Destinations", href: "/destinations", sectionId: "#destinations" },
+  { label: "Hidden Havens", href: "/destination", sectionId: "" },
   { label: "Tour Packages", href: "/packages", sectionId: "#packages" },
-  { label: "Travel Guide", href: "/blog", sectionId: "#blog" },
+  { label: "Journal", href: "/blog", sectionId: "#blog" },//Travel Guide
   { label: "Contact", href: "/contact", sectionId: "#contact" },
   { label: "FAQ", href: "/faq" },
 ];

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Hero } from "@/components/services/Hero";
+import { Hero } from "@/components/ui/Hero";
 import { PrivateVehicleForm } from "@/components/services/privateVehicle/PrivateVehicleForm";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import { privateVehicleHero } from "@/data/privateVehicle";

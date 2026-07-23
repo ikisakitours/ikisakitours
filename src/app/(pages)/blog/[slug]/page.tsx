@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { blogPosts } from "@/data/blog";
-import { Hero } from "@/components/blog/Hero";
+import { Hero } from "@/components/ui/Hero";
 import { BlogArticle } from "@/components/blog/BlogArticle";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 
@@ -42,9 +42,32 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   return (
     <main className="bg-lanka-black">
       <UserPageLayout>
-        <Hero post={post} />
+
+          <Hero
+          image={post.image}
+          altText={post.altText}
+          eyebrow={post.category}
+          title={post.title}
+          accent={post.accent}
+          strapline={post.excerpt}
+        />
         <BlogArticle post={post} />
       </UserPageLayout>
     </main>
+
+    
   );
 }
+
+
+
+
+
+
+
+
+
+
+  
+      
+   

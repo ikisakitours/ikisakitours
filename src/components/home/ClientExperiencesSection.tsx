@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { testimonials } from "@/data/testimonials";
 import { WriteReviewForm } from "@/components/ui/WriteReviewForm";
 import { motion, AnimatePresence } from "framer-motion";
+//Icons
 import { CalendarCheck, Quote, Star, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
 
 function Stars({ className, count = 5 }: { className: string; count?: number }) {
@@ -192,7 +193,7 @@ export function ClientExperiencesSection() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{
               duration: 0.7,
-              ease: [0.22, 1, 0.36, 1], 
+              ease: [0.22, 1, 0.36, 1],
             }}
           >
             <WriteReviewForm />

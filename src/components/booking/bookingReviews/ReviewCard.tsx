@@ -91,7 +91,7 @@ export function ReviewCard({ review, slug }: ReviewCardProps) {
 
             return isLast ? (
               <Link
-                href={`/gallery/${slug}?filter=review-${review.name.toLowerCase()}`}
+                href={`/gallery/${slug}?filter=review-${review.name.toLowerCase()}&from=reviews`}
                 key={`${photo}-${index}`}
                 className="group relative block h-20 w-20 shrink-0 overflow-hidden rounded-xl border border-white/10 md:h-24 md:w-24"
               >

@@ -115,9 +115,12 @@ export const bookingTour = {
   ],
   mapEmbedSrc:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.5283838458!2d80.7618!3d7.9608!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwNTcnMzguOSJOIDgwwrA0NSc0Mi41IkU!5e0!3m2!1sen!2slk!4v1620000000000!5m2!1sen!2slk",
-  coveredDestinations: [
+ coveredDestinations: [
     {
       id: 1,
+      slug: "colombo",
+      lat: 6.9271,
+      lng: 79.8612,
       name: "Colombo",
       image: "https://images.unsplash.com/photo-1578637387939-43c525550085?q=80&w=400&auto=format&fit=crop",
       description:
@@ -125,6 +128,9 @@ export const bookingTour = {
     },
     {
       id: 2,
+      slug: "galle",
+      lat: 6.0535,
+      lng: 80.221,
       name: "Galle",
       image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=400&auto=format&fit=crop",
       description:
@@ -132,6 +138,9 @@ export const bookingTour = {
     },
     {
       id: 3,
+      slug: "unawatuna",
+      lat: 6.0078,
+      lng: 80.2479,
       name: "Unawatuna",
       image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=400&auto=format&fit=crop",
       description:
@@ -139,6 +148,9 @@ export const bookingTour = {
     },
     {
       id: 4,
+      slug: "mirissa",
+      lat: 5.9483,
+      lng: 80.4713,
       name: "Mirissa",
       image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=400&auto=format&fit=crop",
       description:
@@ -146,6 +158,9 @@ export const bookingTour = {
     },
     {
       id: 5,
+      slug: "bentota",
+      lat: 6.4275,
+      lng: 80.0019,
       name: "Bentota",
       image: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=400&auto=format&fit=crop",
       description:
@@ -153,6 +168,9 @@ export const bookingTour = {
     },
     {
       id: 6,
+      slug: "bandaranaike-international-airport",
+      lat: 7.1802,
+      lng: 79.8842,
       name: "Bandaranaike International Airport",
       image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=400&auto=format&fit=crop",
       description:

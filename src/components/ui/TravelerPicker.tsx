@@ -39,8 +39,11 @@ export function TravelerPicker({ options, counts, onChange }: TravelerPickerProp
     <div className="relative">
       {/* Trigger Field */}
       <div
+        tabIndex={0}
         onClick={() => setIsOpen(!isOpen)}
-        className={`${inputClass} cursor-pointer flex justify-between items-center pl-11`}
+        className={`${inputClass} cursor-pointer flex justify-between items-center pl-11 ${
+          isOpen ? "border-gold/60! bg-white/[0.07]!" : ""
+        }`}
       >
         <Users className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
         <span className="text-white font-medium truncate pr-4">{triggerLabel}</span>

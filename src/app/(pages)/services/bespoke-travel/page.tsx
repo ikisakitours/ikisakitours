@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { BespokeForm } from "@/components/services/bespoke/BespokeForm";
-import { Hero } from "@/components/services/Hero";
+import { Hero } from "@/components/ui/Hero";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import { bespokeHero } from "@/data/bespokeTravel";
 export const metadata: Metadata = {
