@@ -3,6 +3,7 @@ import { DestinationExplorer } from "@/components/Destinations/DestinationExplor
 import { destinationsHero, destinationsData } from "@/data/destinationData";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import { Hero } from "@/components/ui/Hero";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Destinations",
@@ -22,7 +23,9 @@ export default function DestinationsPage() {
           strapline={destinationsHero.strapline}
         />
 
-        <DestinationExplorer destinations={destinationsData} />
+        <Suspense fallback={<div className="text-white">Loading...</div>}>
+          <DestinationExplorer destinations={destinationsData} />
+        </Suspense>
       </UserPageLayout>
     </main>
   );
