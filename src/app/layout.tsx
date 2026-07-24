@@ -18,7 +18,6 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  // 1. අනිවාර්යයෙන්ම metadataBase එක ලබා දෙන්න
   metadataBase: new URL("https://map-mate-tours.vercel.app"),
 
   title: {
