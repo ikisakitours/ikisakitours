@@ -18,7 +18,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://map-mate-tours.vercel.app"),
+  metadataBase: new URL("https://mapmate-sri-lanka.vercel.app"),
 
   title: {
     default: "MapMate | Premium Sri Lanka Private Tours",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     siteName: "MapMate",
     images: [
       {
-        url: "/images/opengraph-image.png", // හරියටම අලුත් පින්තූරයේ නම සහ තැන
+        url: "/images/opengraph-image.png", 
         width: 1200,
         height: 630,
         alt: "MapMate Tours",
