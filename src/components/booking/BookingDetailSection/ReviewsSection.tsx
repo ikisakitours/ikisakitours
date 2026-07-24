@@ -18,6 +18,7 @@ type ReviewItem = {
   initials: string;
   date: string;
   text: string;
+  rating?: number | string;
   photos?: ReviewPhoto[];
   response?: string;
 };
@@ -41,7 +42,7 @@ export default function ReviewsSection({ tour }: ReviewsSectionProps) {
   const moments = tour.reviewMoments || [];
   const totalExtraImages = 0;
   const totalMomentsCount = moments.length + totalExtraImages;
-
+  const displayTestimonials = tour.reviews.filter((t) => (t.rating ?? 5) === 5).slice(0, 3);
   return (
     <section id="reviews" className="border-t border-white/5 pt-10 lg:pt-16">
       <div className="mb-10 lg:mb-14 lg:grid lg:grid-cols-3 lg:gap-14">
@@ -51,7 +52,7 @@ export default function ReviewsSection({ tour }: ReviewsSectionProps) {
             Reviews
           </h2>
           <div className="mb-8 flex flex-wrap items-center gap-3">
-            <RatingStars className="text-xs" />
+            <RatingStars rating={tour.rating} className="text-sm md:text-base" />
             <span className="text-xl font-bold text-white">{tour.rating}/5</span>
             <span className="whitespace-nowrap text-[10px] font-bold uppercase tracking-widest text-slate-500">
               ({tour.reviewCount} reviews)
@@ -126,7 +127,7 @@ export default function ReviewsSection({ tour }: ReviewsSectionProps) {
       </div>
 
       <div className="space-y-12">
-        {tour.reviews.slice(0, 2).map((review) => {
+        {displayTestimonials.slice(0, 2).map((review) => {
           const photosArray = review.photos || [];
 
           return (
@@ -160,8 +161,7 @@ export default function ReviewsSection({ tour }: ReviewsSectionProps) {
                     </p>
                   </div>
                 </div>
-
-                <RatingStars className="text-[10px]" />
+                <RatingStars rating={review.rating} className="text-[12px] md:text-[14px]" />
               </div>
 
               <p className="mb-6 text-sm font-light italic leading-relaxed text-slate-300 md:text-base">

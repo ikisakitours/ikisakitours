@@ -1,5 +1,3 @@
-import { Headphones, Globe, ShieldCheck, Mail, Phone, MapPin, Clock } from "lucide-react";
-
 export const contactData = {
   hero: {
     image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
@@ -23,14 +21,15 @@ export const contactData = {
   sidebar: {
     title: "Contact Info",
     info: [
-      { icon: Mail, label: "Email Us", value: "hello@ceylontripdeals.com" },
-      { icon: Phone, label: "Call Us", value: "+94 76 179 4522" },
-      { icon: MapPin, label: "Our Office", value: "Dambulla, Srilanka, 21120" },
-      { icon: Clock, label: "Working Hours", value: "Mon - Fri: 9 AM - 6 PM" },
+      { label: "Email Us", value: "hello@ceylontripdeals.com" },
+      { label: "Call Us", value: "+94 76 179 4522" },
+      { label: "Our Office", value: "Dambulla, Srilanka, 21120" },
+      { label: "Working Hours", value: "Mon - Fri: 9 AM - 6 PM" },
     ],
     whatsapp: {
       title: "Prefer WhatsApp?",
       buttonText: "Chat on WhatsApp",
+      href: "https://wa.me/94789187072",
     },
   },
   form: {
@@ -39,17 +38,14 @@ export const contactData = {
   },
   features: [
     {
-      icon: Headphones,
       title: "Travel Specialists",
       desc: "Talk to a local team that understands routes, timing, hotels, and guest comfort.",
     },
     {
-      icon: Globe,
       title: "Custom Planning",
       desc: "Share your pace, interests, budget, and dates. We will shape the next steps around you.",
     },
     {
-      icon: ShieldCheck,
       title: "Clear Follow-up",
       desc: "Your inquiry is sent into our lead desk so the right person can respond with context.",
     },

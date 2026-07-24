@@ -129,10 +129,14 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
                 {/* Right Section: Visual Map Toggle Button */}
                 <div className="relative z-10 shrink-0">
                   <div className="relative z-10 shrink-0">
-                    <Button variant="details" onClick={() => handleMapToggle(true)}>
-                      <span className="flex items-center gap-2 group-hover:text-black transition-colors duration-300">
-                        <Map className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
-                        <span>Visual Map View</span>
+                    <Button
+                      variant="shine"
+                      onClick={() => handleMapToggle(true)}
+                      className="px-3 py-1.5 text-[10px] sm:px-4 sm:py-2 sm:text-[11px] md:text-xs 2xl:px-5 2xl:py-2.5 2xl:text-sm 3xl:px-6 3xl:py-3 3xl:text-base"
+                    >
+                      <span className="group-hover:text-black flex items-center gap-1.5 sm:gap-2 transition-colors duration-300">
+                        <Map className="h-3 w-3 sm:h-3.5 sm:w-3.5 2xl:h-4 2xl:w-4 3xl:h-5 3xl:w-5 transition-transform duration-300 group-hover:scale-110" />
+                        <span>View Route Map</span>
                       </span>
                     </Button>
                   </div>

@@ -9,7 +9,7 @@ const navItems = [
   { id: "itinerary", label: "Itinerary" },
   { id: "Covered-CitiesRoute", label: "Cities Route" },
   { id: "description", label: "Details" },
-  { id: "includes", label: "Includes" },
+  { id: "includes", label: "Includes & Excludes" },
   { id: "essentials", label: "Bring" },
   { id: "Tour-Customization", label: "Bespoke" },
   { id: "Covered-Destinations", label: "Destinations" },
@@ -20,10 +20,7 @@ export function BookingNavigation() {
   const [activeSection, setActiveSection] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const handleScrollTo = (
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    id: string
-  ) => {
+  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, id: string) => {
     e.preventDefault();
 
     setActiveSection(id);
@@ -60,18 +57,20 @@ export function BookingNavigation() {
             const id = entry.target.id;
             setActiveSection(id);
 
-            const activeLink = document.querySelector(
-              `a[href="#${id}"]`
-            ) as HTMLElement;
+            const activeLink = document.querySelector(`a[href="#${id}"]`) as HTMLElement;
             if (activeLink && scrollRef.current) {
               const container = scrollRef.current;
 
-              const linkLeft = activeLink.offsetLeft;
-              const linkWidth = activeLink.offsetWidth;
-              const containerWidth = container.offsetWidth;
+              const containerRect = container.getBoundingClientRect();
+              const linkRect = activeLink.getBoundingClientRect();
+
+              const currentScrollLeft = container.scrollLeft;
+              const linkOffsetWithinContainer = linkRect.left - containerRect.left + currentScrollLeft;
+
+              const targetScrollLeft = linkOffsetWithinContainer - container.clientWidth / 2 + linkRect.width / 2;
 
               container.scrollTo({
-                left: linkLeft - containerWidth / 2 + linkWidth / 2,
+                left: targetScrollLeft,
                 behavior: "smooth",
               });
             }
@@ -82,7 +81,7 @@ export function BookingNavigation() {
         root: null,
         rootMargin: "-100px 0px -60% 0px", // Adjust based on layout
         threshold: 0,
-      }
+      },
     );
 
     navItems.forEach((item) => {
@@ -105,10 +104,7 @@ export function BookingNavigation() {
             <ChevronLeft className="h-4 w-4" />
           </button>
           {/* Main scroll container: internal gaps and padding kept for element spacing */}
-          <div
-            ref={scrollRef}
-            className="no-scrollbar flex flex-1 gap-6 overflow-x-auto pl-4 pr-4 py-4 justify-start"
-          >
+          <div ref={scrollRef} className="no-scrollbar flex flex-1 gap-6 overflow-x-auto pl-4 pr-4 py-4 justify-start">
             {navItems.map((item) => (
               <a
                 key={item.id}
@@ -116,11 +112,7 @@ export function BookingNavigation() {
                 onClick={(e) => handleScrollTo(e, item.id)}
                 className={`whitespace-nowrap font-bold uppercase tracking-[0.2em] transition-all duration-300 
             text-[12px] md:text-[13px] lg:text-[14px] 
-            ${
-              activeSection === item.id
-                ? "text-gold scale-105"
-                : "text-slate-300 hover:text-white"
-            }`}
+            ${activeSection === item.id ? "text-gold scale-105" : "text-slate-300 hover:text-white"}`}
               >
                 {item.label}
               </a>

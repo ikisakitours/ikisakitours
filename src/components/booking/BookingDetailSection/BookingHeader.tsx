@@ -26,7 +26,7 @@ export default function BookingHeader({ tour }: BookingHeaderProps) {
 
       <div className="flex flex-wrap items-center gap-x-4 gap-y-4 border-b border-white/10 pb-8 md:gap-x-6">
         <div className="flex items-center gap-2">
-          <RatingStars className="text-[10px]" />
+          <RatingStars rating={tour.rating} className="text-sm md:text-base" />
           <span className="ml-1 text-sm font-bold tracking-widest text-white">{tour.rating}</span>
           <span className="ml-1 text-[10px] font-bold uppercase tracking-widest text-gold/50">
             ({tour.reviewCount} reviews)

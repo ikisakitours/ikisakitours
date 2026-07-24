@@ -1,18 +1,18 @@
-import { LucideIcon } from "lucide-react";
+import { Headphones, Globe, ShieldCheck } from "lucide-react";
 
 type FeaturesProps = {
   features: {
-    icon: LucideIcon;
+    
     title: string;
     desc: string;
   }[];
 };
-
+const contactInfoIcons = [Headphones, Globe, ShieldCheck];
 export default function ContactFeatures({ features }: FeaturesProps) {
   return (
     <div className="mt-20 grid grid-cols-1 gap-6 lg:grid-cols-3">
       {features.map((f, i) => {
-        const Icon = f.icon;
+        const Icon = contactInfoIcons[i] || Headphones;
         return (
           <div
             key={i}

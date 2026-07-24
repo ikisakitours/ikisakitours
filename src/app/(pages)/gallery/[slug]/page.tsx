@@ -72,7 +72,8 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
           category: `Review by ${specificReview.name}`,
         }));
         heroTitle = `Review by ${specificReview.name}`;
-        heroSubtitle = specificReview.country;
+        // heroSubtitle = specificReview.country;
+        heroSubtitle = `${specificReview.name}'s Gallery Moments`;
       } else {
         itemsToShow = tour.gallery as GalleryItem[];
       }

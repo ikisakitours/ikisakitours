@@ -17,7 +17,7 @@ const smoothTransition: Transition = {
 
 export function HeroSection() {
   return (
-    <header className="relative flex min-h-130 items-center justify-center overflow-hidden px-4 pb-32 pt-36 text-center md:min-h-155 md:pt-44">
+    <header className="relative flex min-h-130 items-center justify-center overflow-hidden text-center md:min-h-155 pb-32 pt-36 md:pt-44">
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/sander-traa-bfdshIHD5Y4-unsplash.webp"
@@ -103,7 +103,7 @@ export function HeroSection() {
                 </div>
               </div>
 
-              <div className="ml-1 mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 3xl:mt-6 3xl:gap-x-6">
+              <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 3xl:mt-6 3xl:gap-x-6">
                 <span className="text-[0.6875rem] uppercase tracking-wider text-foreground/40 3xl:text-base">
                   Popular:
                 </span>
@@ -114,16 +114,15 @@ export function HeroSection() {
                 ))}
               </div>
 
-              {/* HORIZONTAL SCROLL FIX: Added w-full max-w-full overflow-hidden */}
-              <div className="mt-8 flex w-full max-w-full flex-col gap-4 border-t border-foreground/10 pt-6 sm:mt-10 md:mt-12 md:gap-5 3xl:mt-16 3xl:pt-10 overflow-hidden">
+              {/* HORIZONTAL SCROLL FIX: Removed overflow-hidden and adjusted margins/padding */}
+              <div className="mt-8 flex flex-col gap-4 border-t border-foreground/10 pt-6 sm:mt-10 md:mt-12 md:gap-5 3xl:mt-16 3xl:pt-10">
                 <p className="text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-foreground/50 md:text-xs 3xl:text-base">
                   Discover Our Popular Services
                 </p>
-                <div className="flex w-full flex-wrap items-center gap-3 sm:gap-4 3xl:gap-6">
+                <div className="flex flex-wrap items-center gap-3 sm:gap-4 3xl:gap-6">
                   {heroPopularServices.map((service, idx) => {
                     const Icon = serviceIcons[idx] || Check;
                     return (
-                      // Added relative overflow-hidden shrink-0 to prevent blur bleed and squishing
                       <Button
                         key={idx}
                         variant="service"

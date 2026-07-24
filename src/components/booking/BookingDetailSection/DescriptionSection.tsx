@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { ChevronDown } from "lucide-react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import SectionHeading from "./SectionHeading";
+import ExpandButton from "./ExpandButton";
 
 type DescriptionSectionProps = {
   tour: {
@@ -38,7 +38,8 @@ const butterySmoothVariants: Variants = {
   exit: { opacity: 0, scaleY: 0.8, transition: { duration: 0.2, ease: "easeIn" } },
 };
 
-export default function DescriptionSection({ tour }: DescriptionSectionProps) {  const [isExpanded, setIsExpanded] = useState(false);
+export default function DescriptionSection({ tour }: DescriptionSectionProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const initialParagraphsCount = 3;
   const hasMultipleParagraphs = tour.description.length > initialParagraphsCount;
@@ -80,13 +81,15 @@ export default function DescriptionSection({ tour }: DescriptionSectionProps) { 
         </AnimatePresence>
       </div>
       {hasMultipleParagraphs && (
-        <button
+        <ExpandButton
+          isExpanded={isExpanded}
           onClick={() => setIsExpanded(!isExpanded)}
-          className="group mt-5 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gold transition-colors hover:text-white"
-        >
-          {isExpanded ? "Read Less" : "Read More"}
-          <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-500 ${isExpanded ? "rotate-180" : ""}`} />
-        </button>
+          expandText="Read More"
+          collapseText="Read Less"
+          align="left"
+          showBorder={false}
+          className="px-0! -mt-4!"
+        />
       )}
     </section>
   );

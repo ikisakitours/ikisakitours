@@ -1,7 +1,8 @@
 import Image from "next/image";
 import type { Testimonial } from "@/data/testimonials";
+import { RatingStars } from "@/components/ui/RatingStars";
 //Icons
-import { CalendarCheck, CircleCheck, Crown, Quote, Star } from "lucide-react";
+import { CalendarCheck, CircleCheck, Crown, Quote } from "lucide-react";
 
 type TestimonialCardProps = {
   testimonial: Testimonial;
@@ -17,11 +18,7 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
         </span>
       </div>
 
-      <div className="mb-6 flex gap-1 text-gold" aria-label="Five star rating">
-        {Array.from({ length: 5 }).map((_, index) => (
-          <Star key={index} className="h-2.5 w-2.5" fill="currentColor" />
-        ))}
-      </div>
+      <RatingStars rating={testimonial.rating ?? 5} className="mb-6 flex gap-1" starClassName="h-3.5 w-3.5 text-gold" />
 
       <p className="mb-8 grow text-base font-normal italic leading-relaxed text-white sm:mb-10 sm:text-lg">
         &quot;{testimonial.quote}&quot;

@@ -14,16 +14,20 @@ export function Hero({ image, altText, eyebrow, title, accent, strapline }: Hero
   const titleParts = title.split(accent);
 
   return (
-    <header className="relative flex min-h-130 items-center justify-center overflow-hidden px-4 pb-32 pt-36 text-center md:min-h-155 md:pt-44">
-      <Image
-        src={image}
-        alt={altText}
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover object-center animate-slow-zoom "
-      />
-      <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/80 to-lanka-dark" />
+    <header className="relative flex min-h-130 items-center justify-center bg-lanka-dark px-4 pb-32 pt-36 text-center md:min-h-155 md:pt-44">
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <Image
+          src={image}
+          alt={altText}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center animate-slow-zoom"
+        />
+        <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/80 to-lanka-dark" />
+      </div>
+
+      <div className="absolute -bottom-0.5 left-0 right-0 z-0 h-1 bg-lanka-dark pointer-events-none" />
 
       <div className="relative z-10 mx-auto w-full max-w-4xl">
         <EyeBrow eyebrow={eyebrow} />

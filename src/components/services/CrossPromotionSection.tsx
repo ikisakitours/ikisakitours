@@ -1,12 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Star, MessageCircleHeart, ArrowRight } from "lucide-react";
+import { Clock, Star, MessageCircleHeart, ArrowRight } from "lucide-react";
 import { packages } from "@/data/packages";
 import { testimonials } from "@/data/testimonials";
-
+import { RatingStars } from "@/components/ui/RatingStars";
 export function CrossPromotionSection() {
   const displayPackages = packages.slice(0, 3);
-  const displayTestimonials = testimonials.slice(0, 3);
+  const displayTestimonials = testimonials.filter((t) => (t.rating ?? 5) === 5).slice(0, 3);
 
   return (
     <section className="mt-24 border-t border-white/5 pt-16">
@@ -24,27 +24,51 @@ export function CrossPromotionSection() {
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {displayPackages.map((pkg, index) => (
-            <Link href={`/packages/${pkg.title.toLowerCase().replace(/\s+/g, "-")}`} key={index}>
-              <div className="group overflow-hidden rounded-4xl bg-[#0a0a0a] border border-white/10 transition-all hover:border-gold/50 hover:shadow-[0_10px_30px_rgba(197,160,89,0.1)]">
-                {/* Image Component with parent container */}
-                <div className="relative aspect-video w-full overflow-hidden">
-                  <Image
-                    src={pkg.image}
-                    alt={pkg.imageAlt}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
+            <Link
+              href={`/booking/${pkg.slug}`}
+              className="glass-card group block min-w-[85vw] snap-center overflow-hidden rounded-4xl border border-white/5 transition-all duration-700 hover:border-gold/40 sm:min-w-[45vw] xl:min-w-0"
+              key={index}
+            >
+              <div className="relative h-44 overflow-hidden">
+                <div className="absolute left-4 top-4 z-10">
+                  <span className="rounded-full border border-gold/40 bg-black/80 px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-gold backdrop-blur-md">
+                    {pkg.categoryLabel}
+                  </span>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-lg font-bold text-white mb-2">{pkg.title}</h3>
-                  <p className="text-sm text-slate-400 mb-4 line-clamp-2">{pkg.description}</p>
-                  <div className="flex justify-between items-center text-sm font-bold text-gold">
-                    <span>{pkg.price}</span>
-                    <span className="flex items-center gap-1 bg-gold/10 px-3 py-1 rounded-full text-[10px]">
-                      <Star className="h-3 w-3 fill-gold text-gold" /> {pkg.rating}
-                    </span>
+                <Image
+                  src={pkg.image}
+                  alt={`${pkg.title} ${pkg.imageAlt}`}
+                  fill
+                  sizes="(min-width: 1280px) 380px, 85vw"
+                  className="image-render-visible object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+              </div>
+              <div className="p-6">
+                <div className="mb-2 text-[9px] font-bold uppercase tracking-[0.3em] text-gold">{pkg.origin}</div>
+                <h3 className="premium-serif mb-3 text-xl font-bold leading-tight text-white">
+                  {pkg.title} <br />
+                  <span className="text-lg font-light italic">{pkg.subtitle}</span>
+                </h3>
+                <div className="mb-6 flex items-center justify-between gap-6 text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                  <span className="inline-flex items-center gap-2">
+                    <Clock className="h-3 w-3 text-gold" />
+                    {pkg.duration}
+                  </span>
+
+                  <span className="group relative flex shrink-0 items-center justify-center overflow-hidden rounded border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-500 hover:bg-gold hover:border-gold px-4 py-2 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] text-white">
+                    <span className="relative z-10 transition-colors duration-300 group-hover:text-white">Details</span>
+                    {/* Shine effect */}
+                    <div className="absolute inset-0 z-0 h-full w-full -translate-x-full bg-linear-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full" />
+
+                    <ArrowRight className="ml-2 h-3 w-3 relative z-10 transition-colors duration-300 group-hover:text-white" />
+                  </span>
+                </div>
+                <div className="flex items-center justify-between border-t border-white/10 pt-5">
+                  <div className="flex items-center gap-2">
+                    <Star className="h-3.5 w-3.5 text-gold" fill="currentColor" />
+                    <span className="text-sm font-bold tracking-widest text-white">{pkg.rating}</span>
                   </div>
+                  <span className="text-xl font-bold tracking-tighter text-gold">{pkg.price}</span>
                 </div>
               </div>
             </Link>
@@ -65,34 +89,46 @@ export function CrossPromotionSection() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {displayTestimonials.map((t, index) => (
-            <div
-              key={index}
-              className="rounded-2xl border border-white/5 bg-[#0a0a0a]/50 p-6 flex flex-col justify-between hover:border-white/20 transition-all"
-            >
-              <MessageCircleHeart className="h-6 w-6 text-gold mb-4" />
-              <p className="text-sm text-slate-300 italic mb-6 leading-relaxed grow line-clamp-4">
-                &quot;{t.quote}&quot;
-              </p>
+          {displayTestimonials.map((t, index) => {
+            const rating = t.rating ?? 5;
 
-              <div className="flex items-center gap-3 border-t border-white/5 pt-4">
-                {t.avatar ? (
-                  <div className="relative h-10 w-10 overflow-hidden rounded-full">
-                    <Image src={t.avatar} alt={t.name} fill sizes="40px" className="object-cover" />
-                  </div>
-                ) : (
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gold/20 text-gold text-xs font-bold">
-                    {t.initials}
-                  </div>
-                )}
+            return (
+              <div
+                key={index}
+                className="group rounded-2xl border border-white/5 bg-[#0a0a0a]/50 p-6 flex flex-col justify-between hover:border-gold/30 hover:bg-white/2 transition-all duration-500 shadow-lg hover:shadow-gold/5"
+              >
+                {/* Modern Header: Icon on Left, Stars on Right */}
+                <div className="mb-5 flex items-start justify-between">
+                  <MessageCircleHeart className="h-6 w-6 text-gold/70 transition-colors duration-300 group-hover:text-gold" />
 
-                <div>
-                  <p className="text-sm font-bold text-white">{t.name}</p>
-                  <p className="text-[10px] text-slate-500 uppercase tracking-widest">{t.date}</p>
+                  <RatingStars rating={rating} starClassName="h-3.5 w-3.5 text-gold" />
+                </div>
+
+                <p className="grow line-clamp-4 text-sm leading-relaxed italic text-slate-300 mb-6">
+                  &quot;{t.quote}&quot;
+                </p>
+
+                <div className="flex items-center gap-3 border-t border-white/5 pt-4">
+                  {t.avatar ? (
+                    <div className="relative h-10 w-10 overflow-hidden rounded-full ring-2 ring-transparent transition-all duration-300 group-hover:ring-gold/30">
+                      <Image src={t.avatar} alt={t.name} fill sizes="40px" className="object-cover" />
+                    </div>
+                  ) : (
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gold/10 text-xs font-bold text-gold ring-2 ring-transparent transition-all duration-300 group-hover:ring-gold/30 group-hover:bg-gold/20">
+                      {t.initials}
+                    </div>
+                  )}
+
+                  <div>
+                    <p className="text-sm font-bold text-white transition-colors duration-300 group-hover:text-gold-light">
+                      {t.name}
+                    </p>
+                    <p className="text-[10px] tracking-widest uppercase text-slate-500">{t.date}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

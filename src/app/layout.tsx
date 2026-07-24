@@ -1,4 +1,4 @@
-import  { Metadata } from "next";
+import { Metadata } from "next";
 import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";

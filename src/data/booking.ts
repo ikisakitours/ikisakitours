@@ -622,7 +622,7 @@ export const bookingTour = {
   recommendations: [
     {
       slug: "minneriya-national-park-elephant-safari",
-      label: "Most Popular",
+      categoryLabel: "Cultural",
       origin: "From Sigiriya",
       title: "Minneriya Park",
       subtitle: "Private Jeep Safari",
@@ -633,7 +633,7 @@ export const bookingTour = {
     },
     {
       slug: "minneriya-national-park-elephant-safari",
-      label: "Wildlife",
+      categoryLabel: "Religious",
       origin: "From Habarana",
       title: "Kaudulla Reserve",
       subtitle: "Elephant Trail",
@@ -644,7 +644,7 @@ export const bookingTour = {
     },
     {
       slug: "minneriya-national-park-elephant-safari",
-      label: "Private",
+      categoryLabel: "Nature",
       origin: "From Dambulla",
       title: "Hurulu Eco Park",
       subtitle: "Guided Safari",

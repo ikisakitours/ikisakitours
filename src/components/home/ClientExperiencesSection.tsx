@@ -7,22 +7,9 @@ import { Button } from "@/components/ui/Button";
 import { testimonials } from "@/data/testimonials";
 import { WriteReviewForm } from "@/components/ui/WriteReviewForm";
 import { motion, AnimatePresence } from "framer-motion";
+import { RatingStars } from "@/components/ui/RatingStars";
 //Icons
-import { CalendarCheck, Quote, Star, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
-
-function Stars({ className, count = 5 }: { className: string; count?: number }) {
-  return (
-    <div className="flex space-x-1">
-      {Array.from({ length: 5 }).map((_, index) => (
-        <Star
-          key={index}
-          className={`${className} ${index < count ? "" : "opacity-20"}`}
-          fill={index < count ? "currentColor" : "none"}
-        />
-      ))}
-    </div>
-  );
-}
+import { CalendarCheck, Quote, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
 
 export function ClientExperiencesSection() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -69,6 +56,8 @@ export function ClientExperiencesSection() {
 
   const starCount = Math.round(Number(averageScore));
 
+  const displayTestimonials = testimonials.filter((t) => (t.rating ?? 3) === 5).slice(0, 3);
+
   return (
     <section
       id="testimonials"
@@ -111,7 +100,7 @@ export function ClientExperiencesSection() {
               </div>
               <div>
                 <div className="mb-3">
-                  <Stars className="h-3.5 w-3.5 text-gold" count={starCount} />
+                  <RatingStars rating={starCount} starClassName="h-3.5 w-3.5 text-gold" />{" "}
                 </div>
                 <p className="text-xs font-light tracking-wide text-slate-400">
                   Based on <span className="font-bold text-white">{reviewCountDisplay}</span> global reviews
@@ -177,7 +166,7 @@ export function ClientExperiencesSection() {
                 onClick={() => scroll("right")}
                 disabled={!canScrollRight}
                 className={`flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white backdrop-blur-md transition-all 
-           ${!canScrollRight ? "opacity-30 cursor-not-allowed" : "hover:border-gold hover:bg-gold hover:text-black cursor-pointer"}`}
+                ${!canScrollRight ? "opacity-30 cursor-not-allowed" : "hover:border-gold hover:bg-gold hover:text-black cursor-pointer"}`}
                 aria-label="Scroll right"
               >
                 <ChevronRight className="h-5 w-5" />
@@ -204,7 +193,7 @@ export function ClientExperiencesSection() {
               ref={scrollContainerRef}
               className="flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto pb-12 scrollbar-none [-ms-overflow-style:none] sm:gap-6 md:gap-8 xl:grid xl:grid-cols-3 xl:overflow-visible xl:pb-0 [&::-webkit-scrollbar]:hidden"
             >
-              {testimonials.slice(0, 3).map((testimonial) => (
+              {displayTestimonials.map((testimonial) => (
                 <motion.article
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -225,7 +214,7 @@ export function ClientExperiencesSection() {
                       </span>
                     </div>
                     <div className="mb-4 md:mb-6">
-                      <Stars className="h-2.5 w-2.5 text-gold" />
+                      <RatingStars rating={testimonial.rating} starClassName="h-3.5 w-3.5 text-gold" />
                     </div>
                     <p className="mb-8 text-base font-light italic leading-relaxed text-slate-300 md:mb-10 md:text-lg">
                       {testimonial.quote}

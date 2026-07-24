@@ -152,6 +152,12 @@ export default function MapContent({
 
   return (
     <div className="relative mx-auto h-112.5 w-full max-w-full overflow-hidden rounded-3xl border border-white/10 shadow-2xl z-10 sm:h-137.5 md:h-187.5 lg:h-205">
+      <div className="pointer-events-none absolute right-2 top-2 sm:right-4 sm:top-4 z-1000 flex items-center gap-1.5 rounded-full border border-white/10 bg-black/70 px-3 py-1.5 shadow-lg backdrop-blur-md">
+        <span className="shrink-0 inline-block h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
+        <span className="translate-y-[0.5px] text-[8px] sm:text-[9px] text-gold/90 font-semibold uppercase tracking-[0.2em] leading-none">
+          Choose a place to discover
+        </span>
+      </div>
       {destinations.length === 0 && (
         <div className="absolute inset-0 z-50 flex items-center justify-center bg-lanka-black backdrop-blur-md">
           <EmptyState
@@ -170,7 +176,6 @@ export default function MapContent({
           />
         </div>
       )}
-
       {destinations.length > 0 && (
         <MapContainer
           ref={mapRef}

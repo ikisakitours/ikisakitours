@@ -1,6 +1,6 @@
 import React from "react";
-import RecommendationCard, { RecommendationType } from "./RecommendationCard";
-import InsightCard, { InsightType } from "./InsightCard";
+import RecommendationCard, { RecommendationType } from "./RelatedBookingSections/RecommendationCard";
+import InsightCard, { InsightType } from "./RelatedBookingSections/InsightCard";
 
 type RelatedBookingSectionsProps = {
   recommendations: RecommendationType[];

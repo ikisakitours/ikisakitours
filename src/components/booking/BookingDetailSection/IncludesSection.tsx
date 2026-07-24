@@ -1,9 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import { CircleCheck, Check, X, ChevronDown } from "lucide-react";
+import { CircleCheck, X } from "lucide-react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import SectionHeading from "./SectionHeading";
+import ExpandButton from "./ExpandButton";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { RiCloseCircleLine } from "react-icons/ri";
 
 type IncludesSectionProps = {
   tour: {
@@ -39,12 +42,19 @@ const butterySmoothVariants: Variants = {
   exit: { opacity: 0, scaleY: 0.8, transition: { duration: 0.2, ease: "easeIn" } },
 };
 
-export default function IncludesSection({ tour }: IncludesSectionProps) {  const [isExpanded, setIsExpanded] = useState(false);
+// -----------------------------------------------
+
+export default function IncludesSection({ tour }: IncludesSectionProps) {
+  const [isIncludesExpanded, setIsIncludesExpanded] = useState(false);
+  const [isExcludesExpanded, setIsExcludesExpanded] = useState(false);
 
   const DEFAULT_COUNT = 8;
+
   const extraIncludes = tour.includes.slice(DEFAULT_COUNT);
   const extraExcludes = tour.excludes.slice(DEFAULT_COUNT);
-  const hasMore = extraIncludes.length > 0 || extraExcludes.length > 0;
+
+  const hasMoreIncludes = extraIncludes.length > 0;
+  const hasMoreExcludes = extraExcludes.length > 0;
 
   const displayIncludes = tour.includes.slice(0, DEFAULT_COUNT);
   const displayExcludes = tour.excludes.slice(0, DEFAULT_COUNT);
@@ -53,24 +63,24 @@ export default function IncludesSection({ tour }: IncludesSectionProps) {  const
     <section id="includes" className="glass-card mb-10 rounded-4xl border border-white/5 p-6 md:mb-14 md:p-10">
       <SectionHeading>What&apos;s Included & Excluded</SectionHeading>
 
-      <div className="grid grid-cols-1 gap-x-12 gap-y-10 md:grid-cols-2">
+      <div className="grid grid-cols-1 md:grid-cols-2">
         {/* Included Column */}
-        <div className="flex flex-col flex-1">
-          <h3 className="mb-6 flex items-center gap-2 text-sm font-bold text-emerald-400 md:text-base">
-            <CircleCheck className="h-5 w-5" /> Included
+        <div className="flex h-full w-full flex-col pb-8 md:pb-0 md:pr-8 lg:pr-12">
+          <h3 className="mb-6 flex items-center gap-2 text-[14px] sm:text-text-[14px] md:text-[14px] font-extrabold uppercase tracking-widest text-emerald-400">
+            <CircleCheck className="h-4.5 w-4.5 shrink-0" /> Included In This Journey
           </h3>
           <ul className="space-y-4">
             {displayIncludes.map((item: string, idx: number) => (
-              <li key={idx} className="flex items-start gap-3">
-                <Check className="mt-1 h-4 w-4 shrink-0 text-emerald-400" />
+              <li key={`inc-${idx}`} className="flex items-start gap-3">
+                <IoMdCheckmarkCircleOutline className="mt-1 h-4.5 w-4.5 shrink-0 text-emerald-400" />
                 <span className="text-sm font-light leading-relaxed text-slate-300">{item}</span>
               </li>
             ))}
           </ul>
 
-          <div className={`overflow-hidden transition-all duration-300 ${isExpanded ? "h-auto" : "h-0"}`}>
+          <div className={`overflow-hidden transition-all duration-300 ${isIncludesExpanded ? "h-auto" : "h-0"}`}>
             <AnimatePresence initial={false}>
-              {isExpanded && extraIncludes.length > 0 && (
+              {isIncludesExpanded && hasMoreIncludes && (
                 <motion.div
                   key="extra-includes"
                   variants={butterySmoothVariants}
@@ -82,7 +92,7 @@ export default function IncludesSection({ tour }: IncludesSectionProps) {  const
                   <ul className="space-y-4 pt-4 border-t border-white/5 mt-4">
                     {extraIncludes.map((item: string, idx: number) => (
                       <li key={`extra-inc-${idx}`} className="flex items-start gap-3 pt-4">
-                        <Check className="mt-1 h-4 w-4 shrink-0 text-emerald-400" />
+                        <IoMdCheckmarkCircleOutline className="mt-1 h-4.5 w-4.5 shrink-0 text-emerald-400" />
                         <span className="text-sm font-light leading-relaxed text-slate-300">{item}</span>
                       </li>
                     ))}
@@ -91,25 +101,35 @@ export default function IncludesSection({ tour }: IncludesSectionProps) {  const
               )}
             </AnimatePresence>
           </div>
+
+          {hasMoreIncludes && (
+            <div className={`w-full ${isIncludesExpanded === isExcludesExpanded ? "mt-auto" : ""}`}>
+              <ExpandButton
+                isExpanded={isIncludesExpanded}
+                onClick={() => setIsIncludesExpanded(!isIncludesExpanded)}
+                expandText="Show All Included"
+              />
+            </div>
+          )}
         </div>
 
         {/* Excluded Column */}
-        <div className="flex flex-col flex-1 border-t border-white/5 pt-10 md:border-0 md:pt-0">
-          <h3 className="mb-6 flex items-center gap-2 text-sm font-bold text-rose-400 md:text-base">
-            <X className="h-5 w-5 rounded-full bg-rose-400/10 p-0.5" /> Excluded
+        <div className="flex h-full w-full flex-col border-t border-white/10 pt-8 md:border-t-0 md:border-l md:pl-8 lg:pl-12 md:pt-0">
+          <h3 className="mb-6 flex items-center gap-2 text-[14px] sm:text-text-[14px] md:text-[14px] font-extrabold uppercase tracking-widest text-rose-400">
+            <X className="h-5 w-5 rounded-full bg-rose-400/10 p-0.5" /> Excluded In This Journey
           </h3>
           <ul className="space-y-4">
             {displayExcludes.map((item: string, idx: number) => (
-              <li key={idx} className="flex items-start gap-3">
-                <X className="mt-1 h-4 w-4 shrink-0 text-rose-400" />
+              <li key={`exc-${idx}`} className="flex items-start gap-3">
+                <RiCloseCircleLine className="mt-1 h-4.5 w-4.5 shrink-0 text-rose-400" />
                 <span className="text-sm font-light leading-relaxed text-slate-400">{item}</span>
               </li>
             ))}
           </ul>
 
-          <div className={`overflow-hidden transition-all duration-300 ${isExpanded ? "h-auto" : "h-0"}`}>
+          <div className={`overflow-hidden transition-all duration-300 ${isExcludesExpanded ? "h-auto" : "h-0"}`}>
             <AnimatePresence initial={false}>
-              {isExpanded && extraExcludes.length > 0 && (
+              {isExcludesExpanded && hasMoreExcludes && (
                 <motion.div
                   key="extra-excludes"
                   variants={butterySmoothVariants}
@@ -121,7 +141,7 @@ export default function IncludesSection({ tour }: IncludesSectionProps) {  const
                   <ul className="space-y-4 pt-4 border-t border-white/5 mt-4">
                     {extraExcludes.map((item: string, idx: number) => (
                       <li key={`extra-exc-${idx}`} className="flex items-start gap-3 pt-4">
-                        <X className="mt-1 h-4 w-4 shrink-0 text-rose-400" />
+                        <RiCloseCircleLine className="mt-1 h-4.5 w-4.5 shrink-0 text-rose-400" />
                         <span className="text-sm font-light leading-relaxed text-slate-400">{item}</span>
                       </li>
                     ))}
@@ -130,22 +150,18 @@ export default function IncludesSection({ tour }: IncludesSectionProps) {  const
               )}
             </AnimatePresence>
           </div>
+
+          {hasMoreExcludes && (
+            <div className={`w-full ${isIncludesExpanded === isExcludesExpanded ? "mt-auto" : ""}`}>
+              <ExpandButton
+                isExpanded={isExcludesExpanded}
+                onClick={() => setIsExcludesExpanded(!isExcludesExpanded)}
+                expandText="Show All Excluded"
+              />
+            </div>
+          )}
         </div>
       </div>
-
-      {hasMore && (
-        <div className="mt-10 flex justify-center border-t border-white/5 pt-6">
-          <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="group flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gold transition-colors hover:text-white"
-          >
-            {isExpanded ? "Show Less" : "Show All Included & Excluded"}
-            <ChevronDown
-              className={`h-3.5 w-3.5 transition-transform duration-500 ${isExpanded ? "rotate-180" : ""}`}
-            />
-          </button>
-        </div>
-      )}
     </section>
   );
 }

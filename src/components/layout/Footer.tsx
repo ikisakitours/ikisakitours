@@ -152,7 +152,7 @@ export function Footer() {
                 <Send className="h-4 w-4" />
               </button>
             </form>
-            <div className="-ml-14 md:ml-7 lg:ml-5 xl:ml-7">
+            <div className="-ml-30 md:ml-5 lg:ml-5 xl:ml-5">
               <FormError message={errors.email} />
             </div>
           </div>

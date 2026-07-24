@@ -21,8 +21,6 @@ export const testimonialHeroData = {
     "Real stories from real travelers. Discover why the world's most discerning explorers choose LankaElite for their Sri Lankan odyssey.",
 } as const;
 
-
-
 export const testimonials: Testimonial[] = [
   {
     id: "alexander-vance",
@@ -34,7 +32,7 @@ export const testimonials: Testimonial[] = [
     date: "January 15, 2026",
     avatar: "https://i.pravatar.cc/150?u=alexander-vance",
     vip: true,
-    rating: 5,
+    rating: 4.5,
   },
   {
     id: "isabelle-roche",

@@ -108,16 +108,9 @@ export default function CoveredCitiesRoute({ destinations }: CoveredCitiesRouteP
             </div>
 
             <div className="flex w-full items-center justify-end gap-4 sm:w-auto">
-              <span className="text-[10px] font-medium tracking-widest text-slate-400">
-                {destinations.length} Stops Journey
+              <span className="text-[11px] sm:text-xs md:text-[13px] font-semibold uppercase tracking-widest text-slate-400">
+                {destinations.length} Magical Stops
               </span>
-
-              <Button variant="details" onClick={() => handleMapToggle(true)}>
-                <span className="group-hover:text-black flex items-center gap-2 transition-colors duration-300">
-                  <Map className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
-                  <span>View Route Map</span>
-                </span>
-              </Button>
             </div>
           </div>
 
@@ -151,25 +144,48 @@ export default function CoveredCitiesRoute({ destinations }: CoveredCitiesRouteP
               ))}
             </div>
 
-            <div className="mt-4 flex items-center justify-end gap-3">
-              <button
-                onClick={() => scroll("left")}
-                disabled={!canScrollLeft}
-                className={`flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white backdrop-blur-md transition-all 
-                   ${!canScrollLeft ? "cursor-not-allowed opacity-30" : "cursor-pointer hover:border-gold hover:bg-gold hover:text-black"}`}
-                aria-label="Scroll left"
+            <div className="mt-4 flex items-center justify-between">
+              <Button
+                variant="shine"
+                onClick={() => handleMapToggle(true)}
+                className="px-3 py-1.5 text-[10px] sm:px-4 sm:py-2 sm:text-[11px] md:text-xs 2xl:px-5 2xl:py-2.5 2xl:text-sm 3xl:px-6 3xl:py-3 3xl:text-base"
               >
-                <ChevronLeft className="h-4 w-4" />
-              </button>
-              <button
-                onClick={() => scroll("right")}
-                disabled={!canScrollRight}
-                className={`flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white backdrop-blur-md transition-all 
-      ${!canScrollRight ? "cursor-not-allowed opacity-30" : "cursor-pointer hover:border-gold hover:bg-gold hover:text-black"}`}
-                aria-label="Scroll right"
-              >
-                <ChevronRight className="h-4 w-4" />
-              </button>
+                <span className="group-hover:text-black flex items-center gap-1.5 sm:gap-2 transition-colors duration-300">
+                  <Map className="h-3 w-3 sm:h-3.5 sm:w-3.5 2xl:h-4 2xl:w-4 3xl:h-5 3xl:w-5 transition-transform duration-300 group-hover:scale-110" />
+                  <span>View Route Map</span>
+                </span>
+              </Button>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => scroll("left")}
+                  disabled={!canScrollLeft}
+                  className={`flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white backdrop-blur-md transition-all 
+                 ${!canScrollLeft ? "cursor-not-allowed opacity-30" : "cursor-pointer hover:border-gold hover:bg-gold hover:text-black"}`}
+                  aria-label="Scroll left"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={() => scroll("right")}
+                  disabled={!canScrollRight}
+                  className={`flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white backdrop-blur-md transition-all 
+                 ${!canScrollRight ? "cursor-not-allowed opacity-30" : "cursor-pointer hover:border-gold hover:bg-gold hover:text-black"}`}
+                  aria-label="Scroll right"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-4 flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between text-[8px] sm:text-[9px] tracking-wider text-slate-400">
+              <span className="flex items-start sm:items-center gap-1.5 text-gold/80 leading-relaxed font-semibold uppercase tracking-[0.2em]">
+                <span className="mt-1 sm:mt-0 shrink-0 inline-block h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
+                <span>Click map to view full route</span>
+              </span>
+
+              <span className="pl-3 sm:pl-0 inline-block uppercase tracking-[0.2em] text-slate-500 font-semibold">
+                Swipe or use arrows to navigate the full itinerary sequence
+              </span>
             </div>
           </div>
         </section>

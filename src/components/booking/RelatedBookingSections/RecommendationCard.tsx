@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Clock, ArrowRight, Star } from "lucide-react";
 
 export type RecommendationType = {
-  label: string;
+  categoryLabel: string;
   origin: string;
   title: string;
   subtitle: string;
@@ -25,7 +25,7 @@ export default function RecommendationCard({ item }: { item: RecommendationType 
       <div className="relative h-44 overflow-hidden">
         <div className="absolute left-4 top-4 z-10">
           <span className="rounded-full border border-gold/40 bg-black/80 px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-gold backdrop-blur-md">
-            {item.label}
+            {item.categoryLabel}
           </span>
         </div>
         <Image

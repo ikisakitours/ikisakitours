@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { ChevronDown } from "lucide-react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import CheckBullet from "./CheckBullet";
+import ExpandButton from "./ExpandButton";
 
 type HighlightsSectionProps = {
   tour: {
@@ -81,13 +81,15 @@ export default function HighlightsSection({ tour }: HighlightsSectionProps) {
       </div>
 
       {hasMore && (
-        <button
+        <ExpandButton
+          isExpanded={isExpanded}
           onClick={() => setIsExpanded(!isExpanded)}
-          className="group mt-6 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gold transition-colors hover:text-white"
-        >
-          {isExpanded ? "Show Less" : "Show All Highlights"}
-          <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-500 ${isExpanded ? "rotate-180" : ""}`} />
-        </button>
+          expandText="Show All Highlights"
+          collapseText="Show Less"
+          align="left"
+          showBorder={false}
+          className="px-0! -mt-4!"
+        />
       )}
     </section>
   );

@@ -2,8 +2,9 @@ import Image from "next/image";
 import { bookingTour } from "@/data/booking";
 import Link from "next/link";
 import { Images } from "lucide-react";
+import { RatingStars } from "@/components/ui/RatingStars";
 //Icons
-import { Star, CheckCircle2, Crown, CalendarDays } from "lucide-react";
+import { CheckCircle2, Crown, CalendarDays } from "lucide-react";
 
 type ReviewCardProps = {
   review: (typeof bookingTour.reviews)[0];
@@ -52,14 +53,7 @@ export function ReviewCard({ review, slug }: ReviewCardProps) {
           </div>
         </div>
 
-        <div className="flex gap-0.5 text-gold">
-          {[...Array(5)].map((_, i) => (
-            <Star
-              key={i}
-              className={`h-3 w-3 md:h-4 md:w-4 3xl:h-5 3xl:w-5 ${i < rating ? "fill-current" : "opacity-30"}`}
-            />
-          ))}
-        </div>
+        <RatingStars rating={rating} starClassName="h-3 w-3 md:h-4 md:w-4 3xl:h-5 3xl:w-5 text-gold" />
       </div>
 
       <p className="mb-6 text-sm font-light italic leading-relaxed text-slate-300 md:text-[15px] 3xl:text-xl 3xl:leading-relaxed">
