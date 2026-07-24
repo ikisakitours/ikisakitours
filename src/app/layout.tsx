@@ -33,6 +33,14 @@ export const metadata: Metadata = {
       "Premium private tours, transfers, travel packages, and multilingual concierge experiences across Sri Lanka.",
     url: "/",
     siteName: "MapMate",
+    images: [
+      {
+        url: "/images/opengraph-image.png", // හරියටම අලුත් පින්තූරයේ නම සහ තැන
+        width: 1200,
+        height: 630,
+        alt: "MapMate Tours",
+      },
+    ],
     locale: "en_US",
     type: "website",
   },
@@ -42,6 +50,7 @@ export const metadata: Metadata = {
     title: "MapMate | Premium Sri Lanka Private Tours",
     description:
       "Premium private tours, transfers, travel packages, and multilingual concierge experiences across Sri Lanka.",
+    images: ["/images/opengraph-image.png"],
   },
 };
 
