@@ -20,7 +20,7 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   // 1. අනිවාර්යයෙන්ම metadataBase එක ලබා දෙන්න
   metadataBase: new URL("https://map-mate-tours.vercel.app"),
-  
+
   title: {
     default: "MapMate | Premium Sri Lanka Private Tours",
     template: "%s | MapMate",
@@ -34,14 +34,6 @@ export const metadata: Metadata = {
       "Premium private tours, transfers, travel packages, and multilingual concierge experiences across Sri Lanka.",
     url: "/",
     siteName: "MapMate",
-    images: [
-      {
-        url: "/images/logo-re.jpeg", // metadataBase ඇති නිසා relative path ප්‍රමාණවත්ය
-        width: 1200,
-        height: 630,
-        alt: "MapMate Tours",
-      },
-    ],
     locale: "en_US",
     type: "website",
   },
@@ -51,7 +43,6 @@ export const metadata: Metadata = {
     title: "MapMate | Premium Sri Lanka Private Tours",
     description:
       "Premium private tours, transfers, travel packages, and multilingual concierge experiences across Sri Lanka.",
-    images: ["/images/logo-re.jpeg"],
   },
 };
 
