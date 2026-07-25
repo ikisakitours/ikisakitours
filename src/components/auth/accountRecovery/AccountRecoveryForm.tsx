@@ -1,34 +1,35 @@
 "use client";
 
-import { type FormEvent, useState } from "react";
+import { type FormEvent, useState, Suspense } from "react";
 import { AuthFormHeader } from "../AuthFormHeader";
 import { accountRecoveryFormContent } from "@/data/auth";
 import { Button } from "@/components/ui/Button";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { FormError } from "@/components/ui/FormError";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 //Icons
 import { ArrowLeft, Mail } from "lucide-react";
 
 const inputClass =
   "w-full rounded-2xl border border-white/10 bg-white/[0.03] py-3.5 px-5 text-sm text-white outline-none transition-all placeholder:text-slate-700 focus:border-gold focus:bg-gold/5 focus:shadow-[0_0_15px_rgba(197,160,89,0.05)]";
 
-export function AccountRecoveryForm() {
+function AccountRecoveryFormInner() {
   const [email, setEmail] = useState("");
   const { errors, validate } = useValidationForm();
   const router = useRouter();
-  const [backLabel, setBackLabel] = useState(" Back to Sign In ");
+  const searchParams = useSearchParams();
 
-  useState(() => {
-    if (typeof window !== "undefined") {
-      const referrer = document.referrer;
-      if (referrer.includes("/login")) {
-        setBackLabel("Back to Sign In");
-      } else if (referrer.includes("/profile")) {
-        setBackLabel("Back to Profile");
-      }
+  const fromWhere = searchParams?.get("from");
+
+  const backLabel = fromWhere === "profile?tab=security" ? "Back to Profile" : "Back to Sign In";
+
+  const handleBackClick = () => {
+    if (fromWhere === "profile") {
+      router.push("/profile?tab=security");
+    } else {
+      router.back();
     }
-  });
+  };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -69,7 +70,8 @@ export function AccountRecoveryForm() {
 
         <div className="mt-10 pb-2 text-center">
           <button
-            onClick={() => router.back()}
+            type="button"
+            onClick={handleBackClick}
             className="group inline-flex items-center gap-2 text-sm font-medium text-slate-500 transition-colors hover:text-gold"
           >
             <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" />
@@ -78,5 +80,13 @@ export function AccountRecoveryForm() {
         </div>
       </div>
     </section>
+  );
+}
+
+export function AccountRecoveryForm() {
+  return (
+    <Suspense fallback={null}>
+      <AccountRecoveryFormInner />
+    </Suspense>
   );
 }

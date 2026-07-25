@@ -122,8 +122,19 @@ export const useValidationForm = () => {
 
     // 13. Password Validation
     if (data.password !== undefined) {
-      if (!data.password) newErrors.password = "Password is required";
-      else if (data.password.length < 8) newErrors.password = "Password must be at least 8 characters long";
+      if (!data.password) {
+        newErrors.password = "Password is required";
+      } else if (data.password.length < 8) {
+        newErrors.password = "Password must be at least 8 characters long";
+      } else if (!/[A-Z]/.test(data.password)) {
+        newErrors.password = "Password must contain at least 1 uppercase letter";
+      } else if (!/[a-z]/.test(data.password)) {
+        newErrors.password = "Password must contain at least 1 lowercase letter";
+      } else if (!/\d/.test(data.password)) {
+        newErrors.password = "Password must contain at least 1 numeral";
+      } else if (!/[^A-Za-z0-9]/.test(data.password)) {
+        newErrors.password = "Password must contain at least 1 special character";
+      }
     }
 
     // 14. Confirm Password Validation

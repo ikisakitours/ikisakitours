@@ -1,11 +1,11 @@
 "use client";
-
-import { Camera, CheckCircle2, Crown } from "lucide-react";
 import { type ChangeEvent, type FormEvent, useState } from "react";
 import { profileUser } from "@/data/profile";
 import { Button } from "@/components/ui/Button";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { FormError } from "@/components/ui/FormError";
+//Icons
+import { Camera, CheckCircle2, Crown } from "lucide-react";
 
 const inputClass =
   "w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition-all placeholder:text-slate-500 focus:border-gold/50";
@@ -67,7 +67,7 @@ export function ProfileDetailsPanel() {
       <div className="glass-card relative overflow-hidden rounded-3xl p-6 md:p-12">
         <div className="relative z-10">
           <div className="mb-8 flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <h2 className="premium-serif text-center text-xl text-white sm:text-left sm:text-2xl">Personal Details</h2>
+            <h2 className="premium-serif mb-6 text-2xl text-white">Personal Details</h2>
 
             <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-end sm:gap-3">
               <StatusBadge tone="green" icon={<CheckCircle2 className="h-3 w-3" />}>
@@ -101,7 +101,7 @@ export function ProfileDetailsPanel() {
                 <span
                   className="relative flex h-full w-full items-center justify-center rounded-full border-2 bg-white/5 p-1 transition-colors"
                   style={{
-                    borderColor: errors.avatar ? "#dc2626" : "#c5a059", 
+                    borderColor: errors.avatar ? "#dc2626" : "#c5a059",
                   }}
                 >
                   <span
@@ -127,13 +127,14 @@ export function ProfileDetailsPanel() {
                   </div>
                 )}
                 {selectedFile && !errors.avatar && (
-                  <button
-                    type="button"
+                  <Button
+                    type="submit"
+                    variant="details"
                     onClick={handleImageUpdate}
-                    className="mt-2 block text-[10px] font-bold uppercase tracking-wider text-gold underline underline-offset-4 hover:text-white transition-colors"
+                    className="mt-3 mx-auto sm:mx-0 block"
                   >
                     Save Photo
-                  </button>
+                  </Button>
                 )}
               </div>
             </div>

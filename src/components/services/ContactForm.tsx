@@ -92,10 +92,10 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
                 onChange={(value) => {
                   updateField("phone", value || "");
                 }}
-                className={`${inputClass} focus-within:border-gold/60! focus-within:bg-white/[0.07]! pt-5 flex items-center gap-3 [&_.PhoneInputCountry]:mr-2 [&_.PhoneInputCountrySelect]:outline-none [&_.PhoneInputCountryIcon]:w-6 [&_.PhoneInputCountryIcon]:h-4 [&_.PhoneInputCountryIcon]:shadow-none [&_.PhoneInputCountryIcon--border]:border-none`}
+                className={`${inputClass} focus-within:border-gold/60! focus-within:bg-white/[0.07]! pt-5 flex items-center gap-3 [&_.PhoneInputCountry]:border-r [&_.PhoneInputCountry]:border-white/15 [&_.PhoneInputCountry]:pr-3 [&_.PhoneInputCountrySelect]:outline-none [&_.PhoneInputCountryIcon]:w-6 [&_.PhoneInputCountryIcon]:h-4 [&_.PhoneInputCountryIcon]:shadow-none [&_.PhoneInputCountryIcon--border]:border-none [&_.PhoneInputCountrySelectArrow]:text-gold! [&_.PhoneInputCountrySelectArrow]:border-gold! [&_.PhoneInputCountrySelectArrow]:opacity-100! [&_.PhoneInputCountrySelectArrow]:ml-3! [&_.PhoneInputCountrySelectArrow]:w-1.75! [&_.PhoneInputCountrySelectArrow]:h-1.75! [&_.PhoneInputCountrySelectArrow]:border-b-2! [&_.PhoneInputCountrySelectArrow]:border-r-2!`}
                 numberInputProps={{
                   className:
-                    "w-full bg-transparent border-none outline-none text-white focus:ring-0 placeholder:text-slate-400 p-0 text-sm",
+                    "w-full bg-transparent border-none outline-none text-white focus:ring-0 placeholder:text-slate-400 p-0 text-sm ml-1",
                   placeholder: "+94 77 123 4567",
                 }}
               />

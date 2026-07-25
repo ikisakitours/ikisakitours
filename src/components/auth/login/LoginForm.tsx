@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { type FormEvent, useState } from "react";
+import { type FormEvent, useState, useRef } from "react";
 import { AuthFormHeader } from "../AuthFormHeader";
 import { AuthSocialButtons } from "../AuthSocialButtons";
 import { loginFormContent } from "@/data/auth";
@@ -9,16 +9,80 @@ import { Button } from "@/components/ui/Button";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { FormError } from "@/components/ui/FormError";
 //Icons
-import { Eye, EyeOff, Mail, ShieldCheck } from "lucide-react";
+import { CheckCircle2, Eye, EyeOff, Mail, ShieldCheck } from "lucide-react";
 
 const inputClass =
   "w-full rounded-2xl border border-white/10 bg-white/[0.03] py-3.5 px-5 text-sm text-white outline-none transition-all placeholder:text-slate-700 focus:border-gold focus:bg-gold/5 focus:shadow-[0_0_15px_rgba(197,160,89,0.05)]";
+
+const strengthChecks = [
+  { id: "length", regex: /.{8,}/, msg: "At least 8 characters" },
+  { id: "upper", regex: /[A-Z]/, msg: "1 Uppercase letter" },
+  { id: "lower", regex: /[a-z]/, msg: "1 Lowercase letter" },
+  { id: "num", regex: /\d/, msg: "1 Numeral" },
+  { id: "special", regex: /[^A-Za-z0-9]/, msg: "1 Special character" },
+];
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { errors, validate } = useValidationForm();
+  const { errors, validate, setErrors } = useValidationForm();
+
+  // Password strength states
+  const [metRequirements, setMetRequirements] = useState<string[]>([]);
+  const [transientSuccessMsgs, setTransientSuccessMsgs] = useState<string[]>([]);
+  const [localNewError, setLocalNewError] = useState("");
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Password Handling
+  const handlePasswordChange = (val: string) => {
+    setPassword(val);
+
+    if (val === "") {
+      setLocalNewError("");
+      setTransientSuccessMsgs([]);
+      setMetRequirements([]);
+      if (errors.password) setErrors((prev) => ({ ...prev, password: "" }));
+      return;
+    }
+
+    const currentlyMet = strengthChecks.filter((req) => req.regex.test(val)).map((req) => req.id);
+    const newlyMet = currentlyMet.filter((id) => !metRequirements.includes(id));
+
+    if (newlyMet.length > 0) {
+      const newMessages = newlyMet.map((id) => {
+        const metRule = strengthChecks.find((req) => req.id === id);
+        return `${metRule?.msg}`;
+      });
+
+      setTransientSuccessMsgs(newMessages);
+
+      if (timerRef.current) clearTimeout(timerRef.current);
+      timerRef.current = setTimeout(() => setTransientSuccessMsgs([]), 2000);
+    }
+    setMetRequirements(currentlyMet);
+
+    if (localNewError || errors.password) {
+      const unmet = strengthChecks.filter((req) => !req.regex.test(val));
+      if (unmet.length === 0) {
+        setLocalNewError("");
+      } else {
+        setLocalNewError(`Missing: ${unmet[0].msg}`);
+      }
+      if (errors.password) setErrors((prev) => ({ ...prev, password: "" }));
+    }
+  };
+
+  const handlePasswordBlur = () => {
+    if (password === "") return;
+
+    const unmet = strengthChecks.filter((req) => !req.regex.test(password));
+    if (unmet.length > 0) {
+      setLocalNewError(`Missing: ${unmet[0].msg}`);
+    } else {
+      setLocalNewError("");
+    }
+  };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -65,7 +129,8 @@ export function LoginForm() {
                 autoComplete="current-password"
                 placeholder="Password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => handlePasswordChange(e.target.value)}
+                onBlur={handlePasswordBlur}
                 className={`${inputClass} pl-12 pr-12`}
               />
               <button
@@ -74,11 +139,28 @@ export function LoginForm() {
                 onClick={() => setShowPassword((value) => !value)}
                 className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-600 transition-colors hover:text-gold"
               >
-                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                {showPassword ? (
+                  <EyeOff className="h-5.5 w-5.5 lg:h-5 lg:w-5" />
+                ) : (
+                  <Eye className="h-5.5 w-5.5 lg:h-5 lg:w-5" />
+                )}
               </button>
             </span>
+
+            {/* Transient Success Message(s) */}
+            {transientSuccessMsgs.length > 0 && !(localNewError || errors.password) && (
+              <div className="ml-2 mt-1 flex flex-col space-y-1 animate-fade-in">
+                {transientSuccessMsgs.map((msg, idx) => (
+                  <div key={idx} className="flex items-center space-x-1.5 text-[11px] font-medium text-emerald-400">
+                    <CheckCircle2 className="h-3.5 w-3.5 shrink-0" />
+                    <span>{msg}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
             <div className="ml-2 mt-1">
-              <FormError message={errors.password} />
+              <FormError message={localNewError || errors.password} />
             </div>
           </label>
 

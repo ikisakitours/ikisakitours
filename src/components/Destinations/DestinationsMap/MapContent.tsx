@@ -201,7 +201,7 @@ export default function MapContent({
             <Polyline
               positions={routePath.length > 0 ? routePath : destinations.map((d) => [d.lat, d.lng])}
               pathOptions={{
-                color: "#C5A059",
+                color: isDarkMode ? "#C5A059" : "#4285F4",
                 weight: lineWidth,
                 dashArray: routePath.length > 0 ? undefined : "8, 8",
               }}

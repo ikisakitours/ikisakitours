@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     siteName: "MapMate",
     images: [
       {
-        url: "/images/opengraph-image.png", 
+        url: "/images/opengraph-image.png",
         width: 1200,
         height: 630,
         alt: "MapMate Tours",
@@ -66,7 +66,7 @@ export default function RootLayout({
       className={`${plusJakarta.variable} ${playfair.variable} h-full scroll-smooth antialiased`}
     >
       <body className="min-h-full bg-lanka-dark text-slate-200">
-        <Preloader />
+        {/* <Preloader /> */}
         {children}
         <Toaster position="top-center" richColors />
       </body>

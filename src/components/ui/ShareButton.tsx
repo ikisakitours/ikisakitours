@@ -8,9 +8,11 @@ interface ShareButtonProps {
   title: string;
   text: string;
   url: string;
+  className?: string;
+  iconClassName?: string;
 }
 
-export function ShareButton({ title, text, url }: ShareButtonProps) {
+export function ShareButton({ title, text, url, className, iconClassName }: ShareButtonProps) {
   const handleShare = async () => {
     const absoluteUrl = typeof window !== "undefined" ? `${window.location.origin}${url}` : url;
 
@@ -54,9 +56,9 @@ export function ShareButton({ title, text, url }: ShareButtonProps) {
       type="button"
       onClick={handleShare}
       aria-label={`Share ${title}`}
-      className="text-slate-500 transition-colors hover:text-gold"
+      className={`text-slate-500 transition-colors hover:text-gold ${className || ""}`}
     >
-      <Share2 size={18} />
+      <Share2 size={18} className={iconClassName || ""} />
     </button>
   );
 }

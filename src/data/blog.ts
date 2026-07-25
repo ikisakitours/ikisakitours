@@ -28,6 +28,7 @@ export type BlogPost = {
   readTime: string;
   likes: number;
   published: string;
+  content: string[];
   gallery: GalleryItem[];
 };
 
@@ -41,10 +42,15 @@ export const blogPosts: BlogPost[] = [
     excerpt: "A guide for seasonal weather patterns and when tea estates are at their absolute greenest.",
     image: "https://images.unsplash.com/photo-1546708973-b339540b5162?w=800",
     altText: "The Verdant Highlands",
-
     readTime: "5 min read",
     likes: 24,
     published: "January 8, 2026",
+    content: [
+      "Stepping into the central highlands of Sri Lanka feels like entering an extraordinary emerald dream, where endless rolling mountains and valleys are blanketed in generations-old, perfectly manicured tea plantations that stretch as far as the human eye can possibly see. This remarkable landscape has been shaped over centuries by both tropical monsoons and the meticulous hands of generations of highland workers who cultivate these slopes with profound reverence.",
+      "As dawn breaks across the peaks, a thick, cool mist gently blankets the valleys, kissing the top of the tea bushes and creating an ethereal, breathtaking atmosphere that both landscape photographers and contemplative nature lovers cherish deeply. Walking through these cloud-forest edges reveals a hidden world of cascading waterfalls, endemic bird species, and ancient trees draped in wild orchids that thrive in the crisp mountain air.",
+      "Understanding the intricate local weather patterns is essential for any traveler wishing to catch the sprawling tea estates at their absolute greenest and most vibrant, typically occurring right after the nourishing southwest and northeast monsoon showers sweep through the mountain ridges. During these periods, the fresh new flush of emerald leaves emerges across every estate, transforming the entire topography into a luminous masterpiece of natural color.",
+      "Wandering leisurely along these historic, winding trails allows visitors to connect intimately with the very heartbeat of the land, discovering secluded waterfalls tucked away in forested ravines and listening closely to the timeless whispers of ancient mountain winds sweeping through the gaps. Whether you are seeking quiet solitude or an active trekking adventure through the rugged terrain, the central highlands offer an unforgettable journey into the soul of the island.",
+    ],
     gallery: [
       {
         id: "vh-1",
@@ -88,6 +94,12 @@ export const blogPosts: BlogPost[] = [
     readTime: "4 min read",
     likes: 48,
     published: "January 11, 2026",
+    content: [
+      "Traditional Sri Lankan gastronomy is a remarkably vibrant, multi-layered celebration of exotic spices, where fragrant Ceylon cinnamon, sharp cardamom, fiery black peppercorns, and pungent cloves weave an unforgettable tapestry of rich aromas. For centuries, global traders navigated perilous oceanic routes specifically to acquire these precious botanical treasures, establishing the island as the undisputed epicenter of the ancient spice trade.",
+      "Navigating the signature, authentic heat of local dishes requires a delicate, highly skilled understanding of how freshly ground spices interact synergistically with rich, freshly extracted coconut milk and earthy, sun-dried Maldive fish. Rather than merely masking ingredients, the spices are toasted, tempered, and blended to elevate every single component of the meal into a harmonious balance of sweet, sour, bitter, and fiery notes.",
+      "Mastering these deeply guarded culinary secrets allows dedicated home cooks and professional chefs alike to preserve intense, complex flavor profiles without ever overwhelming the palate or drowning out the fresh qualities of local vegetables and seafood. Each culinary technique has been refined over millennia, reflecting an intimate knowledge of medicinal properties and regional palate preferences passed down through generations of island families.",
+      "From bustling village spice gardens filled with rustling leaves and hanging pods to age-old recipe books guarded fiercely in ancestral kitchens, every single plate tells a compelling story of cultural fusion and historical heritage. Exploring this rich culinary landscape offers travelers a visceral, deeply satisfying connection to the very soul and identity of ancient Ceylon.",
+    ],
     gallery: [
       {
         id: "ss-1",
@@ -131,6 +143,12 @@ export const blogPosts: BlogPost[] = [
     readTime: "8 min read",
     likes: 56,
     published: "January 14, 2026",
+    content: [
+      "Journeying deep into Sri Lanka's legendary Cultural Triangle reveals magnificent, awe-inspiring remnants of ancient kingdoms that were masterfully carved and constructed out of enduring dust, terracotta brick, and solid granite stone. These sacred archaeological sites stand as silent witnesses to golden eras of literature, advanced mathematics, spiritual devotion, and unprecedented urban city planning.",
+      "The sheer monumental scale of colossal rock fortresses, sprawling royal palace complexes, and intricate, interconnected irrigation reservoirs highlights the astonishing engineering brilliance and hydraulic mastery of ancient monarchs and anonymous craftsmen. Every water tank and stone canal was meticulously calculated to sustain vast agrarian communities, turning arid plains into lush, flourishing breadbaskets.",
+      "As you walk quietly among towering, weathered brick stupas, sacred Bodhi shrines, and moss-covered stone pillars under the tropical sun, ancient history truly comes alive through the insightful, narrative eyes of local historians and guides. You can almost hear the echoes of royal processions, chanting monks, and bustling marketplace merchants that once filled these grand plazas centuries ago.",
+      "Actively preserving these delicate architectural wonders ensures that future generations of global travelers can witness firsthand the enduring grace, artistic sophistication, and majestic grandeur of a magnificent civilization long past. It serves as a poignant reminder of human ingenuity and spiritual devotion etched permanently into the landscape of the island.",
+    ],
     gallery: [
       {
         id: "kd-1",
@@ -174,6 +192,12 @@ export const blogPosts: BlogPost[] = [
     readTime: "6 min read",
     likes: 89,
     published: "January 16, 2026",
+    content: [
+      "Ayurveda represents a profound, time-tested pathway to holistic wellness, utilizing centuries-old natural remedies, rare medicinal herbs, and warm therapeutic oils to deeply rejuvenate both the physical body and the restless mind. Rooted in ancient Eastern philosophy, this healing science views every individual as a unique combination of elemental energies that require constant mindful balancing.",
+      "For the modern traveler seeking a much-needed respite from hectic urban routines, professional burnout, and digital fatigue, these sacred healing practices provide an ultimate sanctuary of peace, deep relaxation, and mental restoration. The soothing ambiance of traditional treatment pavilions, accompanied by the gentle scent of simmering herbal concoctions, immediately signals the nervous system to let go of tension.",
+      "Customized, highly personalized wellness treatments specifically target individual energy imbalances and muscular knots, effectively helping to clear accumulated mental clutter and restore profound inner harmony from within. Expert practitioners assess your unique constitution before prescribing targeted herbal therapies, steam baths, and synchronized oil massages that release deep-seated stress.",
+      "Immersing yourself fully in traditional Ayurvedic wellness rituals allows you to experience a deeply transformative, introspective journey toward lasting holistic health and emotional clarity. It equips you with practical ancient wisdom that can be integrated into daily life long after your island holiday has concluded.",
+    ],
     gallery: [
       {
         id: "ar-1",
@@ -217,6 +241,12 @@ export const blogPosts: BlogPost[] = [
     readTime: "7 min read",
     likes: 32,
     published: "January 18, 2026",
+    content: [
+      "The sun-drenched coastal lowlands of Sri Lanka pulse with a distinct, infectious cultural rhythm that is deeply rooted in vibrant folklore, rhythmic drumming, and expressive traditional theatrical arts. This coastal region has long served as a melting pot of maritime trade influences, blending indigenous beliefs with colorful customs passed down through generations of performers.",
+      "Traditional low-country mask dances serve as dramatic, highly energetic storytelling mediums, vividly depicting ancient mythological battles, elaborate healing exorcism rituals, and profound moral lessons for village communities. Accompanied by the thunderous beats of traditional drums, performers use intricate body movements and facial expressions to convey powerful emotional narratives without uttering a single word.",
+      "Carved skillfully from lightweight local Kaduru wood and painted by hand in striking, luminous colors, each ceremonial mask embodies distinct mythological characters, ferocious demons, or comedic figures from local lore. The craftsmanship required to create these expressive works of art is an ancestral skill handed down strictly within specialized artisan families.",
+      "Witnessing these spellbinding, rhythmic theatrical performances firsthand provides an extraordinarily fascinating glimpse into the rich, living theatrical heritage preserved proudly by resilient coastal communities. It invites travelers to look beyond pristine beaches and appreciate the profound cultural depth humming beneath the surface of island life.",
+    ],
     gallery: [
       {
         id: "rl-1",
@@ -260,6 +290,12 @@ export const blogPosts: BlogPost[] = [
     readTime: "4 min read",
     likes: 71,
     published: "January 20, 2026",
+    content: [
+      "The distinct architectural movement known as tropical modernism in Sri Lanka seamlessly blends heritage colonial charm with sleek, contemporary luxury living designed for the tropics. Pioneered by legendary local visionaries, this design philosophy honors the surrounding natural environment rather than imposing foreign structures upon it, creating spaces that breathe in harmony with nature.",
+      "Historic colonial-era manor houses, plantation bungalows, and coastal fort properties are being thoughtfully, lovingly reimagined into exquisite boutique luxury villas that deeply honor their storied pasts. Original vaulted timber ceilings, polished cement floors, and massive stone walls are preserved meticulously while incorporating modern comforts and minimalist interior aesthetics.",
+      "Expansive open-air verandas, sheltered courtyards, and reflection pools actively invite the warm tropical breeze and natural sunlight inside every single living space, blurring the boundaries between indoor sanctuaries and outdoor gardens. This architectural openness allows guests to experience the gentle rhythms of island weather directly from the comfort of their suites.",
+      "This progressive design evolution offers discerning modern travelers an unparalleled standard of refined comfort, privacy, and understated aesthetic elegance. It transforms a standard holiday stay into an immersive architectural experience that celebrates the very best of tropical lifestyle design.",
+    ],
     gallery: [
       {
         id: "il-1",
@@ -303,6 +339,12 @@ export const blogPosts: BlogPost[] = [
     readTime: "12 min read",
     likes: 112,
     published: "January 22, 2026",
+    content: [
+      "Hidden deep within the rugged, mist-shrouded peaks of the Knuckles Mountain Range lie profound sanctuaries of absolute peace, stillness, and quietude far removed from civilization. These remote highlands are characterized by dramatic precipices, cascading waterfalls, and untouched cloud forests that create a natural fortress of solitude.",
+      "These highly secluded meditation retreats offer stressed modern travelers a exceedingly rare, invaluable opportunity to disconnect entirely from the relentless digital noise, connectivity, and pressures of contemporary life. Free from notifications and deadlines, visitors find themselves tuning into the natural rhythm of their own breathing and heartbeat.",
+      "Completely surrounded by dense, emerald-green cloud forests, plunging ravines, and crystal-clear mountain streams, practitioners discover an incredible depth of mental focus amidst untamed natural grandeur. The crisp, clean mountain air acts as a natural tonic, refreshing the senses with every single inhalation during walking meditations.",
+      "Embracing the profound, uninterrupted silence found within these mountain sanctuaries fosters an enduring, deep sense of self-discovery, emotional release, and ultimate mental clarity. It is an inward journey that leaves an indelible mark on the traveler's perspective long after returning to the bustling world.",
+    ],
     gallery: [
       {
         id: "ssi-1",
@@ -346,6 +388,12 @@ export const blogPosts: BlogPost[] = [
     readTime: "6 min read",
     likes: 95,
     published: "January 24, 2026",
+    content: [
+      "The traditional Ceylon tea service is vastly more than a simple daily beverage routine; it is an exquisite, elegant ritual deeply steeped in colonial history, botanical appreciation, and local craftsmanship. From the careful manual plucking of 'two leaves and a bud' on misty mountain slopes to the final graceful pour, every single step honors a legacy of excellence.",
+      "Every distinct batch of tea carries remarkably complex flavor notes, ranging from brisk and citrusy to malty and full-bodied, directly shaped by the unique high-altitude microclimates, soil composition, and fog of its origin estate. Connoisseurs can taste the very essence of the mountain sunshine and rain in each carefully processed infusion.",
+      "Pouring glowing, golden-hued liquor into delicate, hand-painted porcelain cups highlights the timeless grace and quiet luxury of a hospitality tradition cherished across generations of island residents and global travelers alike. It is a moment designed to pause time, encourage conversation, and engage all the senses simultaneously.",
+      "Learning proper brewing temperatures, steeping times, and pairing guidelines elevates this everyday beverage into an extraordinary, highly mindful sensory experience. It transforms a simple cup of tea into a profound cultural bridge connecting the drinker directly to the mist-laden hills of Sri Lanka.",
+    ],
     gallery: [
       {
         id: "ac-1",
@@ -389,6 +437,12 @@ export const blogPosts: BlogPost[] = [
     readTime: "9 min read",
     likes: 142,
     published: "January 26, 2026",
+    content: [
+      "Wandering leisurely through the atmospheric, sun-warmed cobblestone streets of Galle Fort feels like stepping straight back into a beautifully preserved living history museum where past and present coexist seamlessly. Enclosed by massive stone fortifications built centuries ago, this UNESCO World Heritage site retains an old-world charm unlike any other place in South Asia.",
+      "Massive, weathered centuries-old granite ramparts and imposing bastions stand proudly against the crashing turquoise waves of the Indian Ocean, telling silent tales of maritime spice trade, naval battles, and colonial conquest. Walking along the rampart walls at sunset offers a magnificent vantage point where locals and travelers gather to watch the sky turn golden.",
+      "Charming artisan jewelry boutiques, sunlit art galleries, specialty cafes, and meticulously restored Dutch-colonial merchant houses harmoniously populate this vibrant, pedestrian-friendly walled community. The air is filled with the scent of boutique coffee, blooming frangipani flowers, and salty ocean breezes drifting in from the harbor.",
+      "Every single street corner and coral-stone wall reveals fascinating architectural layers and cultural fusions left behind by Portuguese navigators, Dutch administrators, and British governors over successive centuries. It is a dynamic community where contemporary creative energy breathes new life into ancient stone foundations.",
+    ],
     gallery: [
       {
         id: "gf-1",
@@ -432,6 +486,12 @@ export const blogPosts: BlogPost[] = [
     readTime: "6 min read",
     likes: 1248,
     published: "January 19, 2026",
+    content: [
+      "Stepping into the archaeological park of Polonnaruwa is truly like entering an extraordinary working time machine where the tropical air remains thick with ancient history, and every weathered stone tells a vivid story of a kingdom that was once the absolute pinnacle of medieval Asian civilization. As your knowledgeable personal guide through these sacred grounds, I do not just show you silent ruins; I actively bring them back to life with rich context.",
+      "Together, we explore the awe-inspiring remnants of the Royal Palace and the magnificent Audience Hall, where powerful ancient monarchs sat in council and made landmark decisions that shaped the island's geopolitical destiny for centuries. Experiencing the golden sunrise breaking over the monolithic rock sculptures of Gal Vihara is an emotional, transcendent experience that stays etched in your memory forever, especially as the morning light illuminates the serene expression of the reclining Buddha.",
+      "Intricately carved, semi-circular moonstones positioned at temple entrances symbolize the profound Buddhist philosophical path to ultimate spiritual liberation, demonstrating peerless artistic mastery in stonecutting and iconography. Each ring of carved animals—elephants, lions, horses, and bulls—represents the cyclical struggles of human existence that must be transcended to achieve inner peace.",
+      "For our discerning international visitors coming from countries like Japan and France, we provide specialized, highly contextualized insights into striking architectural parallels and deep historical trade links, ensuring your intellectual journey through these ruins is as deeply educational as it is breathtakingly visual.",
+    ],
     gallery: [
       {
         id: "lk-1",

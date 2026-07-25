@@ -11,7 +11,7 @@ import { FilterSidebar } from "@/components/ui/FilterSidebar";
 import CustomSelect from "@/components/ui/CustomSelect";
 import { bookingTour } from "@/data/booking";
 //Icons
-import { Map, ListFilter, ArrowUpDown } from "lucide-react";
+import { ListFilter, ArrowUpDown } from "lucide-react";
 
 type ReviewsBodyProps = {
   tour: typeof bookingTour;
@@ -184,15 +184,6 @@ export default function ReviewsBody({ tour }: ReviewsBodyProps) {
       </div>
 
       {showForm && <ReviewForm onBack={() => setShowForm(false)} />}
-
-      {!showForm && (
-        <div className="mt-20 flex justify-center pb-12">
-          <Button variant="explore" href={`/booking/${tour.slug}`}>
-            <Map className="mr-3 inline h-4 w-4" />
-            Resume Your Paradise Journey
-          </Button>
-        </div>
-      )}
 
       <FilterSidebar
         isOpen={isFilterOpen}

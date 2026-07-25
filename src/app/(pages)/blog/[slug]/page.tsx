@@ -42,8 +42,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   return (
     <main className="bg-lanka-black">
       <UserPageLayout>
-
-          <Hero
+        <Hero
           image={post.image}
           altText={post.altText}
           eyebrow={post.category}
@@ -54,20 +53,5 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
         <BlogArticle post={post} />
       </UserPageLayout>
     </main>
-
-    
   );
 }
-
-
-
-
-
-
-
-
-
-
-  
-      
-   

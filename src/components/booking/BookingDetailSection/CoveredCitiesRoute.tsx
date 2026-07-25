@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { MapPin, Map, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import DestinationsMap from "@/components/Destinations/DestinationsMap/DestinationsMap";
 import { Button } from "@/components/ui/Button";
-
+//Icons
+import { MapPin, Map, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 type CoveredDestination = {
   id: number;
   slug: string;

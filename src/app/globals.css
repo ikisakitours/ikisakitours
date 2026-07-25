@@ -285,27 +285,35 @@ textarea {
 } */
 
 /* Itinerary Section */
-/* Optimized Grid Accordion */
+/* ==========================================
+   Buttery Smooth Accordion
+   ========================================== */
 .accordion-content-wrapper {
   display: grid;
   grid-template-rows: 0fr;
-  will-change: grid-template-rows, opacity;
-  transition:
-    grid-template-rows 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.3s ease-out;
-  opacity: 0;
+  transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .accordion-content-wrapper.is-open {
   grid-template-rows: 1fr;
-  opacity: 1;
 }
 
 .accordion-content-inner {
   overflow: hidden;
-  min-height: 0;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition:
+    opacity 0.25s ease-out,
+    transform 0.25s ease-out;
 }
 
+.accordion-content-wrapper.is-open .accordion-content-inner {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.4s ease-out 0.1s,
+    transform 0.4s ease-out 0.1s;
+}
 /* ==========================================
    React Phone Number Input - Country Dropdown Fix
    ========================================== */

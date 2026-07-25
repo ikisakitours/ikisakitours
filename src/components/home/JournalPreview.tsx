@@ -53,7 +53,7 @@ export function JournalPreview() {
                 <p className="line-clamp-2 mb-4 text-sm font-light italic leading-relaxed text-slate-300 md:text-base 3xl:mb-6 3xl:text-lg">
                   {post.excerpt}
                 </p>
-                <Link href={`/blog/${post.slug}`} className="group/link inline-flex w-fit items-center text-[10px] font-bold uppercase tracking-[0.2em] text-gold 3xl:text-xs">
+                <Link href={`/blog/${post.slug}?from=home`} className="group/link inline-flex w-fit items-center text-[10px] font-bold uppercase tracking-[0.2em] text-gold 3xl:text-xs">
                   Read More
                   <ArrowRight className="ml-2 h-3.5 w-3.5 transition-transform group-hover/link:translate-x-2 3xl:h-4 3xl:w-4" />
                 </Link>
