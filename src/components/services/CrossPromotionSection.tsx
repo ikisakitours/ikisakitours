@@ -25,7 +25,7 @@ export function CrossPromotionSection() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {displayPackages.map((pkg, index) => (
             <Link
-              href={`/booking/${pkg.slug}`}
+              href={`/booking/multi-days-tours/${pkg.slug}`}
               className="glass-card group block min-w-[85vw] snap-center overflow-hidden rounded-4xl border border-white/5 transition-all duration-700 hover:border-gold/40 sm:min-w-[45vw] xl:min-w-0"
               key={index}
             >
@@ -55,8 +55,9 @@ export function CrossPromotionSection() {
                     {pkg.duration}
                   </span>
 
-                  <span className="group relative flex shrink-0 items-center justify-center overflow-hidden rounded border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-500 hover:bg-gold hover:border-gold px-4 py-2 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] text-white">
+                  <span className="group relative flex shrink-0 items-center justify-center overflow-hidden rounded border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-500 hover:bg-gold hover:border-gold min-h-11 px-5 py-3 text-[10px] sm:min-h-0 sm:px-5 sm:py-2.5 font-bold uppercase tracking-[0.2em] text-white">
                     <span className="relative z-10 transition-colors duration-300 group-hover:text-white">Details</span>
+
                     {/* Shine effect */}
                     <div className="absolute inset-0 z-0 h-full w-full -translate-x-full bg-linear-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full" />
 

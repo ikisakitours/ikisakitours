@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { bookingTour } from "@/data/booking";
+import { bookingTour } from "@/data/oneDayBooking";
 import ReviewsBody from "@/components/booking/bookingReviews/ReviewsBody";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 

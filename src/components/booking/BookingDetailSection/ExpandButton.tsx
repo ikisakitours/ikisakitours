@@ -23,13 +23,13 @@ export default function ExpandButton({
 }: ExpandButtonProps) {
   return (
     <div
-      className={`mt-6 flex ${
+      className={`mt-6 flex  ${
         align === "left" ? "justify-start" : "justify-center"
       } ${showBorder ? "border-t border-white/5 pt-4" : ""}`}
     >
       <button
         onClick={onClick}
-        className={`group flex cursor-pointer items-center gap-1.5 rounded-lg px-6 py-3 text-[12px] font-bold uppercase tracking-widest text-gold transition-colors hover:bg-white/5 hover:text-white focus:outline-none [-webkit-tap-highlight-color:transparent] ${className}`}
+        className={`group flex cursor-pointer items-center gap-1.5  px-6 py-3 text-[12px] font-bold uppercase tracking-widest text-gold transition-colors  focus:outline-none [-webkit-tap-highlight-color:transparent] ${className}`}
       >
         {isExpanded ? collapseText : expandText}
         <ChevronDown

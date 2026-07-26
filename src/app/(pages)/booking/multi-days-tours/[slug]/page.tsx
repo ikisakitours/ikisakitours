@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import BookingBody from "@/components/booking/BookingBody";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
-import { bookingTour, travelerOptions, bookingAssurances } from "@/data/booking";
+import { bookingTour, travelerOptions, bookingAssurances } from "@/data/multiDaysBooking";
 
 type BookingPageProps = {
   params: Promise<{

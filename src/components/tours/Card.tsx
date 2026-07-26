@@ -8,6 +8,7 @@ import { FaClock } from "react-icons/fa6";
 
 type PackageCardProps = {
   item: TourPackage;
+  tourType?: "multi" | "one";
 };
 const getBadgeStyles = (type: BadgeType) => {
   switch (type) {
@@ -21,7 +22,10 @@ const getBadgeStyles = (type: BadgeType) => {
       return "bg-white/10 text-white";
   }
 };
-export function Card({ item }: PackageCardProps) {
+export function Card({ item, tourType }: PackageCardProps) {
+  const bookingHref =
+    tourType === "one" ? `/booking/one-day-tours/${item.slug}` : `/booking/multi-days-tours/${item.slug}`;
+
   return (
     <article className="group relative flex h-full w-full flex-col overflow-hidden rounded-xl border border-white/10 bg-[#111] shadow-2xl transition-all duration-500 hover:border-gold/50">
       {item.badges.length > 0 && (
@@ -62,14 +66,16 @@ export function Card({ item }: PackageCardProps) {
         </div>
       </div>
       <div className="flex grow flex-col p-5 sm:p-6">
-        <h2 className="mb-2 text-lg font-bold italic text-white">{item.title}</h2>
-        <p className="mb-6 grow text-sm font-normal leading-relaxed text-slate-200 line-clamp-3">{item.description}</p>
+        <h2 className="mb-2 text-[17px] font-bold italic text-white">{item.title}</h2>
+        <p className="mb-6 grow text-[13px] font-normal leading-relaxed text-slate-200 line-clamp-2">
+          {item.description}
+        </p>
         <div className="mt-auto flex items-center justify-between border-t border-white/5 pt-4">
           <div>
-            <p className="text-[11px] uppercase leading-none tracking-widest text-slate-300">Starting from</p>{" "}
+            <p className="text-[11px] uppercase leading-none tracking-widest text-slate-300">Starting from</p>
             <p className="mt-1 text-lg font-bold text-gold">{item.price}</p>
           </div>
-          <Button variant="details" href={`/booking/${item.slug}`}>
+          <Button variant="details" href={bookingHref}>
             Details
           </Button>
         </div>

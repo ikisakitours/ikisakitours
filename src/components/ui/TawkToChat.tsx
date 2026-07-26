@@ -4,22 +4,63 @@ import Script from "next/script";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
+declare global {
+  interface Window {
+    Tawk_API?: {
+      hideWidget: () => void;
+      showWidget: () => void;
+    };
+  }
+}
+
 export default function TawkToChat() {
   const pathname = usePathname();
-
   const [isPreloaderDone, setIsPreloaderDone] = useState(false);
 
   useEffect(() => {
-    // Preloader එකේ 9000ms + 1200ms exit animation එකට සරිලන සේ තත්පර 10.2ක් ලබාදීම
+    //  5000ms + 1200ms
     const timer = setTimeout(() => {
       setIsPreloaderDone(true);
-    }, 10200);
+    }, 6200);
 
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const handleMenuStateChange = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      const isMenuOpen = customEvent.detail?.isOpen;
+
+      if (window.Tawk_API) {
+        if (isMenuOpen) {
+          window.Tawk_API.hideWidget();
+        } else {
+          setTimeout(() => {
+            window.Tawk_API?.showWidget();
+          }, 800);
+        }
+      }
+    };
+
+    window.addEventListener("mobileMenuStateChange", handleMenuStateChange);
+
+    return () => {
+      window.removeEventListener("mobileMenuStateChange", handleMenuStateChange);
+    };
+  }, []);
+
   const hiddenRoutes = ["/login", "/signup", "/password-change", "/confirm-email"];
   const isHidden = hiddenRoutes.includes(pathname);
+
+  useEffect(() => {
+    if (isPreloaderDone && window.Tawk_API) {
+      if (isHidden) {
+        window.Tawk_API.hideWidget();
+      } else {
+        window.Tawk_API.showWidget();
+      }
+    }
+  }, [isHidden, isPreloaderDone]);
 
   if (isHidden || !isPreloaderDone) {
     return null;

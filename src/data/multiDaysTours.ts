@@ -9,13 +9,13 @@ export const MultiDaysHeroData = {
 
 // 1. Dynamic Types
 export type MultiDaysPackageCategory = string;
-export type MultiDaysBadgeType = "popular" | "sale" | "new";
-export type MultiDaysPackageBadge = {
+export type BadgeType = "popular" | "sale" | "new";
+export type PackageBadge = {
   label: string;
-  type: MultiDaysBadgeType;
+  type: BadgeType;
 };
 
-export type MultiDaysTourPackage = {
+export type TourPackage = {
   title: string;
   slug: string;
   subtitle: string;
@@ -28,12 +28,12 @@ export type MultiDaysTourPackage = {
   duration: string;
   rating: string;
   price: string;
-  badges: MultiDaysPackageBadge[];
+  badges: PackageBadge[];
 };
 
-export const packages: MultiDaysTourPackage[] = [
+export const packages: TourPackage[] = [
   {
-    slug: "minneriya-national-park-elephant-safari",
+   slug: "minneriya-national-park-elephant-safari",
     title: "Ancient Kingdom Sigiriya",
     subtitle: "Royal Palace Exploration",
     origin: "From Colombo",
@@ -52,7 +52,7 @@ export const packages: MultiDaysTourPackage[] = [
     ],
   },
   {
-    slug: "minneriya-national-park-elephant-safari1",
+   slug: "minneriya-national-park-elephant-safari",
     title: "Sacred City of Kandy",
     subtitle: "Cultural & Botanical Tour",
     origin: "From Negombo",
@@ -68,7 +68,7 @@ export const packages: MultiDaysTourPackage[] = [
     badges: [{ label: "New Arrival", type: "new" }],
   },
   {
-    slug: "minneriya-national-park-elephant-safari2",
+    slug: "minneriya-national-park-elephant-safari",
     title: "Ella Highlands Dream",
     subtitle: "Scenic Mountain Trek",
     origin: "From Nuwara Eliya",
@@ -87,7 +87,7 @@ export const packages: MultiDaysTourPackage[] = [
     ],
   },
   {
-    slug: "minneriya-national-park-elephant-safari3",
+   slug: "minneriya-national-park-elephant-safari",
     title: "Southern Azure Shores",
     subtitle: "Luxury Beach Escape",
     origin: "From Galle",
@@ -103,7 +103,7 @@ export const packages: MultiDaysTourPackage[] = [
     badges: [{ label: "New Arrival", type: "new" }],
   },
   {
-    slug: "minneriya-national-park-elephant-safari4",
+    slug: "minneriya-national-park-elephant-safari",
     title: "Yala Wilderness Safari",
     subtitle: "Private Jeep Safari",
     origin: "From Hambantota",
@@ -119,7 +119,7 @@ export const packages: MultiDaysTourPackage[] = [
     badges: [{ label: "Trending", type: "popular" }],
   },
   {
-    slug: "minneriya-national-park-elephant-safari5",
+    slug: "minneriya-national-park-elephant-safari",
     title: "Ruins of Polonnaruwa",
     subtitle: "Ancient City Cycling",
     origin: "From Sigiriya",
@@ -135,7 +135,7 @@ export const packages: MultiDaysTourPackage[] = [
     badges: [],
   },
   {
-    slug: "minneriya-national-park-elephant-safari6",
+   slug: "minneriya-national-park-elephant-safari",
     title: "Trincomalee Pristine Sands",
     subtitle: "East Coast Snorkeling",
     origin: "From Habarana",
@@ -151,7 +151,7 @@ export const packages: MultiDaysTourPackage[] = [
     badges: [{ label: "Save 15%", type: "sale" }],
   },
   {
-    slug: "minneriya-national-park-elephant-safari7",
+   slug: "minneriya-national-park-elephant-safari",
     title: "Dambulla Cave Sanctuaries",
     subtitle: "Sacred Cave Expedition",
     origin: "From Kandy",

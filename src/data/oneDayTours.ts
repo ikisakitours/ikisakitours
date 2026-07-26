@@ -2,13 +2,13 @@
 
 // 1. Dynamic Types
 export type OneDayPackageCategory = string;
-export type OneDayBadgeType = "popular" | "sale" | "new";
-export type OneDayPackageBadge = {
+export type BadgeType = "popular" | "sale" | "new";
+export type PackageBadge = {
   label: string;
-  type: OneDayBadgeType;
+  type: BadgeType;
 };
 
-export type OneDayTourPackage = {
+export type TourPackage = {
   title: string;
   slug: string;
   subtitle: string;
@@ -21,7 +21,7 @@ export type OneDayTourPackage = {
   duration: string;
   rating: string;
   price: string;
-  badges: OneDayPackageBadge[];
+  badges: PackageBadge[];
 };
 
 export const oneDayHeroData = {
@@ -33,9 +33,9 @@ export const oneDayHeroData = {
   image: "https://images.unsplash.com/photo-1588614959060-4d144f28b207?auto=format&fit=crop&q=80&w=2400", 
 };
 
-export const oneDayTours: OneDayTourPackage[] = [
+export const oneDayTours: TourPackage[] = [
   {
-    slug: "galle-fort-and-madu-river",
+    slug: "minneriya-national-park-elephant-safari",
     title: "Galle Fort & Madu River",
     subtitle: "Coastal Heritage & Mangroves",
     origin: "From Colombo or Bentota",
@@ -53,7 +53,7 @@ export const oneDayTours: OneDayTourPackage[] = [
     ],
   },
   {
-    slug: "kandy-city-and-temple-of-tooth",
+    slug: "minneriya-national-park-elephant-safari",
     title: "Kandy Cultural Insight",
     subtitle: "Sacred Relics & Botanical Beauty",
     origin: "From Colombo or Negombo",
@@ -68,7 +68,7 @@ export const oneDayTours: OneDayTourPackage[] = [
   badges: [{ label: "New Arrival", type: "new" }],
   },
   {
-    slug: "udawalawe-safari-day-trip",
+    slug: "minneriya-national-park-elephant-safari",
     title: "Udawalawe Elephant Safari",
     subtitle: "Wild Elephant Encounters",
     origin: "From South Coast or Colombo",
@@ -86,7 +86,7 @@ export const oneDayTours: OneDayTourPackage[] = [
     ],
   },
   {
-    slug: "colombo-city-shopping-tour",
+    slug: "minneriya-national-park-elephant-safari",
     title: "Colombo City & Shopping",
     subtitle: "Urban Pulse & Architecture",
     origin: "From Negombo or Airport",
@@ -101,7 +101,7 @@ export const oneDayTours: OneDayTourPackage[] = [
     badges: [{ label: "New Arrival", type: "new" }],
   },
   {
-    slug: "sigiriya-and-dambulla-day-tour",
+   slug: "minneriya-national-park-elephant-safari",
     title: "Sigiriya Rock & Dambulla",
     subtitle: "Ancient Wonders in a Day",
     origin: "From Kandy or Colombo",
@@ -116,7 +116,7 @@ export const oneDayTours: OneDayTourPackage[] = [
     badges: [{ label: "Trending", type: "popular" }],
   },
   {
-    slug: "mirissa-whale-watching",
+  slug: "minneriya-national-park-elephant-safari",
     title: "Mirissa Whale Watching",
     subtitle: "Marine Giants Expedition",
     origin: "From Galle or Mirissa",

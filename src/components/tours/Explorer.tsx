@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useTransition } from "react";
 import { Card } from "@/components/tours/Card";
-import { type MultiDaysTourPackage } from "@/data/multiDaysTours";
+import { type TourPackage } from "@/data/multiDaysTours";
 import { FilterSidebar } from "./FilterSidebar";
 import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -12,7 +12,8 @@ import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Filter } from "lucide-react";
 
 type PackageExplorerProps = {
-  packages: MultiDaysTourPackage[];
+  packages: TourPackage[];
+  tourType?: "multi" | "one";
 };
 
 const INITIAL_COUNT = 4;
@@ -32,7 +33,7 @@ const dynamicRatingFilters = [
   { value: "4.8", label: "4.8 & up" },
 ];
 
-export function Explorer({ packages }: PackageExplorerProps) {
+export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<string>("all");
   const [priceRange, setPriceRange] = useState("Any price");
@@ -173,7 +174,7 @@ export function Explorer({ packages }: PackageExplorerProps) {
           <>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4 3xl:gap-10">
               {visiblePackages.map((item) => (
-                <Card key={item.title} item={item} />
+                <Card key={item.title} item={item} tourType={tourType} />
               ))}
             </div>
 

@@ -1,4 +1,4 @@
-import { bookingTour } from "@/data/booking";
+import { bookingTour } from "@/data/multiDaysBooking";
 import { BookingNavigation } from "@/components/booking/BookingNavigation";
 import BookingHeader from "@/components/booking/BookingDetailSection/BookingHeader";
 import BookingGallery from "@/components/booking/BookingDetailSection/BookingGallery";

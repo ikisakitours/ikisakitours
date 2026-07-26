@@ -9,6 +9,8 @@ import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 //Icons
 import { LogOut, UserRound } from "lucide-react";
 import { type MouseEvent, useEffect, useRef, useState } from "react";
+import { CurrencySelector } from "@/components/layout/CurrencySelector";
+import { LanguageSelector } from "@/components/layout/LanguageSelector";
 
 const navLinkClass =
   "relative pb-1 transition-colors duration-[400ms] after:absolute after:-bottom-0.5 after:left-1/2 after:h-px after:w-0 after:-translate-x-1/2 after:bg-[linear-gradient(90deg,transparent,var(--gold),transparent)] after:transition-all after:duration-[400ms] after:ease-[cubic-bezier(0.4,0,0.2,1)] after:content-[''] hover:text-gold hover:[text-shadow:0_0_10px_rgba(197,160,89,0.3)] hover:after:w-full";
@@ -118,6 +120,7 @@ export function SiteHeader() {
       document.body.classList.remove("overflow-hidden");
     };
   }, [isMenuOpen]);
+
   // ==========================================
   // Framer Motion Animation Variants
   // ==========================================
@@ -204,6 +207,7 @@ export function SiteHeader() {
       if (nextValue) {
         closeProfileDropdown();
       }
+      window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: nextValue } }));
       return nextValue;
     });
   };
@@ -227,7 +231,9 @@ export function SiteHeader() {
         id="main-nav"
         ref={navRef}
         className={`fixed w-full z-100 border-b transition-all duration-500 ${
-          isScrolled ? "border-b-[rgba(212,175,55,0.2)] bg-[rgba(5,5,5,0.9)] backdrop-blur-[20px]" : "border-white/0"
+          isScrolled || isMenuOpen
+            ? "border-b-[rgba(212,175,55,0.2)] bg-[rgba(5,5,5,0.9)] backdrop-blur-[20px]"
+            : "border-white/0"
         }`}
       >
         <ContainerLayout>
@@ -258,13 +264,12 @@ export function SiteHeader() {
               </div>
             </Link>
 
-            {/* Desktop Navigation - Changed lg:flex to xl:flex for iPad Pro compatibility */}
-            <div className="hidden items-center space-x-8 text-[14px] font-bold uppercase tracking-[0.2em] text-slate-200 xl:flex xl:space-x-12">
+            {/* Desktop Navigation */}
+            <div className="hidden items-center space-x-8 text-[11px] 2xl:text-[12px] font-bold uppercase tracking-[0.2em] text-slate-200 xl:flex xl:space-x-9">
               {primaryNavigation.map((item) => {
                 return (
                   <div key={item.label} className="group relative">
                     {"isDropdown" in item && item.isDropdown ? (
-                      // Dropdown Menu Item
                       <>
                         <button className={`${navLinkClass} flex items-center gap-1 uppercase`}>
                           {item.label}
@@ -281,7 +286,7 @@ export function SiteHeader() {
                                 key={sub.href}
                                 href={subFinalHref}
                                 onClick={(e) => handleNavigation(e, subFinalHref, false)}
-                                className="px-5 py-2.5 text-[11px] tracking-[0.15em] [word-spacing:3px] text-white/80 hover:bg-gold/10 hover:text-gold transition-colors block"
+                                className="px-5 py-2.5 text-[9px] xl:text-[10px] tracking-[0.15em] [word-spacing:3px] text-white/80 hover:bg-gold/10 hover:text-gold transition-colors block"
                               >
                                 {sub.label}
                               </Link>
@@ -294,7 +299,7 @@ export function SiteHeader() {
                         <Link
                           href={getFinalHref(item.href, item.sectionId)}
                           onClick={(e) => handleNavigation(e, getFinalHref(item.href, item.sectionId), false)}
-                          className={`${navLinkClass} text-[13px] tracking-[0.25em] [word-spacing:3px]`}
+                          className={`${navLinkClass} text-[10px] xl:text-[11px] 2xl:text-[12px] tracking-[0.25em] [word-spacing:3px]`}
                         >
                           {item.label}
                         </Link>
@@ -305,20 +310,15 @@ export function SiteHeader() {
               })}
             </div>
 
-            <div className="flex items-center space-x-6 relative z-101">
-              <div className="hidden items-center space-x-3 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-md sm:flex">
-                <span className="cursor-pointer transition-transform hover:scale-125" title="Japanese">
-                  🇯🇵
-                </span>
-                <span className="cursor-pointer transition-transform hover:scale-125" title="French">
-                  🇫🇷
-                </span>
-                <span className="cursor-pointer transition-transform hover:scale-125" title="Spanish">
-                  🇪🇸
-                </span>
-                <span className="cursor-pointer transition-transform hover:scale-125" title="English">
-                  🇬🇧
-                </span>
+            <div className="flex items-center space-x-4 relative z-101">
+              {/* Desktop Language Selector */}
+              <div className="hidden lg:block">
+                <LanguageSelector />
+              </div>
+
+              {/* Desktop Currency Selector */}
+              <div className="hidden lg:block">
+                <CurrencySelector />
               </div>
 
               {/* Profile Dropdown */}
@@ -393,7 +393,7 @@ export function SiteHeader() {
                 </div>
               </div>
 
-              {/* Hamburger Button - Changed lg:hidden to xl:hidden for iPad Pro compatibility */}
+              {/* Hamburger Button */}
               <button
                 id="mobile-menu-btn"
                 type="button"
@@ -429,7 +429,7 @@ export function SiteHeader() {
       <AnimatePresence mode="wait">
         {isMenuOpen && (
           <>
-            {/* Background Overlay (Click to close) - Changed lg:hidden to xl:hidden */}
+            {/* Background Overlay (Click to close) */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -438,7 +438,7 @@ export function SiteHeader() {
               className="fixed inset-0 bg-black/60 backdrop-blur-sm z-90 xl:hidden"
             />
 
-            {/* Mobile Menu Drawer - FULL WIDTH ON MOBILE - Changed lg:hidden to xl:hidden */}
+            {/* Mobile Menu Drawer */}
             <motion.div
               id="animated-mobile-menu"
               layout
@@ -498,26 +498,22 @@ export function SiteHeader() {
                   })}
                 </motion.div>
 
-                {/* Bottom Actions (Language Flags) */}
+                {/* Bottom Actions (Language & Currency) */}
                 <motion.div
                   variants={bottomActionVariants}
                   initial="initial"
                   animate="enter"
                   exit="exit"
-                  className="mt-16 pt-8 border-t border-white/10 flex justify-center space-x-8"
+                  className="mt-12 pt-8 border-t border-white/10 flex flex-col items-center space-y-8"
                 >
-                  <span className="text-2xl cursor-pointer hover:scale-125 transition-transform" title="Japanese">
-                    🇯🇵
-                  </span>
-                  <span className="text-2xl cursor-pointer hover:scale-125 transition-transform" title="French">
-                    🇫🇷
-                  </span>
-                  <span className="text-2xl cursor-pointer hover:scale-125 transition-transform" title="Spanish">
-                    🇪🇸
-                  </span>
-                  <span className="text-2xl cursor-pointer hover:scale-125 transition-transform" title="English">
-                    🇬🇧
-                  </span>
+                  {/* Fixed Dropdown Bug: Targets ONLY the w-80 dropdown container and makes it open UPWARDS */}
+                  <div className="lg:hidden relative z-50 flex flex-col space-y-4 w-full justify-center items-center [&_.w-80.absolute]:right-auto! [&_.w-80.absolute]:left-1/2! [&_.w-80.absolute]:-translate-x-1/2! [&_.w-80.absolute]:bottom-full! [&_.w-80.absolute]:top-auto! [&_.w-80.absolute]:mb-2! [&_.w-80.absolute]:mt-0! [&_.w-80.absolute]:origin-bottom!">
+                    {/* Language Selector Above Currency */}
+                    <LanguageSelector />
+
+                    {/* Currency Selector Below */}
+                    <CurrencySelector />
+                  </div>
                 </motion.div>
               </div>
             </motion.div>

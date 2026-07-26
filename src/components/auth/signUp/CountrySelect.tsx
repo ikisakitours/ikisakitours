@@ -199,7 +199,7 @@ export function CountrySelect({
 
             {userInteracted && detectedCode && countryCode !== detectedCode && (
               <p className="text-[10px] font-medium leading-relaxed text-amber-500/90">
-                Note: The selected country differs from your detected location.
+                Note: The selected dialing code differs from your detected location. Please check.
               </p>
             )}
 

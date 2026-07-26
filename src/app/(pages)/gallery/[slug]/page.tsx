@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { blogPosts, type GalleryItem } from "@/data/blog";
-import { bookingTour } from "@/data/booking";
+import { bookingTour } from "@/data/multiDaysBooking";
 import { reviewMoments } from "@/data/GuestMomentsImages";
 import { GalleryCollection } from "@/components/gallery/GalleryCollection";
 import { GalleryHero } from "@/components/gallery/GalleryHero";

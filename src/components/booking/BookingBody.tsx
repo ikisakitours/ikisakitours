@@ -3,7 +3,7 @@ import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { BookingDetailSections } from "@/components/booking/BookingDetailSections";
 import RelatedBookingSections from "./RelatedBookingSections";
 import { BookingWidget } from "@/components/booking/BookingWidget";
-import type { bookingTour, travelerOptions } from "@/data/booking";
+import type { bookingTour, travelerOptions } from "@/data/multiDaysBooking";
 type BookingBodyProps = {
   tour: typeof bookingTour;
   options: typeof travelerOptions;

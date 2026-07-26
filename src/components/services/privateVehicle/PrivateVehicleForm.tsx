@@ -1,7 +1,7 @@
 "use client";
 
 import { type FormEvent, useState } from "react";
-import { Languages, privateVehicleSidebar } from "@/data/privateVehicle";
+import { privateVehicleSidebar } from "@/data/privateVehicle";
 import { vehicles } from "@/data/vehicles";
 import { ContactForm, type ContactData } from "@/components/services/ContactForm";
 import { PrivateVehicleJourneyFields } from "./PrivateVehicleJourneyFields";

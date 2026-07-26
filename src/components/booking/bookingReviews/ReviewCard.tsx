@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { bookingTour } from "@/data/booking";
+import { bookingTour } from "@/data/multiDaysBooking";
 import Link from "next/link";
 import { Images } from "lucide-react";
 import { RatingStars } from "@/components/ui/RatingStars";

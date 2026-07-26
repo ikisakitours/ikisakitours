@@ -119,7 +119,8 @@ export function ToursSection() {
           >
             {displayPackages.map((item, index) => (
               <motion.article
-                key={item.slug}
+                // key={item.slug}
+                key={`${item.slug}-${index}`}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.15, ease: [0.25, 1, 0.5, 1] }}
@@ -168,8 +169,8 @@ export function ToursSection() {
 
                 {/* Body */}
                 <div className="flex grow flex-col p-5 sm:p-6 3xl:p-8">
-                  <h4 className="mb-2 text-lg 3xl:text-2xl font-bold italic text-white">{item.title}</h4>
-                  <p className="line-clamp-3 mb-6 3xl:mb-8 grow text-sm 3xl:text-base font-normal leading-relaxed text-slate-200">
+                  <h4 className="mb-2 text-[17px] 3xl:text-2xl font-bold italic text-white">{item.title}</h4>
+                  <p className="line-clamp-2 mb-6 3xl:mb-8 grow text-[13px] 3xl:text-base font-normal leading-relaxed text-slate-200">
                     {item.description}
                   </p>
                   <div className="mt-auto flex items-center justify-between border-t border-white/5 pt-4">
@@ -177,7 +178,14 @@ export function ToursSection() {
                       <p className="text-[11px] uppercase leading-none tracking-widest text-slate-300">Starting from</p>
                       <p className="mt-1 text-lg font-bold text-gold">{item.price}</p>
                     </div>
-                    <Button variant="details" href={`/booking/${item.slug}`}>
+                    <Button
+                      variant="details"
+                      href={
+                        activeTab === "multi"
+                          ? `/booking/multi-days-tours/${item.slug}`
+                          : `/booking/one-day-tours/${item.slug}`
+                      }
+                    >
                       Details
                     </Button>
                   </div>
@@ -195,7 +203,7 @@ export function ToursSection() {
           transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
           className="mt-16 flex w-full items-center justify-center md:mt-20 3xl:mt-32"
         >
-          <Button variant="explore" href={activeTab === "multi" ? "/Tours/multi-days-tours" : "/Tours/one-day-tours"}>
+          <Button variant="explore" href={activeTab === "multi" ? "/tours/multi-days" : "/tours/one-day"}>
             {activeTab === "multi" ? "Visit All Multi Day Tours" : "View All One Day Tours"}
           </Button>
         </motion.div>

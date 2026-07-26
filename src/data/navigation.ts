@@ -9,13 +9,13 @@ export type NavItem = NavLink | NavDropdown;
 
 export const primaryNavigation: NavItem[] = [
   { label: "Home", href: "/", sectionId: "" },
-  { label: "The Experience", href: "/about", sectionId: "#about" },
+  { label: "Experience", href: "/about", sectionId: "#about" },
   {
     label: "Tours",
     isDropdown: true,
     subItems: [
-      { label: "Multi Days Tours", href: "/tours/multi-days-tours", sectionId: "#tours-multi" },
-      { label: "One Day Tours", href: "/tours/one-day-tours", sectionId: "#tours-one" },
+      { label: "Multi Days Tours", href: "/tours/multi-days", sectionId: "#tours-multi" },
+      { label: "One Day Tours", href: "/tours/one-day", sectionId: "#tours-one" },
     ],
   },
   {

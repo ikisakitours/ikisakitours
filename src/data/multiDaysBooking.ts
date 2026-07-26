@@ -113,8 +113,6 @@ export const bookingTour = {
     "Witness a spectacular Sri Lankan sunset over the reservoir, a perfect backdrop for wildlife sightings.",
     "Enjoy a seamless, door-to-door experience with convenient meeting points or optional transfers.",
   ],
-  mapEmbedSrc:
-    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.5283838458!2d80.7618!3d7.9608!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwNTcnMzguOSJOIDgwwrA0NSc0Mi41IkU!5e0!3m2!1sen!2slk!4v1620000000000!5m2!1sen!2slk",
   coveredDestinations: [
     {
       id: 1,
@@ -349,10 +347,13 @@ export const bookingTour = {
     "Early check-in & late check-out at hotels",
   ],
   essentials: [
-    { label: "Camera", icon: "camera" },
-    { label: "Glasses", icon: "glasses" },
-    { label: "Sunscreen", icon: "sun" },
-  ] satisfies ReadonlyArray<{ label: string; icon: EssentialIcon }>,
+    { label: "Camera" },
+    { label: "Glasses" },
+    { label: "Sunscreen" },
+    { label: "Backpack" },
+    { label: "Water Bottle" },
+    { label: "Walking Shoes" },
+  ],
 
   reviews: [
     {

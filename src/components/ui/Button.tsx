@@ -24,7 +24,7 @@ export function Button({ variant = "primary", href, children, className = "", ..
     explore: "group inline-flex items-center",
     auth: "!tracking-[0.2em] flex w-full items-center justify-center rounded-2xl bg-gradient-to-br from-gold to-gold-dark py-5 px-8 text-[13px] font-extrabold uppercase tracking-[0.6em] text-black transition-transform duration-300 hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0",
     details:
-      "group relative flex shrink-0 items-center justify-center overflow-hidden rounded border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-500 hover:bg-gold hover:border-gold px-4 py-2 sm:px-5 sm:py-2.5 lg:px-6",
+      "group relative flex shrink-0 items-center justify-center overflow-hidden rounded border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-500 hover:bg-gold hover:border-gold min-h-[44px] px-5 py-3 sm:min-h-0 sm:px-5 sm:py-2.5 lg:px-6",
     shine:
       "group relative flex items-center justify-center overflow-hidden rounded border-2 border-gold/30 bg-white/5 backdrop-blur-sm transition-all duration-500 hover:bg-gold hover:border-gold animate-pulse shadow-[0_0_15px_rgba(197,160,89,0.3)] px-6 py-3 md:px-8 md:py-4 3xl:px-10 3xl:py-5",
     reviewTag:
@@ -48,7 +48,7 @@ export function Button({ variant = "primary", href, children, className = "", ..
       </div>
     ) : variant === "details" ? (
       <>
-        <span className="relative z-10 text-[9px] font-bold uppercase tracking-[0.2em] text-white transition-colors duration-300  sm:text-[10px]">
+        <span className="relative z-10 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition-colors duration-300 sm:text-[10px]">
           {children}
         </span>
         <div className="absolute inset-0 z-0 h-full w-full -translate-x-full bg-linear-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full" />

@@ -9,7 +9,7 @@ import { ReviewCard } from "@/components/booking/bookingReviews/ReviewCard";
 import { ReviewForm } from "@/components/booking/bookingReviews/ReviewForm";
 import { FilterSidebar } from "@/components/ui/FilterSidebar";
 import CustomSelect from "@/components/ui/CustomSelect";
-import { bookingTour } from "@/data/booking";
+import { bookingTour } from "@/data/multiDaysBooking";
 //Icons
 import { ListFilter, ArrowUpDown } from "lucide-react";
 

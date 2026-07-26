@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
 import { Explorer } from "@/components/tours/Explorer";
 import { TourHero } from "@/components/tours/TourHero";
-import { oneDayTours, oneDayHeroData } from "@/data/oneDayTours";
+import { packages, MultiDaysHeroData } from "@/data/multiDaysTours";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 
 export const metadata: Metadata = {
-  title: "One Day Excursions | Heritage Curated Tours",
-  description: "Explore MapMate signature one-day excursions and quick escapes across Sri Lanka.",
+  title: "Heritage Curated Tours",
+  description: "Explore MapMate signature heritage, nature, religious, and coastal tour packages across Sri Lanka.",
 };
 
-export default function OneDayToursPage() {
+export default function MultiDayToursPage() {
   return (
     <main className="min-h-screen bg-lanka-dark">
       <UserPageLayout>
-        <TourHero data={oneDayHeroData} />
-        <Explorer packages={oneDayTours} />
+        <TourHero data={MultiDaysHeroData} />
+        <Explorer packages={packages} tourType="multi"/>
       </UserPageLayout>
     </main>
   );

@@ -1,4 +1,4 @@
-import { transferLanguages } from "@/data/transfers";
+import { Languages } from "@/data/privateVehicle";
 import { fieldLabelClass, inputClass } from "@/components/services/formStyles";
 import CustomDatePicker from "@/components/ui/CustomDatePicker";
 import CustomTimePicker from "@/components/ui/CustomTimePicker";
@@ -105,7 +105,7 @@ export function PrivateVehicleJourneyFields({
               onLanguageChange(val);
               setErrors((prev) => ({ ...prev, language: "" }));
             }}
-            options={transferLanguages}
+            options={Languages}
             icon={<Globe className="h-4 w-4" />}
             placeholder="Select Language"
           />
