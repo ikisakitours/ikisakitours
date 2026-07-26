@@ -3,7 +3,7 @@ import { ExperienceSection } from "@/components/home/ExperienceSection";
 import { DiscoverySection } from "@/components/home/DiscoverySection";
 import { HeroSection } from "@/components/home/HeroSection";
 import { JournalPreview } from "@/components/home/JournalPreview";
-import { PackagesSection } from "@/components/home/PackagesSection";
+import { ToursSection } from "@/components/home/ToursSection";
 import { PrivateVehicle } from "@/components/home/PrivateVehicle";
 import { TransfersSection } from "@/components/home/TransfersSection";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
@@ -19,7 +19,7 @@ export default function HomePage() {
       <PrivateVehicle />
       <CustomTourSection />
       <TransfersSection />
-      <PackagesSection />
+      <ToursSection />
       <JournalPreview />
       <ClientExperiencesSection />
       <HomeContactCTA />

@@ -1,9 +1,9 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
-import { PackageCard } from "@/components/packages/PackageCard";
-import { type TourPackage } from "@/data/packages";
-import { PackagesFilterSidebar } from "./PackagesFilterSidebar";
+import { Card } from "@/components/tours/Card";
+import { type MultiDaysTourPackage } from "@/data/multiDaysTours";
+import { FilterSidebar } from "./FilterSidebar";
 import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { SearchInput } from "@/components/ui/SearchInput";
@@ -12,7 +12,7 @@ import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Filter } from "lucide-react";
 
 type PackageExplorerProps = {
-  packages: TourPackage[];
+  packages: MultiDaysTourPackage[];
 };
 
 const INITIAL_COUNT = 4;
@@ -32,7 +32,7 @@ const dynamicRatingFilters = [
   { value: "4.8", label: "4.8 & up" },
 ];
 
-export function PackageExplorer({ packages }: PackageExplorerProps) {
+export function Explorer({ packages }: PackageExplorerProps) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<string>("all");
   const [priceRange, setPriceRange] = useState("Any price");
@@ -173,7 +173,7 @@ export function PackageExplorer({ packages }: PackageExplorerProps) {
           <>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4 3xl:gap-10">
               {visiblePackages.map((item) => (
-                <PackageCard key={item.title} item={item} />
+                <Card key={item.title} item={item} />
               ))}
             </div>
 
@@ -219,10 +219,10 @@ export function PackageExplorer({ packages }: PackageExplorerProps) {
         )}
       </ContainerLayout>
 
-      <PackagesFilterSidebar
+      <FilterSidebar
         isOpen={isFilterOpen}
         onClose={() => setIsFilterOpen(false)}
-        categories={dynamicCategories} 
+        categories={dynamicCategories}
         selectedCategory={category}
         onSelectCategory={(val) => {
           startTransition(() => {
@@ -230,10 +230,10 @@ export function PackageExplorer({ packages }: PackageExplorerProps) {
             setVisibleCount(INITIAL_COUNT);
           });
         }}
-        title="Filter Packages"
+        title="Filter Tour"
         categoryCounts={categoryCounts}
-        priceCategories={dynamicPriceFilters} 
-        ratingCategories={dynamicRatingFilters} 
+        priceCategories={dynamicPriceFilters}
+        ratingCategories={dynamicRatingFilters}
         priceCounts={priceCounts}
         ratingCounts={ratingCounts}
         priceRange={priceRange}

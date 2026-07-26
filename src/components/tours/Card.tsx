@@ -1,6 +1,6 @@
 import Image from "next/image";
-import type { TourPackage } from "@/data/packages";
-import { BadgeType } from "@/data/packages";
+import type { TourPackage } from "@/data/multiDaysTours";
+import { BadgeType } from "@/data/multiDaysTours";
 import { Button } from "@/components/ui/Button";
 //Icons
 import { Star } from "lucide-react";
@@ -21,7 +21,7 @@ const getBadgeStyles = (type: BadgeType) => {
       return "bg-white/10 text-white";
   }
 };
-export function PackageCard({ item }: PackageCardProps) {
+export function Card({ item }: PackageCardProps) {
   return (
     <article className="group relative flex h-full w-full flex-col overflow-hidden rounded-xl border border-white/10 bg-[#111] shadow-2xl transition-all duration-500 hover:border-gold/50">
       {item.badges.length > 0 && (
@@ -50,10 +50,10 @@ export function PackageCard({ item }: PackageCardProps) {
             <span className="mb-1 text-[10px] uppercase tracking-[0.2em] font-bold text-gold">
               {item.categoryLabel}
             </span>
-           <div className="flex items-center space-x-2 text-white">
-                                 <FaClock className="h-3.5 w-3.5 3xl:h-4 3xl:w-4 text-gold" />
-                                 <span className="text-[12px] 3xl:text-sm font-bold">{item.duration}</span>
-                               </div>
+            <div className="flex items-center space-x-2 text-white">
+              <FaClock className="h-3.5 w-3.5 3xl:h-4 3xl:w-4 text-gold" />
+              <span className="text-[12px] 3xl:text-sm font-bold">{item.duration}</span>
+            </div>
           </div>
           <div className="flex items-center space-x-1 rounded border border-white/10 bg-black/80 px-2 py-1 3xl:px-3 3xl:py-1.5 backdrop-blur-md">
             <Star className="h-3.5 w-3.5 3xl:h-4 3xl:w-4 text-gold" fill="currentColor" />

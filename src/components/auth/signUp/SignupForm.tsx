@@ -1,136 +1,37 @@
 "use client";
 
 import Link from "next/link";
-import { type FormEvent, useState, useRef } from "react";
+import { type FormEvent, useState } from "react";
 import { AuthFormHeader } from "../AuthFormHeader";
 import { AuthSocialButtons } from "../AuthSocialButtons";
 import { signupFormContent } from "@/data/auth";
 import { Button } from "@/components/ui/Button";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { FormError } from "@/components/ui/FormError";
-//Icons
-import { CheckCircle2, Eye, EyeOff, Lock, Mail, ShieldCheck, User } from "lucide-react";
+import { User, Mail } from "lucide-react";
+
+import { CountrySelect } from "./CountrySelect";
+import { PasswordField } from "./PasswordField";
+import { ConfirmPasswordField } from "./ConfirmPasswordField";
 
 const inputClass =
   "w-full rounded-2xl border border-white/10 bg-white/[0.03] py-3.5 px-5 text-sm text-white outline-none transition-all placeholder:text-slate-700 focus:border-gold focus:bg-gold/5 focus:shadow-[0_0_15px_rgba(197,160,89,0.05)]";
 
-const strengthChecks = [
-  { id: "length", regex: /.{8,}/, msg: "At least 8 characters" },
-  { id: "upper", regex: /[A-Z]/, msg: "1 Uppercase letter" },
-  { id: "lower", regex: /[a-z]/, msg: "1 Lowercase letter" },
-  { id: "num", regex: /\d/, msg: "1 Numeral" },
-  { id: "special", regex: /[^A-Za-z0-9]/, msg: "1 Special character" },
-];
-
 export function SignupForm() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [countryName, setCountryName] = useState("");
   const [terms, setTerms] = useState(false);
+
   const { errors, validate, setErrors } = useValidationForm();
-
-  // Password States
-  const [metRequirements, setMetRequirements] = useState<string[]>([]);
-  const [transientSuccessMsgs, setTransientSuccessMsgs] = useState<string[]>([]);
-  const [transientConfirmSuccess, setTransientConfirmSuccess] = useState<string[]>([]);
-  const [localNewError, setLocalNewError] = useState("");
-  const [localConfirmError, setLocalConfirmError] = useState("");
-
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const confirmTimerRef = useRef<NodeJS.Timeout | null>(null);
-
-  // --- Password Handling ---
-  const handlePasswordChange = (val: string) => {
-    setPassword(val);
-
-    if (val === "") {
-      setLocalNewError("");
-      setTransientSuccessMsgs([]);
-      setMetRequirements([]);
-      if (errors.password) setErrors((prev) => ({ ...prev, password: "" }));
-      return;
-    }
-
-    const currentlyMet = strengthChecks.filter((req) => req.regex.test(val)).map((req) => req.id);
-    const newlyMet = currentlyMet.filter((id) => !metRequirements.includes(id));
-
-    if (newlyMet.length > 0) {
-      const newMessages = newlyMet.map((id) => {
-        const metRule = strengthChecks.find((req) => req.id === id);
-        return `${metRule?.msg}`;
-      });
-
-      setTransientSuccessMsgs(newMessages);
-
-      if (timerRef.current) clearTimeout(timerRef.current);
-      timerRef.current = setTimeout(() => setTransientSuccessMsgs([]), 2000);
-    }
-    setMetRequirements(currentlyMet);
-
-    if (localNewError || errors.password) {
-      const unmet = strengthChecks.filter((req) => !req.regex.test(val));
-      if (unmet.length === 0) {
-        setLocalNewError("");
-      } else {
-        setLocalNewError(`Missing: ${unmet[0].msg}`);
-      }
-      if (errors.password) setErrors((prev) => ({ ...prev, password: "" }));
-    }
-  };
-
-  const handlePasswordBlur = () => {
-    if (password === "") return;
-
-    const unmet = strengthChecks.filter((req) => !req.regex.test(password));
-    if (unmet.length > 0) {
-      setLocalNewError(`Missing: ${unmet[0].msg}`);
-    } else {
-      setLocalNewError("");
-    }
-  };
-
-  // --- Confirm Password Handling ---
-  const handleConfirmChange = (val: string) => {
-    setConfirmPassword(val);
-
-    if (val === "") {
-      setLocalConfirmError("");
-      setTransientConfirmSuccess([]);
-      if (errors.confirmPassword) setErrors((prev) => ({ ...prev, confirmPassword: "" }));
-      return;
-    }
-
-    if (val === password) {
-      setTransientConfirmSuccess(["Passwords match"]);
-      if (confirmTimerRef.current) clearTimeout(confirmTimerRef.current);
-      confirmTimerRef.current = setTimeout(() => setTransientConfirmSuccess([]), 2000);
-      setLocalConfirmError("");
-      if (errors.confirmPassword) setErrors((prev) => ({ ...prev, confirmPassword: "" }));
-    } else {
-      setTransientConfirmSuccess([]);
-    }
-
-    if (localConfirmError || errors.confirmPassword) {
-      if (val === password) setLocalConfirmError("");
-      if (errors.confirmPassword) setErrors((prev) => ({ ...prev, confirmPassword: "" }));
-    }
-  };
-
-  const handleConfirmBlur = () => {
-    if (confirmPassword !== "" && confirmPassword !== password) {
-      setLocalConfirmError("Passwords do not match");
-    }
-  };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const isValid = validate({ fullName, email, password, confirmPassword, terms });
+    const isValid = validate({ fullName, email, password, confirmPassword, country: countryName, terms });
     if (isValid) {
-      console.log("Signup Valid!", { fullName, email, password });
+      console.log("Signup Valid!", { fullName, email, password, country: countryName });
     }
   };
 
@@ -141,6 +42,7 @@ export function SignupForm() {
       <div className="overflow-y-auto no-scrollbar pr-2">
         <form className="space-y-5" onSubmit={handleSubmit} noValidate>
           <div className="space-y-4">
+            {/* Full Name */}
             <label className="block space-y-2">
               <span className="ml-1 block text-[10px] font-bold uppercase tracking-[0.2em] text-gold">Full Name</span>
               <span className="group relative block">
@@ -160,6 +62,7 @@ export function SignupForm() {
               </div>
             </label>
 
+            {/* Email Address */}
             <label className="block space-y-2">
               <span className="ml-1 block text-[10px] font-bold uppercase tracking-[0.2em] text-gold">
                 Email Address
@@ -181,97 +84,39 @@ export function SignupForm() {
               </div>
             </label>
 
-            <label className="block space-y-2">
-              <span className="ml-1 block text-[10px] font-bold uppercase tracking-[0.2em] text-gold">
-                Secure Password
-              </span>
-              <span className="group relative block">
-                <Lock className="absolute left-5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-600 transition-colors group-focus-within:text-gold" />
-                <input
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  autoComplete="new-password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => handlePasswordChange(e.target.value)}
-                  onBlur={handlePasswordBlur}
-                  className={`${inputClass} pl-12 pr-12`}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword((value) => !value)}
-                  className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-600 transition-colors hover:text-gold"
-                >
-                  {showPassword ? (
-                    <EyeOff className="h-5.5 w-5.5 lg:h-5 lg:w-5" />
-                  ) : (
-                    <Eye className="h-5.5 w-5.5 lg:h-5 lg:w-5" />
-                  )}
-                </button>
-              </span>
+            {/* Country Component */}
+            <CountrySelect
+              countryName={countryName}
+              setCountryName={setCountryName}
+              error={errors.country}
+              clearError={() => {
+                if (errors.country) setErrors((prev) => ({ ...prev, country: "" }));
+              }}
+              inputClass={inputClass}
+            />
 
-              {/* Transient Success Message(s) */}
-              {transientSuccessMsgs.length > 0 && !(localNewError || errors.password) && (
-                <div className="ml-2 mt-1 flex flex-col space-y-1 animate-fade-in">
-                  {transientSuccessMsgs.map((msg, idx) => (
-                    <div key={idx} className="flex items-center space-x-1.5 text-[11px] font-medium text-emerald-400">
-                      <CheckCircle2 className="h-3.5 w-3.5 shrink-0" />
-                      <span>{msg}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
+            {/* Password Component */}
+            <PasswordField
+              value={password}
+              onChange={setPassword}
+              error={errors.password}
+              clearError={() => {
+                if (errors.password) setErrors((prev) => ({ ...prev, password: "" }));
+              }}
+              inputClass={inputClass}
+            />
 
-              <div className="ml-2 mt-1">
-                <FormError message={localNewError || errors.password} />
-              </div>
-            </label>
-
-            <label className="block space-y-2">
-              <span className="ml-1 block text-[10px] font-bold uppercase tracking-[0.2em] text-gold">
-                Confirm Password
-              </span>
-              <span className="group relative block">
-                <ShieldCheck className="absolute left-5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-600 transition-colors group-focus-within:text-gold" />
-                <input
-                  type={showConfirmPassword ? "text" : "password"}
-                  name="confirmPassword"
-                  autoComplete="new-password"
-                  placeholder="Confirm Password"
-                  value={confirmPassword}
-                  onChange={(e) => handleConfirmChange(e.target.value)}
-                  onBlur={handleConfirmBlur}
-                  className={`${inputClass} pl-12 pr-12`}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword((value) => !value)}
-                  className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-600 transition-colors hover:text-gold"
-                >
-                  {showConfirmPassword ? (
-                    <EyeOff className="h-5.5 w-5.5 lg:h-5 lg:w-5" />
-                  ) : (
-                    <Eye className="h-5.5 w-5.5 lg:h-5 lg:w-5" />
-                  )}
-                </button>
-              </span>
-
-              {/* Confirm Password Success */}
-              {transientConfirmSuccess.length > 0 && !(localConfirmError || errors.confirmPassword) && (
-                <div className="ml-2 mt-1 flex flex-col space-y-1 animate-fade-in">
-                  {transientConfirmSuccess.map((msg, idx) => (
-                    <div key={idx} className="flex items-center space-x-1.5 text-[11px] font-medium text-emerald-400">
-                      <CheckCircle2 className="h-3.5 w-3.5 shrink-0" />
-                      <span>{msg}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              <div className="ml-2 mt-1">
-                <FormError message={localConfirmError || errors.confirmPassword} />
-              </div>
-            </label>
+            {/* Confirm Password Component */}
+            <ConfirmPasswordField
+              value={confirmPassword}
+              passwordToMatch={password}
+              onChange={setConfirmPassword}
+              error={errors.confirmPassword}
+              clearError={() => {
+                if (errors.confirmPassword) setErrors((prev) => ({ ...prev, confirmPassword: "" }));
+              }}
+              inputClass={inputClass}
+            />
           </div>
 
           <div className="px-1 py-2">
@@ -284,11 +129,11 @@ export function SignupForm() {
               />
               <span className="text-[13px] md:text-[15px] lg:text-[14px] 3xl:text-[15px] font-light text-slate-400 transition-colors group-hover:text-slate-200">
                 I agree to the
-                <Link href="/legal#terms" className="text-gold underline underline-offset-4 ml-1">
+                <Link href="/legal/terms" className="text-gold underline underline-offset-4 ml-1">
                   Terms
                 </Link>
                 {" and "}
-                <Link href="/legal#privacy" className="text-gold underline underline-offset-4">
+                <Link href="/legal/privacy" className="text-gold underline underline-offset-4">
                   Privacy
                 </Link>
                 .
@@ -306,7 +151,7 @@ export function SignupForm() {
           <AuthSocialButtons label="Social Sign Up" />
 
           <div className="mt-8 pb-12 text-center">
-            <p className="text-[14px] md:text-[14px] lg:text-[15px] 2xl:text-[16px] 3xl:text-[17px]  font-light text-slate-500">
+            <p className="text-[14px] md:text-[14px] lg:text-[15px] 2xl:text-[16px] 3xl:text-[17px] font-light text-slate-500">
               Already have an account?
               <Link
                 href="/login"

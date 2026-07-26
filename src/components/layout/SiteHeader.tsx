@@ -81,8 +81,14 @@ export function SiteHeader() {
       e.preventDefault();
       const elementId = targetHref.replace("#", "");
 
+      if (elementId.startsWith("tours-")) {
+        window.dispatchEvent(new CustomEvent("tourTabChange", { detail: elementId }));
+      }
+
+      const scrollTargetId = elementId.startsWith("tours-") ? "tours" : elementId;
+
       const scrollAction = () => {
-        const element = document.getElementById(elementId);
+        const element = document.getElementById(scrollTargetId);
         if (element) {
           element.scrollIntoView({ behavior: "smooth" });
         }

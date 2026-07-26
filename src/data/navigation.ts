@@ -10,7 +10,14 @@ export type NavItem = NavLink | NavDropdown;
 export const primaryNavigation: NavItem[] = [
   { label: "Home", href: "/", sectionId: "" },
   { label: "The Experience", href: "/about", sectionId: "#about" },
-  { label: "Packages", href: "/packages", sectionId: "#packages" },
+  {
+    label: "Tours",
+    isDropdown: true,
+    subItems: [
+      { label: "Multi Days Tours", href: "/tours/multi-days-tours", sectionId: "#tours-multi" },
+      { label: "One Day Tours", href: "/tours/one-day-tours", sectionId: "#tours-one" },
+    ],
+  },
   {
     label: "Services",
     isDropdown: true,
@@ -38,7 +45,7 @@ export const footerLinks = [
   { label: "The Experience", href: "/about", sectionId: "#about" },
   { label: "Hidden Havens", href: "/destination", sectionId: "" },
   { label: "Tour Packages", href: "/packages", sectionId: "#packages" },
-  { label: "Journal", href: "/blog", sectionId: "#blog" },//Travel Guide
+  { label: "Journal", href: "/blog", sectionId: "#blog" }, //Travel Guide
   { label: "Contact", href: "/contact", sectionId: "#contact" },
   { label: "FAQ", href: "/faq" },
 ];

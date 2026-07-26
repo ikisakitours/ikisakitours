@@ -3,7 +3,7 @@ import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
 import Preloader from "@/components/ui/Preloader";
-import Script from "next/script";
+import TawkToChat from "@/components/ui/TawkToChat";
 
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -70,19 +70,7 @@ export default function RootLayout({
         <Preloader />
         {children}
         <Toaster position="top-center" richColors />
-        <Script id="tawk-to" strategy="lazyOnload">
-          {`
-            var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-            (function(){
-            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-            s1.async=true;
-            s1.src='https://embed.tawk.to/6a61fe0339cd571d47f5d6a8/1ju7cgg9t';
-            s1.charset='UTF-8';
-            s1.setAttribute('crossorigin','*');
-            s0.parentNode.insertBefore(s1,s0);
-            })();
-          `}
-        </Script>
+        <TawkToChat />
       </body>
     </html>
   );

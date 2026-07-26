@@ -60,7 +60,7 @@ const filterMenuVariants: Variants = {
   exit: { x: "calc(100% + 100px)", transition: { duration: 0.8, ease: customEase } },
 };
 
-export function PackagesFilterSidebar({
+export function FilterSidebar({
   isOpen,
   onClose,
   categories,

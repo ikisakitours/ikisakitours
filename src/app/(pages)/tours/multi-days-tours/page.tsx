@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { PackageExplorer } from "@/components/packages/PackageExplorer";
-import { PackageHero } from "@/components/packages/PackageHero";
-import { packages } from "@/data/packages";
+import { Explorer } from "@/components/tours/Explorer";
+import { TourHero } from "@/components/tours/TourHero";
+import { packages, MultiDaysHeroData } from "@/data/multiDaysTours";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 
 export const metadata: Metadata = {
@@ -13,8 +13,8 @@ export default function PackagesPage() {
   return (
     <main className="min-h-screen bg-lanka-dark">
       <UserPageLayout>
-        <PackageHero />
-        <PackageExplorer packages={packages} />
+        <TourHero data={MultiDaysHeroData} />
+        <Explorer packages={packages} />
       </UserPageLayout>
     </main>
   );

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/Button";
 import Image from "next/image";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { FormError } from "@/components/ui/FormError";
+import { CountrySelect } from "@/components/auth/signUp/CountrySelect";
 //Icons
 import { UploadCloud, ArrowLeft, Star, Trash2 } from "lucide-react";
 
@@ -121,21 +122,23 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
               <FormError message={errors.fullName} />
             </div>
             <div className="flex flex-col">
-              <label className="ml-2 mb-1 text-[10px] font-bold uppercase tracking-widest text-gold 3xl:text-xs">
-                Country
-              </label>
-              <input
-                type="text"
-                value={country}
-                onChange={(e) => {
-                  setCountry(e.target.value);
-                  setErrors((prev) => ({ ...prev, country: "" }));
-                }}
-                placeholder="e.g. Italy"
-                className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-sm text-white transition-colors focus:border-gold/50 focus:outline-none 3xl:text-lg 3xl:py-6"
-              />
-              <FormError message={errors.country} />
-            </div>
+                           <CountrySelect
+                             countryName={country}
+                             setCountryName={(val) => {
+                               setCountry(val);
+                               setErrors((prev) => ({ ...prev, country: "" }));
+                             }}
+                             error={errors.country}
+                             clearError={() => setErrors((prev) => ({ ...prev, country: "" }))}
+                             inputClass="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-sm text-white transition-colors group-hover:border-gold/50 focus:border-gold/50 focus:outline-none 3xl:py-6"
+                             showIcon={false}
+                             customLabel={
+                               <label className="mb-1 ml-2 block text-[10px] font-bold uppercase tracking-widest text-gold 3xl:text-xs">
+                                 Country
+                               </label>
+                             }
+                           />
+                         </div>
           </div>
 
           {/* Star Rating input */}

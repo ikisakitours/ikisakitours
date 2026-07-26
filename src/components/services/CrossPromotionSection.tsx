@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Clock, Star, MessageCircleHeart, ArrowRight } from "lucide-react";
-import { packages } from "@/data/packages";
+import { packages } from "@/data/multiDaysTours";
 import { testimonials } from "@/data/testimonials";
 import { RatingStars } from "@/components/ui/RatingStars";
 export function CrossPromotionSection() {
