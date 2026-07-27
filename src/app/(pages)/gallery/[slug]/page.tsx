@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { blogPosts, type GalleryItem } from "@/data/blog";
-import { bookingTour } from "@/data/multiDaysBooking";
+import { bookingTour as multiDayTour } from "@/data/multiDaysBooking";
+import { bookingTour as oneDayTour } from "@/data/oneDayBooking";
 import { reviewMoments } from "@/data/GuestMomentsImages";
 import { GalleryCollection } from "@/components/gallery/GalleryCollection";
 import { GalleryHero } from "@/components/gallery/GalleryHero";
@@ -13,26 +14,57 @@ type GalleryDetailPageProps = {
 export default async function GalleryDetailPage({ params, searchParams }: GalleryDetailPageProps) {
   const { slug } = await params;
   const resolvedSearchParams = await searchParams;
+
   const filter = resolvedSearchParams?.filter as string | undefined;
+  const filterOneDay = resolvedSearchParams?.["filter-one-day-tours"] as string | undefined;
+  const filterMultiDay = resolvedSearchParams?.["filter-multi-days-tours"] as string | undefined;
   const from = resolvedSearchParams?.from as string | undefined;
 
-  let post: (typeof blogPosts)[0] | typeof bookingTour | undefined = blogPosts.find((p) => p.slug === slug);
-  let isBookingTour = false;
+  const activeFilter = filterOneDay || filterMultiDay || filter;
 
-  if (!post && bookingTour.slug === slug) {
-    post = bookingTour;
-    isBookingTour = true;
+  let post: (typeof blogPosts)[0] | typeof multiDayTour | typeof oneDayTour | undefined = blogPosts.find(
+    (p) => p.slug === slug,
+  );
+  let isBookingTour = false;
+  let tourType: "one" | "multi" | undefined = undefined;
+
+  if (!post) {
+    if (filterOneDay && oneDayTour.slug === slug) {
+      post = oneDayTour;
+      isBookingTour = true;
+      tourType = "one";
+    } else if (filterMultiDay && multiDayTour.slug === slug) {
+      post = multiDayTour;
+      isBookingTour = true;
+      tourType = "multi";
+    } else if (multiDayTour.slug === slug) {
+      // Fallback
+      post = multiDayTour;
+      isBookingTour = true;
+      tourType = "multi";
+    } else if (oneDayTour.slug === slug) {
+      post = oneDayTour;
+      isBookingTour = true;
+      tourType = "one";
+    }
   }
 
   if (!post) {
     notFound();
   }
 
-  let dynamicBackLink = isBookingTour ? `/booking/${slug}` : `/blog/${slug}`;
-  let dynamicBackLabel = isBookingTour ? "Back to Tour" : "Back to Story";
-  if (isBookingTour && from === "reviews") {
-    dynamicBackLink = `/booking/${slug}/reviews`;
-    dynamicBackLabel = "Back to Reviews";
+  let dynamicBackLink = `/blog/${slug}`;
+  let dynamicBackLabel = "Back to Story";
+
+  if (isBookingTour) {
+    dynamicBackLink = tourType === "one" ? `/booking/one-day-tours/${slug}` : `/booking/multi-days-tours/${slug}`;
+    dynamicBackLabel = "Back to Tour";
+
+    if (from === "reviews") {
+      dynamicBackLink =
+        tourType === "one" ? `/booking/one-day-tours/${slug}/reviews` : `/booking/multi-days-tours/${slug}/reviews`;
+      dynamicBackLabel = "Back to Reviews";
+    }
   }
 
   let itemsToShow: GalleryItem[] = [];
@@ -41,29 +73,30 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
   let heroSubtitle = isBookingTour ? "Tour Gallery" : "Story Gallery";
 
   if (isBookingTour) {
-    const tour = post as typeof bookingTour;
+    const tour = post as typeof multiDayTour;
 
-    if (filter === "gallery") {
+    if (activeFilter === "gallery") {
       // 1. Package Gallery
       itemsToShow = tour.gallery as GalleryItem[];
       heroSubtitle = "Tour Gallery";
-    } else if (filter === "moments") {
+    } else if (activeFilter === "moments" || activeFilter === "all-moments") {
       // 2. Guest Moments
-      itemsToShow = reviewMoments.map((moment) => ({
-        id: moment.id,
+      itemsToShow = (tour.reviewMoments || reviewMoments).map((moment, index) => ({
+        id: `moment-${index}`,
         src: moment.src,
         alt: moment.alt,
-        title: moment.title,
+        title: "Guest Moment",
         category: "Guest Moments",
       }));
       heroTitle = "Guest Moments";
       heroSubtitle = `Captured memories from ${tour.title}`;
-    } else if (filter && filter.startsWith("review-")) {
-      const userName = filter.replace("review-", "");
+    } else if (activeFilter && activeFilter.startsWith("review-")) {
+      const encodedUserName = activeFilter.replace("review-", "");
+      const userName = decodeURIComponent(encodedUserName).trim();
 
-      const specificReview = tour.reviews.find((r) => r.name.toLowerCase() === userName);
+      const specificReview = tour.reviews.find((r) => r.name.toLowerCase().trim() === userName);
 
-      if (specificReview) {
+      if (specificReview && specificReview.photos && specificReview.photos.length > 0) {
         itemsToShow = specificReview.photos.map((photo) => ({
           id: photo.id,
           src: photo.src,
@@ -72,7 +105,6 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
           category: `Review by ${specificReview.name}`,
         }));
         heroTitle = `Review by ${specificReview.name}`;
-        // heroSubtitle = specificReview.country;
         heroSubtitle = `${specificReview.name}'s Gallery Moments`;
       } else {
         itemsToShow = tour.gallery as GalleryItem[];

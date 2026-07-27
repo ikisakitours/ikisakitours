@@ -38,7 +38,7 @@ export default async function BookingPage({ params }: BookingPageProps) {
 
   return (
     <UserPageLayout>
-      <BookingBody tour={tour} options={travelerOptions} assurances={bookingAssurances} />
+      <BookingBody tour={tour} options={travelerOptions} assurances={bookingAssurances} tourType="multi"/>
     </UserPageLayout>
   );
 }

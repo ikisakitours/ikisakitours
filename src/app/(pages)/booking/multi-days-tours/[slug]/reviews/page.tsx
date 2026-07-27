@@ -38,7 +38,7 @@ export default async function BookingReviewsPage({ params }: BookingReviewsPageP
 
   return (
     <UserPageLayout>
-      <ReviewsBody tour={tour} />
+      <ReviewsBody tour={tour} tourType="multi"/>
     </UserPageLayout>
   );
 }

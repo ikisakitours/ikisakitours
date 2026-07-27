@@ -38,7 +38,7 @@ export function GalleryHero({
           href={backLink}
           onClick={handleBack}
           style={{ letterSpacing: "0.5em" }}
-          className="group mb-7 inline-flex cursor-pointer items-center gap-2 text-[10px] font-bold uppercase text-gold transition-all hover:text-gold-light"
+          className="group relative z-10 mb-7 inline-flex cursor-pointer items-center gap-2 py-3 pr-4 text-[10px] font-bold uppercase text-gold transition-all hover:text-gold-light"
         >
           <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" />
           {backLabel}

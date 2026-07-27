@@ -36,13 +36,25 @@ type ReviewsSectionProps = {
     reviewMoments?: MomentItem[];
     reviews: ReviewItem[];
   };
+  tourType?: "multi" | "one";
 };
 
-export default function ReviewsSection({ tour }: ReviewsSectionProps) {
+export default function ReviewsSection({ tour, tourType }: ReviewsSectionProps) {
+  const reviewsHref =
+    tourType === "one"
+      ? `/booking/one-day-tours/${tour.slug}/reviews`
+      : `/booking/multi-days-tours/${tour.slug}/reviews`;
+
+  const galleryAllMomentHref =
+    tourType === "one"
+      ? `/gallery/${tour.slug}?filter-one-day-tours=all-moments`
+      : `/gallery/${tour.slug}?filter-multi-days-tours=all-moments`;
+
   const moments = tour.reviewMoments || [];
   const totalExtraImages = 0;
   const totalMomentsCount = moments.length + totalExtraImages;
   const displayTestimonials = tour.reviews.filter((t) => (t.rating ?? 5) === 5).slice(0, 3);
+
   return (
     <section id="reviews" className="border-t border-white/5 pt-10 lg:pt-16">
       <div className="mb-10 lg:mb-14 lg:grid lg:grid-cols-3 lg:gap-14">
@@ -65,7 +77,7 @@ export default function ReviewsSection({ tour }: ReviewsSectionProps) {
             <h3 className="text-[10px] font-bold uppercase tracking-widest text-white">Guest Moments</h3>
 
             <Link
-              href={`/gallery/${tour.slug}?filter=moments`}
+              href={galleryAllMomentHref}
               className="inline-flex items-center gap-1.5 text-gold transition-colors hover:text-white"
             >
               <span className="text-[9px] font-bold uppercase tracking-[0.2em] sm:text-[10px] sm:tracking-[0.2em] md:text-[11px]">
@@ -103,7 +115,7 @@ export default function ReviewsSection({ tour }: ReviewsSectionProps) {
 
               return isLast ? (
                 <Link
-                  href={`/gallery/${tour.slug}?filter=moments`}
+                  href={galleryAllMomentHref}
                   key={`${moment.src}-${index}`}
                   className={`group relative block overflow-hidden border border-white/5 ${
                     index === 0 ? "col-span-2 row-span-2 h-48 rounded-3xl md:h-52" : "h-22.5 rounded-xl md:h-25"
@@ -129,6 +141,12 @@ export default function ReviewsSection({ tour }: ReviewsSectionProps) {
       <div className="space-y-12">
         {displayTestimonials.slice(0, 2).map((review) => {
           const photosArray = review.photos || [];
+
+          const encodedName = encodeURIComponent(review.name.toLowerCase().trim());
+          const specificReviewsGalleryHref =
+            tourType === "one"
+              ? `/gallery/${tour.slug}?filter-one-day-tours=review-${encodedName}`
+              : `/gallery/${tour.slug}?filter-multi-days-tours=review-${encodedName}`;
 
           return (
             <article
@@ -193,7 +211,7 @@ export default function ReviewsSection({ tour }: ReviewsSectionProps) {
 
                     return isLast ? (
                       <Link
-                        href={`/gallery/${tour.slug}?filter=review-${review.name.toLowerCase()}`}
+                        href={specificReviewsGalleryHref}
                         key={`${photo.src}-${index}`}
                         className="group relative block h-20 w-20 shrink-0 overflow-hidden rounded-xl border border-white/10 md:h-24 md:w-24"
                       >
@@ -227,7 +245,7 @@ export default function ReviewsSection({ tour }: ReviewsSectionProps) {
       </div>
 
       <div className="mt-12 flex justify-center">
-        <Button variant="explore" className="cursor-pointer" href={`/booking/${tour.slug}/reviews`}>
+        <Button variant="explore" className="cursor-pointer" href={reviewsHref}>
           Show More Reviews
         </Button>
       </div>

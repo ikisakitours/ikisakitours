@@ -84,7 +84,7 @@ export function GalleryLightbox({
 
         {/* Caption & Controls Info */}
         <div className="mt-8 text-center">
-          <p className="premium-serif text-sm uppercase tracking-[0.3em] text-white md:text-xl">{activeItem.alt}</p>
+          <p className="premium-serif text-sm uppercase tracking-[0.3em] text-white md:text-xl">{activeItem.title}</p>
           <div className="mx-auto my-4 h-px w-12 bg-gold/40" />
           <p className="text-[12px] font-semibold uppercase tracking-[0.4em] text-gold">
             {activeIndex + 1} / {totalCount}

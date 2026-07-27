@@ -8,14 +8,15 @@ type BookingBodyProps = {
   tour: typeof bookingTour;
   options: typeof travelerOptions;
   assurances: readonly string[];
+  tourType?: "multi" | "one";
 };
 
-export default function BookingBody({ tour, options, assurances }: BookingBodyProps) {
+export default function BookingBody({ tour, options, assurances , tourType}: BookingBodyProps) {
   return (
     <ContainerLayout className="min-h-screen py-20 md:py-28 xl:py-20 2xl:py-32 3xl:py-40">
       <div className="xl:flex xl:gap-12 pb-20 md:pb-28 xl:pb-20 2xl:pb-32 3xl:pb-40">
         <div className="xl:w-2/3">
-          <BookingDetailSections tour={tour} />
+          <BookingDetailSections tour={tour} tourType={tourType}/>
         </div>
 
         <BookingWidget tour={tour} options={options} assurances={assurances} />

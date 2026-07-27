@@ -9,10 +9,18 @@ import { CheckCircle2, Crown, CalendarDays } from "lucide-react";
 type ReviewCardProps = {
   review: (typeof bookingTour.reviews)[0];
   slug: string;
+  tourType?: "multi" | "one";
 };
 
-export function ReviewCard({ review, slug }: ReviewCardProps) {
+export function ReviewCard({ review, slug, tourType }: ReviewCardProps) {
   const rating = review.rating ?? 5;
+
+  const encodedName = encodeURIComponent(review.name.toLowerCase().trim());
+
+  const oneSpecificReviewsGalleryHref =
+    tourType === "one"
+      ? `/gallery/${slug}?filter-one-day-tours=review-${encodedName}&from=reviews`
+      : `/gallery/${slug}?filter-multi-days-tours=review-${encodedName}&from=reviews`;
 
   return (
     <article className="glass-card rounded-3xl border border-white/5 p-6 md:rounded-[2.5rem] md:p-10 3xl:p-14">
@@ -27,7 +35,7 @@ export function ReviewCard({ review, slug }: ReviewCardProps) {
                 alt={`${review.name} Profile`}
                 fill
                 sizes="80px"
-                className="image-render-visible object-cover z-10"
+                className="image-render-visible z-10 object-cover"
               />
             )}
           </div>
@@ -85,15 +93,15 @@ export function ReviewCard({ review, slug }: ReviewCardProps) {
 
             return isLast ? (
               <Link
-                href={`/gallery/${slug}?filter=review-${review.name.toLowerCase()}&from=reviews`}
-                key={`${photo}-${index}`}
+                href={oneSpecificReviewsGalleryHref}
+                key={`photo-${photo.id || index}`}
                 className="group relative block h-20 w-20 shrink-0 overflow-hidden rounded-xl border border-white/10 md:h-24 md:w-24"
               >
                 {imgContent}
               </Link>
             ) : (
               <div
-                key={`${photo}-${index}`}
+                key={`photo-${photo.id || index}`}
                 className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border border-white/10 md:h-24 md:w-24"
               >
                 {imgContent}

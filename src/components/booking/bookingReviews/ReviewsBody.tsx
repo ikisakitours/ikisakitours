@@ -15,12 +15,13 @@ import { ListFilter, ArrowUpDown } from "lucide-react";
 
 type ReviewsBodyProps = {
   tour: typeof bookingTour;
+  tourType?: "multi" | "one";
 };
 
 const INITIAL_COUNT = 4;
 const SORT_OPTIONS = ["All", "Highest Rating", "Lowest Rating"] as const;
 
-export default function ReviewsBody({ tour }: ReviewsBodyProps) {
+export default function ReviewsBody({ tour, tourType }: ReviewsBodyProps) {
   const [showForm, setShowForm] = useState(false);
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
 
@@ -150,7 +151,9 @@ export default function ReviewsBody({ tour }: ReviewsBodyProps) {
 
             <div className="space-y-8 md:space-y-12 3xl:space-y-16">
               {visibleReviews.length > 0 ? (
-                visibleReviews.map((review, index) => <ReviewCard key={index} review={review} slug={tour.slug} />)
+                visibleReviews.map((review, index) => (
+                  <ReviewCard key={index} review={review} slug={tour.slug} tourType={tourType} />
+                ))
               ) : (
                 <p className="py-10 text-center text-slate-400">No reviews found for this selection.</p>
               )}

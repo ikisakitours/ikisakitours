@@ -16,13 +16,14 @@ import ReviewsSection from "@/components/booking/BookingDetailSection/ReviewsSec
 
 type SharedTourProps = {
   tour: typeof bookingTour;
+  tourType?: "multi" | "one";
 };
 
-export function BookingDetailSections({ tour }: SharedTourProps) {
+export function BookingDetailSections({ tour, tourType }: SharedTourProps) {
   return (
     <>
       <BookingHeader tour={tour} />
-      <BookingGallery tour={tour} />
+      <BookingGallery tour={tour} tourType={tourType}/>
       <StoryBanner tour={tour} />
       <BookingNavigation />
       <ActivityDetails tour={tour} />
@@ -36,7 +37,7 @@ export function BookingDetailSections({ tour }: SharedTourProps) {
       <EssentialsSection tour={tour} />
       <TourCustomization />
       <CoveredDestinations destinations={tour.coveredDestinations} tourSlug={tour.slug} />
-      <ReviewsSection tour={tour} />
+      <ReviewsSection tour={tour} tourType={tourType}/>
     </>
   );
 }
