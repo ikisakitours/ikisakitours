@@ -4,17 +4,20 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
+import { contactCtaContent } from "@/data/home";
 import { MapPin, Sparkles, Star, ArrowRight } from "lucide-react";
 
 export default function HomeContactCTA() {
   return (
-    <section id="contact"className="relative overflow-hidden bg-[#050505] py-24 md:py-32 lg:py-40">
+    <section id="contact" className="relative overflow-hidden bg-[#050505] py-24 md:py-32 lg:py-40">
       {/* Background Ambient Glow */}
       <div className="absolute left-1/2 top-1/2 -z-10 h-150 w-150 -translate-x-1/2 -translate-y-1/2 pointer-events-none rounded-full bg-gold/5 blur-[120px]" />
 
       {/* Background Watermark */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
-        <span className="select-none text-[22vw] font-black uppercase tracking-tighter text-white/2">MAPMATE</span>
+        <span className="select-none text-[20vw] lg:text-[22vw] font-black uppercase tracking-tighter text-white/2">
+          {contactCtaContent.watermark}
+        </span>
       </div>
 
       {/* Reusable Container Layout */}
@@ -31,29 +34,30 @@ export default function HomeContactCTA() {
             {/* Top Badge */}
             <div className="inline-flex items-center gap-3 rounded-full border border-gold/30 bg-gold/10 px-5 py-2 backdrop-blur-md">
               <Sparkles className="h-4 w-4 text-gold" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold">Bespoke Experiences</span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold">
+                {contactCtaContent.badge}
+              </span>
             </div>
 
             {/* Heading */}
             <h2 className="text-5xl md:text-6xl xl:text-7xl font-serif text-white leading-[1.1] tracking-tight">
-              Your Vision, <br />
+              {contactCtaContent.titlePart1} <br />
               <span className="relative mt-2 inline-block">
-                <span className="relative z-10 pr-4 font-light italic text-gold">Impeccably</span>
+                <span className="relative z-10 pr-4 font-light italic text-gold">{contactCtaContent.titleAccent}</span>
                 <span className="absolute bottom-2 left-0 -z-10 h-3 w-full -rotate-2 bg-gold/20"></span>
               </span>
               <br />
-              Executed.
+              {contactCtaContent.titlePart2}
             </h2>
 
             <p className="max-w-lg text-lg font-light leading-relaxed text-slate-400 md:text-xl">
-              Break free from preset routes. Share your desires, and our luxury travel designers will curate a flawless,
-              private itinerary completely tailored to your pace.
+              {contactCtaContent.description}
             </p>
 
             {/* CTA Buttons & Trust Indicators */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-8 pt-4">
               <Button variant="inquire" href="/contact" className="group shrink-0">
-                Enquire Your Bespoke
+                {contactCtaContent.ctaButtonText}
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" strokeWidth={3} />
               </Button>
 
@@ -71,7 +75,9 @@ export default function HomeContactCTA() {
                       <Star key={star} className="h-3 w-3 fill-gold" />
                     ))}
                   </div>
-                  <p className="mt-1 text-[10px] uppercase tracking-widest text-white/50">Loved by 1k+ Explorers</p>
+                  <p className="mt-1 text-[10px] uppercase tracking-widest text-white/50">
+                    {contactCtaContent.reviewCountText}
+                  </p>
                 </div>
               </div>
             </div>
@@ -125,9 +131,9 @@ export default function HomeContactCTA() {
                   <MapPin className="h-5 w-5 text-gold" />
                 </div>
                 <div className="pr-2">
-                  <p className="text-[15px] font-bold text-white">Local Experts</p>
+                  <p className="text-[15px] font-bold text-white">{contactCtaContent.localExpertsText}</p>
                   <p className="mt-0.5 text-[12px] font-bold uppercase tracking-widest gold-gradient-text">
-                    24/7 Support
+                    {contactCtaContent.supportText}
                   </p>
                 </div>
               </div>

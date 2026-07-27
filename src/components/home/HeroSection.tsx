@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { heroStats, heroPopularTags, heroPopularServices } from "@/data/home";
+import { heroStats, heroPopularTags, heroPopularServices, heroContent } from "@/data/home";
 import { Button } from "@/components/ui/Button";
 import { FaAward } from "react-icons/fa6";
 import { motion, Transition } from "framer-motion";
@@ -44,12 +44,12 @@ export function HeroSection() {
               <div className="inline-flex items-center space-x-2 rounded-full border border-gold/30 bg-gold/10 px-3 py-1.5 backdrop-blur-md md:space-x-3 md:px-4 md:py-2 3xl:px-6 3xl:py-3">
                 <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse md:h-2 md:w-2 3xl:h-3 3xl:w-3" />
                 <span className="text-[0.5rem] font-bold uppercase tracking-[0.2em] text-gold md:text-[0.625rem] md:tracking-[0.4em] 3xl:text-sm">
-                  The Gold Standard of Travel
+              {heroContent.badge}
                 </span>
               </div>
               <div className="flex items-center space-x-2 border-l border-foreground/20 pl-4 text-[0.625rem] uppercase tracking-widest text-foreground/50 md:text-[0.6875rem] 3xl:pl-6 3xl:text-sm">
                 <FaAward className="h-3 w-3 text-gold 3xl:h-5 3xl:w-5" />
-                <span>Travel+Leisure 2026</span>
+                <span>{heroContent.award}</span>
               </div>
             </motion.div>
 
@@ -60,9 +60,9 @@ export function HeroSection() {
               style={{ willChange: "transform, opacity" }}
               className="mb-4 font-serif text-3xl font-medium leading-[1.1] tracking-tight text-foreground sm:text-4xl md:mb-6 md:text-6xl lg:text-7xl xl:text-8xl 3xl:mb-10 3xl:text-[8rem]"
             >
-              Sri Lanka <br />
+             {heroContent.titleMain} <br />
               <span className="mt-1 block pb-2 pr-2 gold-gradient-text font-normal italic md:mt-2 md:pb-4 3xl:pb-6">
-                Beyond the Map
+               {heroContent.titleAccent}
               </span>
             </motion.h1>
 
@@ -73,9 +73,9 @@ export function HeroSection() {
               style={{ willChange: "transform, opacity" }}
               className="mb-6 max-w-lg border-l-2 border-gold/40 pl-4 text-sm font-light leading-relaxed text-foreground/90 sm:text-base md:mb-8 md:pl-6 md:text-xl lg:text-2xl 3xl:mb-12 3xl:max-w-4xl 3xl:pl-8 3xl:text-3xl"
             >
-              Elite personalized tours with master guides in
-              <span className="font-semibold text-foreground"> Japanese, French, Spanish</span> and
-              <span className="font-semibold text-foreground"> English.</span>
+              {heroContent.description}
+              <span className="font-semibold text-foreground"> {heroContent.languagesOne}</span> and
+              <span className="font-semibold text-foreground"> {heroContent.languagesTwo}</span>
             </motion.p>
 
             <motion.div
@@ -97,7 +97,7 @@ export function HeroSection() {
                     />
                   </div>
                   <Button type="button" variant="primary" className="3xl:px-12 3xl:py-6 3xl:text-lg 3xl:rounded-2xl">
-                    <span className="hidden sm:block">Start Journey</span>
+                    <span className="hidden sm:block">{heroContent.startJourneyText}</span>
                     <ArrowRight className="h-4 w-4 sm:hidden 3xl:h-6 3xl:w-6" />
                   </Button>
                 </div>
@@ -105,7 +105,7 @@ export function HeroSection() {
 
               <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 3xl:mt-6 3xl:gap-x-6">
                 <span className="text-[0.6875rem] uppercase tracking-wider text-foreground/40 3xl:text-base">
-                  Popular:
+                {heroContent.popularLabel}
                 </span>
                 {heroPopularTags.map((tag, idx) => (
                   <Button key={idx} variant="tag" href={tag.href} className="3xl:text-base 3xl:pb-1">
@@ -117,7 +117,7 @@ export function HeroSection() {
               {/* HORIZONTAL SCROLL FIX: Removed overflow-hidden and adjusted margins/padding */}
               <div className="mt-8 flex flex-col gap-4 border-t border-foreground/10 pt-6 sm:mt-10 md:mt-12 md:gap-5 3xl:mt-16 3xl:pt-10">
                 <p className="text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-foreground/50 md:text-xs 3xl:text-base">
-                  Discover Our Popular Services
+                 {heroContent.servicesHeading}
                 </p>
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4 3xl:gap-6">
                   {heroPopularServices.map((service, idx) => {

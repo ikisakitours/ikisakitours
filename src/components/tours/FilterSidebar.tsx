@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 //Icon
-import { X } from "lucide-react";
+import { X, FilterX } from "lucide-react";
 
 type CategoryFilterSidebarProps = {
   isOpen: boolean;
@@ -87,6 +87,7 @@ export function FilterSidebar({
     return () => document.body.classList.remove("overflow-hidden");
   }, [isOpen]);
 
+  const isFilterActive = selectedCategory !== "all" || priceRange !== "Any price" || rating !== "Any rating";
   return (
     <AnimatePresence mode="wait">
       {isOpen && (
@@ -194,18 +195,23 @@ export function FilterSidebar({
 
             {/* Footer Buttons */}
             <div className="p-8 border-t border-white/10 flex gap-4">
-              <button
-                onClick={onClearAll}
-                className="flex-1 py-4 border border-white/10 rounded-full text-[11px] font-bold text-white uppercase transition-colors hover:bg-white/5"
-              >
-                Clear
-              </button>
              <button
-  onClick={onClose}
-  className="flex-1 py-4 bg-gold rounded-full text-[11px] font-black text-black uppercase tracking-[0.3em] transition-colors hover:bg-yellow-500 shadow-md"
->
-  Show Results
-</button>
+                onClick={onClearAll}
+                className={`flex flex-1 items-center justify-center gap-2 rounded-full border py-4 text-[11px] font-bold uppercase transition-all duration-300 ${
+                  isFilterActive
+                    ? "border-red-500/40 bg-red-950/30 text-red-400 hover:border-red-500/60 hover:bg-red-900/50"
+                    : "border-white/10 text-white hover:bg-white/5"
+                }`}
+              >
+                {isFilterActive && <FilterX className="h-3.5 w-3.5" />}
+                {isFilterActive ? "Clear Filter" : "Clear"}
+              </button>
+              <button
+                onClick={onClose}
+                className="flex-1 py-4 bg-gold rounded-full text-[11px] font-black text-black uppercase tracking-[0.3em] transition-colors hover:bg-yellow-500 shadow-md"
+              >
+                Show Results
+              </button>
             </div>
           </motion.div>
         </>

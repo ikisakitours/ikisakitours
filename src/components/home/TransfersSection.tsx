@@ -4,6 +4,7 @@ import React, { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { transferCards } from "@/data/transfers";
+import { transfersSectionContent } from "@/data/home";
 import { Car, ChevronLeft, ChevronRight, PlaneLanding, PlaneTakeoff } from "lucide-react";
 import { FaShieldAlt } from "react-icons/fa";
 import { FaClock } from "react-icons/fa6";
@@ -25,7 +26,7 @@ export function TransfersSection() {
     if (scrollContainerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
       setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5); 
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
     }
   };
 
@@ -66,15 +67,16 @@ export function TransfersSection() {
         >
           <div className="mb-6 inline-block rounded-full border border-gold/20 bg-gold/5 px-4 py-1 3xl:px-6 3xl:py-2">
             <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold 3xl:text-xs">
-              Chauffeur Service
+              {transfersSectionContent.badge}
             </span>
           </div>
           <h2 className="mb-6 text-3xl font-light leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl 3xl:text-7xl">
-            Traveler&apos;s Pick-Up <span className="italic text-gold">&amp;</span> Drop-Off
+            {transfersSectionContent.titlePart1}{" "}
+            <span className="italic text-gold">{transfersSectionContent.titleAccent}</span>{" "}
+            {transfersSectionContent.titlePart2}
           </h2>
           <p className="mx-auto mb-10 max-w-2xl text-base font-light leading-relaxed text-slate-300 md:text-lg 3xl:text-xl 3xl:max-w-3xl">
-            Comfortable, safe &amp; reliable transport for Japanese 🇯🇵 , French 🇫🇷 ,Spain 🇪🇸 and English 🇬🇧 travelers
-            anywhere in Sri Lanka.
+            {transfersSectionContent.subtitle}
           </p>
         </motion.div>
 
@@ -115,15 +117,14 @@ export function TransfersSection() {
             return (
               <motion.div
                 key={title}
-                initial={{ opacity: 0, x: 20 }} 
+                initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "0px" }}
                 transition={{
                   duration: 0.7,
                   ease: [0.22, 1, 0.36, 1],
-                
                 }}
-                style={{ willChange: "transform, opacity" }} 
+                style={{ willChange: "transform, opacity" }}
                 className="group relative flex min-w-[90%] snap-center flex-col overflow-hidden rounded-3xl border border-white/5 bg-surface p-6 shadow-2xl transition-colors duration-500 hover:border-gold/30 sm:min-w-[45%] lg:min-w-[40%] xl:min-w-full sm:p-8 md:p-10 3xl:p-12"
               >
                 <div className="absolute -inset-1 bg-linear-to-br from-gold/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />

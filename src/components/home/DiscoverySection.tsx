@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, useLayoutEffect, useEffect } from "react";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { destinations } from "@/data/home";
+import { destinations, discoveryContent } from "@/data/home";
 import {
   motion,
   useScroll,
@@ -131,23 +131,23 @@ export function DiscoverySection() {
           >
             <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.5em] text-gold">Discovery</p>
             <h3 className="mb-4 text-2xl font-light italic leading-tight text-white md:text-3xl lg:text-4xl">
-              The Most Popular <span className="text-gold">Destinations of 2026</span>
+            {discoveryContent.titleOne} <span className="text-gold"> {discoveryContent.titleTwo}</span>
             </h3>
 
             <div className="group relative mb-4 mt-6 pl-6 md:pl-8">
               <div className="absolute bottom-0 left-0 top-0 w-px bg-linear-to-b from-gold via-gold/20 to-transparent" />
               <p className="text-sm font-light leading-relaxed tracking-wide text-slate-300 md:text-base">
                 <span className="mb-2 block text-[11px] font-medium uppercase tracking-[0.2em] text-white/90">
-                  A Journey Redefined
+                 {discoveryContent.subheading}
                 </span>
-                Experience the curated selection of Sri Lanka&apos;s finest. Check our exclusive packages and{" "}
+              {discoveryContent.descriptionPart1}
                 <span className="relative inline transition-colors duration-500 group-hover:text-gold">
                   <span className="inline text-lg font-bold italic tracking-normal text-white md:text-xl">
-                    explore the Pearl of the Indian Ocean
+                  {discoveryContent.highlightText}
                   </span>
                   <span className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-gold/30 transition-transform duration-700 group-hover:scale-x-100" />
                 </span>
-                <span className="ml-1 inline opacity-70">in unparalleled luxury.</span>
+                <span className="ml-1 inline opacity-70">{discoveryContent.descriptionPart2}</span>
               </p>
             </div>
           </motion.div>
@@ -159,7 +159,7 @@ export function DiscoverySection() {
             transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 1, 0.5, 1] }}
             className="flex shrink-0 flex-col items-start lg:items-end"
           >
-            <div className="mb-2 text-[10px] uppercase tracking-[0.3em] text-slate-200">Status: Trending</div>
+            <div className="mb-2 text-[10px] uppercase tracking-[0.3em] text-slate-200">{discoveryContent.status}</div>
             <div className="h-px w-24 bg-gold/30 md:w-32" />
           </motion.div>
         </div>

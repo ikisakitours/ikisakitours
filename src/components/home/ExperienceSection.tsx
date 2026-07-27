@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { experiencePillars } from "@/data/home";
+import { experienceSectionContent } from "@/data/home";
 import { Button } from "@/components/ui/Button";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { ArrowRight, BadgeCheck, Car, Languages, MapPinned, SlidersHorizontal } from "lucide-react";
@@ -46,7 +47,7 @@ export function ExperienceSection() {
               ))}
             </motion.div>
 
-            {/* --- Mobile/Tablet Unique Floating Banner (Visible below xl) --- */}
+            {/* Mobile/Tablet Unique Floating Banner */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -54,33 +55,35 @@ export function ExperienceSection() {
               transition={{ duration: 0.8, delay: 0.4, type: "spring" }}
               className="absolute -bottom-20 left-1/2 z-20 flex w-[90%] max-w-sm -translate-x-1/2 items-center justify-between rounded-2xl border border-gold/30 bg-lanka-black/90 px-5 py-4 shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-xl xl:hidden sm:-bottom-8 sm:px-6 sm:py-5"
             >
-              {/* Stat 1 */}
               <div className="flex items-center space-x-3">
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gold/10 sm:h-10 sm:w-10">
                   <MapPinned className="h-4 w-4 text-gold sm:h-5 sm:w-5" />
                 </div>
                 <div>
-                  <p className="text-base font-bold leading-none text-foreground sm:text-lg">500+</p>
-                  <p className="mt-0.5 text-[7px] uppercase tracking-widest text-gold sm:text-[8px]">Tours</p>
+                  <p className="text-base font-bold leading-none text-foreground sm:text-lg">
+                    {experienceSectionContent.floatingStats[0].value}
+                  </p>
+                  <p className="mt-0.5 text-[7px] uppercase tracking-widest text-gold sm:text-[8px]">
+                    {experienceSectionContent.floatingStats[0].mobileLabel}
+                  </p>
                 </div>
               </div>
 
-              {/* Divider */}
               <div className="h-8 w-px bg-gold/30 sm:h-10" />
 
-              {/* Stat 2 */}
               <div className="flex items-center space-x-3">
-                <div className="text-2xl font-bold text-gold sm:text-3xl">10+</div>
+                <div className="text-2xl font-bold text-gold sm:text-3xl">
+                  {experienceSectionContent.floatingStats[1].value}
+                </div>
                 <p className="text-[7px] font-bold uppercase leading-tight tracking-[0.2em] text-foreground/80 sm:text-[8px]">
-                  Years of
+                  {experienceSectionContent.floatingStats[1].labelOne}
                   <br />
-                  Hosting
+                  {experienceSectionContent.floatingStats[1].labelTwo}
                 </p>
               </div>
             </motion.div>
-            {/* ----------------------------------------------------------- */}
 
-            {/* Floating Cards - Desktop Only (Animated Scale Up) */}
+            {/* Floating Cards - Desktop Only */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -93,9 +96,11 @@ export function ExperienceSection() {
                   <MapPinned className="h-4.5 w-4.5 text-gold 3xl:h-6 3xl:w-6" />
                 </div>
                 <div>
-                  <p className="text-lg font-bold leading-none text-foreground 3xl:text-2xl">500+</p>
+                  <p className="text-lg font-bold leading-none text-foreground 3xl:text-2xl">
+                    {experienceSectionContent.floatingStats[0].value}
+                  </p>
                   <p className="mt-1 text-[8px] uppercase tracking-widest text-gold 3xl:mt-2 3xl:text-[10px]">
-                    Completed Tours
+                    {experienceSectionContent.floatingStats[0].label}
                   </p>
                 </div>
               </div>
@@ -109,12 +114,14 @@ export function ExperienceSection() {
               className="absolute -right-6 bottom-10 z-20 hidden rounded-2xl border border-gold/30 bg-lanka-black p-6 shadow-2xl xl:block xl:-right-12 3xl:-right-16 3xl:bottom-16 3xl:rounded-3xl 3xl:p-10"
             >
               <div className="flex items-center space-x-4 3xl:space-x-6">
-                <div className="text-4xl font-bold text-gold 3xl:text-5xl">10+</div>
+                <div className="text-4xl font-bold text-gold 3xl:text-5xl">
+                  {experienceSectionContent.floatingStats[1].value}
+                </div>
                 <div className="h-10 w-px bg-gold/30 3xl:h-14" />
                 <p className="text-[9px] font-bold uppercase leading-tight tracking-[0.2em] text-foreground/80 3xl:text-xs">
-                  Years of Luxury
+                  {experienceSectionContent.floatingStats[1].labelOne}
                   <br />
-                  Hosting
+                  {experienceSectionContent.floatingStats[1].labelTwo}
                 </p>
               </div>
             </motion.div>
@@ -130,18 +137,17 @@ export function ExperienceSection() {
           >
             <div className="mb-6 inline-block rounded-full border border-gold/20 bg-gold/5 px-4 py-1 3xl:mb-8 3xl:px-6 3xl:py-2">
               <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold 3xl:text-xs">
-                Elite Travel Partner
+                {experienceSectionContent.badge}
               </span>
             </div>
             <h2 className="mb-6 font-serif text-3xl font-light leading-tight text-foreground sm:text-4xl md:text-5xl xl:text-5xl 2xl:text-6xl 3xl:mb-10 3xl:text-[5rem]">
-              Curating Memories <br className="hidden xl:block" />
+              {experienceSectionContent.titlePart1} <br className="hidden xl:block" />
               <span className="mt-1 block pb-2 pr-2 gold-gradient-text font-normal italic md:mt-2 md:pb-4 3xl:pb-6">
-                Beyond Borders
+                {experienceSectionContent.titleAccent}
               </span>
             </h2>
             <p className="mx-auto mb-10 max-w-2xl text-base font-light leading-relaxed text-foreground/80 md:text-lg xl:mx-0 3xl:mb-16 3xl:max-w-4xl 3xl:text-2xl">
-              We specialize in high-end, personalized journeys across Sri Lanka. Our mission is to bridge the gap
-              between cultures by providing expert insights in your native tongue.
+              {experienceSectionContent.description}
             </p>
 
             <div className="grid grid-cols-1 gap-4 text-left sm:grid-cols-2 md:gap-6 xl:grid-cols-1 2xl:grid-cols-2 3xl:gap-8">
@@ -191,13 +197,15 @@ export function ExperienceSection() {
               className="mt-12 flex flex-col items-center justify-center gap-8 border-t border-foreground/5 pt-8 sm:flex-row xl:justify-start 3xl:mt-20 3xl:gap-12 3xl:pt-12"
             >
               <Button variant="inquire" href="/contact">
-                Inquire Now{" "}
+                {experienceSectionContent.inquireButtonText}
                 <ArrowRight className="ml-3 inline h-3 w-3 transition-transform group-hover:translate-x-2 3xl:h-5 3xl:w-5" />
               </Button>
               <div className="text-center xl:text-left">
-                <p className="text-sm font-bold text-foreground 3xl:text-xl">Response within 2 hours</p>
+                <p className="text-sm font-bold text-foreground 3xl:text-xl">
+                  {experienceSectionContent.responseTitle}
+                </p>
                 <p className="text-[10px] uppercase tracking-widest text-gold/60 3xl:mt-2 3xl:text-sm">
-                  Available 24/7 Global Support
+                  {experienceSectionContent.responseSubtitle}
                 </p>
               </div>
             </motion.div>

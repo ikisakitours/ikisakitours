@@ -8,6 +8,7 @@ import { testimonials } from "@/data/testimonials";
 import { WriteReviewForm } from "@/components/ui/WriteReviewForm";
 import { motion, AnimatePresence } from "framer-motion";
 import { RatingStars } from "@/components/ui/RatingStars";
+import { clientExperiencesContent } from "@/data/home";
 //Icons
 import { CalendarCheck, Quote, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
 
@@ -76,12 +77,14 @@ export function ClientExperiencesSection() {
             className="text-center md:text-left"
           >
             <div className="mb-6 inline-block rounded-full border border-gold/20 bg-gold/5 px-4 py-1">
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold">Client Experiences</span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold">
+                {clientExperiencesContent.badge}
+              </span>
             </div>
             <h2 className="font-serif text-3xl font-light leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Voices of
+              {clientExperiencesContent.titlePart1}
               <span className="bg-[linear-gradient(to_right,#d4af37,#fbe106,#c5a028)] bg-clip-text font-normal italic text-transparent pl-3">
-                MapMate
+                {clientExperiencesContent.titleAccent}
               </span>
             </h2>
           </motion.div>
@@ -96,14 +99,16 @@ export function ClientExperiencesSection() {
             >
               <div className="border-r border-white/10 pr-6 text-center">
                 <div className="text-4xl font-light leading-none text-white">{averageScore}</div>
-                <div className="mt-2 text-[10px] font-bold uppercase tracking-widest text-gold">Average Score</div>
+                <div className="mt-2 text-[10px] font-bold uppercase tracking-widest text-gold">
+                  {clientExperiencesContent.avgScoreLabel}
+                </div>
               </div>
               <div>
                 <div className="mb-3">
-                  <RatingStars rating={starCount} starClassName="h-3.5 w-3.5 text-gold" />{" "}
+                  <RatingStars rating={starCount} starClassName="h-3.5 w-3.5 text-gold" />
                 </div>
                 <p className="text-xs font-light tracking-wide text-slate-400">
-                  Based on <span className="font-bold text-white">{reviewCountDisplay}</span> global reviews
+                 {clientExperiencesContent.basedOnText} <span className="font-bold text-white">{reviewCountDisplay}</span> {clientExperiencesContent.globalReviewsText}
                 </p>
               </div>
             </motion.div>
@@ -123,7 +128,7 @@ export function ClientExperiencesSection() {
                   transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
                 >
                   <Button variant="shine" onClick={() => setIsWritingReview(true)}>
-                    Leave Your Mark
+                    {clientExperiencesContent.leaveMarkBtn}
                   </Button>
                 </motion.div>
               ) : (
@@ -136,7 +141,7 @@ export function ClientExperiencesSection() {
                 >
                   <Button variant="reviewTag" onClick={() => setIsWritingReview(false)}>
                     <ArrowLeft className="h-4 w-4 shrink-0" strokeWidth={3} />
-                    BACK TO REVIEWS
+                    {clientExperiencesContent.backReviewsBtn}
                   </Button>
                 </motion.div>
               )}
@@ -263,7 +268,7 @@ export function ClientExperiencesSection() {
               className="mt-12 flex justify-center md:mt-20"
             >
               <Button variant="explore" href="/testimonials">
-                Explore More Testimonials
+                {clientExperiencesContent.exploreMoreTestimonialsBtn}
               </Button>
             </motion.div>
           </div>

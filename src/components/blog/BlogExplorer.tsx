@@ -131,8 +131,24 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
           <EmptyState
             backgroundText="Journal"
             title="no articles found"
-            description="We couldn't find any articles matching your search or selected category."
-            buttonText="Clear Filters"
+            description={
+              <>
+                {query.trim() !== "" ? (
+                  <>
+                    Your search for <span className="text-gold font-bold">&quot;{query}&quot;</span> returned no
+                    articles.
+                  </>
+                ) : (
+                  <>
+                    Your selected category (<span className="text-gold font-bold">{category}</span>) returned no
+                    articles.
+                  </>
+                )}
+                <br />
+                Please redefine your search or reset filters.
+              </>
+            }
+            buttonText="Reset Exploration"
             onAction={() => {
               setQuery("");
               selectCategory("all");

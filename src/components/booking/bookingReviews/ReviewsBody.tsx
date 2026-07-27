@@ -82,8 +82,9 @@ export default function ReviewsBody({ tour, tourType }: ReviewsBodyProps) {
   };
 
   return (
+    <><ReviewsHeader slug={tour.slug} />
     <ContainerLayout className="min-h-screen py-24 md:py-32">
-      <ReviewsHeader slug={tour.slug} />
+      
 
       <div className="animate-fade-in-up">
         {!showForm && (
@@ -198,5 +199,6 @@ export default function ReviewsBody({ tour, tourType }: ReviewsBodyProps) {
         onSelectCategory={handleSelectCategory}
       />
     </ContainerLayout>
+    </>
   );
 }

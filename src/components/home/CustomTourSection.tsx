@@ -2,6 +2,7 @@
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
 import { motion } from "framer-motion";
+import { customTourContent } from "@/data/home";
 
 export function CustomTourSection() {
   return (
@@ -23,7 +24,7 @@ export function CustomTourSection() {
 
           {/* Giant Faded Watermark Text - Responsive */}
           <div className="pointer-events-none absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap select-none text-[3.5rem] font-bold leading-none tracking-tighter text-white/3 min-[400px]:text-[4.2rem] sm:text-[6rem] md:text-[8rem] lg:text-[10rem] xl:text-[13rem] 2xl:text-[16rem] 3xl:text-[20rem]">
-            BESPOKE
+          {customTourContent.watermark}
           </div>
 
           {/* Subtle Glow */}
@@ -41,13 +42,13 @@ export function CustomTourSection() {
             >
               <div className="mb-6 inline-block rounded-full border border-gold/20 bg-gold/5 px-4 py-1 3xl:px-6 3xl:py-2">
                 <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold 3xl:text-xs">
-                  Tailored For You
+                 {customTourContent.badge}
                 </span>
               </div>
 
               <h2 className="text-4xl font-light leading-[1.1] text-white sm:text-5xl md:text-6xl 3xl:text-7xl">
-                Your Vision, <br />
-                <span className="premium-serif italic text-gold">Impeccably</span> Executed.
+                {customTourContent.titlePart1} <br />
+                <span className="premium-serif italic text-gold">{customTourContent.titleAccent}</span> {customTourContent.titlePart2}
               </h2>
             </motion.div>
 
@@ -60,12 +61,11 @@ export function CustomTourSection() {
               className="flex flex-col items-start lg:w-5/12 lg:border-l lg:border-white/10 lg:pl-10 2xl:pl-12 3xl:pl-16"
             >
               <p className="mb-10 font-light leading-relaxed text-slate-400 md:text-lg 3xl:mb-12 3xl:text-xl">
-                Break free from preset routes. Share your desires, and our experts will design a flawless, private
-                itinerary completely tailored to your pace and preferences.
+               {customTourContent.description}
               </p>
 
               <Button variant="inquire" href="services/bespoke-travel" className="w-full sm:w-auto">
-                Let&apos;s Plan It
+               {customTourContent.ctaText}
               </Button>
             </motion.div>
           </div>

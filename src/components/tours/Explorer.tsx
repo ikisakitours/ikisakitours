@@ -205,8 +205,26 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
             title="no matching journeys"
             description={
               <>
-                Your search returned no destinations. <br />
-                Please redefine your travel criteria.
+                {query.trim() !== "" ? (
+                  <>
+                    Your search for <span className="text-gold font-bold">&quot;{query}&quot;</span> returned no
+                    destinations.
+                  </>
+                ) : (
+                  <>
+                    Your selected filters (
+                    {[
+                      category !== "all" ? category : null,
+                      priceRange !== "Any price" ? priceRange : null,
+                      rating !== "Any rating" ? rating : null,
+                    ]
+                      .filter(Boolean)
+                      .join(", ")}
+                    ) returned no destinations.
+                  </>
+                )}
+                <br />
+                Please redefine your travel criteria or reset filters.
               </>
             }
             buttonText="Reset Exploration"

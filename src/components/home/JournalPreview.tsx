@@ -6,13 +6,14 @@ import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { blogPosts } from "@/data/blog";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { journalPreviewContent } from "@/data/home";
 
 export function JournalPreview() {
   return (
     <section id="blog" className="overflow-hidden bg-lanka-black py-12 md:py-20 xl:py-20 2xl:py-24 3xl:py-32">
       <ContainerLayout>
         {/* Header Section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
@@ -21,21 +22,23 @@ export function JournalPreview() {
         >
           <div className="max-w-2xl">
             <div className="mb-6 inline-block rounded-full border border-gold/20 bg-gold/5 px-4 py-1 3xl:px-6 3xl:py-1.5">
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold 3xl:text-xs">Insights</span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold 3xl:text-xs">
+                {journalPreviewContent.badge}
+              </span>
             </div>
             <h2 className="font-serif text-3xl font-light leading-[1.1] text-white sm:text-5xl md:text-6xl 3xl:text-7xl">
-              Traveler <span className="gold-gradient-text italic">Journal</span>
+              Traveler <span className="gold-gradient-text italic">{journalPreviewContent.titleAccent}</span>
             </h2>
           </div>
           <p className="max-w-md text-base font-light italic leading-relaxed text-slate-400 md:text-lg lg:mb-2 3xl:max-w-xl 3xl:text-xl">
-            Curated stories and expert advice to help you navigate the wonders of Sri Lanka with ease.
+            {journalPreviewContent.subtitle}
           </p>
         </motion.div>
 
         {/* Blog Posts Grid */}
         <div className="grid grid-cols-1 gap-x-12 gap-y-12 md:gap-y-16 lg:grid-cols-2 xl:gap-x-20 3xl:gap-x-28 3xl:gap-y-20">
           {blogPosts.slice(0, 4).map((post, index) => (
-            <motion.article 
+            <motion.article
               key={post.number}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -53,8 +56,11 @@ export function JournalPreview() {
                 <p className="line-clamp-2 mb-4 text-sm font-light italic leading-relaxed text-slate-300 md:text-base 3xl:mb-6 3xl:text-lg">
                   {post.excerpt}
                 </p>
-                <Link href={`/blog/${post.slug}?from=home`} className="group/link inline-flex w-fit items-center text-[10px] font-bold uppercase tracking-[0.2em] text-gold 3xl:text-xs">
-                  Read More
+                <Link
+                  href={`/blog/${post.slug}?from=home`}
+                  className="group/link inline-flex w-fit items-center text-[10px] font-bold uppercase tracking-[0.2em] text-gold 3xl:text-xs"
+                >
+                  {journalPreviewContent.readMoreText}
                   <ArrowRight className="ml-2 h-3.5 w-3.5 transition-transform group-hover/link:translate-x-2 3xl:h-4 3xl:w-4" />
                 </Link>
               </div>
@@ -63,14 +69,16 @@ export function JournalPreview() {
         </div>
 
         {/* Explore More Button */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
           className="mt-16 flex w-full items-center justify-center md:mt-24 3xl:mt-32"
         >
-          <Button variant="explore" href="/blog">Explore More Blogs</Button>
+          <Button variant="explore" href="/blog">
+            {journalPreviewContent.exploreMoreBtn}
+          </Button>
         </motion.div>
       </ContainerLayout>
     </section>

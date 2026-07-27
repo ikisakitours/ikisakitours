@@ -89,9 +89,9 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
   return (
     <section id="destinations" className="bg-lanka-dark py-10">
       <ContainerLayout>
-        {!showMap && (
-          <div className="mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="w-full flex-1">
+        <div className="mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="w-full flex-1">
+            {!showMap && (
               <FilterButtonSearchInput
                 query={query}
                 setQuery={setQuery}
@@ -101,6 +101,8 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
                 initialCount={INITIAL_COUNT}
                 setIsFilterOpen={setIsFilterOpen}
               />
+            )}
+            {!showMap && filteredDestinations.length > 0 && (
               <div className="relative mb-8 flex flex-col lg:flex-row items-center lg:items-center justify-between gap-6 overflow-hidden rounded-3xl border border-white/5 bg-surface/40 p-6 md:p-8 backdrop-blur-xl">
                 {/* Modern Center Background Watermark */}
                 <div className="pointer-events-none absolute inset-0 z-0 h-full w-full select-none overflow-hidden opacity-[0.03] dark:opacity-[0.06]">
@@ -142,9 +144,9 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
-        )}
+        </div>
 
         {/* Conditional Rendering: Map View vs Grid View */}
         {showMap ? (
@@ -183,28 +185,39 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
                   </div>
                 </div>
               </>
-            ) : (
-              <EmptyState
-                backgroundText="Destinations"
-                title="no destinations found"
-                description={
-                  <>
-                    Your search or filter criteria returned no locations. <br />
-                    Please try resetting your filters.
-                  </>
-                }
-                buttonText="Reset Exploration"
-                onAction={() => {
-                  setQuery("");
-                  setCategory("all");
-                  setVisibleCount(INITIAL_COUNT);
-                }}
-              />
-            )}
+            ) : null}
           </>
         )}
       </ContainerLayout>
 
+      {!showMap && filteredDestinations.length === 0 && (
+        <EmptyState
+          backgroundText="Island"
+          title="no destinations found"
+          description={
+            <>
+              {query.trim() !== "" ? (
+                <>
+                  Your search for <span className="text-gold font-bold">&quot;{query}&quot;</span> returned no
+                  locations.
+                </>
+              ) : (
+                <>
+                  Your selected region (<span className="text-gold font-bold">{category}</span>) returned no locations.
+                </>
+              )}
+              <br />
+              Please try resetting your filters.
+            </>
+          }
+          buttonText="Reset Exploration"
+          onAction={() => {
+            setQuery("");
+            setCategory("all");
+            setVisibleCount(INITIAL_COUNT);
+          }}
+        />
+      )}
       {/* Filter Sidebar */}
       <FilterSidebar
         isOpen={isFilterOpen}
