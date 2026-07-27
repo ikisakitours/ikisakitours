@@ -34,11 +34,17 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
   const [isDetecting, setIsDetecting] = useState(true);
   const [userInteracted, setUserInteracted] = useState(false);
 
-  useEffect(() => {
+useEffect(() => {
     const fetchCountry = async () => {
       try {
         setIsDetecting(true);
         const res = await fetch("https://ipapi.co/json/");
+        
+        // API Limit එක පැන්නොත් හෝ වෙනත් අවුලක් ගියොත් මෙතනින් අල්ලගන්නවා
+        if (!res.ok) {
+          throw new Error(`API Fetch Failed with status: ${res.status}`);
+        }
+
         const apiData = await res.json();
         
         if (apiData.country_code) {
@@ -46,7 +52,8 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
           setSelectedCountry(apiData.country_code);
         }
       } catch (error) {
-        console.error("Location detection failed", error);
+        // Error එක Console එකට විතරක් යවලා සයිට් එක කැඩෙන එක නවත්වනවා
+        console.warn("Location detection failed in Contact Form (API Limit maybe).", error);
       } finally {
         setIsDetecting(false);
       }

@@ -53,6 +53,11 @@ export function CountrySelect({
       try {
         setIsDetecting(true);
         const res = await fetch("https://ipapi.co/json/");
+        
+        if (!res.ok) {
+          throw new Error(`API Fetch Failed with status: ${res.status}`);
+        }
+
         const data = await res.json();
 
         if (data.country_name && data.country_code) {
@@ -69,7 +74,7 @@ export function CountrySelect({
           setCountryName(data.country_name);
         }
       } catch (error) {
-        console.error("Location detection failed", error);
+        console.warn("Location detection failed (API Limit maybe). User needs to select manually.", error);
       } finally {
         setIsDetecting(false);
       }

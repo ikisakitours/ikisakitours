@@ -33,19 +33,26 @@ export default function ContactForm({ title, tourOptions }: FormProps) {
 
   const { errors, validate, setErrors } = useValidationForm();
 
-  useEffect(() => {
+useEffect(() => {
     const fetchCountry = async () => {
       try {
         setIsDetecting(true);
         const res = await fetch("https://ipapi.co/json/");
-        const apiData = await res.json();
+        
+        // API Limit එක පැන්නොත් හෝ වෙනත් අවුලක් ගියොත් මෙතනින් අල්ලගන්නවා
+        if (!res.ok) {
+          throw new Error(`API Fetch Failed with status: ${res.status}`);
+        }
 
+        const apiData = await res.json();
+        
         if (apiData.country_code) {
           setDetectedCode(apiData.country_code);
           setSelectedCountry(apiData.country_code);
         }
       } catch (error) {
-        console.error("Location detection failed", error);
+        // Error එක Console එකට විතරක් යවලා සයිට් එක කැඩෙන එක නවත්වනවා
+        console.warn("Location detection failed in Contact Form (API Limit maybe).", error);
       } finally {
         setIsDetecting(false);
       }
