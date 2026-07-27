@@ -19,7 +19,7 @@ export function BackToTop() {
       aria-label="Back to top"
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       // 8
-      className={`fixed bottom-50 right-8 z-50 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-gold bg-transparent text-gold shadow-[0_0_15px_rgba(212,175,55,0.1)] backdrop-blur-md transition-all duration-500 hover:-translate-y-2 hover:bg-gold/10 hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] ${
+      className={`fixed bottom-30 right-8 z-50 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-gold bg-transparent text-gold shadow-[0_0_15px_rgba(212,175,55,0.1)] backdrop-blur-md transition-all duration-500 hover:-translate-y-2 hover:bg-gold/10 hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] ${
         isVisible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-10 opacity-0"
       }`}
     >
