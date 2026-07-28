@@ -13,11 +13,13 @@ import { SpecialEventsSection } from "@/components/home/SpecialEventsSection";
 import { specialEventContent } from "@/data/specialEvents";
 
 export default function HomePage() {
-  const { mode, upcomingTargetDate, eventDetailsHref, normalHref, live, active, upcoming, normal } =
+  const { mode, upcomingTargetDate, eventDetailsHref, normalHref, live, SpecialEvent, upcoming, normal } =
     specialEventContent;
 
-  const currentContent = mode === "live" ? live : mode === "active" ? active : mode === "upcoming" ? upcoming : normal;
+  const currentContent =
+    mode === "live" ? live : mode === "SpecialEvent" ? SpecialEvent : mode === "upcoming" ? upcoming : normal;
   const targetLink = mode === "normal" ? normalHref : eventDetailsHref;
+
   return (
     <UserPageLayout>
       <HeroSection />

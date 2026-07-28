@@ -14,24 +14,21 @@ interface EventCardProps {
 }
 
 export function EventCard({ event }: EventCardProps) {
-  // 1. Slug එක භාවිතයෙන් Href එක සෑදීම
   const eventLink = `/special-events/${event.slug}`;
 
-  // 2. Mode එක අනුව Button Text එක වෙනස් කිරීම
   const getButtonText = () => {
     switch (event.mode) {
       case "live":
         return "View Details & Watch Live";
       case "upcoming":
         return "View Event Schedule";
-      case "active":
+      case "SpecialEvent":
         return "Explore Full Details";
       default:
         return "View Event Details";
     }
   };
 
-  // 3. Upcoming events වල Date Time (ISO) ලස්සනට පෙන්වීම
   const displayDate =
     event.mode === "upcoming" && event.date.includes("T")
       ? new Date(event.date).toLocaleString("en-US", {
@@ -53,11 +50,7 @@ export function EventCard({ event }: EventCardProps) {
           </div>
         ) : event.images && event.images.length > 0 ? (
           <div className="absolute inset-0 h-full w-full z-0">
-            <SpecialEventsImageSlider
-              images={event.images}
-              titleAccent={event.title}
-              targetLink={eventLink}
-            />
+            <SpecialEventsImageSlider images={event.images} titleAccent={event.title} targetLink={eventLink} />
           </div>
         ) : (
           <Image
@@ -118,9 +111,7 @@ export function EventCard({ event }: EventCardProps) {
         <h3 className="premium-serif text-xl font-normal text-white mb-3 group-hover:text-gold transition-colors">
           {event.title}
         </h3>
-        <p className="text-xs font-light leading-relaxed text-slate-300 line-clamp-3 mb-6 grow">
-          {event.description}
-        </p>
+        <p className="text-xs font-light leading-relaxed text-slate-300 line-clamp-3 mb-6 grow">{event.description}</p>
 
         <Button variant="details" href={eventLink} className="w-full py-4!">
           <span className="flex w-full items-center justify-center gap-2 whitespace-nowrap">
