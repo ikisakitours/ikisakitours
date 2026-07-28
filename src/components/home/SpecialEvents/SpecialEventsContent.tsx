@@ -1,0 +1,76 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { Sparkles, CalendarDays, Radio, Clock } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { SpecialEventMode, EventContentItem } from "@/data/specialEvents";
+
+interface SpecialEventsContentProps {
+  mode: SpecialEventMode;
+  content: EventContentItem;
+  targetLink: string;
+}
+
+export function SpecialEventsContent({ mode, content, targetLink }: SpecialEventsContentProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -30 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
+      className="text-left lg:col-span-7"
+    >
+      {/* Top Badge */}
+      <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 backdrop-blur-md">
+        {mode === "live" ? (
+          <Radio className="h-3.5 w-3.5 text-red-500 animate-pulse" />
+        ) : mode === "upcoming" ? (
+          <Clock className="h-3.5 w-3.5 text-gold animate-spin-slow" />
+        ) : (
+          <Sparkles className="h-3.5 w-3.5 text-gold animate-pulse" />
+        )}
+        <span
+          className={`text-[10px] font-bold uppercase tracking-[0.3em] md:text-xs ${
+            mode === "live" ? "text-red-400" : "text-gold"
+          }`}
+        >
+          {content.badge}
+        </span>
+      </div>
+
+      {/* Title */}
+      <h2 className="premium-serif mb-6 text-3xl font-light leading-[1.15] text-white sm:text-4xl md:text-5xl xl:text-6xl">
+        {content.titlePart1} <span className="gold-gradient-text italic">{content.titleAccent}</span>
+      </h2>
+
+      {/* Description */}
+      <p className="mb-8 max-w-2xl text-sm font-light leading-relaxed text-slate-300 md:text-base xl:text-lg">
+        {content.description}
+      </p>
+
+      {/* Actions */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+        <Button variant="shine" href={targetLink}>
+          {content.buttonText}
+        </Button>
+
+        {mode === "live" && (
+          <div className="flex items-center gap-2 text-xs text-red-400 font-medium tracking-wide">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
+            </span>
+            <span>Streaming Live Broadcast</span>
+          </div>
+        )}
+
+        {mode === "active" && (
+          <div className="flex items-center gap-2.5 text-xs text-gold/80 font-medium tracking-wide">
+            <CalendarDays className="h-4 w-4 text-gold" />
+            <span>Limited seasonal access</span>
+          </div>
+        )}
+      </div>
+    </motion.div>
+  );
+}

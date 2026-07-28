@@ -15,12 +15,11 @@ const inputClass =
 
 function AccountRecoveryFormInner() {
   const [email, setEmail] = useState("");
-  const { errors, validate } = useValidationForm();
+  const { errors, validate, setErrors } = useValidationForm();
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const fromWhere = searchParams?.get("from");
-
   const backLabel = fromWhere === "profile?tab=security" ? "Back to Profile" : "Back to Sign In";
 
   const handleBackClick = () => {
@@ -54,7 +53,10 @@ function AccountRecoveryFormInner() {
                 autoComplete="email"
                 placeholder="name@example.com"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setErrors((prev) => ({ ...prev, email: "" }));
+                }}
                 className={`${inputClass} pl-12 pr-6`}
               />
             </span>

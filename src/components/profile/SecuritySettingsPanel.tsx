@@ -4,6 +4,7 @@ import { type FormEvent, useState, useRef } from "react";
 import { Button } from "@/components/ui/Button";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { FormError } from "@/components/ui/FormError";
+import { strengthChecks } from "@/data/auth";
 //Icons
 import { CheckCircle2, Eye, EyeOff } from "lucide-react";
 
@@ -11,14 +12,6 @@ const inputClass =
   "w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 pr-12 text-white outline-none transition-all placeholder:text-slate-500 focus:border-gold/50";
 
 type PasswordFieldKey = "current" | "new" | "confirm";
-
-const strengthChecks = [
-  { id: "length", regex: /.{8,}/, msg: "At least 8 characters" },
-  { id: "upper", regex: /[A-Z]/, msg: "1 Uppercase letter" },
-  { id: "lower", regex: /[a-z]/, msg: "1 Lowercase letter" },
-  { id: "num", regex: /\d/, msg: "1 Numeral" },
-  { id: "special", regex: /[^A-Za-z0-9]/, msg: "1 Special character" },
-];
 
 export function SecuritySettingsPanel() {
   const [visibleFields, setVisibleFields] = useState<Record<PasswordFieldKey, boolean>>({
@@ -30,34 +23,35 @@ export function SecuritySettingsPanel() {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
   // Real-time states
   const [metRequirements, setMetRequirements] = useState<string[]>([]);
-
   const [transientSuccessMsgs, setTransientSuccessMsgs] = useState<string[]>([]);
   const [transientConfirmSuccess, setTransientConfirmSuccess] = useState<string[]>([]);
-
   const [localNewError, setLocalNewError] = useState("");
   const [localConfirmError, setLocalConfirmError] = useState("");
-
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const confirmTimerRef = useRef<NodeJS.Timeout | null>(null);
-
   const { errors, validate, setErrors } = useValidationForm();
 
   const togglePassword = (field: PasswordFieldKey) => {
     setVisibleFields((current) => ({ ...current, [field]: !current[field] }));
   };
 
+  // --- Current Password Handling ---
+  const handleCurrentPasswordChange = (val: string) => {
+    setCurrentPassword(val);
+    setErrors((prev) => ({ ...prev, currentPassword: "" }));
+  };
+
   // --- New Password Handling ---
   const handleNewPasswordChange = (val: string) => {
     setNewPassword(val);
+    setErrors((prev) => ({ ...prev, password: "" }));
+    setLocalNewError("");
 
     if (val === "") {
-      setLocalNewError("");
       setTransientSuccessMsgs([]);
       setMetRequirements([]);
-      if (errors.password) setErrors((prev) => ({ ...prev, password: "" }));
       return;
     }
 
@@ -76,16 +70,6 @@ export function SecuritySettingsPanel() {
       timerRef.current = setTimeout(() => setTransientSuccessMsgs([]), 2000);
     }
     setMetRequirements(currentlyMet);
-
-    if (localNewError || errors.password) {
-      const unmet = strengthChecks.filter((req) => !req.regex.test(val));
-      if (unmet.length === 0) {
-        setLocalNewError("");
-      } else {
-        setLocalNewError(`Missing: ${unmet[0].msg}`);
-      }
-      if (errors.password) setErrors((prev) => ({ ...prev, password: "" }));
-    }
   };
 
   const handleNewPasswordBlur = () => {
@@ -94,19 +78,17 @@ export function SecuritySettingsPanel() {
     const unmet = strengthChecks.filter((req) => !req.regex.test(newPassword));
     if (unmet.length > 0) {
       setLocalNewError(`Missing: ${unmet[0].msg}`);
-    } else {
-      setLocalNewError("");
     }
   };
 
   // --- Confirm Password Handling ---
   const handleConfirmChange = (val: string) => {
     setConfirmPassword(val);
+    setErrors((prev) => ({ ...prev, confirmPassword: "" }));
+    setLocalConfirmError("");
 
     if (val === "") {
-      setLocalConfirmError("");
       setTransientConfirmSuccess([]);
-      if (errors.confirmPassword) setErrors((prev) => ({ ...prev, confirmPassword: "" }));
       return;
     }
 
@@ -114,15 +96,8 @@ export function SecuritySettingsPanel() {
       setTransientConfirmSuccess(["Passwords match"]);
       if (confirmTimerRef.current) clearTimeout(confirmTimerRef.current);
       confirmTimerRef.current = setTimeout(() => setTransientConfirmSuccess([]), 2000);
-      setLocalConfirmError("");
-      if (errors.confirmPassword) setErrors((prev) => ({ ...prev, confirmPassword: "" }));
     } else {
       setTransientConfirmSuccess([]);
-    }
-
-    if (localConfirmError || errors.confirmPassword) {
-      if (val === newPassword) setLocalConfirmError("");
-      if (errors.confirmPassword) setErrors((prev) => ({ ...prev, confirmPassword: "" }));
     }
   };
 
@@ -157,10 +132,7 @@ export function SecuritySettingsPanel() {
             <PasswordField
               label="Current Password"
               value={currentPassword}
-              onChange={(val) => {
-                setCurrentPassword(val);
-                if (val === "") setErrors((prev) => ({ ...prev, currentPassword: "" }));
-              }}
+              onChange={handleCurrentPasswordChange}
               isVisible={visibleFields.current}
               onToggle={() => togglePassword("current")}
               error={errors.currentPassword}

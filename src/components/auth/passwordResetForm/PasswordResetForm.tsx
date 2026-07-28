@@ -6,6 +6,7 @@ import { passwordResetFormContent } from "@/data/auth";
 import { Button } from "@/components/ui/Button";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { FormError } from "@/components/ui/FormError";
+import { strengthChecks } from "@/data/auth";
 //Icons
 import { CheckCircle2, Eye, EyeOff, Lock, ShieldCheck } from "lucide-react";
 
@@ -13,14 +14,6 @@ const otpLength = 6;
 
 const inputClass =
   "w-full rounded-2xl border border-white/10 bg-white/[0.03] py-3.5 px-5 text-sm text-white outline-none transition-all placeholder:text-slate-700 focus:border-gold focus:bg-gold/5 focus:shadow-[0_0_15px_rgba(197,160,89,0.05)]";
-
-const strengthChecks = [
-  { id: "length", regex: /.{8,}/, msg: "At least 8 characters" },
-  { id: "upper", regex: /[A-Z]/, msg: "1 Uppercase letter" },
-  { id: "lower", regex: /[a-z]/, msg: "1 Lowercase letter" },
-  { id: "num", regex: /\d/, msg: "1 Numeral" },
-  { id: "special", regex: /[^A-Za-z0-9]/, msg: "1 Special character" },
-];
 
 export function PasswordResetForm() {
   const [otp, setOtp] = useState(() => Array.from({ length: otpLength }, () => ""));
@@ -68,12 +61,12 @@ export function PasswordResetForm() {
   // --- Password Handling ---
   const handlePasswordChange = (val: string) => {
     setPassword(val);
+    setErrors((prev) => ({ ...prev, password: "" })); // Error clear
+    setLocalNewError("");
 
     if (val === "") {
-      setLocalNewError("");
       setTransientSuccessMsgs([]);
       setMetRequirements([]);
-      if (errors.password) setErrors((prev) => ({ ...prev, password: "" }));
       return;
     }
 
@@ -92,16 +85,6 @@ export function PasswordResetForm() {
       timerRef.current = setTimeout(() => setTransientSuccessMsgs([]), 2000);
     }
     setMetRequirements(currentlyMet);
-
-    if (localNewError || errors.password) {
-      const unmet = strengthChecks.filter((req) => !req.regex.test(val));
-      if (unmet.length === 0) {
-        setLocalNewError("");
-      } else {
-        setLocalNewError(`Missing: ${unmet[0].msg}`);
-      }
-      if (errors.password) setErrors((prev) => ({ ...prev, password: "" }));
-    }
   };
 
   const handlePasswordBlur = () => {
@@ -110,19 +93,17 @@ export function PasswordResetForm() {
     const unmet = strengthChecks.filter((req) => !req.regex.test(password));
     if (unmet.length > 0) {
       setLocalNewError(`Missing: ${unmet[0].msg}`);
-    } else {
-      setLocalNewError("");
     }
   };
 
   // --- Confirm Password Handling ---
   const handleConfirmChange = (val: string) => {
     setConfirmPassword(val);
+    setErrors((prev) => ({ ...prev, confirmPassword: "" })); // Error clear
+    setLocalConfirmError("");
 
     if (val === "") {
-      setLocalConfirmError("");
       setTransientConfirmSuccess([]);
-      if (errors.confirmPassword) setErrors((prev) => ({ ...prev, confirmPassword: "" }));
       return;
     }
 
@@ -130,15 +111,8 @@ export function PasswordResetForm() {
       setTransientConfirmSuccess(["Passwords match"]);
       if (confirmTimerRef.current) clearTimeout(confirmTimerRef.current);
       confirmTimerRef.current = setTimeout(() => setTransientConfirmSuccess([]), 2000);
-      setLocalConfirmError("");
-      if (errors.confirmPassword) setErrors((prev) => ({ ...prev, confirmPassword: "" }));
     } else {
       setTransientConfirmSuccess([]);
-    }
-
-    if (localConfirmError || errors.confirmPassword) {
-      if (val === password) setLocalConfirmError("");
-      if (errors.confirmPassword) setErrors((prev) => ({ ...prev, confirmPassword: "" }));
     }
   };
 

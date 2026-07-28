@@ -18,8 +18,11 @@ export default function BackNavigation() {
     backLabel = "Back to Island Map";
   } else if (from === "routeMap") {
     backLabel = "Back to Route Map";
-  } else if (from === "package" && tourSlug) {
-    backLink = `/booking/${tourSlug}`;
+  } else if (from === "one-day-tours" && tourSlug) {
+    backLink = `/booking/one-day-tours/${tourSlug}`;
+    backLabel = "Back to Tour";
+  } else if (from === "multi-days-tours" && tourSlug) {
+    backLink = `/booking/multi-days-tours/${tourSlug}`;
     backLabel = "Back to Tour";
   }
 
@@ -29,9 +32,9 @@ export default function BackNavigation() {
     if (from === "map") {
       router.push(backLink);
     } else if (window.history.length > 2) {
-      router.back();
+      router.back(); 
     } else {
-      router.push(backLink);
+      router.push(backLink); 
     }
   };
 

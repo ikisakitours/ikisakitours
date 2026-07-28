@@ -13,10 +13,8 @@ const inputClass =
 export function ProfileDetailsPanel() {
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
   const [name, setName] = useState(profileUser.name);
   const [email, setEmail] = useState(profileUser.email);
-
   const { errors, validate, setErrors } = useValidationForm();
 
   const handleAvatarPreview = (event: ChangeEvent<HTMLInputElement>) => {
@@ -143,7 +141,15 @@ export function ProfileDetailsPanel() {
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <label className="space-y-2">
                   <span className="block text-[10px] font-bold uppercase tracking-[0.2em] text-gold">Full Name</span>
-                  <input type="text" value={name} onChange={(e) => setName(e.target.value)} className={inputClass} />
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                      setErrors((prev) => ({ ...prev, fullName: "" })); // Clear error
+                    }}
+                    className={inputClass}
+                  />
                   <div className="ml-2">
                     <FormError message={errors.fullName} />
                   </div>
@@ -153,7 +159,15 @@ export function ProfileDetailsPanel() {
                   <span className="block text-[10px] font-bold uppercase tracking-[0.2em] text-gold">
                     Email Address
                   </span>
-                  <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className={inputClass} />
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      setErrors((prev) => ({ ...prev, email: "" })); // Clear error
+                    }}
+                    className={inputClass}
+                  />
                   <div className="ml-2">
                     <FormError message={errors.email} />
                   </div>

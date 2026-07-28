@@ -31,6 +31,7 @@ export const primaryNavigation: NavItem[] = [
     label: "More",
     isDropdown: true,
     subItems: [
+      { label: "Cultural Pageants", href: "/special-events", sectionId: "#special-events" },
       { label: "Journal", href: "/blog", sectionId: "#blog" },
       { label: "Hidden Havens", href: "/destination", sectionId: "" },
       { label: "Reviews", href: "/testimonials", sectionId: "#testimonials" },

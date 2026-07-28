@@ -7,10 +7,17 @@ import { ToursSection } from "@/components/home/ToursSection";
 import { PrivateVehicle } from "@/components/home/PrivateVehicle";
 import { TransfersSection } from "@/components/home/TransfersSection";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
-
 import { CustomTourSection } from "@/components/home/CustomTourSection";
 import HomeContactCTA from "@/components/home/HomeContactCTA";
+import { SpecialEventsSection } from "@/components/home/SpecialEventsSection";
+import { specialEventContent } from "@/data/specialEvents";
+
 export default function HomePage() {
+  const { mode, upcomingTargetDate, eventDetailsHref, normalHref, live, active, upcoming, normal } =
+    specialEventContent;
+
+  const currentContent = mode === "live" ? live : mode === "active" ? active : mode === "upcoming" ? upcoming : normal;
+  const targetLink = mode === "normal" ? normalHref : eventDetailsHref;
   return (
     <UserPageLayout>
       <HeroSection />
@@ -19,6 +26,12 @@ export default function HomePage() {
       <PrivateVehicle />
       <CustomTourSection />
       <TransfersSection />
+      <SpecialEventsSection
+        mode={mode}
+        content={currentContent}
+        targetLink={targetLink}
+        upcomingTargetDate={upcomingTargetDate}
+      />
       <ToursSection />
       <JournalPreview />
       <ClientExperiencesSection />

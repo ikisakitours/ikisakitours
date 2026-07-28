@@ -36,7 +36,7 @@ export function BookingDetailSections({ tour, tourType }: SharedTourProps) {
       <IncludesSection tour={tour} />
       <EssentialsSection tour={tour} />
       <TourCustomization />
-      <CoveredDestinations destinations={tour.coveredDestinations} tourSlug={tour.slug} />
+      <CoveredDestinations destinations={tour.coveredDestinations} tourSlug={tour.slug} tourType={tourType}/>
       <ReviewsSection tour={tour} tourType={tourType}/>
     </>
   );

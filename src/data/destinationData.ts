@@ -390,4 +390,106 @@ export const destinationsData: Destination[] = [
       "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=95&w=1600&auto=format&fit=crop",
     ],
   },
+
+  {
+    slug: "polonnaruwa-ancient-city",
+    name: "Polonnaruwa Ancient City",
+    lat: 7.9403,
+    lng: 81.0188,
+    region: "Cultural & Heritage",
+    hero: {
+      eyebrow: "Destination Polonnaruwa",
+      title: "Ancient ",
+      accent: "Polonnaruwa",
+      strapline: "A UNESCO World Heritage site showcasing the monumental ruins of the 12th-century capital.",
+      image: "https://images.unsplash.com/photo-1500622944204-b135684e99fd?q=95&w=1600&auto=format&fit=crop",
+    },
+    about:
+      "A UNESCO World Heritage site showcasing the monumental ruins of the 12th-century capital. Polonnaruwa served as the flourishing second capital of Sri Lanka after the destruction of Anuradhapura in 993. It features well-preserved archaeological treasures, including majestic royal palaces, intricate statue houses, sacred quadrangles, and ancient irrigation structures that reflect the pinnacle of medieval Sinhalese art and architecture.",
+    attractions: [
+      "The Royal Palace of King Parakramabahu",
+      "Sacred Quadrangle (Dalada Malaluwa)",
+      "Vatadage",
+      "Rankoth Vehera",
+      "Kiri Vehera",
+      "Lankathilaka Image House",
+    ],
+    guide: {
+      bestTime: "June to October",
+      climate: "Dry and Warm Tropical Climate",
+      languages: "Sinhala, English",
+      currency: "Sri Lankan Rupee (LKR)",
+    },
+    photos: [
+      "https://images.unsplash.com/photo-1500622944204-b135684e99fd?q=95&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?q=95&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=95&w=1600&auto=format&fit=crop",
+    ],
+  },
+  {
+    slug: "gal-vihara",
+    name: "Gal Vihara",
+    lat: 7.9656,
+    lng: 81.0051,
+    region: "Cultural & Heritage",
+    hero: {
+      eyebrow: "Destination Gal Vihara",
+      title: "Rock-Cut ",
+      accent: "Gal Vihara",
+      strapline: "Famous for its massive, perfectly preserved Buddha statues carved directly into granite.",
+      image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?q=95&w=1600&auto=format&fit=crop",
+    },
+    about:
+      "Gal Vihara is a rock temple of the Buddha situated in the ancient city of Polonnaruwa. Famous for its massive, perfectly preserved Buddha statues carved directly into a granite rock face, it represents the absolute peak of ancient Sri Lankan rock sculpture and stone carving artistry. Created under the direction of King Parakramabahu I, the complex includes seated, standing, and reclining statues of the Buddha.",
+    attractions: [
+      "Seated Buddha Statue",
+      "Recumbent Buddha Statue (Parinirvana)",
+      "Standing Buddha Statue",
+      "Vidyadhara Cave Shrine",
+    ],
+    guide: {
+      bestTime: "June to October",
+      climate: "Dry and Warm Tropical Climate",
+      languages: "Sinhala, English",
+      currency: "Sri Lankan Rupee (LKR)",
+    },
+    photos: [
+      "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?q=95&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1500622944204-b135684e99fd?q=95&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?q=95&w=1600&auto=format&fit=crop",
+    ],
+  },
+  {
+    slug: "parakrama-samudra",
+    name: "Parakrama Samudra",
+    lat: 7.9333,
+    lng: 80.9833,
+    region: "Cultural & Heritage",
+    hero: {
+      eyebrow: "Destination Parakrama Samudra",
+      title: "Ancient ",
+      accent: "Sea",
+      strapline: "A colossal ancient reservoir demonstrating advanced hydraulic engineering.",
+      image: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=95&w=1600&auto=format&fit=crop",
+    },
+    about:
+      "Parakrama Samudra is a colossal shallow reservoir consisting of a chain of interconnected lakes in Polonnaruwa, Sri Lanka. Built by King Parakramabahu I around 1200 AD, this monumental body of water was designed to store rainwater and feed the surrounding paddy fields. Often described as an 'ocean' due to its vast expanse, it stands as a brilliant testament to the advanced hydraulic engineering capabilities of ancient Sri Lanka.",
+    attractions: [
+      "Main Reservoir Embankment",
+      "King Parakramabahu Statue (Nearby)",
+      "Ancient Sluice Gates",
+      "Scenic Sunset Points",
+    ],
+    guide: {
+      bestTime: "June to October",
+      climate: "Dry and Warm Tropical Climate",
+      languages: "Sinhala, English",
+      currency: "Sri Lankan Rupee (LKR)",
+    },
+    photos: [
+      "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=95&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=95&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=95&w=1600&auto=format&fit=crop",
+    ],
+  },
 ];

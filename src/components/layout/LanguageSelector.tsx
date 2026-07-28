@@ -85,7 +85,7 @@ export function LanguageSelector() {
 
       {/* Dropdown Menu */}
       <div
-        className={`absolute right-0 top-full mt-3 w-80 origin-top-right overflow-hidden rounded-xl border border-gold/20 bg-lanka-black/95 shadow-[0_10px_40px_rgba(0,0,0,0.8)] backdrop-blur-2xl transition-all duration-300 ${
+        className={`absolute right-0 top-full mt-3 w-80 origin-top-right overflow-hidden rounded-xl border border-gold/20 bg-lanka-black/95 backdrop-blur-2xl transition-all duration-300 ${
           isOpen ? "pointer-events-auto scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"
         }`}
       >

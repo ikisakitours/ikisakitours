@@ -11,7 +11,7 @@ export function CurrencySelector() {
   const [search, setSearch] = useState("");
 
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const selectedItemRef = useRef<HTMLButtonElement>(null); 
+  const selectedItemRef = useRef<HTMLButtonElement>(null);
 
   // Click Outside Logic
   useEffect(() => {
@@ -79,7 +79,7 @@ export function CurrencySelector() {
 
       {/* Dropdown Menu */}
       <div
-        className={`absolute right-0 top-full mt-3 w-80 origin-top-right overflow-hidden rounded-xl border border-gold/20 bg-lanka-black/95 shadow-[0_10px_40px_rgba(0,0,0,0.8)] backdrop-blur-2xl transition-all duration-300 ${
+        className={`absolute right-0 top-full mt-3 w-80 origin-top-right overflow-hidden rounded-xl border border-gold/20 bg-lanka-black/95 backdrop-blur-2xl transition-all duration-300 ${
           isOpen ? "pointer-events-auto scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"
         }`}
       >
@@ -100,11 +100,11 @@ export function CurrencySelector() {
         <div className="max-h-64 overflow-y-auto py-1 custom-scrollbar">
           {filteredCurrencies.length > 0 ? (
             filteredCurrencies.map((currency) => {
-              const isSelected = baseCurrency === currency.code; 
+              const isSelected = baseCurrency === currency.code;
               return (
                 <button
                   key={currency.code}
-                  ref={isSelected ? selectedItemRef : null} 
+                  ref={isSelected ? selectedItemRef : null}
                   onClick={() => {
                     setBaseCurrency(currency.code);
                     setIsOpen(false);
@@ -117,9 +117,7 @@ export function CurrencySelector() {
                 >
                   <div className="flex flex-col">
                     <span
-                      className={`text-[13px] ${
-                        isSelected ? "font-bold text-gold" : "font-medium text-slate-200"
-                      }`}
+                      className={`text-[13px] ${isSelected ? "font-bold text-gold" : "font-medium text-slate-200"}`}
                     >
                       {currency.name}
                     </span>
@@ -127,9 +125,7 @@ export function CurrencySelector() {
                   </div>
 
                   <div className="flex items-center">
-                    <span
-                      className={`text-[13px] font-bold ${isSelected ? "text-gold" : "text-white"}`}
-                    >
+                    <span className={`text-[13px] font-bold ${isSelected ? "text-gold" : "text-white"}`}>
                       {currency.symbol}
                     </span>
                   </div>

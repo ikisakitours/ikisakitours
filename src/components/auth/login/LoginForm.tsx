@@ -8,19 +8,14 @@ import { loginFormContent } from "@/data/auth";
 import { Button } from "@/components/ui/Button";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { FormError } from "@/components/ui/FormError";
+import { strengthChecks } from "@/data/auth";
 //Icons
 import { CheckCircle2, Eye, EyeOff, Mail, ShieldCheck } from "lucide-react";
 
 const inputClass =
   "w-full rounded-2xl border border-white/10 bg-white/[0.03] py-3.5 px-5 text-sm text-white outline-none transition-all placeholder:text-slate-700 focus:border-gold focus:bg-gold/5 focus:shadow-[0_0_15px_rgba(197,160,89,0.05)]";
 
-const strengthChecks = [
-  { id: "length", regex: /.{8,}/, msg: "At least 8 characters" },
-  { id: "upper", regex: /[A-Z]/, msg: "1 Uppercase letter" },
-  { id: "lower", regex: /[a-z]/, msg: "1 Lowercase letter" },
-  { id: "num", regex: /\d/, msg: "1 Numeral" },
-  { id: "special", regex: /[^A-Za-z0-9]/, msg: "1 Special character" },
-];
+
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -37,12 +32,12 @@ export function LoginForm() {
   // Password Handling
   const handlePasswordChange = (val: string) => {
     setPassword(val);
+    setErrors((prev) => ({ ...prev, password: "" }));
+    setLocalNewError("");
 
     if (val === "") {
-      setLocalNewError("");
       setTransientSuccessMsgs([]);
       setMetRequirements([]);
-      if (errors.password) setErrors((prev) => ({ ...prev, password: "" }));
       return;
     }
 
@@ -61,16 +56,6 @@ export function LoginForm() {
       timerRef.current = setTimeout(() => setTransientSuccessMsgs([]), 2000);
     }
     setMetRequirements(currentlyMet);
-
-    if (localNewError || errors.password) {
-      const unmet = strengthChecks.filter((req) => !req.regex.test(val));
-      if (unmet.length === 0) {
-        setLocalNewError("");
-      } else {
-        setLocalNewError(`Missing: ${unmet[0].msg}`);
-      }
-      if (errors.password) setErrors((prev) => ({ ...prev, password: "" }));
-    }
   };
 
   const handlePasswordBlur = () => {
@@ -79,8 +64,6 @@ export function LoginForm() {
     const unmet = strengthChecks.filter((req) => !req.regex.test(password));
     if (unmet.length > 0) {
       setLocalNewError(`Missing: ${unmet[0].msg}`);
-    } else {
-      setLocalNewError("");
     }
   };
 
@@ -108,7 +91,10 @@ export function LoginForm() {
                 autoComplete="email"
                 placeholder="name@example.com"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setErrors((prev) => ({ ...prev, email: "" })); // Clear error on type
+                }}
                 className={`${inputClass} pl-12 pr-6`}
               />
             </span>
