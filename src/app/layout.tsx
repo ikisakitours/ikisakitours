@@ -67,7 +67,7 @@ export default function RootLayout({
       className={`${plusJakarta.variable} ${playfair.variable} h-full scroll-smooth antialiased`}
     >
       <body className="min-h-full bg-lanka-dark text-slate-200">
-        {/* <Preloader /> */}
+        <Preloader />
         {children}
         <Toaster position="top-center" richColors />
         <TawkToChat />

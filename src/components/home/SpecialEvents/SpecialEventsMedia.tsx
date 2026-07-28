@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { SpecialEventMode, EventContentItem } from "@/data/specialEvents";
 import { CountdownTimer } from "./CountdownTimer";
-import UniversalPlayer from "./UniversalPlayer"; 
+import UniversalPlayer from "./UniversalPlayer";
 import { SpecialEventsImageSlider } from "./SpecialEventsImageSlider";
 
 interface SpecialEventsMediaProps {
@@ -35,7 +35,6 @@ export function SpecialEventsMedia({ mode, content, targetLink, upcomingTargetDa
       {/* 1. Main Media Card (වීඩියෝ එක හෝ ඉමේජ් ස්ලයිඩර් එක) */}
       <div className="glass-card relative overflow-hidden rounded-[2.5rem] border border-white/10 p-3 shadow-2xl md:p-4">
         <div className="relative aspect-16/10 w-full overflow-hidden rounded-3xl bg-black">
-          
           {mode === "live" && (
             <div className="absolute top-3 left-3 z-20 flex items-center gap-2 rounded-full border border-red-500/30 bg-red-950/80 px-3 py-1 backdrop-blur-md shadow-lg">
               <span className="relative flex h-2 w-2">
@@ -63,11 +62,9 @@ export function SpecialEventsMedia({ mode, content, targetLink, upcomingTargetDa
           ) : (
             <SpecialEventsImageSlider images={imagesList} titleAccent={content.titleAccent} targetLink={targetLink} />
           )}
-
         </div>
       </div>
 
-      {/* 2. UPCOMING MODE එකේදී Countdown Timer එක මීඩියා කාඩ් එකට යටින් පෙන්වීම */}
       {mode === "upcoming" && (
         <div className="w-full">
           <CountdownTimer targetDate={upcomingTargetDate} />
