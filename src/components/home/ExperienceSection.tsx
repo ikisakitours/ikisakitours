@@ -4,9 +4,10 @@ import { experiencePillars } from "@/data/home";
 import { experienceSectionContent } from "@/data/home";
 import { Button } from "@/components/ui/Button";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { ArrowRight, BadgeCheck, Car, Languages, MapPinned, SlidersHorizontal } from "lucide-react";
+import SectionBadge from "@/components/home/SpecialEvents/SectionBadge";
 import { motion } from "framer-motion";
-
+//Icons
+import { ArrowRight, BadgeCheck, Car, Languages, MapPinned, SlidersHorizontal } from "lucide-react";
 const images = [
   { src: "/images/polonnaruwa-185290_1280.webp", alt: "Cultural Guide", className: "" },
   { src: "/images/sri-lanka-334437_1280.webp", alt: "Luxury Travel", className: "mt-8 md:mt-12 xl:mt-16 3xl:mt-24" },
@@ -135,11 +136,8 @@ export function ExperienceSection() {
             transition={{ duration: 0.9, ease: [0.25, 1, 0.5, 1] }}
             className="order-1 text-center xl:order-2 xl:text-left"
           >
-            <div className="mb-6 inline-block rounded-full border border-gold/20 bg-gold/5 px-4 py-1 3xl:mb-8 3xl:px-6 3xl:py-2">
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold 3xl:text-xs">
-                {experienceSectionContent.badge}
-              </span>
-            </div>
+            
+            <SectionBadge badge={experienceSectionContent.badge} />
             <h2 className="mb-6 font-serif text-3xl font-light leading-tight text-foreground sm:text-4xl md:text-5xl xl:text-5xl 2xl:text-6xl 3xl:mb-10 3xl:text-[5rem]">
               {experienceSectionContent.titlePart1} <br className="hidden xl:block" />
               <span className="mt-1 block pb-2 pr-2 gold-gradient-text font-normal italic md:mt-2 md:pb-4 3xl:pb-6">

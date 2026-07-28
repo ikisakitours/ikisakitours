@@ -5,10 +5,12 @@ import Link from "next/link";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { transferCards } from "@/data/transfers";
 import { transfersSectionContent } from "@/data/home";
+import { motion } from "framer-motion";
+import SectionBadge from "@/components/home/SpecialEvents/SectionBadge";
+//Icons
 import { Car, ChevronLeft, ChevronRight, PlaneLanding, PlaneTakeoff } from "lucide-react";
 import { FaShieldAlt } from "react-icons/fa";
 import { FaClock } from "react-icons/fa6";
-import { motion } from "framer-motion";
 
 const serviceIcons = [PlaneLanding, Car, PlaneTakeoff];
 const trustBadges = [
@@ -65,11 +67,7 @@ export function TransfersSection() {
           transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
           className="mb-12 text-center md:mb-20 lg:mb-24 3xl:mb-32"
         >
-          <div className="mb-6 inline-block rounded-full border border-gold/20 bg-gold/5 px-4 py-1 3xl:px-6 3xl:py-2">
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold 3xl:text-xs">
-              {transfersSectionContent.badge}
-            </span>
-          </div>
+          <SectionBadge badge={transfersSectionContent.badge} />
           <h2 className="mb-6 text-3xl font-light leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl 3xl:text-7xl">
             {transfersSectionContent.titlePart1}{" "}
             <span className="italic text-gold">{transfersSectionContent.titleAccent}</span>{" "}

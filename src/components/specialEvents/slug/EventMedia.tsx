@@ -1,0 +1,119 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import UniversalPlayer from "@/components/home/SpecialEvents/UniversalPlayer"; 
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+interface EventMediaProps {
+  image: string;
+  titleAccent: string;
+  statusTag: string;
+  videoUrl?: string;
+  mode?: string; 
+  broadcastTag?: string;
+  images?: string[]; 
+}
+
+export function EventMedia({ image, titleAccent, statusTag, videoUrl, mode, broadcastTag, images }: EventMediaProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  const sliderImages = images && images.length > 0 ? images : [image];
+
+  useEffect(() => {
+    if (videoUrl || sliderImages.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % sliderImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [videoUrl, sliderImages.length]);
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % sliderImages.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + sliderImages.length) % sliderImages.length);
+  };
+
+  return (
+    <div className="glass-card relative overflow-hidden rounded-[2.5rem] border border-white/10 p-3 shadow-2xl md:p-4">
+      <div className="relative aspect-16/10 w-full overflow-hidden rounded-3xl bg-black z-0 group">
+        
+        {/* --- LIVE NOW Broadcast Badge (Top Left) --- */}
+        {mode === "live" && (
+          <div className="absolute top-4 left-4 z-30 flex items-center gap-2 rounded-full border border-red-500/30 bg-red-950/80 px-3 py-1.5 backdrop-blur-md shadow-lg pointer-events-none">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+            </span>
+            <span className="text-[10px] font-extrabold uppercase tracking-widest text-red-300">
+              {broadcastTag || "LIVE NOW"}
+            </span>
+          </div>
+        )}
+
+        {videoUrl ? (
+          <div className="absolute inset-0 h-full w-full z-10">
+            <UniversalPlayer url={videoUrl} />
+          </div>
+        ) : (
+          <>
+            <Image
+              src={sliderImages[currentIndex]}
+              alt={titleAccent}
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 70vw"
+              className="object-cover transition-all duration-700"
+            />
+            <div className="absolute inset-0 bg-linear-to-t from-background/95 via-transparent to-transparent pointer-events-none z-10" />
+
+            {sliderImages.length > 1 && (
+              <>
+                <button 
+                  onClick={prevSlide}
+                  className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-20 flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-full bg-black/50 md:bg-black/40 text-white backdrop-blur-md transition-all hover:bg-gold hover:text-black border border-white/10 opacity-100 md:opacity-0 md:group-hover:opacity-100"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
+                </button>
+                <button 
+                  onClick={nextSlide}
+                  className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-full bg-black/50 md:bg-black/40 text-white backdrop-blur-md transition-all hover:bg-gold hover:text-black border border-white/10 opacity-100 md:opacity-0 md:group-hover:opacity-100"
+                  aria-label="Next image"
+                >
+                  <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
+                </button>
+
+                {/* --- Slider Indicators --- */}
+                <div className="absolute bottom-6 md:bottom-16 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+                  {sliderImages.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrentIndex(idx)}
+                      aria-label={`Go to image ${idx + 1}`}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        idx === currentIndex ? "w-6 bg-gold" : "w-1.5 bg-white/40 hover:bg-white/80"
+                      }`}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </>
+        )}
+
+        {mode !== "live" && (
+          <div className="absolute bottom-6 left-6 z-20 rounded-xl border border-white/15 bg-black/70 px-5 py-3 backdrop-blur-xl shadow-xl pointer-events-none hidden md:block">
+            <div className="flex items-center gap-3">
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold">{statusTag}</span>
+              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
+            </div>
+          </div>
+        )}
+        
+      </div>
+    </div>
+  );
+}

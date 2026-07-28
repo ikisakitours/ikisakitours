@@ -6,11 +6,13 @@ import Image from "next/image";
 import { packages } from "@/data/multiDaysTours";
 import { oneDayTours } from "@/data/oneDayTours";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { Star } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { toursSectionContent } from "@/data/home";
-import { FaClock } from "react-icons/fa6";
 import { motion, AnimatePresence } from "framer-motion";
+import SectionBadge from "@/components/home/SpecialEvents/SectionBadge";
+//Icons
+import { FaClock } from "react-icons/fa6";
+import { Star } from "lucide-react";
 
 const getBadgeStyles = (type: string) => {
   switch (type) {
@@ -67,11 +69,8 @@ export function ToursSection() {
           transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
           className="mb-10 text-center md:mb-14 3xl:mb-20"
         >
-          <div className="mb-6 inline-block rounded-full border border-gold/20 bg-gold/5 px-4 py-1 3xl:px-6 3xl:py-2">
-            <span className="text-[10px] 3xl:text-xs font-bold uppercase tracking-[0.3em] text-gold">
-              {toursSectionContent.badge}
-            </span>
-          </div>
+         
+           <SectionBadge badge={toursSectionContent.badge} />
           <h2 className="premium-serif text-3xl font-light leading-tight text-white sm:text-5xl md:text-6xl 3xl:text-7xl">
             {toursSectionContent.titlePart1}
             <span className="gold-gradient-text italic">{toursSectionContent.titleAccent}</span>

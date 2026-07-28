@@ -32,7 +32,7 @@ export const heroContent = {
   award: "Travel+Leisure 2026",
   titleMain: "Sri Lanka",
   titleAccent: "Beyond the Map",
-  description: "Elite personalized tours with master guides in ",
+  description: "MapMate personalized tours with master guides in ",
   languagesOne: "Japanese, French, Spanish",
   languagesTwo: "English.",
   searchPlaceholder: "Where to explore?",
@@ -53,7 +53,7 @@ export const discoveryContent = {
 };
 
 export const experienceSectionContent = {
-  badge: "Elite Travel Partner",
+  badge: "MapMate Travel Partner",
   titlePart1: "Curating Memories",
   titleAccent: "Beyond Borders",
   description:
@@ -129,7 +129,7 @@ export const toursSectionContent = {
 
 export const journalPreviewContent = {
   badge: "Insights",
-  titlePart1: "Traveler",
+  titlePart1: "Travel",
   titleAccent: "Journal",
   subtitle: "Curated stories and expert advice to help you navigate the wonders of Sri Lanka with ease.",
   readMoreText: "Read More",

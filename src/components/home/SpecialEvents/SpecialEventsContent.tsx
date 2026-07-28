@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Sparkles, CalendarDays, Radio, Clock } from "lucide-react";
+import { CalendarDays } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { SpecialEventMode, EventContentItem } from "@/data/specialEvents";
+import SectionBadge from "@/components/home/SpecialEvents/SectionBadge";
 
 interface SpecialEventsContentProps {
   mode: SpecialEventMode;
@@ -21,23 +22,7 @@ export function SpecialEventsContent({ mode, content, targetLink }: SpecialEvent
       className="text-left lg:col-span-7"
     >
       {/* Top Badge */}
-      <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 backdrop-blur-md">
-        {mode === "live" ? (
-          <Radio className="h-3.5 w-3.5 text-red-500 animate-pulse" />
-        ) : mode === "upcoming" ? (
-          <Clock className="h-3.5 w-3.5 text-gold animate-spin-slow" />
-        ) : (
-          <Sparkles className="h-3.5 w-3.5 text-gold animate-pulse" />
-        )}
-        <span
-          className={`text-[10px] font-bold uppercase tracking-[0.3em] md:text-xs ${
-            mode === "live" ? "text-red-400" : "text-gold"
-          }`}
-        >
-          {content.badge}
-        </span>
-      </div>
-
+      <SectionBadge badge={content.badge} />
       {/* Title */}
       <h2 className="premium-serif mb-6 text-3xl font-light leading-[1.15] text-white sm:text-4xl md:text-5xl xl:text-6xl">
         {content.titlePart1} <span className="gold-gradient-text italic">{content.titleAccent}</span>
@@ -68,7 +53,7 @@ export function SpecialEventsContent({ mode, content, targetLink }: SpecialEvent
           </div>
         )}
 
-        {mode === "active" && (
+        {mode === "SpecialEvent" && (
           <div className="flex items-center gap-2.5 text-xs text-gold/80 font-medium tracking-wide">
             <CalendarDays className="h-4 w-4 text-gold" />
             <span>Limited seasonal access</span>

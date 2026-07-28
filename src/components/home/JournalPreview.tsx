@@ -3,10 +3,12 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { blogPosts } from "@/data/blog";
-import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { journalPreviewContent } from "@/data/home";
+import { blogPosts } from "@/data/blog";
+import SectionBadge from "@/components/home/SpecialEvents/SectionBadge";
+//icons
+import { ArrowRight } from "lucide-react";
 
 export function JournalPreview() {
   return (
@@ -21,13 +23,10 @@ export function JournalPreview() {
           className="mb-16 flex flex-col justify-between gap-8 md:mb-20 lg:flex-row lg:items-end 3xl:mb-28"
         >
           <div className="max-w-2xl">
-            <div className="mb-6 inline-block rounded-full border border-gold/20 bg-gold/5 px-4 py-1 3xl:px-6 3xl:py-1.5">
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold 3xl:text-xs">
-                {journalPreviewContent.badge}
-              </span>
-            </div>
+            <SectionBadge badge={journalPreviewContent.badge} />
             <h2 className="font-serif text-3xl font-light leading-[1.1] text-white sm:text-5xl md:text-6xl 3xl:text-7xl">
-              Traveler <span className="gold-gradient-text italic">{journalPreviewContent.titleAccent}</span>
+              {journalPreviewContent.titlePart1}{" "}
+              <span className="gold-gradient-text italic">{journalPreviewContent.titleAccent}</span>
             </h2>
           </div>
           <p className="max-w-md text-base font-light italic leading-relaxed text-slate-400 md:text-lg lg:mb-2 3xl:max-w-xl 3xl:text-xl">

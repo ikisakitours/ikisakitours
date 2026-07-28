@@ -9,6 +9,7 @@ import { WriteReviewForm } from "@/components/ui/WriteReviewForm";
 import { motion, AnimatePresence } from "framer-motion";
 import { RatingStars } from "@/components/ui/RatingStars";
 import { clientExperiencesContent } from "@/data/home";
+import SectionBadge from "@/components/home/SpecialEvents/SectionBadge";
 //Icons
 import { CalendarCheck, Quote, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
 
@@ -76,11 +77,7 @@ export function ClientExperiencesSection() {
             transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
             className="text-center md:text-left"
           >
-            <div className="mb-6 inline-block rounded-full border border-gold/20 bg-gold/5 px-4 py-1">
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold">
-                {clientExperiencesContent.badge}
-              </span>
-            </div>
+            <SectionBadge badge={clientExperiencesContent.badge} />
             <h2 className="font-serif text-3xl font-light leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">
               {clientExperiencesContent.titlePart1}
               <span className="bg-[linear-gradient(to_right,#d4af37,#fbe106,#c5a028)] bg-clip-text font-normal italic text-transparent pl-3">
@@ -108,7 +105,9 @@ export function ClientExperiencesSection() {
                   <RatingStars rating={starCount} starClassName="h-3.5 w-3.5 text-gold" />
                 </div>
                 <p className="text-xs font-light tracking-wide text-slate-400">
-                 {clientExperiencesContent.basedOnText} <span className="font-bold text-white">{reviewCountDisplay}</span> {clientExperiencesContent.globalReviewsText}
+                  {clientExperiencesContent.basedOnText}{" "}
+                  <span className="font-bold text-white">{reviewCountDisplay}</span>{" "}
+                  {clientExperiencesContent.globalReviewsText}
                 </p>
               </div>
             </motion.div>

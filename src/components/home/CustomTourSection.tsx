@@ -3,6 +3,7 @@ import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
 import { motion } from "framer-motion";
 import { customTourContent } from "@/data/home";
+import SectionBadge from "@/components/home/SpecialEvents/SectionBadge";
 
 export function CustomTourSection() {
   return (
@@ -12,7 +13,7 @@ export function CustomTourSection() {
     >
       <ContainerLayout>
         {/* Modern Asymmetrical Wrapper - Animated */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 40, scale: 0.98 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -24,7 +25,7 @@ export function CustomTourSection() {
 
           {/* Giant Faded Watermark Text - Responsive */}
           <div className="pointer-events-none absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap select-none text-[3.5rem] font-bold leading-none tracking-tighter text-white/3 min-[400px]:text-[4.2rem] sm:text-[6rem] md:text-[8rem] lg:text-[10rem] xl:text-[13rem] 2xl:text-[16rem] 3xl:text-[20rem]">
-          {customTourContent.watermark}
+            {customTourContent.watermark}
           </div>
 
           {/* Subtle Glow */}
@@ -33,27 +34,23 @@ export function CustomTourSection() {
           {/* Content Layout: Split Design */}
           <div className="relative z-10 flex flex-col gap-12 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
             {/* Left Side: Typography */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 1, 0.5, 1] }}
               className="max-w-3xl lg:w-7/12 3xl:max-w-4xl"
             >
-              <div className="mb-6 inline-block rounded-full border border-gold/20 bg-gold/5 px-4 py-1 3xl:px-6 3xl:py-2">
-                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold 3xl:text-xs">
-                 {customTourContent.badge}
-                </span>
-              </div>
-
+              <SectionBadge badge={customTourContent.badge} />
               <h2 className="text-4xl font-light leading-[1.1] text-white sm:text-5xl md:text-6xl 3xl:text-7xl">
                 {customTourContent.titlePart1} <br />
-                <span className="premium-serif italic text-gold">{customTourContent.titleAccent}</span> {customTourContent.titlePart2}
+                <span className="premium-serif italic text-gold">{customTourContent.titleAccent}</span>{" "}
+                {customTourContent.titlePart2}
               </h2>
             </motion.div>
 
             {/* Right Side: Description & CTA */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -61,11 +58,11 @@ export function CustomTourSection() {
               className="flex flex-col items-start lg:w-5/12 lg:border-l lg:border-white/10 lg:pl-10 2xl:pl-12 3xl:pl-16"
             >
               <p className="mb-10 font-light leading-relaxed text-slate-400 md:text-lg 3xl:mb-12 3xl:text-xl">
-               {customTourContent.description}
+                {customTourContent.description}
               </p>
 
               <Button variant="inquire" href="services/bespoke-travel" className="w-full sm:w-auto">
-               {customTourContent.ctaText}
+                {customTourContent.ctaText}
               </Button>
             </motion.div>
           </div>

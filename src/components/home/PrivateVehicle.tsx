@@ -6,9 +6,11 @@ import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
 import { featureCards, languageBadges } from "@/data/privateVehicle";
 import { privateVehicleContent } from "@/data/home";
+import SectionBadge from "@/components/home/SpecialEvents/SectionBadge";
+import { motion } from "framer-motion";
+//Icons
 import { MessagesSquare, X } from "lucide-react";
 import { SiWhatsapp } from "react-icons/si";
-import { motion } from "framer-motion";
 
 export function PrivateVehicle() {
   const [isContactOpen, setIsContactOpen] = useState(false);
@@ -85,11 +87,7 @@ export function PrivateVehicle() {
               className="w-full text-left xl:w-7/12"
             >
               <header className="mb-8 md:mb-10 text-left">
-                <div className="mb-4 inline-block rounded-full border border-gold/20 bg-gold/5 px-4 py-1 md:mb-6">
-                  <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-gold md:text-[10px]">
-                    {privateVehicleContent.badge}
-                  </span>
-                </div>
+                <SectionBadge badge={privateVehicleContent.badge} />
                 <h2 className="mb-6 text-3xl font-light leading-[1.2] tracking-tight text-white sm:text-4xl md:mb-8 md:text-5xl xl:text-6xl xl:leading-[1.1]">
                   {privateVehicleContent.titlePart1}
                   <span className="italic text-gold">{privateVehicleContent.titleAccent}</span>

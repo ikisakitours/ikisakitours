@@ -23,29 +23,39 @@ export function CountdownTimer({ targetDate }: { targetDate: string }) {
     return () => clearInterval(timer);
   }, [targetDate]);
 
-  return (
-    <div className="grid grid-cols-4 gap-1.5 text-center max-w-xs mx-auto">
-      {[
-        { label: "Days", value: timeLeft.days },
-        { label: "Hours", value: timeLeft.hours },
-        { label: "Mins", value: timeLeft.minutes },
-        { label: "Secs", value: timeLeft.seconds },
-      ].map((item, idx) => (
-        <div
-          key={idx}
-          className="relative overflow-hidden rounded-xl border border-gold/20 bg-black/80 px-2 py-2 backdrop-blur-xl shadow-lg cursor-pointer transition-all duration-300 hover:scale-105 hover:border-gold hover:bg-black"
-        >
-          {/* Subtle top gold accent line */}
-          <div className="absolute inset-x-0 top-0 h-0.5 bg-linear-to-r from-transparent via-[#c5a059] to-transparent " />
+  const timeItems = [
+    { label: "Days", value: timeLeft.days },
+    { label: "Hours", value: timeLeft.hours },
+    { label: "Mins", value: timeLeft.minutes },
+    { label: "Secs", value: timeLeft.seconds },
+  ];
 
-          <span className="block text-sm font-black tracking-tight text-white md:text-base">
-            {String(item.value).padStart(2, "0")}
-          </span>
-          <span className="mt-0.5 block text-[8px] font-bold uppercase tracking-[0.15em] text-[#c5a059]">
-            {item.label}
-          </span>
-        </div>
-      ))}
+  return (
+    <div className="grid grid-cols-4 gap-2 text-center max-w-sm mx-auto">
+      {timeItems.map((item, idx) => {
+        const formattedValue = String(item.value).padStart(2, "0");
+
+        return (
+          <div
+            key={idx}
+            className="relative overflow-hidden rounded-2xl border border-gold/30 bg-black/90 p-2.5 backdrop-blur-2xl shadow-2xl transition-all duration-300 hover:border-gold hover:scale-105 group"
+          >
+            {/* Subtle top gold accent line */}
+            <div className="absolute inset-x-0 top-0 h-0.5 bg-linear-to-r from-transparent via-[#c5a059] to-transparent" />
+
+            {/* Static Box without any animation */}
+            <div className="relative h-8 flex items-center justify-center overflow-hidden my-1 rounded bg-zinc-950/80 border border-gold/10">
+              <span className="block text-lg sm:text-xl font-black tracking-tighter text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                {formattedValue}
+              </span>
+            </div>
+
+            <span className="block text-[9px] font-extrabold uppercase tracking-[0.2em] text-[#c5a059] group-hover:text-gold transition-colors">
+              {item.label}
+            </span>
+          </div>
+        );
+      })}
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
 import { contactCtaContent } from "@/data/home";
+//Icons
 import { MapPin, Sparkles, Star, ArrowRight } from "lucide-react";
 
 export default function HomeContactCTA() {
