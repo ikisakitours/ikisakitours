@@ -1,7 +1,8 @@
 "use client";
 
+import React, { useRef, useEffect } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { SpecialEventMode, EventContentItem } from "@/data/specialEvents";
 import { CountdownTimer } from "./CountdownTimer";
@@ -16,6 +17,18 @@ interface SpecialEventsMediaProps {
 }
 
 export function SpecialEventsMedia({ mode, content, targetLink, upcomingTargetDate }: SpecialEventsMediaProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const isInView = useInView(containerRef, { amount: 0.3 });
+
+  useEffect(() => {
+    if (isInView) {
+      console.log("▶️ SpecialEventsMedia is IN VIEWPORT: Playing/Active state triggered.");
+    } else {
+      console.log("⏸️ SpecialEventsMedia is OUT OF VIEWPORT: Pausing/Inactive state.");
+    }
+  }, [isInView]);
+
   const imagesList =
     content.images && content.images.length > 0
       ? content.images
@@ -26,13 +39,13 @@ export function SpecialEventsMedia({ mode, content, targetLink, upcomingTargetDa
 
   return (
     <motion.div
+      ref={containerRef}
       initial={{ opacity: 0, x: 30 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 1, 0.5, 1] }}
       className="relative lg:col-span-5 flex flex-col gap-4"
     >
-      {/* 1. Main Media Card (වීඩියෝ එක හෝ ඉමේජ් ස්ලයිඩර් එක) */}
       <div className="glass-card relative overflow-hidden rounded-[2.5rem] border border-white/10 p-3 shadow-2xl md:p-4">
         <div className="relative aspect-16/10 w-full overflow-hidden rounded-3xl bg-black">
           {mode === "live" && (
@@ -49,7 +62,13 @@ export function SpecialEventsMedia({ mode, content, targetLink, upcomingTargetDa
 
           {content.videoUrl ? (
             <div className="relative h-full w-full">
-              <UniversalPlayer url={content.videoUrl} />
+              {isInView ? (
+                <UniversalPlayer url={content.videoUrl} />
+              ) : (
+                <div className="absolute inset-0 bg-black flex items-center justify-center">
+                  <span className="text-xs text-slate-500 tracking-wider">Stream Paused (Out of View)</span>
+                </div>
+              )}
 
               <Link
                 href={targetLink}
