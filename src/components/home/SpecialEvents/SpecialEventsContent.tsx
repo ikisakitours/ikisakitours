@@ -50,7 +50,11 @@ export function SpecialEventsContent({ mode, content, targetLink }: SpecialEvent
 
       {/* Actions */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-        <Button variant="shine" href={targetLink}>
+        <Button
+          variant="shine"
+          href={targetLink}
+          className="px-3 py-1.5 text-[10px] sm:px-4 sm:py-2 sm:text-[11px] md:text-xs 2xl:px-5 2xl:py-2.5 2xl:text-sm 3xl:px-6 3xl:py-3 3xl:text-base"
+        >
           {content.buttonText}
         </Button>
 
