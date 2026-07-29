@@ -1,15 +1,17 @@
 import React from "react";
+import { ChatImageSlider } from "@/components/ui/ChatWidget/ChatImageSlider";
 //Icons
-import { Send, Zap, ShieldCheck, Headset } from "lucide-react";
+import { Send, Zap, ShieldCheck, Headset, Compass } from "lucide-react";
 
 export function ChatHome({ onNewChat }: { onNewChat: () => void }) {
   return (
-    <div className="animate-fade-in-up flex flex-col justify-between min-h-90 ">
+    <div className="animate-fade-in-up flex flex-col justify-between min-h-[360PX] ">
       <div className="bg-linear-to-br from-gold-dark/40 via-surface to-lanka-black border border-gold/20 rounded-2xl p-5 relative overflow-hidden shadow-lg flex flex-col justify-between h-full">
         {/* Glow effect */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
 
         <div>
+          <ChatImageSlider />
           <h2 className="text-2xl font-bold text-white mb-2 premium-serif">Hello there! 👋</h2>
           <p className="text-[13px] text-slate-300 mb-4 leading-relaxed">
             Need help? Start a new conversation and our travel assistants will guide you.
@@ -27,7 +29,11 @@ export function ChatHome({ onNewChat }: { onNewChat: () => void }) {
             </div>
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gold/5 border border-gold/20 text-[10px] font-bold uppercase tracking-wider text-gold">
               <Headset size={12} />
-              <span>Real Support</span>
+              <span>24/7 SErvice</span>
+            </div>
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gold/5 border border-gold/20 text-[10px] font-bold uppercase tracking-wider text-gold">
+              <Compass size={12} />
+              <span>Tailored Tours </span>
             </div>
           </div>
         </div>

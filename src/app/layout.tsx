@@ -3,8 +3,7 @@ import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
 import Preloader from "@/components/ui/Preloader";
-import TawkToChat from "@/components/ui/TawkToChat";
-import { ChatWidget } from "@/components/ui/ChatWidget";
+// import TawkToChat from "@/components/ui/TawkToChat";
 
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -68,11 +67,10 @@ export default function RootLayout({
       className={`${plusJakarta.variable} ${playfair.variable} h-full scroll-smooth antialiased`}
     >
       <body className="min-h-full bg-lanka-dark text-slate-200">
-        {/* <Preloader /> */}
+        <Preloader />
         {children}
         <Toaster position="top-center" richColors />
         {/* <TawkToChat /> */}
-        <ChatWidget />
       </body>
     </html>
   );

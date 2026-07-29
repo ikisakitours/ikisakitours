@@ -89,7 +89,7 @@ export const aboutData = {
   ],
   leadership: {
     title: "Our Leadership",
-    name: "Danuja Senanayake",
+    name: "Danuja Perera",
     role: "FOUNDER & CEO",
     bio: "Directing the custom travel experiences at Map Mate. Danuja is dedicated to integrating technology and local hospitality to deliver seamless, personalized itineraries to guests visiting Sri Lanka.",
   },

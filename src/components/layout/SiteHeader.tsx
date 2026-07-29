@@ -202,14 +202,12 @@ export function SiteHeader() {
   const closeProfileDropdown = () => setIsProfileOpen(false);
 
   const handleMobileMenuClick = () => {
-    setIsMenuOpen((value) => {
-      const nextValue = !value;
-      if (nextValue) {
-        closeProfileDropdown();
-      }
-      window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: nextValue } }));
-      return nextValue;
-    });
+    const nextValue = !isMenuOpen;
+    setIsMenuOpen(nextValue);
+    if (nextValue) {
+      closeProfileDropdown();
+    }
+    window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: nextValue } }));
   };
 
   const handleProfileClick = (event: MouseEvent<HTMLButtonElement>) => {
