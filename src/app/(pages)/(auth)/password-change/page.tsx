@@ -5,7 +5,7 @@ import { passwordResetIntro } from "@/data/auth";
 
 export const metadata: Metadata = {
   title: "Reset Password",
-  description: "Set a new LankaElite account password after email verification.",
+  description: "Set a new MapMate account password after email verification.",
 };
 
 export default function PasswordChangePage() {

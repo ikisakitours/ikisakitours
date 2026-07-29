@@ -18,7 +18,6 @@ interface SpecialEventsMediaProps {
 
 export function SpecialEventsMedia({ mode, content, targetLink, upcomingTargetDate }: SpecialEventsMediaProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-
   const isInView = useInView(containerRef, { amount: 0.3 });
 
   useEffect(() => {

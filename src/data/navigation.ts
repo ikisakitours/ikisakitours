@@ -60,8 +60,8 @@ export const socialLinks = [
 ] as const;
 
 export const legalLinks = [
-  { label: "Privacy Policy", href: "/legal/privacy" },
   { label: "Terms of Use", href: "/legal/terms" },
+  { label: "Privacy Policy", href: "/legal/privacy" },
   { label: "Booking Policy", href: "/legal/booking" },
   { label: "Payment Policy", href: "/legal/payment" },
 ] as const;

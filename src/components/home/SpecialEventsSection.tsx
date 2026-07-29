@@ -3,16 +3,18 @@
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { SpecialEventsContent } from "@/components/home/SpecialEvents/SpecialEventsContent";
 import { SpecialEventsMedia } from "@/components/home/SpecialEvents/SpecialEventsMedia";
-import { SpecialEventMode, EventContentItem } from "@/data/specialEvents";
+import { apiResponseEvents } from "@/data/specialEvents";
 
-interface SpecialEventsSectionProps {
-  mode: SpecialEventMode;
-  content: EventContentItem;
-  targetLink: string;
-  upcomingTargetDate: string;
-}
+export function SpecialEventsSection() {
+  const activeEvent = apiResponseEvents.find((evt) => evt.mode === "upcoming") || apiResponseEvents[0];
 
-export function SpecialEventsSection({ mode, content, targetLink, upcomingTargetDate }: SpecialEventsSectionProps) {
+  if (!activeEvent) return null;
+
+  const dynamicTargetLink =
+    activeEvent.mode === "Event" ? "/special-events" : `/special-events/${activeEvent.slug}`;
+
+  const targetDate = activeEvent.targetDate || "";
+
   return (
     <section id="special-events" className="relative overflow-hidden bg-background py-12 md:py-20 xl:py-24 3xl:py-32">
       {/* Background Glow Effect */}
@@ -20,13 +22,17 @@ export function SpecialEventsSection({ mode, content, targetLink, upcomingTarget
 
       <ContainerLayout>
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
-          <SpecialEventsContent mode={mode} content={content} targetLink={targetLink} />
+          <SpecialEventsContent 
+            mode={activeEvent.mode} 
+            content={activeEvent} 
+            targetLink={dynamicTargetLink} 
+          />
 
           <SpecialEventsMedia
-            mode={mode}
-            content={content}
-            targetLink={targetLink}
-            upcomingTargetDate={upcomingTargetDate}
+            mode={activeEvent.mode}
+            content={activeEvent}
+            targetLink={dynamicTargetLink}
+            upcomingTargetDate={targetDate}
           />
         </div>
       </ContainerLayout>

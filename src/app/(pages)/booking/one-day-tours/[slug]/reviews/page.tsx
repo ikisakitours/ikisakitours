@@ -17,12 +17,12 @@ export async function generateMetadata({ params }: BookingReviewsPageProps): Pro
 
   if (!tour) {
     return {
-      title: "Review Not Found | MapMate",
+      title: "Review Not Found",
     };
   }
 
   return {
-    title: `Guest Reviews | ${tour.titleEmphasis} | MapMate`,
+    title: `Guest Reviews | ${tour.fullTitle}`,
     description: `Read authentic stories and experiences from travelers who joined our ${tour.fullTitle}.`,
   };
 }

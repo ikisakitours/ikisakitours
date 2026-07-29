@@ -8,6 +8,7 @@ interface ChatTooltipsProps {
   showSideTooltip: boolean;
   showBottomTooltip: boolean;
   isBottomDismissed: boolean;
+  isAtBottom?: boolean;
   onCloseSideTooltip: (e: React.MouseEvent) => void;
   onCloseBottomTooltip: (e: React.MouseEvent) => void;
 }
@@ -17,6 +18,7 @@ export function ChatTooltips({
   showSideTooltip,
   showBottomTooltip,
   isBottomDismissed,
+  isAtBottom = false,
   onCloseSideTooltip,
   onCloseBottomTooltip,
 }: ChatTooltipsProps) {
@@ -24,7 +26,7 @@ export function ChatTooltips({
     <>
       <div
         className={`absolute right-[125%] mr-3 whitespace-nowrap px-4 py-2.5 rounded-2xl bg-linear-to-r from-lanka-black via-surface to-lanka-black border border-gold/50 shadow-[0_0_30px_rgba(197,160,89,0.3)] backdrop-blur-2xl text-[13px] text-gold font-medium tracking-wide transition-all duration-500 origin-right ${
-          showSideTooltip && !isOpen
+          showSideTooltip && !isOpen && !isAtBottom
             ? "opacity-100 translate-x-0 scale-100"
             : "opacity-0 translate-x-4 scale-95 pointer-events-none"
         }`}

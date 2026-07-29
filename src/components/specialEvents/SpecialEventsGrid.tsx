@@ -28,6 +28,17 @@ export function SpecialEventsGrid({ events, categories }: SpecialEventsGridProps
     });
   }, [events, searchQuery, selectedCategory]);
 
+  if (events.length === 0) {
+    return (
+      <div className="py-10">
+        <EmptyState
+          backgroundText="Coming Soon"
+          title="No events currently available"
+          description="We are preparing some exciting new events and celebrations for you. Please check back later!"
+        />
+      </div>
+    );
+  }
   return (
     <>
       {/* Search & Filter Controls Bar */}
@@ -63,8 +74,17 @@ export function SpecialEventsGrid({ events, categories }: SpecialEventsGridProps
         <EmptyState
           backgroundText="No Events"
           title="No matching celebrations found"
-          description="We couldn't find any events matching your search or category filter. Try resetting your filters to explore more."
-          buttonText="Reset Filters"
+          description={
+            <>
+              We couldn&apos;t find any events matching{" "}
+              {searchQuery && <span className="text-gold font-medium">&quot;{searchQuery}&quot;</span>}
+              {searchQuery && selectedCategory !== "All" && " in "}
+              {selectedCategory !== "All" && (
+                <span className="text-gold font-medium">&quot;{selectedCategory}&quot;</span>
+              )}
+              . Try resetting your filters to explore more.
+            </>
+          }
           onAction={() => {
             setSearchQuery("");
             setSelectedCategory("All");

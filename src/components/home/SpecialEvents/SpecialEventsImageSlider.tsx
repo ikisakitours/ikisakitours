@@ -12,9 +12,10 @@ interface SpecialEventsImageSliderProps {
 }
 
 export function SpecialEventsImageSlider({ images, titleAccent, targetLink }: SpecialEventsImageSliderProps) {
-  const imagesList = images && images.length > 0 
-    ? images 
-    : ["https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=95&w=1600&auto=format&fit=crop"];
+  const imagesList =
+    images && images.length > 0
+      ? images
+      : ["https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=95&w=1600&auto=format&fit=crop"];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 

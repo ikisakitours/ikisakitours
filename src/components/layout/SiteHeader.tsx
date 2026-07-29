@@ -67,6 +67,13 @@ export function SiteHeader() {
   const profileButtonRef = useRef<HTMLButtonElement>(null);
   const profileDropdownRef = useRef<HTMLDivElement>(null);
 
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => setIsMounted(true), 0);
+    return () => clearTimeout(timeoutId);
+  }, []);
+
   const getFinalHref = (itemHref: string, itemSectionId?: string) => {
     if (isHome && itemSectionId) {
       return itemSectionId;
@@ -77,9 +84,7 @@ export function SiteHeader() {
   const handleNavigation = (e: MouseEvent<HTMLAnchorElement>, targetHref: string, isMobileMenu: boolean) => {
     if (isMobileMenu) {
       closeMobileMenu();
-      window.dispatchEvent(
-        new CustomEvent("mobileMenuStateChange", { detail: { isOpen: false } })
-      );
+      window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: false } }));
     }
 
     if (targetHref.startsWith("#")) {
@@ -225,6 +230,8 @@ export function SiteHeader() {
       setIsProfileOpen((prev) => !prev);
     }
   };
+
+  if (!isMounted) return null;
 
   return (
     <>

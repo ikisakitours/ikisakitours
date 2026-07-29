@@ -40,7 +40,6 @@ export default function UniversalPlayer({ url }: UniversalPlayerProps) {
       videoId = match && match[2].length === 11 ? match[2] : "";
     }
 
-    // loop=1 සහ playlist=videoId දැමීම මඟින් වීඩියෝ එක ඉවර වූ වහාම නැවත මුල සිට රිපීට් වේ
     const embedUrl = videoId
       ? `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&controls=1&modestbranding=1&rel=0&iv_load_policy=3&loop=1&playlist=${videoId}`
       : url;

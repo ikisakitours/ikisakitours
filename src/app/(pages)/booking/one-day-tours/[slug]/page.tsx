@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: BookingPageProps): Promise<Me
   }
 
   return {
-    title: `${tour.titleEmphasis} | MapMate`,
+    title: `${tour.fullTitle}`,
     description: tour.lead,
   };
 }

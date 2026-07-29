@@ -3,11 +3,29 @@ import { destinationsData } from "@/data/destinationData";
 import { GalleryCollection } from "@/components/gallery/GalleryCollection";
 import { GalleryHero } from "@/components/gallery/GalleryHero";
 import type { GalleryItem } from "@/data/blog";
+import type { Metadata } from "next";
 
 type DestinationGalleryPageProps = {
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
+
+export async function generateMetadata({ params }: DestinationGalleryPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const dest = destinationsData.find((d) => d.slug === slug);
+
+  if (!dest) {
+    return {
+      title: "Gallery Not Found",
+      description: "The requested destination gallery could not be found.",
+    };
+  }
+
+  return {
+    title: `${dest.name} Photo Gallery - Visual Journey`,
+    description: `Explore stunning photographs and visual highlights of ${dest.name}.`,
+  };
+}
 
 export default async function DestinationGalleryPage({ params }: DestinationGalleryPageProps) {
   const { slug } = await params;

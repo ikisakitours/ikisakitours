@@ -3,6 +3,12 @@ import FaqBody from "@/components/faq/FaqBody";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import { Hero } from "@/components/ui/Hero";
 import { faqPageData } from "@/data/faqData";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Frequently Asked Questions",
+  description: faqPageData.hero.strapline,
+};
 export default function page() {
   return (
     <main className="min-h-screen bg-lanka-dark">

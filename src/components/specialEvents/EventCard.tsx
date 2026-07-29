@@ -1,10 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { CalendarDays, Radio, Sparkles, ExternalLink } from "lucide-react";
 import { SpecialEventListItem } from "@/data/specialEvents";
+import { useInView } from "framer-motion";
 
 import UniversalPlayer from "@/components/home/SpecialEvents/UniversalPlayer";
 import { SpecialEventsImageSlider } from "@/components/home/SpecialEvents/SpecialEventsImageSlider";
@@ -14,6 +15,17 @@ interface EventCardProps {
 }
 
 export function EventCard({ event }: EventCardProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { amount: 0.3 });
+
+  useEffect(() => {
+    if (isInView) {
+      console.log("▶️ SpecialEventsMedia is IN VIEWPORT: Playing/Active state triggered.");
+    } else {
+      console.log("⏸️ SpecialEventsMedia is OUT OF VIEWPORT: Pausing/Inactive state.");
+    }
+  }, [isInView]);
+
   const eventLink = `/special-events/${event.slug}`;
 
   const getButtonText = () => {
@@ -41,12 +53,21 @@ export function EventCard({ event }: EventCardProps) {
       : event.date;
 
   return (
-    <div className="glass-card group flex flex-col overflow-hidden rounded-[2.5rem] border border-white/10 p-4 transition-all duration-300 hover:border-gold/50 hover:shadow-2xl">
+    <div
+      ref={containerRef}
+      className="glass-card group flex flex-col overflow-hidden rounded-[2.5rem] border border-white/10 p-4 transition-all duration-300 hover:border-gold/50 hover:shadow-2xl"
+    >
       {/* Media Container (Video / Slider / Image) */}
       <div className="relative aspect-16/10 w-full overflow-hidden rounded-3xl bg-surface">
         {event.videoUrl ? (
           <div className="absolute inset-0 h-full w-full pointer-events-none z-0">
-            <UniversalPlayer url={event.videoUrl} />
+            {isInView ? (
+              <UniversalPlayer url={event.videoUrl} />
+            ) : (
+              <div className="absolute inset-0 bg-black flex items-center justify-center pointer-events-auto">
+                <span className="text-xs text-slate-500 tracking-wider">Stream Paused (Out of View)</span>
+              </div>
+            )}
           </div>
         ) : event.images && event.images.length > 0 ? (
           <div className="absolute inset-0 h-full w-full z-0">

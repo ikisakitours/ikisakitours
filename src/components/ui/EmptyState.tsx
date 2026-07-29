@@ -6,8 +6,8 @@ type EmptyStateProps = {
   backgroundText?: string;
   title: string;
   description: React.ReactNode;
-  buttonText: string;
-  onAction: () => void;
+  buttonText?: string;
+  onAction?: () => void;
 };
 
 export function EmptyState({ backgroundText = "Heritage", title, description, buttonText, onAction }: EmptyStateProps) {
@@ -33,11 +33,13 @@ export function EmptyState({ backgroundText = "Heritage", title, description, bu
             </div>
 
             {/* Reusable Explore Button */}
-            <div className="mt-12 flex justify-center">
-              <Button type="button" variant="explore" onClick={onAction}>
-                {buttonText}
-              </Button>
-            </div>
+            {buttonText && onAction && (
+              <div className="mt-12 flex justify-center">
+                <Button type="button" variant="explore" onClick={onAction}>
+                  {buttonText}
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </div>

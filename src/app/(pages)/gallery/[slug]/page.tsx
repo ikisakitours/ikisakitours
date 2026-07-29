@@ -5,11 +5,77 @@ import { bookingTour as oneDayTour } from "@/data/oneDayBooking";
 import { reviewMoments } from "@/data/GuestMomentsImages";
 import { GalleryCollection } from "@/components/gallery/GalleryCollection";
 import { GalleryHero } from "@/components/gallery/GalleryHero";
+import type { Metadata } from "next";
 
 type GalleryDetailPageProps = {
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
+export async function generateMetadata({ params, searchParams }: GalleryDetailPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const resolvedSearchParams = await searchParams;
+
+  const filter = resolvedSearchParams?.filter as string | undefined;
+  const filterOneDay = resolvedSearchParams?.["filter-one-day-tours"] as string | undefined;
+  const filterMultiDay = resolvedSearchParams?.["filter-multi-days-tours"] as string | undefined;
+
+  const activeFilter = filterOneDay || filterMultiDay || filter;
+
+  let post: (typeof blogPosts)[0] | typeof multiDayTour | typeof oneDayTour | undefined = blogPosts.find(
+    (p) => p.slug === slug,
+  );
+  let isBookingTour = false;
+
+  if (!post) {
+    if (filterOneDay && oneDayTour.slug === slug) {
+      post = oneDayTour;
+      isBookingTour = true;
+    } else if (filterMultiDay && multiDayTour.slug === slug) {
+      post = multiDayTour;
+      isBookingTour = true;
+    } else if (multiDayTour.slug === slug) {
+      post = multiDayTour;
+      isBookingTour = true;
+    } else if (oneDayTour.slug === slug) {
+      post = oneDayTour;
+      isBookingTour = true;
+    }
+  }
+
+  if (!post) {
+    return {
+      title: "Gallery Not Found",
+      description: "The requested gallery could not be found.",
+    };
+  }
+
+  let title = post.title;
+  let description = `Explore visual moments and photo gallery for ${post.title}.`;
+
+  if (isBookingTour) {
+    const tour = post as typeof multiDayTour;
+
+    if (activeFilter === "moments" || activeFilter === "all-moments") {
+      title = `Guest Moments - ${tour.fullTitle}`;
+      description = `Captured memories and guest moments from ${tour.fullTitle}.`;
+    } else if (activeFilter && activeFilter.startsWith("review-")) {
+      const encodedUserName = activeFilter.replace("review-", "");
+      const userName = decodeURIComponent(encodedUserName).trim();
+      title = `Review Gallery by ${userName} | ${tour.fullTitle}`;
+      description = `Photo gallery and shared experiences by ${userName} for ${tour.fullTitle}.`;
+    } else {
+      title = `${tour.fullTitle} - Tour Gallery`;
+      description = `Explore the complete photo gallery of ${tour.fullTitle}.`;
+    }
+  } else {
+    title = `${post.title} - Story Gallery`;
+  }
+
+  return {
+    title,
+    description,
+  };
+}
 
 export default async function GalleryDetailPage({ params, searchParams }: GalleryDetailPageProps) {
   const { slug } = await params;

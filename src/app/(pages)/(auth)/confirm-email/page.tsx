@@ -5,7 +5,7 @@ import { accountRecoveryIntro } from "@/data/auth";
 
 export const metadata: Metadata = {
   title: "Account Recovery",
-  description: "Request a LankaElite account recovery email.",
+  description: "Request a MapMate account recovery email.",
 };
 
 export default function ConfirmEmailPage() {

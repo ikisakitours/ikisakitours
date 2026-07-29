@@ -8,69 +8,119 @@ import { ChatMailForm } from "@/components/ui/ChatWidget/ChatMailForm";
 import { ChatHeader } from "@/components/ui/ChatWidget/ChatHeader";
 import { ChatTooltips } from "@/components/ui/ChatWidget/ChatTooltips";
 import { ChatToggleButton } from "@/components/ui/ChatWidget/ChatToggleButton";
+import { useDocumentTitleNotification } from "@/hooks/useDocumentTitleNotification";
 
 export function FullChatWidget() {
+  const [isMounted, setIsMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // States initialized without direct window references to prevent hydration mismatch
   const [showSideTooltip, setShowSideTooltip] = useState(false);
   const [showBottomTooltip, setShowBottomTooltip] = useState(false);
-
   const [isBottomDismissed, setIsBottomDismissed] = useState(false);
   const [isPreloaderFinished, setIsPreloaderFinished] = useState(false);
-  const [showChatWidget, setShowChatWidget] = useState(false); 
-
-  const [hasInteracted, setHasInteracted] = useState(() => {
-    if (typeof window !== "undefined") {
-      return sessionStorage.getItem("chat_interacted") === "true";
-    }
-    return false;
-  });
-
-  const [hasShownBottomTooltip, setHasShownBottomTooltip] = useState(() => {
-    if (typeof window !== "undefined") {
-      return sessionStorage.getItem("chat_bottom_shown") === "true";
-    }
-    return false;
-  });
+  const [showChatWidget, setShowChatWidget] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
+  const [hasShownBottomTooltip, setHasShownBottomTooltip] = useState(false);
 
   const [activeTab, setActiveTab] = useState<"home" | "messages">("home");
   const [showMailForm, setShowMailForm] = useState(false);
 
   const isOpenRef = useRef(isOpen);
+  const [isAtBottom, setIsAtBottom] = useState(false);
+
+  //Tab Heder Message
+  useDocumentTitleNotification(showBottomTooltip && !isOpen, "💬 1 New Message!");
+
+  // On mount, read from sessionStorage safely using setTimeout to prevent synchronous setState warning
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsMounted(true);
+
+      const bottomShown = sessionStorage.getItem("chat_bottom_shown") === "true";
+      const bottomDismissed = sessionStorage.getItem("chat_bottom_dismissed") === "true";
+      const initialized = sessionStorage.getItem("chat_initialized") === "true";
+      const interacted = sessionStorage.getItem("chat_interacted") === "true";
+
+      setShowBottomTooltip(bottomShown && !bottomDismissed);
+      setIsBottomDismissed(bottomDismissed);
+      setIsPreloaderFinished(initialized);
+      setShowChatWidget(initialized);
+      setHasInteracted(interacted);
+      setHasShownBottomTooltip(bottomShown);
+    }, 0);
+
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  // Tab Title Blinking effect when bottom tooltip is shown
+  // useEffect(() => {
+  //   if (!isMounted) return;
+
+  //   let intervalId: NodeJS.Timeout;
+
+  //   if (showBottomTooltip && !isOpen) {
+  //     const currentTitle = document.title.startsWith("💬") ? "MapMate - Sri Lanka Tours" : document.title;
+  //     let toggle = false;
+
+  //     intervalId = setInterval(() => {
+  //       document.title = toggle ? "💬 1 New Message!" : currentTitle;
+  //       toggle = !toggle;
+  //     }, 1500);
+  //   }
+
+  //   return () => {
+  //     clearInterval(intervalId);
+  //     if (document.title.startsWith("💬")) {
+  //       document.title = document.title.includes("MapMate") ? "MapMate - Sri Lanka Tours" : "MapMate";
+  //     }
+  //   };
+  // }, [showBottomTooltip, isOpen, isMounted]);
 
   useEffect(() => {
+    if (!isMounted || isPreloaderFinished) return;
+
     const preloaderTimer = setTimeout(() => {
       setIsPreloaderFinished(true);
-      
+
       const showTimer = setTimeout(() => {
         setShowChatWidget(true);
+        sessionStorage.setItem("chat_initialized", "true");
       }, 800);
 
       return () => clearTimeout(showTimer);
     }, 4000);
 
     return () => clearTimeout(preloaderTimer);
-  }, []);
+  }, [isMounted, isPreloaderFinished]);
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
     const handleMenuStateChange = (e: Event) => {
       const customEvent = e as CustomEvent<{ isOpen: boolean }>;
-      setIsMobileMenuOpen(customEvent.detail.isOpen);
+      const isMenuOpen = customEvent.detail.isOpen;
 
-      if (customEvent.detail.isOpen) {
+      if (isMenuOpen) {
+        clearTimeout(timeoutId);
+        setIsMobileMenuOpen(true);
         setIsOpen(false);
+      } else {
+        timeoutId = setTimeout(() => {
+          setIsMobileMenuOpen(false);
+        }, 800);
       }
     };
 
     window.addEventListener("mobileMenuStateChange", handleMenuStateChange);
     return () => {
       window.removeEventListener("mobileMenuStateChange", handleMenuStateChange);
+      clearTimeout(timeoutId);
     };
   }, []);
 
   useEffect(() => {
-    if (!isPreloaderFinished || hasInteracted) return;
+    if (!isMounted || !isPreloaderFinished || hasInteracted) return;
 
     const handleRealClickOrTap = () => {
       setHasInteracted(true);
@@ -82,7 +132,7 @@ export function FullChatWidget() {
     return () => {
       window.removeEventListener("click", handleRealClickOrTap);
     };
-  }, [isPreloaderFinished, hasInteracted]);
+  }, [isMounted, isPreloaderFinished, hasInteracted]);
 
   useEffect(() => {
     isOpenRef.current = isOpen;
@@ -117,7 +167,7 @@ export function FullChatWidget() {
   };
 
   useEffect(() => {
-    if (!isPreloaderFinished || !hasInteracted) return;
+    if (!isMounted || !isPreloaderFinished || !hasInteracted) return;
 
     scheduleSideTooltip(3000);
 
@@ -149,7 +199,8 @@ export function FullChatWidget() {
         clearSideTimer();
       };
     }
-  }, [isPreloaderFinished, hasInteracted, isBottomDismissed, hasShownBottomTooltip]); // eslint-disable-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMounted, isPreloaderFinished, hasInteracted, isBottomDismissed, hasShownBottomTooltip]);
 
   const handleCloseSideTooltip = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -161,6 +212,7 @@ export function FullChatWidget() {
     e.stopPropagation();
     setShowBottomTooltip(false);
     setIsBottomDismissed(true);
+    sessionStorage.setItem("chat_bottom_dismissed", "true");
   };
 
   const toggleChat = () => {
@@ -170,6 +222,7 @@ export function FullChatWidget() {
       setShowSideTooltip(false);
       setShowBottomTooltip(false);
       setIsBottomDismissed(true);
+      sessionStorage.setItem("chat_bottom_dismissed", "true");
       clearSideTimer();
       setActiveTab("home");
       setShowMailForm(false);
@@ -180,9 +233,42 @@ export function FullChatWidget() {
     }
   };
 
-  const whatsappNumber = "94770000000";
+  useEffect(() => {
+    if (!isMounted) return;
+
+    const handleScrollAndResize = () => {
+      const isMobileOrTablet = window.innerWidth < 1024;
+
+      if (isMobileOrTablet) {
+        const scrollPosition = window.scrollY + window.innerHeight;
+        const pageHeight = document.documentElement.scrollHeight;
+
+        if (pageHeight - scrollPosition < 200) {
+          setIsAtBottom(true);
+        } else {
+          setIsAtBottom(false);
+        }
+      } else {
+        setIsAtBottom(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScrollAndResize, { passive: true });
+    window.addEventListener("resize", handleScrollAndResize, { passive: true });
+
+    handleScrollAndResize();
+
+    return () => {
+      window.removeEventListener("scroll", handleScrollAndResize);
+      window.removeEventListener("resize", handleScrollAndResize);
+    };
+  }, [isMounted]);
+
+  const whatsappNumber = "94789187072";
   const defaultMessage = "Hello! I would like to plan a tour to Sri Lanka.";
   const waLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(defaultMessage)}`;
+
+  if (!isMounted) return null; // Prevents hydration error by rendering nothing until client-side is ready
 
   return (
     <div
@@ -230,14 +316,14 @@ export function FullChatWidget() {
       <div className="relative flex items-center justify-center">
         <ChatTooltips
           isOpen={isOpen}
-          showSideTooltip={showSideTooltip}
+          showSideTooltip={showSideTooltip && !isAtBottom}
           showBottomTooltip={showBottomTooltip}
           isBottomDismissed={isBottomDismissed}
           onCloseSideTooltip={handleCloseSideTooltip}
           onCloseBottomTooltip={handleCloseBottomTooltip}
         />
 
-        <ChatToggleButton isOpen={isOpen} toggleChat={toggleChat} />
+        <ChatToggleButton isOpen={isOpen} toggleChat={toggleChat} isAtBottom={isAtBottom} />
       </div>
     </div>
   );

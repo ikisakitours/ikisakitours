@@ -5,7 +5,7 @@ import { loginIntro } from "@/data/auth";
 
 export const metadata: Metadata = {
   title: "Secure Gateway",
-  description: "Sign in to the LankaElite secure travel gateway.",
+  description: "Sign in to the MapMate secure travel gateway.",
 };
 
 export default function LoginPage() {

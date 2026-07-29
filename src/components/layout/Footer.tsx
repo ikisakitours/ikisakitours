@@ -10,7 +10,7 @@ import { useValidationForm } from "@/hooks/useValidationForm";
 import { FormError } from "@/components/ui/FormError";
 
 //Icons
-import { Heart, Mail, MapPin, Phone, Send } from "lucide-react";
+import { Heart, Mail, MapPin, Phone, Send, Globe } from "lucide-react";
 import { FaInstagram, FaTiktok, FaFacebookF, FaTwitter, FaYoutube, FaWhatsapp } from "react-icons/fa6";
 
 const socialLinksIcons = [FaInstagram, FaTiktok, FaFacebookF, FaTwitter, FaYoutube, FaWhatsapp];
@@ -37,6 +37,11 @@ export function Footer() {
       console.log("Form is valid, proceed to API call", { ...formData });
     }
   };
+
+  const BRAND_NAME = "AETHERIA LABS";
+  const BRAND_URL = "https://portfolio-app-pyqf.vercel.app/";
+  const BRAND_LOGO_URL = "/images/aetheria-logo.mp4";
+  const isVideoLogo = BRAND_LOGO_URL?.match(/\.(mp4|webm|ogg)$/i);
 
   return (
     <footer className="relative overflow-hidden border-t border-white/5 bg-[#050505] pt-20 pb-10">
@@ -178,6 +183,72 @@ export function Footer() {
               </Link>
             ))}
           </div>
+        </div>
+
+        {/* 2. Industry Standard "Powered By" Signature Badge */}
+        <div className="mt-8 flex items-center justify-center">
+          <Link
+            href={BRAND_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative flex items-center rounded-full bg-[#080808] border border-white/10 p-1.5 pr-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_10px_20px_rgba(0,0,0,0.5)] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-gold/40 hover:bg-[#0c0c0c] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_0_30px_rgba(197,160,89,0.2)] overflow-hidden"
+          >
+            {/* Shimmer Sweep Effect */}
+            <div className="absolute inset-0 translate-x-[-150%] bg-linear-to-r from-transparent via-gold/10 to-transparent transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[150%]" />
+
+            {/* Top Edge Highlight */}
+            <div className="absolute top-0 left-1/4 right-1/4 h-px bg-linear-to-r from-transparent via-gold/50 to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
+
+            {/* Icon / Seal Container */}
+            <div className="relative z-10 flex h-9 w-9 items-center justify-center rounded-full bg-surface border border-white/5 shadow-[0_2px_10px_rgba(0,0,0,0.8)] overflow-hidden transition-all duration-700 group-hover:border-gold/30 group-hover:shadow-[0_0_15px_rgba(197,160,89,0.4)]">
+              <div className="relative flex h-full w-full items-center justify-center">
+                {BRAND_LOGO_URL ? (
+                  isVideoLogo ? (
+                    <video
+                      src={BRAND_LOGO_URL}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="h-full w-full object-cover scale-128 select-none pointer-events-none"
+                    />
+                  ) : (
+                    <div className="relative h-full w-full p-1.5 flex items-center justify-center">
+                      <Image
+                        src={BRAND_LOGO_URL}
+                        alt={BRAND_NAME}
+                        fill
+                        className="object-contain p-1 select-none pointer-events-none"
+                      />
+                    </div>
+                  )
+                ) : (
+                  <Globe className="h-4 w-4 text-slate-400 transition-colors duration-700 group-hover:text-gold" />
+                )}
+              </div>
+            </div>
+
+            {/* Text Container with Vertical Sliding Animation (Slot Machine Effect) */}
+            <div className="relative ml-4 h-8 overflow-hidden pointer-events-none">
+              <div className="flex flex-col transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-8">
+                {/* Default State ) */}
+                <div className="flex h-8 flex-col justify-center gap-0.5">
+                  <span className="text-[7px] font-semibold uppercase tracking-[0.4em] text-slate-500">
+                    Engineered by
+                  </span>
+                  <span className="text-[11px] font-bold tracking-[0.15em] text-slate-300">{BRAND_NAME}</span>
+                </div>
+
+                {/* Hover State */}
+                <div className="flex h-8 flex-col justify-center gap-0.5">
+                  <span className="text-[7px] font-semibold uppercase tracking-[0.4em] text-gold/70">Crafted by</span>
+                  <span className="text-[11px] font-bold tracking-[0.15em] text-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]">
+                    {BRAND_NAME}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </Link>
         </div>
       </ContainerLayout>
     </footer>

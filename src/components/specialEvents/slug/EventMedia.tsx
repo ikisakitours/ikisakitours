@@ -1,23 +1,35 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import UniversalPlayer from "@/components/home/SpecialEvents/UniversalPlayer"; 
+import UniversalPlayer from "@/components/home/SpecialEvents/UniversalPlayer";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useInView } from "framer-motion";
 
 interface EventMediaProps {
   image: string;
   titleAccent: string;
   statusTag: string;
   videoUrl?: string;
-  mode?: string; 
+  mode?: string;
   broadcastTag?: string;
-  images?: string[]; 
+  images?: string[];
 }
 
 export function EventMedia({ image, titleAccent, statusTag, videoUrl, mode, broadcastTag, images }: EventMediaProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { amount: 0.3 });
+
+  useEffect(() => {
+    if (isInView) {
+      console.log("▶️ SpecialEventsMedia is IN VIEWPORT: Playing/Active state triggered.");
+    } else {
+      console.log("⏸️ SpecialEventsMedia is OUT OF VIEWPORT: Pausing/Inactive state.");
+    }
+  }, [isInView]);
+
   const [currentIndex, setCurrentIndex] = useState(0);
-  
+
   const sliderImages = images && images.length > 0 ? images : [image];
 
   useEffect(() => {
@@ -37,9 +49,11 @@ export function EventMedia({ image, titleAccent, statusTag, videoUrl, mode, broa
   };
 
   return (
-    <div className="glass-card relative overflow-hidden rounded-[2.5rem] border border-white/10 p-3 shadow-2xl md:p-4">
+    <div
+      ref={containerRef}
+      className="glass-card relative overflow-hidden rounded-[2.5rem] border border-white/10 p-3 shadow-2xl md:p-4"
+    >
       <div className="relative aspect-16/10 w-full overflow-hidden rounded-3xl bg-black z-0 group">
-        
         {/* --- LIVE NOW Broadcast Badge (Top Left) --- */}
         {mode === "live" && (
           <div className="absolute top-4 left-4 z-30 flex items-center gap-2 rounded-full border border-red-500/30 bg-red-950/80 px-3 py-1.5 backdrop-blur-md shadow-lg pointer-events-none">
@@ -55,7 +69,13 @@ export function EventMedia({ image, titleAccent, statusTag, videoUrl, mode, broa
 
         {videoUrl ? (
           <div className="absolute inset-0 h-full w-full z-10">
-            <UniversalPlayer url={videoUrl} />
+            {isInView ? (
+              <UniversalPlayer url={videoUrl} />
+            ) : (
+              <div className="absolute inset-0 bg-black flex items-center justify-center">
+                <span className="text-xs text-slate-500 tracking-wider">Stream Paused (Out of View)</span>
+              </div>
+            )}
           </div>
         ) : (
           <>
@@ -71,14 +91,14 @@ export function EventMedia({ image, titleAccent, statusTag, videoUrl, mode, broa
 
             {sliderImages.length > 1 && (
               <>
-                <button 
+                <button
                   onClick={prevSlide}
                   className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-20 flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-full bg-black/50 md:bg-black/40 text-white backdrop-blur-md transition-all hover:bg-gold hover:text-black border border-white/10 opacity-100 md:opacity-0 md:group-hover:opacity-100"
                   aria-label="Previous image"
                 >
                   <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
                 </button>
-                <button 
+                <button
                   onClick={nextSlide}
                   className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-full bg-black/50 md:bg-black/40 text-white backdrop-blur-md transition-all hover:bg-gold hover:text-black border border-white/10 opacity-100 md:opacity-0 md:group-hover:opacity-100"
                   aria-label="Next image"
@@ -112,7 +132,6 @@ export function EventMedia({ image, titleAccent, statusTag, videoUrl, mode, broa
             </div>
           </div>
         )}
-        
       </div>
     </div>
   );
