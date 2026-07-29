@@ -77,6 +77,9 @@ export function SiteHeader() {
   const handleNavigation = (e: MouseEvent<HTMLAnchorElement>, targetHref: string, isMobileMenu: boolean) => {
     if (isMobileMenu) {
       closeMobileMenu();
+      window.dispatchEvent(
+        new CustomEvent("mobileMenuStateChange", { detail: { isOpen: false } })
+      );
     }
 
     if (targetHref.startsWith("#")) {

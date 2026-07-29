@@ -2,6 +2,7 @@
 
 import React from "react";
 import { CloseButton } from "@/components/ui/ChatWidget/CloseButton";
+
 interface ChatTooltipsProps {
   isOpen: boolean;
   showSideTooltip: boolean;

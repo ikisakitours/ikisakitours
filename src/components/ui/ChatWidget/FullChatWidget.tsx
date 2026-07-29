@@ -17,11 +17,41 @@ export function FullChatWidget() {
   const [showBottomTooltip, setShowBottomTooltip] = useState(false);
 
   const [isBottomDismissed, setIsBottomDismissed] = useState(false);
+  const [isPreloaderFinished, setIsPreloaderFinished] = useState(false);
+  const [showChatWidget, setShowChatWidget] = useState(false); 
+
+  const [hasInteracted, setHasInteracted] = useState(() => {
+    if (typeof window !== "undefined") {
+      return sessionStorage.getItem("chat_interacted") === "true";
+    }
+    return false;
+  });
+
+  const [hasShownBottomTooltip, setHasShownBottomTooltip] = useState(() => {
+    if (typeof window !== "undefined") {
+      return sessionStorage.getItem("chat_bottom_shown") === "true";
+    }
+    return false;
+  });
 
   const [activeTab, setActiveTab] = useState<"home" | "messages">("home");
   const [showMailForm, setShowMailForm] = useState(false);
 
   const isOpenRef = useRef(isOpen);
+
+  useEffect(() => {
+    const preloaderTimer = setTimeout(() => {
+      setIsPreloaderFinished(true);
+      
+      const showTimer = setTimeout(() => {
+        setShowChatWidget(true);
+      }, 800);
+
+      return () => clearTimeout(showTimer);
+    }, 4000);
+
+    return () => clearTimeout(preloaderTimer);
+  }, []);
 
   useEffect(() => {
     const handleMenuStateChange = (e: Event) => {
@@ -38,6 +68,21 @@ export function FullChatWidget() {
       window.removeEventListener("mobileMenuStateChange", handleMenuStateChange);
     };
   }, []);
+
+  useEffect(() => {
+    if (!isPreloaderFinished || hasInteracted) return;
+
+    const handleRealClickOrTap = () => {
+      setHasInteracted(true);
+      sessionStorage.setItem("chat_interacted", "true");
+      window.removeEventListener("click", handleRealClickOrTap);
+    };
+
+    window.addEventListener("click", handleRealClickOrTap, { once: true });
+    return () => {
+      window.removeEventListener("click", handleRealClickOrTap);
+    };
+  }, [isPreloaderFinished, hasInteracted]);
 
   useEffect(() => {
     isOpenRef.current = isOpen;
@@ -65,26 +110,46 @@ export function FullChatWidget() {
   const scheduleSideTooltip = (delay: number) => {
     clearSideTimer();
     sideTimerRef.current = setTimeout(() => {
-      if (!isOpenRef.current) {
+      if (!isOpenRef.current && hasInteracted && isPreloaderFinished) {
         setShowSideTooltip(true);
       }
     }, delay);
   };
 
   useEffect(() => {
+    if (!isPreloaderFinished || !hasInteracted) return;
+
     scheduleSideTooltip(3000);
 
-    const bottomTimer = setTimeout(() => {
-      if (!isOpenRef.current && !isBottomDismissed) {
-        setShowBottomTooltip(true);
-      }
-    }, 3000);
+    if (!hasShownBottomTooltip) {
+      const bottomTimer = setTimeout(() => {
+        if (!isOpenRef.current && !isBottomDismissed) {
+          setShowBottomTooltip(true);
+          setHasShownBottomTooltip(true);
+          sessionStorage.setItem("chat_bottom_shown", "true");
 
-    return () => {
-      clearSideTimer();
-      clearTimeout(bottomTimer);
-    };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+          try {
+            const audio = new Audio("/sounds/notification.mp3");
+            audio.volume = 0.5;
+            audio.play().catch((err) => {
+              console.log("Audio play prevented:", err);
+            });
+          } catch (e) {
+            console.error("Audio error:", e);
+          }
+        }
+      }, 3000);
+
+      return () => {
+        clearSideTimer();
+        clearTimeout(bottomTimer);
+      };
+    } else {
+      return () => {
+        clearSideTimer();
+      };
+    }
+  }, [isPreloaderFinished, hasInteracted, isBottomDismissed, hasShownBottomTooltip]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleCloseSideTooltip = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -109,7 +174,9 @@ export function FullChatWidget() {
       setActiveTab("home");
       setShowMailForm(false);
     } else {
-      scheduleSideTooltip(10000);
+      if (hasInteracted && isPreloaderFinished) {
+        scheduleSideTooltip(10000);
+      }
     }
   };
 
@@ -119,7 +186,9 @@ export function FullChatWidget() {
 
   return (
     <div
-      className={`relative z-9999 flex-col items-end transition-opacity duration-300 ${isMobileMenuOpen ? "hidden xl:flex" : "flex"}`}
+      className={`relative z-9999 flex-col items-end transition-all duration-700 ${
+        showChatWidget ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
+      } ${isMobileMenuOpen ? "hidden xl:flex" : "flex"}`}
     >
       <div
         className={`absolute bottom-20 -right-1 w-86.25 max-[365px]:w-81.25 max-[350px]:w-76.25 sm:w-90 md:w-92.5 lg:w-95 3xl:w-96.25 glass-card rounded-3xl overflow-hidden transition-all duration-500 origin-bottom-right flex flex-col ${
