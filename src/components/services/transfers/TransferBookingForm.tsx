@@ -6,7 +6,7 @@ import { vehicles } from "@/data/vehicles";
 import { TransferFareSummary } from "./TransferFareSummary";
 import { TransferJourneyFields } from "./TransferJourneyFields";
 import { TransferServiceSelector } from "./TransferServiceSelector";
-import { type ActiveVehicleFilter } from "./TransferVehicleSelector";
+import { type ActiveVehicleFilter } from "@/components/services/VehicleSelector";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { ContactForm, type ContactData } from "@/components/services/ContactForm";
 import { useValidationForm } from "@/hooks/useValidationForm";

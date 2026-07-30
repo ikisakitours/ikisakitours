@@ -5,7 +5,7 @@ import { privateVehicleSidebar } from "@/data/privateVehicle";
 import { vehicles } from "@/data/vehicles";
 import { ContactForm, type ContactData } from "@/components/services/ContactForm";
 import { PrivateVehicleJourneyFields } from "./PrivateVehicleJourneyFields";
-import { type ActiveVehicleFilter } from "./PrivateVehicleSelector";
+import { type ActiveVehicleFilter }from "@/components/services/VehicleSelector";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { CrossPromotionSection } from "@/components/services/CrossPromotionSection";

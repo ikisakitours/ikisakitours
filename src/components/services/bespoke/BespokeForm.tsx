@@ -4,7 +4,7 @@ import { type FormEvent, useState } from "react";
 import { vehicles } from "@/data/vehicles";
 import { BespokeSidebar } from "@/data/bespokeTravel";
 import { BespokeJourneyFields } from "./BespokeJourneyFields";
-import { type ActiveVehicleFilter } from "./BespokeVehicleSelector";
+import { type ActiveVehicleFilter } from "@/components/services/VehicleSelector";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { CrossPromotionSection } from "@/components/services/CrossPromotionSection";
 import { ContactForm, type ContactData } from "@/components/services/ContactForm";
