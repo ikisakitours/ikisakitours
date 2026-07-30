@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import { LoadingImage } from "@/components/ui/LoadingImage";
 import { Clock, Star, MessageCircleHeart, ArrowRight } from "lucide-react";
 import { packages } from "@/data/multiDaysTours";
 import { testimonials } from "@/data/testimonials";
@@ -35,12 +35,13 @@ export function CrossPromotionSection() {
                     {pkg.categoryLabel}
                   </span>
                 </div>
-                <Image
+                <LoadingImage
                   src={pkg.image}
                   alt={`${pkg.title} ${pkg.imageAlt}`}
                   fill
                   sizes="(min-width: 1280px) 380px, 85vw"
-                  className="image-render-visible object-cover transition-transform duration-700 group-hover:scale-110"
+                  wrapperClassName="w-full h-full"
+                  className="image-render-visible object-cover opacity-70!  group-hover:scale-110"
                 />
               </div>
               <div className="p-6">
@@ -112,7 +113,15 @@ export function CrossPromotionSection() {
                 <div className="flex items-center gap-3 border-t border-white/5 pt-4">
                   {t.avatar ? (
                     <div className="relative h-10 w-10 overflow-hidden rounded-full ring-2 ring-transparent transition-all duration-300 group-hover:ring-gold/30">
-                      <Image src={t.avatar} alt={t.name} fill sizes="40px" className="object-cover" />
+                      <LoadingImage
+                        src={t.avatar}
+                        alt={t.name}
+                        fill
+                        sizes="40px"
+                        isSmall
+                        wrapperClassName="w-full h-full"
+                        className=" object-cover"
+                      />
                     </div>
                   ) : (
                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gold/10 text-xs font-bold text-gold ring-2 ring-transparent transition-all duration-300 group-hover:ring-gold/30 group-hover:bg-gold/20">

@@ -1,6 +1,5 @@
 "use client";
-
-import Image from "next/image";
+import { LoadingImage } from "@/components/ui/LoadingImage";
 import Link from "next/link";
 import type { BlogPost } from "@/data/blog";
 import { ShareButton } from "@/components/ui/ShareButton";
@@ -18,12 +17,14 @@ export function BlogCard({ post }: BlogCardProps) {
 
       <div className="relative z-10">
         <div className="mb-6 h-20 w-20 overflow-hidden rounded-2xl border border-gold/20">
-          <Image
+          <LoadingImage
             src={post.image}
-            alt=""
+            alt={post.altText}
             width={160}
             height={160}
-            className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0"
+            watermarkClassName="text-[15px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            wrapperClassName="w-full h-full"
+            className="h-full w-full object-cover grayscale  group-hover:scale-105 group-hover:grayscale-0"
           />
         </div>
         <div className="mb-4 text-[10px] uppercase tracking-widest text-gold opacity-60">

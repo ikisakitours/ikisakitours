@@ -6,7 +6,9 @@ import { motion, AnimatePresence } from "framer-motion";
 
 interface LoadingImageProps extends ImageProps {
   wrapperClassName?: string;
+  watermarkClassName?: string;
   isSmall?: boolean;
+  priority?: boolean;
 }
 
 export function LoadingImage({
@@ -15,6 +17,8 @@ export function LoadingImage({
   className = "",
   wrapperClassName = "",
   isSmall = false,
+  watermarkClassName = "text-3xl sm:text-3xl bottom-3 right-4",
+  
   ...props
 }: LoadingImageProps) {
   const [isLoading, setIsLoading] = useState(true);
@@ -67,7 +71,7 @@ export function LoadingImage({
                   </motion.svg>
                 </div>
 
-                <div className="pointer-events-none absolute bottom-3 right-4 whitespace-nowrap select-none font-bold leading-none tracking-tighter text-white/3 text-3xl sm:text-3xl">
+                <div className={`pointer-events-none absolute whitespace-nowrap select-none font-bold leading-none tracking-tighter text-white/3 ${watermarkClassName}`}>
                   MapMate
                 </div>
               </>
@@ -86,7 +90,7 @@ export function LoadingImage({
         onLoad={() => {
           setTimeout(() => {
             setIsLoading(false);
-          }, 6000);
+          }, 6000);//6000
         }}
         {...props}
       />

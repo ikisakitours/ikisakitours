@@ -1,6 +1,7 @@
 import React from "react";
-import Image from "next/image";
+import { LoadingImage } from "@/components/ui/LoadingImage";
 import Link from "next/link";
+//Icons
 import { Images, Plus } from "lucide-react";
 
 type Props = {
@@ -43,7 +44,6 @@ export default function PhotosSection({ name, slug, photos }: Props) {
         </Link>
       </div>
 
-  
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         {photos.slice(0, 3).map((photoSrc, index) => {
           const isLast = index === 2;
@@ -54,13 +54,14 @@ export default function PhotosSection({ name, slug, photos }: Props) {
               href={galleryUrl}
               className="group relative block h-56 w-full overflow-hidden rounded-2xl border border-white/10 sm:h-64"
             >
-              <Image
+              <LoadingImage
                 src={photoSrc}
                 alt={`${name} highlight ${index + 1}`}
                 fill
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                wrapperClassName="w-full h-full"
+                className="object-cover group-hover:scale-110"
               />
-
               {isLast ? (
                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/45 transition-colors duration-300 group-hover:bg-black/65">
                   <Images className="mb-2 text-white" size={28} />

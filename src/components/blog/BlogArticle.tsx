@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+import { LoadingImage } from "@/components/ui/LoadingImage";
 import Link from "next/link";
 import React, { Suspense } from "react";
 import { ArticleActions } from "@/components/blog/ArticleActions";
@@ -100,11 +100,14 @@ function BlogArticleInner({ post }: BlogArticleProps) {
 
                   const content = (
                     <>
-                      <Image
+                      <LoadingImage
                         src={image.src}
                         alt={image.alt}
                         fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        sizes="(max-width: 768px) 50vw, 160px"
+                        watermarkClassName="text-[17px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                        wrapperClassName="w-full h-full"
+                        className="image-object-cover group-hover:scale-110"
                       />
                       {isGalleryLink ? (
                         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/45 transition-colors duration-300 group-hover:bg-black/70">

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { LoadingImage } from "@/components/ui/LoadingImage";
 import { X } from "lucide-react";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { type Destination } from "@/data/destinationData";
@@ -299,7 +299,14 @@ export default function MapContent({
                     </a>
 
                     <div className="relative h-28 w-full overflow-hidden">
-                      <Image src={dest.hero.image} alt={dest.name} fill sizes="220px" className="object-cover" />
+                      <LoadingImage
+                        src={dest.hero.image}
+                        alt={dest.name}
+                        fill
+                        sizes="220px"
+                        wrapperClassName="w-full h-full"
+                        className="object-cover"
+                      />
                       <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent" />
                     </div>
 

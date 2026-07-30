@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import { LoadingImage } from "@/components/ui/LoadingImage";
 
 interface LeadershipProps {
   data: {
@@ -16,12 +16,14 @@ export default function Leadership({ data }: LeadershipProps) {
       <h2 className="premium-serif text-3xl text-white mb-10">{data.title}</h2>
 
       <div className="w-28 h-28 rounded-full overflow-hidden border-2 border-gold/30 mb-6 relative group">
-        <Image
+        <LoadingImage
           src="https://i.pravatar.cc/150?u=yuki-tanaka"
           alt={data.name}
           fill
           sizes="112px"
-          className="object-cover transition-transform duration-500 group-hover:scale-110"
+          className="object-cover opacity-70!  group-hover:scale-110"
+          wrapperClassName="w-full h-full"
+          watermarkClassName="text-[15px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         />
       </div>
 

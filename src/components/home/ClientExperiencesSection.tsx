@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { LoadingImage } from "@/components/ui/LoadingImage";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
 import { testimonials } from "@/data/testimonials";
@@ -11,7 +10,8 @@ import { RatingStars } from "@/components/ui/RatingStars";
 import { clientExperiencesContent } from "@/data/home";
 import SectionBadge from "@/components/home/Events/SectionBadge";
 //Icons
-import { CalendarCheck, Quote, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
+import { TestimonialCard } from "@/components/testimonials/TestimonialCard";
 
 export function ClientExperiencesSection() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -198,7 +198,7 @@ export function ClientExperiencesSection() {
               className="flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto pb-12 scrollbar-none [-ms-overflow-style:none] sm:gap-6 md:gap-8 xl:grid xl:grid-cols-3 xl:overflow-visible xl:pb-0 [&::-webkit-scrollbar]:hidden"
             >
               {displayTestimonials.map((testimonial) => (
-                <motion.article
+                <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "0px" }}
@@ -208,55 +208,12 @@ export function ClientExperiencesSection() {
                   }}
                   style={{ willChange: "transform, opacity" }}
                   key={testimonial.name}
-                  className="group relative flex w-[85%] shrink-0 snap-center flex-col rounded-2xl border border-white/10 bg-[#111] p-6 transition-colors duration-500 hover:border-gold/30 sm:w-[60%] md:w-[45%] lg:w-[40%] md:p-8 xl:w-auto xl:min-w-0"
+                  // Slider එකට අදාළ පළල (width) සහ Snapping මේ wrapper එකෙන් පාලනය කරයි
+                  className="w-[85%] shrink-0 snap-center sm:w-[60%] md:w-[45%] lg:w-[40%] xl:w-auto xl:min-w-0"
                 >
-                  <div className="grow">
-                    <div className="mb-6 flex items-start justify-between md:mb-8">
-                      <Quote className="h-7 w-7 text-gold/30 md:h-8 md:w-8" fill="currentColor" />
-                      <span className="rounded border border-white/10 px-2 py-1 text-[10px] font-bold uppercase tracking-widest text-slate-500">
-                        {testimonial.language}
-                      </span>
-                    </div>
-                    <div className="mb-4 md:mb-6">
-                      <RatingStars rating={testimonial.rating} starClassName="h-3.5 w-3.5 text-gold" />
-                    </div>
-                    <p className="mb-8 text-base font-light italic leading-relaxed text-slate-300 md:mb-10 md:text-lg">
-                      {testimonial.quote}
-                    </p>
-                  </div>
-
-                  <div className="mt-auto flex items-start gap-4 border-t border-white/5 pt-6 sm:items-center">
-                    <div className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-[#c5a059]/30 bg-white/5 shadow-lg sm:h-12 sm:w-12">
-                      {testimonial.avatar ? (
-                        <LoadingImage
-                          src={testimonial.avatar}
-                          alt={testimonial.name}
-                          fill
-                          sizes="(min-width: 1280px) 25vw, 50vw"
-                          className="object-cover"
-                          wrapperClassName="w-full h-full" 
-                        />
-                      ) : (
-                        <span className="text-[10px] font-bold uppercase text-[#c5a059] sm:text-xs">
-                          {testimonial.initials}
-                        </span>
-                      )}
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex flex-col gap-1.5">
-                        <div className="flex flex-wrap items-center gap-2">
-                          <h6 className="truncate text-xs font-bold uppercase tracking-widest text-white sm:text-sm">
-                            {testimonial.name}
-                          </h6>
-                        </div>
-                        <div className="flex items-center gap-2 text-[9px] font-medium uppercase tracking-[0.2em] text-[#c5a059]/60 sm:text-[10px]">
-                          <CalendarCheck className="h-2.5 w-2.5 opacity-80" />
-                          <span>{testimonial.date}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.article>
+                  {/* 🔴 ඔබ සාදාගත් Component එක මෙතනට යොදන්න */}
+                  <TestimonialCard testimonial={testimonial} />
+                </motion.div>
               ))}
             </div>
 

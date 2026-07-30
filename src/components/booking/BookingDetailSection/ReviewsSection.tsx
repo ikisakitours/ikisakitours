@@ -1,10 +1,11 @@
 import React from "react";
-import Image from "next/image";
+import { LoadingImage } from "@/components/ui/LoadingImage";
 import Link from "next/link";
-import { Plus, Images, CircleCheck, Crown } from "lucide-react";
-import { FaRegCalendarCheck } from "react-icons/fa6";
 import { Button } from "@/components/ui/Button";
 import RatingStars from "./RatingStars";
+//Icons
+import { Plus, Images, CircleCheck, Crown } from "lucide-react";
+import { FaRegCalendarCheck } from "react-icons/fa6";
 
 type ReviewPhoto = {
   src: string;
@@ -15,10 +16,12 @@ type ReviewPhoto = {
 type ReviewItem = {
   name: string;
   country: string;
+  language?: string;
   initials: string;
   date: string;
   text: string;
   rating?: number | string;
+  avatar?: string;
   photos?: ReviewPhoto[];
   response?: string;
 };
@@ -95,12 +98,14 @@ export default function ReviewsSection({ tour, tourType }: ReviewsSectionProps) 
               const isLast = index === moments.length - 1;
               const content = (
                 <>
-                  <Image
+                  <LoadingImage
                     src={moment.src}
                     alt={moment.alt}
                     fill
                     sizes={index === 0 ? "(min-width: 1024px) 380px, 90vw" : "180px"}
-                    className="image-render-visible object-cover transition-transform duration-500 group-hover:scale-110"
+                    watermarkClassName="text-[20px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                    wrapperClassName="w-full h-full"
+                    className="image-render-visible object-cover group-hover:scale-110"
                   />
                   {isLast ? (
                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/45 transition-colors duration-300 group-hover:bg-black/65">
@@ -155,8 +160,20 @@ export default function ReviewsSection({ tour, tourType }: ReviewsSectionProps) 
             >
               <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row">
                 <div className="flex w-full max-w-full items-center gap-3 sm:gap-4 md:gap-6">
-                  <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border border-gold/30 bg-white/5 shadow-lg sm:h-14 sm:w-14 md:h-16 md:w-16">
-                    <span className="text-xs font-bold text-gold sm:text-sm">{review.initials}</span>
+                  <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border border-gold/30 bg-white/5 shadow-lg sm:h-14 sm:w-14 md:h-16 md:w-16 3xl:h-20 3xl:w-20">
+                    <span className="text-xs font-bold text-gold 3xl:text-base">{review.initials}</span>
+
+                    {review.avatar && typeof review.avatar === "string" && review.avatar.trim() !== "" && (
+                      <LoadingImage
+                        src={review.avatar}
+                        alt={`${review.name} Profile`}
+                        fill
+                        sizes="80px"
+                        className="image-render-visible z-10 object-cover"
+                        wrapperClassName="!absolute inset-0 z-10 w-full h-full"
+                        isSmall={true}
+                      />
+                    )}
                   </div>
 
                   <div className="min-w-0 flex-1">
@@ -192,13 +209,15 @@ export default function ReviewsSection({ tour, tourType }: ReviewsSectionProps) 
                     const isLast = index === photosArray.length - 1;
                     const imgContent = (
                       <>
-                        <Image
+                        <LoadingImage
                           src={photo.src}
                           alt={photo.alt}
                           title={photo.title}
                           fill
                           sizes="96px"
-                          className="image-render-visible object-cover transition-transform duration-500 group-hover:scale-110"
+                          watermarkClassName="text-[18px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                          wrapperClassName="w-full h-full"
+                          className="image-render-visible object-cover group-hover:scale-110"
                         />
                         {isLast && (
                           <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/45 transition-colors duration-300 group-hover:bg-black/65">

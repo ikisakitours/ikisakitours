@@ -1,10 +1,9 @@
-import Image from "next/image";
+import { LoadingImage } from "@/components/ui/LoadingImage";
 import { bookingTour } from "@/data/multiDaysBooking";
 import Link from "next/link";
-import { Images } from "lucide-react";
 import { RatingStars } from "@/components/ui/RatingStars";
 //Icons
-import { CheckCircle2, Crown, CalendarDays } from "lucide-react";
+import { CheckCircle2, Crown, CalendarDays, Images } from "lucide-react";
 
 type ReviewCardProps = {
   review: (typeof bookingTour.reviews)[0];
@@ -30,12 +29,14 @@ export function ReviewCard({ review, slug, tourType }: ReviewCardProps) {
             <span className="text-xs font-bold text-gold 3xl:text-base">{review.initials}</span>
 
             {review.avatar && typeof review.avatar === "string" && review.avatar.trim() !== "" && (
-              <Image
+              <LoadingImage
                 src={review.avatar}
                 alt={`${review.name} Profile`}
                 fill
                 sizes="80px"
                 className="image-render-visible z-10 object-cover"
+                wrapperClassName="!absolute inset-0 z-10 w-full h-full"
+                isSmall={true}
               />
             )}
           </div>
@@ -74,13 +75,15 @@ export function ReviewCard({ review, slug, tourType }: ReviewCardProps) {
             const isLast = index === review.photos.length - 1;
             const imgContent = (
               <>
-                <Image
+                <LoadingImage
                   src={photo.src}
                   alt={photo.alt}
                   title={photo.title}
                   fill
                   sizes="96px"
-                  className="image-render-visible object-cover transition-transform duration-500 group-hover:scale-110"
+                  watermarkClassName="text-[18px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                  wrapperClassName="w-full h-full"
+                  className="image-render-visible object-cover group-hover:scale-110"
                 />
                 {isLast && (
                   <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/45 transition-colors duration-300 group-hover:bg-black/65">

@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import { LoadingImage } from "@/components/ui/LoadingImage";
 import { MapPin } from "lucide-react";
 import { type Destination } from "@/data/destinationData";
 import { Button } from "@/components/ui/Button";
@@ -13,12 +13,13 @@ export default function DestinationsCard({ dest }: DestinationsCardProps) {
     <article className="group relative flex h-full w-full flex-col overflow-hidden rounded-xl border border-white/10 bg-[#111] shadow-2xl transition-all duration-500 hover:border-gold/50">
       {/* Image Container */}
       <div className="relative h-48 shrink-0 overflow-hidden sm:h-56">
-        <Image
+        <LoadingImage
           src={dest.hero.image}
           alt={dest.name}
           fill
           sizes="(min-width: 1280px) 25vw, 340px"
-          className="image-render-visible object-cover opacity-70 transition-transform duration-700 group-hover:scale-110"
+          wrapperClassName="w-full h-full"
+          className="image-render-visible object-cover opacity-70!  group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-linear-to-t from-[#111] via-transparent to-black/40" />
 

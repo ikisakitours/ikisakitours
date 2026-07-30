@@ -126,6 +126,8 @@ export function GalleryCollection({ items }: GalleryCollectionProps) {
           onPrevious={showPrevious}
           onTouchEnd={handleTouchEnd}
           onTouchStart={handleTouchStart}
+          items={items}
+          onSelectIndex={(index) => setActiveIndex(index)}
         />
       ) : null}
     </section>
