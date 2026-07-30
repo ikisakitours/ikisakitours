@@ -1,5 +1,5 @@
 import { Hero } from "@/components/ui/Hero";
-import { SpecialEventsBody } from "@/components/specialEvents/SpecialEventsBody";
+import { EventsBody } from "@/components/Events/EventsBody";
 import { allSpecialEventsList, categories } from "@/data/specialEvents";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import type { Metadata } from "next";
@@ -21,7 +21,7 @@ export default function SpecialEventsPage() {
           accent="Celebrations"
           strapline="Immerse in Sri Lanka's most magnificent cultural pageants and live broadcasts"
         />
-        <SpecialEventsBody events={allSpecialEventsList} categories={categories} />
+        <EventsBody events={allSpecialEventsList} categories={categories} />
       </main>
     </UserPageLayout>
   );

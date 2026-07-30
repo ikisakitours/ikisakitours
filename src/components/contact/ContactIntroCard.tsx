@@ -1,8 +1,5 @@
 "use client";
-
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { ImageSlider } from "@/components/ui/ImageSlider";
 
 type IntroCardProps = {
   data: {
@@ -18,8 +15,6 @@ type IntroCardProps = {
 };
 
 export default function ContactIntroCard({ data }: IntroCardProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
   const SLIDER_IMAGES = [
     data.image,
     "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=95&w=1600&auto=format&fit=crop",
@@ -27,13 +22,6 @@ export default function ContactIntroCard({ data }: IntroCardProps) {
     "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=95&w=1600&auto=format&fit=crop",
     "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=95&w=1600&auto=format&fit=crop",
   ];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % SLIDER_IMAGES.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, [SLIDER_IMAGES.length]);
 
   return (
     <div className="glass-card rounded-[2.5rem] p-6 md:p-10 lg:p-12 flex flex-col md:flex-row items-center gap-12 md:gap-16 mb-12 border border-white/10">
@@ -55,26 +43,14 @@ export default function ContactIntroCard({ data }: IntroCardProps) {
         className="relative w-full md:w-[45%] border border-white/10 z-10"
         style={{ height: "350px", borderRadius: "32px", overflow: "hidden", transform: "translateZ(0)" }}
       >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentIndex}
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1, ease: "easeInOut" }}
-            className="absolute inset-0 w-full h-full"
-            style={{ borderRadius: "32px", overflow: "hidden" }}
-          >
-            <Image
-              src={SLIDER_IMAGES[currentIndex]}
-              alt={data.imageAlt}
-              fill
-              className="object-cover"
-              priority
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 45vw, 600px"
-            />
-          </motion.div>
-        </AnimatePresence>
+        <ImageSlider
+          images={SLIDER_IMAGES}
+          altText={data.imageAlt}
+          badge={data.imageBadge}
+          description={data.imageDesc}
+          showIndicators={true}
+          className="w-full h-full"
+        />
 
         <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end bg-linear-to-t from-black via-black/40 to-transparent">
           <p className="text-xs sm:text-sm lg:text-xs 3xl:text-sm font-bold uppercase tracking-widest text-gold drop-shadow-sm mb-1.5">

@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { SpecialEventsGrid } from "@/components/specialEvents/SpecialEventsGrid";
+import { EventsGrid } from "@/components/Events/EventsGrid";
 import { SpecialEventListItem } from "@/data/specialEvents";
 
 interface SpecialEventsBodyProps {
@@ -8,10 +8,10 @@ interface SpecialEventsBodyProps {
   categories: readonly string[];
 }
 
-export function SpecialEventsBody({ events, categories }: SpecialEventsBodyProps) {
+export function EventsBody({ events, categories }: SpecialEventsBodyProps) {
   return (
     <ContainerLayout className="mt-12">
-      <SpecialEventsGrid events={events} categories={categories} />
+      <EventsGrid events={events} categories={categories} />
     </ContainerLayout>
   );
 }

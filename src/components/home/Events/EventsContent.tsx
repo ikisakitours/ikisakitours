@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { CalendarDays } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { SpecialEventMode, EventContentItem } from "@/data/specialEvents";
-import SectionBadge from "@/components/home/SpecialEvents/SectionBadge";
+import SectionBadge from "@/components/home/Events/SectionBadge";
 
 interface SpecialEventsContentProps {
   mode: SpecialEventMode;
@@ -12,7 +12,7 @@ interface SpecialEventsContentProps {
   targetLink: string;
 }
 
-export function SpecialEventsContent({ mode, content, targetLink }: SpecialEventsContentProps) {
+export function EventsContent({ mode, content, targetLink }: SpecialEventsContentProps) {
   return (
     <motion.div
       initial={{ opacity: 0, x: -30 }}

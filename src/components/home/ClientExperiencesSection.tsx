@@ -9,7 +9,7 @@ import { WriteReviewForm } from "@/components/ui/WriteReviewForm";
 import { motion, AnimatePresence } from "framer-motion";
 import { RatingStars } from "@/components/ui/RatingStars";
 import { clientExperiencesContent } from "@/data/home";
-import SectionBadge from "@/components/home/SpecialEvents/SectionBadge";
+import SectionBadge from "@/components/home/Events/SectionBadge";
 //Icons
 import { CalendarCheck, Quote, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
 

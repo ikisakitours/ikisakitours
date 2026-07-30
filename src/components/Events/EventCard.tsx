@@ -7,8 +7,8 @@ import { CalendarDays, Radio, Sparkles, ExternalLink } from "lucide-react";
 import { SpecialEventListItem } from "@/data/specialEvents";
 import { useInView } from "framer-motion";
 
-import UniversalPlayer from "@/components/home/SpecialEvents/UniversalPlayer";
-import { SpecialEventsImageSlider } from "@/components/home/SpecialEvents/SpecialEventsImageSlider";
+import UniversalPlayer from "@/components/home/Events/UniversalPlayer";
+import { EventsImageSlider } from "@/components/home/Events/EventsImageSlider";
 
 interface EventCardProps {
   event: SpecialEventListItem;
@@ -20,13 +20,13 @@ export function EventCard({ event }: EventCardProps) {
 
   useEffect(() => {
     if (isInView) {
-      console.log("▶️ SpecialEventsMedia is IN VIEWPORT: Playing/Active state triggered.");
+      console.log("▶️ EventsMedia is IN VIEWPORT: Playing/Active state triggered.");
     } else {
-      console.log("⏸️ SpecialEventsMedia is OUT OF VIEWPORT: Pausing/Inactive state.");
+      console.log("⏸️ EventsMedia is OUT OF VIEWPORT: Pausing/Inactive state.");
     }
   }, [isInView]);
 
-  const eventLink = `/special-events/${event.slug}`;
+  const eventLink = `/events/${event.slug}`;
 
   const getButtonText = () => {
     switch (event.mode) {
@@ -71,7 +71,7 @@ export function EventCard({ event }: EventCardProps) {
           </div>
         ) : event.images && event.images.length > 0 ? (
           <div className="absolute inset-0 h-full w-full z-0">
-            <SpecialEventsImageSlider images={event.images} titleAccent={event.title} targetLink={eventLink} />
+            <EventsImageSlider images={event.images} titleAccent={event.title} targetLink={eventLink} />
           </div>
         ) : (
           <Image

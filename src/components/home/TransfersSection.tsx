@@ -6,7 +6,7 @@ import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { transferCards } from "@/data/transfers";
 import { transfersSectionContent } from "@/data/home";
 import { motion } from "framer-motion";
-import SectionBadge from "@/components/home/SpecialEvents/SectionBadge";
+import SectionBadge from "@/components/home/Events/SectionBadge";
 //Icons
 import { Car, ChevronLeft, ChevronRight, PlaneLanding, PlaneTakeoff } from "lucide-react";
 import { FaShieldAlt } from "react-icons/fa";

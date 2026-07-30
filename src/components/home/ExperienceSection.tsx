@@ -4,7 +4,7 @@ import { experiencePillars } from "@/data/home";
 import { experienceSectionContent } from "@/data/home";
 import { Button } from "@/components/ui/Button";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import SectionBadge from "@/components/home/SpecialEvents/SectionBadge";
+import SectionBadge from "@/components/home/Events/SectionBadge";
 import { motion } from "framer-motion";
 //Icons
 import { ArrowRight, BadgeCheck, Car, Languages, MapPinned, SlidersHorizontal } from "lucide-react";
@@ -136,7 +136,6 @@ export function ExperienceSection() {
             transition={{ duration: 0.9, ease: [0.25, 1, 0.5, 1] }}
             className="order-1 text-center xl:order-2 xl:text-left"
           >
-            
             <SectionBadge badge={experienceSectionContent.badge} />
             <h2 className="mb-6 font-serif text-3xl font-light leading-tight text-foreground sm:text-4xl md:text-5xl xl:text-5xl 2xl:text-6xl 3xl:mb-10 3xl:text-[5rem]">
               {experienceSectionContent.titlePart1} <br className="hidden xl:block" />

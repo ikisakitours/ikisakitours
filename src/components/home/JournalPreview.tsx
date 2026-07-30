@@ -6,7 +6,7 @@ import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { motion } from "framer-motion";
 import { journalPreviewContent } from "@/data/home";
 import { blogPosts } from "@/data/blog";
-import SectionBadge from "@/components/home/SpecialEvents/SectionBadge";
+import SectionBadge from "@/components/home/Events/SectionBadge";
 //icons
 import { ArrowRight } from "lucide-react";
 

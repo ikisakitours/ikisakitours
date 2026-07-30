@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import UniversalPlayer from "@/components/home/SpecialEvents/UniversalPlayer";
+import UniversalPlayer from "@/components/home/Events/UniversalPlayer";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useInView } from "framer-motion";
+import { useInView, motion, AnimatePresence, Variants } from "framer-motion";
 
 interface EventMediaProps {
   image: string;
@@ -22,14 +22,13 @@ export function EventMedia({ image, titleAccent, statusTag, videoUrl, mode, broa
 
   useEffect(() => {
     if (isInView) {
-      console.log("▶️ SpecialEventsMedia is IN VIEWPORT: Playing/Active state triggered.");
+      console.log("▶️ EventsMedia is IN VIEWPORT: Playing/Active state triggered.");
     } else {
-      console.log("⏸️ SpecialEventsMedia is OUT OF VIEWPORT: Pausing/Inactive state.");
+      console.log("⏸️ EventsMedia is OUT OF VIEWPORT: Pausing/Inactive state.");
     }
   }, [isInView]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
-
   const sliderImages = images && images.length > 0 ? images : [image];
 
   useEffect(() => {
@@ -48,12 +47,20 @@ export function EventMedia({ image, titleAccent, statusTag, videoUrl, mode, broa
     setCurrentIndex((prev) => (prev - 1 + sliderImages.length) % sliderImages.length);
   };
 
+  // 🔥 The Buttery Smooth Cinematic Animation Variants
+  const slideVariants: Variants = {
+    initial: { opacity: 0, scale: 1.08, y: 15 },
+    animate: { opacity: 1, scale: 1, y: 0, transition: { duration: 1.4, ease: [0.22, 1, 0.36, 1] } },
+    exit: { opacity: 0, scale: 0.95, y: -15, transition: { duration: 1.4, ease: [0.22, 1, 0.36, 1] } },
+  };
+
   return (
     <div
       ref={containerRef}
       className="glass-card relative overflow-hidden rounded-[2.5rem] border border-white/10 p-3 shadow-2xl md:p-4"
     >
       <div className="relative aspect-16/10 w-full overflow-hidden rounded-3xl bg-black z-0 group">
+        
         {/* --- LIVE NOW Broadcast Badge (Top Left) --- */}
         {mode === "live" && (
           <div className="absolute top-4 left-4 z-30 flex items-center gap-2 rounded-full border border-red-500/30 bg-red-950/80 px-3 py-1.5 backdrop-blur-md shadow-lg pointer-events-none">
@@ -79,18 +86,32 @@ export function EventMedia({ image, titleAccent, statusTag, videoUrl, mode, broa
           </div>
         ) : (
           <>
-            <Image
-              src={sliderImages[currentIndex]}
-              alt={titleAccent}
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 70vw"
-              className="object-cover transition-all duration-700"
-            />
+            {/* 🔥 Animated Image Slider */}
+            <AnimatePresence>
+              <motion.div
+                key={currentIndex}
+                variants={slideVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className="absolute inset-0 h-full w-full"
+              >
+                <Image
+                  src={sliderImages[currentIndex]}
+                  alt={titleAccent}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 70vw"
+                  className="object-cover"
+                />
+              </motion.div>
+            </AnimatePresence>
+            
             <div className="absolute inset-0 bg-linear-to-t from-background/95 via-transparent to-transparent pointer-events-none z-10" />
 
             {sliderImages.length > 1 && (
               <>
+                {/* --- Manual Controls --- */}
                 <button
                   onClick={prevSlide}
                   className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-20 flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-full bg-black/50 md:bg-black/40 text-white backdrop-blur-md transition-all hover:bg-gold hover:text-black border border-white/10 opacity-100 md:opacity-0 md:group-hover:opacity-100"
@@ -106,15 +127,17 @@ export function EventMedia({ image, titleAccent, statusTag, videoUrl, mode, broa
                   <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
                 </button>
 
-                {/* --- Slider Indicators --- */}
+                {/* --- Modern Animated Indicators --- */}
                 <div className="absolute bottom-6 md:bottom-16 left-1/2 -translate-x-1/2 z-20 flex gap-2">
                   {sliderImages.map((_, idx) => (
                     <button
                       key={idx}
                       onClick={() => setCurrentIndex(idx)}
                       aria-label={`Go to image ${idx + 1}`}
-                      className={`h-1.5 rounded-full transition-all duration-300 ${
-                        idx === currentIndex ? "w-6 bg-gold" : "w-1.5 bg-white/40 hover:bg-white/80"
+                      className={`h-1.5 rounded-full transition-all duration-700 ease-in-out ${
+                        idx === currentIndex
+                          ? "w-8 bg-gold shadow-[0_0_12px_rgba(197,160,89,0.9)]"
+                          : "w-2 bg-white/40 hover:bg-white/80"
                       }`}
                     />
                   ))}
@@ -124,6 +147,7 @@ export function EventMedia({ image, titleAccent, statusTag, videoUrl, mode, broa
           </>
         )}
 
+        {/* --- Status Tag --- */}
         {mode !== "live" && (
           <div className="absolute bottom-6 left-6 z-20 rounded-xl border border-white/15 bg-black/70 px-5 py-3 backdrop-blur-xl shadow-xl pointer-events-none hidden md:block">
             <div className="flex items-center gap-3">

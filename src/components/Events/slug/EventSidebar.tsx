@@ -1,7 +1,7 @@
 import React from "react";
 import { ShareButton } from "@/components/ui/ShareButton";
 import { LikeButton } from "@/components/ui/LikeButton";
-import { CountdownTimer } from "@/components/home/SpecialEvents/CountdownTimer";
+import { CountdownTimer } from "@/components/home/Events/CountdownTimer";
 //Icons
 import { CalendarDays, Clock, MapPin } from "lucide-react";
 

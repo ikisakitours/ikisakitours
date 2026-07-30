@@ -13,9 +13,10 @@ import "react-phone-number-input/style.css";
 type FormProps = {
   title: string;
   tourOptions: string[];
+  INQUIRY_OPTIONS: string[];
 };
 
-export default function ContactForm({ title, tourOptions }: FormProps) {
+export default function ContactForm({ title, tourOptions, INQUIRY_OPTIONS }: FormProps) {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -23,6 +24,7 @@ export default function ContactForm({ title, tourOptions }: FormProps) {
     subject: "",
     message: "",
   });
+  const [inquiryType, setInquiryType] = useState("");
   const [tourType, setTourType] = useState("");
 
   const [detectedCode, setDetectedCode] = useState("");
@@ -72,14 +74,20 @@ export default function ContactForm({ title, tourOptions }: FormProps) {
   const handleBookingSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const isValid = validate({
+    const validationPayload: Record<string, string> = {
       fullName: formData.fullName,
       email: formData.email,
       phone: formData.phone,
-      tourInterest: tourType,
+      inquiryType: inquiryType,
       subject: formData.subject,
       message: formData.message,
-    });
+    };
+
+    if (inquiryType === "Tour Inquiry & Availability") {
+      validationPayload.tourInterest = tourType;
+    }
+
+    const isValid = validate(validationPayload);
 
     if (isValid) {
       console.log("Form is valid, proceed to API call", { ...formData, tourType });
@@ -183,23 +191,47 @@ export default function ContactForm({ title, tourOptions }: FormProps) {
             </div>
           </div>
 
-          {/* Tour Interest */}
+          {/* Inquiry Options */}
           <div className="relative">
-            <span className={floatingLabelClass}>Tour Interest *</span>
+            <span className={floatingLabelClass}>Inquiry Type *</span>
             <CustomSelect
-              value={tourType}
+              value={inquiryType}
               onChange={(val) => {
-                setTourType(val);
-                setErrors((prev) => ({ ...prev, tourInterest: "" }));
+                setInquiryType(val);
+                setErrors((prev) => ({ ...prev, inquiryType: "" }));
+                if (val !== "Tour Inquiry & Availability") {
+                  setTourType("");
+                }
               }}
-              options={tourOptions}
+              options={INQUIRY_OPTIONS}
               className={`${inputClass} pt-5`}
-              placeholder="Select Tour Interest"
+              placeholder="How can we help you?"
             />
             <div className="ml-2">
-              <FormError message={errors.tourInterest} />
+              <FormError message={errors.inquiryType} />
             </div>
           </div>
+
+          {/* Tour Interest */}
+          {inquiryType === "Tour Inquiry & Availability" && (
+            <div className="relative">
+              <span className={floatingLabelClass}>Tour Interest *</span>
+              <CustomSelect
+                value={tourType}
+                onChange={(val) => {
+                  setTourType(val);
+                  setErrors((prev) => ({ ...prev, tourInterest: "" }));
+                }}
+                options={tourOptions}
+                className={`${inputClass} pt-5`}
+                placeholder="Select Tour Interest"
+              />
+
+              <div className="ml-2">
+                <FormError message={errors.tourInterest} />
+              </div>
+            </div>
+          )}
 
           {/* Subject */}
           <div className="md:col-span-2">

@@ -6,7 +6,7 @@ import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
 import { featureCards, languageBadges } from "@/data/privateVehicle";
 import { privateVehicleContent } from "@/data/home";
-import SectionBadge from "@/components/home/SpecialEvents/SectionBadge";
+import SectionBadge from "@/components/home/Events/SectionBadge";
 import { motion } from "framer-motion";
 //Icons
 import { MessagesSquare, X } from "lucide-react";

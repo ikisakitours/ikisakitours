@@ -7,7 +7,7 @@ import { ExternalLink } from "lucide-react";
 import { SpecialEventMode, EventContentItem } from "@/data/specialEvents";
 import { CountdownTimer } from "./CountdownTimer";
 import UniversalPlayer from "./UniversalPlayer";
-import { SpecialEventsImageSlider } from "./SpecialEventsImageSlider";
+import { EventsImageSlider } from "./EventsImageSlider";
 
 interface SpecialEventsMediaProps {
   mode: SpecialEventMode;
@@ -16,15 +16,15 @@ interface SpecialEventsMediaProps {
   upcomingTargetDate: string;
 }
 
-export function SpecialEventsMedia({ mode, content, targetLink, upcomingTargetDate }: SpecialEventsMediaProps) {
+export function EventsMedia({ mode, content, targetLink, upcomingTargetDate }: SpecialEventsMediaProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { amount: 0.3 });
 
   useEffect(() => {
     if (isInView) {
-      console.log("▶️ SpecialEventsMedia is IN VIEWPORT: Playing/Active state triggered.");
+      console.log("▶️ EventsMedia is IN VIEWPORT: Playing/Active state triggered.");
     } else {
-      console.log("⏸️ SpecialEventsMedia is OUT OF VIEWPORT: Pausing/Inactive state.");
+      console.log("⏸️ EventsMedia is OUT OF VIEWPORT: Pausing/Inactive state.");
     }
   }, [isInView]);
 
@@ -78,7 +78,7 @@ export function SpecialEventsMedia({ mode, content, targetLink, upcomingTargetDa
               </Link>
             </div>
           ) : (
-            <SpecialEventsImageSlider images={imagesList} titleAccent={content.titleAccent} targetLink={targetLink} />
+            <EventsImageSlider images={imagesList} titleAccent={content.titleAccent} targetLink={targetLink} />
           )}
         </div>
       </div>

@@ -3,7 +3,7 @@ import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
 import { motion } from "framer-motion";
 import { customTourContent } from "@/data/home";
-import SectionBadge from "@/components/home/SpecialEvents/SectionBadge";
+import SectionBadge from "@/components/home/Events/SectionBadge";
 
 export function CustomTourSection() {
   return (

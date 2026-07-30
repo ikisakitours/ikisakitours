@@ -9,7 +9,7 @@ import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
 import { toursSectionContent } from "@/data/home";
 import { motion, AnimatePresence } from "framer-motion";
-import SectionBadge from "@/components/home/SpecialEvents/SectionBadge";
+import SectionBadge from "@/components/home/Events/SectionBadge";
 //Icons
 import { FaClock } from "react-icons/fa6";
 import { Star } from "lucide-react";
@@ -69,8 +69,7 @@ export function ToursSection() {
           transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
           className="mb-10 text-center md:mb-14 3xl:mb-20"
         >
-         
-           <SectionBadge badge={toursSectionContent.badge} />
+          <SectionBadge badge={toursSectionContent.badge} />
           <h2 className="premium-serif text-3xl font-light leading-tight text-white sm:text-5xl md:text-6xl 3xl:text-7xl">
             {toursSectionContent.titlePart1}
             <span className="gold-gradient-text italic">{toursSectionContent.titleAccent}</span>

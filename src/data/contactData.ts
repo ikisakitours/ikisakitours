@@ -32,9 +32,24 @@ export const contactData = {
       href: "https://wa.me/94789187072",
     },
   },
+  // "Journeys & Transfers",
+  INQUIRY_OPTIONS: [
+    "Tour Inquiry & Availability",
+    "Services",
+    "General Question / FAQ",
+    "Partnerships & Media",
+    "Other",
+  ],
+
   form: {
     title: "Send Us a Message",
-    tourOptions: ["Day Tour", "Multi-day Tour", "Airport Transfer", "Private Chauffeur"],
+    tourOptions: [
+      "Day Tour",
+      "Multi day Tour",
+      "Tailor Made Journeys",
+      "Private Chauffeur Service",
+      "Airport & City Transfers",
+    ],
   },
   features: [
     {

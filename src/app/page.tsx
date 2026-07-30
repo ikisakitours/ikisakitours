@@ -9,21 +9,30 @@ import { TransfersSection } from "@/components/home/TransfersSection";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import { CustomTourSection } from "@/components/home/CustomTourSection";
 import HomeContactCTA from "@/components/home/HomeContactCTA";
-import { SpecialEventsSection } from "@/components/home/SpecialEventsSection";
+import { SpecialEventsSection } from "@/components/home/EventsSection";
 
 export default function HomePage() {
   return (
     <UserPageLayout>
+      {/* 1. Inspiration Phase */}
       <HeroSection />
       <DiscoverySection />
       <ExperienceSection />
-      <PrivateVehicle />
-      <CustomTourSection />
-      <TransfersSection />
-      <SpecialEventsSection />
+
+      {/* 2. Core Products Phase*/}
       <ToursSection />
-      <JournalPreview />
+      <CustomTourSection />
+      <PrivateVehicle />
+      <TransfersSection />
+
+      {/* 3. entertainment & Content Phase */}
+      <SpecialEventsSection />
+      {/* 4. Trust & Content Phase*/}
+
       <ClientExperiencesSection />
+      <JournalPreview />
+
+      {/* 5. Action Phase */}
       <HomeContactCTA />
     </UserPageLayout>
   );

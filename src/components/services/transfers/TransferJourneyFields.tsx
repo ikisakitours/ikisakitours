@@ -4,7 +4,7 @@ import CustomDatePicker from "@/components/ui/CustomDatePicker";
 import CustomTimePicker from "@/components/ui/CustomTimePicker";
 import CustomSelect from "@/components/ui/CustomSelect";
 import { TravelerPicker } from "@/components/ui/TravelerPicker";
-import { TransferVehicleSelector, type ActiveVehicleFilter } from "./TransferVehicleSelector";
+import { VehicleSelector, type ActiveVehicleFilter } from "@/components/services/VehicleSelector";
 import { FormError } from "@/components/ui/FormError"; // 🌟 Import FormError
 //Icons
 import { Globe, MapPin } from "lucide-react";
@@ -59,16 +59,14 @@ export function TransferJourneyFields({
   return (
     <div className="space-y-8">
       {/* Vehicle Type Filter */}
-      <div>
-        <span className={fieldLabelClass + " mb-4 block"}>Select Your Vehicle Type</span>
-        <TransferVehicleSelector
-          activeFilter={activeFilter}
-          onFilterChange={onFilterChange}
-          onVehicleChange={(id) => {
-            onVehicleChange(id);
-          }}
-        />
-      </div>
+     <div>
+  <span className={fieldLabelClass + " mb-4 block"}>Select Your Vehicle Type</span>
+  <VehicleSelector
+    activeFilter={activeFilter}
+    onFilterChange={onFilterChange}
+    onVehicleChange={onVehicleChange}
+  />
+</div>
 
       <div className="grid gap-x-8 gap-y-7 md:grid-cols-2">
         <label className="flex flex-col gap-1">

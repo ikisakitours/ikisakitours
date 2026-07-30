@@ -55,20 +55,22 @@ export function Footer() {
       </div>
 
       <ContainerLayout className="relative z-10">
-        <div className="mb-20 grid grid-cols-1 gap-12 sm:grid-cols-2 xl:grid-cols-12 lg:gap-8">
-          <div className="xl:col-span-4 flex flex-col items-center space-y-6 text-center sm:items-start sm:text-left">
+        <div className="mb-20 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:gap-x-24 lg:gap-y-12 xl:grid-cols-12 xl:gap-8">
+          <div className="flex flex-col items-center space-y-6 text-center sm:items-start sm:text-left xl:col-span-4">
             <div className="flex items-center space-x-3">
               <h3 className="text-2xl font-light tracking-[0.2em] text-white">
                 MAP<span className="font-normal italic text-gold">MATE</span>
               </h3>
-              <div className="h-4 w-6 overflow-hidden rounded-sm border border-white/10 shadow-lg">
+              <div className="group relative flex h-5 w-7 items-center justify-center overflow-hidden border-[0.5px] border-white/20 bg-black shadow-[0_0_15px_rgba(197,160,89,0.15)] transition-all duration-500 hover:border-gold/80 hover:shadow-[0_0_25px_rgba(197,160,89,0.6)] hover:scale-110">
+                <div className="pointer-events-none absolute inset-0 z-20 -translate-x-full bg-linear-to-r from-transparent via-white/50 to-transparent transition-transform duration-1000 ease-in-out group-hover:translate-x-full" />
                 <Image
                   src="https://flagcdn.com/w80/lk.png"
                   alt="Sri Lanka Flag"
                   width={80}
                   height={53}
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-fill transition-transform duration-700 group-hover:scale-110"
                 />
+                <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-tr from-black/40 via-transparent to-black/10" />
               </div>
             </div>
             <p className="max-w-xs text-base font-light leading-relaxed text-slate-200">
@@ -167,9 +169,10 @@ export function Footer() {
 
         {/* Footer bottom section - Layout unchanged */}
         <div className="flex flex-col items-center justify-between gap-8 xl:flex-row">
-          <p className="text-center text-[11px] font-medium uppercase tracking-[0.2em] text-slate-300 lg:text-left">
-            &copy; 2026 MapMate Luxury. Crafted with
-            <Heart className="inline h-3 w-3 animate-pulse text-gold" fill="currentColor" /> for travelers.
+          <p className="flex flex-wrap items-center justify-center lg:justify-start gap-1.5 text-center text-[11px] font-medium uppercase tracking-[0.2em] text-slate-300 lg:text-left">
+            <span>&copy; 2026 MapMate Luxury. Crafted with</span>
+            <Heart className="h-3.5 w-3.5 lg:h-3.75 lg:w-3.75 animate-pulse text-gold shrink-0" fill="currentColor" />
+            <span>for travelers.</span>
           </p>
 
           <div className="flex flex-wrap justify-center gap-6 md:gap-10">
@@ -241,7 +244,7 @@ export function Footer() {
 
                 {/* Hover State */}
                 <div className="flex h-8 flex-col justify-center gap-0.5">
-                  <span className="text-[7px] font-semibold uppercase tracking-[0.4em] text-gold/70">Crafted by</span>
+                  <span className="text-[7px] font-semibold uppercase tracking-[0.4em] text-gold/70">Developed by</span>
                   <span className="text-[11px] font-bold tracking-[0.15em] text-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]">
                     {BRAND_NAME}
                   </span>

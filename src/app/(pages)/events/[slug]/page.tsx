@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { allSpecialEventsList } from "@/data/specialEvents";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
-import { EventBody } from "@/components/specialEvents/slug/EventBody";
+import { EventBody } from "@/components/Events/slug/EventBody";
 interface PageProps {
   params: Promise<{
     slug: string;
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const eventImage = listItem.image || defaultImage;
 
   return {
-    title: `${listItem.title} | ${listItem.category} | ${listItem.mode}`,
+    title: `${listItem.title} | ${listItem.mode}`,
     description: listItem.description,
     openGraph: {
       title: `${listItem.title} | ${listItem.mode}`,

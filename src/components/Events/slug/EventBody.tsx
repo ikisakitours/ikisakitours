@@ -1,9 +1,9 @@
 import React from "react";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { EventHeader } from "@/components/specialEvents/slug/EventHeader";
-import { EventMedia } from "@/components/specialEvents/slug/EventMedia";
-import { EventAbout } from "@/components/specialEvents/slug/EventAbout";
-import { EventSidebar } from "@/components/specialEvents/slug/EventSidebar";
+import { EventHeader } from "@/components/Events/slug/EventHeader";
+import { EventMedia } from "@/components/Events/slug/EventMedia";
+import { EventAbout } from "@/components/Events/slug/EventAbout";
+import { EventSidebar } from "@/components/Events/slug/EventSidebar";
 import { SpecialEventListItem } from "@/data/specialEvents";
 
 interface EventBodyProps {

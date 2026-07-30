@@ -26,7 +26,7 @@ export default function ContactBody() {
 
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
           <ContactSidebar data={contactData.sidebar} />
-          <ContactForm title={contactData.form.title} tourOptions={contactData.form.tourOptions} />
+          <ContactForm title={contactData.form.title} tourOptions={contactData.form.tourOptions} INQUIRY_OPTIONS={contactData.INQUIRY_OPTIONS} />
         </div>
 
         <ContactFeatures features={contactData.features} />

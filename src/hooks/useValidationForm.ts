@@ -29,6 +29,8 @@ export interface ValidationData {
   subject?: string;
   message?: string;
   tourInterest?: string;
+
+  inquiryType?: string;
 }
 
 export const useValidationForm = () => {
@@ -194,6 +196,11 @@ export const useValidationForm = () => {
       } else if (data.message.trim().length < 10) {
         newErrors.message = "Message must be at least 10 characters long";
       }
+    }
+
+    // 23. Inquiry Type Validation (අලුතින් එකතු කළ කොටස)
+    if (data.inquiryType !== undefined && (!data.inquiryType || data.inquiryType.trim() === "")) {
+      newErrors.inquiryType = "Please select an inquiry type";
     }
 
     setErrors(newErrors);

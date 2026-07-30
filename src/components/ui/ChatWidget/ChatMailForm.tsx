@@ -182,6 +182,9 @@ export function ChatMailForm() {
               className={`${inputClass} auto-resize-textarea min-h-22.5 md:min-h-20 w-full resize-none pt-6 pb-2.5 md:pt-5 md:pb-2 text-[13px] transition-all focus:border-gold/60 focus:bg-white/[0.07] focus:outline-none`}
               placeholder="Type Your Message And Hit Enter..."
             />
+            <span className="ml-1 mt-0.5 block text-[9px] font-medium text-slate-500 leading-relaxed">
+              * Box will expand automatically as you type.
+            </span>
           </label>
           <div className="ml-2 mt-0.5">
             <FormError message={errors.message} />

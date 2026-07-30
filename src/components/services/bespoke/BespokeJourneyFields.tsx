@@ -3,7 +3,7 @@ import { fieldLabelClass, inputClass } from "@/components/services/formStyles";
 import CustomDatePicker from "@/components/ui/CustomDatePicker";
 import CustomTimePicker from "@/components/ui/CustomTimePicker";
 import CustomSelect from "@/components/ui/CustomSelect";
-import { BespokeVehicleSelector, type ActiveVehicleFilter } from "./BespokeVehicleSelector";
+import { VehicleSelector, type ActiveVehicleFilter } from "@/components/services/VehicleSelector";
 import { TravelerPicker } from "@/components/ui/TravelerPicker";
 import { TourDurationPicker } from "@/components/ui/TourDurationPicker";
 import { FormError } from "@/components/ui/FormError";
@@ -70,7 +70,7 @@ export function BespokeJourneyFields({
     <div className="space-y-8">
       <div>
         <span className={fieldLabelClass + " mb-4 block"}>Select Your Vehicle</span>
-        <BespokeVehicleSelector
+        <VehicleSelector
           activeFilter={activeFilter}
           onFilterChange={onFilterChange}
           onVehicleChange={onVehicleChange}

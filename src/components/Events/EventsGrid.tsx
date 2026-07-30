@@ -12,7 +12,7 @@ interface SpecialEventsGridProps {
   categories: readonly string[];
 }
 
-export function SpecialEventsGrid({ events, categories }: SpecialEventsGridProps) {
+export function EventsGrid({ events, categories }: SpecialEventsGridProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
