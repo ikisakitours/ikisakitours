@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+import { LoadingImage } from "@/components/ui/LoadingImage";
 import { experiencePillars } from "@/data/home";
 import { experienceSectionContent } from "@/data/home";
 import { Button } from "@/components/ui/Button";
@@ -37,12 +37,14 @@ export function ExperienceSection() {
                   className={`group relative aspect-3/4 overflow-hidden rounded-2xl border border-foreground/10 bg-surface shadow-2xl md:rounded-3xl 3xl:rounded-[2.5rem] ${image.className}`}
                 >
                   <div className="absolute inset-0 z-10 bg-linear-to-t from-lanka-dark via-transparent to-transparent" />
-                  <Image
+
+                  <LoadingImage
                     src={image.src}
                     alt={image.alt}
                     fill
                     sizes="(min-width: 1280px) 25vw, 50vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="object-cover group-hover:scale-110"
+                    wrapperClassName="w-full h-full"
                   />
                 </div>
               ))}

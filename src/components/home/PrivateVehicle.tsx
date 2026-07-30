@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { LoadingImage } from "@/components/ui/LoadingImage";
 import { useEffect, useState } from "react";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
@@ -46,12 +46,12 @@ export function PrivateVehicle() {
               className="relative w-full max-w-125 xl:w-5/12 xl:max-w-none"
             >
               <div className="relative z-10 overflow-hidden rounded-3xl border border-white/10 shadow-2xl md:rounded-[2.5rem]">
-                <Image
+                <LoadingImage
                   src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=2000&auto=format&fit=crop"
                   alt="Luxury Van"
                   width={2000}
                   height={2500}
-                  className="aspect-4/5 w-full object-cover transition-transform duration-700 hover:scale-105 sm:aspect-3/4"
+                  className="aspect-4/5  sm:aspect-3/4 w-full object-cover  hover:scale-105"
                 />
                 <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-xl md:bottom-6 md:left-6 md:right-6 md:rounded-3xl md:p-6">
                   <div className="mb-2 flex items-center gap-3 md:mb-3 md:gap-4">

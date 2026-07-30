@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
+import { LoadingImage } from "@/components/ui/LoadingImage";
 import { packages } from "@/data/multiDaysTours";
 import { oneDayTours } from "@/data/oneDayTours";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
@@ -142,12 +142,13 @@ export function ToursSection() {
 
                 {/* Image */}
                 <div className="relative h-48 shrink-0 overflow-hidden sm:h-56 3xl:h-72">
-                  <Image
+                  <LoadingImage
                     src={item.image}
                     alt={item.imageAlt}
                     fill
                     sizes="(min-width: 1280px) 25vw, 100vw"
-                    className="object-cover opacity-70 transition-transform duration-700 group-hover:scale-110"
+                    className="object-cover opacity-70!  group-hover:scale-110"
+                    wrapperClassName="w-full h-full" 
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-black/40" />
                   <div className="absolute bottom-4 left-4 right-4 z-20 flex items-end justify-between 3xl:bottom-6 3xl:left-6 3xl:right-6">

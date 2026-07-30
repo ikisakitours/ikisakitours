@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import Image from "next/image";
+import { LoadingImage } from "@/components/ui/LoadingImage";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
 import { testimonials } from "@/data/testimonials";
@@ -228,12 +228,13 @@ export function ClientExperiencesSection() {
                   <div className="mt-auto flex items-start gap-4 border-t border-white/5 pt-6 sm:items-center">
                     <div className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-[#c5a059]/30 bg-white/5 shadow-lg sm:h-12 sm:w-12">
                       {testimonial.avatar ? (
-                        <Image
+                        <LoadingImage
                           src={testimonial.avatar}
                           alt={testimonial.name}
                           fill
-                          sizes="(max-width: 768px) 40px, 48px"
+                          sizes="(min-width: 1280px) 25vw, 50vw"
                           className="object-cover"
+                          wrapperClassName="w-full h-full" 
                         />
                       ) : (
                         <span className="text-[10px] font-bold uppercase text-[#c5a059] sm:text-xs">

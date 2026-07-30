@@ -1,6 +1,5 @@
 "use client";
-
-import Image from "next/image";
+import { LoadingImage } from "@/components/ui/LoadingImage";
 import { motion } from "framer-motion";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
@@ -66,7 +65,14 @@ export default function HomeContactCTA() {
                 <div className="flex -space-x-2">
                   {[1, 2, 3].map((i) => (
                     <div key={i} className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-[#050505]">
-                      <Image src={`https://i.pravatar.cc/100?img=${i + 30}`} alt="User" fill className="object-cover" />
+                      <LoadingImage
+                        src={`https://i.pravatar.cc/100?img=${i + 30}`}
+                        alt="User"
+                        fill
+                        isSmall
+                        className="object-cover"
+                        wrapperClassName="w-full h-full"
+                      />
                     </div>
                   ))}
                 </div>
@@ -94,11 +100,12 @@ export default function HomeContactCTA() {
           >
             {/* Main Tall Image */}
             <div className="relative z-10 ml-auto aspect-3/4 w-[85%] overflow-hidden rounded-[2.5rem] border border-white/10 shadow-2xl md:w-[75%]">
-              <Image
+              <LoadingImage
                 src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=95&w=1400&auto=format&fit=crop"
                 alt="Luxury Travel Experience"
                 fill
-                className="object-cover transition-transform duration-[2s] hover:scale-105"
+                className="object-cover hover:scale-105"
+                wrapperClassName="w-full h-full"
               />
               <div className="absolute inset-0 bg-linear-to-t from-[#050505]/80 via-transparent to-transparent" />
             </div>
@@ -111,11 +118,12 @@ export default function HomeContactCTA() {
               transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
               className="absolute -bottom-10 left-0 z-20 aspect-square w-[45%] overflow-hidden rounded-3xl border-4 border-[#050505] shadow-2xl md:w-[40%]"
             >
-              <Image
+              <LoadingImage
                 src="https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=800&auto=format&fit=crop"
                 alt="Detail Shot"
                 fill
                 className="object-cover"
+                wrapperClassName="w-full h-full"
               />
             </motion.div>
 

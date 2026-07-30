@@ -1,6 +1,7 @@
 "use client";
 import { type FormEvent, useState } from "react";
-import Image from "next/image";
+import { LoadingImage } from "@/components/ui/LoadingImage";
+import { LoadingVideo } from "@/components/ui/LoadingVideo";
 import Link from "next/link";
 import { footerLinks, socialLinks, legalLinks, contactInfo } from "@/data/navigation";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
@@ -63,13 +64,16 @@ export function Footer() {
               </h3>
               <div className="group relative flex h-5 w-7 items-center justify-center overflow-hidden border-[0.5px] border-white/20 bg-black shadow-[0_0_15px_rgba(197,160,89,0.15)] transition-all duration-500 hover:border-gold/80 hover:shadow-[0_0_25px_rgba(197,160,89,0.6)] hover:scale-110">
                 <div className="pointer-events-none absolute inset-0 z-20 -translate-x-full bg-linear-to-r from-transparent via-white/50 to-transparent transition-transform duration-1000 ease-in-out group-hover:translate-x-full" />
-                <Image
+                <LoadingImage
                   src="https://flagcdn.com/w80/lk.png"
                   alt="Sri Lanka Flag"
                   width={80}
                   height={53}
-                  className="h-full w-full object-fill transition-transform duration-700 group-hover:scale-110"
+                  isSmall
+                  className="h-full w-full object-fill group-hover:scale-110"
+                  wrapperClassName="w-full h-full"
                 />
+
                 <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-tr from-black/40 via-transparent to-black/10" />
               </div>
             </div>
@@ -207,21 +211,24 @@ export function Footer() {
               <div className="relative flex h-full w-full items-center justify-center">
                 {BRAND_LOGO_URL ? (
                   isVideoLogo ? (
-                    <video
+                    <LoadingVideo
                       src={BRAND_LOGO_URL}
                       autoPlay
                       loop
                       muted
                       playsInline
+                      isSmall
                       className="h-full w-full object-cover scale-128 select-none pointer-events-none"
+                      wrapperClassName="w-full h-full"
                     />
                   ) : (
                     <div className="relative h-full w-full p-1.5 flex items-center justify-center">
-                      <Image
+                      <LoadingImage
                         src={BRAND_LOGO_URL}
                         alt={BRAND_NAME}
                         fill
                         className="object-contain p-1 select-none pointer-events-none"
+                        wrapperClassName="w-full h-full"
                       />
                     </div>
                   )
