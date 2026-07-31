@@ -72,12 +72,27 @@ export function EventSidebar({
 
       <div className="pt-2 space-y-6">
         {mode === "live" && (
-          <div className="w-full flex items-center justify-center gap-3 py-3.5 rounded-xl border border-red-500/20 bg-red-500/10 text-xs md:text-sm text-red-400 font-medium tracking-wide">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
-            </span>
-            <span>Streaming Live Broadcast</span>
+          <div className="flex w-full justify-center">
+            <div className="relative w-full sm:w-auto overflow-hidden rounded-2xl border border-red-500/40 bg-[#070304] px-8 py-3.5 shadow-[0_0_25px_rgba(239,68,68,0.15)]">
+              <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(239,68,68,0.08)_50%,transparent_100%)] animate-[pulse_3s_cubic-bezier(0.4,0,0.6,1)_infinite]" />
+
+              <div className="relative z-10 flex items-center justify-center gap-3.5">
+                <div className="relative flex items-center justify-center">
+                  <div className="absolute h-4 w-4 rounded-full border border-red-500/50 animate-ping opacity-75" />
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75 animate-ping"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500 shadow-[0_0_10px_#ef4444]"></span>
+                  </span>
+                </div>
+
+                <span className="whitespace-nowrap text-[11px] md:text-xs font-bold tracking-[0.25em] text-red-400 uppercase drop-shadow-[0_0_8px_rgba(239,68,68,0.6)]">
+                  Streaming Live Broadcast
+                </span>
+              </div>
+
+              <div className="absolute top-0 left-1/4 h-px w-1/2 bg-linear-to-r from-transparent via-red-500 to-transparent shadow-[0_0_8px_#ef4444]" />
+              <div className="absolute bottom-0 left-1/4 h-px w-1/2 bg-linear-to-r from-transparent via-rose-500/50 to-transparent" />
+            </div>
           </div>
         )}
 

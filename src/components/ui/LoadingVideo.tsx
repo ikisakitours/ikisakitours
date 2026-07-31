@@ -12,10 +12,8 @@ export function LoadingVideo({ className = "", wrapperClassName = "", isSmall = 
   const [isLoading, setIsLoading] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Component එක load වෙනකොටම වීඩියෝ එක දැනටමත් cache වෙලා (ready වෙලා) තියෙනවද කියලා බලනවා
   useEffect(() => {
     if (videoRef.current && videoRef.current.readyState >= 3) {
-      // 🔴 Testing සඳහා 6000ms ප්‍රමාදයක් මෙතැනටත් එකතු කළා
       setTimeout(() => {
         setIsLoading(false);
       }, 6000);
@@ -40,13 +38,32 @@ export function LoadingVideo({ className = "", wrapperClassName = "", isSmall = 
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: [0.65, 0, 0.35, 1] }} // Duration එක ටිකක් අඩු කළා ඉක්මනින් අයින් වෙන්න
           >
-            {isSmall ? (
-              <motion.div
-                className="h-4 w-4 rounded-full border-2 border-gold/30 border-t-gold"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-              />
-            ) : (
+          {isSmall ? (
+  <div className="absolute inset-0 flex items-center justify-center bg-[#0a0a0a] z-10 rounded-[inherit]">
+    <motion.div
+      className="absolute h-4 w-4 rounded-full bg-gold/40 blur-sm"
+      animate={{ scale: [0.8, 1.5, 0.8], opacity: [0.3, 0.8, 0.3] }}
+      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+    />
+    <motion.svg
+      className="z-10 h-4 w-4 sm:h-5 sm:w-5 text-gold/80"
+      viewBox="0 0 50 50"
+      animate={{ rotate: 360 }}
+      transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }}
+    >
+      <circle
+        cx="25"
+        cy="25"
+        r="20"
+        fill="none"
+        strokeWidth="4"
+        stroke="currentColor"
+        strokeDasharray="5 15 25 10"
+        strokeLinecap="round"
+      />
+    </motion.svg>
+  </div>
+) : (
               <div className="relative flex items-center justify-center">
                 <motion.div
                   className="absolute h-10 w-10 rounded-full bg-gold/40 blur-xl"

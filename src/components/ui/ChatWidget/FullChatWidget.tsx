@@ -14,6 +14,7 @@ export function FullChatWidget() {
   const [isMounted, setIsMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+const [isGlobalModalOpen, setIsGlobalModalOpen] = useState(false);
 
   // States initialized without direct window references to prevent hydration mismatch
   const [showSideTooltip, setShowSideTooltip] = useState(false);
@@ -112,9 +113,19 @@ export function FullChatWidget() {
       }
     };
 
+    const handleGlobalModalChange = (e: Event) => {
+      const customEvent = e as CustomEvent<{ isOpen: boolean }>;
+      setIsGlobalModalOpen(customEvent.detail.isOpen);
+      if (customEvent.detail.isOpen) {
+        setIsOpen(false); // Modal එකක් එද්දි Chat එකත් වහනවා
+      }
+    };
+
     window.addEventListener("mobileMenuStateChange", handleMenuStateChange);
+    window.addEventListener("globalModalStateChange", handleGlobalModalChange);
     return () => {
       window.removeEventListener("mobileMenuStateChange", handleMenuStateChange);
+      window.removeEventListener("globalModalStateChange", handleGlobalModalChange);
       clearTimeout(timeoutId);
     };
   }, []);
@@ -274,7 +285,7 @@ export function FullChatWidget() {
     <div
       className={`relative z-9999 flex-col items-end transition-all duration-700 ${
         showChatWidget ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
-      } ${isMobileMenuOpen ? "hidden xl:flex" : "flex"}`}
+      } ${isGlobalModalOpen ? "hidden" : isMobileMenuOpen ? "hidden xl:flex" : "flex"}`}
     >
       <div
         className={`absolute bottom-20 -right-1 w-86.25 max-[365px]:w-81.25 max-[350px]:w-76.25 sm:w-90 md:w-92.5 lg:w-95 3xl:w-96.25 glass-card rounded-3xl overflow-hidden transition-all duration-500 origin-bottom-right flex flex-col ${

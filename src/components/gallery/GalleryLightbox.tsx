@@ -4,8 +4,9 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import type { GalleryItem } from "@/data/blog";
-//Icons
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
+
+import { ThumbnailButton } from "./ThumbnailButton";
 
 type GalleryLightboxProps = {
   activeItem: GalleryItem;
@@ -20,138 +21,6 @@ type GalleryLightboxProps = {
   onSelectIndex: (index: number) => void;
 };
 
-// ==========================================
-// UNIQUE LUXURY THUMBNAIL COMPONENT
-// ==========================================
-// ==========================================
-// UNIQUE LUXURY THUMBNAIL COMPONENT
-// ==========================================
-const ThumbnailButton = ({
-  item,
-  isActive,
-  onClick,
-}: {
-  item: GalleryItem;
-  isActive: boolean;
-  onClick: () => void;
-}) => {
-  const [isThumbReady, setIsThumbReady] = useState(false);
-
-  useEffect(() => {
-    if (!item || !item.src) return;
-
-    let isMounted = true;
-    const img = new window.Image();
-    img.src = item.src;
-
-    img.onload = () => {
-      if (isMounted) {
-        setIsThumbReady(true);
-      }
-    };
-
-    //Test Time
-    // img.onload = () => {
-    //   if (isMounted) {
-    //     setTimeout(() => {
-    //       if (isMounted) {
-    //        setIsThumbReady(true);
-    //       }
-    //     }, 6000);
-    //   }
-    // };
-
-    img.onerror = () => {
-      if (isMounted) {
-        setIsThumbReady(true);
-      }
-    };
-
-    return () => {
-      isMounted = false;
-    };
-  }, [item]);
-
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`group relative h-14 w-14 sm:h-15 sm:w-15 shrink-0 transition-all duration-300 ease-out ${
-        isActive
-          ? "scale-[1.2] md:scale-[1.25] z-30 grayscale-0"
-          : "opacity-30 hover:opacity-100 hover:scale-[1.05] z-10 grayscale-80 hover:grayscale-0"
-      } rounded-full overflow-visible my-3 mx-2`}
-    >
-      {isActive && (
-        <>
-          {/* Rotating Cosmic Orbit Ring */}
-          <motion.div
-            layoutId="orbit-ring"
-            className="absolute -inset-1.5 rounded-full border border-dashed border-gold/70 z-30 pointer-events-none"
-            animate={{ rotate: 360 }}
-            transition={{
-              rotate: { duration: 12, repeat: Infinity, ease: "linear" },
-              layout: { type: "spring", stiffness: 700, damping: 35 },
-            }}
-          />
-          {/* Inner Sharp Gold Ring */}
-          <motion.div
-            layoutId="orbit-core"
-            className="absolute inset-0 rounded-full border-2 border-gold z-30 pointer-events-none shadow-[0_0_15px_rgba(197,160,89,0.8)]"
-            transition={{ type: "spring", stiffness: 700, damping: 35 }}
-          />
-        </>
-      )}
-
-      {/* Thumbnail Loading Spinner */}
-      {!isThumbReady && (
-        <div className="absolute inset-0 flex items-center justify-center bg-[#0a0a0a] z-10 rounded-full border border-white/5">
-          <motion.div
-            className="absolute h-6 w-6 rounded-full bg-gold/40 blur-lg"
-            animate={{ scale: [0.8, 1.5, 0.8], opacity: [0.3, 0.8, 0.3] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.svg
-            className="z-10 h-6 w-6 text-gold/80"
-            viewBox="0 0 50 50"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
-          >
-            <circle
-              cx="25"
-              cy="25"
-              r="20"
-              fill="none"
-              strokeWidth="2"
-              stroke="currentColor"
-              strokeDasharray="30 100"
-              strokeLinecap="round"
-            />
-          </motion.svg>
-        </div>
-      )}
-
-      <div
-        className={`absolute inset-0 overflow-hidden rounded-full bg-black/70 transition-all duration-300 ${isActive ? "" : "border border-white/15"}`}
-      >
-        <Image
-          src={item.src}
-          alt={item.alt}
-          fill
-          sizes="64px"
-          className={`object-cover transition-all duration-700 ease-out ${
-            isThumbReady ? "opacity-100 scale-100" : "opacity-0 scale-125"
-          }`}
-        />
-        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-white/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-events-none" />
-      </div>
-    </button>
-  );
-};
-
-// ==========================================
-// MAIN LIGHTBOX COMPONENT
-// ==========================================
 export function GalleryLightbox({
   activeItem,
   activeIndex,
@@ -164,7 +33,7 @@ export function GalleryLightbox({
   items,
   onSelectIndex,
 }: GalleryLightboxProps) {
-  const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
+  const [isMainReady, setIsMainReady] = useState(false);
   const thumbnailContainerRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
   const touchStartX = useRef(0);
@@ -184,45 +53,64 @@ export function GalleryLightbox({
     }
   }, [activeIndex]);
 
-  // Main Image Loader with Cache
+  // Main Image Loader with Session Storage Cache
   useEffect(() => {
     if (!activeItem || !activeItem.src) return;
 
-    if (loadedImages.has(activeItem.id)) return;
-
     let isMounted = true;
-    const img = new window.Image();
-    img.src = activeItem.src;
+    const imageKey = activeItem.src;
 
-    img.onload = () => {
-      if (isMounted) {
-        setLoadedImages((prev) => new Set(prev).add(activeItem.id));
+    if (typeof window !== "undefined") {
+      const isAlreadyLoaded = sessionStorage.getItem(`lightbox-loaded-${imageKey}`);
+      if (isAlreadyLoaded) {
+        const timer = setTimeout(() => {
+          if (isMounted) setIsMainReady(true);
+        }, 0);
+        return () => {
+          isMounted = false;
+          clearTimeout(timer);
+        };
       }
-    };
+    }
 
-    //Test Time
+    const resetTimer = setTimeout(() => {
+      if (isMounted) setIsMainReady(false);
+    }, 0);
+
+    const img = new window.Image();
+    img.src = imageKey;
     // img.onload = () => {
     //   if (isMounted) {
-    //     setTimeout(() => {
-    //       if (isMounted) {
-    //         setLoadedImages((prev) => new Set(prev).add(activeItem.id));
-    //       }
-    //     }, 6000);
+    //     if (typeof window !== "undefined") {
+    //       sessionStorage.setItem(`lightbox-loaded-${imageKey}`, "true");
+    //     }
+    //     setIsMainReady(true);
     //   }
     // };
 
+    // Testing Time
+    
+    //Test Time
+    img.onload = () => {
+      setTimeout(() => {
+        if (isMounted) {
+          if (typeof window !== "undefined") {
+            sessionStorage.setItem(`lightbox-loaded-${imageKey}`, "true");
+          }
+          setIsMainReady(true);
+        }
+      }, 3000); 
+    };
+
     img.onerror = () => {
-      if (isMounted) {
-        setLoadedImages((prev) => new Set(prev).add(activeItem.id));
-      }
+      if (isMounted) setIsMainReady(true);
     };
 
     return () => {
       isMounted = false;
+      clearTimeout(resetTimer); // Clean up
     };
-  }, [activeItem, loadedImages]);
-
-  const isReady = loadedImages.has(activeItem.id);
+  }, [activeItem]);
 
   const handleStripTouchStart = (e: React.TouchEvent) => {
     e.stopPropagation();
@@ -299,7 +187,7 @@ export function GalleryLightbox({
         {/* Main Image Container */}
         <div className="relative h-[55vh] w-full md:h-[65vh] flex items-center justify-center">
           <AnimatePresence>
-            {!isReady && (
+            {!isMainReady && (
               <motion.div
                 className="absolute inset-0 z-50 flex items-center justify-center"
                 exit={{ opacity: 0 }}
@@ -337,7 +225,7 @@ export function GalleryLightbox({
           </AnimatePresence>
 
           <AnimatePresence mode="wait">
-            {isReady && (
+            {isMainReady && (
               <motion.div
                 key={activeItem.id}
                 variants={slideVariants}
@@ -362,21 +250,23 @@ export function GalleryLightbox({
 
         <div className="mt-6 text-center w-full min-h-15">
           <AnimatePresence mode="wait">
-            <motion.div
-              key={`caption-${activeItem.id}`}
-              variants={textVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-            >
-              <p className="premium-serif text-sm uppercase tracking-[0.3em] text-white md:text-lg">
-                {activeItem.title}
-              </p>
-              <div className="mx-auto my-3 h-px w-12 bg-gold/50" />
-              <p className="text-[11px] font-semibold uppercase tracking-[0.4em] text-gold">
-                {activeIndex + 1} / {totalCount}
-              </p>
-            </motion.div>
+            {isMainReady && (
+              <motion.div
+                key={`caption-${activeItem.id}`}
+                variants={textVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+              >
+                <p className="premium-serif text-sm uppercase tracking-[0.3em] text-white md:text-lg">
+                  {activeItem.title}
+                </p>
+                <div className="mx-auto my-3 h-px w-12 bg-gold/50" />
+                <p className="text-[11px] font-semibold uppercase tracking-[0.4em] text-gold">
+                  {activeIndex + 1} / {totalCount}
+                </p>
+              </motion.div>
+            )}
           </AnimatePresence>
         </div>
 

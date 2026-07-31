@@ -3,6 +3,7 @@ import { blogPosts, type GalleryItem } from "@/data/blog";
 import { bookingTour as multiDayTour } from "@/data/multiDaysBooking";
 import { bookingTour as oneDayTour } from "@/data/oneDayBooking";
 import { reviewMoments } from "@/data/GuestMomentsImages";
+import { allSpecialEventsList } from "@/data/specialEvents";
 import { GalleryCollection } from "@/components/gallery/GalleryCollection";
 import { GalleryHero } from "@/components/gallery/GalleryHero";
 import type { Metadata } from "next";
@@ -11,6 +12,7 @@ type GalleryDetailPageProps = {
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
+
 export async function generateMetadata({ params, searchParams }: GalleryDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
   const resolvedSearchParams = await searchParams;
@@ -19,12 +21,19 @@ export async function generateMetadata({ params, searchParams }: GalleryDetailPa
   const filterOneDay = resolvedSearchParams?.["filter-one-day-tours"] as string | undefined;
   const filterMultiDay = resolvedSearchParams?.["filter-multi-days-tours"] as string | undefined;
 
+  const fromEvent = resolvedSearchParams?.from === "events";
+
   const activeFilter = filterOneDay || filterMultiDay || filter;
 
-  let post: (typeof blogPosts)[0] | typeof multiDayTour | typeof oneDayTour | undefined = blogPosts.find(
-    (p) => p.slug === slug,
-  );
+  let post:
+    | (typeof blogPosts)[0]
+    | typeof multiDayTour
+    | typeof oneDayTour
+    | (typeof allSpecialEventsList)[0]
+    | undefined = blogPosts.find((p) => p.slug === slug);
+
   let isBookingTour = false;
+  let isEventGallery = false;
 
   if (!post) {
     if (filterOneDay && oneDayTour.slug === slug) {
@@ -33,6 +42,9 @@ export async function generateMetadata({ params, searchParams }: GalleryDetailPa
     } else if (filterMultiDay && multiDayTour.slug === slug) {
       post = multiDayTour;
       isBookingTour = true;
+    } else if (fromEvent || allSpecialEventsList.some((e) => e.slug === slug)) {
+      post = allSpecialEventsList.find((e) => e.slug === slug);
+      isEventGallery = true;
     } else if (multiDayTour.slug === slug) {
       post = multiDayTour;
       isBookingTour = true;
@@ -52,9 +64,11 @@ export async function generateMetadata({ params, searchParams }: GalleryDetailPa
   let title = post.title;
   let description = `Explore visual moments and photo gallery for ${post.title}.`;
 
-  if (isBookingTour) {
+  if (isEventGallery) {
+    title = `${post.title} - Event Highlights`;
+    description = `Discover visual highlights and exclusive images from ${post.title}.`;
+  } else if (isBookingTour) {
     const tour = post as typeof multiDayTour;
-
     if (activeFilter === "moments" || activeFilter === "all-moments") {
       title = `Guest Moments - ${tour.fullTitle}`;
       description = `Captured memories and guest moments from ${tour.fullTitle}.`;
@@ -88,10 +102,15 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
 
   const activeFilter = filterOneDay || filterMultiDay || filter;
 
-  let post: (typeof blogPosts)[0] | typeof multiDayTour | typeof oneDayTour | undefined = blogPosts.find(
-    (p) => p.slug === slug,
-  );
+  let post:
+    | (typeof blogPosts)[0]
+    | typeof multiDayTour
+    | typeof oneDayTour
+    | (typeof allSpecialEventsList)[0]
+    | undefined = blogPosts.find((p) => p.slug === slug);
+
   let isBookingTour = false;
+  let isEventGallery = false;
   let tourType: "one" | "multi" | undefined = undefined;
 
   if (!post) {
@@ -103,6 +122,9 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
       post = multiDayTour;
       isBookingTour = true;
       tourType = "multi";
+    } else if (from === "events" || allSpecialEventsList.some((e) => e.slug === slug)) {
+      post = allSpecialEventsList.find((e) => e.slug === slug);
+      isEventGallery = true;
     } else if (multiDayTour.slug === slug) {
       // Fallback
       post = multiDayTour;
@@ -122,7 +144,10 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
   let dynamicBackLink = `/blog/${slug}`;
   let dynamicBackLabel = "Back to Story";
 
-  if (isBookingTour) {
+  if (isEventGallery) {
+    dynamicBackLink = `/events/${slug}`;
+    dynamicBackLabel = "Back to Event";
+  } else if (isBookingTour) {
     dynamicBackLink = tourType === "one" ? `/booking/one-day-tours/${slug}` : `/booking/multi-days-tours/${slug}`;
     dynamicBackLabel = "Back to Tour";
 
@@ -134,19 +159,29 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
   }
 
   let itemsToShow: GalleryItem[] = [];
-
   let heroTitle = post.title;
-  let heroSubtitle = isBookingTour ? "Tour Gallery" : "Story Gallery";
+  let heroSubtitle = "Story Gallery";
 
-  if (isBookingTour) {
+  if (isEventGallery) {
+    const event = post as (typeof allSpecialEventsList)[0];
+    heroSubtitle = "Event Highlights Gallery";
+
+    if (event.images && event.images.length > 0) {
+      itemsToShow = event.images.map((imgStr, index) => ({
+        id: `event-img-${index}`,
+        src: imgStr,
+        alt: `${event.title} Highlight ${index + 1}`,
+        title: event.title,
+        category: "Event Highlight",
+      }));
+    }
+  } else if (isBookingTour) {
     const tour = post as typeof multiDayTour;
+    heroSubtitle = "Tour Gallery";
 
     if (activeFilter === "gallery") {
-      // 1. Package Gallery
       itemsToShow = tour.gallery as GalleryItem[];
-      heroSubtitle = "Tour Gallery";
     } else if (activeFilter === "moments" || activeFilter === "all-moments") {
-      // 2. Guest Moments
       itemsToShow = (tour.reviewMoments || reviewMoments).map((moment, index) => ({
         id: `moment-${index}`,
         src: moment.src,
@@ -179,7 +214,7 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
       itemsToShow = tour.gallery as GalleryItem[];
     }
   } else {
-    itemsToShow = post.gallery as GalleryItem[];
+    itemsToShow = (post as (typeof blogPosts)[0]).gallery as GalleryItem[];
   }
 
   return (

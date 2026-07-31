@@ -166,7 +166,17 @@ export const useValidationForm = () => {
     if (data.images !== undefined) {
       if (data.images.length > 0) {
         const file = data.images[0];
-        if (file.size > 2 * 1024 * 1024) newErrors.images = "Profile image must be less than 2MB";
+        
+        // Allowed File Types (Formats)
+        const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/jpg"];
+        
+        if (!allowedTypes.includes(file.type)) {
+          newErrors.images = "Only JPG, PNG, and WebP formats are allowed";
+        } 
+        // File Size Limit (5MB)
+        else if (file.size > 5 * 1024 * 1024) { 
+          newErrors.images = "Profile image must be less than 5MB";
+        }
       }
     }
 

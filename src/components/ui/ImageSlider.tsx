@@ -33,21 +33,43 @@ export function ImageSlider({
     if (!images || images.length === 0) return;
 
     let isMounted = true;
+    const firstImageKey = images[0];
+
+    if (typeof window !== "undefined") {
+      const isAlreadyLoaded = sessionStorage.getItem(`slider-loaded-${firstImageKey}`);
+      if (isAlreadyLoaded) {
+        const timer = setTimeout(() => {
+          if (isMounted) setIsReady(true);
+        }, 0);
+        return () => {
+          isMounted = false;
+          clearTimeout(timer);
+        };
+      }
+    }
+
     const img = new window.Image();
-    img.src = images[0];
-
-    img.onload = () => {
-      if (isMounted) setIsReady(true);
-    };
-
-    //Test Time
+    img.src = firstImageKey;
     // img.onload = () => {
     //   if (isMounted) {
-    //     setTimeout(() => {
-    //       if (isMounted) setIsReady(true);
-    //     }, 6000);
+    //     if (typeof window !== "undefined") {
+    //       sessionStorage.setItem(`slider-loaded-${firstImageKey}`, "true");
+    //     }
+    //     setIsReady(true);
     //   }
     // };
+
+    //Test Time
+    img.onload = () => {
+      setTimeout(() => {
+        if (isMounted) {
+          if (typeof window !== "undefined") {
+            sessionStorage.setItem(`slider-loaded-${firstImageKey}`, "true");
+          }
+          setIsReady(true);
+        }
+      }, 6000); 
+    };
 
     img.onerror = () => {
       if (isMounted) setIsReady(true);
@@ -87,7 +109,7 @@ export function ImageSlider({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8 }}
           >
-            {/*lOADING SPINNER */}
+            {/* LOADING SPINNER */}
             <div className="relative flex items-center justify-center">
               <motion.div
                 className="absolute h-10 w-10 rounded-full bg-gold/40 blur-xl"

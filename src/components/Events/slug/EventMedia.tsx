@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import Image from "next/image";
+import React, { useEffect, useRef } from "react";
 import UniversalPlayer from "@/components/home/Events/UniversalPlayer";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useInView, motion, AnimatePresence, Variants } from "framer-motion";
+import { useInView } from "framer-motion";
+import { ImageSlider } from "@/components/ui/ImageSlider"; 
 
 interface EventMediaProps {
   image: string;
@@ -28,31 +27,7 @@ export function EventMedia({ image, titleAccent, statusTag, videoUrl, mode, broa
     }
   }, [isInView]);
 
-  const [currentIndex, setCurrentIndex] = useState(0);
   const sliderImages = images && images.length > 0 ? images : [image];
-
-  useEffect(() => {
-    if (videoUrl || sliderImages.length <= 1) return;
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % sliderImages.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [videoUrl, sliderImages.length]);
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % sliderImages.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + sliderImages.length) % sliderImages.length);
-  };
-
-  // 🔥 The Buttery Smooth Cinematic Animation Variants
-  const slideVariants: Variants = {
-    initial: { opacity: 0, scale: 1.08, y: 15 },
-    animate: { opacity: 1, scale: 1, y: 0, transition: { duration: 1.4, ease: [0.22, 1, 0.36, 1] } },
-    exit: { opacity: 0, scale: 0.95, y: -15, transition: { duration: 1.4, ease: [0.22, 1, 0.36, 1] } },
-  };
 
   return (
     <div
@@ -85,77 +60,37 @@ export function EventMedia({ image, titleAccent, statusTag, videoUrl, mode, broa
             )}
           </div>
         ) : (
-          <>
-            {/* 🔥 Animated Image Slider */}
-            <AnimatePresence>
-              <motion.div
-                key={currentIndex}
-                variants={slideVariants}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                className="absolute inset-0 h-full w-full"
-              >
-                <Image
-                  src={sliderImages[currentIndex]}
-                  alt={titleAccent}
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 70vw"
-                  className="object-cover"
-                />
-              </motion.div>
-            </AnimatePresence>
-            
-            <div className="absolute inset-0 bg-linear-to-t from-background/95 via-transparent to-transparent pointer-events-none z-10" />
-
-            {sliderImages.length > 1 && (
-              <>
-                {/* --- Manual Controls --- */}
-                <button
-                  onClick={prevSlide}
-                  className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-20 flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-full bg-black/50 md:bg-black/40 text-white backdrop-blur-md transition-all hover:bg-gold hover:text-black border border-white/10 opacity-100 md:opacity-0 md:group-hover:opacity-100"
-                  aria-label="Previous image"
-                >
-                  <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
-                </button>
-                <button
-                  onClick={nextSlide}
-                  className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-full bg-black/50 md:bg-black/40 text-white backdrop-blur-md transition-all hover:bg-gold hover:text-black border border-white/10 opacity-100 md:opacity-0 md:group-hover:opacity-100"
-                  aria-label="Next image"
-                >
-                  <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
-                </button>
-
-                {/* --- Modern Animated Indicators --- */}
-                <div className="absolute bottom-6 md:bottom-16 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-                  {sliderImages.map((_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setCurrentIndex(idx)}
-                      aria-label={`Go to image ${idx + 1}`}
-                      className={`h-1.5 rounded-full transition-all duration-700 ease-in-out ${
-                        idx === currentIndex
-                          ? "w-8 bg-gold shadow-[0_0_12px_rgba(197,160,89,0.9)]"
-                          : "w-2 bg-white/40 hover:bg-white/80"
-                      }`}
-                    />
-                  ))}
-                </div>
-              </>
-            )}
-          </>
+          <ImageSlider
+            images={sliderImages}
+            altText={titleAccent}
+            showIndicators={sliderImages.length > 1}
+            interval={5000}
+            className="absolute inset-0 h-full w-full"
+          />
         )}
 
         {/* --- Status Tag --- */}
         {mode !== "live" && (
-          <div className="absolute bottom-6 left-6 z-20 rounded-xl border border-white/15 bg-black/70 px-5 py-3 backdrop-blur-xl shadow-xl pointer-events-none hidden md:block">
-            <div className="flex items-center gap-3">
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold">{statusTag}</span>
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
+          <div className="absolute bottom-6 left-6 z-20 hidden md:block pointer-events-none">
+            <div className="group relative overflow-hidden rounded-2xl border border-gold/30 bg-linear-to-r from-black/80 via-black/60 to-black/80 px-5 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.5)] backdrop-blur-2xl transition-all duration-300">
+              <div className="absolute -inset-x-20 -top-20 -bottom-20 bg-linear-to-r from-gold/10 via-transparent to-transparent opacity-50 blur-xl pointer-events-none" />
+              
+              <div className="relative z-10 flex items-center gap-3.5">
+                <span className="text-[11px] font-extrabold uppercase tracking-[0.25em] text-transparent bg-clip-text bg-linear-to-r from-gold via-amber-200 to-gold">
+                  {statusTag}
+                </span>
+                
+                <div className="h-3 w-px bg-white/20" />
+
+                <div className="relative flex items-center justify-center">
+                  <div className="absolute h-3 w-3 rounded-full bg-emerald-500/30 animate-ping" />
+                  <span className="relative h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
+                </div>
+              </div>
             </div>
           </div>
         )}
+
       </div>
     </div>
   );

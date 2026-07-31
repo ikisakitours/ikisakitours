@@ -43,7 +43,7 @@ export function EventsGrid({ events, categories }: SpecialEventsGridProps) {
     <>
       {/* Search & Filter Controls Bar */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 mb-12 border-b border-white/10">
-        <div className="w-full md:w-64">
+        <div className="w-full md:w-64 order-2 md:order-1">
           <CustomSelect
             value={selectedCategory}
             onChange={setSelectedCategory}
@@ -52,7 +52,7 @@ export function EventsGrid({ events, categories }: SpecialEventsGridProps) {
           />
         </div>
 
-        <div className="w-full md:w-96">
+        <div className="w-full md:w-96 order-1 md:order-2">
           <SearchInput
             value={searchQuery}
             onChange={setSearchQuery}

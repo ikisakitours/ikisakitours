@@ -9,6 +9,7 @@ import { SpecialEventListItem } from "@/data/specialEvents";
 interface EventBodyProps {
   listItem: SpecialEventListItem;
 }
+
 export function EventBody({ listItem }: EventBodyProps) {
   return (
     <main className="min-h-screen bg-background text-foreground pb-24 pt-32 relative overflow-hidden">
@@ -22,8 +23,8 @@ export function EventBody({ listItem }: EventBodyProps) {
           description={listItem.description}
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
-          <div className="lg:col-span-8">
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-4 items-start">
+          <div className="xl:col-span-8">
             <EventMedia
               image={listItem.image}
               titleAccent={listItem.title}
@@ -35,14 +36,16 @@ export function EventBody({ listItem }: EventBodyProps) {
             />
 
             <EventAbout
+            slug={listItem.slug}
               aboutTitle={listItem.aboutTitle}
               aboutText1={listItem.aboutText1}
               aboutText2={listItem.aboutText2}
               perks={listItem.perks}
+              images={listItem.images}
             />
           </div>
 
-          <div className="lg:col-span-4">
+          <div className="xl:col-span-4 mt-5">
             <EventSidebar
               eventDate={listItem.eventDate}
               eventTime={listItem.eventTime}

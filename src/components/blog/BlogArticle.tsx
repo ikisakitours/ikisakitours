@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { Suspense } from "react";
 import { ArticleActions } from "@/components/blog/ArticleActions";
 import { useSearchParams, useRouter } from "next/navigation";
+import { EmptyState } from "@/components/ui/EmptyState";
 //Icons
 import { ArrowLeft, ArrowRight, Images } from "lucide-react";
 
@@ -77,7 +78,14 @@ function BlogArticleInner({ post }: BlogArticleProps) {
             {post.content && post.content.length > 0 ? (
               post.content.map((paragraph, index) => <p key={index}>{paragraph}</p>)
             ) : (
-              <p>Content coming soon...</p>
+              <EmptyState
+                backgroundText="Pending"
+                title="Content Coming Soon"
+                description="We are currently crafting this article's story. Please check back shortly to explore the complete experience."
+                onAction={() => {
+                  window.location.reload();
+                }}
+              />
             )}
           </div>
 

@@ -1,7 +1,17 @@
 import Link from "next/link";
 import React from "react";
 
-type ButtonVariant = "primary" | "tag" | "service" | "inquire" | "explore" | "auth" | "details" | "shine" | "reviewTag";
+type ButtonVariant =
+  | "primary"
+  | "tag"
+  | "service"
+  | "inquire"
+  | "explore"
+  | "auth"
+  | "details"
+  | "shine"
+  | "reviewTag"
+  | "outline";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -29,6 +39,8 @@ export function Button({ variant = "primary", href, children, className = "", ..
       "group relative flex items-center justify-center overflow-hidden rounded border-2 border-gold/30 bg-white/5 backdrop-blur-sm transition-all duration-500 hover:bg-gold hover:border-gold animate-pulse shadow-[0_0_15px_rgba(197,160,89,0.3)] px-6 py-3 md:px-8 md:py-4 3xl:px-10 3xl:py-5",
     reviewTag:
       "flex w-full sm:w-fit items-center justify-center rounded border-2 border-gold/30 bg-white/5 backdrop-blur-sm transition-all duration-500 hover:bg-gold hover:border-gold px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-white/70 hover:text-black md:px-8 md:py-4 md:text-xs",
+    outline:
+      "group relative flex w-full sm:w-auto items-center justify-center overflow-hidden rounded-full border border-gold/50 bg-transparent px-6 py-3 transition-all duration-500 hover:border-gold hover:shadow-[0_0_20px_rgba(197,160,89,0.25)] md:px-8 md:py-3.5",
   };
 
   const combinedClassName = `${baseStyles} ${variants[variant]} ${className}`;

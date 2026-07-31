@@ -341,23 +341,11 @@ export function SiteHeader() {
                   onClick={handleProfileClick}
                   className="group flex items-center focus:outline-none"
                 >
-                  {/* <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border-2 border-gold/30 bg-white/10 p-0.5 transition-all duration-300 group-hover:border-gold sm:h-12 sm:w-12">
-                    <span className="absolute inset-0 flex items-center justify-center text-xs font-bold uppercase tracking-tighter text-gold sm:text-sm">
-                      US
-                    </span>
-                    <Image
-                      src="https://i.pravatar.cc/96?img=12"
-                      alt="User Profile"
-                      width={48}
-                      height={48}
-                      className="relative z-10 h-full w-full rounded-full object-cover transition-opacity duration-300"
-                      onError={(event) => {
-                        event.currentTarget.style.opacity = "0";
-                      }}
-                    />
-                  </div> */}
-
-                  <UserProfileAvatar src="https://i.pravatar.cc/96?img=12" fallbackText="US" />
+                  <UserProfileAvatar
+                    src="https://i.pravatar.cc/96?img=12"
+                    initials="AT"
+                    initialsClassName="font-serif text-xs"
+                  />
                   <span className="pointer-events-none absolute top-full left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap rounded-md bg-[#0a0a0a] border border-gold/30 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-gold opacity-0 transition-all duration-200 group-hover:opacity-100 shadow-2xl z-50 hidden md:block">
                     Click for profile options
                   </span>

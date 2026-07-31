@@ -27,16 +27,17 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
       <div className="flex w-full items-center gap-4 border-t border-white/5 pt-6">
         <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border border-gold/30 bg-white/5 shadow-lg sm:h-14 sm:w-14">
           <span className="text-xs font-bold uppercase text-gold sm:text-sm">{testimonial.initials}</span>
-
-          <LoadingImage
-            src={testimonial.avatar}
-            alt={`${testimonial.name} profile photo`}
-            fill
-            sizes="(max-width: 640px) 48px, 56px"
-            className="object-cover grayscale"
-            wrapperClassName="!absolute inset-0 z-10 w-full h-full"
-            isSmall={true}
-          />
+          {testimonial.avatar && typeof testimonial.avatar === "string" && testimonial.avatar.trim() !== "" && (
+            <LoadingImage
+              src={testimonial.avatar}
+              alt={`${testimonial.name} profile photo`}
+              fill
+              sizes="(max-width: 640px) 48px, 56px"
+              className="object-cover grayscale"
+              wrapperClassName="!absolute inset-0 z-10 w-full h-full"
+              isSmall={true}
+            />
+          )}
         </div>
 
         <div className="min-w-0 flex-1">
