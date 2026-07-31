@@ -482,17 +482,33 @@ export function GalleryLightbox({
       <button
         type="button"
         onClick={onPrevious}
-        className="group absolute left-4 z-20 hidden h-14 w-14 items-center justify-center rounded-full border border-gold/30 bg-black/40 text-gold backdrop-blur transition-all duration-300 hover:scale-110 hover:bg-gold focus-visible:outline-none md:left-10 md:flex pointer-coarse:hidden"
+        className="group absolute left-4 top-1/2 -translate-y-1/2 z-20 hidden h-14 w-14 items-center justify-center rounded-full bg-black/60 text-gold backdrop-blur-md transition-all duration-300 hover:scale-105 focus-visible:outline-none md:left-8 md:flex pointer-coarse:hidden overflow-visible"
       >
-        <ChevronLeft className="h-7 w-7 transition-colors group-hover:text-black" />
+        {/* Minimal Expanding Outline Ring on Hover */}
+        <span className="absolute inset-0 rounded-full border border-gold/40 transition-all duration-500 ease-out group-hover:scale-125 group-hover:border-gold/15 group-hover:opacity-0" />
+
+        {/* Left Button: Outer Ring rotates Counter-Clockwise (Left), Inner Ring rotates Clockwise (Right) */}
+        <span className="absolute inset-0 rounded-full border border-gold/60 transition-colors duration-300 group-hover:border-gold animate-[spin_12s_linear_infinite_reverse]" />
+        <span className="absolute inset-1.5 rounded-full border border-dashed border-gold/30 transition-colors duration-300 group-hover:border-gold/70 animate-[spin_8s_linear_infinite]" />
+
+        {/* Smooth Subtle Glide */}
+        <ChevronLeft className="relative z-10 h-6 w-6 transition-transform duration-300 ease-out group-hover:-translate-x-0.5 text-gold" />
       </button>
 
       <button
         type="button"
         onClick={onNext}
-        className="group absolute right-4 z-20 hidden h-14 w-14 items-center justify-center rounded-full border border-gold/30 bg-black/40 text-gold backdrop-blur transition-all duration-300 hover:scale-110 hover:bg-gold focus-visible:outline-none md:right-10 md:flex pointer-coarse:hidden"
+        className="group absolute right-4 top-1/2 -translate-y-1/2 z-20 hidden h-14 w-14 items-center justify-center rounded-full bg-black/60 text-gold backdrop-blur-md transition-all duration-300 hover:scale-105 focus-visible:outline-none md:right-8 md:flex pointer-coarse:hidden overflow-visible"
       >
-        <ChevronRight className="h-7 w-7 transition-colors group-hover:text-black" />
+        {/* Minimal Expanding Outline Ring on Hover */}
+        <span className="absolute inset-0 rounded-full border border-gold/40 transition-all duration-500 ease-out group-hover:scale-125 group-hover:border-gold/15 group-hover:opacity-0" />
+
+        {/* Right Button: Outer Ring rotates Clockwise (Right), Inner Ring rotates Counter-Clockwise (Left) */}
+        <span className="absolute inset-0 rounded-full border border-gold/60 transition-colors duration-300 group-hover:border-gold animate-[spin_12s_linear_infinite]" />
+        <span className="absolute inset-1.5 rounded-full border border-dashed border-gold/30 transition-colors duration-300 group-hover:border-gold/70 animate-[spin_8s_linear_infinite_reverse]" />
+
+        {/* Smooth Subtle Glide */}
+        <ChevronRight className="relative z-10 h-6 w-6 transition-transform duration-300 ease-out group-hover:translate-x-0.5 text-gold" />
       </button>
 
       <div className="flex w-full max-w-6xl flex-col items-center">
@@ -598,7 +614,7 @@ export function GalleryLightbox({
           </AnimatePresence>
         </div>
 
-        <div className="mt-6 text-center w-full min-h-15">
+        <div className="-mt-15 lg:mt-6! min-[540px]:max-[720px]:-mt-2 text-center w-full min-h-15">
           <AnimatePresence mode="wait">
             {isMainReady && (
               <motion.div
