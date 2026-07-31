@@ -1,8 +1,29 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+
+const CACHE_KEY = "mapmate_loaded_avatars";
+const getInitialCache = () => {
+  if (typeof window !== "undefined") {
+    try {
+      const stored = sessionStorage.getItem(CACHE_KEY);
+      return stored ? new Set<string>(JSON.parse(stored)) : new Set<string>();
+    } catch {
+      return new Set<string>();
+    }
+  }
+  return new Set<string>();
+};
+const loadedAvatarsCache = getInitialCache();
+const saveToCache = (key: string) => {
+  loadedAvatarsCache.add(key);
+  if (typeof window !== "undefined") {
+    sessionStorage.setItem(CACHE_KEY, JSON.stringify(Array.from(loadedAvatarsCache)));
+  }
+};
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 type UserProfileAvatarProps = {
   src?: string | null;
@@ -19,30 +40,27 @@ export function UserProfileAvatar({
   className = "",
   initialsClassName = "text-xs sm:text-sm tracking-tighter",
 }: UserProfileAvatarProps) {
+  const imageKey = typeof src === "string" ? src : "";
+  const hasValidSrc = Boolean(imageKey && imageKey.trim() !== "");
+
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isInstant, setIsInstant] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [prevSrc, setPrevSrc] = useState(src);
+
+  useIsomorphicLayoutEffect(() => {
+    if (hasValidSrc && loadedAvatarsCache.has(imageKey)) {
+      setIsInstant(true);
+      setIsLoaded(true);
+    }
+  }, [imageKey, hasValidSrc]);
 
   if (src !== prevSrc) {
     setPrevSrc(src);
     setIsLoaded(false);
+    setIsInstant(false);
     setHasError(false);
   }
-
-  const imageKey = typeof src === "string" ? src : "";
-  const hasValidSrc = Boolean(imageKey && imageKey.trim() !== "");
-
-  useEffect(() => {
-    if (typeof window !== "undefined" && hasValidSrc) {
-      const isAlreadyLoaded = sessionStorage.getItem(`avatar-loaded-${imageKey}`);
-      if (isAlreadyLoaded) {
-        const timer = setTimeout(() => {
-          setIsLoaded(true);
-        }, 0);
-        return () => clearTimeout(timer);
-      }
-    }
-  }, [imageKey, hasValidSrc]);
 
   return (
     <div
@@ -55,13 +73,12 @@ export function UserProfileAvatar({
       ) : (
         <>
           {!isLoaded && (
-            <div className="absolute inset-0 flex items-center justify-center bg-[#0a0a0a] z-10 rounded-full">
-              <motion.div
-                className="absolute inset-0 rounded-full bg-gold/10 blur-sm"
-                animate={{ opacity: [0.2, 0.6, 0.2] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              />
-
+            <motion.div
+              className="absolute inset-0 flex items-center justify-center bg-[#0a0a0a] z-10 rounded-full"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.15, duration: 0.3 }}
+            >
               <motion.svg
                 className="absolute inset-0 h-full w-full p-0.75 text-gold/80"
                 viewBox="0 0 50 50"
@@ -79,7 +96,7 @@ export function UserProfileAvatar({
                   strokeLinecap="round"
                 />
               </motion.svg>
-            </div>
+            </motion.div>
           )}
 
           <Image
@@ -88,29 +105,23 @@ export function UserProfileAvatar({
             alt={alt}
             width={48}
             height={48}
-            // onLoad={() => {
-            //   if (typeof window !== "undefined") {
-            //     sessionStorage.setItem(`avatar-loaded-${imageKey}`, "true");
-            //   }
-            //   setIsLoaded(true);
-            // }}
-            
-            //Test Time
             onLoad={() => {
-              setTimeout(() => {
-                if (typeof window !== "undefined") {
-                  sessionStorage.setItem(`avatar-loaded-${imageKey}`, "true");
-                }
-                setIsLoaded(true);
-              }, 6000);
+              if (!loadedAvatarsCache.has(imageKey)) {
+                setTimeout(() => {
+                  saveToCache(imageKey);
+                  setIsLoaded(true);
+                }, 0);
+              } else {
+                setTimeout(() => setIsLoaded(true), 0);
+              }
             }}
             onError={(event) => {
               setHasError(true);
               event.currentTarget.style.opacity = "0";
             }}
             className={`relative z-10 h-full w-full rounded-full object-cover ${
-              isLoaded ? "opacity-100 transition-opacity duration-700 ease-out" : "opacity-0 transition-none"
-            }`}
+              isLoaded ? "opacity-100" : "opacity-0"
+            } ${isInstant ? "" : "transition-opacity duration-700 ease-out"}`}
           />
         </>
       )}

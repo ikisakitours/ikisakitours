@@ -1,9 +1,30 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import type { GalleryItem } from "@/data/blog";
+
+const CACHE_KEY = "mapmate_loaded_thumbs";
+const getInitialCache = () => {
+  if (typeof window !== "undefined") {
+    try {
+      const stored = sessionStorage.getItem(CACHE_KEY);
+      return stored ? new Set<string>(JSON.parse(stored)) : new Set<string>();
+    } catch {
+      return new Set<string>();
+    }
+  }
+  return new Set<string>();
+};
+const loadedThumbsCache = getInitialCache();
+const saveToCache = (key: string) => {
+  loadedThumbsCache.add(key);
+  if (typeof window !== "undefined") {
+    sessionStorage.setItem(CACHE_KEY, JSON.stringify(Array.from(loadedThumbsCache)));
+  }
+};
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 interface ThumbnailButtonProps {
   item: GalleryItem;
@@ -12,54 +33,37 @@ interface ThumbnailButtonProps {
 }
 
 export function ThumbnailButton({ item, isActive, onClick }: ThumbnailButtonProps) {
+  const imageKey = item?.src || "";
+
   const [isThumbReady, setIsThumbReady] = useState(false);
+  const [isInstant, setIsInstant] = useState(false);
+
+  useIsomorphicLayoutEffect(() => {
+    if (imageKey && loadedThumbsCache.has(imageKey)) {
+      setIsInstant(true);
+      setIsThumbReady(true);
+    }
+  }, [imageKey]);
 
   useEffect(() => {
     if (!item || !item.src) return;
 
-    let isMounted = true;
-    const imageKey = item.src;
-
-    // 1. Session Storage Caching & Cascading Render Fix
-    if (typeof window !== "undefined") {
-      const isAlreadyLoaded = sessionStorage.getItem(`thumb-loaded-${imageKey}`);
-      if (isAlreadyLoaded) {
-        const timer = setTimeout(() => {
-          if (isMounted) setIsThumbReady(true);
-        }, 0);
-        return () => {
-          isMounted = false;
-          clearTimeout(timer);
-        };
-      }
+    if (loadedThumbsCache.has(imageKey)) {
+      const timer = setTimeout(() => setIsThumbReady(true), 0);
+      return () => clearTimeout(timer);
     }
 
-    const resetTimer = setTimeout(() => {
-      if (isMounted) setIsThumbReady(false);
-    }, 0);
-
+    let isMounted = true;
     const img = new window.Image();
     img.src = imageKey;
-    img.onload = () => {
-      if (isMounted) {
-        if (typeof window !== "undefined") {
-          sessionStorage.setItem(`thumb-loaded-${imageKey}`, "true");
-        }
-        setIsThumbReady(true);
-      }
-    };
 
-    //Test Time
     img.onload = () => {
-      // 2. Testing Delay & Set Session Storage
       setTimeout(() => {
         if (isMounted) {
-          if (typeof window !== "undefined") {
-            sessionStorage.setItem(`thumb-loaded-${imageKey}`, "true");
-          }
+          saveToCache(imageKey);
           setIsThumbReady(true);
         }
-      }, 3000); // Testing Delay (3000ms)
+      }, 0);
     };
 
     img.onerror = () => {
@@ -68,9 +72,8 @@ export function ThumbnailButton({ item, isActive, onClick }: ThumbnailButtonProp
 
     return () => {
       isMounted = false;
-      clearTimeout(resetTimer);
     };
-  }, [item]);
+  }, [item, imageKey]);
 
   return (
     <button
@@ -102,12 +105,12 @@ export function ThumbnailButton({ item, isActive, onClick }: ThumbnailButtonProp
       )}
 
       {!isThumbReady && (
-        <div className="absolute inset-0 flex items-center justify-center bg-[#0a0a0a] z-10 rounded-full border border-white/5">
-          <motion.div
-            className="absolute h-6 w-6 rounded-full bg-gold/40 blur-lg"
-            animate={{ scale: [0.8, 1.5, 0.8], opacity: [0.3, 0.8, 0.3] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          />
+        <motion.div
+          className="absolute inset-0 flex items-center justify-center bg-[#0a0a0a] z-10 rounded-full border border-white/5"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.15, duration: 0.3 }}
+        >
           <motion.svg
             className="z-10 h-6 w-6 text-gold/80"
             viewBox="0 0 50 50"
@@ -125,7 +128,7 @@ export function ThumbnailButton({ item, isActive, onClick }: ThumbnailButtonProp
               strokeLinecap="round"
             />
           </motion.svg>
-        </div>
+        </motion.div>
       )}
 
       <div
@@ -136,9 +139,9 @@ export function ThumbnailButton({ item, isActive, onClick }: ThumbnailButtonProp
           alt={item.alt}
           fill
           sizes="64px"
-          className={`object-cover transition-all duration-700 ease-out ${
-            isThumbReady ? "opacity-100 scale-100" : "opacity-0 scale-125"
-          }`}
+          className={`object-cover ${
+            isInstant ? "" : "transition-all duration-700 ease-out"
+          } ${isThumbReady ? "opacity-100 scale-100" : "opacity-0 scale-125"}`}
         />
         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-white/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-events-none" />
       </div>

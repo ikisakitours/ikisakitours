@@ -1,9 +1,30 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import Link from "next/link";
+
+const CACHE_KEY = "mapmate_loaded_sliders";
+const getInitialCache = () => {
+  if (typeof window !== "undefined") {
+    try {
+      const stored = sessionStorage.getItem(CACHE_KEY);
+      return stored ? new Set<string>(JSON.parse(stored)) : new Set<string>();
+    } catch {
+      return new Set<string>();
+    }
+  }
+  return new Set<string>();
+};
+const loadedSliderCache = getInitialCache();
+const saveToCache = (key: string) => {
+  loadedSliderCache.add(key);
+  if (typeof window !== "undefined") {
+    sessionStorage.setItem(CACHE_KEY, JSON.stringify(Array.from(loadedSliderCache)));
+  }
+};
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 interface PremiumImageSliderProps {
   images: string[];
@@ -27,48 +48,37 @@ export function ImageSlider({
   href,
 }: PremiumImageSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+
   const [isReady, setIsReady] = useState(false);
+  const [isInstant, setIsInstant] = useState(false);
+
+  useIsomorphicLayoutEffect(() => {
+    if (images && images.length > 0 && loadedSliderCache.has(images[0])) {
+      setIsInstant(true);
+      setIsReady(true);
+    }
+  }, [images]);
 
   useEffect(() => {
     if (!images || images.length === 0) return;
-
-    let isMounted = true;
     const firstImageKey = images[0];
 
-    if (typeof window !== "undefined") {
-      const isAlreadyLoaded = sessionStorage.getItem(`slider-loaded-${firstImageKey}`);
-      if (isAlreadyLoaded) {
-        const timer = setTimeout(() => {
-          if (isMounted) setIsReady(true);
-        }, 0);
-        return () => {
-          isMounted = false;
-          clearTimeout(timer);
-        };
-      }
+    if (loadedSliderCache.has(firstImageKey)) {
+      const timer = setTimeout(() => setIsReady(true), 0);
+      return () => clearTimeout(timer);
     }
 
+    let isMounted = true;
     const img = new window.Image();
     img.src = firstImageKey;
-    // img.onload = () => {
-    //   if (isMounted) {
-    //     if (typeof window !== "undefined") {
-    //       sessionStorage.setItem(`slider-loaded-${firstImageKey}`, "true");
-    //     }
-    //     setIsReady(true);
-    //   }
-    // };
 
-    //Test Time
     img.onload = () => {
       setTimeout(() => {
         if (isMounted) {
-          if (typeof window !== "undefined") {
-            sessionStorage.setItem(`slider-loaded-${firstImageKey}`, "true");
-          }
+          saveToCache(firstImageKey);
           setIsReady(true);
         }
-      }, 6000); 
+      }, 0);
     };
 
     img.onerror = () => {
@@ -106,37 +116,72 @@ export function ImageSlider({
         {!isReady && (
           <motion.div
             className="absolute inset-0 z-50 flex items-center justify-center bg-[#0a0a0a]"
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: isInstant ? 0 : 0.8 } }}
+            transition={{ delay: 0.15, duration: 0.3 }}
           >
-            {/* LOADING SPINNER */}
-            <div className="relative flex items-center justify-center">
-              <motion.div
-                className="absolute h-10 w-10 rounded-full bg-gold/40 blur-xl"
-                animate={{ scale: [0.8, 1.5, 0.8], opacity: [0.3, 0.8, 0.3] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              />
-              <motion.svg
-                className="h-12 w-12 text-gold/70"
-                viewBox="0 0 50 50"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
-              >
-                <circle
-                  cx="25"
-                  cy="25"
-                  r="20"
-                  fill="none"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  strokeDasharray="30 100"
-                  strokeLinecap="round"
-                />
-              </motion.svg>
-            </div>
-            <div className="pointer-events-none absolute bottom-3 right-4 whitespace-nowrap font-bold leading-none tracking-tighter text-white/5 text-3xl">
-              MapMate
-            </div>
+            <>
+              <div className="relative flex h-14 w-14 items-center justify-center">
+                <motion.svg
+                  className="absolute h-full w-full text-gold/30"
+                  viewBox="0 0 50 50"
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                >
+                  <circle
+                    cx="25"
+                    cy="25"
+                    r="23"
+                    fill="none"
+                    strokeWidth="0.5"
+                    stroke="currentColor"
+                    strokeDasharray="100 44"
+                  />
+                </motion.svg>
+                <motion.svg
+                  className="absolute h-full w-full text-gold/80"
+                  viewBox="0 0 50 50"
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                >
+                  <circle
+                    cx="25"
+                    cy="25"
+                    r="17"
+                    fill="none"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    strokeDasharray="30 76"
+                    strokeLinecap="round"
+                  />
+                </motion.svg>
+                <motion.svg
+                  className="absolute h-full w-full text-gold"
+                  viewBox="0 0 50 50"
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                >
+                  <circle
+                    cx="25"
+                    cy="25"
+                    r="11"
+                    fill="none"
+                    strokeWidth="2"
+                    stroke="currentColor"
+                    strokeDasharray="15 54"
+                    strokeLinecap="round"
+                  />
+                </motion.svg>
+                <div className="absolute h-1.5 w-1.5 rounded-full bg-gold" />
+              </div>
+              <div className="pointer-events-none absolute bottom-3 right-4 whitespace-nowrap font-bold leading-none tracking-tighter text-white/5 text-3xl">
+                MapMate
+              </div>
+            </>
           </motion.div>
         )}
       </AnimatePresence>
@@ -163,12 +208,10 @@ export function ImageSlider({
         )}
       </AnimatePresence>
 
-      {/* Gradient Overlay for Text Readability */}
       {(badge || description || showIndicators) && isReady && (
         <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent pointer-events-none z-10 transition-opacity duration-1000" />
       )}
 
-      {/* Highly Refined Text Overlays */}
       {(badge || description) && isReady && (
         <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
           <AnimatePresence>
@@ -195,7 +238,6 @@ export function ImageSlider({
         </div>
       )}
 
-      {/* Navigation Dots (Indicators) */}
       {showIndicators && isReady && (
         <div className="absolute bottom-5 right-6 z-20 flex gap-2">
           {images.map((_, idx) => (
