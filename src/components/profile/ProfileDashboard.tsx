@@ -25,7 +25,7 @@ function ProfileDashboardInner() {
   };
 
   return (
-    <ContainerLayout className="grid grid-cols-1 gap-12 pt-32 pb-20 md:pt-40 md:pb-32 lg:grid-cols-12">
+    <ContainerLayout className="grid grid-cols-1 gap-12 lg:grid-cols-12 py-20 sm:py-24 md:py-26 lg:py-28 2xl:py-30 3xl:py-32">
       <aside className="w-full space-y-6 lg:col-span-4">
         <h1 className="premium-serif mb-6 whitespace-nowrap text-center text-2xl text-white sm:mb-8 sm:text-3xl lg:text-left lg:text-4xl">
           Account <span className="text-gold">Settings</span>

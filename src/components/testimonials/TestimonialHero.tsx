@@ -19,12 +19,12 @@ const testimonialStats = [
 
 export function TestimonialHero() {
   return (
-    <header className="relative overflow-hidden border-b border-white/5 pb-16 pt-32 md:pb-20 md:pt-40">
+    <header className="relative overflow-hidden border-b border-white/5 pt-20 sm:pt-24 md:pt-26 lg:pt-28 2xl:pt-30 3xl:pt-32 pb-12 sm:pb-16 md:pb-18 lg:pb-20 2xl:pb-22 3xl:pb-24">
       <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(197,160,89,0.08),transparent_28%,transparent_72%,rgba(197,160,89,0.05))]" />
       <div className="absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-gold/30 to-transparent" />
 
       <ContainerLayout className="relative z-10">
-        <div className="flex flex-col items-center justify-between gap-12 xl:flex-row xl:gap-24">
+        <div className="flex flex-col items-center justify-between gap-12 md:flex-row md:gap-8 lg:gap-16 xl:gap-24">
           <div className="max-w-2xl text-center xl:text-left">
             <EyeBrow eyebrow={testimonialHeroData.badge} />
 

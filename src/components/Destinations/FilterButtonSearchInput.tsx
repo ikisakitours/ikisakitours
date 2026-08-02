@@ -22,10 +22,9 @@ export default function FilterButtonSearchInput({
   setIsFilterOpen,
 }: FilterButtonSearchInputProps) {
   return (
-    <div className="mb-16 space-y-8">
-      <div className="flex flex-col-reverse justify-between gap-6 lg:flex-row lg:items-center">
-        {/* Filter Sidebar Trigger Button */}
-        <div className="relative flex justify-start w-full lg:w-auto">
+    <div className="mb-12 md:mb-16 xl:mb-16 2xl:mb-20 3xl:mb-24 space-y-8">
+    <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
+            <div className="relative flex shrink-0 justify-start">
           <button
             type="button"
             onClick={() => setIsFilterOpen(true)}
@@ -55,7 +54,7 @@ export default function FilterButtonSearchInput({
           placeholder="Search destinations "
           count={filteredCount}
           itemLabel="Destination"
-          className="lg:w-96"
+          className="lg:w-96  md:w-72"
         />
       </div>
 

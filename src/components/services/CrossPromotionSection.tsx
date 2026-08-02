@@ -4,14 +4,15 @@ import { Clock, Star, MessageCircleHeart, ArrowRight } from "lucide-react";
 import { packages } from "@/data/multiDaysTours";
 import { testimonials } from "@/data/testimonials";
 import { RatingStars } from "@/components/ui/RatingStars";
+
 export function CrossPromotionSection() {
-  const displayPackages = packages.slice(0, 3);
-  const displayTestimonials = testimonials.filter((t) => (t.rating ?? 5) === 5).slice(0, 3);
+  const displayPackages = packages.slice(0, 4);
+  const displayTestimonials = testimonials.filter((t) => (t.rating ?? 5) === 5).slice(0, 4);
 
   return (
-    <section className="mt-24 border-t border-white/5 pt-16">
+    <section className="mt-16 border-t border-white/5 pt-16">
       {/* Packages Section */}
-      <div className="mb-20">
+      <div className="mb-16">
         <div className="flex items-center justify-between mb-8">
           <h2 className="premium-serif text-3xl text-white">Discover More</h2>
           <Link
@@ -22,12 +23,14 @@ export function CrossPromotionSection() {
           </Link>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {displayPackages.map((pkg, index) => (
             <Link
               href={`/booking/multi-days-tours/${pkg.slug}`}
-              className="glass-card group block overflow-hidden rounded-4xl border border-white/5 transition-all duration-700 hover:border-gold/40"
               key={index}
+              className={`glass-card group overflow-hidden rounded-4xl border border-white/5 transition-all duration-700 hover:border-gold/40 ${
+                index === 3 ? "hidden md:block xl:hidden" : "block"
+              }`}
             >
               <div className="relative h-44 overflow-hidden">
                 <div className="absolute left-4 top-4 z-10">
@@ -41,7 +44,7 @@ export function CrossPromotionSection() {
                   fill
                   sizes="(min-width: 1280px) 380px, 85vw"
                   wrapperClassName="w-full h-full"
-                  className="image-render-visible object-cover opacity-70!  group-hover:scale-110"
+                  className="image-render-visible object-cover opacity-70! group-hover:scale-110"
                 />
               </div>
               <div className="p-6">
@@ -90,14 +93,16 @@ export function CrossPromotionSection() {
           </Link>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {displayTestimonials.map((t, index) => {
             const rating = t.rating ?? 5;
 
             return (
               <div
                 key={index}
-                className="group rounded-2xl border border-white/5 bg-[#0a0a0a]/50 p-6 flex flex-col justify-between hover:border-gold/30 hover:bg-white/2 transition-all duration-500 shadow-lg hover:shadow-gold/5"
+                className={`group rounded-2xl border border-white/5 bg-[#0a0a0a]/50 p-6 flex-col justify-between hover:border-gold/30 hover:bg-white/2 transition-all duration-500 shadow-lg hover:shadow-gold/5 ${
+                  index === 3 ? "hidden md:flex xl:hidden" : "flex"
+                }`}
               >
                 {/* Modern Header: Icon on Left, Stars on Right */}
                 <div className="mb-5 flex items-start justify-between">

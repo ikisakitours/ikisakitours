@@ -64,10 +64,10 @@ export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) 
   }
 
   return (
-    <section className="pb-24 pt-12">
+    <section className="py-12 md:py-16 xl:py-16 2xl:py-20 3xl:py-24 ">
       <ContainerLayout>
         {/* Languages Filter Trigger Button */}
-        <div className="mb-4 md:mb-6 lg:mb-8 2xl:mb-10 flex w-full items-center justify-between gap-3">
+        <div className="mb-12 md:mb-16 xl:mb-16 2xl:mb-20 3xl:mb-24 flex w-full items-center justify-between gap-3">
           <div className="relative h-15 flex items-center">
             <AnimatePresence mode="wait">
               {!isWritingReview ? (
@@ -139,7 +139,7 @@ export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) 
           <>
             {/* Testimonials Grid */}
             {visibleTestimonials.length > 0 ? (
-              <div id="testimonial-grid" className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 xl:grid-cols-3">
+              <div id="testimonial-grid" className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4">
                 {visibleTestimonials.map((testimonial) => (
                   <TestimonialCard key={testimonial.id} testimonial={testimonial} />
                 ))}
@@ -155,7 +155,7 @@ export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) 
             )}
 
             {/* Pagination / Load More */}
-            <div className="mt-20 flex flex-col items-center md:mt-24">
+            <div className="mt-10 flex flex-col items-center md:mt-14">
               {hasMore && (
                 <Button
                   type="button"

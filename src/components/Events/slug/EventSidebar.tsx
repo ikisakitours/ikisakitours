@@ -98,21 +98,35 @@ export function EventSidebar({
 
         {/* --- Like සහ Share Buttons --- */}
         <div className="grid grid-cols-2 pt-2 border-t border-white/10">
+          {/* Left: Like Section */}
           <div className="flex justify-center border-r border-white/10 py-3">
-            <LikeButton
-              initialLikes={42}
-              className="flex items-center justify-center w-full gap-2 text-slate-400 hover:text-gold transition-colors group"
-              iconClassName="group-hover:scale-110 transition-transform"
-            />
+            <div className="group flex cursor-pointer items-center justify-center gap-2.5 sm:gap-3">
+              <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500 transition-colors group-hover:text-gold/80">
+                Loved this
+              </span>
+              <LikeButton
+                initialLikes={42}
+                className="flex items-center justify-center gap-1.5 text-slate-300 transition-colors group-hover:text-gold"
+                iconClassName="transition-transform group-hover:scale-110 w-5 h-5 sm:w-5.5 sm:h-5.5"
+                countClassName="text-[13px] sm:text-[14px] font-medium"
+              />
+            </div>
           </div>
+
+          {/* Right: Share Section */}
           <div className="flex justify-center py-3">
-            <ShareButton
-              title={eventTitle}
-              text={`Check out ${eventTitle} on MapMate Sri Lanka!`}
-              url={`/special-events/${eventSlug}`}
-              className="flex items-center justify-center w-full text-slate-400 hover:text-gold transition-colors group"
-              iconClassName="group-hover:scale-110 transition-transform"
-            />
+            <div className="group flex cursor-pointer items-center justify-center gap-2.5 sm:gap-3">
+              <ShareButton
+                title={eventTitle}
+                text={`Check out ${eventTitle} on MapMate Sri Lanka!`}
+                url={`/special-events/${eventSlug}`}
+                className="flex items-center justify-center gap-1.5 text-slate-300 transition-colors group-hover:text-gold"
+                iconClassName="transition-transform group-hover:scale-110 w-4.5 h-4.5 sm:w-5 sm:h-5"
+              />
+              <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500 transition-colors group-hover:text-gold/80">
+                Share
+              </span>
+            </div>
           </div>
         </div>
       </div>

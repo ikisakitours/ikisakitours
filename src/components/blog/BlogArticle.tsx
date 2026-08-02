@@ -29,7 +29,7 @@ function BlogArticleInner({ post }: BlogArticleProps) {
   const backText = fromWhere === "home" ? "Back To Home" : "Back To Journal";
 
   return (
-    <article className="relative z-20 mx-auto -mt-16 mb-16 max-w-4xl px-4 md:-mt-24">
+    <article className="relative z-20 mx-auto max-w-4xl px-4 pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
       {/* Main Glass Card */}
       <div className="glass-card overflow-hidden rounded-4xl border border-white/10 bg-black/60 shadow-2xl backdrop-blur-xl md:rounded-[2.5rem]">
         {/* --- 1. TOP EDITORIAL HEADER --- */}

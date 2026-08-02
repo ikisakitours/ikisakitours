@@ -81,7 +81,7 @@ export function BespokeForm() {
   };
 
   return (
-    <ContainerLayout className="relative z-20 -mt-24 pb-24">
+    <ContainerLayout className="relative z-20 pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
       <div className="grid gap-8 xl:grid-cols-12 xl:items-start">
         <form onSubmit={handleSubmit} className="space-y-8 xl:col-span-8">
           <FormPanel className="z-10">

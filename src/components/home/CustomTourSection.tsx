@@ -9,7 +9,7 @@ export function CustomTourSection() {
   return (
     <section
       id="custom-tours"
-      className="relative overflow-hidden bg-lanka-black pt-12 md:pt-20 xl:pt-20 2xl:pt-24 3xl:pt-32"
+      className="relative overflow-hidden bg-lanka-black py-12 md:py-20 xl:py-20 2xl:py-24 3xl:py-32"
     >
       <ContainerLayout>
         {/* Modern Asymmetrical Wrapper - Animated */}

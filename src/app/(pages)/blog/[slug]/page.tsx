@@ -60,8 +60,8 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   }
 
   return (
-    <main className="bg-lanka-black">
-      <UserPageLayout>
+    <UserPageLayout>
+      <main className="min-h-screen bg-lanka-dark">
         <Hero
           image={post.image}
           altText={post.altText}
@@ -71,7 +71,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
           strapline={post.excerpt}
         />
         <BlogArticle post={post} />
-      </UserPageLayout>
-    </main>
+      </main>
+    </UserPageLayout>
   );
 }

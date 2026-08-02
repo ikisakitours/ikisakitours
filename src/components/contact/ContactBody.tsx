@@ -21,7 +21,7 @@ export default function ContactBody() {
         strapline={contactData.hero.strapline}
       />
 
-      <ContainerLayout className="pb-20 md:pb-28 xl:pb-20 2xl:pb-32 3xl:pb-40">
+      <ContainerLayout className="pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
         <ContactIntroCard data={contactData.introCard} />
 
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">

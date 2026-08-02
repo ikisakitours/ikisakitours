@@ -17,8 +17,8 @@ export const aboutData = {
     { label: "24/7 Concierge Support", value: "100%" },
     { label: "Local Expert Guides", value: "50+" },
     { label: "Customer Satisfaction", value: "99%" },
-    // { label: "Island-wide Tours Executed", value: "3,000+" },
-    // { label: "Destinations Covered", value: "30+" },
+    { label: "Island-wide Tours Executed", value: "3,000+" },
+    { label: "Destinations Covered", value: "30+" },
   ],
   whyChooseUs: {
     title: "Why Travel With Us",

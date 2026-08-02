@@ -98,7 +98,7 @@ export function GalleryCollection({ items }: GalleryCollectionProps) {
           ))}
         </div>
 
-        <div className="mt-20 flex flex-col items-center md:mt-24">
+        <div className="mt-10 flex flex-col items-center md:mt-14">
           {hasMore ? (
             <Button type="button" variant="explore" onClick={() => setVisibleCount((count) => count + INITIAL_COUNT)}>
               Load More Experiences

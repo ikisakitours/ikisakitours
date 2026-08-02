@@ -12,9 +12,9 @@ import AboutCTA from "@/components/about/AboutCTA";
 
 export default function AboutBody() {
   return (
-    <div className="w-full flex flex-col -mt-24 pb-24">
+    <div className="w-full flex flex-col pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
       {/* Constrained Body Content */}
-      <ContainerLayout className="py-12">
+      <ContainerLayout className="">
         <div className="w-full flex flex-col gap-12">
           {/* Passing Data as Props */}
           <OriginSection data={aboutData.origin} />

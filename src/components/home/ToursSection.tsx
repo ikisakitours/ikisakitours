@@ -59,7 +59,7 @@ export function ToursSection() {
   const displayPackages = [...currentPackages].sort((a, b) => Number(b.rating) - Number(a.rating)).slice(0, 4);
 
   return (
-    <section id="tours" className="bg-background py-12 md:py-20 xl:py-20 2xl:py-24 3xl:py-32">
+    <section id="tours" className="bg-background pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
       <ContainerLayout>
         {/* Header */}
         <motion.div

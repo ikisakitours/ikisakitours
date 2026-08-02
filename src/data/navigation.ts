@@ -22,7 +22,7 @@ export const primaryNavigation: NavItem[] = [
     label: "Services",
     isDropdown: true,
     subItems: [
-      { label: "Tailor Made Journeys", href: "/services/bespoke-travel", sectionId: "#custom-tours" },
+      { label: "Custom Made Journeys", href: "/services/bespoke-travel", sectionId: "#custom-tours" },
       { label: "Private Chauffeur Service", href: "/services/private-vehicle", sectionId: "#private-Vehicle-Hire" },
       { label: "Airport & City Transfers", href: "/services/transfers", sectionId: "#transfers" },
     ],
@@ -49,13 +49,13 @@ export const footerLinks = [
   { label: "Home", href: "/" },
   { label: "The Experience", href: "/about", sectionId: "#about" },
 
-  // 2. Core Products 
+  // 2. Core Products
   { label: "Tour Packages", href: "/tours/multi-days", sectionId: "#packages" },
   { label: "Hidden Havens", href: "/destination", sectionId: "" },
   { label: "Cultural Pageants", href: "/events", sectionId: "#events" },
 
-  // 3. Trust, Stories & Support 
-  { label: "Journal", href: "/blog", sectionId: "#blog" }, 
+  // 3. Trust, Stories & Support
+  { label: "Journal", href: "/blog", sectionId: "#blog" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact", sectionId: "#contact" },
 ];

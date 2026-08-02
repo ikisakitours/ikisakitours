@@ -87,9 +87,9 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
   const hasMore = visibleDestinations.length < filteredDestinations.length;
 
   return (
-    <section id="destinations" className="bg-lanka-dark py-10">
-      <ContainerLayout>
-        <div className="mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
+    <section id="destinations" className="bg-lanka-dark">
+      <ContainerLayout className="pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
+        <div className="mb-12 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="w-full flex-1">
             {!showMap && (
               <FilterButtonSearchInput
@@ -157,7 +157,7 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
           <>
             {filteredDestinations.length > 0 ? (
               <>
-                <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 3xl:gap-10">
+                <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 xl:gap-10 3xl:grid-cols-4 3xl:gap-12">
                   {visibleDestinations.map((dest) => (
                     <DestinationsCard key={dest.slug} dest={dest} />
                   ))}

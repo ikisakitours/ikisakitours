@@ -1,9 +1,7 @@
 "use client";
-
 import React from "react";
-import { useRouter } from "next/navigation";
-import { ArrowLeft, Sparkles } from "lucide-react";
-
+//Icons
+import { Sparkles } from "lucide-react";
 interface EventHeaderProps {
   badge: string;
   titlePart1: string;
@@ -12,20 +10,10 @@ interface EventHeaderProps {
 }
 
 export function EventHeader({ badge, titlePart1, titleAccent, description }: EventHeaderProps) {
-  const router = useRouter();
 
   return (
     <>
-      {/* Back Button */}
-      <div className="mb-8">
-        <button
-          onClick={() => router.back()}
-          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gold transition-colors hover:text-gold-light bg-transparent border-none cursor-pointer"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          <span>Go Back</span>
-        </button>
-      </div>
+    
 
       {/* Header Section */}
       <div className="max-w-4xl mb-12">

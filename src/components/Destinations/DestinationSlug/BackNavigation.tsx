@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { ArrowLeft } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
+//Icons
+import { ArrowLeft } from "lucide-react";
 
 export default function BackNavigation() {
   const router = useRouter();
@@ -32,18 +33,20 @@ export default function BackNavigation() {
     if (from === "map") {
       router.push(backLink);
     } else if (window.history.length > 2) {
-      router.back(); 
+      router.back();
     } else {
-      router.push(backLink); 
+      router.push(backLink);
     }
   };
 
   return (
     <button
       onClick={handleNavigation}
-      className="group mb-8 inline-flex cursor-pointer items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-gold transition-colors hover:text-white"
+      className="group mb-5 flex w-fit cursor-pointer items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-white/60 transition-colors hover:text-gold"
     >
-      <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+      <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-all duration-300 group-hover:-translate-x-1 group-hover:border-gold/50 group-hover:bg-gold/10">
+        <ArrowLeft size={14} className="text-white transition-colors group-hover:text-gold" />
+      </span>
       {backLabel}
     </button>
   );

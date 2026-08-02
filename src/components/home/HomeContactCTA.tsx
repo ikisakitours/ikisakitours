@@ -9,13 +9,16 @@ import { MapPin, Sparkles, Star, ArrowRight } from "lucide-react";
 
 export default function HomeContactCTA() {
   return (
-    <section id="contact" className="relative overflow-hidden bg-[#050505] py-24 md:py-32 lg:py-40">
+    <section
+      id="contact"
+      className="relative overflow-hidden bg-lanka-dark py-20 md:py-20 xl:py-20 2xl:py-24 3xl:py-32"
+    >
       {/* Background Ambient Glow */}
       <div className="absolute left-1/2 top-1/2 -z-10 h-150 w-150 -translate-x-1/2 -translate-y-1/2 pointer-events-none rounded-full bg-gold/5 blur-[120px]" />
 
       {/* Background Watermark */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
-        <span className="select-none text-[20vw] lg:text-[22vw] font-black uppercase tracking-tighter text-white/2">
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden mt-2">
+        <span className="select-none text-[20vw] lg:text-[18vw] 2xl:text-[20vw] font-black uppercase tracking-tighter text-white/2">
           {contactCtaContent.watermark}
         </span>
       </div>

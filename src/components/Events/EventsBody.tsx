@@ -10,7 +10,7 @@ interface SpecialEventsBodyProps {
 
 export function EventsBody({ events, categories }: SpecialEventsBodyProps) {
   return (
-    <ContainerLayout className="mt-12">
+    <ContainerLayout className="pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
       <EventsGrid events={events} categories={categories} />
     </ContainerLayout>
   );

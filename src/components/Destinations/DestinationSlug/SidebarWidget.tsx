@@ -9,15 +9,13 @@ type Props = {
 
 export default function SidebarWidget({ name, guide }: Props) {
   return (
-    <aside className="flex flex-col gap-6 lg:col-span-4 lg:sticky lg:top-32">
+    <aside className="flex w-full flex-col gap-6 lg:mx-auto lg:max-w-2xl xl:mx-0 xl:max-w-none xl:col-span-4 xl:sticky xl:top-32">
       <div className="glass-card rounded-4xl border border-white/5 p-6 md:p-8">
         {/* Guide Header */}
         <div className="mb-8 flex flex-col items-center justify-center rounded-2xl bg-white/5 py-6 text-center">
           <Compass className="mb-3 h-8 w-8 text-gold" strokeWidth={1.5} />
           <h3 className="text-lg font-bold text-white">Destination Guide</h3>
-          <p className="mt-1 text-[11px] font-medium text-slate-400">
-            Helpful info for your next vacation.
-          </p>
+          <p className="mt-1 text-[11px] font-medium text-slate-400">Helpful info for your next vacation.</p>
         </div>
 
         {/* Details List */}

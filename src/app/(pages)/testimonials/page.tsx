@@ -11,11 +11,11 @@ export const metadata: Metadata = {
 
 export default function TestimonialsPage() {
   return (
-    <main className="min-h-screen bg-lanka-dark ">
-      <UserPageLayout>
+    <UserPageLayout>
+      <main className="min-h-screen bg-lanka-dark ">
         <TestimonialHero />
         <TestimonialExplorer testimonials={testimonials} />
-      </UserPageLayout>
-    </main>
+      </main>
+    </UserPageLayout>
   );
 }

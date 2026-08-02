@@ -6,9 +6,6 @@ import { legalDocuments, type LegalDocumentId } from "@/data/legal";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
 
-//Icons
-import { ArrowLeft } from "lucide-react";
-
 export default function LegalBody() {
   const router = useRouter();
   const pathname = usePathname();
@@ -25,7 +22,7 @@ export default function LegalBody() {
   };
 
   return (
-    <ContainerLayout className="py-20 md:py-28 xl:py-20 2xl:py-32 3xl:py-40">
+    <ContainerLayout className=" py-20 sm:py-24 md:py-26 lg:py-28 2xl:py-30 3xl:py-32">
       <div className="mx-auto max-w-7xl">
         <LegalHero activeDoc={activeDoc} />
 
@@ -51,17 +48,6 @@ export default function LegalBody() {
                 <LegalDocumentSection document={doc} />
               </div>
             ))}
-
-          <div className="pt-4 text-center md:pt-8">
-            <button
-              onClick={() => router.push("/")}
-              style={{ letterSpacing: "0.5em" }}
-              className="group mb-7 inline-flex items-center gap-2 text-[10px] font-bold uppercase text-gold transition-all hover:text-gold-light"
-            >
-              <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" />
-              Go Back
-            </button>
-          </div>
         </div>
       </div>
     </ContainerLayout>

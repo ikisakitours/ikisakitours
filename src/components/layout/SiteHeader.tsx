@@ -274,7 +274,7 @@ export function SiteHeader() {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden items-center space-x-8 text-[11px] 2xl:text-[12px] font-bold uppercase tracking-[0.2em] text-slate-200 xl:flex xl:space-x-9">
+            <div className="hidden items-center space-x-8 text-[11px] 2xl:text-[12px] font-bold uppercase tracking-[0.2em] text-slate-200 xl:flex xl:space-x-4 2xl:space-x-9">
               {primaryNavigation.map((item) => {
                 return (
                   <div key={item.label} className="group relative">

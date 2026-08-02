@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 };
 export default function page() {
   return (
-    <main className="min-h-screen bg-lanka-dark">
-      <UserPageLayout>
+    <UserPageLayout>
+      <main className="min-h-screen bg-lanka-dark">
         <Hero
           image={faqPageData.hero.image}
           altText={faqPageData.hero.altText}
@@ -22,7 +22,7 @@ export default function page() {
           strapline={faqPageData.hero.strapline}
         />
         <FaqBody />
-      </UserPageLayout>
-    </main>
+      </main>
+    </UserPageLayout>
   );
 }

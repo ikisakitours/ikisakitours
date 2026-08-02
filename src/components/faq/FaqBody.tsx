@@ -2,11 +2,12 @@
 
 import React, { useState, useMemo } from "react";
 import { faqData, faqCategories } from "@/data/faqData";
-import { Filter } from "lucide-react";
 import FaqAccordionList from "@/components/faq/FaqAccordionList";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { FilterSidebar } from "@/components/ui/FilterSidebar";
 import { SearchInput } from "@/components/ui/SearchInput";
+//icons
+import { Filter } from "lucide-react";
 
 export default function FaqBody() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -41,13 +42,12 @@ export default function FaqBody() {
   };
 
   return (
-    <section className="w-full flex flex-col -mt-24 pb-24">
+    <section className="w-full flex flex-col pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
       {/* Content wrapper using reusable ContainerLayout */}
       <ContainerLayout>
-        <div className="mb-16 space-y-8">
-          <div className="flex flex-col-reverse justify-between gap-6 lg:flex-row lg:items-center">
-            {/* Filter Button */}
-            <div className="relative flex justify-start w-full lg:w-auto">
+        <div className="mb-12 md:mb-16 xl:mb-16 2xl:mb-20 3xl:mb-24 space-y-8">
+          <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
+            <div className="relative flex shrink-0 justify-start">
               <button
                 type="button"
                 onClick={() => setIsFilterOpen(true)}
@@ -75,7 +75,7 @@ export default function FaqBody() {
               placeholder="Search for a question..."
               count={filteredFaqs.length}
               itemLabel="Question"
-              className="lg:w-96"
+              className="md:w-72 lg:w-96"
             />
           </div>
 

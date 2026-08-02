@@ -17,6 +17,7 @@ export type PackageBadge = {
 
 export type TourPackage = {
   title: string;
+  tourType: string;
   slug: string;
   subtitle: string;
   origin: string;
@@ -33,7 +34,8 @@ export type TourPackage = {
 
 export const packages: TourPackage[] = [
   {
-   slug: "minneriya-national-park-elephant-safari",
+    slug: "minneriya-national-park-elephant-safari",
+    tourType: "multi-day",
     title: "Ancient Kingdom Sigiriya",
     subtitle: "Royal Palace Exploration",
     origin: "From Colombo",
@@ -52,7 +54,8 @@ export const packages: TourPackage[] = [
     ],
   },
   {
-   slug: "minneriya-national-park-elephant-safari",
+    slug: "minneriya-national-park-elephant-safari",
+    tourType: "multi-day",
     title: "Sacred City of Kandy",
     subtitle: "Cultural & Botanical Tour",
     origin: "From Negombo",
@@ -69,6 +72,7 @@ export const packages: TourPackage[] = [
   },
   {
     slug: "minneriya-national-park-elephant-safari",
+    tourType: "multi-day",
     title: "Ella Highlands Dream",
     subtitle: "Scenic Mountain Trek",
     origin: "From Nuwara Eliya",
@@ -87,7 +91,8 @@ export const packages: TourPackage[] = [
     ],
   },
   {
-   slug: "minneriya-national-park-elephant-safari",
+    slug: "minneriya-national-park-elephant-safari",
+    tourType: "multi-day",
     title: "Southern Azure Shores",
     subtitle: "Luxury Beach Escape",
     origin: "From Galle",
@@ -98,12 +103,13 @@ export const packages: TourPackage[] = [
     category: "coastal",
     categoryLabel: "Coastal",
     duration: "3 Days",
-     rating: "5.0",
+    rating: "5.0",
     price: "$240",
     badges: [{ label: "New Arrival", type: "new" }],
   },
   {
     slug: "minneriya-national-park-elephant-safari",
+    tourType: "multi-day",
     title: "Yala Wilderness Safari",
     subtitle: "Private Jeep Safari",
     origin: "From Hambantota",
@@ -121,6 +127,7 @@ export const packages: TourPackage[] = [
   {
     slug: "minneriya-national-park-elephant-safari",
     title: "Ruins of Polonnaruwa",
+    tourType: "multi-day",
     subtitle: "Ancient City Cycling",
     origin: "From Sigiriya",
     description:
@@ -135,8 +142,9 @@ export const packages: TourPackage[] = [
     badges: [],
   },
   {
-   slug: "minneriya-national-park-elephant-safari",
+    slug: "minneriya-national-park-elephant-safari",
     title: "Trincomalee Pristine Sands",
+     tourType: "multi-day",
     subtitle: "East Coast Snorkeling",
     origin: "From Habarana",
     description:
@@ -151,8 +159,9 @@ export const packages: TourPackage[] = [
     badges: [{ label: "Save 15%", type: "sale" }],
   },
   {
-   slug: "minneriya-national-park-elephant-safari",
+    slug: "minneriya-national-park-elephant-safari",
     title: "Dambulla Cave Sanctuaries",
+     tourType: "multi-day",
     subtitle: "Sacred Cave Expedition",
     origin: "From Kandy",
     description:

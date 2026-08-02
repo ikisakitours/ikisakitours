@@ -6,8 +6,9 @@ import { heroStats, heroPopularTags, heroPopularServices, heroContent } from "@/
 import { Button } from "@/components/ui/Button";
 import { FaAward } from "react-icons/fa6";
 import { motion, Transition } from "framer-motion";
+import { OmniSearch } from "./heroSearchField/OmniSearch";
 //Icons
-import { ArrowRight, Search, Star, Car, Compass, Route, Check } from "lucide-react";
+import { Star, Car, Compass, Route, Check } from "lucide-react";
 const serviceIcons = [Car, Compass, Route];
 
 const smoothTransition: Transition = {
@@ -17,23 +18,40 @@ const smoothTransition: Transition = {
 
 export function HeroSection() {
   return (
-    <header className="relative flex min-h-130 items-center justify-center overflow-hidden text-center md:min-h-155 pb-32 pt-36 md:pt-44">
-      <div className="absolute inset-0 z-0">
+    <header className="relative flex flex-col justify-center text-center bg-[#050505] pt-20 pb-12  sm:py-24 md:py-26 lg:py-28 2xl:py-30 3xl:py-32">
+      {/*py-20*/}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        {/* 1. Mobile Image  */}
         <Image
           src="/images/sander-traa-bfdshIHD5Y4-unsplash.webp"
-          alt="Sri Lanka Luxury"
+          alt="Sri Lanka Luxury Mobile"
           fill
           priority
-          sizes="100vw"
-          className="scale-110 object-cover opacity-70 animate-slow-zoom"
+          quality={100}
+          sizes="(max-width: 768px) 300vw, 100vw"
+          className="block sm:hidden scale-110 object-cover object-center opacity-70 animate-slow-zoom"
         />
+
+        {/* 2. Desktop Image */}
+        <Image
+          src="/images/sander-traa-bfdshIHD5Y4-unsplash.webp"
+          alt="Sri Lanka Luxury Desktop"
+          fill
+          priority
+          quality={100}
+          sizes="100vw"
+          className="hidden sm:block scale-110 object-cover object-center opacity-70 animate-slow-zoom"
+        />
+
         <div className="absolute inset-0 bg-linear-to-r from-lanka-black/90 via-lanka-black/40 to-transparent" />
         <div className="absolute inset-0 bg-linear-to-t from-lanka-black via-transparent to-transparent opacity-80" />
       </div>
 
+      <div className="absolute -bottom-0.5 left-0 right-0 z-0 h-1 bg-lanka-dark pointer-events-none" />
+
       <ContainerLayout className="relative z-10">
         <div className="flex flex-col items-center gap-6 md:gap-10 lg:grid lg:grid-cols-12 lg:gap-12 3xl:gap-16">
-          <div className="w-full text-left lg:col-span-7 xl:col-span-8 3xl:col-span-9">
+          <div className="relative z-50 w-full text-left lg:col-span-7 xl:col-span-8 3xl:col-span-9">
             <motion.div
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -44,7 +62,7 @@ export function HeroSection() {
               <div className="inline-flex items-center space-x-2 rounded-full border border-gold/30 bg-gold/10 px-3 py-1.5 backdrop-blur-md md:space-x-3 md:px-4 md:py-2 3xl:px-6 3xl:py-3">
                 <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse md:h-2 md:w-2 3xl:h-3 3xl:w-3" />
                 <span className="text-[0.5rem] font-bold uppercase tracking-[0.2em] text-gold md:text-[0.625rem] md:tracking-[0.4em] 3xl:text-sm">
-              {heroContent.badge}
+                  {heroContent.badge}
                 </span>
               </div>
               <div className="flex items-center space-x-2 border-l border-foreground/20 pl-4 text-[0.625rem] uppercase tracking-widest text-foreground/50 md:text-[0.6875rem] 3xl:pl-6 3xl:text-sm">
@@ -60,9 +78,9 @@ export function HeroSection() {
               style={{ willChange: "transform, opacity" }}
               className="mb-4 font-serif text-3xl font-medium leading-[1.1] tracking-tight text-foreground sm:text-4xl md:mb-6 md:text-6xl lg:text-7xl xl:text-8xl 3xl:mb-10 3xl:text-[8rem]"
             >
-             {heroContent.titleMain} <br />
+              {heroContent.titleMain} <br />
               <span className="mt-1 block pb-2 pr-2 gold-gradient-text font-normal italic md:mt-2 md:pb-4 3xl:pb-6">
-               {heroContent.titleAccent}
+                {heroContent.titleAccent}
               </span>
             </motion.h1>
 
@@ -85,27 +103,11 @@ export function HeroSection() {
               style={{ willChange: "transform, opacity" }}
               className="max-w-2xl 3xl:max-w-4xl"
             >
-              <div className="group relative">
-                <div className="absolute -inset-1 rounded-2xl bg-gold/20 opacity-0 blur-lg transition duration-700 group-hover:opacity-100" />
-                <div className="relative flex items-center rounded-xl border border-foreground/10 bg-lanka-black/60 p-1 shadow-2xl backdrop-blur-2xl md:rounded-2xl md:p-1.5 3xl:rounded-3xl 3xl:p-2">
-                  <div className="flex flex-1 items-center px-2 md:px-5 3xl:px-8">
-                    <Search className="h-3 w-3 shrink-0 text-gold md:h-5 md:w-5 3xl:h-8 3xl:w-8" />
-                    <input
-                      type="text"
-                      placeholder="Where to explore?"
-                      className="w-full bg-transparent p-2.5 text-sm font-light text-foreground outline-none placeholder:text-foreground/50 md:p-4 md:text-base 3xl:p-6 3xl:text-2xl"
-                    />
-                  </div>
-                  <Button type="button" variant="primary" className="3xl:px-12 3xl:py-6 3xl:text-lg 3xl:rounded-2xl">
-                    <span className="hidden sm:block">{heroContent.startJourneyText}</span>
-                    <ArrowRight className="h-4 w-4 sm:hidden 3xl:h-6 3xl:w-6" />
-                  </Button>
-                </div>
-              </div>
+              <OmniSearch />
 
               <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 3xl:mt-6 3xl:gap-x-6">
                 <span className="text-[0.6875rem] uppercase tracking-wider text-foreground/40 3xl:text-base">
-                {heroContent.popularLabel}
+                  {heroContent.popularLabel}
                 </span>
                 {heroPopularTags.map((tag, idx) => (
                   <Button key={idx} variant="tag" href={tag.href} className="3xl:text-base 3xl:pb-1">
@@ -114,10 +116,9 @@ export function HeroSection() {
                 ))}
               </div>
 
-              {/* HORIZONTAL SCROLL FIX: Removed overflow-hidden and adjusted margins/padding */}
               <div className="mt-8 flex flex-col gap-4 border-t border-foreground/10 pt-6 sm:mt-10 md:mt-12 md:gap-5 3xl:mt-16 3xl:pt-10">
                 <p className="text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-foreground/50 md:text-xs 3xl:text-base">
-                 {heroContent.servicesHeading}
+                  {heroContent.servicesHeading}
                 </p>
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4 3xl:gap-6">
                   {heroPopularServices.map((service, idx) => {

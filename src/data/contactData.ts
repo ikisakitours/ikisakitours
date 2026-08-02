@@ -21,7 +21,7 @@ export const contactData = {
   sidebar: {
     title: "Contact Info",
     info: [
-      { label: "Email Us", value: "hello@MammateTours.com" },
+      { label: "Email Us", value: "hello@MapMateTours.com" },
       { label: "Call Us", value: "+94 76 179 4522" },
       { label: "Our Office", value: "Malabe, Srilanka, 21120" },
       { label: "Working Hours", value: "Mon - Fri: 9 AM - 6 PM" },

@@ -13,7 +13,7 @@ export const heroPopularTags = [
 
 // Popular Services
 export const heroPopularServices = [
-  { label: "Private Vehicle Hire", href: "/services/private-vehicle" },
+  { label: "Chartering a Tax", href: "/services/private-vehicle" },
   { label: "Custom Made Tours", href: "/services/bespoke-travel" },
   { label: "Transfer Tours", href: "/services/transfers" },
 ] as const;
@@ -141,7 +141,7 @@ export const clientExperiencesContent = {
   titlePart1: "Voices of",
   titleAccent: "MapMate",
   avgScoreLabel: "Average Score",
-  basedOnText: "Based on", 
+  basedOnText: "Based on",
   globalReviewsText: "global reviews",
   leaveMarkBtn: "Leave Your Mark",
   backReviewsBtn: "BACK TO REVIEWS",
@@ -149,14 +149,14 @@ export const clientExperiencesContent = {
 };
 
 export const customTourContent = {
-  badge: "Tailored For You",
-  titlePart1: "Your Vision,",
-  titleAccent: "Impeccably",
-  titlePart2: "Executed.",
+  badge: "Bespoke & Flexible",
+  titlePart1: "Your Journey,",
+  titleAccent: "Entirely",
+  titlePart2: "Your Way.",
   watermark: "BESPOKE",
   description:
-    "Break free from preset routes. Share your desires, and our experts will design a flawless, private itinerary completely tailored to your pace and preferences.",
-  ctaText: "Let's Plan It",
+    "Break free from rigid itineraries. Shape every single detail on the fly and let our experts adapt your private journey to match your exact mood, pace, and spontaneous desires.",
+  ctaText: "Craft Your Journey",
 };
 
 export const contactCtaContent = {

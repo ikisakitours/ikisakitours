@@ -15,7 +15,7 @@ export function SpecialEventsSection() {
   const targetDate = activeEvent.targetDate || "";
 
   return (
-    <section id="events" className="relative overflow-hidden bg-background py-12 md:py-20 xl:py-24 3xl:py-32">
+    <section id="events" className="relative overflow-hidden bg-background py-12 md:py-20 xl:py-20 2xl:py-24 3xl:py-32">
       {/* Background Glow Effect */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-80 w-80 rounded-full bg-gold/10 blur-[140px] md:h-125 md:w-125" />
 

@@ -12,7 +12,7 @@ interface EventBodyProps {
 
 export function EventBody({ listItem }: EventBodyProps) {
   return (
-    <main className="min-h-screen bg-background text-foreground pb-24 pt-32 relative overflow-hidden">
+    <main className="min-h-screen bg-background text-foreground relative overflow-hidden pt-20 sm:pt-24 md:pt-26 lg:pt-28 2xl:pt-30 3xl:pt-32 pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
       <div className="pointer-events-none absolute left-1/2 top-20 -translate-x-1/2 h-96 w-96 rounded-full bg-gold/10 blur-[150px] z-0" />
 
       <ContainerLayout className="relative z-10">
@@ -36,7 +36,7 @@ export function EventBody({ listItem }: EventBodyProps) {
             />
 
             <EventAbout
-            slug={listItem.slug}
+              slug={listItem.slug}
               aboutTitle={listItem.aboutTitle}
               aboutText1={listItem.aboutText1}
               aboutText2={listItem.aboutText2}
