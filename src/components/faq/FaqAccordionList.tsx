@@ -2,6 +2,7 @@
 
 import React from "react";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { useTranslations } from "next-intl";
 //Icons
 import { Plus, Minus } from "lucide-react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
@@ -74,28 +75,29 @@ export default function FaqAccordionList({
   setSearchQuery,
   setActiveCategory,
 }: FaqAccordionListProps) {
+  const t = useTranslations("FaqPage");
   const getEmptyDescription = () => {
     const hasSearch = searchQuery.trim().length > 0;
     const hasCategory = activeCategory.toLowerCase() !== "all";
-
+    const translatedCategory = t(`Categories.${activeCategory}`);
     if (hasSearch && hasCategory) {
-      return `We couldn't find any questions matching "${searchQuery}" in the "${activeCategory}" category. Please clear filters or try another keyword.`;
+      return t("EmptyState.descSearchAndCategory", { query: searchQuery, category: translatedCategory });
     } else if (hasSearch) {
-      return `We couldn't find any questions matching "${searchQuery}". Please clear filters or try another keyword.`;
+      return t("EmptyState.descSearchOnly", { query: searchQuery });
     } else if (hasCategory) {
-      return `We couldn't find any questions available in the "${activeCategory}" category.`;
+      return t("EmptyState.descCategoryOnly", { category: translatedCategory });
     }
-    return "No questions found matching your criteria.";
+    return t("EmptyState.descDefault");
   };
 
   return (
     <div className="space-y-4">
       {filteredFaqs.length === 0 ? (
         <EmptyState
-          backgroundText="FAQ"
-          title="no questions found"
+          backgroundText={t("EmptyState.backgroundText")}
+          title={t("EmptyState.title")}
           description={getEmptyDescription()}
-          buttonText="Reset Filters"
+          buttonText={t("EmptyState.buttonText")}
           onAction={() => {
             setSearchQuery("");
             setActiveCategory("all");
@@ -116,7 +118,9 @@ export default function FaqAccordionList({
                 className="w-full flex items-center justify-between p-6 text-left outline-none"
               >
                 <div className="flex flex-col gap-1 pr-6">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-gold">{faq.category}</span>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-gold">
+                    {t(`Categories.${faq.category}`)}
+                  </span>
                   <h3 className={`text-base font-medium transition-colors ${isOpen ? "text-white" : "text-slate-200"}`}>
                     {faq.question}
                   </h3>

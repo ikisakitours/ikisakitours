@@ -7,9 +7,9 @@ import { packages } from "@/data/multiDaysTours";
 import { oneDayTours } from "@/data/oneDayTours";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
-import { toursSectionContent } from "@/data/home";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionBadge from "@/components/home/Events/SectionBadge";
+import { useTranslations } from "next-intl";
 //Icons
 import { FaClock } from "react-icons/fa6";
 import { Star } from "lucide-react";
@@ -28,6 +28,7 @@ const getBadgeStyles = (type: string) => {
 };
 
 export function ToursSection() {
+  const t = useTranslations("HomePage.Tours");
   const pathname = usePathname();
 
   const [activeTab, setActiveTab] = useState<"multi" | "one">(
@@ -59,7 +60,7 @@ export function ToursSection() {
   const displayPackages = [...currentPackages].sort((a, b) => Number(b.rating) - Number(a.rating)).slice(0, 4);
 
   return (
-    <section id="tours" className="bg-background pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
+    <section id="tours" className="bg-background py-12 md:py-20 xl:py-20 2xl:py-24 3xl:py-28">
       <ContainerLayout>
         {/* Header */}
         <motion.div
@@ -69,10 +70,10 @@ export function ToursSection() {
           transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
           className="mb-10 text-center md:mb-14 3xl:mb-20"
         >
-          <SectionBadge badge={toursSectionContent.badge} />
+          <SectionBadge badge={t("badge")} />
           <h2 className="premium-serif text-3xl font-light leading-tight text-white sm:text-5xl md:text-6xl 3xl:text-7xl">
-            {toursSectionContent.titlePart1}
-            <span className="gold-gradient-text italic">{toursSectionContent.titleAccent}</span>
+            {t("titlePart1")}
+            <span className="gold-gradient-text italic">{t("titleAccent")}</span>
           </h2>
         </motion.div>
 
@@ -92,7 +93,7 @@ export function ToursSection() {
                 : "border-white/20 hover:border-gold/50 hover:bg-gold/10 [&_span]:text-white/70! hover:[&_span]:text-white!"
             }`}
           >
-            {toursSectionContent.multiDayBtn}
+            {t("multiDayBtn")}
           </Button>
           <Button
             variant="shine"
@@ -103,7 +104,7 @@ export function ToursSection() {
                 : "border-white/20 hover:border-gold/50 hover:bg-gold/10 [&_span]:text-white/70! hover:[&_span]:text-white!"
             }`}
           >
-            {toursSectionContent.oneDayBtn}
+            {t("oneDayBtn")}
           </Button>
         </motion.div>
 
@@ -148,7 +149,7 @@ export function ToursSection() {
                     fill
                     sizes="(min-width: 1280px) 25vw, 100vw"
                     className="object-cover opacity-70!  group-hover:scale-110"
-                    wrapperClassName="w-full h-full" 
+                    wrapperClassName="w-full h-full"
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-black/40" />
                   <div className="absolute bottom-4 left-4 right-4 z-20 flex items-end justify-between 3xl:bottom-6 3xl:left-6 3xl:right-6">
@@ -176,7 +177,9 @@ export function ToursSection() {
                   </p>
                   <div className="mt-auto flex items-center justify-between border-t border-white/5 pt-4">
                     <div>
-                      <p className="text-[11px] uppercase leading-none tracking-widest text-slate-300">Starting from</p>
+                      <p className="text-[11px] uppercase leading-none tracking-widest text-slate-300">
+                        {t("startingFromText")}
+                      </p>
                       <p className="mt-1 text-lg font-bold text-gold">{item.price}</p>
                     </div>
                     <Button
@@ -187,7 +190,7 @@ export function ToursSection() {
                           : `/booking/one-day-tours/${item.slug}`
                       }
                     >
-                      {toursSectionContent.detailsBtnText}
+                      {t("detailsBtnText")}
                     </Button>
                   </div>
                 </div>
@@ -205,7 +208,7 @@ export function ToursSection() {
           className="mt-16 flex w-full items-center justify-center md:mt-20 3xl:mt-32"
         >
           <Button variant="explore" href={activeTab === "multi" ? "/tours/multi-days" : "/tours/one-day"}>
-            {activeTab === "multi" ? toursSectionContent.visitAllMultiText : toursSectionContent.viewAllOneText}
+            {activeTab === "multi" ? t("visitAllMultiText") : t("viewAllOneText")}
           </Button>
         </motion.div>
       </ContainerLayout>

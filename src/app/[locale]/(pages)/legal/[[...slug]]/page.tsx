@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import LegalBody from "@/components/legal/LegalBody";
-export const metadata: Metadata = {
-  title: "Terms of Service, Privacy, Booking & Payment Policies",
-  description: "Review MapMate's comprehensive legal information, including our terms of service, privacy policy, booking terms, and secure payment policies.",
-};
+import { getTranslations } from "next-intl/server";
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const t = await getTranslations({ locale, namespace: "LegalPage.Metadata" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
 export default function LegalPage() {
   return (

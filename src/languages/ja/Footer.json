@@ -1,0 +1,37 @@
+{
+  "exploreTitle": "探索",
+  "contactTitle": "お問い合わせ",
+  "newsletterTitle": "ニュースレター",
+  "newsletterDescription": "毎週の旅行のヒントや限定の隠れた名所を受け取りましょう。",
+  "emailPlaceholder": "メールアドレス...",
+  "buttonText": "購読する",
+  "copyright": " 2026 MapMate Luxury. で作成",
+  "forTravelers": "旅行者のために。",
+  "brandDescription": "インド洋の魂を発見しましょう。霧の山々から金の海岸まで、私たちは本格的な贅沢な体験を企画します。",
+  "nav": {
+    "Home": "ホーム",
+    "The Experience": "エクスペリエンス",
+    "Tour Packages": "ツアーパッケージ",
+    "Hidden Havens": "隠れた名所",
+    "Cultural Pageants": "文化的な祭典",
+    "Journal": "ジャーナル",
+    "FAQ": "よくある質問",
+    "Contact": "お問い合わせ"
+  },
+  "legal": {
+    "Terms of Use": "利用規約",
+    "Privacy Policy": "プライバシーポリシー",
+    "Booking Policy": "予約ポリシー",
+    "Payment Policy": "支払いポリシー"
+  },
+  "contactInfo": {
+    "Address": "スリランカ、コロンボ 03、ゴールロード 123",
+    "Phone": "+94 11 234 5678",
+    "Email": "hello@MapMate.com"
+  },
+  "TimeDiv": {
+    "title": "アイランドクロニクル",
+    "location": "コロンボ (GMT +05:30)",
+    "loading": "読み込み中..."
+  }
+}

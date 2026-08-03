@@ -3,22 +3,22 @@
 import React, { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { transferCards } from "@/data/transfers";
-import { transfersSectionContent } from "@/data/home";
+import { transferCards } from "@/data/home";
+import { trustBadgesData } from "@/data/home";
 import { motion } from "framer-motion";
 import SectionBadge from "@/components/home/Events/SectionBadge";
+import { useTranslations } from "next-intl";
+
 //Icons
 import { Car, ChevronLeft, ChevronRight, PlaneLanding, PlaneTakeoff } from "lucide-react";
 import { FaShieldAlt } from "react-icons/fa";
 import { FaClock } from "react-icons/fa6";
 
 const serviceIcons = [PlaneLanding, Car, PlaneTakeoff];
-const trustBadges = [
-  { label: "Fully Insured Fleet", Icon: FaShieldAlt },
-  { label: "24/7 Availability", Icon: FaClock },
-] as const;
+const trustBadges = [FaShieldAlt, FaClock];
 
 export function TransfersSection() {
+  const t = useTranslations("HomePage.Services.Transfers");
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -67,14 +67,14 @@ export function TransfersSection() {
           transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
           className="mb-12 text-center md:mb-20 lg:mb-24 3xl:mb-32"
         >
-          <SectionBadge badge={transfersSectionContent.badge} />
+          <SectionBadge badge={t("badge")} />
           <h2 className="mb-6 text-3xl font-light leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl 3xl:text-7xl">
-            {transfersSectionContent.titlePart1}{" "}
-            <span className="italic text-gold">{transfersSectionContent.titleAccent}</span>{" "}
-            {transfersSectionContent.titlePart2}
+            {t("titlePart1")}
+            <span className="italic text-gold">{t("titleAccent")}</span>
+            {t("titlePart2")}
           </h2>
           <p className="mx-auto mb-10 max-w-2xl text-base font-light leading-relaxed text-slate-300 md:text-lg 3xl:text-xl 3xl:max-w-3xl">
-            {transfersSectionContent.subtitle}
+            {t("subtitle")}
           </p>
         </motion.div>
 
@@ -110,11 +110,11 @@ export function TransfersSection() {
           ref={scrollContainerRef}
           className="flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto pb-8 no-scrollbar md:gap-8 xl:grid xl:grid-cols-3 xl:pb-0 3xl:gap-12 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none"
         >
-          {transferCards.map(({ title, description, action, href }, index) => {
+          {transferCards.map(({ id, href }, index) => {
             const Icon = serviceIcons[index];
             return (
               <motion.div
-                key={title}
+                key={id}
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "0px" }}
@@ -131,16 +131,18 @@ export function TransfersSection() {
                     <Icon className="h-6 w-6 text-gold md:h-8 md:w-8 3xl:h-10 3xl:w-10" />
                   </div>
                   <h5 className="mb-4 text-lg font-bold uppercase tracking-[0.15em] text-white md:text-xl lg:text-lg xl:text-xl 3xl:text-2xl">
-                    {title}
+                    {t(`cards.${id}.title`)}
                   </h5>
                   <p className="mb-8 grow text-sm font-normal leading-relaxed text-slate-400 md:text-base 3xl:text-lg 3xl:mb-12">
-                    {description}
+                    {t(`cards.${id}.description`)}
                   </p>
                   <Link
                     href={href}
                     className="inline-flex w-fit items-center text-[11px] font-bold uppercase tracking-[0.2em] text-gold transition-all group-hover:translate-x-2 md:text-[12px] 3xl:text-sm"
                   >
-                    <span className="border-b border-gold/40 pb-1 group-hover:border-gold">{action}</span>
+                    <span className="border-b border-gold/40 pb-1 group-hover:border-gold">
+                      {t(`cards.${id}.action`)}
+                    </span>
                     <ChevronRight className="ml-3 h-2.5 w-2.5 3xl:h-4 3xl:w-4" />
                   </Link>
                 </div>
@@ -157,14 +159,17 @@ export function TransfersSection() {
           transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 1, 0.5, 1] }}
           className="mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-6 opacity-70 md:mt-16 3xl:mt-24"
         >
-          {trustBadges.map(({ label, Icon }) => (
-            <div key={label} className="flex items-center space-x-3 3xl:space-x-4">
-              <Icon className="h-3.5 w-3.5 text-gold 3xl:h-5 3xl:w-5" />
-              <span className="text-[10px] font-bold uppercase tracking-widest text-white md:text-[11px] 3xl:text-xs">
-                {label}
-              </span>
-            </div>
-          ))}
+          {trustBadgesData.map(({ id }, index) => {
+            const Icon = trustBadges[index];
+            return (
+              <div key={id} className="flex items-center space-x-3 3xl:space-x-4">
+                <Icon className="h-3.5 w-3.5 text-gold 3xl:h-5 3xl:w-5" />
+                <span className="text-[10px] font-bold uppercase tracking-widest text-white md:text-[11px] 3xl:text-xs">
+                  {t(`trustBadges.${id}`)}
+                </span>
+              </div>
+            );
+          })}
         </motion.div>
       </ContainerLayout>
     </section>

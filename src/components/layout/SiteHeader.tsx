@@ -1,6 +1,6 @@
 "use client";
 import { UserProfileAvatar } from "./UserProfileAvatar";
-
+import { useTranslations } from 'next-intl';
 import Image from "next/image";
 import Link from "next/link";
 import { primaryNavigation } from "@/data/navigation";
@@ -56,6 +56,8 @@ const Curve = () => {
 };
 
 export function SiteHeader() {
+ const tNav = useTranslations('SiteHeader.navigation');
+
   const router = useRouter();
   const pathname = usePathname();
   const isHome = pathname === "/";
@@ -277,11 +279,11 @@ export function SiteHeader() {
             <div className="hidden items-center space-x-8 text-[11px] 2xl:text-[12px] font-bold uppercase tracking-[0.2em] text-slate-200 xl:flex xl:space-x-4 2xl:space-x-9">
               {primaryNavigation.map((item) => {
                 return (
-                  <div key={item.label} className="group relative">
+                  <div key={item.key} className="group relative">
                     {"isDropdown" in item && item.isDropdown ? (
                       <>
                         <button className={`${navLinkClass} flex items-center gap-1 uppercase`}>
-                          {item.label}
+                          {tNav(item.key)}
                           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                           </svg>
@@ -297,7 +299,7 @@ export function SiteHeader() {
                                 onClick={(e) => handleNavigation(e, subFinalHref, false)}
                                 className="px-5 py-2.5 text-[9px] xl:text-[10px] tracking-[0.15em] [word-spacing:3px] text-white/80 hover:bg-gold/10 hover:text-gold transition-colors block"
                               >
-                                {sub.label}
+                                {tNav(sub.key)}
                               </Link>
                             );
                           })}
@@ -310,7 +312,7 @@ export function SiteHeader() {
                           onClick={(e) => handleNavigation(e, getFinalHref(item.href, item.sectionId), false)}
                           className={`${navLinkClass} text-[10px] xl:text-[11px] 2xl:text-[12px] tracking-[0.25em] [word-spacing:3px]`}
                         >
-                          {item.label}
+                        {tNav(item.key)}
                         </Link>
                       )
                     )}
@@ -461,11 +463,11 @@ export function SiteHeader() {
                 >
                   {primaryNavigation.map((item) => {
                     return (
-                      <motion.div key={item.label} variants={linkVariants}>
+                      <motion.div key={item.key} variants={linkVariants}>
                         {"isDropdown" in item && item.isDropdown ? (
                           <div className="flex flex-col space-y-4 mt-4">
                             <span className="text-lg sm:text-xl font-bold uppercase tracking-[0.2em] text-white/40 border-b border-white/10 pb-2 mx-auto inline-block">
-                              {item.label}
+                            {tNav(item.key)}
                             </span>
                             {item.subItems?.map((sub) => {
                               const subFinalHref = getFinalHref(sub.href, sub.sectionId);
@@ -476,7 +478,7 @@ export function SiteHeader() {
                                   href={subFinalHref}
                                   className="text-sm sm:text-base font-bold uppercase tracking-[0.25em] [word-spacing:6px] block transition-colors duration-300 text-white hover:text-gold hover:scale-105"
                                 >
-                                  {sub.label}
+                                 {tNav(sub.key)}
                                 </Link>
                               );
                             })}
@@ -488,7 +490,7 @@ export function SiteHeader() {
                               href={getFinalHref(item.href, item.sectionId)}
                               className="text-base sm:text-lg font-bold uppercase tracking-[0.35em] [word-spacing:6px] block transition-colors duration-300 text-white hover:text-gold hover:scale-105"
                             >
-                              {item.label}
+                            {tNav(item.key)}
                             </Link>
                           )
                         )}

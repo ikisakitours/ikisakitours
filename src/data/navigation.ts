@@ -1,45 +1,45 @@
-export type NavLink = { label: string; href: string; sectionId?: string; isDropdown?: never; subItems?: never };
+export type NavLink = { key: string; href: string; sectionId?: string; isDropdown?: never; subItems?: never };
 export type NavDropdown = {
-  label: string;
+  key: string;
   isDropdown: true;
-  subItems: { label: string; href: string; sectionId?: string }[];
+  subItems: { key: string; href: string; sectionId?: string }[];
   href?: never;
 };
 export type NavItem = NavLink | NavDropdown;
 
 export const primaryNavigation: NavItem[] = [
-  { label: "Home", href: "/", sectionId: "" },
-  { label: "Experience", href: "/about", sectionId: "#about" },
+  { key: "Home", href: "/", sectionId: "" },
+  { key: "Experience", href: "/about", sectionId: "#about" },
   {
-    label: "Tours",
+    key: "Tours",
     isDropdown: true,
     subItems: [
-      { label: "Multi Days Tours", href: "/tours/multi-days", sectionId: "#tours-multi" },
-      { label: "One Day Tours", href: "/tours/one-day", sectionId: "#tours-one" },
+      { key: "Multi Days Tours", href: "/tours/multi-days", sectionId: "#tours-multi" },
+      { key: "One Day Tours", href: "/tours/one-day", sectionId: "#tours-one" },
     ],
   },
   {
-    label: "Services",
+    key: "Services",
     isDropdown: true,
     subItems: [
-      { label: "Custom Made Journeys", href: "/services/bespoke-travel", sectionId: "#custom-tours" },
-      { label: "Private Chauffeur Service", href: "/services/private-vehicle", sectionId: "#private-Vehicle-Hire" },
-      { label: "Airport & City Transfers", href: "/services/transfers", sectionId: "#transfers" },
+      { key: "Custom Made Journeys", href: "/services/bespoke-travel", sectionId: "#custom-tours" },
+      { key: "Private Chauffeur Service", href: "/services/private-vehicle", sectionId: "#private-Vehicle-Hire" },
+      { key: "Airport & City Transfers", href: "/services/transfers", sectionId: "#transfers" },
     ],
   },
   {
-    label: "More",
+    key: "More",
     isDropdown: true,
     subItems: [
       // 1. Discovery & Stories
-      { label: "Hidden Havens", href: "/destination", sectionId: "" },
-      { label: "Cultural Pageants", href: "/events", sectionId: "#events" },
-      { label: "Journal", href: "/blog", sectionId: "#blog" },
+      { key: "Hidden Havens", href: "/destination", sectionId: "" },
+      { key: "Cultural Pageants", href: "/events", sectionId: "#events" },
+      { key: "Journal", href: "/blog", sectionId: "#blog" },
 
       // 2. Trust & Support
-      { label: "Reviews", href: "/testimonials", sectionId: "#testimonials" },
-      { label: "FAQs", href: "/faq", sectionId: "" },
-      { label: "Contact", href: "/contact", sectionId: "#contact" },
+      { key: "Reviews", href: "/testimonials", sectionId: "#testimonials" },
+      { key: "FAQs", href: "/faq", sectionId: "" },
+      { key: "Contact", href: "/contact", sectionId: "#contact" },
     ],
   },
 ];
@@ -76,7 +76,7 @@ export const legalLinks = [
 ] as const;
 
 export const contactInfo = [
-  { label: "123 Galle Road, Colombo 03" },
-  { label: "+94 11 234 5678" },
-  { label: "hello@MapMate.com" },
+  { label: "Address", value: "123 Galle Road, Colombo 03" },
+  { label: "Phone", value: "+94 11 234 5678" },
+  { label: "Email", value: "hello@MapMate.com" },
 ] as const;

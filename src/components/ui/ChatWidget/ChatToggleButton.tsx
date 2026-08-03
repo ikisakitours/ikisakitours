@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import { useTranslations } from "next-intl";
+//Icons
 import { MessageCircle, X } from "lucide-react";
 
 interface ChatToggleButtonProps {
@@ -10,6 +12,7 @@ interface ChatToggleButtonProps {
 }
 
 export function ChatToggleButton({ isOpen, toggleChat, isAtBottom = false }: ChatToggleButtonProps) {
+  const tWidget = useTranslations("ChatWidget.Widget");
   return (
     <button
       onClick={toggleChat}
@@ -18,7 +21,7 @@ export function ChatToggleButton({ isOpen, toggleChat, isAtBottom = false }: Cha
           ? "opacity-0 translate-y-10 scale-50 pointer-events-none"
           : "opacity-100 translate-y-0 scale-100 pointer-events-auto hover:scale-110 active:scale-95"
       }`}
-      aria-label="Toggle chat"
+     aria-label={tWidget("toggleAria")}
     >
       <div className="absolute -inset-1.5 rounded-full border border-gold/30 animate-[spin_5s_linear_infinite] pointer-events-none" />
       <div className="absolute -inset-3 rounded-full border border-dashed border-gold/20 animate-[spin_10s_linear_infinite_reverse] pointer-events-none" />

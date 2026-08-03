@@ -2,7 +2,8 @@
 
 import React, { useRef, useState, useLayoutEffect, useEffect } from "react";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { destinations, discoveryContent } from "@/data/home";
+import { destinations } from "@/data/home";
+import { useTranslations } from "next-intl";
 import {
   motion,
   useScroll,
@@ -28,6 +29,7 @@ function useElementWidth(ref: React.RefObject<HTMLElement | null>) {
 }
 
 export function DiscoverySection() {
+  const t = useTranslations("HomePage.Discovery");
   const baseVelocity = -50;
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
@@ -94,10 +96,10 @@ export function DiscoverySection() {
   const trackItems = (
     <div className="flex items-center whitespace-nowrap py-10 shrink-0">
       {destinations.map((destination) => (
-        <div key={destination.number} className="group/item flex cursor-pointer items-center">
+        <div key={destination.id} className="group/item flex cursor-pointer items-center">
           <span className="mx-12 font-mono text-sm tracking-tighter text-gold/40">{destination.number}</span>
           <span className="text-2xl font-light uppercase tracking-[0.3em] text-white/70 transition-all duration-500 group-hover/item:text-gold md:text-3xl">
-            {destination.name}
+            {t(`destinations.${destination.id}`)}
           </span>
         </div>
       ))}
@@ -129,25 +131,25 @@ export function DiscoverySection() {
             transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
             className="w-full lg:max-w-2xl"
           >
-            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.5em] text-gold">Discovery</p>
+            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.5em] text-gold">{t("tag")}</p>
             <h3 className="mb-4 text-2xl font-light italic leading-tight text-white md:text-3xl lg:text-4xl">
-              {discoveryContent.titleOne} <span className="text-gold"> {discoveryContent.titleTwo}</span>
+              {t("titleOne")} <span className="text-gold"> {t("titleTwo")}</span>
             </h3>
 
             <div className="group relative mb-4 mt-6 pl-6 md:pl-8">
               <div className="absolute bottom-0 left-0 top-0 w-px bg-linear-to-b from-gold via-gold/20 to-transparent" />
               <p className="text-sm font-light leading-relaxed tracking-wide text-slate-300 md:text-base">
                 <span className="mb-2 block text-[11px] font-medium uppercase tracking-[0.2em] text-white/90">
-                  {discoveryContent.subheading}
+                  {t("subheading")}
                 </span>
-                {discoveryContent.descriptionPart1}
+                {t("descriptionPart1")}
                 <span className="relative inline transition-colors duration-500 group-hover:text-gold">
                   <span className="inline text-lg font-bold italic tracking-normal text-white md:text-xl">
-                    {discoveryContent.highlightText}
+                    {t("highlightText")}
                   </span>
                   <span className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-gold/30 transition-transform duration-700 group-hover:scale-x-100" />
                 </span>
-                <span className="ml-1 inline opacity-70">{discoveryContent.descriptionPart2}</span>
+                <span className="ml-1 inline opacity-70">{t("descriptionPart2")}</span>
               </p>
             </div>
           </motion.div>
@@ -159,7 +161,7 @@ export function DiscoverySection() {
             transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 1, 0.5, 1] }}
             className="flex shrink-0 flex-col items-start lg:items-end"
           >
-            <div className="mb-2 text-[10px] uppercase tracking-[0.3em] text-slate-200">{discoveryContent.status}</div>
+            <div className="mb-2 text-[10px] uppercase tracking-[0.3em] text-slate-200">{t("status")}</div>
             <div className="h-px w-24 bg-gold/30 md:w-32" />
           </motion.div>
         </div>

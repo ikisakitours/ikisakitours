@@ -1,23 +1,23 @@
-export const transferCards = [
-  {
-    title: "Airport Pick-Up",
-    description: "Meet & greet service at Bandaranaike International Airport with comfortable private vehicles.",
-    action: "Book Transfer",
-    href: "services/transfers",
-  },
-  {
-    title: "Hotel & City",
-    description: "Smooth transport between hotels, cities, beaches, and cultural destinations.",
-    action: "View Fleet",
-    href: "services/transfers",
-  },
-  {
-    title: "Drop-Off",
-    description: "Safe and timely drop-off to airport or your next destination at the end of your journey.",
-    action: "Schedule Now",
-    href: "services/transfers",
-  },
-] as const;
+// export const transferCards = [
+//   {
+//     title: "Airport Pick-Up",
+//     description: "Meet & greet service at Bandaranaike International Airport with comfortable private vehicles.",
+//     action: "Book Transfer",
+//     href: "services/transfers",
+//   },
+//   {
+//     title: "Hotel & City",
+//     description: "Smooth transport between hotels, cities, beaches, and cultural destinations.",
+//     action: "View Fleet",
+//     href: "services/transfers",
+//   },
+//   {
+//     title: "Drop-Off",
+//     description: "Safe and timely drop-off to airport or your next destination at the end of your journey.",
+//     action: "Schedule Now",
+//     href: "services/transfers",
+//   },
+// ] as const;
 
 export type TransferServiceId = "pickup" | "hotel" | "dropoff";
 

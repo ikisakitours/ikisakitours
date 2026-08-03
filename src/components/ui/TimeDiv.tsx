@@ -2,11 +2,12 @@
 
 import React, { useState, useEffect } from "react";
 import { LiveClockIcon } from "@/components/ui/LiveClockIcon";
-
+import { useTranslations } from "next-intl";
 //Icons
 // import { FaHourglass } from "react-icons/fa";
 
 export default function TimeDiv() {
+  const tTimeDiv = useTranslations("Footer.TimeDiv");
   const [time, setTime] = useState<Date | null>(null);
 
   useEffect(() => {
@@ -61,16 +62,16 @@ export default function TimeDiv() {
         <div className="flex items-center justify-center gap-2 font-bold uppercase tracking-widest text-gold text-xs sm:text-sm md:text-sm lg:text-base xl:text-lg 2xl:text-lg 3xl:text-[1.325rem]">
           {/* <FaHourglass className="h-3 w-3 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4 3xl:h-5 3xl:w-5" /> */}
           {/* <LiveClockIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 lg:h-4.5 lg:w-4.5 3xl:h-6 3xl:w-6" />    */}
-          <span>Island Chronicle</span>
+          <span>{tTimeDiv("title")}</span>
         </div>
 
         {/* Time and Date */}
         <div className="text-xl min-[340px]:max-[365px]:text-[1.1rem] md:text-[1.15rem] 3xl:text-[1.6rem] font-bold text-foreground whitespace-nowrap mt-1">
-          {time ? `${formatDate(time)} | ${formatTime(time)}` : "Loading..."}
+          {time ? `${formatDate(time)} | ${formatTime(time)}` : tTimeDiv("loading")}
         </div>
 
         {/* Location */}
-        <div className="text-xs 2xl:text-[0.85rem] 3xl:text-[1.1rem] text-foreground/50 mt-1">Colombo (GMT +05:30)</div>
+        <div className="text-xs 2xl:text-[0.85rem] 3xl:text-[1.1rem] text-foreground/50 mt-1">{tTimeDiv("location")}</div>
       </div>
     </div>
   );

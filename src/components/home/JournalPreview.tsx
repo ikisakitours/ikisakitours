@@ -4,13 +4,16 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { motion } from "framer-motion";
-import { journalPreviewContent } from "@/data/home";
 import { blogPosts } from "@/data/blog";
 import SectionBadge from "@/components/home/Events/SectionBadge";
+import { useTranslations } from "next-intl";
+
 //icons
 import { ArrowRight } from "lucide-react";
 
 export function JournalPreview() {
+  const t = useTranslations("HomePage.JournalPreview");
+
   return (
     <section id="blog" className="overflow-hidden bg-lanka-black py-12 md:py-20 xl:py-20 2xl:py-24 3xl:py-32">
       <ContainerLayout>
@@ -23,14 +26,14 @@ export function JournalPreview() {
           className="mb-16 flex flex-col justify-between gap-8 md:mb-20 lg:flex-row lg:items-end 3xl:mb-28"
         >
           <div className="max-w-2xl">
-            <SectionBadge badge={journalPreviewContent.badge} />
+            <SectionBadge badge={t("badge")} />
             <h2 className="font-serif text-3xl font-light leading-[1.1] text-white sm:text-5xl md:text-6xl 3xl:text-7xl">
-              {journalPreviewContent.titlePart1}{" "}
-              <span className="gold-gradient-text italic">{journalPreviewContent.titleAccent}</span>
+              {t("titlePart1")}
+              <span className="gold-gradient-text italic">{t("titleAccent")}</span>
             </h2>
           </div>
           <p className="max-w-md text-base font-light italic leading-relaxed text-slate-400 md:text-lg lg:mb-2 3xl:max-w-xl 3xl:text-xl">
-            {journalPreviewContent.subtitle}
+            {t("subtitle")}
           </p>
         </motion.div>
 
@@ -59,7 +62,7 @@ export function JournalPreview() {
                   href={`/blog/${post.slug}?from=home`}
                   className="group/link inline-flex w-fit items-center text-[10px] font-bold uppercase tracking-[0.2em] text-gold 3xl:text-xs"
                 >
-                  {journalPreviewContent.readMoreText}
+                  {t("readMoreText")}
                   <ArrowRight className="ml-2 h-3.5 w-3.5 transition-transform group-hover/link:translate-x-2 3xl:h-4 3xl:w-4" />
                 </Link>
               </div>
@@ -76,7 +79,7 @@ export function JournalPreview() {
           className="mt-16 flex w-full items-center justify-center md:mt-24 3xl:mt-32"
         >
           <Button variant="explore" href="/blog">
-            {journalPreviewContent.exploreMoreBtn}
+            {t("exploreMoreBtn")}
           </Button>
         </motion.div>
       </ContainerLayout>
