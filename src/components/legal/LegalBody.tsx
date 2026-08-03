@@ -5,10 +5,12 @@ import { LegalHero } from "@/components/legal/LegalHero";
 import { legalDocuments, type LegalDocumentId } from "@/data/legal";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
+import { useTranslations } from "next-intl";
 
 export default function LegalBody() {
   const router = useRouter();
   const pathname = usePathname();
+  const t = useTranslations("LegalPage.Tabs");
 
   const currentSlug = pathname.split("/").pop() as LegalDocumentId;
 
@@ -22,7 +24,7 @@ export default function LegalBody() {
   };
 
   return (
-    <ContainerLayout className=" py-20 sm:py-24 md:py-26 lg:py-28 2xl:py-30 3xl:py-32">
+    <ContainerLayout className="py-20 sm:py-24 md:py-26 lg:py-28 2xl:py-30 3xl:py-32">
       <div className="mx-auto max-w-7xl">
         <LegalHero activeDoc={activeDoc} />
 
@@ -35,7 +37,7 @@ export default function LegalBody() {
               onClick={() => handleTabChange(doc.id)}
               className={activeId === doc.id ? "bg-gold! border-gold! text-lanka-black!" : ""}
             >
-              {doc.title}
+              {t(doc.id)}
             </Button>
           ))}
         </div>

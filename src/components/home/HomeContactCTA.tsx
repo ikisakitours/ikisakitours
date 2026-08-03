@@ -3,11 +3,13 @@ import { LoadingImage } from "@/components/ui/LoadingImage";
 import { motion } from "framer-motion";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
-import { contactCtaContent } from "@/data/home";
+import { contactCtaUsersData, contactCtaImagesData } from "@/data/home";
+import { useTranslations } from "next-intl";
 //Icons
 import { MapPin, Sparkles, Star, ArrowRight } from "lucide-react";
 
 export default function HomeContactCTA() {
+  const t = useTranslations("HomePage.ContactCta");
   return (
     <section
       id="contact"
@@ -19,7 +21,7 @@ export default function HomeContactCTA() {
       {/* Background Watermark */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden mt-2">
         <span className="select-none text-[20vw] lg:text-[18vw] 2xl:text-[20vw] font-black uppercase tracking-tighter text-white/2">
-          {contactCtaContent.watermark}
+          {t("watermark")}
         </span>
       </div>
 
@@ -37,41 +39,41 @@ export default function HomeContactCTA() {
             {/* Top Badge */}
             <div className="inline-flex items-center gap-3 rounded-full border border-gold/30 bg-gold/10 px-5 py-2 backdrop-blur-md">
               <Sparkles className="h-4 w-4 text-gold" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold">
-                {contactCtaContent.badge}
-              </span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold">{t("badge")}</span>
             </div>
 
             {/* Heading */}
             <h2 className="text-5xl md:text-6xl xl:text-7xl font-serif text-white leading-[1.1] tracking-tight">
-              {contactCtaContent.titlePart1} <br />
+              {t("titlePart1")} <br />
               <span className="relative mt-2 inline-block">
-                <span className="relative z-10 pr-4 font-light italic text-gold">{contactCtaContent.titleAccent}</span>
+                <span className="relative z-10 pr-4 font-light italic text-gold">{t("titleAccent")}</span>
                 <span className="absolute bottom-2 left-0 -z-10 h-3 w-full -rotate-2 bg-gold/20"></span>
               </span>
               <br />
-              {contactCtaContent.titlePart2}
+              {t("titlePart2")}
             </h2>
 
-            <p className="max-w-lg text-lg font-light leading-relaxed text-slate-400 md:text-xl">
-              {contactCtaContent.description}
-            </p>
+            <p className="max-w-lg text-lg font-light leading-relaxed text-slate-400 md:text-xl">{t("description")}</p>
 
             {/* CTA Buttons & Trust Indicators */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-8 pt-4">
               <Button variant="inquire" href="/contact" className="group shrink-0">
-                {contactCtaContent.ctaButtonText}
+                {t("ctaButtonText")}
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" strokeWidth={3} />
               </Button>
 
               <div className="flex items-center gap-4 border-l border-white/10 pl-8">
                 <div className="flex -space-x-2">
-                  {[1, 2, 3].map((i) => (
-                    <div key={i} className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-[#050505]">
+                  {contactCtaUsersData.map((user) => (
+                    <div
+                      key={user.id}
+                      className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-[#050505]"
+                    >
                       <LoadingImage
-                        src={`https://i.pravatar.cc/100?img=${i + 30}`}
-                        alt="User"
+                        src={user.avatarUrl}
+                        alt={t("imagesAlt.userAvatar")}
                         fill
+                        sizes="40px"
                         isSmall
                         className="object-cover"
                         wrapperClassName="w-full h-full"
@@ -85,9 +87,7 @@ export default function HomeContactCTA() {
                       <Star key={star} className="h-3 w-3 fill-gold" />
                     ))}
                   </div>
-                  <p className="mt-1 text-[10px] uppercase tracking-widest text-white/50">
-                    {contactCtaContent.reviewCountText}
-                  </p>
+                  <p className="mt-1 text-[10px] uppercase tracking-widest text-white/50">{t("reviewCountText")}</p>
                 </div>
               </div>
             </div>
@@ -104,9 +104,10 @@ export default function HomeContactCTA() {
             {/* Main Tall Image */}
             <div className="relative z-10 ml-auto aspect-3/4 w-[85%] overflow-hidden rounded-[2.5rem] border border-white/10 shadow-2xl md:w-[75%]">
               <LoadingImage
-                src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=95&w=1400&auto=format&fit=crop"
-                alt="Luxury Travel Experience"
+                src={contactCtaImagesData[0].src}
+                alt={t("imagesAlt.mainExperience")}
                 fill
+                sizes="(max-width: 768px) 85vw, (max-width: 1024px) 75vw, 40vw"
                 className="object-cover hover:scale-105"
                 wrapperClassName="w-full h-full"
               />
@@ -122,9 +123,10 @@ export default function HomeContactCTA() {
               className="absolute -bottom-10 left-0 z-20 aspect-square w-[45%] overflow-hidden rounded-3xl border-4 border-[#050505] shadow-2xl md:w-[40%]"
             >
               <LoadingImage
-                src="https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=800&auto=format&fit=crop"
-                alt="Detail Shot"
+                src={contactCtaImagesData[1].src}
+                alt={t("imagesAlt.detailShot")}
                 fill
+                sizes="(max-width: 768px) 45vw, (max-width: 1024px) 40vw, 20vw"
                 className="object-cover"
                 wrapperClassName="w-full h-full"
               />
@@ -143,9 +145,9 @@ export default function HomeContactCTA() {
                   <MapPin className="h-5 w-5 text-gold" />
                 </div>
                 <div className="pr-2">
-                  <p className="text-[15px] font-bold text-white">{contactCtaContent.localExpertsText}</p>
+                  <p className="text-[15px] font-bold text-white">{t("localExpertsText")}</p>
                   <p className="mt-0.5 text-[12px] font-bold uppercase tracking-widest gold-gradient-text">
-                    {contactCtaContent.supportText}
+                    {t("supportText")}
                   </p>
                 </div>
               </div>

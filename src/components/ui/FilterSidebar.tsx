@@ -12,6 +12,8 @@ type CategoryFilterSidebarProps = {
   onSelectCategory: (category: string) => void;
   title?: string;
   categoryCounts: Record<string, number>;
+  categoryLabels?: Record<string, string>;
+  clearFilterText?: string;
 };
 
 const customEase: [number, number, number, number] = [0.76, 0, 0.24, 1];
@@ -78,6 +80,8 @@ export function FilterSidebar({
   onSelectCategory,
   title = "Select Category",
   categoryCounts,
+  categoryLabels,
+  clearFilterText = "Clear Filter",
 }: CategoryFilterSidebarProps) {
   useEffect(() => {
     if (isOpen) {
@@ -139,7 +143,7 @@ export function FilterSidebar({
                   }`}
                 >
                   <FilterX className="h-4 w-4" />
-                  Clear Filter
+                  {clearFilterText}
                 </button>
               </div>
 
@@ -153,7 +157,7 @@ export function FilterSidebar({
                 {categories.map((item) => {
                   const isActive = item === selectedCategory;
                   const count = categoryCounts[item] || 0;
-
+                  const displayLabel = categoryLabels?.[item] || item;
                   return (
                     <motion.button
                       key={item}
@@ -174,7 +178,7 @@ export function FilterSidebar({
                             isActive ? "text-black" : "text-white transition-colors group-hover:text-gold"
                           }`}
                         >
-                          {item}
+                          {displayLabel}
                         </span>
                         <span
                           className={`text-[10px] font-bold ${

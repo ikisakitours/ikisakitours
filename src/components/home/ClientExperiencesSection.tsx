@@ -7,13 +7,16 @@ import { testimonials } from "@/data/testimonials";
 import { WriteReviewForm } from "@/components/ui/WriteReviewForm";
 import { motion, AnimatePresence } from "framer-motion";
 import { RatingStars } from "@/components/ui/RatingStars";
-import { clientExperiencesContent } from "@/data/home";
 import SectionBadge from "@/components/home/Events/SectionBadge";
+import { useTranslations } from "next-intl";
+
 //Icons
 import { ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
 import { TestimonialCard } from "@/components/testimonials/TestimonialCard";
 
 export function ClientExperiencesSection() {
+  const t = useTranslations("HomePage.ClientExperiences");
+
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isWritingReview, setIsWritingReview] = useState(false);
 
@@ -77,11 +80,11 @@ export function ClientExperiencesSection() {
             transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
             className="text-center md:text-left"
           >
-            <SectionBadge badge={clientExperiencesContent.badge} />
+            <SectionBadge badge={t("badge")} />
             <h2 className="font-serif text-3xl font-light leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">
-              {clientExperiencesContent.titlePart1}
+              {t("titlePart1")}
               <span className="bg-[linear-gradient(to_right,#d4af37,#fbe106,#c5a028)] bg-clip-text font-normal italic text-transparent pl-3">
-                {clientExperiencesContent.titleAccent}
+                {t("titleAccent")}
               </span>
             </h2>
           </motion.div>
@@ -97,7 +100,7 @@ export function ClientExperiencesSection() {
               <div className="border-r border-white/10 pr-6 text-center">
                 <div className="text-4xl font-light leading-none text-white">{averageScore}</div>
                 <div className="mt-2 text-[10px] font-bold uppercase tracking-widest text-gold">
-                  {clientExperiencesContent.avgScoreLabel}
+                  {t("avgScoreLabel")}
                 </div>
               </div>
               <div>
@@ -105,9 +108,9 @@ export function ClientExperiencesSection() {
                   <RatingStars rating={starCount} starClassName="h-3.5 w-3.5 text-gold" />
                 </div>
                 <p className="text-xs font-light tracking-wide text-slate-400">
-                  {clientExperiencesContent.basedOnText}{" "}
-                  <span className="font-bold text-white">{reviewCountDisplay}</span>{" "}
-                  {clientExperiencesContent.globalReviewsText}
+                  {t("basedOnText")}
+                  <span className="font-bold text-white">{reviewCountDisplay}</span>
+                  {t("globalReviewsText")}
                 </p>
               </div>
             </motion.div>
@@ -127,7 +130,7 @@ export function ClientExperiencesSection() {
                   transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
                 >
                   <Button variant="shine" onClick={() => setIsWritingReview(true)}>
-                    {clientExperiencesContent.leaveMarkBtn}
+                    {t("leaveMarkBtn")}
                   </Button>
                 </motion.div>
               ) : (
@@ -140,7 +143,7 @@ export function ClientExperiencesSection() {
                 >
                   <Button variant="reviewTag" onClick={() => setIsWritingReview(false)}>
                     <ArrowLeft className="h-4 w-4 shrink-0" strokeWidth={3} />
-                    {clientExperiencesContent.backReviewsBtn}
+                    {t("backReviewsBtn")}
                   </Button>
                 </motion.div>
               )}
@@ -225,7 +228,7 @@ export function ClientExperiencesSection() {
               className="mt-12 flex justify-center md:mt-20"
             >
               <Button variant="explore" href="/testimonials">
-                {clientExperiencesContent.exploreMoreTestimonialsBtn}
+                {t("exploreMoreTestimonialsBtn")}
               </Button>
             </motion.div>
           </div>

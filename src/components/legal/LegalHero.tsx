@@ -1,7 +1,9 @@
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { type LegalDocument } from "@/data/legal";
+import { useTranslations } from "next-intl";
 
 export function LegalHero({ activeDoc }: { activeDoc: LegalDocument }) {
+  const t = useTranslations("LegalPage.Hero");
   const titleParts = activeDoc.title.split(activeDoc.accent);
 
   return (
@@ -15,7 +17,7 @@ export function LegalHero({ activeDoc }: { activeDoc: LegalDocument }) {
       </h1>
 
       <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 md:text-sm">
-        Last Updated: {activeDoc.lastUpdated}
+        {t("lastUpdated")} {activeDoc.lastUpdated} 
       </p>
     </header>
   );

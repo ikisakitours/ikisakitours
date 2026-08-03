@@ -9,8 +9,11 @@ import { FormError } from "@/components/ui/FormError";
 import { CustomCountrySelect } from "@/components/ui/CustomCountrySelect";
 import PhoneInput, { Country } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+import { useTranslations } from "next-intl";
 
 export function ChatMailForm() {
+  const t = useTranslations("ChatWidget.MailForm");
+  const tPhone = useTranslations("ValidationErrors.PhoneDetection");
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -82,14 +85,14 @@ export function ChatMailForm() {
         {/* Full Name */}
         <div>
           <label className="relative block">
-            <span className={`${floatingLabelClass} text-[10px]`}>Full Name *</span>
+            <span className={`${floatingLabelClass} text-[10px]`}>{t("fullNameLabel")}</span>
             <input
               type="text"
               name="fullName"
               value={formData.fullName}
               onChange={handleTextChange}
               className={`${inputClass} pt-6 pb-2.5 md:pt-5 md:pb-2 text-[13px]`}
-              placeholder="Alexander Knight"
+              placeholder={t("fullNamePlaceholder")}
             />
           </label>
           <div className="ml-2 mt-0.5">
@@ -100,14 +103,14 @@ export function ChatMailForm() {
         {/* Email Address */}
         <div>
           <label className="relative block">
-            <span className={`${floatingLabelClass} text-[10px]`}>Email Address *</span>
+            <span className={`${floatingLabelClass} text-[10px]`}>{t("emailLabel")}</span>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleTextChange}
               className={`${inputClass} pt-6 pb-2.5 md:pt-5 md:pb-2 text-[13px]`}
-              placeholder="alex@example.com"
+              placeholder={t("emailPlaceholder")}
             />
           </label>
           <div className="ml-2 mt-0.5">
@@ -118,7 +121,7 @@ export function ChatMailForm() {
         {/* Phone Number with IP Detection */}
         <div className="flex flex-col gap-1">
           <label className="relative block">
-            <span className={`${floatingLabelClass} text-[10px]`}>Phone Number *</span>
+            <span className={`${floatingLabelClass} text-[10px]`}>{t("phoneLabel")}</span>
             <PhoneInput
               key={detectedCode || "default-key"}
               international
@@ -146,21 +149,17 @@ export function ChatMailForm() {
           {/* IP Detection Feedbacks */}
           <div className="ml-2 mt-0.5">
             {isDetecting ? (
-              <p className="text-[9px] italic text-slate-500 animate-pulse">Detecting dialing code...</p>
+              <p className="text-[9px] italic text-slate-500 animate-pulse">{tPhone("detecting")}</p>
             ) : (
               <>
                 {!userInteracted && detectedCode && (
-                  <p className="text-[9px] font-medium text-emerald-500/80">
-                    We automatically detected your location. If this is incorrect, please change it.
-                  </p>
+                  <p className="text-[9px] font-medium text-emerald-500/80">{tPhone("autoDetected")}</p>
                 )}
                 {userInteracted && detectedCode && selectedCountry === detectedCode && (
-                  <p className="text-[9px] font-medium text-emerald-500/80">Location confirmed successfully!</p>
+                  <p className="text-[9px] font-medium text-emerald-500/80">{tPhone("confirmed")}</p>
                 )}
                 {userInteracted && detectedCode && selectedCountry !== detectedCode && (
-                  <p className="text-[9px] font-medium text-amber-500/90">
-                    Note: The selected dialing code differs from your detected location. Please check.
-                  </p>
+                  <p className="text-[9px] font-medium text-amber-500/90">{tPhone("mismatch")}</p>
                 )}
               </>
             )}
@@ -171,7 +170,7 @@ export function ChatMailForm() {
         {/* Message */}
         <div>
           <label className="relative block">
-            <span className={`${fieldLabelClass} text-[10px]`}>Message *</span>
+            <span className={`${fieldLabelClass} text-[10px]`}>{t("messageLabel")}</span>
             <textarea
               name="message"
               value={formData.message}
@@ -180,10 +179,10 @@ export function ChatMailForm() {
                 handleInput(e);
               }}
               className={`${inputClass} auto-resize-textarea min-h-22.5 md:min-h-20 w-full resize-none pt-6 pb-2.5 md:pt-5 md:pb-2 text-[13px] transition-all focus:border-gold/60 focus:bg-white/[0.07] focus:outline-none`}
-              placeholder="Type Your Message And Hit Enter..."
+              placeholder={t("messagePlaceholder")}
             />
             <span className="ml-1 mt-0.5 block text-[9px] font-medium text-slate-500 leading-relaxed">
-              * Box will expand automatically as you type.
+              {t("messageNote")}
             </span>
           </label>
           <div className="ml-2 mt-0.5">
@@ -200,7 +199,7 @@ export function ChatMailForm() {
           className="w-full md:w-full justify-center py-2.5 md:py-4 text-sm rounded-xl"
         >
           <Send size={15} className="mr-2" />
-          Start Chat
+         {t("submitButton")}
         </Button>
       </div>
     </form>

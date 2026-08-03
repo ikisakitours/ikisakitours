@@ -2,6 +2,7 @@
 
 import React from "react";
 import { CloseButton } from "@/components/ui/ChatWidget/CloseButton";
+import { useTranslations } from "next-intl";
 
 interface ChatTooltipsProps {
   isOpen: boolean;
@@ -22,6 +23,8 @@ export function ChatTooltips({
   onCloseSideTooltip,
   onCloseBottomTooltip,
 }: ChatTooltipsProps) {
+  const t = useTranslations("ChatWidget.Tooltips");
+  const tWidget = useTranslations("ChatWidget.Widget");
   return (
     <>
       <div
@@ -38,9 +41,9 @@ export function ChatTooltips({
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-gold" />
             </span>
-            <span className="gold-gradient-text font-bold">We&apos;re here!</span>
+            <span className="gold-gradient-text font-bold">{t("sideTooltip")}</span>
           </span>
-          <CloseButton onClick={onCloseSideTooltip} className="p-1 z-30" aria-label="Close tooltip" iconSize={14} />
+          <CloseButton onClick={onCloseSideTooltip} className="p-1 z-30" aria-label={tWidget("closeTooltipAria")} iconSize={14} />
         </div>
         <div className="absolute top-1/2 -right-1.5 -translate-y-1/2 w-3 h-3 bg-surface border-r border-t border-gold/50 rotate-45 pointer-events-none shadow-md" />
       </div>
@@ -56,7 +59,7 @@ export function ChatTooltips({
         <CloseButton
           onClick={onCloseBottomTooltip}
           className="absolute -top-2.5 -right-2.5 p-1.5 z-30"
-          aria-label="Close tooltip"
+         aria-label={tWidget("closeTooltipAria")}
           iconSize={13}
         />
 
@@ -68,17 +71,16 @@ export function ChatTooltips({
           {/* Message Heading (Title) */}
           <div className="relative z-10 flex items-center justify-between mb-1.5">
             <h4 className="text-[14px] font-bold text-white flex items-center gap-2">
-              <span className="text-base">👋</span> Hello there!
+              <span className="text-base">👋</span>{t("bottomHeading")}
             </h4>
             <span className="text-[9px] text-gold uppercase tracking-widest bg-gold/10 px-2 py-0.5 rounded-full border border-gold/20">
-              New Message
+             {t("bottomBadge")}
             </span>
           </div>
 
           {/* Message Body (Description) */}
           <p className="relative z-10 text-[12px] text-slate-300 leading-relaxed mb-4">
-            Ready to explore the breathtaking beauty of Sri Lanka? Let us help you craft the perfect itinerary tailored
-            just for you.
+           {t("bottomBody")}
           </p>
 
           {/* Action Link / Highlighting Text */}
@@ -88,10 +90,10 @@ export function ChatTooltips({
             <div className="flex justify-between items-end">
               <div className="flex flex-col gap-0.5">
                 <span className="text-[8.5px] text-gold/50 uppercase tracking-[0.3em] font-light">
-                  Bespoke Experience
+                 {t("actionHighlight")}
                 </span>
                 <span className="text-[13px] text-white/90 font-light tracking-wide">
-                  Customize <span className="font-serif italic text-gold font-medium">Private Tour</span>
+                  {t("actionText1")} <span className="font-serif italic text-gold font-medium">Private Tour{t("actionText2")}</span>
                 </span>
               </div>
 

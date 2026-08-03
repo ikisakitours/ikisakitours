@@ -1,16 +1,16 @@
 import { Fuel, MapPinned, Car, UserCheck, Map, Wallet } from "lucide-react";
-export const featureCards = [
-  {
-    title: "Total Itinerary Control",
-    description: "You decide the destinations, the stops, and the pace. No pre-packaged tours—just your plan.",
-    Icon: MapPinned,
-  },
-  {
-    title: "Flexible & Transparent",
-    description: "All-inclusive, custom quotes tailored to your unique itinerary. No hidden costs, ever.",
-    Icon: Fuel,
-  },
-] as const;
+// export const featureCards = [
+//   {
+//     title: "Total Itinerary Control",
+//     description: "You decide the destinations, the stops, and the pace. No pre-packaged tours—just your plan.",
+//     Icon: MapPinned,
+//   },
+//   {
+//     title: "Flexible & Transparent",
+//     description: "All-inclusive, custom quotes tailored to your unique itinerary. No hidden costs, ever.",
+//     Icon: Fuel,
+//   },
+// ] as const;
 
 export const languageBadges = ["JP", "FR", "ES", "GB"] as const;
 export const Languages = ["English", "Japanese", "French", "Spanish"] as const;

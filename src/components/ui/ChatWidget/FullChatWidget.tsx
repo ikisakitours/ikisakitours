@@ -9,12 +9,14 @@ import { ChatHeader } from "@/components/ui/ChatWidget/ChatHeader";
 import { ChatTooltips } from "@/components/ui/ChatWidget/ChatTooltips";
 import { ChatToggleButton } from "@/components/ui/ChatWidget/ChatToggleButton";
 import { useDocumentTitleNotification } from "@/hooks/useDocumentTitleNotification";
+import { useTranslations } from "next-intl";
 
 export function FullChatWidget() {
+  const tWidget = useTranslations("ChatWidget.Widget");
   const [isMounted, setIsMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-const [isGlobalModalOpen, setIsGlobalModalOpen] = useState(false);
+  const [isGlobalModalOpen, setIsGlobalModalOpen] = useState(false);
 
   // States initialized without direct window references to prevent hydration mismatch
   const [showSideTooltip, setShowSideTooltip] = useState(false);
@@ -276,7 +278,7 @@ const [isGlobalModalOpen, setIsGlobalModalOpen] = useState(false);
   }, [isMounted]);
 
   const whatsappNumber = "94789187072";
-  const defaultMessage = "Hello! I would like to plan a tour to Sri Lanka.";
+  const defaultMessage = tWidget("whatsappDefaultText");
   const waLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(defaultMessage)}`;
 
   if (!isMounted) return null; // Prevents hydration error by rendering nothing until client-side is ready

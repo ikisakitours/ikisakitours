@@ -1,13 +1,4 @@
-export const faqPageData = {
-  hero: {
-    image: "https://images.unsplash.com/photo-1512632578888-169bbbc64f33?q=95&w=1600&auto=format&fit=crop",
-    altText: "Customer Support and Assistance",
-    eyebrow: "SUPPORT & FAQ",
-    title: "How can we help you?",
-    accent: "help you?",
-    strapline: "Find quick answers to common questions about your bespoke Sri Lankan journey.",
-  },
-};
+
 
 export const faqCategories = ["all", "Ticketing & Visa Services", "General", "Booking", "Refunds", "Tours", "Payments"];
 

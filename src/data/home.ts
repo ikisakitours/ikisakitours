@@ -1,174 +1,116 @@
+// ==========================================
+// HERO SECTION DATA
+// ==========================================
 export const heroStats = [
-  { value: "5.0", label: "TripAdvisor" },
-  { value: "12+", label: "Languages" },
-  { value: "100%", label: "Private" },
+  { value: "5.0", id: "TripAdvisor" },
+  { value: "12+", id: "Languages" },
+  { value: "100%", id: "Private" },
 ] as const;
 
-//  Popular Tags
 export const heroPopularTags = [
-  { label: "#GalleFort", href: "/destinations/galle-fort" },
-  { label: "#YalaSafari", href: "/destinations/yala-safari" },
-  { label: "#TeaCountry", href: "/destinations/tea-country" },
+  { id: "GalleFort", href: "/destinations/galle-fort" },
+  { id: "YalaSafari", href: "/destinations/yala-safari" },
+  { id: "TeaCountry", href: "/destinations/tea-country" },
 ] as const;
 
-// Popular Services
 export const heroPopularServices = [
-  { label: "Chartering a Tax", href: "/services/private-vehicle" },
-  { label: "Custom Made Tours", href: "/services/bespoke-travel" },
-  { label: "Transfer Tours", href: "/services/transfers" },
+  { id: "Taxi", href: "/services/private-vehicle" },
+  { id: "CustomTours", href: "/services/bespoke-travel" },
+  { id: "Transfers", href: "/services/transfers" },
 ] as const;
 
-//Discovery Places
+export const HeroBackGroundImages = [
+  {
+    id: "sigiriyaView",
+    mobileUrl: "/images/sander-traa-bfdshIHD5Y4-unsplash.webp",
+    desktopUrl: "/images/sander-traa-bfdshIHD5Y4-unsplash.webp",
+  },
+] as const;
+
+// ==========================================
+// DISCOVERY SECTION DATA
+// ==========================================
 export const destinations = [
-  { number: "/01", name: "Sigiriya" },
-  { number: "/02", name: "Ella" },
-  { number: "/03", name: "Mirissa" },
-  { number: "/04", name: "Nuwara Eliya" },
-  { number: "/05", name: "Galle Fort" },
+  { number: "/01", id: "sigiriya" },
+  { number: "/02", id: "ella" },
+  { number: "/03", id: "mirissa" },
+  { number: "/04", id: "nuwaraEliya" },
+  { number: "/05", id: "galleFort" },
 ] as const;
 
-export const heroContent = {
-  badge: "The Gold Standard of Travel",
-  award: "Travel+Leisure 2026",
-  titleMain: "Sri Lanka",
-  titleAccent: "Beyond the Map",
-  description: "MapMate personalized tours with master guides in ",
-  languagesOne: "Japanese, French, Spanish",
-  languagesTwo: "English.",
-  searchPlaceholder: "Where to explore?",
-  startJourneyText: "Start Journey",
-  popularLabel: "Popular:",
-  servicesHeading: "Discover Our Popular Services",
-};
-
-export const discoveryContent = {
-  tag: "Discovery",
-  titleOne: "The Most Popular",
-  titleTwo: "Destinations of 2026",
-  subheading: "A Journey Redefined",
-  descriptionPart1: "Experience the curated selection of Sri Lanka's finest. Check our exclusive packages and ",
-  highlightText: "explore the Pearl of the Indian Ocean",
-  descriptionPart2: "in unparalleled luxury.",
-  status: "Status: Trending",
-};
-
-export const experienceSectionContent = {
-  badge: "MapMate Travel Partner",
-  titlePart1: "Curating Memories",
-  titleAccent: "Beyond Borders",
-  description:
-    "We specialize in high-end, personalized journeys across Sri Lanka. Our mission is to bridge the gap between cultures by providing expert insights in your native tongue.",
-  responseTitle: "Response within 2 hours",
-  responseSubtitle: "Available 24/7 Global Support",
-  inquireButtonText: "Inquire Now",
-  floatingStats: [
-    { value: "500+", label: "Completed Tours", mobileLabel: "Tours" },
-    { value: "10+", labelOne: "Years of", labelTwo: "Luxury Hosting" }, // Note: handled in component
-  ],
-};
-
+// ==========================================
+// EXPERIENCE SECTION DATA
+// ==========================================
 export const experiencePillars = [
+  { id: "NativeFluency" },
+  { id: "Certified" },
+  { id: "PrivateFleet" },
+  { id: "Customized" },
+] as const;
+
+export const experienceFloatingStatsData = [
+  { value: "500+", id: "CompletedTours" }, // mapped to "floatingStats" in JSON
+  { value: "10+", id: "YearsOf" },
+] as const;
+
+export const experienceImagesData = [
+  { id: "culturalGuide", src: "/images/polonnaruwa-185290_1280.webp", className: "" },
+  { id: "luxuryTravel", src: "/images/sri-lanka-334437_1280.webp", className: "mt-8 md:mt-12 xl:mt-16 3xl:mt-24" },
+] as const;
+
+// ==========================================
+// TRANSFERS SECTION DATA
+// ==========================================
+export const trustBadgesData = [{ id: "insured" }, { id: "availability" }] as const;
+
+export const transferCards = [
   {
-    title: "Native Fluency",
-    description: "Japanese, French, and English support for seamless communication.",
+    id: "airportPickup",
+    href: "/services/transfers",
   },
   {
-    title: "Certified",
-    description: "Licensed National Tourist Guide Lecturers with deep expertise.",
+    id: "hotelCity",
+    href: "/services/transfers",
   },
   {
-    title: "Private Fleet",
-    description: "Executive luxury vehicles.",
+    id: "dropOff",
+    href: "/services/transfers",
   },
+] as const;
+// ==========================================
+// PRIVATE VEHICLE SECTION DATA
+// ==========================================
+export const privateVehicleImagesData = [
   {
-    title: "Customized",
-    description: "Tailored unique pace.",
+    id: "luxuryVan",
+    src: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=2000&auto=format&fit=crop",
   },
 ] as const;
 
-export const transfersSectionContent = {
-  badge: "Chauffeur Service",
-  titlePart1: "Traveler's Pick-Up",
-  titleAccent: "&",
-  titlePart2: "Drop-Off",
-  subtitle:
-    "Comfortable, safe & reliable transport for Japanese 🇯🇵 , French 🇫🇷 ,Spain 🇪🇸 and English 🇬🇧 travelers anywhere in Sri Lanka.",
-};
+export const featureCardsData = [
+  {
+    id: "itineraryControl",
+  },
+  {
+    id: "flexibleTransparent",
+  },
+] as const;
+// ==========================================
+// CONTACT CTA
+// ==========================================
+export const contactCtaImagesData = [
+  {
+    id: "mainExperience",
+    src: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=95&w=1400&auto=format&fit=crop",
+  },
+  {
+    id: "detailShot",
+    src: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=800&auto=format&fit=crop",
+  },
+] as const;
 
-export const privateVehicleContent = {
-  badge: "Private Vehicle Hire",
-  titlePart1: "Your Private Vehicle",
-  titleAccent: "&",
-  titlePart2: "Driver",
-  description:
-    "Experience total autonomy on your travels. Whether you are crafting a cross-country adventure or a simple city transfer, our premium vehicles and professional drivers are at your command. You dictate the destination, the stops, and the schedule—we handle the logistics, ensuring a seamless journey entirely on your terms.",
-  nativeFriendlyText: "Native Friendly",
-  quote:
-    "You design the journey, we ensure the safety. Experience total freedom while we handle your protection and logistics.",
-  hireButtonText: "Hire Your Vehicle",
-  consultText: "Consult With Us",
-  whatsappText: "Direct WhatsApp",
-  modalTitlePart: "How would you like to",
-  modalTitleAccent: "connect?",
-  modalWhatsapp: "WhatsApp",
-  modalEmail: "Email",
-  modalResponseText: "Our team typically responds within 15 minutes.",
-};
-
-export const toursSectionContent = {
-  badge: "Exclusive Itineraries",
-  titlePart1: "Curated",
-  titleAccent: "Tour Packages",
-  multiDayBtn: "Multi-Day Tours",
-  oneDayBtn: "One Day Excursions",
-  startingFromText: "Starting from",
-  detailsBtnText: "Details",
-  visitAllMultiText: "Visit All Multi Day Tours",
-  viewAllOneText: "View All One Day Tours",
-};
-
-export const journalPreviewContent = {
-  badge: "Insights",
-  titlePart1: "Travel",
-  titleAccent: "Journal",
-  subtitle: "Curated stories and expert advice to help you navigate the wonders of Sri Lanka with ease.",
-  readMoreText: "Read More",
-  exploreMoreBtn: "Explore More Blogs",
-};
-
-export const clientExperiencesContent = {
-  badge: "Client Experiences",
-  titlePart1: "Voices of",
-  titleAccent: "MapMate",
-  avgScoreLabel: "Average Score",
-  basedOnText: "Based on",
-  globalReviewsText: "global reviews",
-  leaveMarkBtn: "Leave Your Mark",
-  backReviewsBtn: "BACK TO REVIEWS",
-  exploreMoreTestimonialsBtn: "Explore More Testimonials",
-};
-
-export const customTourContent = {
-  badge: "Bespoke & Flexible",
-  titlePart1: "Your Journey,",
-  titleAccent: "Entirely",
-  titlePart2: "Your Way.",
-  watermark: "BESPOKE",
-  description:
-    "Break free from rigid itineraries. Shape every single detail on the fly and let our experts adapt your private journey to match your exact mood, pace, and spontaneous desires.",
-  ctaText: "Craft Your Journey",
-};
-
-export const contactCtaContent = {
-  badge: "Bespoke Experiences",
-  titlePart1: "Your Vision,",
-  titleAccent: "Impeccably",
-  titlePart2: "Executed.",
-  watermark: "MAPMATE",
-  description:
-    "Break free from preset routes. Share your desires, and our luxury travel designers will curate a flawless, private itinerary completely tailored to your pace.",
-  ctaButtonText: "Enquire Your Bespoke",
-  reviewCountText: "Loved by 1k+ Explorers",
-  localExpertsText: "Local Experts",
-  supportText: "24/7 Support",
-};
+export const contactCtaUsersData = [
+  { id: "user1", avatarUrl: "https://i.pravatar.cc/100?img=31" },
+  { id: "user2", avatarUrl: "https://i.pravatar.cc/100?img=32" },
+  { id: "user3", avatarUrl: "https://i.pravatar.cc/100?img=33" },
+] as const;

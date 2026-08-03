@@ -4,9 +4,8 @@ import { useState, useMemo, useRef, useEffect } from "react";
 import Link from "next/link";
 import { motion, Transition } from "framer-motion";
 import { Search, ArrowRight, MapPin, Map, BookOpen, CalendarHeart } from "lucide-react";
-
 import { Button } from "@/components/ui/Button";
-import { heroContent } from "@/data/home";
+import { useTranslations } from "next-intl";
 
 // Data Imports
 import { destinationsData } from "@/data/destinationData";
@@ -21,6 +20,7 @@ const smoothTransition: Transition = {
 };
 
 export function OmniSearch() {
+   const t = useTranslations("HomePage.Hero");
   const [searchQuery, setSearchQuery] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const searchContainerRef = useRef<HTMLDivElement>(null);
@@ -88,7 +88,7 @@ export function OmniSearch() {
             <Search className="h-3 w-3 shrink-0 text-gold md:h-5 md:w-5 3xl:h-8 3xl:w-8" />
             <input
               type="text"
-              placeholder="Where to explore? (Try 'Sigiriya' or 'Kandy')"
+              placeholder={t("content.searchPlaceholder")}
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
@@ -99,7 +99,7 @@ export function OmniSearch() {
             />
           </div>
           <Button type="button" variant="primary" className="3xl:px-12 3xl:py-6 3xl:text-lg 3xl:rounded-2xl">
-            <span className="hidden sm:block">{heroContent.startJourneyText}</span>
+            <span className="hidden sm:block">{t("content.startJourneyText")}</span>
             <ArrowRight className="h-4 w-4 sm:hidden 3xl:h-6 3xl:w-6" />
           </Button>
         </div>

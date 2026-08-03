@@ -6,10 +6,12 @@ import FaqAccordionList from "@/components/faq/FaqAccordionList";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { FilterSidebar } from "@/components/ui/FilterSidebar";
 import { SearchInput } from "@/components/ui/SearchInput";
+import { useTranslations } from "next-intl";
 //icons
 import { Filter } from "lucide-react";
 
 export default function FaqBody() {
+  const t = useTranslations("FaqPage");
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
   const [openFaqId, setOpenFaqId] = useState<string | null>(null);
@@ -41,6 +43,14 @@ export default function FaqBody() {
     setOpenFaqId((prev) => (prev === id ? null : id));
   };
 
+  const categoryTranslatedLabels = useMemo(() => {
+    const labels: Record<string, string> = {};
+    faqCategories.forEach((cat) => {
+      labels[cat] = t(`Categories.${cat}`);
+    });
+    return labels;
+  }, [t]);
+
   return (
     <section className="w-full flex flex-col pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
       {/* Content wrapper using reusable ContainerLayout */}
@@ -55,10 +65,10 @@ export default function FaqBody() {
               >
                 <Filter className="h-4 w-4 transition-all duration-300 group-hover:scale-110 group-hover:text-black" />
                 <span className="transition-colors duration-300 group-hover:text-black sm:hidden">
-                  Filter Categories
+                  {t("UI.filterButton")}
                 </span>
                 <span className="hidden transition-colors duration-300 group-hover:text-black sm:block">
-                  Filter Categories
+                  {t("UI.filterButton")}
                 </span>
                 {activeCategory.toLowerCase() !== "all" && (
                   <span className="ml-2 flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-[9px] font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a] group-hover:text-gold">
@@ -72,9 +82,9 @@ export default function FaqBody() {
             <SearchInput
               value={searchQuery}
               onChange={setSearchQuery}
-              placeholder="Search for a question..."
+              placeholder={t("UI.searchPlaceholder")}
               count={filteredFaqs.length}
-              itemLabel="Question"
+              itemLabel={t("UI.searchItemLabel")}
               className="md:w-72 lg:w-96"
             />
           </div>
@@ -104,8 +114,10 @@ export default function FaqBody() {
           setActiveCategory(cat);
           setOpenFaqId(null);
         }}
-        title="FAQ Categories"
+        title={t("UI.sidebarTitle")}
         categoryCounts={categoryCounts}
+        categoryLabels={categoryTranslatedLabels}
+        clearFilterText={t("UI.clearFilter")}
       />
     </section>
   );
