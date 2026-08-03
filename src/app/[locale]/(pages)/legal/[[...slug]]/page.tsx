@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import LegalBody from "@/components/legal/LegalBody";
 import { getTranslations } from "next-intl/server";
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "LegalPage.Metadata" });
 
   return {
