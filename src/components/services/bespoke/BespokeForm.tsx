@@ -2,7 +2,6 @@
 
 import { type FormEvent, useState } from "react";
 import { vehicles } from "@/data/vehicles";
-import { BespokeSidebar } from "@/data/bespokeTravel";
 import { BespokeJourneyFields } from "./BespokeJourneyFields";
 import { type ActiveVehicleFilter } from "@/components/services/VehicleSelector";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
@@ -11,10 +10,17 @@ import { ContactForm, type ContactData } from "@/components/services/ContactForm
 import { useValidationForm } from "@/hooks/useValidationForm";
 import FormPanel from "@/components/services/FormPanel";
 import StepHeading from "@/components/services/StepHeading";
-
+import { languages } from "@/data/Languages-CurrencyData";
 import { InfoSidebar } from "@/components/services/InfoSidebar";
+import { useTranslations } from "next-intl";
+
+// Icons for Sidebar
+import { ShieldCheck, Clock, Headset, Sparkles } from "lucide-react";
 
 export function BespokeForm() {
+  const tStep = useTranslations("Services.StepHeadings");
+  const tSidebar = useTranslations("Services.Bespoke.Sidebar");
+
   const defaultCategory = vehicles[0].category;
   const defaultVehicleId = vehicles[0].id;
 
@@ -27,7 +33,7 @@ export function BespokeForm() {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [language, setLanguage] = useState<string>("");
- const [tourDays, setTourDays] = useState<number>(0);
+  const [tourDays, setTourDays] = useState<number>(0);
   const [travelerCounts, setTravelerCounts] = useState<Record<string, number>>({
     adult: 0,
     couple: 0,
@@ -80,6 +86,22 @@ export function BespokeForm() {
     });
   };
 
+  const featuresData = tSidebar.raw("features") as { title: string; description: string }[];
+
+  const bespokeSidebarProps = {
+    titleBase: tSidebar("titleBase"),
+    titleAccent: tSidebar("titleAccent"),
+    subtitle: tSidebar("subtitle"),
+    features: [
+      { icon: ShieldCheck, title: featuresData[0]?.title || "", description: featuresData[0]?.description || "" },
+      { icon: Clock, title: featuresData[1]?.title || "", description: featuresData[1]?.description || "" },
+      { icon: Headset, title: featuresData[2]?.title || "", description: featuresData[2]?.description || "" },
+    ],
+    footerIcon: Sparkles,
+    footerTitle: tSidebar("footerTitle"),
+    footerDescription: tSidebar("footerDescription"),
+  };
+
   return (
     <ContainerLayout className="relative z-20 pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
       <div className="grid gap-8 xl:grid-cols-12 xl:items-start">
@@ -106,6 +128,7 @@ export function BespokeForm() {
               onTourRequestsChange={setTourRequests}
               errors={errors}
               setErrors={setErrors}
+              languagesList={languages}
             />
           </FormPanel>
 
@@ -117,7 +140,7 @@ export function BespokeForm() {
           </FormPanel>
         </form>
         {/* Right Side: Info Sidebar */}
-        <InfoSidebar {...BespokeSidebar} />
+        <InfoSidebar {...bespokeSidebarProps} />
       </div>
 
       <div className="xl:col-span-12">

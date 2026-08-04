@@ -14,7 +14,7 @@ export function Hero({ image, altText, eyebrow, title, accent, strapline }: Hero
   const titleParts = title.split(accent);
 
   return (
-    <header className="relative flex flex-col justify-center text-center bg-lanka-dark h-[35vh] min-h-80 md:h-[40vh] md:min-h-87.5 lg:h-[50vh] lg:min-h-100 xl:h-[55vh] xl:min-h-112.5 2xl:h-[60vh] 2xl:min-h-125 3xl:h-[65vh] 3xl:min-h-137.5">
+    <header className="relative flex flex-col justify-center text-center bg-lanka-dark h-[40vh] min-h-85 md:h-[45vh] md:min-h-90 lg:h-[50vh] lg:min-h-100 xl:h-[55vh] xl:min-h-112.5 2xl:h-[60vh] 2xl:min-h-125 3xl:h-[65vh] 3xl:min-h-137.5">
       <div className="absolute inset-0 z-0 overflow-hidden">
         {/* 1. Mobile Image  */}
         <Image

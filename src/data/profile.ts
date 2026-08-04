@@ -23,10 +23,4 @@ export const profileTabs: ProfileTab[] = [
   { id: "security", label: "Security & Privacy" },
 ];
 
-export const passwordRequirements = [
-  "At least 8 characters",
-  "1 Uppercase letter",
-  "1 Lowercase letter",
-  "1 Numeral",
-  "1 Special character",
-] as const;
+

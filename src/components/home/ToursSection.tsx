@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/i18nNavigation";
 import { LoadingImage } from "@/components/ui/LoadingImage";
 import { packages } from "@/data/multiDaysTours";
 import { oneDayTours } from "@/data/oneDayTours";

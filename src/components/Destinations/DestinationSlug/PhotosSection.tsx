@@ -1,6 +1,6 @@
 import React from "react";
 import { LoadingImage } from "@/components/ui/LoadingImage";
-import Link from "next/link";
+import { Link } from "@/i18nNavigation";
 //Icons
 import { Images, Plus } from "lucide-react";
 

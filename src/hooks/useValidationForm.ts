@@ -144,7 +144,7 @@ export const useValidationForm = () => {
     // 14. Confirm Password Validation
     if (data.confirmPassword !== undefined) {
       if (!data.confirmPassword) newErrors.confirmPassword = t("confirmPasswordRequired");
-      else if (data.confirmPassword !== data.password) newErrors.confirmPassword = t("passwordsMatch");
+      else if (data.confirmPassword !== data.password) newErrors.confirmPassword = t("passwordsDoNotMatch");
     }
 
     // 15. Current Password Validation
@@ -210,7 +210,6 @@ export const useValidationForm = () => {
       }
     }
 
-    // 23. Inquiry Type Validation (අලුතින් එකතු කළ කොටස)
     if (data.inquiryType !== undefined && (!data.inquiryType || data.inquiryType.trim() === "")) {
       newErrors.inquiryType = t("inquiryTypeRequired");
     }

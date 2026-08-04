@@ -1,16 +1,18 @@
-import type { Metadata } from "next";
 import { AccountRecoveryForm } from "@/components/auth/accountRecovery/AccountRecoveryForm";
 import { AuthShell } from "@/components/auth/AuthShell";
-import { accountRecoveryIntro } from "@/data/auth";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Account Recovery",
-  description: "Request a MapMate account recovery email.",
-};
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+  const t = await getTranslations({ locale, namespace: "Auth.Metadata.Recovery" });
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
 export default function ConfirmEmailPage() {
   return (
-    <AuthShell intro={accountRecoveryIntro}>
+    <AuthShell introKey="Recovery">
       <AccountRecoveryForm />
     </AuthShell>
   );

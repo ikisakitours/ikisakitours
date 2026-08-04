@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { FormError } from "@/components/ui/FormError";
 import { ALL_COUNTRIES } from "@/data/auth";
+import { useTranslations } from "next-intl";
 //Icons
 import { Globe, ChevronDown, Search } from "lucide-react";
 
@@ -26,6 +27,9 @@ export function CountrySelect({
   showIcon = true,
   customLabel,
 }: CountrySelectProps) {
+  const tValidate = useTranslations("ValidationErrors");
+  const tForm = useTranslations("SharedForm");
+
   const [countriesList, setCountriesList] = useState(ALL_COUNTRIES);
   const [countryCode, setCountryCode] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -53,7 +57,7 @@ export function CountrySelect({
       try {
         setIsDetecting(true);
         const res = await fetch("https://ipapi.co/json/");
-        
+
         if (!res.ok) {
           throw new Error(`API Fetch Failed with status: ${res.status}`);
         }
@@ -89,7 +93,9 @@ export function CountrySelect({
       {customLabel ? (
         customLabel
       ) : (
-        <span className="ml-1 block text-[10px] font-bold uppercase tracking-[0.2em] text-gold">Country / Region</span>
+        <span className="ml-1 block text-[10px] font-bold uppercase tracking-[0.2em] text-gold">
+          {tForm("Labels.country")}
+        </span>
       )}
 
       <div
@@ -119,7 +125,7 @@ export function CountrySelect({
               <span className="text-white text-sm 3xl:text-lg">{countryName}</span>
             </div>
           ) : (
-            <span className="text-slate-500 text-sm 3xl:text-lg">Select your country</span>
+            <span className="text-slate-500 text-sm 3xl:text-lg">{tForm("Placeholders.selectCountry")}</span>
           )}
         </div>
         <ChevronDown
@@ -136,7 +142,7 @@ export function CountrySelect({
                 <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-500" />
                 <input
                   type="text"
-                  placeholder="Search country..."
+                  placeholder={tForm("Placeholders.searchCountry")}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-9 pr-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-gold/50 focus:bg-white/10 transition-colors"
@@ -172,7 +178,7 @@ export function CountrySelect({
                   </div>
                 ))
               ) : (
-                <div className="px-3 py-6 text-center text-sm text-slate-500">No countries found</div>
+                <div className="px-3 py-6 text-center text-sm text-slate-500">{tValidate("noCountries")}</div>
               )}
             </div>
           </div>
@@ -181,36 +187,36 @@ export function CountrySelect({
 
       <div className="ml-2 mt-2">
         {isDetecting ? (
-          <p className="text-[10px] italic text-slate-500 animate-pulse">Detecting your location...</p>
+          <p className="text-[10px] italic text-slate-500 animate-pulse">{tValidate("LocationDetection.detecting")}</p>
         ) : (
           <>
             {!userInteracted && detectedCode && (
               <p className="text-[10px] font-medium leading-relaxed text-emerald-500/80">
-                We automatically detected your location. If this is incorrect, please change it.
+                {tValidate("LocationDetection.autoDetected")}
               </p>
             )}
 
             {!userInteracted && !detectedCode && (
               <p className="text-[10px] font-medium leading-relaxed text-slate-400">
-                Please select your country from the list below.
+                {tValidate("LocationDetection.fallback")}
               </p>
             )}
 
             {userInteracted && detectedCode && countryCode === detectedCode && (
               <p className="text-[10px] font-medium leading-relaxed text-emerald-500/80">
-                Location confirmed successfully!
+                {tValidate("LocationDetection.confirmed")}
               </p>
             )}
 
             {userInteracted && detectedCode && countryCode !== detectedCode && (
               <p className="text-[10px] font-medium leading-relaxed text-amber-500/90">
-                Note: The selected dialing code differs from your detected location. Please check.
+                {tValidate("LocationDetection.mismatch")}
               </p>
             )}
 
             {userInteracted && !detectedCode && (
               <p className="text-[10px] font-medium leading-relaxed text-emerald-500/80">
-                Country selected successfully.
+                {tValidate("LocationDetection.success")}
               </p>
             )}
           </>

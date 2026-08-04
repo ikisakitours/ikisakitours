@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/link";
+import { Link } from "@/i18nNavigation";
 import Image from "next/image";
 //Icon
 import { ArrowRight } from "lucide-react";

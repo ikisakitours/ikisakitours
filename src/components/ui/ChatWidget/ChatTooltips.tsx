@@ -93,7 +93,7 @@ export function ChatTooltips({
                  {t("actionHighlight")}
                 </span>
                 <span className="text-[13px] text-white/90 font-light tracking-wide">
-                  {t("actionText1")} <span className="font-serif italic text-gold font-medium">Private Tour{t("actionText2")}</span>
+                  {t("actionText1")} <span className="font-serif italic text-gold font-medium">{t("actionText2")}</span>
                 </span>
               </div>
 

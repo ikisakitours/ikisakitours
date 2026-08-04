@@ -1,10 +1,11 @@
 "use client";
-import Link from "next/link";
+import { Link } from "@/i18nNavigation";
 import { type FormEvent, useState, useRef } from "react";
 import { Button } from "@/components/ui/Button";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { FormError } from "@/components/ui/FormError";
-import { strengthChecks } from "@/data/auth";
+import { useTranslations } from "next-intl";
+import { usePasswordStrength } from "@/hooks/usePasswordStrength";
 //Icons
 import { CheckCircle2, Eye, EyeOff } from "lucide-react";
 
@@ -14,6 +15,10 @@ const inputClass =
 type PasswordFieldKey = "current" | "new" | "confirm";
 
 export function SecuritySettingsPanel() {
+  const t = useTranslations("ProfilePage");
+  const tForm = useTranslations("SharedForm");
+  const tError = useTranslations("ValidationErrors");
+
   const [visibleFields, setVisibleFields] = useState<Record<PasswordFieldKey, boolean>>({
     current: false,
     new: false,
@@ -23,13 +28,16 @@ export function SecuritySettingsPanel() {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  // Real-time states
-  const [metRequirements, setMetRequirements] = useState<string[]>([]);
-  const [transientSuccessMsgs, setTransientSuccessMsgs] = useState<string[]>([]);
+
+  const {
+    transientSuccessMsgs,
+    localError,
+    handlePasswordChange,
+    handlePasswordBlur,
+  } = usePasswordStrength();
+
   const [transientConfirmSuccess, setTransientConfirmSuccess] = useState<string[]>([]);
-  const [localNewError, setLocalNewError] = useState("");
   const [localConfirmError, setLocalConfirmError] = useState("");
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
   const confirmTimerRef = useRef<NodeJS.Timeout | null>(null);
   const { errors, validate, setErrors } = useValidationForm();
 
@@ -37,51 +45,11 @@ export function SecuritySettingsPanel() {
     setVisibleFields((current) => ({ ...current, [field]: !current[field] }));
   };
 
-  // --- Current Password Handling ---
   const handleCurrentPasswordChange = (val: string) => {
     setCurrentPassword(val);
     setErrors((prev) => ({ ...prev, currentPassword: "" }));
   };
 
-  // --- New Password Handling ---
-  const handleNewPasswordChange = (val: string) => {
-    setNewPassword(val);
-    setErrors((prev) => ({ ...prev, password: "" }));
-    setLocalNewError("");
-
-    if (val === "") {
-      setTransientSuccessMsgs([]);
-      setMetRequirements([]);
-      return;
-    }
-
-    const currentlyMet = strengthChecks.filter((req) => req.regex.test(val)).map((req) => req.id);
-    const newlyMet = currentlyMet.filter((id) => !metRequirements.includes(id));
-
-    if (newlyMet.length > 0) {
-      const newMessages = newlyMet.map((id) => {
-        const metRule = strengthChecks.find((req) => req.id === id);
-        return `${metRule?.msg}`;
-      });
-
-      setTransientSuccessMsgs(newMessages);
-
-      if (timerRef.current) clearTimeout(timerRef.current);
-      timerRef.current = setTimeout(() => setTransientSuccessMsgs([]), 2000);
-    }
-    setMetRequirements(currentlyMet);
-  };
-
-  const handleNewPasswordBlur = () => {
-    if (newPassword === "") return;
-
-    const unmet = strengthChecks.filter((req) => !req.regex.test(newPassword));
-    if (unmet.length > 0) {
-      setLocalNewError(`Missing: ${unmet[0].msg}`);
-    }
-  };
-
-  // --- Confirm Password Handling ---
   const handleConfirmChange = (val: string) => {
     setConfirmPassword(val);
     setErrors((prev) => ({ ...prev, confirmPassword: "" }));
@@ -93,7 +61,7 @@ export function SecuritySettingsPanel() {
     }
 
     if (val === newPassword) {
-      setTransientConfirmSuccess(["Passwords match"]);
+      setTransientConfirmSuccess([tError("passwordsMatch")]);
       if (confirmTimerRef.current) clearTimeout(confirmTimerRef.current);
       confirmTimerRef.current = setTimeout(() => setTransientConfirmSuccess([]), 2000);
     } else {
@@ -103,11 +71,10 @@ export function SecuritySettingsPanel() {
 
   const handleConfirmBlur = () => {
     if (confirmPassword !== "" && confirmPassword !== newPassword) {
-      setLocalConfirmError("Passwords do not match");
+      setLocalConfirmError(tError("passwordsDoNotMatch"));
     }
   };
 
-  // --- Submit Handling ---
   const handleSecurityUpdate = (e: FormEvent) => {
     e.preventDefault();
 
@@ -125,12 +92,12 @@ export function SecuritySettingsPanel() {
   return (
     <section className="animate-fade-in-up space-y-8">
       <div className="glass-card rounded-3xl p-6 md:p-12">
-        <h2 className="premium-serif mb-6 text-2xl text-white">Security Access</h2>
+        <h2 className="premium-serif mb-6 text-2xl text-white">{t("SecurityPanel.title")}</h2>
 
         <form className="space-y-6" onSubmit={handleSecurityUpdate} noValidate>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             <PasswordField
-              label="Current Password"
+              label={tForm("Labels.currentPassword")}
               value={currentPassword}
               onChange={handleCurrentPasswordChange}
               isVisible={visibleFields.current}
@@ -139,18 +106,22 @@ export function SecuritySettingsPanel() {
             />
 
             <PasswordField
-              label="New Password"
+              label={tForm("Labels.newPassword")}
               value={newPassword}
-              onChange={handleNewPasswordChange}
-              onBlur={handleNewPasswordBlur}
+              onChange={(val) =>
+                handlePasswordChange(val, setNewPassword, () =>
+                  setErrors((prev) => ({ ...prev, password: "" }))
+                )
+              }
+              onBlur={() => handlePasswordBlur(newPassword)}
               isVisible={visibleFields.new}
               onToggle={() => togglePassword("new")}
-              error={localNewError || errors.password}
+              error={localError || errors.password}
               successMsg={transientSuccessMsgs}
             />
 
             <PasswordField
-              label="Confirm Password"
+              label={tForm("Labels.confirmPassword")}
               value={confirmPassword}
               onChange={handleConfirmChange}
               onBlur={handleConfirmBlur}
@@ -166,11 +137,11 @@ export function SecuritySettingsPanel() {
               href="/confirm-email?from=profile?tab=security"
               className="order-2 text-[10px] font-bold uppercase tracking-[0.2em] text-red-500 transition-all duration-300 hover:text-white hover:underline sm:order-1 sm:text-[11px]"
             >
-              Forgot Password?
+              {t("SecurityPanel.forgotPassword")}
             </Link>
 
             <Button type="submit" variant="explore" className="order-1 w-full justify-center sm:order-2 sm:w-max">
-              Update Security Settings
+              {tForm("Buttons.updateSecurity")}
             </Button>
           </div>
         </form>
@@ -191,13 +162,15 @@ type PasswordFieldProps = {
 };
 
 function PasswordField({ label, value, onChange, onBlur, isVisible, onToggle, error, successMsg }: PasswordFieldProps) {
+  const tForm = useTranslations("SharedForm");
+
   return (
     <label className="space-y-2 block">
       <span className="block text-[10px] font-bold uppercase tracking-[0.2em] text-gold">{label}</span>
       <span className="relative block">
         <input
           type={isVisible ? "text" : "password"}
-          placeholder="Password"
+          placeholder={tForm("Placeholders.password")}
           value={value}
           onChange={(e) => onChange(e.target.value)}
           onBlur={onBlur}
@@ -205,7 +178,7 @@ function PasswordField({ label, value, onChange, onBlur, isVisible, onToggle, er
         />
         <button
           type="button"
-          aria-label={isVisible ? "Hide password" : "Show password"}
+          aria-label={isVisible ? tForm("Buttons.hidePassword") : tForm("Buttons.showPassword")}
           onClick={onToggle}
           className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 transition-colors hover:text-gold"
         >
@@ -213,7 +186,6 @@ function PasswordField({ label, value, onChange, onBlur, isVisible, onToggle, er
         </button>
       </span>
 
-      {/* Transient Success Message(s) (Green) with CheckCircle2 icon */}
       {successMsg && successMsg.length > 0 && !error && (
         <div className="ml-2 mt-1 flex flex-col space-y-1 animate-fade-in">
           {successMsg.map((msg, idx) => (
@@ -225,7 +197,6 @@ function PasswordField({ label, value, onChange, onBlur, isVisible, onToggle, er
         </div>
       )}
 
-      {/* Error Message (Red) */}
       {error && (
         <div className="ml-2 mt-1">
           <FormError message={error} />

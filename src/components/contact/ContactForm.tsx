@@ -9,14 +9,16 @@ import { FormError } from "@/components/ui/FormError";
 import { CustomCountrySelect } from "@/components/ui/CustomCountrySelect";
 import PhoneInput, { Country } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+import { useTranslations } from "next-intl";
 
-type FormProps = {
-  title: string;
-  tourOptions: string[];
-  INQUIRY_OPTIONS: string[];
-};
+export default function ContactForm() {
+  const tPage = useTranslations("ContactPage.Form");
+  const tForm = useTranslations("SharedForm");
+  const tErr = useTranslations("ValidationErrors");
 
-export default function ContactForm({ title, tourOptions, INQUIRY_OPTIONS }: FormProps) {
+  const INQUIRY_OPTIONS = tPage.raw("inquiryOptions") as string[];
+  const tourOptions = tPage.raw("tourOptions") as string[];
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -83,7 +85,9 @@ export default function ContactForm({ title, tourOptions, INQUIRY_OPTIONS }: For
       message: formData.message,
     };
 
-    if (inquiryType === "Tour Inquiry & Availability") {
+    // Note: Assuming "Tour Inquiry & Availability" or equivalent index logic. 
+    // We check if it's the first option or strictly string match.
+    if (inquiryType === INQUIRY_OPTIONS[0]) {
       validationPayload.tourInterest = tourType;
     }
 
@@ -97,20 +101,20 @@ export default function ContactForm({ title, tourOptions, INQUIRY_OPTIONS }: For
   return (
     <div className="lg:col-span-2">
       <div className="glass-card rounded-3xl p-8 md:p-10">
-        <h2 className="premium-serif mb-8 text-2xl text-white">{title}</h2>
+        <h2 className="premium-serif mb-8 text-2xl text-white">{tPage("title")}</h2>
 
         <form onSubmit={handleBookingSubmit} className="grid grid-cols-1 gap-6 md:grid-cols-2" noValidate>
           {/* Full Name */}
           <div>
             <label className="relative block">
-              <span className={floatingLabelClass}>Full Name *</span>
+              <span className={floatingLabelClass}>{tForm("Labels.fullName")} *</span>
               <input
                 type="text"
                 name="fullName"
                 value={formData.fullName}
                 onChange={handleTextChange}
                 className={`${inputClass} pt-5`}
-                placeholder="Alexander Knight"
+                placeholder={tForm("Placeholders.fullName")}
               />
             </label>
             <div className="ml-2 mt-1">
@@ -121,14 +125,14 @@ export default function ContactForm({ title, tourOptions, INQUIRY_OPTIONS }: For
           {/* Email */}
           <div>
             <label className="relative block">
-              <span className={floatingLabelClass}>Email Address *</span>
+              <span className={floatingLabelClass}>{tForm("Labels.email")} *</span>
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleTextChange}
                 className={`${inputClass} pt-5`}
-                placeholder="alex@example.com"
+                placeholder={tForm("Placeholders.email")}
               />
             </label>
             <div className="ml-2">
@@ -139,7 +143,7 @@ export default function ContactForm({ title, tourOptions, INQUIRY_OPTIONS }: For
           {/* Phone Number */}
           <div className="flex flex-col gap-1">
             <label className="relative block">
-              <span className={floatingLabelClass}>Phone Number *</span>
+              <span className={floatingLabelClass}>{tForm("Labels.phone")}</span>
               <PhoneInput
                 international
                 defaultCountry={(detectedCode as Country) || "LK"}
@@ -158,31 +162,31 @@ export default function ContactForm({ title, tourOptions, INQUIRY_OPTIONS }: For
                 numberInputProps={{
                   className:
                     "w-full bg-transparent border-none outline-none text-white focus:ring-0 placeholder:text-slate-400 p-0 text-sm ml-2",
-                  placeholder: "+94 77 123 4567",
+                  placeholder: tForm("Placeholders.phone"),
                 }}
               />
             </label>
 
             <div className="ml-2 mt-1">
               {isDetecting ? (
-                <p className="text-[10px] italic text-slate-500 animate-pulse">Detecting dialing code...</p>
+                <p className="text-[10px] italic text-slate-500 animate-pulse">{tErr("PhoneDetection.detecting")}</p>
               ) : (
                 <>
                   {!userInteracted && detectedCode && (
                     <p className="text-[10px] font-medium leading-relaxed text-emerald-500/80">
-                      We automatically detected your location. If this is incorrect, please change it.
+                      {tErr("PhoneDetection.autoDetected")}
                     </p>
                   )}
 
                   {userInteracted && detectedCode && selectedCountry === detectedCode && (
                     <p className="text-[10px] font-medium leading-relaxed text-emerald-500/80">
-                      Location confirmed successfully!
+                      {tErr("PhoneDetection.confirmed")}
                     </p>
                   )}
 
                   {userInteracted && detectedCode && selectedCountry !== detectedCode && (
                     <p className="text-[10px] font-medium leading-relaxed text-amber-500/90">
-                      Note: The selected dialing code differs from your detected location. Please check.
+                      {tErr("PhoneDetection.mismatch")}
                     </p>
                   )}
                 </>
@@ -193,19 +197,19 @@ export default function ContactForm({ title, tourOptions, INQUIRY_OPTIONS }: For
 
           {/* Inquiry Options */}
           <div className="relative">
-            <span className={floatingLabelClass}>Inquiry Type *</span>
+            <span className={floatingLabelClass}>{tForm("Labels.inquiryType")}</span>
             <CustomSelect
               value={inquiryType}
               onChange={(val) => {
                 setInquiryType(val);
                 setErrors((prev) => ({ ...prev, inquiryType: "" }));
-                if (val !== "Tour Inquiry & Availability") {
+                if (val !== INQUIRY_OPTIONS[0]) {
                   setTourType("");
                 }
               }}
               options={INQUIRY_OPTIONS}
               className={`${inputClass} pt-5`}
-              placeholder="How can we help you?"
+              placeholder={tForm("Placeholders.inquiryType")}
             />
             <div className="ml-2">
               <FormError message={errors.inquiryType} />
@@ -213,9 +217,9 @@ export default function ContactForm({ title, tourOptions, INQUIRY_OPTIONS }: For
           </div>
 
           {/* Tour Interest */}
-          {inquiryType === "Tour Inquiry & Availability" && (
+          {inquiryType === INQUIRY_OPTIONS[0] && (
             <div className="relative">
-              <span className={floatingLabelClass}>Tour Interest *</span>
+              <span className={floatingLabelClass}>{tForm("Labels.tourInterest")}</span>
               <CustomSelect
                 value={tourType}
                 onChange={(val) => {
@@ -224,7 +228,7 @@ export default function ContactForm({ title, tourOptions, INQUIRY_OPTIONS }: For
                 }}
                 options={tourOptions}
                 className={`${inputClass} pt-5`}
-                placeholder="Select Tour Interest"
+                placeholder={tForm("Placeholders.tourInterest")}
               />
 
               <div className="ml-2">
@@ -236,14 +240,14 @@ export default function ContactForm({ title, tourOptions, INQUIRY_OPTIONS }: For
           {/* Subject */}
           <div className="md:col-span-2">
             <label className="relative block">
-              <span className={floatingLabelClass}>Subject *</span>
+              <span className={floatingLabelClass}>{tForm("Labels.subject")}</span>
               <input
                 type="text"
                 name="subject"
                 value={formData.subject}
                 onChange={handleTextChange}
                 className={`${inputClass} pt-5`}
-                placeholder="What is this about?"
+                placeholder={tForm("Placeholders.subject")}
               />
             </label>
             <div className="ml-2">
@@ -254,7 +258,7 @@ export default function ContactForm({ title, tourOptions, INQUIRY_OPTIONS }: For
           {/* Message */}
           <div className="md:col-span-2">
             <label className="relative block">
-              <span className={fieldLabelClass}>Message *</span>
+              <span className={fieldLabelClass}>{tForm("Labels.message")}</span>
               <textarea
                 name="message"
                 value={formData.message}
@@ -263,10 +267,10 @@ export default function ContactForm({ title, tourOptions, INQUIRY_OPTIONS }: For
                   handleInput(e);
                 }}
                 className={`${inputClass} auto-resize-textarea min-h-30 w-full resize-none pt-5 transition-all duration-300 focus:border-gold/60 focus:bg-white/[0.07] focus:outline-none`}
-                placeholder="Tell us about your travel plans, questions, or any special requirements..."
+                placeholder={tForm("Placeholders.message")}
               />
               <span className="mt-1 block text-[11px] font-medium text-slate-500 md:text-[12px] lg:text-[13px] 3xl:text-[14px] leading-relaxed">
-                * Box will expand automatically as you type.
+                {tForm("Messages.autoExpand")}
               </span>
             </label>
             <div className="ml-2">
@@ -277,7 +281,7 @@ export default function ContactForm({ title, tourOptions, INQUIRY_OPTIONS }: For
           {/* Submit Button */}
           <div className="md:col-span-2 pt-4">
             <Button type="submit" variant="inquire" className="w-full justify-center">
-              Send Message
+              {tForm("Buttons.sendMessage")}
             </Button>
           </div>
         </form>

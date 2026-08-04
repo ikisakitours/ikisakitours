@@ -1,6 +1,6 @@
 "use client";
 import { LoadingImage } from "@/components/ui/LoadingImage";
-import Link from "next/link";
+import { Link } from "@/i18nNavigation";
 import type { BlogPost } from "@/data/blog";
 import { ShareButton } from "@/components/ui/ShareButton";
 import { LikeButton } from "@/components/ui/LikeButton";

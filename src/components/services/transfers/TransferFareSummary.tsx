@@ -1,15 +1,24 @@
 import type { Vehicle } from "@/data/vehicles";
-import type { TransferServiceType } from "@/data/transfers";
-import { transferAssurances, fareInclusions } from "@/data/transfers";
+import type { TransferServiceId } from "@/data/transfers";
 //Icons
 import { Check, ReceiptText } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type TransferFareSummaryProps = {
-  selectedService: TransferServiceType;
+  selectedServiceId: TransferServiceId;
   selectedVehicle: Vehicle;
 };
 
-export function TransferFareSummary({ selectedService, selectedVehicle }: TransferFareSummaryProps) {
+export function TransferFareSummary({ selectedServiceId, selectedVehicle }: TransferFareSummaryProps) {
+  const tFare = useTranslations("Services.FareSummary");
+  const tTransfers = useTranslations("Services.Transfers");
+
+  const serviceIndex = selectedServiceId === "pickup" ? 0 : selectedServiceId === "hotel" ? 1 : 2;
+  const summaryLabel = tTransfers(`ServiceTypes.${serviceIndex}.summaryLabel`);
+
+  const fareInclusions = tTransfers.raw("FareInclusions") as string[];
+  const assurances = tTransfers.raw("Assurances") as { title: string; description: string }[];
+
   return (
     <aside className="xl:sticky xl:top-24 xl:col-span-4">
       <div className="sticky top-24 overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#0a0a0a]/85 shadow-[0_20px_60px_rgba(0,0,0,0.7)] backdrop-blur-3xl">
@@ -18,14 +27,14 @@ export function TransferFareSummary({ selectedService, selectedVehicle }: Transf
         <div className="p-6 md:p-7">
           <div className="mb-6 flex items-center justify-between">
             <h2 className="premium-serif text-xl text-white">
-              Transfer <span className="italic text-gold">Summary</span>
+              {tFare("titleBase")} <span className="italic text-gold">{tFare("titleAccent")}</span>
             </h2>
             <ReceiptText className="h-6 w-6 text-gold/30" />
           </div>
 
           <div className="space-y-5">
-            <SummaryItem label="Service Type" value={selectedService.summaryLabel} isActive />
-            <SummaryItem label="Vehicle Category" value={selectedVehicle.category.toUpperCase() + " TYPE"} />
+            <SummaryItem label={tFare("serviceType")} value={summaryLabel} isActive />
+            <SummaryItem label={tFare("vehicleCategory")} value={selectedVehicle.category.toUpperCase() + tFare("typeSuffix")} />
           </div>
 
           <div className="mt-7 space-y-3 rounded-2xl border border-white/5 bg-white/3 p-4">
@@ -40,7 +49,7 @@ export function TransferFareSummary({ selectedService, selectedVehicle }: Transf
           </div>
 
           <div className="mt-7 grid gap-3">
-            {transferAssurances.map((item) => (
+            {assurances.map((item) => (
               <div key={item.title} className="rounded-2xl border border-white/5 bg-black/20 p-4">
                 <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white">{item.title}</h3>
                 <p className="mt-2 text-xs leading-relaxed text-slate-400">{item.description}</p>

@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, Variants } from "framer-motion";
-import Link from "next/link";
+import { Link } from "@/i18nNavigation";
 
 const CACHE_KEY = "mapmate_loaded_sliders";
 const getInitialCache = () => {
@@ -26,8 +26,16 @@ const saveToCache = (key: string) => {
 };
 const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
+export interface SlideData {
+  image: string;
+  alt?: string;
+  badge?: string;
+  desc?: string;
+}
+
 interface PremiumImageSliderProps {
-  images: string[];
+  slides?: SlideData[];
+  images?: string[];
   altText?: string;
   badge?: string;
   description?: string;
@@ -38,7 +46,8 @@ interface PremiumImageSliderProps {
 }
 
 export function ImageSlider({
-  images,
+  slides,
+  images = [],
   altText = "Slider Image",
   badge,
   description,
@@ -48,20 +57,24 @@ export function ImageSlider({
   href,
 }: PremiumImageSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-
   const [isReady, setIsReady] = useState(false);
   const [isInstant, setIsInstant] = useState(false);
 
+  const activeSlides: SlideData[] =
+    slides && slides.length > 0
+      ? slides
+      : images.map((img) => ({ image: img, alt: altText, badge: badge, desc: description }));
+
   useIsomorphicLayoutEffect(() => {
-    if (images && images.length > 0 && loadedSliderCache.has(images[0])) {
+    if (activeSlides.length > 0 && loadedSliderCache.has(activeSlides[0].image)) {
       setIsInstant(true);
       setIsReady(true);
     }
-  }, [images]);
+  }, [activeSlides]);
 
   useEffect(() => {
-    if (!images || images.length === 0) return;
-    const firstImageKey = images[0];
+    if (activeSlides.length === 0) return;
+    const firstImageKey = activeSlides[0].image;
 
     if (loadedSliderCache.has(firstImageKey)) {
       const timer = setTimeout(() => setIsReady(true), 0);
@@ -88,15 +101,15 @@ export function ImageSlider({
     return () => {
       isMounted = false;
     };
-  }, [images]);
+  }, [activeSlides]);
 
   useEffect(() => {
-    if (!isReady) return;
+    if (!isReady || activeSlides.length === 0) return;
     const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % images.length);
+      setCurrentIndex((prev) => (prev + 1) % activeSlides.length);
     }, interval);
     return () => clearInterval(timer);
-  }, [images.length, interval, isReady]);
+  }, [activeSlides.length, interval, isReady]);
 
   const slideVariants: Variants = {
     initial: { opacity: 0, scale: 1.05, y: 10 },
@@ -109,6 +122,9 @@ export function ImageSlider({
     animate: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
     exit: { opacity: 0, y: -15, filter: "blur(4px)", transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
   };
+
+  const currentSlide = activeSlides[currentIndex] || {};
+  const hasOverlayText = currentSlide.badge || currentSlide.desc;
 
   const sliderContent = (
     <div className={`relative overflow-hidden bg-black ${className}`}>
@@ -187,7 +203,7 @@ export function ImageSlider({
       </AnimatePresence>
 
       <AnimatePresence>
-        {isReady && (
+        {isReady && activeSlides.length > 0 && (
           <motion.div
             key={currentIndex}
             variants={slideVariants}
@@ -197,8 +213,8 @@ export function ImageSlider({
             className="absolute inset-0 h-full w-full"
           >
             <Image
-              src={images[currentIndex]}
-              alt={altText}
+              src={currentSlide.image}
+              alt={currentSlide.alt || "Slider Image"}
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
@@ -208,13 +224,13 @@ export function ImageSlider({
         )}
       </AnimatePresence>
 
-      {(badge || description || showIndicators) && isReady && (
+      {(hasOverlayText || showIndicators) && isReady && (
         <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent pointer-events-none z-10 transition-opacity duration-1000" />
       )}
 
-      {(badge || description) && isReady && (
+      {hasOverlayText && isReady && (
         <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
-          <AnimatePresence>
+          <AnimatePresence mode="wait">
             <motion.div
               key={`text-${currentIndex}`}
               variants={textVariants}
@@ -223,14 +239,14 @@ export function ImageSlider({
               exit="exit"
               className="absolute bottom-0 left-0 right-0 p-6 md:p-8 flex flex-col justify-end"
             >
-              {badge && (
+              {currentSlide.badge && (
                 <p className="text-xs sm:text-sm lg:text-xs 3xl:text-sm font-bold uppercase tracking-widest text-gold drop-shadow-md mb-2">
-                  {badge}
+                  {currentSlide.badge}
                 </p>
               )}
-              {description && (
+              {currentSlide.desc && (
                 <p className="text-xs sm:text-sm lg:text-xs 3xl:text-sm font-bold text-gray-100 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)] leading-snug">
-                  {description}
+                  {currentSlide.desc}
                 </p>
               )}
             </motion.div>
@@ -238,9 +254,9 @@ export function ImageSlider({
         </div>
       )}
 
-      {showIndicators && isReady && (
+      {showIndicators && isReady && activeSlides.length > 1 && (
         <div className="absolute bottom-5 right-6 z-20 flex gap-2">
-          {images.map((_, idx) => (
+          {activeSlides.map((_, idx) => (
             <span
               key={idx}
               className={`h-1.5 rounded-full transition-all duration-700 ease-in-out ${

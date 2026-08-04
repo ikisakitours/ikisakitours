@@ -34,7 +34,7 @@ export function FullChatWidget() {
   const [isAtBottom, setIsAtBottom] = useState(false);
 
   //Tab Heder Message
-  useDocumentTitleNotification(showBottomTooltip && !isOpen, "💬 1 New Message!");
+  useDocumentTitleNotification(showBottomTooltip && !isOpen, tWidget("documentTitle"));
 
   // On mount, read from sessionStorage safely using setTimeout to prevent synchronous setState warning
   useEffect(() => {

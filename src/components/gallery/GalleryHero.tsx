@@ -2,7 +2,7 @@
 
 import { ArrowLeft } from "lucide-react";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18nNavigation";
 
 type GalleryHeroProps = {
   backLink: string;

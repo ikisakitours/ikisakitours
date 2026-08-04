@@ -1,9 +1,10 @@
 "use client";
 import { LoadingImage } from "@/components/ui/LoadingImage";
-import Link from "next/link";
+import { Link } from "@/i18nNavigation";
 import React, { Suspense } from "react";
 import { ArticleActions } from "@/components/blog/ArticleActions";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation"; 
+import { useRouter } from "@/i18nNavigation"; 
 import { EmptyState } from "@/components/ui/EmptyState";
 //Icons
 import { ArrowLeft, ArrowRight, Images } from "lucide-react";

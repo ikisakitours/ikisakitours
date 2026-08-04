@@ -1,16 +1,18 @@
-import type { Metadata } from "next";
 import { AuthShell } from "@/components/auth/AuthShell";
 import { PasswordResetForm } from "@/components/auth/passwordResetForm/PasswordResetForm";
-import { passwordResetIntro } from "@/data/auth";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Reset Password",
-  description: "Set a new MapMate account password after email verification.",
-};
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+  const t = await getTranslations({ locale, namespace: "Auth.Metadata.Reset" });
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
 export default function PasswordChangePage() {
   return (
-    <AuthShell intro={passwordResetIntro}>
+    <AuthShell introKey="Reset">
       <PasswordResetForm />
     </AuthShell>
   );

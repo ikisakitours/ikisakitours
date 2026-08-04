@@ -1,17 +1,16 @@
+"use client";
 import { Headphones, Globe, ShieldCheck } from "lucide-react";
+import { useTranslations } from "next-intl";
 
-type FeaturesProps = {
-  features: {
-    
-    title: string;
-    desc: string;
-  }[];
-};
 const contactInfoIcons = [Headphones, Globe, ShieldCheck];
-export default function ContactFeatures({ features }: FeaturesProps) {
+
+export default function ContactFeatures() {
+  const t = useTranslations("ContactPage");
+  const featuresArray = t.raw("Features") as { title: string; desc: string }[];
+
   return (
     <div className="mt-20 grid grid-cols-1 gap-6 lg:grid-cols-3">
-      {features.map((f, i) => {
+      {featuresArray.map((f, i) => {
         const Icon = contactInfoIcons[i] || Headphones;
         return (
           <div

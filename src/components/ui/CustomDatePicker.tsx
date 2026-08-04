@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { FiChevronDown, FiCalendar } from "react-icons/fi";
+import { useTranslations } from "next-intl";
 
 interface CustomDatePickerProps {
   value: string;
@@ -9,6 +10,7 @@ interface CustomDatePickerProps {
 }
 
 export default function CustomDatePicker({ value, onChange }: CustomDatePickerProps) {
+  const t = useTranslations("SharedForm.DatePicker");
   const [isOpen, setIsOpen] = useState(false);
 
   const getTodayFormatted = () => {
@@ -38,28 +40,18 @@ export default function CustomDatePicker({ value, onChange }: CustomDatePickerPr
   const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
   const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
 
-  const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+  const daysArray = Array.from({ length: daysInMonth }, (_, i) => i + 1);
   const blanks = Array.from({ length: firstDayOfMonth }, () => null);
 
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  const fullMonths = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+  // Get localized months and days from JSON
+  const months = t.raw("months") as string[];
+  const fullMonths = t.raw("fullMonths") as string[];
+  const weekDays = t.raw("days") as string[];
+
   const years = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i);
 
   const formatDisplayDate = (dateStr: string) => {
-    if (!dateStr) return "Select date";
+    if (!dateStr) return t("selectDate");
     const parts = dateStr.split("-");
     if (parts.length === 3) {
       const year = parts[0];
@@ -125,7 +117,7 @@ export default function CustomDatePicker({ value, onChange }: CustomDatePickerPr
 
           {/* Week Days */}
           <div className="grid grid-cols-7 gap-1 mb-3 text-center">
-            {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((d) => (
+            {weekDays.map((d) => (
               <div key={d} className="text-[10px] font-bold text-slate-500 uppercase">
                 {d}
               </div>
@@ -137,7 +129,7 @@ export default function CustomDatePicker({ value, onChange }: CustomDatePickerPr
             {blanks.map((_, i) => (
               <div key={`blank-${i}`} />
             ))}
-            {days.map((d) => {
+            {daysArray.map((d) => {
               const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
               const isSelected = value === formattedDate;
               return (

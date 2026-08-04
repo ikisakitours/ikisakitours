@@ -1,19 +1,25 @@
 "use client";
 
 import { type FormEvent, useState } from "react";
-import { privateVehicleSidebar } from "@/data/privateVehicle";
 import { vehicles } from "@/data/vehicles";
 import { ContactForm, type ContactData } from "@/components/services/ContactForm";
 import { PrivateVehicleJourneyFields } from "./PrivateVehicleJourneyFields";
-import { type ActiveVehicleFilter }from "@/components/services/VehicleSelector";
+import { type ActiveVehicleFilter } from "@/components/services/VehicleSelector";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { CrossPromotionSection } from "@/components/services/CrossPromotionSection";
 import FormPanel from "@/components/services/FormPanel";
 import StepHeading from "@/components/services/StepHeading";
 import { InfoSidebar } from "@/components/services/InfoSidebar";
+import { useTranslations } from "next-intl";
+import { languages } from "@/data/Languages-CurrencyData";
+
+// Icons for Sidebar
+import { Car, UserCheck, Map, Wallet } from "lucide-react";
 
 export function PrivateVehicleForm() {
+  const tStep = useTranslations("Services.StepHeadings");
+  const tSidebar = useTranslations("Services.PrivateVehicle.Sidebar");
   const defaultCategory = vehicles[0].category;
   const defaultVehicleId = vehicles[0].id;
 
@@ -77,13 +83,29 @@ export function PrivateVehicleForm() {
     });
   };
 
+  const featuresData = tSidebar.raw("features") as { title: string; description: string }[];
+
+  const privateVehicleSidebarProps = {
+    titleBase: tSidebar("titleBase"),
+    titleAccent: tSidebar("titleAccent"),
+    subtitle: tSidebar("subtitle"),
+    features: [
+      { icon: Car, title: featuresData[0].title, description: featuresData[0].description },
+      { icon: UserCheck, title: featuresData[1].title, description: featuresData[1].description },
+      { icon: Map, title: featuresData[2].title, description: featuresData[2].description },
+    ],
+    footerIcon: Wallet,
+    footerTitle: tSidebar("footerTitle"),
+    footerDescription: tSidebar("footerDescription"),
+  };
+
   return (
     <ContainerLayout className="relative z-20 pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
       <div className="grid gap-8 xl:grid-cols-12 xl:items-start">
         {/* Main Form */}
         <form onSubmit={handleSubmit} className="space-y-8 xl:col-span-8">
           <FormPanel className="z-10">
-            <StepHeading step="1">Journey Details</StepHeading>
+            <StepHeading step="1">{tStep("step1Journey")}</StepHeading>
             <PrivateVehicleJourneyFields
               activeFilter={activeFilter}
               onFilterChange={setActiveFilter}
@@ -104,19 +126,20 @@ export function PrivateVehicleForm() {
               onTourRequestsChange={setTourRequests}
               errors={errors}
               setErrors={setErrors}
+              languagesList={languages}
             />
           </FormPanel>
 
           <FormPanel className="border-t-2 border-gold/30">
-            <StepHeading step="2" subtitle="Chauffeur assignment details">
-              Contact Information
+            <StepHeading step="2" subtitle={tStep("stepContactSub")}>
+              {tStep("stepContact")}
             </StepHeading>
             <ContactForm data={contact} setData={setContact} errors={errors} setErrors={setErrors} />
           </FormPanel>
         </form>
 
         {/* Right Side: Info Sidebar */}
-        <InfoSidebar {...privateVehicleSidebar} />
+        <InfoSidebar {...privateVehicleSidebarProps} />
       </div>
 
       <div className="xl:col-span-12">

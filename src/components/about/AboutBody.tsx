@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { aboutData } from "@/data/aboutData";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import OriginSection from "@/components/about/OriginSection";
 import MissionVisionSection from "@/components/about/MissionVisionSection";
@@ -16,14 +15,13 @@ export default function AboutBody() {
       {/* Constrained Body Content */}
       <ContainerLayout className="">
         <div className="w-full flex flex-col gap-12">
-          {/* Passing Data as Props */}
-          <OriginSection data={aboutData.origin} />
-          <StatsSection data={aboutData.stats} />
-          <MissionVisionSection mission={aboutData.mission} vision={aboutData.vision} />
-          <CoreValues data={aboutData.coreValues} />
-          <Leadership data={aboutData.leadership} />
+          <OriginSection />
+          <StatsSection />
+          <MissionVisionSection />
+          <CoreValues />
+          <Leadership />
           <AboutCTA />
-          <Trademark data={aboutData.trademark} />
+          <Trademark />
         </div>
       </ContainerLayout>
     </div>

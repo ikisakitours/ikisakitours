@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useTranslations, useLocale } from "next-intl";
 import { FiClock } from "react-icons/fi";
 
 interface CustomTimePickerProps {
@@ -9,17 +10,23 @@ interface CustomTimePickerProps {
 }
 
 export default function CustomTimePicker({ value, onChange }: CustomTimePickerProps) {
+  const t = useTranslations("SharedForm.TimePicker");
+  const locale = useLocale();
   const [isOpen, setIsOpen] = useState(false);
 
+  const is12HourFormat =
+    new Intl.DateTimeFormat(locale, { timeStyle: "short" }).resolvedOptions().hourCycle === "h11" ||
+    new Intl.DateTimeFormat(locale, { timeStyle: "short" }).resolvedOptions().hourCycle === "h12";
+
   const parseTime = (val: string) => {
-    if (!val) return { h: "12", m: "00", p: "AM" };
+    if (!val) return { h: "12", m: "00", p: is12HourFormat ? "AM" : "" };
 
     const [timePart, periodPart] = val.split(" ");
     const [h, m] = timePart.split(":");
     return {
       h: h || "12",
       m: m || "00",
-      p: periodPart || "AM",
+      p: periodPart || (is12HourFormat ? "AM" : ""),
     };
   };
 
@@ -29,16 +36,23 @@ export default function CustomTimePicker({ value, onChange }: CustomTimePickerPr
   const [selectedMinute, setSelectedMinute] = useState(initialMinute);
   const [selectedPeriod, setSelectedPeriod] = useState(initialPeriod);
 
-  // Hours (01 - 12), Minutes (00, 05... 55), සහ Periods (AM, PM)
-  const hours = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, "0"));
+  const hoursLength = is12HourFormat ? 12 : 24;
+  const hours = Array.from({ length: hoursLength }, (_, i) => {
+    const hourVal = is12HourFormat ? i + 1 : i; 
+    return String(hourVal).padStart(2, "0");
+  });
+  
   const minutes = Array.from({ length: 12 }, (_, i) => String(i * 5).padStart(2, "0"));
   const periods = ["AM", "PM"];
 
   const handleTimeChange = (h: string, m: string, p: string) => {
     setSelectedHour(h);
     setSelectedMinute(m);
-    setSelectedPeriod(p);
-    onChange(`${h}:${m} ${p}`);
+    
+    if (is12HourFormat) setSelectedPeriod(p);
+    
+    const formattedTime = is12HourFormat ? `${h}:${m} ${p}` : `${h}:${m}`;
+    onChange(formattedTime);
   };
 
   return (
@@ -51,7 +65,9 @@ export default function CustomTimePicker({ value, onChange }: CustomTimePickerPr
           isOpen ? "border-gold/60! bg-white/[0.07]!" : ""
         }`}
       >
-        <span className={value ? "text-white" : "text-slate-500"}>{value ? value : "Select time"}</span>
+        <span className={value ? "text-white" : "text-slate-500"}>
+          {value ? value : t("selectTime")}
+        </span>
         <FiClock className="w-4 h-4 text-slate-500" />
       </div>
 
@@ -61,17 +77,20 @@ export default function CustomTimePicker({ value, onChange }: CustomTimePickerPr
       {/* Dropdown Box */}
       {isOpen && (
         <div className="absolute top-full mt-2 right-0 sm:left-0 bg-[#0a0a0a] border border-white/10 rounded-2xl shadow-2xl z-50 p-5 w-full sm:w-72 animate-in fade-in zoom-in-95 duration-200 backdrop-blur-xl">
+          
           {/* Header */}
           <div className="flex justify-between items-center mb-3 px-2">
-            <span className="text-[10px] w-1/3 text-center font-bold text-slate-500 uppercase tracking-widest">
-              Hours
+            <span className={`text-[10px] text-center font-bold text-slate-500 uppercase tracking-widest ${is12HourFormat ? 'w-1/3' : 'w-1/2'}`}>
+              {t("hours")}
             </span>
-            <span className="text-[10px] w-1/3 text-center font-bold text-slate-500 uppercase tracking-widest">
-              Minutes
+            <span className={`text-[10px] text-center font-bold text-slate-500 uppercase tracking-widest ${is12HourFormat ? 'w-1/3' : 'w-1/2'}`}>
+              {t("minutes")}
             </span>
-            <span className="text-[10px] w-1/3 text-center font-bold text-slate-500 uppercase tracking-widest">
-              AM/PM
-            </span>
+            {is12HourFormat && (
+              <span className="text-[10px] w-1/3 text-center font-bold text-slate-500 uppercase tracking-widest">
+                {t("ampm")}
+              </span>
+            )}
           </div>
 
           <div className="flex gap-1 h-48">
@@ -110,25 +129,29 @@ export default function CustomTimePicker({ value, onChange }: CustomTimePickerPr
               ))}
             </div>
 
-            {/* Divider */}
-            <div className="flex items-center justify-center text-slate-500 font-bold px-1"> </div>
+            {/* AM/PM Column (Only renders if language is 12-hour format) */}
+            {is12HourFormat && (
+              <>
+                {/* Divider */}
+                <div className="flex items-center justify-center text-slate-500 font-bold px-1"> </div>
 
-            {/* AM/PM Column */}
-            <div className="flex-1 flex flex-col gap-1">
-              {periods.map((p) => (
-                <div
-                  key={`p-${p}`}
-                  onClick={() => handleTimeChange(selectedHour, selectedMinute, p)}
-                  className={`py-2 text-center rounded-xl text-sm font-bold cursor-pointer transition-all ${
-                    selectedPeriod === p
-                      ? "bg-gold text-black"
-                      : "text-slate-300 hover:bg-white/[0.07] hover:text-white"
-                  }`}
-                >
-                  {p}
+                <div className="flex-1 flex flex-col gap-1">
+                  {periods.map((p) => (
+                    <div
+                      key={`p-${p}`}
+                      onClick={() => handleTimeChange(selectedHour, selectedMinute, p)}
+                      className={`py-2 text-center rounded-xl text-sm font-bold cursor-pointer transition-all ${
+                        selectedPeriod === p
+                          ? "bg-gold text-black"
+                          : "text-slate-300 hover:bg-white/[0.07] hover:text-white"
+                      }`}
+                    >
+                      {p}
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </>
+            )}
           </div>
         </div>
       )}

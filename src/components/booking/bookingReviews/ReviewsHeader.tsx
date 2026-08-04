@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18nNavigation";
 //Icon
 import { X } from "lucide-react";
 

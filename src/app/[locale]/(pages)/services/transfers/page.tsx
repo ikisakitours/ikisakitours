@@ -1,26 +1,31 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 import { TransferBookingForm } from "@/components/services/transfers/TransferBookingForm";
 import { Hero } from "@/components/ui/Hero";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
-import { transferHero } from "@/data/transfers";
 
-export const metadata: Metadata = {
-  title: "Transfers",
-  description:
-    "Book MapMate airport pick-ups, hotel transfers, and island-wide chauffeur services with live vehicle rates.",
-};
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const t = await getTranslations({ locale, namespace: "Services.Metadata.Transfers" });
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
 export default function TransfersPage() {
+  const t = useTranslations("Services.Hero.Transfers");
+
   return (
     <UserPageLayout>
       <main className="min-h-screen bg-lanka-dark">
         <Hero
-          image={transferHero.image}
-          altText={transferHero.alt}
-          eyebrow={transferHero.eyebrow}
-          title={transferHero.title}
-          accent={transferHero.accent}
-          strapline={transferHero.strapline}
+          image={t("image")}
+          altText={t("alt")}
+          eyebrow={t("eyebrow")}
+          title={t("title")}
+          accent={t("accent")}
+          strapline={t("strapline")}
         />
         <TransferBookingForm />
       </main>

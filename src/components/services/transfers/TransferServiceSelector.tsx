@@ -1,6 +1,7 @@
-import { transferServiceTypes, type TransferServiceId } from "@/data/transfers";
+import { transferServiceIds, type TransferServiceId } from "@/data/transfers";
 //Icons
 import { Car, PlaneLanding, PlaneTakeoff, type LucideIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 const serviceIcons = {
   pickup: PlaneLanding,
@@ -14,20 +15,22 @@ type TransferServiceSelectorProps = {
 };
 
 export function TransferServiceSelector({ selectedServiceId, onServiceChange }: TransferServiceSelectorProps) {
+  const t = useTranslations("Services.Transfers.ServiceTypes");
+
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 md:gap-4">
-      {transferServiceTypes.map((service) => {
-        const Icon = serviceIcons[service.id];
-        const isSelected = service.id === selectedServiceId;
+      {transferServiceIds.map((id, index) => {
+        const Icon = serviceIcons[id];
+        const isSelected = id === selectedServiceId;
 
         return (
-          <label key={service.id} className="group cursor-pointer">
+          <label key={id} className="group cursor-pointer">
             <input
               type="radio"
               name="serviceType"
-              value={service.id}
+              value={id}
               checked={isSelected}
-              onChange={() => onServiceChange(service.id)}
+              onChange={() => onServiceChange(id)}
               className="sr-only"
             />
             <div
@@ -39,9 +42,9 @@ export function TransferServiceSelector({ selectedServiceId, onServiceChange }: 
             >
               <Icon className="mb-3 h-6 w-6 text-gold md:h-7 md:w-7" />
               <h3 className="text-[12px] font-bold uppercase tracking-[0.08em] text-white md:text-sm">
-                {service.title}
+                {t(`${index}.title`)}
               </h3>
-              <p className="mt-3 text-xs leading-relaxed text-slate-400">{service.description}</p>
+              <p className="mt-3 text-xs leading-relaxed text-slate-400">{t(`${index}.description`)}</p>
             </div>
           </label>
         );

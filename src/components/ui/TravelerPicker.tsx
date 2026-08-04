@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import { useTranslations } from "next-intl";
+//Icons
 import { Plus, Minus, Users, ChevronDown } from "lucide-react";
 
 const inputClass =
@@ -9,6 +11,7 @@ const inputClass =
 interface TravelerOption {
   type: string;
   label: string;
+  pluralLabel?: string;
   ageRange: string;
 }
 
@@ -19,22 +22,24 @@ interface TravelerPickerProps {
 }
 
 export function TravelerPicker({ options, counts, onChange }: TravelerPickerProps) {
+  const t = useTranslations("SharedForm.TravelerPicker");
   const [isOpen, setIsOpen] = useState(false);
 
   const activeSelections = options
     .filter((opt) => (counts[opt.type] || 0) > 0)
     .map((opt) => {
+      const count = counts[opt.type] || 0;
       if (opt.type === "couple") {
         const coupleCount = (counts[opt.type] || 0) / 2;
-        return `${coupleCount} ${coupleCount > 1 ? "Couples" : "Couple"}`;
+        return `${coupleCount} ${coupleCount > 1 ? t("couples") : t("couple")}`;
       }
-      return `${counts[opt.type]} ${opt.label}${counts[opt.type] > 1 ? "s" : ""}`;
+      const labelToShow = count > 1 && opt.pluralLabel ? opt.pluralLabel : opt.label;
+      return `${count} ${labelToShow}`;
     });
 
   const totalTravelers = Object.values(counts).reduce((a, b) => a + b, 0);
 
-  const triggerLabel = totalTravelers === 0 ? "0 Travelers" : activeSelections.join(", ");
-
+  const triggerLabel = totalTravelers === 0 ? t("zeroTravelers") : activeSelections.join(", ");
   return (
     <div className="relative">
       {/* Trigger Field */}

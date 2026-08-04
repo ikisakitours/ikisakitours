@@ -2,11 +2,10 @@
 import { type FormEvent, useState } from "react";
 import { LoadingImage } from "@/components/ui/LoadingImage";
 import { LoadingVideo } from "@/components/ui/LoadingVideo";
-import Link from "next/link";
+import { Link, usePathname } from "@/i18nNavigation";
 import { footerLinks, socialLinks, legalLinks, contactInfo } from "@/data/navigation";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import TimeDiv from "@/components/ui/TimeDiv";
-import { usePathname } from "next/navigation";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { FormError } from "@/components/ui/FormError";
 import { useTranslations } from "next-intl";

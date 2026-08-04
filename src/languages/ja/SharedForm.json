@@ -1,0 +1,109 @@
+{
+  "Labels": {
+    "fullName": "フルネーム",
+    "email": "メールアドレス",
+    "phone": "電話番号 *",
+    "whatsapp": "WhatsApp番号 *",
+    "country": "国 / 地域",
+    "password": "安全なパスワード",
+    "confirmPassword": "パスワードの確認",
+    "currentPassword": "現在のパスワード",
+    "newPassword": "新しいパスワード",
+    "verificationCode": "認証コード",
+    "inquiryType": "お問い合わせの種類 *",
+    "tourInterest": "ご希望のツアー *",
+    "subject": "件名 *",
+    "message": "メッセージ *",
+    "specialRequests": "特別なリクエスト",
+    "selectVehicle": "車両を選択",
+    "selectVehicleType": "車両タイプを選択",
+    "pickupLocation": "お迎え場所",
+    "dropoffLocation": "降車場所",
+    "conciergeLanguage": "コンシェルジュの言語",
+    "journeyDate": "出発日",
+    "pickupTime": "お迎え時間",
+    "travelers": "旅行者数",
+    "tourDuration": "ツアー期間",
+    "tourPlanRequests": "ツアープランのご要望をご記入ください",
+    "staySignedIn": "ログイン状態を保持する",
+    "agreeTo": "同意する：",
+    "terms": "利用規約",
+    "and": "および",
+    "privacy": "プライバシーポリシー"
+  },
+  "Placeholders": {
+    "fullName": "アレクサンダー・ナイト",
+    "email": "name@example.com",
+    "phone": "+94 77 123 4567",
+    "password": "パスワード",
+    "confirmPassword": "パスワードの確認",
+    "searchCountry": "国を検索...",
+    "selectCountry": "国を選択してください",
+    "selectLanguage": "言語を選択",
+    "inquiryType": "どのようなご用件ですか？",
+    "tourInterest": "ご希望のツアーを選択",
+    "subject": "件名を入力してください",
+    "message": "旅行の計画、ご質問、特別なご要望などをお聞かせください...",
+    "specialRequests": "フライト番号、荷物のメモ、チャイルドシート、ルートの希望など",
+    "tourPlanRequests": "旅行の詳細、目的地、または特別なリクエストを入力してください...",
+    "pickupLocation": "空港またはホテル名",
+    "dropoffLocation": "目的地の住所"
+  },
+  "ResetFormOtp": {
+    "verificationCode": "認証コード",
+    "checkEmailOtp": "メールでOTPをご確認ください"
+  },
+  "Messages": {
+    "autoExpand": "* 入力に合わせてボックスが自動的に拡大します。",
+    "countrySelected": "国が正常に選択されました。",
+    "noCountries": "国が見つかりません"
+  },
+  "Buttons": {
+    "sendMessage": "メッセージを送信",
+    "checkAvailability": "空き状況を確認",
+    "updatePassword": "パスワードを更新",
+    "sendResetLink": "リセットリンクを送信",
+    "registerMembership": "会員登録",
+    "enterGateway": "ゲートウェイに入る",
+    "saveChanges": "変更を保存",
+    "updateSecurity": "セキュリティ設定を更新",
+    "showPassword": "パスワードを表示",
+    "hidePassword": "パスワードを非表示"
+  },
+  "TravelerOptions": {
+    "adult": "大人",
+    "adults": "大人",
+    "adultAge": "13〜99歳",
+    "couple": "カップル",
+    "couples": "カップル",
+    "coupleAge": "大人2名",
+    "child": "子供",
+    "children": "子供",
+    "childAge": "2〜12歳",
+    "infant": "幼児",
+    "infants": "幼児",
+    "infantAge": "2歳未満"
+  },
+  "TravelerPicker": {
+    "zeroTravelers": "旅行者 0名",
+    "couple": "カップル",
+    "couples": "カップル"
+  },
+  "TimePicker": {
+    "selectTime": "時間を選択",
+    "hours": "時",
+    "minutes": "分",
+    "ampm": "午前/午後"
+  },
+  "DatePicker": {
+    "selectDate": "日付を選択",
+    "days": ["日", "月", "火", "水", "木", "金", "土"],
+    "months": ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+    "fullMonths": ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
+  },
+  "DurationPicker": {
+    "selectDuration": "期間を選択",
+    "day": "日",
+    "days": "日間"
+  }
+}

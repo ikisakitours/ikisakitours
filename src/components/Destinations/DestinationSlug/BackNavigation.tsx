@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation"; 
+import { useRouter } from "@/i18nNavigation"; 
 //Icons
 import { ArrowLeft } from "lucide-react";
 

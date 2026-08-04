@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/link";
+import { Link } from "@/i18nNavigation";
 import { LoadingImage } from "@/components/ui/LoadingImage";
 //Icons
 import { CheckCircle2, Images } from "lucide-react";
@@ -10,7 +10,7 @@ interface EventAboutProps {
   aboutText1: string;
   aboutText2: string;
   perks: string[];
-  images?: string[]; 
+  images?: string[];
 }
 
 export function EventAbout({ slug, aboutTitle, aboutText1, aboutText2, perks, images = [] }: EventAboutProps) {

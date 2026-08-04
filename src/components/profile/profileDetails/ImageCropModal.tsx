@@ -5,6 +5,7 @@ import Cropper, { Area } from "react-easy-crop";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { getCroppedImg } from "@/utils/cropImage";
+import { useTranslations } from "next-intl";
 //Icons
 import { X } from "lucide-react";
 
@@ -16,6 +17,8 @@ type ImageCropModalProps = {
 };
 
 export function ImageCropModal({ isOpen, imageSrc, onClose, onCropComplete }: ImageCropModalProps) {
+  const t = useTranslations("ProfilePage");
+
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
@@ -45,7 +48,6 @@ export function ImageCropModal({ isOpen, imageSrc, onClose, onCropComplete }: Im
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-100 flex items-center justify-center px-4 sm:px-6">
-          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -54,7 +56,6 @@ export function ImageCropModal({ isOpen, imageSrc, onClose, onCropComplete }: Im
             onClick={onClose}
           />
 
-          {/* Modal Container */}
           <motion.div
             initial={{ scale: 0.95, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -62,7 +63,7 @@ export function ImageCropModal({ isOpen, imageSrc, onClose, onCropComplete }: Im
             className="relative flex w-full max-w-md flex-col overflow-hidden rounded-3xl border border-gold/30 bg-[#0a0a0a] shadow-2xl"
           >
             <div className="flex items-center justify-between border-b border-white/10 p-4 sm:p-5">
-              <h3 className="text-sm font-bold uppercase tracking-widest text-gold">Adjust Profile Picture</h3>
+              <h3 className="text-sm font-bold uppercase tracking-widest text-gold">{t("Modals.Crop.title")}</h3>
               <button
                 onClick={onClose}
                 className="rounded-full bg-white/5 p-1.5 text-slate-400 transition-colors hover:bg-white/10 hover:text-white"
@@ -71,7 +72,6 @@ export function ImageCropModal({ isOpen, imageSrc, onClose, onCropComplete }: Im
               </button>
             </div>
 
-            {/* Cropper Area */}
             <div className="relative h-[60vh] max-h-100 w-full bg-black/50">
               <Cropper
                 image={imageSrc}
@@ -87,14 +87,13 @@ export function ImageCropModal({ isOpen, imageSrc, onClose, onCropComplete }: Im
               />
             </div>
 
-            {/* Controls & Buttons */}
             <div className="space-y-6 p-5 sm:p-6">
               <div className="flex flex-col gap-2">
                 <div className="flex items-center justify-between text-xs font-bold text-slate-400">
                   <span className="flex items-center gap-1.5">
-                    ZOOM: <span className="text-gold">{Math.round(zoom * 100)}%</span>
+                    {t("Modals.Crop.zoom")} <span className="text-gold">{Math.round(zoom * 100)}%</span>
                   </span>
-                  <span className="font-normal text-slate-500 capitalize">Drag to reposition</span>
+                  <span className="font-normal text-slate-500 capitalize">{t("Modals.Crop.dragHelp")}</span>
                 </div>
                 <input
                   type="range"
@@ -115,7 +114,7 @@ export function ImageCropModal({ isOpen, imageSrc, onClose, onCropComplete }: Im
                   className="flex-1 justify-center"
                   disabled={isProcessing}
                 >
-                  {isProcessing ? "Processing..." : "Crop & Save"}
+                  {isProcessing ? t("Modals.Crop.btnProcessing") : t("Modals.Crop.btnCropSave")}
                 </Button>
               </div>
             </div>

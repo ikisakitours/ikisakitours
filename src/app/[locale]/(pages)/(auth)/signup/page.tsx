@@ -1,16 +1,18 @@
-import type { Metadata } from "next";
 import { SignupForm } from "@/components/auth/signUp/SignupForm";
 import { AuthShell } from "@/components/auth/AuthShell";
-import { signupIntro } from "@/data/auth";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Create Account | MapMate",
-  description:
-    "Create a MapMate member account for private travel planning, exclusive tour bookings, and personalized Sri Lankan itineraries.",
-};
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+  const t = await getTranslations({ locale, namespace: "Auth.Metadata.Signup" });
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
+
 export default function SignupPage() {
   return (
-    <AuthShell intro={signupIntro}>
+    <AuthShell introKey="Signup">
       <SignupForm />
     </AuthShell>
   );

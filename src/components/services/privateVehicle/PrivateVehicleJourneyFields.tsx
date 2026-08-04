@@ -1,14 +1,14 @@
-import { Languages } from "@/data/privateVehicle";
 import { fieldLabelClass, inputClass } from "@/components/services/formStyles";
 import CustomDatePicker from "@/components/ui/CustomDatePicker";
 import CustomTimePicker from "@/components/ui/CustomTimePicker";
-import CustomSelect from "@/components/ui/CustomSelect";
 import { VehicleSelector, type ActiveVehicleFilter } from "@/components/services/VehicleSelector";
 import { TravelerPicker } from "@/components/ui/TravelerPicker";
 import { TourDurationPicker } from "@/components/ui/TourDurationPicker";
 import { FormError } from "@/components/ui/FormError";
+import LanguageSelect, { type LanguageOption } from "@/components/services/LanguageSelect";
 //Icons
 import { Globe, MapPin } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type PrivateVehicleJourneyFieldsProps = {
   activeFilter: ActiveVehicleFilter;
@@ -30,6 +30,7 @@ type PrivateVehicleJourneyFieldsProps = {
   onTourRequestsChange: (req: string) => void;
   errors: Record<string, string>;
   setErrors: React.Dispatch<React.SetStateAction<Record<string, string>>>;
+  languagesList: LanguageOption[];
 };
 
 const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
@@ -58,34 +59,56 @@ export function PrivateVehicleJourneyFields({
   onTourRequestsChange,
   errors,
   setErrors,
+  languagesList,
 }: PrivateVehicleJourneyFieldsProps) {
-  const travelerOptions = [
-    { type: "adult", label: "Adult", ageRange: "AGE 13-99" },
-    { type: "couple", label: "Couple", ageRange: "2 Adults" },
-    { type: "child", label: "Child", ageRange: "AGE 2-12" },
-    { type: "infant", label: "Infant", ageRange: "UNDER 2" },
-  ];
+  const tForm = useTranslations("SharedForm");
 
+  const travelerOptions = [
+    {
+      type: "adult",
+      label: tForm("TravelerOptions.adult"),
+      pluralLabel: tForm("TravelerOptions.adults"),
+      ageRange: tForm("TravelerOptions.adultAge"),
+    },
+    {
+      type: "couple",
+      label: tForm("TravelerOptions.couple"),
+      pluralLabel: tForm("TravelerOptions.couples"),
+      ageRange: tForm("TravelerOptions.coupleAge"),
+    },
+    {
+      type: "child",
+      label: tForm("TravelerOptions.child"),
+      pluralLabel: tForm("TravelerOptions.children"),
+      ageRange: tForm("TravelerOptions.childAge"),
+    },
+    {
+      type: "infant",
+      label: tForm("TravelerOptions.infant"),
+      pluralLabel: tForm("TravelerOptions.infants"),
+      ageRange: tForm("TravelerOptions.infantAge"),
+    },
+  ];
   return (
     <div className="space-y-8">
       <div>
-        <span className={fieldLabelClass + " mb-4 block"}>Select Your Vehicle</span>
+        <span className={fieldLabelClass + " mb-4 block"}>{tForm("Labels.selectVehicle")}</span>
         <VehicleSelector
           activeFilter={activeFilter}
           onFilterChange={onFilterChange}
           onVehicleChange={onVehicleChange}
-          showDriverIncludedNote={true} // 🌟 Private vehicle එකට පමණක්
+          showDriverIncludedNote={true}
         />
       </div>
 
       <div className="grid gap-x-8 gap-y-7 md:grid-cols-2">
         <label className="flex flex-col gap-1">
-          <span className={fieldLabelClass}>Pick-Up Location</span>
+          <span className={fieldLabelClass}>{tForm("Labels.pickupLocation")}</span>
           <span className="relative block">
             <MapPin className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
             <input
               className={`${inputClass} pl-11`}
-              placeholder="Airport or hotel name"
+              placeholder={tForm("Placeholders.pickupLocation")}
               value={pickupLocation}
               onChange={(e) => {
                 onPickupLocationChange(e.target.value);
@@ -99,16 +122,16 @@ export function PrivateVehicleJourneyFields({
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className={fieldLabelClass}>Concierge Language</span>
-          <CustomSelect
+          <span className={fieldLabelClass}>{tForm("Labels.conciergeLanguage")}</span>
+          <LanguageSelect
             value={language}
             onChange={(val) => {
               onLanguageChange(val);
               setErrors((prev) => ({ ...prev, language: "" }));
             }}
-            options={Languages}
+            options={languagesList}
             icon={<Globe className="h-4 w-4" />}
-            placeholder="Select Language"
+            placeholder={tForm("Placeholders.selectLanguage")}
           />
           <div className="ml-2">
             <FormError message={errors.language} />
@@ -116,7 +139,7 @@ export function PrivateVehicleJourneyFields({
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className={fieldLabelClass}>Journey Date</span>
+          <span className={fieldLabelClass}>{tForm("Labels.journeyDate")}</span>
           <CustomDatePicker
             value={date}
             onChange={(d) => {
@@ -130,7 +153,7 @@ export function PrivateVehicleJourneyFields({
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className={fieldLabelClass}>Pickup Time</span>
+          <span className={fieldLabelClass}>{tForm("Labels.pickupTime")}</span>
           <CustomTimePicker
             value={time}
             onChange={(t) => {
@@ -144,7 +167,7 @@ export function PrivateVehicleJourneyFields({
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className={fieldLabelClass}>Travelers</span>
+          <span className={fieldLabelClass}>{tForm("Labels.travelers")}</span>
           <TravelerPicker
             options={travelerOptions}
             counts={travelerCounts}
@@ -159,7 +182,7 @@ export function PrivateVehicleJourneyFields({
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className={fieldLabelClass}>Tour Duration</span>
+          <span className={fieldLabelClass}>{tForm("Labels.tourDuration")}</span>
           <TourDurationPicker
             days={tourDays}
             onChange={(delta) => {
@@ -174,10 +197,10 @@ export function PrivateVehicleJourneyFields({
       </div>
 
       <label className="mb-8 flex flex-col gap-1 group">
-        <span className={fieldLabelClass}>Describe Your tour Plan Requests</span>
+        <span className={fieldLabelClass}>{tForm("Labels.tourPlanRequests")}</span>
         <textarea
           className={`${inputClass} auto-resize-textarea min-h-30 w-full resize-none p-4 transition-all duration-300 focus:border-gold/60 focus:bg-white/[0.07] focus:outline-none`}
-          placeholder="Enter your trip details destinations or special requests..."
+          placeholder={tForm("Placeholders.tourPlanRequests")}
           onInput={handleInput}
           value={tourRequests}
           onChange={(e) => {
@@ -191,7 +214,7 @@ export function PrivateVehicleJourneyFields({
           <FormError message={errors.tourRequests} />
         </div>
         <span className="mt-1 block text-[11px] font-medium text-slate-500 md:text-[12px] lg:text-[13px] 3xl:text-[14px] leading-relaxed">
-          * Box will expand automatically as you type.
+          {tForm("Messages.autoExpand")}
         </span>
       </label>
     </div>

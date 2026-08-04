@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useRef, useEffect } from "react";
-import Link from "next/link";
+import { Link } from "@/i18nNavigation";
 import { motion, Transition } from "framer-motion";
 import { Search, ArrowRight, MapPin, Map, BookOpen, CalendarHeart } from "lucide-react";
 import { Button } from "@/components/ui/Button";
@@ -20,7 +20,7 @@ const smoothTransition: Transition = {
 };
 
 export function OmniSearch() {
-   const t = useTranslations("HomePage.Hero");
+  const t = useTranslations("HomePage.Hero");
   const [searchQuery, setSearchQuery] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const searchContainerRef = useRef<HTMLDivElement>(null);

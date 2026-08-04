@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect } from "react";
-import Link from "next/link";
+import { Link } from "@/i18nNavigation";
 import { motion, useInView } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { SpecialEventMode, EventContentItem } from "@/data/specialEvents";

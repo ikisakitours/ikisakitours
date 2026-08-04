@@ -1,12 +1,11 @@
 "use client";
 import { UserProfileAvatar } from "./UserProfileAvatar";
-import { useTranslations } from 'next-intl';
+import { useTranslations } from "next-intl";
 import Image from "next/image";
-import Link from "next/link";
 import { primaryNavigation } from "@/data/navigation";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
-import { useRouter, usePathname } from "next/navigation";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
+import { Link, useRouter, usePathname } from "@/i18nNavigation";
 //Icons
 import { LogOut, UserRound } from "lucide-react";
 import { type MouseEvent, useEffect, useRef, useState } from "react";
@@ -56,8 +55,8 @@ const Curve = () => {
 };
 
 export function SiteHeader() {
- const tNav = useTranslations('SiteHeader.navigation');
-
+  const tNav = useTranslations("SiteHeader.navigation");
+  const tDropdown = useTranslations("SiteHeader.Dropdown");
   const router = useRouter();
   const pathname = usePathname();
   const isHome = pathname === "/";
@@ -312,7 +311,7 @@ export function SiteHeader() {
                           onClick={(e) => handleNavigation(e, getFinalHref(item.href, item.sectionId), false)}
                           className={`${navLinkClass} text-[10px] xl:text-[11px] 2xl:text-[12px] tracking-[0.25em] [word-spacing:3px]`}
                         >
-                        {tNav(item.key)}
+                          {tNav(item.key)}
                         </Link>
                       )
                     )}
@@ -349,7 +348,7 @@ export function SiteHeader() {
                     initialsClassName="font-serif text-xs"
                   />
                   <span className="pointer-events-none absolute top-full left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap rounded-md bg-[#0a0a0a] border border-gold/30 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-gold opacity-0 transition-all duration-200 group-hover:opacity-100 shadow-2xl z-50 hidden md:block">
-                    Click for profile options
+                    {tDropdown("tooltip")}
                   </span>
                 </button>
 
@@ -380,7 +379,7 @@ export function SiteHeader() {
                       className="flex items-center px-6 py-3 text-sm text-slate-200 transition-colors hover:bg-gold/10 hover:text-gold"
                     >
                       <UserRound className="mr-3 h-4 w-4" />
-                      See Profile
+                      {tDropdown("seeProfile")}
                     </Link>
                     <div className="mx-4 my-1 border-t border-white/5" />
                     <button
@@ -388,7 +387,7 @@ export function SiteHeader() {
                       className="flex w-full items-center px-6 py-3 text-left text-sm text-red-400 transition-colors hover:bg-red-500/10"
                     >
                       <LogOut className="mr-3 h-4 w-4" />
-                      Log Out
+                      {tDropdown("logOut")}
                     </button>
                   </div>
                 </div>
@@ -467,7 +466,7 @@ export function SiteHeader() {
                         {"isDropdown" in item && item.isDropdown ? (
                           <div className="flex flex-col space-y-4 mt-4">
                             <span className="text-lg sm:text-xl font-bold uppercase tracking-[0.2em] text-white/40 border-b border-white/10 pb-2 mx-auto inline-block">
-                            {tNav(item.key)}
+                              {tNav(item.key)}
                             </span>
                             {item.subItems?.map((sub) => {
                               const subFinalHref = getFinalHref(sub.href, sub.sectionId);
@@ -478,7 +477,7 @@ export function SiteHeader() {
                                   href={subFinalHref}
                                   className="text-sm sm:text-base font-bold uppercase tracking-[0.25em] [word-spacing:6px] block transition-colors duration-300 text-white hover:text-gold hover:scale-105"
                                 >
-                                 {tNav(sub.key)}
+                                  {tNav(sub.key)}
                                 </Link>
                               );
                             })}
@@ -490,7 +489,7 @@ export function SiteHeader() {
                               href={getFinalHref(item.href, item.sectionId)}
                               className="text-base sm:text-lg font-bold uppercase tracking-[0.35em] [word-spacing:6px] block transition-colors duration-300 text-white hover:text-gold hover:scale-105"
                             >
-                            {tNav(item.key)}
+                              {tNav(item.key)}
                             </Link>
                           )
                         )}

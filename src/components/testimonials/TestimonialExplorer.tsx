@@ -10,7 +10,7 @@ import { ArrowLeft } from "lucide-react";
 import { WriteReviewForm } from "@/components/ui/WriteReviewForm";
 import { motion, AnimatePresence } from "framer-motion";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18nNavigation";
 //Icons
 import { Filter } from "lucide-react";
 
@@ -129,7 +129,7 @@ export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) 
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{
               duration: 0.7,
-              ease: [0.22, 1, 0.36, 1], 
+              ease: [0.22, 1, 0.36, 1],
             }}
             className="mt-12"
           >
@@ -139,7 +139,10 @@ export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) 
           <>
             {/* Testimonials Grid */}
             {visibleTestimonials.length > 0 ? (
-              <div id="testimonial-grid" className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4">
+              <div
+                id="testimonial-grid"
+                className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4"
+              >
                 {visibleTestimonials.map((testimonial) => (
                   <TestimonialCard key={testimonial.id} testimonial={testimonial} />
                 ))}

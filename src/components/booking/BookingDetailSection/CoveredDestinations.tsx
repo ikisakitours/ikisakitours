@@ -1,5 +1,5 @@
 import { LoadingImage } from "@/components/ui/LoadingImage";
-import Link from "next/link";
+import { Link } from "@/i18nNavigation";
 //Icons
 import { Compass } from "lucide-react";
 

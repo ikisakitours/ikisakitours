@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/link";
+import { Link } from "@/i18nNavigation";
 import Image from "next/image";
 //Icons
 import { Clock, ArrowRight, Star } from "lucide-react";

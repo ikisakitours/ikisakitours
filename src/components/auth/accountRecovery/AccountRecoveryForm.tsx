@@ -2,11 +2,12 @@
 
 import { type FormEvent, useState, Suspense } from "react";
 import { AuthFormHeader } from "../AuthFormHeader";
-import { accountRecoveryFormContent } from "@/data/auth";
 import { Button } from "@/components/ui/Button";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { FormError } from "@/components/ui/FormError";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18nNavigation";
+import { useTranslations } from "next-intl";
 //Icons
 import { ArrowLeft, Mail } from "lucide-react";
 
@@ -14,13 +15,17 @@ const inputClass =
   "w-full rounded-2xl border border-white/10 bg-white/[0.03] py-3.5 px-5 text-sm text-white outline-none transition-all placeholder:text-slate-700 focus:border-gold focus:bg-gold/5 focus:shadow-[0_0_15px_rgba(197,160,89,0.05)]";
 
 function AccountRecoveryFormInner() {
+  const tAuth = useTranslations("Auth");
+  const tForm = useTranslations("SharedForm");
+
   const [email, setEmail] = useState("");
   const { errors, validate, setErrors } = useValidationForm();
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const fromWhere = searchParams?.get("from");
-  const backLabel = fromWhere === "profile?tab=security" ? "Back to Profile" : "Back to Sign In";
+const backLabel =
+  fromWhere === "profile?tab=security" ? tAuth("Links.backToProfile") : tAuth("Links.backToSignIn");
 
   const handleBackClick = () => {
     if (fromWhere === "profile") {
@@ -39,19 +44,22 @@ function AccountRecoveryFormInner() {
 
   return (
     <section className="flex max-h-[calc(100dvh-4rem)] w-full max-w-125 flex-col overflow-hidden rounded-[2.5rem] border border-gold/15 bg-[#0a0a0a]/85 p-8 shadow-2xl backdrop-blur-3xl md:p-12">
-      <AuthFormHeader content={accountRecoveryFormContent} />
+      <AuthFormHeader introKey="Recovery" />
 
       <div className="overflow-y-auto pr-2">
         <form className="space-y-6" onSubmit={handleSubmit} noValidate>
           <label className="block space-y-2">
-            <span className="ml-1 block text-[10px] font-bold uppercase tracking-[0.2em] text-gold">Email Address</span>
+            <span className="ml-1 block text-[10px] font-bold uppercase tracking-[0.2em] text-gold">
+              {" "}
+              {tForm("Labels.email")}
+            </span>
             <span className="group relative block">
               <Mail className="absolute left-5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-600 transition-colors group-focus-within:text-gold" />
               <input
                 type="email"
                 name="email"
                 autoComplete="email"
-                placeholder="name@example.com"
+                placeholder={tForm("Placeholders.email")}
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
@@ -66,7 +74,7 @@ function AccountRecoveryFormInner() {
           </label>
 
           <Button type="submit" variant="auth">
-            Send Reset Link
+            {tForm("Buttons.sendResetLink")}
           </Button>
         </form>
 

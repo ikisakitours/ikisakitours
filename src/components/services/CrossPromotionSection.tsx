@@ -1,11 +1,13 @@
-import Link from "next/link";
+import { Link } from "@/i18nNavigation";
 import { LoadingImage } from "@/components/ui/LoadingImage";
 import { Clock, Star, MessageCircleHeart, ArrowRight } from "lucide-react";
 import { packages } from "@/data/multiDaysTours";
 import { testimonials } from "@/data/testimonials";
 import { RatingStars } from "@/components/ui/RatingStars";
+import { useTranslations } from "next-intl";
 
 export function CrossPromotionSection() {
+  const tCross = useTranslations("Services.CrossPromotion");
   const displayPackages = packages.slice(0, 4);
   const displayTestimonials = testimonials.filter((t) => (t.rating ?? 5) === 5).slice(0, 4);
 
@@ -14,12 +16,12 @@ export function CrossPromotionSection() {
       {/* Packages Section */}
       <div className="mb-16">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="premium-serif text-3xl text-white">Discover More</h2>
+          <h2 className="premium-serif text-3xl text-white">{tCross("discoverMore")}</h2>
           <Link
             href="/packages"
             className="text-gold text-xs font-bold uppercase tracking-widest flex items-center gap-2 hover:text-white transition-colors"
           >
-            View All <ArrowRight className="h-3 w-3" />
+            {tCross("viewAll")} <ArrowRight className="h-3 w-3" />
           </Link>
         </div>
 
@@ -60,7 +62,7 @@ export function CrossPromotionSection() {
                   </span>
 
                   <span className="group relative flex shrink-0 items-center justify-center overflow-hidden rounded border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-500 hover:bg-gold hover:border-gold min-h-11 px-5 py-3 text-[10px] sm:min-h-0 sm:px-5 sm:py-2.5 font-bold uppercase tracking-[0.2em] text-white">
-                    <span className="relative z-10 transition-colors duration-300 group-hover:text-white">Details</span>
+                    <span className="relative z-10 transition-colors duration-300 group-hover:text-white">{tCross("details")}</span>
 
                     {/* Shine effect */}
                     <div className="absolute inset-0 z-0 h-full w-full -translate-x-full bg-linear-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full" />
@@ -73,7 +75,17 @@ export function CrossPromotionSection() {
                     <Star className="h-3.5 w-3.5 text-gold" fill="currentColor" />
                     <span className="text-sm font-bold tracking-widest text-white">{pkg.rating}</span>
                   </div>
-                  <span className="text-xl font-bold tracking-tighter text-gold">{pkg.price}</span>
+                  
+                  {/* Price Section with 'Starting from' */}
+                  <div className="flex flex-col items-end">
+                    <span className="mb-0.5 text-[8px] font-bold uppercase tracking-widest text-slate-500">
+                      {tCross("startingFrom")}
+                    </span>
+                    <span className="text-xl font-bold tracking-tighter text-gold leading-none">
+                      {pkg.price}
+                    </span>
+                  </div>
+
                 </div>
               </div>
             </Link>
@@ -84,12 +96,12 @@ export function CrossPromotionSection() {
       {/* Testimonials Section */}
       <div>
         <div className="flex items-center justify-between mb-8">
-          <h2 className="premium-serif text-3xl text-white">Guest Stories</h2>
+          <h2 className="premium-serif text-3xl text-white">{tCross("guestStories")}</h2>
           <Link
             href="/testimonials"
             className="text-gold text-xs font-bold uppercase tracking-widest flex items-center gap-2 hover:text-white transition-colors"
           >
-            Read More <ArrowRight className="h-3 w-3" />
+            {tCross("readMore")} <ArrowRight className="h-3 w-3" />
           </Link>
         </div>
 

@@ -3,6 +3,7 @@
 import React from "react";
 import { UserProfileAvatar } from "@/components/layout/UserProfileAvatar";
 import { Button } from "@/components/ui/Button";
+import { useTranslations } from "next-intl";
 //Icons
 import { Camera } from "lucide-react";
 
@@ -25,6 +26,8 @@ export function ProfileAvatarSection({
   onAvatarSelect,
   onImageUpdate,
 }: ProfileAvatarSectionProps) {
+  const t = useTranslations("ProfilePage");
+
   return (
     <div className="flex flex-col items-center space-y-6 border-b border-white/5 pb-8 sm:flex-row sm:space-x-8 sm:space-y-0">
       <button
@@ -49,7 +52,6 @@ export function ProfileAvatarSection({
         </span>
       </button>
 
-      {/* Hidden Inputs */}
       <input
         id="camera-input"
         type="file"
@@ -67,8 +69,8 @@ export function ProfileAvatarSection({
       />
 
       <div className="text-center sm:text-left">
-        <h3 className="text-sm font-bold text-white">Profile Picture</h3>
-        <p className="mt-1 text-xs text-slate-400">PNG, JPG or GIF. Max 5MB.</p>
+        <h3 className="text-sm font-bold text-white">{t("DetailsPanel.profilePicTitle")}</h3>
+        <p className="mt-1 text-xs text-slate-400">{t("DetailsPanel.profilePicDesc")}</p>
 
         {avatarError && (
           <div className="mt-2 text-[13px] font-medium text-red-500">
@@ -83,7 +85,7 @@ export function ProfileAvatarSection({
             onClick={onImageUpdate}
             className="mt-3 mx-auto sm:mx-0 block"
           >
-            Save Photo
+            {t("DetailsPanel.savePhotoBtn")}
           </Button>
         )}
       </div>

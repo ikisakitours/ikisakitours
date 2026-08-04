@@ -16,5 +16,23 @@
     "Reviews": "Reviews",
     "FAQs": "FAQs",
     "Contact": "Contact"
+  },
+  "Dropdown": {
+    "tooltip": "Click for profile options",
+    "seeProfile": "See Profile",
+    "logIn": "Log In",
+    "logOut": "Log Out"
+  },
+  "Language": {
+    "tooltip": "Click to change language",
+    "select": "Select Language",
+    "searchPlaceholder": "Search language (e.g. Sinhala, FR)...",
+    "noResults": "No language found"
+  },
+  "Currency": {
+    "tooltip": "Click for currency options",
+    "select": "Select Currency",
+    "searchPlaceholder": "Search currency (e.g. LKR, Euro)...",
+    "noResults": "No currency found"
   }
 }

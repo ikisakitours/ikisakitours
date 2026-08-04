@@ -1,5 +1,6 @@
 "use client";
-import { usePathname, useRouter } from "next/navigation";
+
+import { useRouter, usePathname } from "@/i18nNavigation";
 import { LegalDocumentSection } from "@/components/legal/LegalDocumentSection";
 import { LegalHero } from "@/components/legal/LegalHero";
 import { legalDocuments, type LegalDocumentId } from "@/data/legal";

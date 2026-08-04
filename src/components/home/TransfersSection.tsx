@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import Link from "next/link";
+import { Link } from "@/i18nNavigation";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { transferCards } from "@/data/home";
 import { trustBadgesData } from "@/data/home";

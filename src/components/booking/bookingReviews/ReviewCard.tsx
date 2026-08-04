@@ -1,6 +1,6 @@
 import { LoadingImage } from "@/components/ui/LoadingImage";
 import { bookingTour } from "@/data/multiDaysBooking";
-import Link from "next/link";
+import { Link } from "@/i18nNavigation";
 import { RatingStars } from "@/components/ui/RatingStars";
 //Icons
 import { CheckCircle2, Crown, CalendarDays, Images } from "lucide-react";

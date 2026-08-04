@@ -25,7 +25,8 @@
   "passwordNumber": "Password must contain at least 1 numeral",
   "passwordSpecial": "Password must contain at least 1 special character",
   "confirmPasswordRequired": "Confirm password is required",
-  "passwordsMatch": "Passwords do not match",
+  "passwordsMatch": "Passwords match",
+  "passwordsDoNotMatch": "Passwords do not match",
   "currentPasswordRequired": "Current password is required",
   "termsRequired": "You must agree to the terms and privacy policy",
   "otpRequired": "Please enter the complete verification code",
@@ -38,11 +39,35 @@
   "messageRequired": "Message is required",
   "messageMinLength": "Message must be at least 10 characters long",
   "inquiryTypeRequired": "Please select an inquiry type",
+  "missing": "Missing: ",
+  "noCountries": "No countries found",
 
   "PhoneDetection": {
     "detecting": "Detecting dialing code...",
     "autoDetected": "We automatically detected your location. If this is incorrect, please change it.",
     "confirmed": "Location confirmed successfully!",
     "mismatch": "Note: The selected dialing code differs from your detected location. Please check."
+  },
+  "LocationDetection": {
+    "detecting": "Detecting your location...",
+    "autoDetected": "We automatically detected your location. If this is incorrect, please change it.",
+    "fallback": "Please select your country from the list below.",
+    "confirmed": "Location confirmed successfully!",
+    "mismatch": "Note: The selected country differs from your detected location. Please check.",
+    "success": "Country selected successfully."
+  },
+  "PasswordRules": {
+    "length": "At least 8 characters",
+    "upper": "1 Uppercase letter",
+    "lower": "1 Lowercase letter",
+    "num": "1 Numeral",
+    "special": "1 Special character"
+  },
+  "CameraErrors": {
+    "notSupported": "Camera is not supported by your browser",
+    "noCamera": "No camera detected on this device",
+    "denied": "Camera permission denied. Please allow camera access in your browser settings.",
+    "general": "Unable to access the camera. Please check your device settings.",
+    "unexpected": "An unexpected error occurred while accessing the camera."
   }
 }

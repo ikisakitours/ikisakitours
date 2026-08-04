@@ -1,7 +1,7 @@
 "use client";
 
 import { type FormEvent, useMemo, useState } from "react";
-import { transferServiceTypes, type TransferServiceId } from "@/data/transfers";
+import { type TransferServiceId } from "@/data/transfers";
 import { vehicles } from "@/data/vehicles";
 import { TransferFareSummary } from "./TransferFareSummary";
 import { TransferJourneyFields } from "./TransferJourneyFields";
@@ -13,8 +13,11 @@ import { useValidationForm } from "@/hooks/useValidationForm";
 import { CrossPromotionSection } from "@/components/services/CrossPromotionSection";
 import FormPanel from "@/components/services/FormPanel";
 import StepHeading from "@/components/services/StepHeading";
+import { useTranslations } from "next-intl";
+import { languages } from "@/data/Languages-CurrencyData";
 
 export function TransferBookingForm() {
+  const tStep = useTranslations("Services.StepHeadings");
   const defaultCategory = vehicles[0].category;
   const defaultVehicleId = vehicles[0].id;
 
@@ -46,11 +49,6 @@ export function TransferBookingForm() {
       return { ...prev, [type]: next };
     });
   };
-
-  const selectedService = useMemo(
-    () => transferServiceTypes.find((service) => service.id === serviceType) ?? transferServiceTypes[0],
-    [serviceType],
-  );
 
   const selectedVehicle = useMemo(
     () => vehicles.find((vehicle) => vehicle.id === selectedVehicleId) ?? vehicles[0],
@@ -91,7 +89,7 @@ export function TransferBookingForm() {
       <div className="grid gap-8 xl:grid-cols-12 xl:items-start">
         <form className="space-y-8 xl:col-span-8" onSubmit={handleSubmit}>
           <FormPanel>
-            <StepHeading step="1">Service Type</StepHeading>
+            <StepHeading step="1">{tStep("step1Service")}</StepHeading>
             <TransferServiceSelector
               selectedServiceId={serviceType}
               onServiceChange={(id) => {
@@ -101,7 +99,7 @@ export function TransferBookingForm() {
           </FormPanel>
 
           <FormPanel className="z-10">
-            <StepHeading step="2">Journey Details</StepHeading>
+            <StepHeading step="2">{tStep("step2Journey")}</StepHeading>
             <TransferJourneyFields
               activeFilter={activeFilter}
               onFilterChange={setActiveFilter}
@@ -120,19 +118,20 @@ export function TransferBookingForm() {
               onDropoffLocationChange={setDropoffLocation}
               errors={errors}
               setErrors={setErrors}
+              languagesList={languages}
             />
           </FormPanel>
 
           <FormPanel className="border-t-2 border-gold/30">
-            <StepHeading step="3" subtitle="Chauffeur assignment details">
-              Contact Information
+            <StepHeading step="3" subtitle={tStep("stepContactSub")}>
+              {tStep("stepContact")}
             </StepHeading>
             <ContactForm data={contact} setData={setContact} errors={errors} setErrors={setErrors} />
           </FormPanel>
         </form>
 
         {/* Fare Summary Sidebar */}
-        <TransferFareSummary selectedService={selectedService} selectedVehicle={selectedVehicle} />
+        <TransferFareSummary selectedServiceId={serviceType} selectedVehicle={selectedVehicle} />
       </div>
       <div className="xl:col-span-12">
         <CrossPromotionSection />

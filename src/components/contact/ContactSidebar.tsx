@@ -2,20 +2,8 @@
 //Icons
 import { SiWhatsapp } from "react-icons/si";
 import { Mail, Phone, MapPin, Clock, Headphones } from "lucide-react";
-type SidebarProps = {
-  data: {
-    title: string;
-    info: {
-      label: string;
-      value: string;
-    }[];
-    whatsapp: {
-      title: string;
-      buttonText: string;
-      href: string;
-    };
-  };
-};
+import { useTranslations } from "next-intl";
+
 const contactInfoIcons = [Mail, Phone, MapPin, Clock];
 
 function InfoItem({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
@@ -30,13 +18,16 @@ function InfoItem({ icon, label, value }: { icon: React.ReactNode; label: string
   );
 }
 
-export default function ContactSidebar({ data }: SidebarProps) {
+export default function ContactSidebar() {
+  const t = useTranslations("ContactPage.Sidebar");
+  const infoArray = t.raw("info") as { label: string; value: string }[];
+
   return (
     <div className="space-y-8 lg:col-span-1">
       <div className="glass-card rounded-3xl p-8">
-        <h2 className="premium-serif mb-6 text-xl text-white">{data.title}</h2>
+        <h2 className="premium-serif mb-6 text-xl text-white">{t("title")}</h2>
         <div className="space-y-6">
-          {data.info.map((item, index) => {
+          {infoArray.map((item, index) => {
             const Icon = contactInfoIcons[index] || Headphones;
             return <InfoItem key={index} icon={<Icon className="h-5 w-5" />} label={item.label} value={item.value} />;
           })}
@@ -48,37 +39,35 @@ export default function ContactSidebar({ data }: SidebarProps) {
 
         <p className="relative z-10 premium-serif mb-5 md:mb-4 xl:mb-5 text-base md:text-sm xl:text-base 3xl:text-lg font-extrabold tracking-wide text-white flex items-center justify-start gap-2">
           <span className="inline-block h-2 w-2 shrink-0 rounded-full bg-emerald-400 animate-pulse" />
-          {data.whatsapp.title}
+          {t("whatsappTitle")}
         </p>
 
         <button
           type="button"
-          onClick={() => window.open(data.whatsapp.href, "_blank")}
+          onClick={() => window.open("https://wa.me/94771234567", "_blank")} // Update with actual WhatsApp link
           className="group mx-auto lg:mx-0 flex w-full sm:w-auto cursor-pointer items-center justify-center sm:justify-start md:justify-center lg:justify-start gap-4 md:gap-3 xl:gap-4 border-none bg-transparent p-0 text-left relative z-10"
         >
-          {/* Icon Container: Resize nicely on tablets and 3xl */}
+          {/* Icon Container */}
           <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white/5 border border-white/10 shadow-inner animate-blink-border transition-all duration-300 group-hover:border-gold group-hover:bg-gold/10 group-hover:scale-105 md:h-10 md:w-10 lg:h-12 lg:w-12 xl:h-13 xl:w-13 3xl:h-15 3xl:w-15">
             <SiWhatsapp className="h-5 w-5 text-emerald-400 transition-colors group-hover:text-gold md:h-5 md:w-5 xl:h-6 xl:w-6 3xl:h-7 3xl:w-7" />
           </div>
 
-          {/* Text Container: min-w-0 prevents flexbox overflowing */}
+          {/* Text Container */}
           <div className="flex flex-col min-w-0">
-            {/* Main Button Text */}
             <span className="whitespace-nowrap md:truncate xl:whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.2em] text-white/80 transition-colors group-hover:text-white md:text-[10px] lg:text-[11px] xl:text-[13px] 3xl:text-[15px]">
-              {data.whatsapp.buttonText}
+              {t("whatsappButton")}
             </span>
 
-            {/* Subtext: Stacks (flex-col) vertically ONLY on tablet, back to normal on mobile & desktop */}
             <span className="mt-1 flex flex-row lg:flex-col xl:flex-row items-center md:items-start xl:items-center gap-1.5 md:gap-0.5 xl:gap-1.5 whitespace-nowrap md:whitespace-normal xl:whitespace-nowrap text-[10px] font-medium text-gold/90 md:text-[10px] lg:text-[10px] xl:text-[12px] 3xl:text-[14px] leading-tight">
               <span className="flex items-center gap-1.5">
                 <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-gold animate-ping" />
                 <span className="whitespace-nowrap">
-                  Online & Ready to Chat <span className="inline md:hidden xl:inline">—</span>
+                  {t("onlineStatus")} <span className="inline md:hidden xl:inline">—</span>
                 </span>
               </span>
 
               <span className="underline decoration-gold/60 underline-offset-2 transition-colors group-hover:text-gold whitespace-nowrap lg:ml-3">
-                Click to chat
+                {t("clickToChat")}
               </span>
             </span>
           </div>

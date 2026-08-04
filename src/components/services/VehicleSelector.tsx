@@ -1,6 +1,7 @@
 import { vehicleFilters, vehicles } from "@/data/vehicles";
-import Link from "next/link";
+import { Link } from "@/i18nNavigation";
 import { Car } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export type ActiveVehicleFilter = (typeof vehicleFilters)[number]["value"];
 
@@ -8,7 +9,7 @@ type VehicleSelectorProps = {
   activeFilter: ActiveVehicleFilter;
   onFilterChange: (filter: ActiveVehicleFilter) => void;
   onVehicleChange: (vehicleId: string) => void;
-  showDriverIncludedNote?: boolean; // 🌟 Private vehicle එකට පමණක් මෙය true කරමු
+  showDriverIncludedNote?: boolean; 
 };
 
 export function VehicleSelector({
@@ -17,6 +18,8 @@ export function VehicleSelector({
   onVehicleChange,
   showDriverIncludedNote = false,
 }: VehicleSelectorProps) {
+  const tVeh = useTranslations("Services.VehicleSelector");
+
   const handleFilterClick = (filterValue: ActiveVehicleFilter) => {
     onFilterChange(filterValue);
 
@@ -57,15 +60,15 @@ export function VehicleSelector({
               <span className="text-[14px]">💡</span>
             </div>
             <p className="text-[11px] font-light leading-relaxed text-slate-300 md:text-xs">
-              <span className="block font-bold text-white mb-0.5">Need a specific setup?</span>
-              Can&apos;t find the vehicle you&apos;re looking for?{" "}
+              <span className="block font-bold text-white mb-0.5">{tVeh("needSetup")}</span>
+              {tVeh("cantFind")}{" "}
               <Link
                 href="/contact"
                 className="font-semibold text-gold underline underline-offset-4 hover:text-white transition-colors"
               >
-                Contact our support team
+                {tVeh("contactSupport")}
               </Link>{" "}
-              to customize your requirements.
+              {tVeh("customize")}
             </p>
           </div>
 
@@ -74,9 +77,8 @@ export function VehicleSelector({
               <Car className="h-4 w-4" />
             </div>
             <p className="text-[11px] font-medium leading-relaxed text-gold md:text-xs">
-              <span className="block font-bold text-white mb-0.5">Vehicle & Driver Included</span>
-              Your booking includes a professional chauffeur and a private, well-maintained vehicle dedicated to your
-              journey.
+              <span className="block font-bold text-white mb-0.5">{tVeh("driverIncluded")}</span>
+              {tVeh("driverDesc")}
             </p>
           </div>
         </div>
@@ -88,15 +90,15 @@ export function VehicleSelector({
               <span className="text-[14px]">💡</span>
             </div>
             <p className="text-[11px] font-light leading-relaxed text-slate-300 md:text-xs">
-              <span className="block font-bold text-white mb-0.5">Need a specific setup?</span>
-              Can&apos;t find the vehicle you&apos;re looking for?{" "}
+              <span className="block font-bold text-white mb-0.5">{tVeh("needSetup")}</span>
+              {tVeh("cantFind")}{" "}
               <Link
                 href="/contact"
                 className="font-semibold text-gold underline underline-offset-4 hover:text-white transition-colors"
               >
-                Contact our support team
+                {tVeh("contactSupport")}
               </Link>{" "}
-              to customize your requirements.
+              {tVeh("customize")}
             </p>
           </div>
         </div>

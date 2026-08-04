@@ -4,7 +4,10 @@ import { ProfileDetailsPanel } from "./ProfileDetailsPanel";
 import { SecuritySettingsPanel } from "./SecuritySettingsPanel";
 import { profileTabs, type ProfileTabId } from "@/data/profile";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18nNavigation";
+import { useTranslations } from "next-intl";
+
 //Icons
 import { ShieldCheck, UserRound, type LucideIcon } from "lucide-react";
 
@@ -16,6 +19,7 @@ const tabIcons = {
 function ProfileDashboardInner() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const t = useTranslations("ProfilePage");
 
   const tabParam = searchParams?.get("tab");
   const activeTab: ProfileTabId = tabParam === "security" ? "security" : "profile";
@@ -28,7 +32,7 @@ function ProfileDashboardInner() {
     <ContainerLayout className="grid grid-cols-1 gap-12 lg:grid-cols-12 py-20 sm:py-24 md:py-26 lg:py-28 2xl:py-30 3xl:py-32">
       <aside className="w-full space-y-6 lg:col-span-4">
         <h1 className="premium-serif mb-6 whitespace-nowrap text-center text-2xl text-white sm:mb-8 sm:text-3xl lg:text-left lg:text-4xl">
-          Account <span className="text-gold">Settings</span>
+          {t("Dashboard.titleBase")} <span className="text-gold">{t("Dashboard.titleAccent")}</span>
         </h1>
 
         <nav className="mx-auto flex w-full flex-nowrap justify-center gap-1.5 sm:gap-3 lg:mx-0 lg:max-w-full lg:flex-col lg:space-y-2.5 lg:gap-0">
@@ -36,7 +40,8 @@ function ProfileDashboardInner() {
             const Icon = tabIcons[tab.id];
             const isActive = tab.id === activeTab;
 
-            const shortLabel = tab.id === "profile" ? "Profile" : "Security";
+            const shortLabel = tab.id === "profile" ? t("Dashboard.shortProfile") : t("Dashboard.shortSecurity");
+            const fullLabel = tab.id === "profile" ? t("Dashboard.tabProfile") : t("Dashboard.tabSecurity");
 
             return (
               <button
@@ -54,8 +59,7 @@ function ProfileDashboardInner() {
 
                 <span className="text-[10px] font-bold uppercase tracking-widest sm:text-xs whitespace-nowrap">
                   <span className="hidden max-[380px]:inline">{shortLabel}</span>
-
-                  <span className="inline max-[380px]:hidden">{tab.label}</span>
+                  <span className="inline max-[380px]:hidden">{fullLabel}</span>
                 </span>
               </button>
             );

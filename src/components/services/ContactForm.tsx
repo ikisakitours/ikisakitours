@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { assuranceBadges } from "@/data/privateVehicle";
 import { floatingLabelClass, inputClass, fieldLabelClass } from "./formStyles";
 import { Button } from "@/components/ui/Button";
 import { FormError } from "@/components/ui/FormError";
@@ -9,10 +8,10 @@ import { CustomCountrySelect } from "@/components/ui/CustomCountrySelect";
 
 import PhoneInput, { Country } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+import { useTranslations } from "next-intl";
 
 //Icons
-import { UserRound } from "lucide-react";
-import { FaCircleCheck } from "react-icons/fa6";
+import { UserRound, ShieldCheck, CreditCard, Headset } from "lucide-react";
 
 export type ContactData = {
   fullName: string;
@@ -28,7 +27,15 @@ type ContactFieldsProps = {
   setErrors: React.Dispatch<React.SetStateAction<Record<string, string>>>;
 };
 
+const badgeIcons = [ShieldCheck, CreditCard, Headset];
+
 export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsProps) {
+  const tForm = useTranslations("SharedForm");
+  const tErr = useTranslations("ValidationErrors");
+  const tServices = useTranslations("Services");
+
+  const assuranceBadges = tServices.raw("AssuranceBadges") as string[];
+
   const [detectedCode, setDetectedCode] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
   const [isDetecting, setIsDetecting] = useState(true);
@@ -83,12 +90,12 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
           {/* Full Name */}
           <div className="flex flex-col gap-1">
             <label className="relative block">
-              <span className={floatingLabelClass}>Full Name</span>
+              <span className={floatingLabelClass}>{tForm("Labels.fullName")}</span>
               <input
                 className={`${inputClass} pt-5`}
                 value={data.fullName}
                 onChange={(e) => updateField("fullName", e.target.value)}
-                placeholder="Alexander Knight"
+                placeholder={tForm("Placeholders.fullName")}
               />
             </label>
             <div className="ml-2">
@@ -99,11 +106,11 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
           {/* Email Address */}
           <div className="flex flex-col gap-1">
             <label className="relative block">
-              <span className={floatingLabelClass}>Email Address</span>
+              <span className={floatingLabelClass}>{tForm("Labels.email")}</span>
               <input
                 type="email"
                 className={`${inputClass} pt-5`}
-                placeholder="alex@example.com"
+                placeholder={tForm("Placeholders.email")}
                 value={data.email}
                 onChange={(e) => updateField("email", e.target.value)}
               />
@@ -116,7 +123,7 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
           {/* Phone Number */}
           <div className="flex flex-col gap-1">
             <label className="relative block">
-              <span className={floatingLabelClass}>WhatsApp Number *</span>
+              <span className={floatingLabelClass}>{tForm("Labels.whatsapp")}</span>
               <PhoneInput
                 international
                 defaultCountry={(detectedCode as Country) || "LK"}
@@ -134,31 +141,31 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
                 numberInputProps={{
                   className:
                     "w-full bg-transparent border-none outline-none text-white focus:ring-0 placeholder:text-slate-400 p-0 text-sm ml-2",
-                  placeholder: "+94 77 123 4567",
+                  placeholder: tForm("Placeholders.phone"),
                 }}
               />
             </label>
 
             <div className="ml-2 mt-1">
               {isDetecting ? (
-                <p className="text-[10px] italic text-slate-500 animate-pulse">Detecting dialing code...</p>
+                <p className="text-[10px] italic text-slate-500 animate-pulse">{tErr("PhoneDetection.detecting")}</p>
               ) : (
                 <>
                   {!userInteracted && detectedCode && (
                     <p className="text-[10px] font-medium leading-relaxed text-emerald-500/80">
-                      We automatically detected your location. If this is incorrect, please change it.
+                      {tErr("PhoneDetection.autoDetected")}
                     </p>
                   )}
 
                   {userInteracted && detectedCode && selectedCountry === detectedCode && (
                     <p className="text-[10px] font-medium leading-relaxed text-emerald-500/80">
-                      Location confirmed successfully!
+                      {tErr("PhoneDetection.confirmed")}
                     </p>
                   )}
 
                   {userInteracted && detectedCode && selectedCountry !== detectedCode && (
                     <p className="text-[10px] font-medium leading-relaxed text-amber-500/90">
-                      Note: The selected dialing code differs from your detected location. Please check.
+                      {tErr("PhoneDetection.mismatch")}
                     </p>
                   )}
                 </>
@@ -171,16 +178,16 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
         {/* Special Requests */}
         <div className="flex flex-col gap-1 mb-8">
           <label className="block group">
-            <span className={fieldLabelClass}>Special Requests</span>
+            <span className={fieldLabelClass}>{tForm("Labels.specialRequests")}</span>
             <textarea
               className={`${inputClass} auto-resize-textarea min-h-30 w-full resize-none p-4 transition-all duration-300 focus:border-gold/60 focus:bg-white/[0.07] focus:outline-none`}
-              placeholder="Flight number, luggage notes, child seats, or route preferences"
+              placeholder={tForm("Placeholders.specialRequests")}
               onInput={handleInput}
               value={data.specialRequests}
               onChange={(e) => updateField("specialRequests", e.target.value)}
             />
             <span className="mt-1 block text-[11px] font-medium text-slate-500 md:text-[12px] lg:text-[13px] 3xl:text-[14px] leading-relaxed">
-              * Box will expand automatically as you type.
+              {tForm("Messages.autoExpand")}
             </span>
           </label>
           <div className="ml-2">
@@ -190,19 +197,22 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
 
         <div className="mx-auto max-w-xs">
           <Button type="submit" variant="explore" className="w-full justify-center">
-            Check Availability
+            {tForm("Buttons.checkAvailability")}
           </Button>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
-            {assuranceBadges.map((badge) => (
-              <span
-                key={badge}
-                className="flex items-center gap-2 whitespace-nowrap text-[9px] font-bold uppercase tracking-widest text-slate-500"
-              >
-                <FaCircleCheck className="h-3 w-3 text-gold" />
-                {badge}
-              </span>
-            ))}
+          <div className="mt-8 flex flex-wrap md:flex-nowrap items-center justify-center gap-x-5 gap-y-3">
+            {assuranceBadges.map((badge, index) => {
+              const Icon = badgeIcons[index] || ShieldCheck;
+              return (
+                <span
+                  key={badge}
+                  className="flex items-center gap-2 whitespace-nowrap text-[9px] font-bold uppercase tracking-widest text-slate-500"
+                >
+                  <Icon className="h-3.5 w-3.5 text-gold" />
+                  {badge}
+                </span>
+              );
+            })}
           </div>
         </div>
       </div>

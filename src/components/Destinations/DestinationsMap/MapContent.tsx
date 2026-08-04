@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { Link } from "@/i18nNavigation";
 import { LoadingImage } from "@/components/ui/LoadingImage";
 import { X } from "lucide-react";
 import { EmptyState } from "@/components/ui/EmptyState";
