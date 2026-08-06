@@ -22,7 +22,7 @@ export function PromoModal({
   // 1 Second = 1000ms
   //5 minutes *  60 seconds = 300 seconds
   //convert minutes  to milliseconds: 300 * 1000 = 300000 milliseconds
-  delayMs = 600000, // 600000 milliseconds = 10 minutes
+  delayMs = 150000, // 600000 milliseconds = 10 minutes
   expiryMinutes = 60, // 60 minutes
   discountAmount = "$25",
   discountType = "OFF",
