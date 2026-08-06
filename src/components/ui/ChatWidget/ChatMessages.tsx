@@ -40,7 +40,7 @@ export function ChatMessages({ onEmailClick, waLink }: ChatMessagesProps) {
 
             {/* Line App Button */}
             <a
-              href="https://line.me/ti/p/~your_line_id"
+              href="https://line.me/ti/p/dcnpathirana"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex w-full items-center justify-between rounded-xl bg-lanka-black border border-[#06C755]/30 p-3.5 hover:border-[#06C755] hover:bg-[#06C755]/5 transition-all duration-300"

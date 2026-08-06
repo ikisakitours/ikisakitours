@@ -35,7 +35,7 @@ export function LanguagePromptToast({
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
           transition={{ type: "spring", damping: 25, stiffness: 200 }}
-          className="fixed top-18 md:top-24 left-4 right-4 sm:left-auto sm:right-6 sm:w-105 z-9999"
+          className="fixed top-20 md:top-24 left-4 right-4 sm:left-auto sm:right-6 sm:w-105 z-9999"
         >
           {/* Main Card Container */}
           <div className="relative overflow-hidden rounded-3xl bg-[#0a0a0a]/98 sm:bg-[#080808]/90 backdrop-blur-3xl border border-white/15 shadow-[0_40px_80px_rgba(0,0,0,0.9)]">
