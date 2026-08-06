@@ -26,7 +26,7 @@ export function CustomTourSection() {
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-size-[3rem_3rem] mask-[radial-gradient(ellipse_60%_60%_at_50%_50%,#000_10%,transparent_100%)]" />
 
           {/* Giant Faded Watermark Text - Responsive */}
-          <div className="pointer-events-none absolute bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap select-none text-[3rem]  sm:text-[3rem] font-bold leading-none tracking-tighter text-white/3  md:text-[4.8em] lg:text-[6.5rem] xl:text-[7.5rem] 2xl:text-[8.5rem] 3xl:text-[10.5rem]">
+          <div className="pointer-events-none absolute bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap select-none text-[3rem]  sm:text-[3rem] font-bold leading-none tracking-tighter text-white/3  md:text-[4.8em] lg:text-[6.5rem] xl:text-[7.5rem] 2xl:text-[10.5rem] 3xl:text-[10.5rem]">
             {t("watermark")}
           </div>
 
@@ -34,7 +34,7 @@ export function CustomTourSection() {
           <div className="pointer-events-none absolute -left-1/4 -top-1/4 h-[50%] w-[50%] rounded-full bg-gold/10 blur-[120px] 3xl:blur-[160px]" />
 
           {/* Content Layout: Split Design */}
-          <div className="relative z-10 flex flex-col gap-12 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
+          <div className="relative z-10 flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between lg:gap-8">
             {/* Left Side: Typography */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -61,11 +61,11 @@ export function CustomTourSection() {
               className="flex flex-col items-start lg:w-5/12 lg:border-l lg:border-white/10 lg:pl-10 2xl:pl-12 3xl:pl-16"
             >
               <p className="mb-10 font-light leading-relaxed text-slate-400 md:text-lg 3xl:mb-12 3xl:text-xl">
-                 {t("description")}
+                {t("description")}
               </p>
 
               <Button variant="inquire" href="services/bespoke-travel" className="w-full sm:w-auto">
-                 {t("ctaText")}
+                {t("ctaText")}
               </Button>
             </motion.div>
           </div>

@@ -2,14 +2,15 @@ import { LoadingImage } from "@/components/ui/LoadingImage";
 import type { TourPackage } from "@/data/multiDaysTours";
 import { BadgeType } from "@/data/multiDaysTours";
 import { Button } from "@/components/ui/Button";
-//Icons
 import { Star } from "lucide-react";
 import { FaClock } from "react-icons/fa6";
+import { useTranslations } from "next-intl";
 
 type PackageCardProps = {
   item: TourPackage;
   tourType?: "multi" | "one";
 };
+
 const getBadgeStyles = (type: BadgeType) => {
   switch (type) {
     case "popular":
@@ -22,7 +23,9 @@ const getBadgeStyles = (type: BadgeType) => {
       return "bg-white/10 text-white";
   }
 };
+
 export function Card({ item, tourType }: PackageCardProps) {
+  const t = useTranslations("Tours.Card");
   const bookingHref =
     tourType === "one" ? `/booking/one-day-tours/${item.slug}` : `/booking/multi-days-tours/${item.slug}`;
 
@@ -73,11 +76,11 @@ export function Card({ item, tourType }: PackageCardProps) {
         </p>
         <div className="mt-auto flex items-center justify-between border-t border-white/5 pt-4">
           <div>
-            <p className="text-[11px] uppercase leading-none tracking-widest text-slate-300">Starting from</p>
+            <p className="text-[11px] uppercase leading-none tracking-widest text-slate-300">{t("startingFrom")}</p>
             <p className="mt-1 text-lg font-bold text-gold">{item.price}</p>
           </div>
           <Button variant="details" href={bookingHref}>
-            Details
+            {t("details")}
           </Button>
         </div>
       </div>

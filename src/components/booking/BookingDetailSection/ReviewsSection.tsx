@@ -3,6 +3,7 @@ import { LoadingImage } from "@/components/ui/LoadingImage";
 import { Link } from "@/i18nNavigation";
 import { Button } from "@/components/ui/Button";
 import RatingStars from "./RatingStars";
+import { useTranslations } from "next-intl";
 //Icons
 import { Plus, Images, CircleCheck, Crown } from "lucide-react";
 import { FaRegCalendarCheck } from "react-icons/fa6";
@@ -43,6 +44,9 @@ type ReviewsSectionProps = {
 };
 
 export default function ReviewsSection({ tour, tourType }: ReviewsSectionProps) {
+  const t = useTranslations("Booking.ReviewsSection");
+  const tCard = useTranslations("Booking.ReviewCard");
+
   const reviewsHref =
     tourType === "one"
       ? `/booking/one-day-tours/${tour.slug}/reviews`
@@ -63,28 +67,28 @@ export default function ReviewsSection({ tour, tourType }: ReviewsSectionProps) 
       <div className="mb-10 lg:mb-14 lg:grid lg:grid-cols-3 lg:gap-14">
         <div>
           <h2 className="premium-serif mb-4 text-3xl italic text-white md:text-4xl">
-            Customer <br className="hidden lg:block" />
-            Reviews
+            {t("title1")} <br className="hidden lg:block" />
+            {t("title2")}
           </h2>
           <div className="mb-8 flex flex-wrap items-center gap-3">
             <RatingStars rating={tour.rating} className="text-sm md:text-base" />
             <span className="text-xl font-bold text-white">{tour.rating}/5</span>
             <span className="whitespace-nowrap text-[10px] font-bold uppercase tracking-widest text-slate-500">
-              ({tour.reviewCount} reviews)
+              ({tour.reviewCount} {t("reviews")})
             </span>
           </div>
         </div>
 
         <div className="mt-8 lg:col-span-2 lg:mt-0">
           <div className="mb-6 flex items-end justify-between">
-            <h3 className="text-[10px] font-bold uppercase tracking-widest text-white">Guest Moments</h3>
+            <h3 className="text-[10px] font-bold uppercase tracking-widest text-white">{t("guestMoments")}</h3>
 
             <Link
               href={galleryAllMomentHref}
               className="inline-flex items-center gap-1.5 text-gold transition-colors hover:text-white"
             >
               <span className="text-[9px] font-bold uppercase tracking-[0.2em] sm:text-[10px] sm:tracking-[0.2em] md:text-[11px]">
-                View all
+                {t("viewAll")}
               </span>
 
               <div className="inline-flex items-center gap-0.5">
@@ -111,7 +115,7 @@ export default function ReviewsSection({ tour, tourType }: ReviewsSectionProps) 
                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/45 transition-colors duration-300 group-hover:bg-black/65">
                       <Images className="mb-2 text-white" size={28} />
                       <span className="px-2 text-center text-[9px] font-bold uppercase tracking-[0.2em] text-white">
-                        View Gallery
+                        {t("viewGallery")}
                       </span>
                     </div>
                   ) : null}
@@ -183,11 +187,11 @@ export default function ReviewsSection({ tour, tourType }: ReviewsSectionProps) 
                     <div className="mt-2 flex flex-wrap items-center gap-2">
                       <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-1 text-[9px] font-black uppercase tracking-widest text-emerald-400">
                         <CircleCheck className="h-3 w-3" />
-                        Verified
+                        {tCard("verified")}
                       </span>
                       <span className="inline-flex items-center gap-1 rounded-full border border-gold/30 bg-gold/10 px-2 py-1 text-[9px] font-black uppercase tracking-widest text-gold">
                         <Crown className="h-3 w-3" />
-                        VIP Member
+                        {tCard("vipMember")}
                       </span>
                     </div>
                     <p className="mt-2 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-gold md:text-xs">
@@ -222,7 +226,7 @@ export default function ReviewsSection({ tour, tourType }: ReviewsSectionProps) 
                         {isLast && (
                           <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/45 transition-colors duration-300 group-hover:bg-black/65">
                             <Images className="mb-1 text-white" size={16} />
-                            <span className="text-[8px] font-bold uppercase text-white">View</span>
+                            <span className="text-[8px] font-bold uppercase text-white">{tCard("view")}</span>
                           </div>
                         )}
                       </>
@@ -251,7 +255,7 @@ export default function ReviewsSection({ tour, tourType }: ReviewsSectionProps) 
               {review.response && (
                 <div className="w-full max-w-full rounded-2xl border-l border-gold/40 bg-white/5 p-4 md:w-fit md:p-5 3xl:p-8">
                   <span className="block text-[9px] font-bold uppercase tracking-widest text-gold md:text-[10px] 3xl:text-xs">
-                    Response from MapMate Team
+                    {tCard("responseFrom")}
                   </span>
                   <p className="mt-2 wrap-break-word text-xs leading-relaxed text-slate-400 md:text-[13px] 3xl:text-lg">
                     {review.response}
@@ -265,7 +269,7 @@ export default function ReviewsSection({ tour, tourType }: ReviewsSectionProps) 
 
       <div className="mt-12 flex justify-center">
         <Button variant="explore" className="cursor-pointer" href={reviewsHref}>
-          Show More Reviews
+          {t("showMore")}
         </Button>
       </div>
     </section>

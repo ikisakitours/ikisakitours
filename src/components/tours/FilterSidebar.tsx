@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { useTranslations } from "next-intl";
 //Icon
 import { X, FilterX } from "lucide-react";
 
@@ -10,6 +11,7 @@ type CategoryFilterSidebarProps = {
   onClose: () => void;
   categories: readonly string[];
   selectedCategory: string;
+  totalResults: number;
   onSelectCategory: (category: string) => void;
   title?: string;
   categoryCounts: Record<string, number>;
@@ -65,6 +67,7 @@ export function FilterSidebar({
   onClose,
   categories,
   selectedCategory,
+  totalResults,
   onSelectCategory,
   title = "Select Category",
   categoryCounts,
@@ -78,13 +81,17 @@ export function FilterSidebar({
   priceCategories,
   ratingCategories,
 }: CategoryFilterSidebarProps) {
+  const t = useTranslations("Tours.Explorer.Sidebar");
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add("overflow-hidden");
+      window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: true } }));
     } else {
       document.body.classList.remove("overflow-hidden");
+      window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: false } }));
     }
     return () => document.body.classList.remove("overflow-hidden");
+    window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: false } }));
   }, [isOpen]);
 
   const isFilterActive = selectedCategory !== "all" || priceRange !== "Any price" || rating !== "Any rating";
@@ -118,7 +125,7 @@ export function FilterSidebar({
             <div className="flex-1 overflow-y-auto px-8 py-6 space-y-8">
               {/* Category Section */}
               <div className="space-y-4">
-                <h3 className="text-[10px] font-bold uppercase tracking-widest text-white/50">Categories</h3>
+                <h3 className="text-[10px] font-bold uppercase tracking-widest text-white/50">{t("categories")}</h3>
                 <button
                   onClick={() => onSelectCategory("all")}
                   className="flex w-full items-center justify-between text-sm text-slate-300 transition-colors hover:text-gold"
@@ -148,7 +155,7 @@ export function FilterSidebar({
 
               {/* Price Range Section */}
               <div className="space-y-4">
-                <h3 className="text-[10px] font-bold uppercase tracking-widest text-white/50">Price</h3>
+                <h3 className="text-[10px] font-bold uppercase tracking-widest text-white/50">{t("price")}</h3>
                 {priceCategories.map((p) => (
                   <label
                     key={p.value}
@@ -171,7 +178,7 @@ export function FilterSidebar({
 
               {/* Rating Section */}
               <div className="space-y-4">
-                <h3 className="text-[10px] font-bold uppercase tracking-widest text-white/50">Rating</h3>
+                <h3 className="text-[10px] font-bold uppercase tracking-widest text-white/50">{t("rating")}</h3>
                 {ratingCategories.map((r) => (
                   <label
                     key={r.value}
@@ -195,7 +202,7 @@ export function FilterSidebar({
 
             {/* Footer Buttons */}
             <div className="p-8 border-t border-white/10 flex gap-4">
-             <button
+              <button
                 onClick={onClearAll}
                 className={`flex flex-1 items-center justify-center gap-2 rounded-full border py-4 text-[11px] font-bold uppercase transition-all duration-300 ${
                   isFilterActive
@@ -204,13 +211,13 @@ export function FilterSidebar({
                 }`}
               >
                 {isFilterActive && <FilterX className="h-3.5 w-3.5" />}
-                {isFilterActive ? "Clear Filter" : "Clear"}
+                {isFilterActive ? t("clearFilter") : t("clear")}
               </button>
               <button
                 onClick={onClose}
                 className="flex-1 py-4 bg-gold rounded-full text-[11px] font-black text-black uppercase tracking-[0.3em] transition-colors hover:bg-yellow-500 shadow-md"
               >
-                Show Results
+                {t("showResults")} ({totalResults})
               </button>
             </div>
           </motion.div>

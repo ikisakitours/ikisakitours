@@ -4,8 +4,12 @@ import { useTranslations } from "next-intl";
 import { BespokeForm } from "@/components/services/bespoke/BespokeForm";
 import { Hero } from "@/components/ui/Hero";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
+import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
+import { PromoModal } from "@/components/ui/PromoModal";
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+
   const t = await getTranslations({ locale, namespace: "Services.Metadata.Bespoke" });
   return {
     title: t("title"),
@@ -28,6 +32,10 @@ export default function BespokePage() {
           strapline={t("strapline")}
         />
         <BespokeForm />
+
+        <ContainerLayout>
+          <PromoModal />
+        </ContainerLayout>
       </main>
     </UserPageLayout>
   );

@@ -1,0 +1,64 @@
+{
+  "Metadata": {
+    "title": "Cultural Festivals & Special Events",
+    "description": "Immerse in Sri Lanka's most magnificent cultural pageants and live broadcasts."
+  },
+  "Hero": {
+    "eyebrow": "Cultural Pageants & Live",
+    "title": "Explore Island ",
+    "accent": "Celebrations",
+    "strapline": "Immerse in Sri Lanka's most magnificent cultural pageants and live broadcasts",
+    "image": "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=95&w=1920&auto=format&fit=crop",
+    "alt": "Vibrant cultural pageant and street celebration in Sri Lanka"
+  },
+  "Explorer": {
+    "filterPlaceholder": "Filter by Category",
+    "searchPlaceholder": "Search events, festivals, broadcasts...",
+    "loadMore": "Load More Events",
+    "showing": "Showing",
+    "of": "of",
+    "events": "Events",
+    "eventSingular": "Event",
+    "Categories": {
+      "All": "All Categories",
+      "Live": "Live",
+      "live": "Live",
+      "Special Event": "Special Event",
+      "SpecialEvent": "Special Event",
+      "Upcoming": "Upcoming",
+      "upcoming": "Upcoming",
+      "Event": "Event",
+      "event": "Event"
+    },
+    "EmptyState": {
+      "backgroundText": "Events",
+      "title": "No matching celebrations found",
+      "searchNoResult": "We couldn't find any events matching \"{query}\".",
+      "filterNoResult": "We couldn't find any events in the \"{category}\" category.",
+      "searchAndFilterNoResult": "We couldn't find any events matching \"{query}\" in the \"{category}\" category.",
+      "redefine": "Try resetting your filters to explore more.",
+      "resetBtn": "Reset Filters"
+    },
+    "ComingSoon": {
+      "backgroundText": "Coming Soon",
+      "title": "No events currently available",
+      "description": "We are preparing some exciting new events and celebrations for you. Please check back later!"
+    }
+  },
+  "Slug": {
+    "highlights": "Event Highlights",
+    "viewGallery": "View Gallery",
+    "liveBroadcast": "Live Broadcast",
+    "upcomingEvent": "Upcoming Event",
+    "featuredExperience": "Featured Experience",
+    "happeningNow": "Happening Now",
+    "secureAccess": "Secure Your Access",
+    "date": "Date",
+    "time": "Time",
+    "location": "Location",
+    "timeRemaining": "Time Remaining",
+    "streamingLive": "Streaming Live Broadcast",
+    "lovedThis": "Loved this",
+    "share": "Share"
+  }
+}

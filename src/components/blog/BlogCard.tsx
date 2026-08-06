@@ -4,11 +4,15 @@ import { Link } from "@/i18nNavigation";
 import type { BlogPost } from "@/data/blog";
 import { ShareButton } from "@/components/ui/ShareButton";
 import { LikeButton } from "@/components/ui/LikeButton";
+import { useTranslations } from "next-intl";
+
 type BlogCardProps = {
   post: BlogPost;
 };
 
 export function BlogCard({ post }: BlogCardProps) {
+  const t = useTranslations("Blog.Card");
+
   return (
     <article className="group relative flex min-h-90 flex-col justify-between overflow-hidden rounded-4xl border border-white/5 bg-white/5 p-8 transition-all duration-500 hover:-translate-y-1 hover:border-gold/20">
       <div className="premium-serif absolute right-8 top-8 text-6xl font-black text-gold opacity-10 transition-opacity group-hover:opacity-20">
@@ -41,10 +45,10 @@ export function BlogCard({ post }: BlogCardProps) {
           href={`/blog/${post.slug}`}
           className="text-xs font-bold uppercase tracking-[0.2em] text-gold transition-all hover:tracking-[0.3em]"
         >
-          Read More
+          {t("readMore")}
         </Link>
         <div className="flex items-center gap-4">
-          <LikeButton initialLikes={post.likes} className="flex items-center gap-2 text-gold" />
+          <LikeButton initialLikes={post.likes} lovedLabel={t("lovedThis")} className="flex items-center gap-2 text-gold" />
           <ShareButton title={post.title} text={post.excerpt} url={`/blog/${post.slug}`} />
         </div>
       </div>

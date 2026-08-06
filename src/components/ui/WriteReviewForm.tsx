@@ -7,8 +7,14 @@ import { Button } from "@/components/ui/Button";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { FormError } from "@/components/ui/FormError";
 import { CountrySelect } from "@/components/auth/signUp/CountrySelect";
+import { useTranslations } from "next-intl";
 
 export function WriteReviewForm() {
+  const tForm = useTranslations("Testimonials.FormHero");
+  const tLabels = useTranslations("SharedForm.Labels");
+  const tPlaceholders = useTranslations("SharedForm.Placeholders");
+  const tMessage = useTranslations("SharedForm.Messages");
+
   const [fullName, setFullName] = useState("");
   const [country, setCountry] = useState("");
   const [rating, setRating] = useState<number>(0);
@@ -20,11 +26,10 @@ export function WriteReviewForm() {
     target.style.height = `${target.scrollHeight}px`;
   };
 
-  // Validation Hook
   const { errors, validate, setErrors } = useValidationForm();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     const isValid = validate({
       fullName: fullName,
       country: country,
@@ -51,10 +56,9 @@ export function WriteReviewForm() {
                        2xl:text-[15rem] 
                        3xl:text-[19rem]"
       >
-        JOURNEYS
+        {tForm("watermark")}
       </div>
       <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:gap-12">
-        {/* Left Side: Image & Text*/}
         <div className="relative flex min-h-75 w-full flex-col justify-end rounded-3xl lg:min-h-full lg:w-5/12">
           <div className="absolute inset-0 overflow-hidden rounded-3xl bg-black transform-gpu mask-[-webkit-radial-gradient(white,black)]">
             <Image
@@ -67,33 +71,28 @@ export function WriteReviewForm() {
           </div>
 
           <div className="pointer-events-none absolute inset-0 z-10 rounded-3xl shadow-[inset_0_0_0_1px_rgba(0,0,0,1)]" />
-
           <div className="pointer-events-none absolute inset-0 z-20 rounded-3xl border border-white/10 shadow-[inset_0_0_15px_rgba(255,255,255,0.05)] mix-blend-overlay" />
 
           <div className="relative z-30 p-8 3xl:p-12">
             <div className="mb-4 inline-block rounded-full border border-gold/20 bg-gold/10 px-3 py-1 backdrop-blur-md">
               <span className="text-[9px] font-bold uppercase tracking-widest text-gold 3xl:text-xs">
-                Share Your Story
+                {tForm("badge")}
               </span>
             </div>
             <h3 className="mb-4 text-3xl font-light leading-tight text-white 3xl:text-4xl">
-              Inspire the next <br />
-              <span className="premium-serif italic text-gold">Generation</span> of explorers.
+              {tForm("title1")} <br />
+              <span className="premium-serif italic text-gold">{tForm("titleHighlight")}</span> {tForm("title2")}
             </h3>
-            <p className="text-sm font-light leading-relaxed text-white/70 3xl:text-base">
-              Your feedback is the compass that guides our future journeys. Tell us about the moments that took your
-              breath away.
-            </p>
+            <p className="text-sm font-light leading-relaxed text-white/70 3xl:text-base">{tForm("description")}</p>
           </div>
         </div>
 
-        {/*Right Side: The Form*/}
         <div className="w-full py-4 lg:w-7/12 lg:py-8 lg:pr-8 3xl:py-12">
           <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8 3xl:space-y-12">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div className="flex flex-col">
                 <label className="mb-1 ml-2 text-[10px] font-bold uppercase tracking-widest text-gold 3xl:text-xs">
-                  Full Name
+                  {tLabels("fullName")}
                 </label>
                 <input
                   type="text"
@@ -102,7 +101,7 @@ export function WriteReviewForm() {
                     setFullName(e.target.value);
                     setErrors((prev) => ({ ...prev, fullName: "" }));
                   }}
-                  placeholder="e.g. Marco Rossi"
+                  placeholder={tPlaceholders("fullName")}
                   className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-sm text-white transition-colors focus:border-gold/50 focus:outline-none 3xl:py-6 3xl:text-lg"
                 />
                 <div className="ml-2">
@@ -122,18 +121,17 @@ export function WriteReviewForm() {
                   showIcon={false}
                   customLabel={
                     <label className="mb-1 ml-2 block text-[10px] font-bold uppercase tracking-widest text-gold 3xl:text-xs">
-                      Country
+                      {tLabels("country")}
                     </label>
                   }
                 />
               </div>
             </div>
 
-            {/* Star Rating */}
             <div className="flex flex-col gap-1">
               <div className="rounded-2xl border border-white/5 bg-white/5 py-8 text-center shadow-inner 3xl:py-12">
                 <label className="mb-4 block text-[10px] font-bold uppercase tracking-[0.4em] text-gold opacity-80 3xl:text-xs">
-                  Your Rating
+                  {tForm("ratingLabel")}
                 </label>
                 <div className="flex justify-center gap-2 text-2xl text-slate-600 3xl:gap-8 3xl:text-4xl">
                   {[1, 2, 3, 4, 5].map((star) => (
@@ -155,7 +153,7 @@ export function WriteReviewForm() {
 
             <div className="flex flex-col">
               <label className="mb-1 ml-2 text-[10px] font-bold uppercase tracking-widest text-gold 3xl:text-xs">
-                Your Experience
+                {tForm("experienceLabel")}
               </label>
               <textarea
                 value={experience}
@@ -164,11 +162,11 @@ export function WriteReviewForm() {
                   setExperience(e.target.value);
                   setErrors((prev) => ({ ...prev, experience: "" }));
                 }}
-                placeholder="Tell other travelers about your safari..."
+                placeholder={tForm("experiencePlaceholder")}
                 className="auto-resize-textarea min-h-30 w-full resize-none rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-[14px] italic leading-relaxed text-white transition-colors focus:border-gold/50 focus:outline-none md:text-[15px] 3xl:py-6 3xl:text-xl"
               />
               <span className="mt-1 block text-[11px] font-medium text-slate-500 md:text-[12px] lg:text-[13px] 3xl:text-[14px] leading-relaxed">
-                * Box will expand automatically as you type.
+                {tMessage("autoExpand")}
               </span>
               <div className="ml-2">
                 <FormError message={errors.experience} />
@@ -180,7 +178,7 @@ export function WriteReviewForm() {
               type="submit"
               className="w-full py-5 text-[11px] tracking-[0.3em] shadow-xl shadow-gold/10 3xl:py-8 3xl:text-sm"
             >
-              Submit Review
+              {tForm("submitBtn")}
             </Button>
           </form>
         </div>

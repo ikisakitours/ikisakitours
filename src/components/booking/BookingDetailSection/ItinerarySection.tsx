@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import SectionHeading from "./SectionHeading";
+import { useTranslations } from "next-intl";
 //Icons
 import { ChevronDown, Clock, MapPin, Leaf, Zap, Utensils, Bed, ArrowRight } from "lucide-react";
 
@@ -24,6 +25,7 @@ type ItinerarySectionProps = {
 };
 
 export default function ItinerarySection({ tour }: ItinerarySectionProps) {
+  const t = useTranslations("Booking.Itinerary");
   const [openDay, setOpenDay] = useState<number | null>(1);
 
   const toggleDay = (dayNum: number) => {
@@ -43,7 +45,7 @@ export default function ItinerarySection({ tour }: ItinerarySectionProps) {
   };
   return (
     <section id="itinerary" className="mb-10 md:mb-14 px-1">
-      <SectionHeading>Itinerary & Meeting Point</SectionHeading>
+      <SectionHeading>{t("title")}</SectionHeading>
 
       <div className="mb-8 flex flex-col gap-4">
         {tour.itinerary.map((day: ItineraryDay) => {
@@ -69,7 +71,7 @@ export default function ItinerarySection({ tour }: ItinerarySectionProps) {
                       isOpen ? "bg-gold text-lanka-black" : "bg-white/10 text-white"
                     }`}
                   >
-                    <span className="text-[9px] font-black uppercase tracking-widest md:text-[10px]">Day</span>
+                    <span className="text-[9px] font-black uppercase tracking-widest md:text-[10px]">{t("day")}</span>
                     <span className="text-base font-black leading-none md:text-xl">{day.day}</span>
                   </div>
 
@@ -81,7 +83,7 @@ export default function ItinerarySection({ tour }: ItinerarySectionProps) {
                     <div className="mt-1.5 flex flex-wrap items-start gap-2">
                       <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/20 bg-gold/10 px-2.5 py-1 text-[10px] min-[375px]:max-[667px]:text-[0.62rem] min-[340px]:max-[365px]:text-[0.6rem] min-[540px]:text-[0.75rem] sm:text-[11px] md:text-xs font-medium tracking-wide text-gold">
                         <Clock className="h-3 w-3 shrink-0" />
-                        <span className="whitespace-nowrap">Travel Time: {day.travelTime}</span>
+                        <span className="whitespace-nowrap">{t("travelTime", { time: day.travelTime })}</span>
                       </span>
                     </div>
                   </div>
@@ -110,7 +112,7 @@ export default function ItinerarySection({ tour }: ItinerarySectionProps) {
                       {/* 1. Route Section */}
                       <div>
                         <h4 className="text-[10px] font-bold uppercase tracking-[0.25em] text-gold/80 mb-2">
-                          Route Overview
+                          {t("routeOverview")}
                         </h4>
                         <div className="flex flex-wrap items-center gap-2">
                           {day.route.map((loc: string, idx: number) => (
@@ -130,7 +132,7 @@ export default function ItinerarySection({ tour }: ItinerarySectionProps) {
                       {/* 2. Locations Section */}
                       <div className="pt-2">
                         <h4 className="text-[10px] font-bold uppercase tracking-[0.25em] text-gold/80 mb-2">
-                          Key Destinations
+                          {t("keyDestinations")}
                         </h4>
                         <div className="flex flex-col md:flex-row md:flex-wrap md:items-center gap-1.5 md:gap-3">
                           {day.locations.map((loc: string, idx: number) => (
@@ -151,7 +153,7 @@ export default function ItinerarySection({ tour }: ItinerarySectionProps) {
 
                     <div className="mb-8">
                       <h4 className="text-[10px] font-bold uppercase tracking-[0.25em] text-gold/80 mb-3">
-                        Day Itinerary
+                        {t("dayItinerary")}
                       </h4>
                       <ul className="relative space-y-4 pl-6 before:absolute before:inset-y-2 before:left-1.75 before:w-px before:bg-white/10">
                         {day.details.map((detail: string, idx: number) => (
@@ -170,7 +172,8 @@ export default function ItinerarySection({ tour }: ItinerarySectionProps) {
                       {day.scenicStops && day.scenicStops.length > 0 && (
                         <div>
                           <h4 className="mb-3 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-emerald-400">
-                            <Leaf className="h-3.5 w-3.5" /> Scenic Stops
+                            <Leaf className="h-3.5 w-3.5" />
+                            {t("scenicStops")}
                           </h4>
                           <ul className="space-y-2">
                             {day.scenicStops.map((stop: string, idx: number) => (
@@ -185,7 +188,7 @@ export default function ItinerarySection({ tour }: ItinerarySectionProps) {
                       {day.activities && day.activities.length > 0 && (
                         <div>
                           <h4 className="mb-3 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gold">
-                            <Zap className="h-3.5 w-3.5 text-gold" /> Activities
+                            <Zap className="h-3.5 w-3.5 text-gold" /> {t("activities")}
                           </h4>
                           <ul className="space-y-2">
                             {day.activities.map((activity: string, idx: number) => (
@@ -202,7 +205,7 @@ export default function ItinerarySection({ tour }: ItinerarySectionProps) {
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 pt-6 border-t border-white/5 mt-6">
                       <div className="rounded-xl border border-white/5 bg-white/5 p-4 md:p-5">
                         <span className="mb-1 block text-[9px] font-bold uppercase tracking-widest text-slate-500">
-                          Meals Included
+                          {t("mealsIncluded")}
                         </span>
                         <div className="flex items-center gap-2 text-sm font-bold text-white md:text-base">
                           <Utensils className="h-4 w-4 text-gold" />
@@ -211,7 +214,7 @@ export default function ItinerarySection({ tour }: ItinerarySectionProps) {
                       </div>
                       <div className="rounded-xl border border-white/5 bg-white/5 p-4 md:p-5">
                         <span className="mb-1 block text-[9px] font-bold uppercase tracking-widest text-slate-500">
-                          Accommodation / Hotel
+                          {t("accommodation")}
                         </span>
                         <div className="flex items-center gap-2 text-sm font-bold text-white md:text-base">
                           <Bed className="h-4 w-4 text-gold" />

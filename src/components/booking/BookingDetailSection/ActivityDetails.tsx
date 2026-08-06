@@ -1,6 +1,7 @@
 import React from "react";
 import { Check } from "lucide-react";
 import SectionHeading from "./SectionHeading";
+import { useTranslations } from "next-intl";
 
 type ActivityItem = {
   title: string;
@@ -13,9 +14,11 @@ type ActivityDetailsProps = {
   };
 };
 export default function ActivityDetails({ tour }: ActivityDetailsProps) {
+  const t = useTranslations("Booking.ActivityDetails");
+
   return (
     <section id="about" className="mb-10 md:mb-14">
-      <SectionHeading>About this activity</SectionHeading>
+      <SectionHeading>{t("title")}</SectionHeading>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-x-10 md:gap-y-12">
         {tour.activityDetails.map((item) => (

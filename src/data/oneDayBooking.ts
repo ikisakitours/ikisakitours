@@ -171,14 +171,7 @@ export const bookingTour = {
     "Personal expenses",
     "Camera and video permits at specific sites",
   ],
-  essentials: [
-    { label: "Camera" },
-    { label: "Glasses" },
-    { label: "Sunscreen" },
-    { label: "Backpack" },
-    { label: "Water Bottle" },
-    { label: "Walking Shoes" },
-  ],
+
   reviews: [
     {
       name: "Julie",

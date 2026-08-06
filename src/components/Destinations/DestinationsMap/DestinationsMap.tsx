@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { X } from "lucide-react";
 import "leaflet/dist/leaflet.css";
-
-// Components
 import MapHeader from "./MapHeader";
 import MapContent from "./MapContent";
+import { useTranslations } from "next-intl";
+//Icons
+import { X } from "lucide-react";
+
 
 // Mock Data Import
 import { destinationsData, type Destination } from "@/data/destinationData";
@@ -21,6 +22,7 @@ type DestinationsMapProps = {
 };
 
 export default function DestinationsMap({ onClose, routeDestinations, isRouteMode }: DestinationsMapProps) {
+  const tMap = useTranslations("Destinations.Map");
   const [MapComponents, setMapComponents] = useState<LeafletModules | null>(null);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
   const [mapConfig, setMapConfig] = useState({ zoom: 7, center: [7.8731, 80.7718] as [number, number] });
@@ -70,7 +72,7 @@ export default function DestinationsMap({ onClose, routeDestinations, isRouteMod
   if (!MapComponents) {
     return (
       <div className="flex h-137.5 w-full items-center justify-center rounded-4xl border border-white/5 bg-lanka-black text-gold">
-        Loading Interactive Map...
+       {tMap("loading")}
       </div>
     );
   }

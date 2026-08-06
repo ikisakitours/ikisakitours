@@ -86,10 +86,13 @@ export function FilterSidebar({
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add("overflow-hidden");
+      window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: true } }));
     } else {
       document.body.classList.remove("overflow-hidden");
+      window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: false } }));
     }
     return () => document.body.classList.remove("overflow-hidden");
+    window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: false } }));
   }, [isOpen]);
 
   return (

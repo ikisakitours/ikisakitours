@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "@/i18nNavigation";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
+
 //Icons
 import { Clock, ArrowRight, Star } from "lucide-react";
 
@@ -17,6 +19,8 @@ export type RecommendationType = {
 };
 
 export default function RecommendationCard({ item }: { item: RecommendationType }) {
+  const t = useTranslations("Booking.Related");
+
   return (
     <Link
       href={`/booking/${item.slug}`}
@@ -49,7 +53,7 @@ export default function RecommendationCard({ item }: { item: RecommendationType 
           </span>
 
           <span className="group relative flex shrink-0 items-center justify-center overflow-hidden rounded border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-500 hover:bg-gold hover:border-gold px-4 py-2 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] text-white">
-            <span className="relative z-10 transition-colors duration-300 group-hover:text-white">Details</span>
+            <span className="relative z-10 transition-colors duration-300 group-hover:text-white">{t("details")}</span>
             {/* Shine effect */}
             <div className="absolute inset-0 z-0 h-full w-full -translate-x-full bg-linear-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full" />
 
@@ -61,7 +65,11 @@ export default function RecommendationCard({ item }: { item: RecommendationType 
             <Star className="h-3 w-3 text-gold" fill="currentColor" />
             <span className="text-sm font-bold tracking-widest text-white">{item.rating}</span>
           </div>
-          <span className="text-xl font-bold tracking-tighter text-gold">{item.price}</span>
+
+          <div className="flex items-center gap-2">
+            <span className="text-[9px] font-bold uppercase tracking-widest text-slate-500">{t("startingFrom")}</span>
+            <span className="text-xl font-bold tracking-tighter text-gold leading-none">{item.price}</span>
+          </div>
         </div>
       </div>
     </Link>

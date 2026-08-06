@@ -5,7 +5,8 @@ import "../globals.css";
 import Preloader from "@/components/ui/Preloader";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
-
+import { notFound } from "next/navigation";
+import { languages } from "@/data/Languages-CurrencyData";
 // import TawkToChat from "@/components/ui/TawkToChat";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -69,7 +70,11 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>;
 }>) {
   const { locale } = await params;
-
+const isSupportedLocale = languages.some((lang) => lang.code.toLowerCase() === locale.toLowerCase());
+  
+  if (!isSupportedLocale) {
+    notFound();
+  }
   const messages = await getMessages();
   const resolvedParams = await params;
   console.log("🔥 RootLayout resolved locale ->", resolvedParams.locale);
@@ -83,7 +88,7 @@ export default async function RootLayout({
     >
       <body className="min-h-full bg-lanka-dark text-slate-200">
         <NextIntlClientProvider messages={messages}>
-          {/* <Preloader /> */}
+          <Preloader />
           {/* <TawkToChat /> */}
           {children}
           <Toaster position="top-center" richColors />

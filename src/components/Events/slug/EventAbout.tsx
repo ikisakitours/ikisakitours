@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "@/i18nNavigation";
 import { LoadingImage } from "@/components/ui/LoadingImage";
+import { useTranslations } from "next-intl";
 //Icons
 import { CheckCircle2, Images } from "lucide-react";
 
@@ -14,6 +15,7 @@ interface EventAboutProps {
 }
 
 export function EventAbout({ slug, aboutTitle, aboutText1, aboutText2, perks, images = [] }: EventAboutProps) {
+  const t = useTranslations("Events.Slug");
   return (
     <div className="mt-12 space-y-8 text-slate-300 font-light leading-relaxed">
       <div className="space-y-6">
@@ -39,7 +41,7 @@ export function EventAbout({ slug, aboutTitle, aboutText1, aboutText2, perks, im
         <div className="pt-8">
           <div className="mb-6 flex items-center gap-4">
             <div className="h-px flex-1 bg-linear-to-r from-transparent via-gold/30 to-transparent"></div>
-            <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-gold/80">Event Highlights</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-gold/80">{t("highlights")}</span>
             <div className="h-px flex-1 bg-linear-to-r from-transparent via-gold/30 to-transparent"></div>
           </div>
 
@@ -69,7 +71,7 @@ export function EventAbout({ slug, aboutTitle, aboutText1, aboutText2, perks, im
                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/45 transition-colors duration-300 group-hover:bg-black/70">
                       <Images className="mb-2 text-white" size={24} />
                       <span className="px-2 text-center text-[9px] font-bold uppercase tracking-[0.2em] text-white">
-                        View Gallery
+                       {t("viewGallery")}
                       </span>
                     </div>
                   ) : null}

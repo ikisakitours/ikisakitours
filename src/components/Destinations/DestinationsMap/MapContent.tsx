@@ -3,10 +3,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "@/i18nNavigation";
 import { LoadingImage } from "@/components/ui/LoadingImage";
-import { X } from "lucide-react";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { type Destination } from "@/data/destinationData";
 import { type LeafletMouseEvent } from "leaflet";
+import { useTranslations } from "next-intl";
+//Icons
+import { X } from "lucide-react";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type LeafletModules = any;
@@ -150,26 +152,22 @@ export default function MapContent({
     return () => window.removeEventListener("resize", handleResize);
   }, [routePath]);
 
+  const t = useTranslations("Destinations.Map");
   return (
     <div className="relative mx-auto h-112.5 w-full max-w-full overflow-hidden rounded-3xl border border-white/10 shadow-2xl z-10 sm:h-137.5 md:h-187.5 lg:h-205">
       <div className="pointer-events-none absolute right-2 top-2 sm:right-4 sm:top-4 z-1000 flex items-center gap-1.5 rounded-full border border-white/10 bg-black/70 px-3 py-1.5 shadow-lg backdrop-blur-md">
         <span className="shrink-0 inline-block h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
         <span className="translate-y-[0.5px] text-[8px] sm:text-[9px] text-gold/90 font-semibold uppercase tracking-[0.2em] leading-none">
-          Choose a place to discover
+          {t("choosePlace")}
         </span>
       </div>
       {destinations.length === 0 && (
         <div className="absolute inset-0 z-50 flex items-center justify-center bg-lanka-black backdrop-blur-md">
           <EmptyState
-            backgroundText="Explore"
-            title="no destinations found"
-            description={
-              <>
-                Your search criteria returned no locations. <br />
-                Please try resetting your search.
-              </>
-            }
-            buttonText="Reset Exploration"
+            backgroundText={t("explore")}
+            title={t("noDestinationsTitle")}
+            description={t("noDestinationsDesc")}
+            buttonText={t("resetExploration")}
             onAction={() => {
               setQuery("");
             }}
@@ -321,7 +319,7 @@ export default function MapContent({
                         style={{ outline: "none", boxShadow: "none", WebkitTapHighlightColor: "transparent" }}
                         className="bg-gold! text-lanka-black! hover:bg-white! hover:text-lanka-black! flex w-full items-center justify-center rounded-xl py-2 text-[10px] font-extrabold uppercase tracking-widest shadow-md transition-all focus:outline-none focus:ring-0 [-webkit-tap-highlight-color:transparent]"
                       >
-                        View Destination
+                        {t("viewDestination")}
                       </Link>
                     </div>
                   </div>

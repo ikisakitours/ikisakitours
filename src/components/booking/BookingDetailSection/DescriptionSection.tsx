@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import SectionHeading from "./SectionHeading";
 import ExpandButton from "./ExpandButton";
+import { useTranslations } from "next-intl";
 
 type DescriptionSectionProps = {
   tour: {
@@ -39,6 +40,7 @@ const butterySmoothVariants: Variants = {
 };
 
 export default function DescriptionSection({ tour }: DescriptionSectionProps) {
+  const t = useTranslations("Booking.Description");
   const [isExpanded, setIsExpanded] = useState(false);
 
   const initialParagraphsCount = 3;
@@ -50,7 +52,7 @@ export default function DescriptionSection({ tour }: DescriptionSectionProps) {
   return (
     <section id="description" className="mb-10 md:mb-14 px-1 border-t border-white/5 pt-10 lg:pt-16">
       {/* Spacing & Border added */}
-      <SectionHeading>Full description</SectionHeading>
+      <SectionHeading>{t("title")}</SectionHeading>
       <div className="text-sm font-light leading-[1.7] text-slate-300 md:text-base md:leading-[1.8] wrap-break-word">
         {/* wrap fixed */}
         <div className="space-y-4 md:space-y-6">
@@ -84,8 +86,8 @@ export default function DescriptionSection({ tour }: DescriptionSectionProps) {
         <ExpandButton
           isExpanded={isExpanded}
           onClick={() => setIsExpanded(!isExpanded)}
-          expandText="Read More"
-          collapseText="Read Less"
+          expandText={t("readMore")}
+          collapseText={t("readLess")}
           align="left"
           showBorder={false}
           className="px-0! -mt-4!"

@@ -29,6 +29,14 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ContactPage: (await import(`./languages/${locale}/ContactPage.json`)).default,
       Services: (await import(`./languages/${locale}/Services.json`)).default,
       AboutPage: (await import(`./languages/${locale}/AboutPage.json`)).default,
+      Tours: (await import(`./languages/${locale}/Tours.json`)).default,
+      Destinations: (await import(`./languages/${locale}/Destinations.json`)).default,
+      Events: (await import(`./languages/${locale}/Events.json`)).default,
+      Blog: (await import(`./languages/${locale}/Blog.json`)).default,
+      Testimonials: (await import(`./languages/${locale}/Testimonials.json`)).default,
+      Booking: (await import(`./languages/${locale}/Booking.json`)).default,
+      PromoModal: (await import(`./languages/${locale}/PromoModal.json`)).default,
+      NotFoundPage: (await import(`./languages/${locale}/NotFoundPage.json`)).default,
     },
   };
 });

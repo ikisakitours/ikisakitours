@@ -62,7 +62,9 @@ export function CrossPromotionSection() {
                   </span>
 
                   <span className="group relative flex shrink-0 items-center justify-center overflow-hidden rounded border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-500 hover:bg-gold hover:border-gold min-h-11 px-5 py-3 text-[10px] sm:min-h-0 sm:px-5 sm:py-2.5 font-bold uppercase tracking-[0.2em] text-white">
-                    <span className="relative z-10 transition-colors duration-300 group-hover:text-white">{tCross("details")}</span>
+                    <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
+                      {tCross("details")}
+                    </span>
 
                     {/* Shine effect */}
                     <div className="absolute inset-0 z-0 h-full w-full -translate-x-full bg-linear-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full" />
@@ -70,22 +72,19 @@ export function CrossPromotionSection() {
                     <ArrowRight className="ml-2 h-3 w-3 relative z-10 transition-colors duration-300 group-hover:text-white" />
                   </span>
                 </div>
+
                 <div className="flex items-center justify-between border-t border-white/10 pt-5">
                   <div className="flex items-center gap-2">
-                    <Star className="h-3.5 w-3.5 text-gold" fill="currentColor" />
+                    <Star className="h-3 w-3 text-gold" fill="currentColor" />
                     <span className="text-sm font-bold tracking-widest text-white">{pkg.rating}</span>
                   </div>
-                  
-                  {/* Price Section with 'Starting from' */}
-                  <div className="flex flex-col items-end">
-                    <span className="mb-0.5 text-[8px] font-bold uppercase tracking-widest text-slate-500">
+
+                  <div className="flex items-center gap-2">
+                    <span className="text-[9px] font-bold uppercase tracking-widest text-slate-500">
                       {tCross("startingFrom")}
                     </span>
-                    <span className="text-xl font-bold tracking-tighter text-gold leading-none">
-                      {pkg.price}
-                    </span>
+                    <span className="text-xl font-bold tracking-tighter text-gold leading-none">{pkg.price}</span>
                   </div>
-
                 </div>
               </div>
             </Link>

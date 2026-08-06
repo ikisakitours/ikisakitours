@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import DestinationsMap from "@/components/Destinations/DestinationsMap/DestinationsMap";
 import { Button } from "@/components/ui/Button";
+import { useTranslations } from "next-intl";
 //Icons
 import { MapPin, Map, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 type CoveredDestination = {
@@ -20,6 +21,7 @@ type CoveredCitiesRouteProps = {
 };
 
 export default function CoveredCitiesRoute({ destinations }: CoveredCitiesRouteProps) {
+  const t = useTranslations("Booking.CoveredCities");
   const [showMap, setShowMap] = useState(false);
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -104,12 +106,12 @@ export default function CoveredCitiesRoute({ destinations }: CoveredCitiesRouteP
           <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
             <div className="flex items-center gap-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-gold">
               <MapPin className="h-4 w-4 animate-pulse" />
-              Covered Cities Route
+              {t("title")}
             </div>
 
             <div className="flex w-full items-center justify-end gap-4 sm:w-auto">
               <span className="text-[11px] sm:text-xs md:text-[13px] font-semibold uppercase tracking-widest text-slate-400">
-                {destinations.length} Magical Stops
+                {t("magicalStops", { count: destinations.length })}
               </span>
             </div>
           </div>
@@ -152,7 +154,7 @@ export default function CoveredCitiesRoute({ destinations }: CoveredCitiesRouteP
               >
                 <span className="group-hover:text-black flex items-center gap-1.5 sm:gap-2 transition-colors duration-300">
                   <Map className="h-3 w-3 sm:h-3.5 sm:w-3.5 2xl:h-4 2xl:w-4 3xl:h-5 3xl:w-5 transition-transform duration-300 group-hover:scale-110" />
-                  <span>View Route Map</span>
+                  <span>{t("viewRouteMap")}</span>
                 </span>
               </Button>
               <div className="flex items-center gap-3">
@@ -180,11 +182,11 @@ export default function CoveredCitiesRoute({ destinations }: CoveredCitiesRouteP
             <div className="mt-4 flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between text-[8px] sm:text-[9px] tracking-wider text-slate-400">
               <span className="flex items-start sm:items-center gap-1.5 text-gold/80 leading-relaxed font-semibold uppercase tracking-[0.2em]">
                 <span className="mt-1 sm:mt-0 shrink-0 inline-block h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
-                <span>Click map to view full route</span>
+                <span>{t("clickMap")}</span>
               </span>
 
               <span className="pl-3 sm:pl-0 inline-block uppercase tracking-[0.2em] text-slate-500 font-semibold">
-                Swipe or use arrows to navigate the full itinerary sequence
+                {t("swipeHint")}
               </span>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import { LoadingImage } from "@/components/ui/LoadingImage";
 import { Link } from "@/i18nNavigation";
+import { useTranslations } from "next-intl";
 //Icons
 import { Images } from "lucide-react";
 
@@ -17,6 +18,8 @@ type BookingGalleryProps = {
   tourType?: "multi" | "one";
 };
 export default function BookingGallery({ tour, tourType }: BookingGalleryProps) {
+  const t = useTranslations("Booking.Gallery");
+
   const galleryHref =
     tourType === "one"
       ? `/gallery/${tour.slug}?filter-one-day-tours=gallery`
@@ -67,7 +70,7 @@ export default function BookingGallery({ tour, tourType }: BookingGalleryProps) 
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/45 transition-colors duration-300 group-hover:bg-black/65">
             <Images className="mb-2 text-white" size={28} />
             <span className="px-2 text-center text-[9px] font-bold uppercase tracking-[0.2em] text-white">
-              View Gallery
+             {t("viewGallery")}
             </span>
           </div>
         </Link>

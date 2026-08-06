@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import CheckBullet from "./CheckBullet";
 import ExpandButton from "./ExpandButton";
-
+import { useTranslations } from "next-intl";
 type HighlightsSectionProps = {
   tour: {
     highlights: string[];
@@ -39,6 +39,7 @@ const butterySmoothVariants: Variants = {
 };
 
 export default function HighlightsSection({ tour }: HighlightsSectionProps) {
+  const t = useTranslations("Booking.Highlights");
   const [isExpanded, setIsExpanded] = useState(false);
 
   const DEFAULT_COUNT = 6;
@@ -50,7 +51,7 @@ export default function HighlightsSection({ tour }: HighlightsSectionProps) {
   return (
     <section id="highlights" className="mb-10 md:mb-14 px-1">
       <h2 className="premium-serif mb-6 border-l-2 border-gold pl-4 text-2xl italic text-white md:mb-8 md:border-l md:pl-6 md:text-3xl">
-        Highlights
+        {t("title")}
       </h2>
 
       <ul className="space-y-4 md:space-y-6">
@@ -84,8 +85,8 @@ export default function HighlightsSection({ tour }: HighlightsSectionProps) {
         <ExpandButton
           isExpanded={isExpanded}
           onClick={() => setIsExpanded(!isExpanded)}
-          expandText="Show All Highlights"
-          collapseText="Show Less"
+          expandText={t("showAll")}
+          collapseText={t("showLess")}
           align="left"
           showBorder={false}
           className="px-0! -mt-4!"

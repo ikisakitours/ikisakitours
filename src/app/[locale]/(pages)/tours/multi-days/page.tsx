@@ -1,20 +1,31 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { Explorer } from "@/components/tours/Explorer";
 import { TourHero } from "@/components/tours/TourHero";
-import { packages, MultiDaysHeroData } from "@/data/multiDaysTours";
+import { packages } from "@/data/multiDaysTours";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
+import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
+import { PromoModal } from "@/components/ui/PromoModal";
 
-export const metadata: Metadata = {
-  title: "Heritage Curated Tours",
-  description: "Explore MapMate signature heritage, nature, religious, and coastal tour packages across Sri Lanka.",
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Tours.MultiDay.Metadata" });
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
 export default function MultiDayToursPage() {
   return (
     <main className="min-h-screen bg-lanka-dark">
       <UserPageLayout>
-        <TourHero data={MultiDaysHeroData} />
-        <Explorer packages={packages} tourType="multi"/>
+        <TourHero namespace="Tours.MultiDay" />
+        <Explorer packages={packages} tourType="multi" />
+
+        <ContainerLayout>
+          <PromoModal />
+        </ContainerLayout>
       </UserPageLayout>
     </main>
   );

@@ -1,14 +1,16 @@
 import React from "react";
+import { useTranslations } from "next-intl";
 
 type Props = {
   attractions: string[];
 };
 
 export default function HighlightsAttractionsSection({ attractions }: Props) {
+    const t = useTranslations("Destinations.Slug");
   return (
     <section className="glass-card rounded-4xl border border-white/5 p-6 md:p-10">
-      <h2 className="premium-serif mb-8 text-2xl italic text-white md:text-3xl">
-        Highlights & Key Attractions
+      <h2 className="premium-serif mb-8 text-[22px] md:text-[28px] italic text-white ">
+       {t("highlights")}
       </h2>
       <ul className="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
         {attractions.map((attraction, index) => (

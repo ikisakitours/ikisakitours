@@ -1,31 +1,35 @@
 "use client";
 
 import React from "react";
-import { useSearchParams } from "next/navigation"; 
-import { useRouter } from "@/i18nNavigation"; 
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18nNavigation";
+import { useTranslations } from "next-intl";
+
 //Icons
 import { ArrowLeft } from "lucide-react";
 
 export default function BackNavigation() {
+  const t = useTranslations("Destinations.Slug");
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const from = searchParams.get("from");
   const tourSlug = searchParams.get("tour");
 
   let backLink = "/destination";
-  let backLabel = "Back to Destinations";
+  let backLabel = t("backToDestinations");
 
   if (from === "map") {
     backLink = "/destination?view=map";
-    backLabel = "Back to Island Map";
+    backLabel = t("backToIslandMap");
   } else if (from === "routeMap") {
-    backLabel = "Back to Route Map";
+    backLabel = t("backToRouteMap");
   } else if (from === "one-day-tours" && tourSlug) {
     backLink = `/booking/one-day-tours/${tourSlug}`;
-    backLabel = "Back to Tour";
+    backLabel = t("backToTour");
   } else if (from === "multi-days-tours" && tourSlug) {
     backLink = `/booking/multi-days-tours/${tourSlug}`;
-    backLabel = "Back to Tour";
+    backLabel = t("backToTour");
   }
 
   const handleNavigation = (e: React.MouseEvent) => {

@@ -199,7 +199,7 @@ export function ChatMailForm() {
           className="w-full md:w-full justify-center py-2.5 md:py-4 text-sm rounded-xl"
         >
           <Send size={15} className="mr-2" />
-         {t("submitButton")}
+          {t("submitButton")}
         </Button>
       </div>
     </form>

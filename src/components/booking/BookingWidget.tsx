@@ -7,8 +7,8 @@ import { TravelerPicker } from "@/components/ui/TravelerPicker";
 import { Button } from "@/components/ui/Button";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { FormError } from "@/components/ui/FormError";
-//Icons
 import { Check, Info, Zap, Banknote, CalendarDays } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type TourType = {
   title: string;
@@ -25,11 +25,44 @@ type TravelerOptionType = {
 
 type BookingWidgetProps = {
   tour: TourType;
-  options: TravelerOptionType[];
-  assurances: readonly string[];
+  options?: TravelerOptionType[];
+  assurances?: readonly string[];
 };
-const bookingAssurances = [Zap, Banknote, CalendarDays];
-export function BookingWidget({ tour, options, assurances }: BookingWidgetProps) {
+
+const bookingAssurancesIcons = [Zap, Banknote, CalendarDays];
+
+export function BookingWidget({ tour }: BookingWidgetProps) {
+  const t = useTranslations("Booking.Widget");
+  const tForms = useTranslations("SharedForm");
+  const rawAssurances = t.raw("assurances") as string[];
+
+  const travelerOptions = [
+    {
+      type: "adult",
+      label: tForms("TravelerOptions.adult"),
+      pluralLabel: tForms("TravelerOptions.adults"),
+      ageRange: tForms("TravelerOptions.adultAge"),
+    },
+    {
+      type: "couple",
+      label: tForms("TravelerOptions.couple"),
+      pluralLabel: tForms("TravelerOptions.couples"),
+      ageRange: tForms("TravelerOptions.coupleAge"),
+    },
+    {
+      type: "child",
+      label: tForms("TravelerOptions.child"),
+      pluralLabel: tForms("TravelerOptions.children"),
+      ageRange: tForms("TravelerOptions.childAge"),
+    },
+    {
+      type: "infant",
+      label: tForms("TravelerOptions.infant"),
+      pluralLabel: tForms("TravelerOptions.infants"),
+      ageRange: tForms("TravelerOptions.infantAge"),
+    },
+  ];
+
   const [travelerCounts, setTravelerCounts] = useState<Record<string, number>>({
     adult: 0,
     couple: 0,
@@ -38,32 +71,24 @@ export function BookingWidget({ tour, options, assurances }: BookingWidgetProps)
   });
   const [journeyDate, setJourneyDate] = useState("");
 
-  // Traveler Logic
   const handleTravelerChange = (type: string, delta: number) => {
     setTravelerCounts((prev) => {
       const actualDelta = type === "couple" ? delta * 2 : delta;
-
       const current = prev[type] || 0;
       const next = current + actualDelta;
 
       if (next < 0) return prev;
-
       return { ...prev, [type]: next };
     });
   };
-  // Validation Hook
+
   const { errors, validate, setErrors } = useValidationForm();
 
-  // Form Submit Handler
   const handleBookingSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const isValid = validate({
-      date: journeyDate,
-      counts: travelerCounts,
-    });
+    const isValid = validate({ date: journeyDate, counts: travelerCounts });
     if (isValid) {
-      console.log("Form is valid, proceed to  API call");
+      console.log("Form is valid, proceed to API call");
     }
   };
 
@@ -71,8 +96,7 @@ export function BookingWidget({ tour, options, assurances }: BookingWidgetProps)
     <aside className="mt-12 w-full md:mx-auto md:max-w-105 xl:mx-0 xl:mt-0 xl:w-1/3 xl:max-w-none">
       <div className="sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto no-scrollbar space-y-4 pb-4">
         <div className="flex items-center justify-between px-2">
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Love this tour?</span>
-
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">{t("loveTour")}</span>
           <div className="flex items-center gap-3">
             <LikeButton
               initialLikes={tour.likes}
@@ -83,20 +107,24 @@ export function BookingWidget({ tour, options, assurances }: BookingWidgetProps)
             </div>
           </div>
         </div>
+
         <form className="glass-card rounded-4xl p-6 shadow-2xl" onSubmit={handleBookingSubmit}>
-          {/* Header */}
           <div className="mb-6 border-b border-white/10 pb-5">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <div className="mb-1 text-[10px] font-bold uppercase tracking-[0.3em] text-gold">MapMate Rate</div>
+                <div className="mb-1 text-[10px] font-bold uppercase tracking-[0.3em] text-gold">
+                  {t("mapMateRate")}
+                </div>
                 <div className="flex items-baseline gap-2">
                   <span className="text-4xl font-bold tracking-tighter text-white">${tour.price}</span>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">/ Per Person</span>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                    {t("perPerson")}
+                  </span>
                 </div>
               </div>
-              {Number(tour.discount) > 0 && (
+              {tour.discount && Number(tour.discount) > 0 && (
                 <span className="rounded-full border border-gold/30 bg-gold/10 px-3 py-1.5 text-[9px] font-bold uppercase tracking-widest text-gold">
-                  Save {tour.discount}%
+                  {t("save", { discount: Number(tour.discount) })}
                 </span>
               )}
             </div>
@@ -109,26 +137,22 @@ export function BookingWidget({ tour, options, assurances }: BookingWidgetProps)
                     "conic-gradient(from 0deg, transparent 0deg, #c5a059 20deg, #f1d592 60deg, #c5a059 100deg, transparent 180deg)",
                 }}
               />
-
               <div className="absolute inset-0.5 rounded-xl bg-[#0a0a0a]" />
-
-              {/* Content */}
               <div className="relative z-10 flex flex-col items-center gap-1">
-                <h4 className="text-[10px] sm:text-[11px] md:text-[12px] font-black uppercase tracking-widest text-gold">
-                  ✨ Group discount applies
+                <h4 className="flex items-center justify-center gap-1.5 text-[10px] sm:text-[11px] md:text-[12px] font-black uppercase tracking-widest text-gold">
+                  <span className="text-sm sm:text-base md:text-lg">✨</span> {t("groupDiscount")}
                 </h4>
                 <p className="text-[11px] sm:text-[12px] md:text-[13px] font-medium text-slate-400 italic leading-tight text-center">
-                  Price per person decreases for larger groups.
+                  {t("priceDecreases")}
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Form Fields */}
           <div className="mb-6 space-y-4">
             <div className="space-y-2">
               <label className="ml-1 block text-[10px] font-bold uppercase tracking-[0.2em] text-gold/80">
-                Journey Date
+                {tForms("Labels.journeyDate")}
               </label>
               <CustomDatePicker
                 value={journeyDate}
@@ -137,7 +161,6 @@ export function BookingWidget({ tour, options, assurances }: BookingWidgetProps)
                   if (errors.date) setErrors((prev) => ({ ...prev, date: "" }));
                 }}
               />
-
               <div className="ml-2">
                 <FormError message={errors.date} />
               </div>
@@ -145,10 +168,10 @@ export function BookingWidget({ tour, options, assurances }: BookingWidgetProps)
 
             <div className="space-y-2">
               <label className="ml-1 block text-[10px] font-bold uppercase tracking-[0.2em] text-gold/80">
-                Travelers
+                {tForms("Labels.travelers")}
               </label>
               <TravelerPicker
-                options={options.map((opt) => ({ type: opt.type, label: opt.label, ageRange: opt.ageRange }))}
+                options={travelerOptions}
                 counts={travelerCounts}
                 onChange={(type, delta) => {
                   handleTravelerChange(type, delta);
@@ -161,30 +184,28 @@ export function BookingWidget({ tour, options, assurances }: BookingWidgetProps)
             </div>
           </div>
 
-          {/* Submit */}
           <Button type="submit" variant="auth" className="w-full">
-            Check Availability
+            {tForms("Buttons.checkAvailability")}
           </Button>
 
-          {/* Assurances */}
           <div className="space-y-3 border-t border-white/5 pt-4 mt-4">
-            {assurances.map((assurance, idx) => {
-              const Icon = bookingAssurances[idx] || Check;
-              return (
-                <p
-                  key={assurance}
-                  className="flex items-center justify-center gap-3 text-[10px] font-bold uppercase tracking-widest text-slate-400"
-                >
-                  <Icon className="h-3.5 w-3.5 text-gold" />
-
-                  {assurance}
-                </p>
-              );
-            })}
+            {rawAssurances &&
+              rawAssurances.map((assurance, idx) => {
+                const Icon = bookingAssurancesIcons[idx] || Check;
+                return (
+                  <p
+                    key={assurance}
+                    className="flex items-center justify-center gap-3 text-[10px] font-bold uppercase tracking-widest text-slate-400"
+                  >
+                    <Icon className="h-3.5 w-3.5 text-gold" />
+                    {assurance}
+                  </p>
+                );
+              })}
             <div className="rounded-xl border border-gold/10 bg-gold/5 p-3 mt-4">
               <p className="flex items-center justify-center text-center text-[9px] font-medium uppercase leading-relaxed tracking-[0.15em] text-slate-300">
                 <Info className="mr-1.5 h-3.5 w-3.5 shrink-0 text-gold opacity-70" />
-                <span>Price may vary based on custom selections.</span>
+                <span>{t("priceMayVary")}</span>
               </p>
             </div>
           </div>

@@ -2,6 +2,7 @@ import React from "react";
 import { ShareButton } from "@/components/ui/ShareButton";
 import { LikeButton } from "@/components/ui/LikeButton";
 import { CountdownTimer } from "@/components/home/Events/CountdownTimer";
+import { useTranslations } from "next-intl";
 //Icons
 import { CalendarDays, Clock, MapPin } from "lucide-react";
 
@@ -26,14 +27,16 @@ export function EventSidebar({
   mode,
   targetDate,
 }: EventSidebarProps) {
+  const t = useTranslations("Events.Slug");
+
   return (
     <div className="glass-card rounded-[2.5rem] border border-gold/20 p-6 md:p-8 sticky top-28 space-y-6 ">
       <div className="border-b border-white/10 pb-6">
         <span className="text-xs uppercase tracking-[0.2em] text-gold font-bold">
-          {mode === "live" ? "Live Broadcast" : mode === "upcoming" ? "Upcoming Event" : "Featured Experience"}
+          {mode === "live" ? t("liveBroadcast") : mode === "upcoming" ? t("upcomingEvent") : t("featuredExperience")}
         </span>
         <h3 className="premium-serif text-2xl text-white mt-1">
-          {mode === "live" ? "Happening Now" : "Secure Your Access"}
+          {mode === "live" ? t("happeningNow") : t("secureAccess")}
         </h3>
       </div>
 
@@ -41,7 +44,7 @@ export function EventSidebar({
         <div className="flex items-center gap-3">
           <CalendarDays className="h-5 w-5 text-gold shrink-0" />
           <div>
-            <span className="block text-xs text-slate-400">Date</span>
+            <span className="block text-xs text-slate-400">{t("date")}</span>
             <span className="font-medium text-white">{eventDate}</span>
           </div>
         </div>
@@ -49,7 +52,7 @@ export function EventSidebar({
         <div className="flex items-center gap-3">
           <Clock className="h-5 w-5 text-gold shrink-0" />
           <div>
-            <span className="block text-xs text-slate-400">Time</span>
+            <span className="block text-xs text-slate-400">{t("time")}</span>
             <span className="font-medium text-white">{eventTime}</span>
           </div>
         </div>
@@ -57,7 +60,7 @@ export function EventSidebar({
         <div className="flex items-center gap-3">
           <MapPin className="h-5 w-5 text-gold shrink-0" />
           <div>
-            <span className="block text-xs text-slate-400">Location</span>
+            <span className="block text-xs text-slate-400">{t("location")}</span>
             <span className="font-medium text-white">{eventLocation}</span>
           </div>
         </div>
@@ -65,7 +68,7 @@ export function EventSidebar({
 
       {mode === "upcoming" && targetDate && (
         <div className="pt-6 pb-2 border-t border-white/10 mt-6">
-          <p className="text-[10px] text-center text-slate-400 uppercase tracking-widest mb-4">Time Remaining</p>
+          <p className="text-[10px] text-center text-slate-400 uppercase tracking-widest mb-4">{t("timeRemaining")}</p>
           <CountdownTimer targetDate={targetDate} />
         </div>
       )}
@@ -86,7 +89,7 @@ export function EventSidebar({
                 </div>
 
                 <span className="whitespace-nowrap text-[11px] md:text-xs font-bold tracking-[0.25em] text-red-400 uppercase drop-shadow-[0_0_8px_rgba(239,68,68,0.6)]">
-                  Streaming Live Broadcast
+                 {t("streamingLive")}
                 </span>
               </div>
 
@@ -102,7 +105,7 @@ export function EventSidebar({
           <div className="flex justify-center border-r border-white/10 py-3">
             <div className="group flex cursor-pointer items-center justify-center gap-2.5 sm:gap-3">
               <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500 transition-colors group-hover:text-gold/80">
-                Loved this
+               {t("lovedThis")}
               </span>
               <LikeButton
                 initialLikes={42}
@@ -124,7 +127,7 @@ export function EventSidebar({
                 iconClassName="transition-transform group-hover:scale-110 w-4.5 h-4.5 sm:w-5 sm:h-5"
               />
               <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500 transition-colors group-hover:text-gold/80">
-                Share
+                {t("share")}
               </span>
             </div>
           </div>

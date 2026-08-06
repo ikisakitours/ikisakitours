@@ -1,8 +1,10 @@
 "use client";
 
 import React from "react";
-import { MapPin, Sun, Moon } from "lucide-react";
 import { SearchInput } from "@/components/ui/SearchInput";
+import { useTranslations } from "next-intl";
+//Icons
+import { MapPin, Sun, Moon } from "lucide-react";
 
 type MapHeaderProps = {
   query: string;
@@ -13,16 +15,17 @@ type MapHeaderProps = {
 };
 
 export default function MapHeader({ query, setQuery, filteredCount, isDarkMode, setIsDarkMode }: MapHeaderProps) {
+  const t = useTranslations("Destinations.MapHeader");
   return (
     <div className="mb-7 flex flex-col gap-3 sm:gap-4">
       {/* Title Section */}
       <div className="w-full pr-0 sm:pr-12 overflow-hidden">
         <div className="mb-2 flex items-center gap-2 text-gold">
           <MapPin className="h-4 w-4 animate-pulse" />
-          <span className="text-[10px] font-bold uppercase tracking-widest">Interactive Sri Lanka Map</span>
+          <span className="text-[10px] font-bold uppercase tracking-widest">{t("badge")}</span>
         </div>
         <h2 className="premium-serif text-[5vw] sm:text-2xl md:text-3xl lg:text-4xl 3xl:text-5xl italic transition-colors duration-300 text-white whitespace-nowrap pb-2">
-          Explore Destinations Geographically
+          {t("title")}
         </h2>
       </div>
 
@@ -33,9 +36,9 @@ export default function MapHeader({ query, setQuery, filteredCount, isDarkMode, 
           <SearchInput
             value={query}
             onChange={(val: string) => setQuery(val)}
-            placeholder="Search destinations..."
+            placeholder={t("searchPlaceholder")}
             count={filteredCount}
-            itemLabel="Destination"
+            itemLabel={t("itemLabel")}
             className="w-full xl:w-96"
           />
         </div>
@@ -53,11 +56,11 @@ export default function MapHeader({ query, setQuery, filteredCount, isDarkMode, 
               title="Toggle Map Theme"
             >
               {isDarkMode ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
-              <span>{isDarkMode ? "Light Map" : "Dark Map"}</span>
+              <span>{isDarkMode ? t("lightMap") : t("darkMap")}</span>
             </button>
 
             <span className="absolute -bottom-5 right-1 sm:right-2 whitespace-nowrap text-[8px] sm:text-[9px] uppercase tracking-[0.2em] text-slate-400">
-              Set your map mood
+             {t("mapMood")}
             </span>
           </div>
         </div>

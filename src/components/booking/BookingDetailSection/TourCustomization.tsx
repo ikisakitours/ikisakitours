@@ -1,6 +1,9 @@
+import { useTranslations } from "next-intl";
+//Icons
 import { WandSparkles } from "lucide-react";
 
 export default function TourCustomization() {
+  const t = useTranslations("Booking.Customization");
   return (
     <section
       id="Tour-Customization"
@@ -10,13 +13,8 @@ export default function TourCustomization() {
         <WandSparkles className="h-6 w-6" />
       </div>
       <div>
-        <h3 className="mb-2 text-lg font-bold text-white md:text-xl">Tour Customization</h3>
-        <p className="text-sm leading-[1.7] text-slate-300 md:text-[15px]">
-          All MapMate tours are fully customizable. The listed package price includes Half Board accommodation
-          (Breakfast & Dinner) and entrance tickets for attractions specifically mentioned in the itinerary. Hotels,
-          meal plans, attractions, transportation, and included services can be adjusted according to your travel style
-          and budget. A revised quotation will be provided for any customization requests.
-        </p>
+        <h3 className="mb-2 text-lg font-bold text-white md:text-xl">{t("title")}</h3>
+        <p className="text-sm leading-[1.7] text-slate-300 md:text-[15px]">{t("description")}</p>
       </div>
     </section>
   );

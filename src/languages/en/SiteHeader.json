@@ -24,10 +24,20 @@
     "logOut": "Log Out"
   },
   "Language": {
-    "tooltip": "Click to change language",
+    "tooltip": "Change Language",
     "select": "Select Language",
-    "searchPlaceholder": "Search language (e.g. Sinhala, FR)...",
-    "noResults": "No language found"
+    "searchPlaceholder": "Search languages...",
+    "noResults": "No languages found.",
+    "autoDetect": {
+      "switchTitle": "Language Suggestion",
+      "switchDesc": "We noticed you are in <b>{country}</b>. Would you like to switch the language to <b>{language}</b>?",
+      "unsupportedTitle": "Language Not Supported",
+      "unsupportedDesc": "We noticed you are in <b>{country}</b>, but we don't support your local language yet. Please select another language from our list that works best for you.",
+      "btnYes": "Yes, switch",
+      "btnNo": "No, thanks",
+      "btnKeep": "Keep {lang}",
+      "btnChoose": "Choose Language"
+    }
   },
   "Currency": {
     "tooltip": "Click for currency options",

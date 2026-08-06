@@ -2,6 +2,7 @@ import { LoadingImage } from "@/components/ui/LoadingImage";
 import { bookingTour } from "@/data/multiDaysBooking";
 import { Link } from "@/i18nNavigation";
 import { RatingStars } from "@/components/ui/RatingStars";
+import { useTranslations } from "next-intl";
 //Icons
 import { CheckCircle2, Crown, CalendarDays, Images } from "lucide-react";
 
@@ -12,6 +13,7 @@ type ReviewCardProps = {
 };
 
 export function ReviewCard({ review, slug, tourType }: ReviewCardProps) {
+  const t = useTranslations("Booking.ReviewCard");
   const rating = review.rating ?? 5;
 
   const encodedName = encodeURIComponent(review.name.toLowerCase().trim());
@@ -48,11 +50,11 @@ export function ReviewCard({ review, slug, tourType }: ReviewCardProps) {
             <div className="mt-2 flex flex-wrap items-center gap-2">
               <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-1 text-[9px] font-black uppercase tracking-widest text-emerald-400 3xl:text-xs">
                 <CheckCircle2 className="h-3 w-3 3xl:h-4 3xl:w-4" />
-                Verified
+                {t("verified")}
               </span>
               <span className="inline-flex items-center gap-1 rounded-full border border-gold/30 bg-gold/10 px-2 py-1 text-[9px] font-black uppercase tracking-widest text-gold 3xl:text-xs">
                 <Crown className="h-3 w-3 3xl:h-4 3xl:w-4" />
-                VIP Member
+                {t("vipMember")}
               </span>
             </div>
             <p className="mt-2 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-gold opacity-90 md:text-xs 3xl:text-sm">
@@ -88,7 +90,7 @@ export function ReviewCard({ review, slug, tourType }: ReviewCardProps) {
                 {isLast && (
                   <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/45 transition-colors duration-300 group-hover:bg-black/65">
                     <Images className="mb-1 text-white" size={16} />
-                    <span className="text-[8px] font-bold uppercase text-white">View</span>
+                    <span className="text-[8px] font-bold uppercase text-white">{t("view")}</span>
                   </div>
                 )}
               </>
@@ -117,7 +119,7 @@ export function ReviewCard({ review, slug, tourType }: ReviewCardProps) {
       {review.response && (
         <div className="w-full max-w-full rounded-2xl border-l border-gold/40 bg-white/5 p-4 md:w-fit md:p-5 3xl:p-8">
           <span className="block text-[9px] font-bold uppercase tracking-widest text-gold md:text-[10px] 3xl:text-xs">
-            Response from MapMate Team
+            {t("responseFrom")}
           </span>
           <p className="mt-2 wrap-break-word text-xs leading-relaxed text-slate-400 md:text-[13px] 3xl:text-lg">
             {review.response}

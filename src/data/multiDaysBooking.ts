@@ -346,14 +346,7 @@ export const bookingTour = {
     "Camera and video permits at sites",
     "Early check-in & late check-out at hotels",
   ],
-  essentials: [
-    { label: "Camera" },
-    { label: "Glasses" },
-    { label: "Sunscreen" },
-    { label: "Backpack" },
-    { label: "Water Bottle" },
-    { label: "Walking Shoes" },
-  ],
+
 
   reviews: [
     {

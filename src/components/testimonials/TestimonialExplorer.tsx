@@ -11,8 +11,8 @@ import { WriteReviewForm } from "@/components/ui/WriteReviewForm";
 import { motion, AnimatePresence } from "framer-motion";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { useRouter } from "@/i18nNavigation";
-//Icons
 import { Filter } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type TestimonialExplorerProps = {
   testimonials: Testimonial[];
@@ -22,6 +22,8 @@ const INITIAL_COUNT = 3;
 
 export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) {
   const router = useRouter();
+  const t = useTranslations("Testimonials.Explorer");
+  
   const [language, setLanguage] = useState<string>("all");
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -44,7 +46,7 @@ export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) 
     return counts;
   }, [testimonials, dynamicLanguages]);
 
-  // 3. FILTERING LOGIC
+  // FILTERING LOGIC
   const filteredTestimonials = useMemo(() => {
     if (language === "all") {
       return testimonials;
@@ -79,7 +81,7 @@ export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) 
                   transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
                 >
                   <Button variant="shine" onClick={() => setIsWritingReview(true)}>
-                    Leave Your Mark
+                    {t("leaveMark")}
                   </Button>
                 </motion.div>
               ) : (
@@ -92,7 +94,7 @@ export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) 
                 >
                   <Button variant="reviewTag" onClick={() => setIsWritingReview(false)}>
                     <ArrowLeft className="h-4 w-4" strokeWidth={3} />
-                    BACK TO REVIEWS
+                    {t("backReviews")}
                   </Button>
                 </motion.div>
               )}
@@ -107,10 +109,10 @@ export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) 
               >
                 <Filter className="h-4 w-4 transition-all duration-300 group-hover:scale-110 group-hover:text-black" />
 
-                <span className="transition-colors duration-300 group-hover:text-black sm:hidden">Filter</span>
+                <span className="transition-colors duration-300 group-hover:text-black sm:hidden">{t("filter")}</span>
 
                 <span className="hidden transition-colors duration-300 group-hover:text-black sm:block">
-                  Filter Languages
+                  {t("filterLanguages")}
                 </span>
 
                 {language !== "all" && (
@@ -149,30 +151,30 @@ export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) 
               </div>
             ) : (
               <EmptyState
-                backgroundText="Testimonials"
-                title="no testimonials found"
-                description="We currently don't have any testimonials to display."
-                buttonText="Go Back"
+                backgroundText={t("EmptyState.backgroundText")}
+                title={t("EmptyState.title")}
+                description={t("EmptyState.description")}
+                buttonText={t("EmptyState.goBack")}
                 onAction={() => router.push("/")}
               />
             )}
 
             {/* Pagination / Load More */}
-            <div className="mt-10 flex flex-col items-center md:mt-14">
+            <div className="mt-8 flex flex-col items-center md:mt-14">
               {hasMore && (
                 <Button
                   type="button"
                   variant="explore"
                   onClick={() => setVisibleCount((count) => count + INITIAL_COUNT)}
                 >
-                  Load More Experiences
+                  {t("loadMore")}
                 </Button>
               )}
-              <div className="mt-8 flex items-center gap-3">
+              <div className="mt-4 flex items-center gap-3">
                 <div className="h-px w-8 bg-gold/20" />
                 <p className="whitespace-nowrap text-[10px] font-medium uppercase tracking-[0.2em] text-slate-500">
-                  Showing <span className="text-gold">{visibleTestimonials.length}</span> of
-                  <span className="text-white">{filteredTestimonials.length}</span> Journals
+                  {t("showing")} <span className="text-gold">{visibleTestimonials.length}</span> {t("of")}
+                  <span className="text-white"> {filteredTestimonials.length}</span> {t("journals")}
                 </p>
                 <div className="h-px w-8 bg-gold/20" />
               </div>
@@ -188,8 +190,10 @@ export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) 
         categories={dynamicLanguages}
         selectedCategory={language}
         onSelectCategory={selectLanguage}
-        title="Filter Languages"
+        title={t("filterLanguages")}
         categoryCounts={languageCounts}
+        clearFilterText={t("Sidebar.clearFilter")}
+        categoryLabels={{ all: t("Sidebar.all") }}
       />
     </section>
   );

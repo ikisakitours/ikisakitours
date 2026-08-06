@@ -7,6 +7,7 @@ import SectionHeading from "./SectionHeading";
 import ExpandButton from "./ExpandButton";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { RiCloseCircleLine } from "react-icons/ri";
+import { useTranslations } from "next-intl";
 
 type IncludesSectionProps = {
   tour: {
@@ -45,6 +46,8 @@ const butterySmoothVariants: Variants = {
 // -----------------------------------------------
 
 export default function IncludesSection({ tour }: IncludesSectionProps) {
+  const t = useTranslations("Booking.Includes");
+
   const [isIncludesExpanded, setIsIncludesExpanded] = useState(false);
   const [isExcludesExpanded, setIsExcludesExpanded] = useState(false);
 
@@ -61,13 +64,13 @@ export default function IncludesSection({ tour }: IncludesSectionProps) {
 
   return (
     <section id="includes" className="glass-card mb-10 rounded-4xl border border-white/5 p-6 md:mb-14 md:p-10">
-      <SectionHeading>What&apos;s Included & Excluded</SectionHeading>
+      <SectionHeading>{t("title")}</SectionHeading>
 
       <div className="grid grid-cols-1 md:grid-cols-2">
         {/* Included Column */}
         <div className="flex h-full w-full flex-col pb-8 md:pb-0 md:pr-8 lg:pr-12">
           <h3 className="mb-6 flex items-center gap-2 text-[14px] sm:text-text-[14px] md:text-[14px] font-extrabold uppercase tracking-widest text-emerald-400">
-            <CircleCheck className="h-4.5 w-4.5 shrink-0" /> Included In This Journey
+            <CircleCheck className="h-4.5 w-4.5 shrink-0" /> {t("included")}
           </h3>
           <ul className="space-y-4">
             {displayIncludes.map((item: string, idx: number) => (
@@ -107,7 +110,8 @@ export default function IncludesSection({ tour }: IncludesSectionProps) {
               <ExpandButton
                 isExpanded={isIncludesExpanded}
                 onClick={() => setIsIncludesExpanded(!isIncludesExpanded)}
-                expandText="Show All Included"
+                expandText={t("showAllIncluded")}
+                collapseText={t("showLess")}
               />
             </div>
           )}
@@ -116,7 +120,7 @@ export default function IncludesSection({ tour }: IncludesSectionProps) {
         {/* Excluded Column */}
         <div className="flex h-full w-full flex-col border-t border-white/10 pt-8 md:border-t-0 md:border-l md:pl-8 lg:pl-12 md:pt-0">
           <h3 className="mb-6 flex items-center gap-2 text-[14px] sm:text-text-[14px] md:text-[14px] font-extrabold uppercase tracking-widest text-rose-400">
-            <X className="h-5 w-5 rounded-full bg-rose-400/10 p-0.5" /> Excluded In This Journey
+            <X className="h-5 w-5 rounded-full bg-rose-400/10 p-0.5" /> {t("excluded")}
           </h3>
           <ul className="space-y-4">
             {displayExcludes.map((item: string, idx: number) => (
@@ -156,7 +160,8 @@ export default function IncludesSection({ tour }: IncludesSectionProps) {
               <ExpandButton
                 isExpanded={isExcludesExpanded}
                 onClick={() => setIsExcludesExpanded(!isExcludesExpanded)}
-                expandText="Show All Excluded"
+                expandText={t("showAllExcluded")}
+                collapseText={t("showLess")}
               />
             </div>
           )}

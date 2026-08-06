@@ -3,6 +3,8 @@ import { Metadata } from "next";
 import { allSpecialEventsList } from "@/data/specialEvents";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import { EventBody } from "@/components/Events/slug/EventBody";
+import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
+import { PromoModal } from "@/components/ui/PromoModal";
 interface PageProps {
   params: Promise<{
     slug: string;
@@ -52,6 +54,9 @@ export default async function SpecialEventDetailsPage({ params }: PageProps) {
   return (
     <UserPageLayout>
       <EventBody listItem={listItem} />
+      <ContainerLayout>
+        <PromoModal />
+      </ContainerLayout>
     </UserPageLayout>
   );
 }

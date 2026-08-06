@@ -6,7 +6,9 @@ import ContactBody from "@/components/contact/ContactBody";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import { Hero } from "@/components/ui/Hero";
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+
   const t = await getTranslations({ locale, namespace: "ContactPage.Metadata" });
   return {
     title: t("title"),

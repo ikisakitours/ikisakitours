@@ -8,6 +8,7 @@ interface LikeButtonProps {
   initialLikes: number;
   className?: string;
   showLabel?: boolean;
+  lovedLabel?: string;
   iconClassName?: string;
   countClassName?: string;
   labelClassName?: string;
@@ -17,6 +18,7 @@ export function LikeButton({
   initialLikes,
   className,
   showLabel = false,
+  lovedLabel = "Loved this",
   iconClassName,
   countClassName,
   labelClassName,
@@ -50,7 +52,7 @@ export function LikeButton({
         <span
           className={`text-[10px] font-bold uppercase tracking-widest text-slate-500 transition-colors group-hover:text-white ${labelClassName || ""}`}
         >
-          Loved this
+          {lovedLabel}
         </span>
       )}
     </button>

@@ -8,8 +8,8 @@ import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { SearchInput } from "@/components/ui/SearchInput";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-//Icon
 import { Filter } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type PackageExplorerProps = {
   packages: TourPackage[];
@@ -18,26 +18,32 @@ type PackageExplorerProps = {
 
 const INITIAL_COUNT = 4;
 
-//  Price Filters
-const dynamicPriceFilters = [
-  { value: "any", label: "Any price" },
-  { value: "under-200", label: "Under $200" },
-  { value: "200-300", label: "$200 - $300" },
-  { value: "over-300", label: "Over $300" },
-];
-
-//  Rating Filters
-const dynamicRatingFilters = [
-  { value: "any", label: "Any rating" },
-  { value: "4.5", label: "4.5 & up" },
-  { value: "4.8", label: "4.8 & up" },
-];
-
 export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps) {
+  const t = useTranslations("Tours.Explorer");
+
+  const dynamicPriceFilters = useMemo(
+    () => [
+      { value: "any", label: t("priceFilters.any") },
+      { value: "under-200", label: t("priceFilters.under200") },
+      { value: "200-300", label: t("priceFilters.200to300") },
+      { value: "over-300", label: t("priceFilters.over300") },
+    ],
+    [t],
+  );
+
+  const dynamicRatingFilters = useMemo(
+    () => [
+      { value: "any", label: t("ratingFilters.any") },
+      { value: "4.5", label: t("ratingFilters.up45") },
+      { value: "4.8", label: t("ratingFilters.up48") },
+    ],
+    [t],
+  );
+
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<string>("all");
-  const [priceRange, setPriceRange] = useState("Any price");
-  const [rating, setRating] = useState("Any rating");
+  const [priceRange, setPriceRange] = useState(dynamicPriceFilters[0].label);
+  const [rating, setRating] = useState(dynamicRatingFilters[0].label);
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
@@ -48,7 +54,6 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
     return ["all", ...uniqueCategories];
   }, [packages]);
 
-  // 2. COUNTS CALCULATION FOR CATEGORIES
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = {};
     dynamicCategories.forEach((cat) => {
@@ -61,7 +66,6 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
     return counts;
   }, [packages, dynamicCategories]);
 
-  // 3. DYNAMIC PRICE FILTERS
   const priceCounts = useMemo(() => {
     const counts: Record<string, number> = {};
     dynamicPriceFilters.forEach((pf) => {
@@ -74,9 +78,8 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
       }).length;
     });
     return counts;
-  }, [packages]);
+  }, [packages, dynamicPriceFilters]);
 
-  // 4. DYNAMIC RATING FILTERS
   const ratingCounts = useMemo(() => {
     const counts: Record<string, number> = {};
     dynamicRatingFilters.forEach((rf) => {
@@ -88,33 +91,27 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
       }).length;
     });
     return counts;
-  }, [packages]);
+  }, [packages, dynamicRatingFilters]);
 
-  // 5. FILTERING LOGIC
   const filteredPackages = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
 
     return packages.filter((item) => {
-      // Category Filter
       const matchesCategory = category === "all" || item.categoryLabel === category;
-
-      // Search Filter
       const matchesSearch =
         normalizedQuery.length === 0 ||
         `${item.title} ${item.description} ${item.categoryLabel}`.toLowerCase().includes(normalizedQuery);
 
-      // Price Filter
       let matchesPrice = true;
-      if (priceRange !== "Any price") {
+      if (priceRange !== dynamicPriceFilters[0].label) {
         const priceVal = parseFloat(item.price.replace(/[^0-9.]/g, ""));
-        if (priceRange === "Under $200") matchesPrice = priceVal < 200;
-        else if (priceRange === "$200 - $300") matchesPrice = priceVal >= 200 && priceVal <= 300;
-        else if (priceRange === "Over $300") matchesPrice = priceVal > 300;
+        if (priceRange === dynamicPriceFilters[1].label) matchesPrice = priceVal < 200;
+        else if (priceRange === dynamicPriceFilters[2].label) matchesPrice = priceVal >= 200 && priceVal <= 300;
+        else if (priceRange === dynamicPriceFilters[3].label) matchesPrice = priceVal > 300;
       }
 
-      // Rating Filter
       let matchesRating = true;
-      if (rating !== "Any rating") {
+      if (rating !== dynamicRatingFilters[0].label) {
         const activeRatingFilter = dynamicRatingFilters.find((r) => r.label === rating);
         if (activeRatingFilter && activeRatingFilter.value !== "any") {
           const ratingVal = parseFloat(item.rating);
@@ -125,15 +122,15 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
 
       return matchesCategory && matchesSearch && matchesPrice && matchesRating;
     });
-  }, [category, packages, query, priceRange, rating]);
+  }, [category, packages, query, priceRange, rating, dynamicPriceFilters, dynamicRatingFilters]);
 
   const visiblePackages = filteredPackages.slice(0, visibleCount);
   const hasMore = visiblePackages.length < filteredPackages.length;
 
   return (
     <section id="packages" className="bg-lanka-dark">
-      <ContainerLayout className="">
-        <div className="mb-12 md:mb-16 xl:mb-16 2xl:mb-20 3xl:mb-24 space-y-8">
+      <ContainerLayout className="mb-12 md:mb-16 xl:mb-16 2xl:mb-20 3xl:mb-24 space-y-8">
+        <div className="">
           <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
             <div className="relative flex shrink-0 justify-start">
               <button
@@ -142,13 +139,15 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
                 className="group flex w-full items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-8 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:w-auto"
               >
                 <Filter className="h-4 w-4 transition-all duration-300 group-hover:scale-110 group-hover:text-black" />
-                <span className="transition-colors duration-300 group-hover:text-black">Filter Packages</span>
+                <span className="transition-colors duration-300 group-hover:text-black">{t("filterPackages")}</span>
 
-                {(category !== "all" || priceRange !== "Any price" || rating !== "Any rating") && (
+                {(category !== "all" ||
+                  priceRange !== dynamicPriceFilters[0].label ||
+                  rating !== dynamicRatingFilters[0].label) && (
                   <span className="ml-2 flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-[9px] font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a] group-hover:text-gold">
                     {(category !== "all" ? 1 : 0) +
-                      (priceRange !== "Any price" ? 1 : 0) +
-                      (rating !== "Any rating" ? 1 : 0)}
+                      (priceRange !== dynamicPriceFilters[0].label ? 1 : 0) +
+                      (rating !== dynamicRatingFilters[0].label ? 1 : 0)}
                   </span>
                 )}
               </button>
@@ -160,9 +159,9 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
                 setQuery(val);
                 setVisibleCount(INITIAL_COUNT);
               }}
-              placeholder="Search by destination..."
+              placeholder={t("searchPlaceholder")}
               count={filteredPackages.length}
-              itemLabel="Package"
+              itemLabel={t("packages")}
               className="w-full md:w-72 lg:flex-none lg:w-96"
             />
           </div>
@@ -178,22 +177,22 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
               ))}
             </div>
 
-            <div className="mt-10 flex flex-col items-center md:mt-14">
+            <div className="mt-8 flex flex-col items-center md:mt-14">
               {hasMore ? (
                 <Button
                   type="button"
                   variant="explore"
                   onClick={() => setVisibleCount((count) => count + INITIAL_COUNT)}
                 >
-                  Load More Packages
+                  {t("loadMore")}
                 </Button>
               ) : null}
 
-              <div className="mt-8 flex items-center gap-3">
+              <div className="mt-4 flex items-center gap-3">
                 <div className="h-px w-8 bg-gold/20" />
                 <p className="whitespace-nowrap text-[10px] font-medium uppercase tracking-[0.2em] text-slate-500">
-                  Showing <span className="text-gold">{visiblePackages.length}</span> of{" "}
-                  <span className="text-white">{filteredPackages.length}</span> Packages
+                  {t("showing")} <span className="text-gold">{visiblePackages.length}</span> {t("of")}{" "}
+                  <span className="text-white">{filteredPackages.length}</span> {t("packages")}
                 </p>
                 <div className="h-px w-8 bg-gold/20" />
               </div>
@@ -201,38 +200,25 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
           </>
         ) : (
           <EmptyState
-            backgroundText="Journeys"
-            title="no matching journeys"
+            backgroundText={t("EmptyState.backgroundText")}
+            title={t("EmptyState.title")}
             description={
               <>
                 {query.trim() !== "" ? (
-                  <>
-                    Your search for <span className="text-gold font-bold">&quot;{query}&quot;</span> returned no
-                    destinations.
-                  </>
+                  <>{t("EmptyState.searchNoResult", { query: query })}</>
                 ) : (
-                  <>
-                    Your selected filters (
-                    {[
-                      category !== "all" ? category : null,
-                      priceRange !== "Any price" ? priceRange : null,
-                      rating !== "Any rating" ? rating : null,
-                    ]
-                      .filter(Boolean)
-                      .join(", ")}
-                    ) returned no destinations.
-                  </>
+                  <>{t("EmptyState.filterNoResult")}</>
                 )}
                 <br />
-                Please redefine your travel criteria or reset filters.
+                {t("EmptyState.redefine")}
               </>
             }
-            buttonText="Reset Exploration"
+            buttonText={t("EmptyState.resetBtn")}
             onAction={() => {
               setQuery("");
               setCategory("all");
-              setPriceRange("Any price");
-              setRating("Any rating");
+              setPriceRange(dynamicPriceFilters[0].label);
+              setRating(dynamicRatingFilters[0].label);
             }}
           />
         )}
@@ -243,13 +229,14 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
         onClose={() => setIsFilterOpen(false)}
         categories={dynamicCategories}
         selectedCategory={category}
+        totalResults={filteredPackages.length}
         onSelectCategory={(val) => {
           startTransition(() => {
             setCategory(val);
             setVisibleCount(INITIAL_COUNT);
           });
         }}
-        title="Filter Tour"
+        title={t("filterPackages")}
         categoryCounts={categoryCounts}
         priceCategories={dynamicPriceFilters}
         ratingCategories={dynamicRatingFilters}
@@ -267,8 +254,8 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
         }}
         onClearAll={() => {
           setCategory("all");
-          setPriceRange("Any price");
-          setRating("Any rating");
+          setPriceRange(dynamicPriceFilters[0].label);
+          setRating(dynamicRatingFilters[0].label);
           setQuery("");
           setVisibleCount(INITIAL_COUNT);
           setIsFilterOpen(false);

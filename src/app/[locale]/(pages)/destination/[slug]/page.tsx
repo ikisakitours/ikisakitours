@@ -5,6 +5,8 @@ import { Hero } from "@/components/ui/Hero";
 import DestinationsBody from "@/components/Destinations/DestinationSlug/DestinationsBody";
 import { destinationsData } from "@/data/destinationData";
 import type { Metadata } from "next";
+import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
+import { PromoModal } from "@/components/ui/PromoModal";
 
 type DestinationPageProps = {
   params: Promise<{ slug: string }>;
@@ -49,6 +51,9 @@ export default async function DestinationPage({ params }: DestinationPageProps) 
         />
 
         <DestinationsBody dest={dest} />
+        <ContainerLayout>
+          <PromoModal />
+        </ContainerLayout>
       </UserPageLayout>
     </main>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "@/i18nNavigation";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 //Icon
 import { ArrowRight } from "lucide-react";
 
@@ -14,6 +15,7 @@ export type InsightType = {
 };
 
 export default function InsightCard({ item }: { item: InsightType }) {
+  const t = useTranslations("Booking.Related");
   return (
     <Link
       href={`/blog/${item.slug}`}
@@ -41,7 +43,7 @@ export default function InsightCard({ item }: { item: InsightType }) {
 
         <div className="mt-auto flex items-center justify-between border-t border-white/10 pt-5">
           <span className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.35em] text-gold transition-all duration-300 group-hover:gap-5 group-hover:text-white">
-            Read Article
+            {t("readArticle")}
             <ArrowRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-1" />
           </span>
         </div>

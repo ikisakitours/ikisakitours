@@ -4,6 +4,8 @@ import { blogPosts } from "@/data/blog";
 import { Hero } from "@/components/ui/Hero";
 import { BlogArticle } from "@/components/blog/BlogArticle";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
+import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
+import { PromoModal } from "@/components/ui/PromoModal";
 
 type BlogDetailPageProps = {
   params: Promise<{
@@ -71,6 +73,9 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
           strapline={post.excerpt}
         />
         <BlogArticle post={post} />
+        <ContainerLayout>
+          <PromoModal />
+        </ContainerLayout>
       </main>
     </UserPageLayout>
   );

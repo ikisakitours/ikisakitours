@@ -9,6 +9,8 @@ import { FilterSidebar } from "@/components/ui/FilterSidebar";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { SearchInput } from "@/components/ui/SearchInput";
 import { Filter } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { PromoModal } from "@/components/ui/PromoModal";
 
 type BlogExplorerProps = {
   posts: BlogPost[];
@@ -17,6 +19,8 @@ type BlogExplorerProps = {
 const INITIAL_COUNT = 6;
 
 export function BlogExplorer({ posts }: BlogExplorerProps) {
+  const t = useTranslations("Blog.Explorer");
+
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<string>("all");
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
@@ -64,6 +68,16 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
     });
   }
 
+  // Dynamic Empty State Text
+  let emptyDescription;
+  if (query.trim() !== "" && category !== "all") {
+    emptyDescription = t("EmptyState.searchAndFilterNoResult", { query: query, category: category });
+  } else if (query.trim() !== "") {
+    emptyDescription = t("EmptyState.searchNoResult", { query: query });
+  } else {
+    emptyDescription = t("EmptyState.filterNoResult", { category: category });
+  }
+
   return (
     <section id="blog" className="pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
       <ContainerLayout>
@@ -77,9 +91,9 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
                 className="group flex w-full items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-8 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:w-auto"
               >
                 <Filter className="h-4 w-4 transition-all duration-300 group-hover:scale-110 group-hover:text-black" />
-                <span className="transition-colors duration-300 group-hover:text-black sm:hidden">Filter</span>
+                <span className="transition-colors duration-300 group-hover:text-black sm:hidden">{t("filter")}</span>
                 <span className="hidden transition-colors duration-300 group-hover:text-black sm:block">
-                  Filter Categories
+                  {t("filterCategories")}
                 </span>
 
                 {category !== "all" && (
@@ -91,16 +105,15 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
             </div>
 
             {/* Search Input */}
-
             <SearchInput
               value={query}
               onChange={(val) => {
                 setQuery(val);
                 setVisibleCount(INITIAL_COUNT);
               }}
-              placeholder="Search articles..."
+              placeholder={t("searchPlaceholder")}
               count={filteredPosts.length}
-              itemLabel="Article"
+              itemLabel={t("articleSingular")}
               className="md:w-72 lg:w-96"
             />
           </div>
@@ -115,8 +128,10 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
           categories={dynamicCategories}
           selectedCategory={category}
           onSelectCategory={selectCategory}
-          title="Filter Journal"
+          title={t("filterCategories")}
           categoryCounts={categoryCounts}
+          clearFilterText={t("Sidebar.clearFilter")}
+          categoryLabels={{ all: t("Sidebar.all") }}
         />
 
         {/* Blog Posts Grid */}
@@ -128,26 +143,16 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
           </div>
         ) : (
           <EmptyState
-            backgroundText="Journal"
-            title="no articles found"
+            backgroundText={t("EmptyState.backgroundText")}
+            title={t("EmptyState.title")}
             description={
               <>
-                {query.trim() !== "" ? (
-                  <>
-                    Your search for <span className="text-gold font-bold">&quot;{query}&quot;</span> returned no
-                    articles.
-                  </>
-                ) : (
-                  <>
-                    Your selected category (<span className="text-gold font-bold">{category}</span>) returned no
-                    articles.
-                  </>
-                )}
+                {emptyDescription}
                 <br />
-                Please redefine your search or reset filters.
+                {t("EmptyState.redefine")}
               </>
             }
-            buttonText="Reset Exploration"
+            buttonText={t("EmptyState.resetBtn")}
             onAction={() => {
               setQuery("");
               selectCategory("all");
@@ -156,7 +161,7 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
         )}
 
         {/* Footer/Load More */}
-        <div className="mt-10 flex flex-col items-center md:mt-14">
+        <div className="mt-8 flex flex-col items-center md:mt-14">
           {hasMore ? (
             <Button
               type="button"
@@ -164,19 +169,21 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
               onClick={() => setVisibleCount((count) => count + INITIAL_COUNT)}
               className="w-full max-w-75 justify-center sm:w-auto"
             >
-              Load More Experiences
+              {t("loadMore")}
             </Button>
           ) : null}
 
-          <div className="mt-8 flex items-center gap-3">
+          <div className="mt-4 flex items-center gap-3">
             <div className="h-px w-8 bg-gold/20" />
             <p className="whitespace-nowrap text-[10px] font-medium uppercase tracking-[0.2em] text-slate-500">
-              Showing <span className="text-gold">{visiblePosts.length}</span> of{" "}
-              <span className="text-white">{filteredPosts.length}</span> Stories
+              {t("showing")} <span className="text-gold">{visiblePosts.length}</span> {t("of")}{" "}
+              <span className="text-white">{filteredPosts.length}</span> {t("stories")}
             </p>
             <div className="h-px w-8 bg-gold/20" />
           </div>
         </div>
+
+        <PromoModal/>
       </ContainerLayout>
     </section>
   );

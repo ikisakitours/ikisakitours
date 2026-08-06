@@ -1,5 +1,6 @@
 import { LoadingImage } from "@/components/ui/LoadingImage";
 import { Link } from "@/i18nNavigation";
+import { useTranslations } from "next-intl";
 //Icons
 import { Compass } from "lucide-react";
 
@@ -18,6 +19,7 @@ type CoveredDestinationsProps = {
 };
 
 export default function CoveredDestinations({ destinations, tourSlug, tourType }: CoveredDestinationsProps) {
+  const t = useTranslations("Booking.CoveredDestinations");
   if (!destinations || destinations.length === 0) return null;
 
   return (
@@ -27,11 +29,9 @@ export default function CoveredDestinations({ destinations, tourSlug, tourType }
     >
       <div className="mb-2 flex items-center gap-3 text-lg font-bold text-white md:text-xl">
         <Compass className="h-6 w-6 text-gold" />
-        Covered Destinations
+        {t("title")}
       </div>
-      <p className="mb-8 text-sm font-light text-slate-400">
-        Explore the places you will visit on this tailor-made journey. Click any destination to view details.
-      </p>
+      <p className="mb-8 text-sm font-light text-slate-400">{t("description")}</p>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {destinations.map((dest) => {

@@ -6,8 +6,8 @@ import { ArticleActions } from "@/components/blog/ArticleActions";
 import { useSearchParams } from "next/navigation"; 
 import { useRouter } from "@/i18nNavigation"; 
 import { EmptyState } from "@/components/ui/EmptyState";
-//Icons
 import { ArrowLeft, ArrowRight, Images } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface BlogArticleProps {
   post: {
@@ -25,9 +25,10 @@ function BlogArticleInner({ post }: BlogArticleProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const fromWhere = searchParams?.get("from");
+  const t = useTranslations("Blog.Article");
 
   const backHref = fromWhere === "home" ? "/" : "/blog";
-  const backText = fromWhere === "home" ? "Back To Home" : "Back To Journal";
+  const backText = fromWhere === "home" ? t("backToHome") : t("backToJournal");
 
   return (
     <article className="relative z-20 mx-auto max-w-4xl px-4 pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
@@ -57,7 +58,7 @@ function BlogArticleInner({ post }: BlogArticleProps) {
           <div className="flex w-full flex-row items-end justify-between border-b border-white/10 pb-6">
             {/* Left: Published */}
             <div className="flex flex-col gap-2">
-              <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-gold/70">Published</span>
+              <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-gold/70">{t("published")}</span>
               <span className="text-sm font-extrabold uppercase tracking-wide text-white md:text-base">
                 {post.published}
               </span>
@@ -65,7 +66,7 @@ function BlogArticleInner({ post }: BlogArticleProps) {
 
             {/* Right: Reading Time */}
             <div className="flex flex-col items-end gap-2 text-right">
-              <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-gold/70">Reading Time</span>
+              <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-gold/70">{t("readingTime")}</span>
               <span className="text-sm font-extrabold uppercase tracking-wide text-white md:text-base">
                 {post.readTime.replace(/read/i, "").trim()}
               </span>
@@ -80,9 +81,9 @@ function BlogArticleInner({ post }: BlogArticleProps) {
               post.content.map((paragraph, index) => <p key={index}>{paragraph}</p>)
             ) : (
               <EmptyState
-                backgroundText="Pending"
-                title="Content Coming Soon"
-                description="We are currently crafting this article's story. Please check back shortly to explore the complete experience."
+                backgroundText={t("Pending.backgroundText")}
+                title={t("Pending.title")}
+                description={t("Pending.description")}
                 onAction={() => {
                   window.location.reload();
                 }}
@@ -95,7 +96,7 @@ function BlogArticleInner({ post }: BlogArticleProps) {
               <div className="mb-10 flex items-center gap-4">
                 <div className="h-px flex-1 bg-linear-to-r from-transparent via-gold/30 to-transparent"></div>
                 <h3 className="text-center text-[10px] font-bold uppercase tracking-[0.4em] text-gold/80">
-                  Visual Glimpse
+                  {t("visualGlimpse")}
                 </h3>
                 <div className="h-px flex-1 bg-linear-to-r from-transparent via-gold/30 to-transparent"></div>
               </div>
@@ -122,7 +123,7 @@ function BlogArticleInner({ post }: BlogArticleProps) {
                         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/45 transition-colors duration-300 group-hover:bg-black/70">
                           <Images className="mb-2 text-white" size={24} />
                           <span className="px-2 text-center text-[9px] font-bold uppercase tracking-[0.2em] text-white">
-                            View Gallery
+                            {t("viewGallery")}
                           </span>
                         </div>
                       ) : null}
@@ -143,7 +144,7 @@ function BlogArticleInner({ post }: BlogArticleProps) {
             </div>
           )}
 
-          {/* --- 4. BOTTOM ACTION AREA (Single Line & Clean) --- */}
+          {/* --- 4. BOTTOM ACTION AREA --- */}
           <div className="mt-16 flex flex-row items-center justify-between gap-4 border-t border-white/10 pt-10">
             {/* Left: Like & Share Buttons Only */}
             <div className="flex items-center">
@@ -153,7 +154,7 @@ function BlogArticleInner({ post }: BlogArticleProps) {
             {/* Right: Minimal More Articles Link */}
             <Link href="/blog" className="group flex items-center gap-2.5 text-right whitespace-nowrap sm:gap-3">
               <span className="text-[8px] lg:text-[12px] font-bold uppercase tracking-[0.15em] text-gold transition-colors group-hover:text-white sm:text-[9px] sm:tracking-[0.2em] md:text-[10px] md:tracking-[0.2em]">
-                More Articles
+                {t("moreArticles")}
               </span>
 
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-all duration-300 group-hover:border-gold/50 group-hover:bg-gold/10 group-hover:translate-x-1 sm:h-11 sm:w-11">

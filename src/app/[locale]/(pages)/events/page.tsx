@@ -1,27 +1,45 @@
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { Hero } from "@/components/ui/Hero";
 import { EventsBody } from "@/components/Events/EventsBody";
 import { allSpecialEventsList, categories } from "@/data/specialEvents";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
-import type { Metadata } from "next";
+import { useTranslations } from "next-intl";
+import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
+import { PromoModal } from "@/components/ui/PromoModal";
 
-export const metadata: Metadata = {
-  title: "Cultural Festivals & Special Events",
-  description: "Immerse in Sri Lanka's most magnificent cultural pageants and live broadcasts.",
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Events.Metadata" });
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
+
+function TranslatedHero() {
+  const t = useTranslations("Events.Hero");
+  return (
+    <Hero
+      image={t("image")}
+      altText={t("alt")}
+      eyebrow={t("eyebrow")}
+      title={t("title")}
+      accent={t("accent")}
+      strapline={t("strapline")}
+    />
+  );
+}
 
 export default function SpecialEventsPage() {
   return (
     <UserPageLayout>
       <main className="min-h-screen bg-background">
-        <Hero
-          image="https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=95&w=1920&auto=format&fit=crop"
-          altText="Cultural Festivals & Special Events"
-          eyebrow="Cultural Pageants & Live"
-          title="Explore Island Celebrations"
-          accent="Celebrations"
-          strapline="Immerse in Sri Lanka's most magnificent cultural pageants and live broadcasts"
-        />
+        <TranslatedHero />
         <EventsBody events={allSpecialEventsList} categories={categories} />
+        <ContainerLayout>
+          <PromoModal />
+        </ContainerLayout>
       </main>
     </UserPageLayout>
   );

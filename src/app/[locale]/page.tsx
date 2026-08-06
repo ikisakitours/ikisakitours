@@ -10,6 +10,8 @@ import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import { CustomTourSection } from "@/components/home/CustomTourSection";
 import HomeContactCTA from "@/components/home/HomeContactCTA";
 import { SpecialEventsSection } from "@/components/home/EventsSection";
+import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
+import { PromoModal } from "@/components/ui/PromoModal";
 
 export default function HomePage() {
   return (
@@ -34,6 +36,10 @@ export default function HomePage() {
 
       {/* 5. Action Phase */}
       <HomeContactCTA />
+      
+      <ContainerLayout>
+        <PromoModal />
+      </ContainerLayout>
     </UserPageLayout>
   );
 }

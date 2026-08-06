@@ -3,6 +3,7 @@ import { BlogExplorer } from "@/components/blog/BlogExplorer";
 import { blogPosts, blogHero } from "@/data/blog";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import { Hero } from "@/components/ui/Hero";
+import { useTranslations } from "next-intl";
 
 export const metadata: Metadata = {
   title: "Journal",
@@ -30,16 +31,18 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
+  const t = useTranslations("Blog.Hero");
+
   return (
     <main className="min-h-screen bg-lanka-dark ">
       <UserPageLayout>
         <Hero
-          image={blogHero.image}
-          altText={blogHero.eyebrow}
-          eyebrow={blogHero.eyebrow}
-          title={blogHero.title}
-          accent={blogHero.accent}
-          strapline={blogHero.strapline}
+          image={t("image")}
+          altText={t("alt")}
+          eyebrow={t("eyebrow")}
+          title={t("title")}
+          accent={t("accent")}
+          strapline={t("strapline")}
         />
         <BlogExplorer posts={blogPosts} />
       </UserPageLayout>

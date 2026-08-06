@@ -1,22 +1,24 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 //Icons
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const navItems = [
-  { id: "about", label: "About" },
-  { id: "highlights", label: "Highlights" },
-  { id: "itinerary", label: "Itinerary" },
-  { id: "Covered-CitiesRoute", label: "Cities Route" },
-  { id: "description", label: "Details" },
-  { id: "includes", label: "Includes & Excludes" },
-  { id: "essentials", label: "Bring" },
-  { id: "Tour-Customization", label: "Bespoke" },
-  { id: "Covered-Destinations", label: "Destinations" },
-  { id: "reviews", label: "Reviews" },
+  { id: "about", key: "about" },
+  { id: "highlights", key: "highlights" },
+  { id: "itinerary", key: "itinerary" },
+  { id: "Covered-CitiesRoute", key: "citiesRoute" },
+  { id: "description", key: "details" },
+  { id: "includes", key: "includesExcludes" },
+  { id: "essentials", key: "bring" },
+  { id: "Tour-Customization", key: "bespoke" },
+  { id: "Covered-Destinations", key: "destinations" },
+  { id: "reviews", key: "reviews" },
 ];
 
 export function BookingNavigation() {
+  const t = useTranslations("Booking.Navigation");
   const [activeSection, setActiveSection] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -114,7 +116,7 @@ export function BookingNavigation() {
             text-[12px] md:text-[13px] lg:text-[14px] 
             ${activeSection === item.id ? "text-gold scale-105" : "text-slate-300 hover:text-white"}`}
               >
-                {item.label}
+                {t(item.key)}
               </a>
             ))}
           </div>
