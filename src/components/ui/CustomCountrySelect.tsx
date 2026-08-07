@@ -47,6 +47,7 @@ export const CustomCountrySelect = ({ value, onChange, options }: CustomCountryS
             height={15}
             unoptimized
             className="w-5 h-auto object-cover shadow-sm"
+            style={{ height: "auto" }}
           />
         ) : (
           <Globe className="w-5 h-5 text-slate-400" />
@@ -94,6 +95,7 @@ export const CustomCountrySelect = ({ value, onChange, options }: CustomCountryS
                       height={15}
                       unoptimized
                       className="w-5 h-auto object-cover shadow-sm"
+                      style={{ height: "auto" }}
                     />
                   ) : (
                     <Globe className="w-6 h-6 text-slate-400 shrink-0" />

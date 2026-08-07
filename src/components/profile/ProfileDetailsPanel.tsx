@@ -121,15 +121,15 @@ export function ProfileDetailsPanel() {
 
   useEffect(() => {
     const isAnyModalOpen = isSourceModalOpen || isCropModalOpen;
-    if (isAnyModalOpen) {
-      document.body.style.overflow = "hidden";
+  if (isAnyModalOpen) {
+      document.body.classList.add("overflow-hidden"); 
     } else {
-      document.body.style.overflow = "";
+      document.body.classList.remove("overflow-hidden");
     }
     window.dispatchEvent(new CustomEvent("globalModalStateChange", { detail: { isOpen: isAnyModalOpen } }));
 
     return () => {
-      document.body.style.overflow = "";
+      document.body.classList.remove("overflow-hidden");
       window.dispatchEvent(new CustomEvent("globalModalStateChange", { detail: { isOpen: false } }));
     };
   }, [isSourceModalOpen, isCropModalOpen]);

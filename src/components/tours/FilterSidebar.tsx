@@ -90,8 +90,10 @@ export function FilterSidebar({
       document.body.classList.remove("overflow-hidden");
       window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: false } }));
     }
-    return () => document.body.classList.remove("overflow-hidden");
-    window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: false } }));
+return () => {
+      document.body.classList.remove("overflow-hidden");
+      window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: false } }));
+    };
   }, [isOpen]);
 
   const isFilterActive = selectedCategory !== "all" || priceRange !== "Any price" || rating !== "Any rating";

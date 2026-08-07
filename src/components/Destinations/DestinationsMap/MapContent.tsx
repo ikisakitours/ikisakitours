@@ -143,7 +143,7 @@ export default function MapContent({
       if (window.innerWidth <= 1024) {
         setLineWidth(routePath.length > 0 ? 2 : 2);
       } else {
-        setLineWidth(routePath.length > 0 ? 4 : 3);
+        setLineWidth(routePath.length > 0 ? 2.5 : 1.5);
       }
     };
 
@@ -201,7 +201,9 @@ export default function MapContent({
               pathOptions={{
                 color: isDarkMode ? "#C5A059" : "#4285F4",
                 weight: lineWidth,
-                dashArray: routePath.length > 0 ? undefined : "8, 8",
+                dashArray: "12, 12", 
+                className: "moving-route-line",
+                lineCap: "round", 
               }}
             />
           )}

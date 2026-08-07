@@ -35,11 +35,10 @@ export function BackToTop() {
   }, []);
 
   return (
-  <button
+    <button
       type="button"
       aria-label="Back to top"
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      // isGlobalModalOpen true නම් අනිවාර්යයෙන්ම "hidden" වෙන ලෙස සකසා ඇත
       className={`flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-gold bg-transparent text-gold shadow-[0_0_15px_rgba(212,175,55,0.1)] backdrop-blur-md transition-all duration-500 hover:-translate-y-2 hover:bg-gold/10 hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] ${
         isGlobalModalOpen ? "hidden" : isMobileMenuOpen ? "hidden xl:flex" : "flex"
       } ${

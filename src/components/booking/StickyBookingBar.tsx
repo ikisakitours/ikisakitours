@@ -33,39 +33,53 @@ export function StickyBookingBar({ tour, options, assurances }: MobileBookingBar
 
   useEffect(() => {
     let isCurrentlyVisible = false;
+    let ticking = false; // Add ticking variable for requestAnimationFrame
 
     const handleScroll = () => {
-      const scrollPos = window.scrollY;
-      const screenWidth = window.innerWidth;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollPos = window.scrollY;
+          const screenWidth = window.innerWidth;
 
-      if (screenWidth >= 1280) {
-        if (isCurrentlyVisible) {
-          isCurrentlyVisible = false;
-          setShowStickyBar(false);
-          window.dispatchEvent(new CustomEvent("stickyBarStateChange", { detail: { isVisible: false } }));
-        }
-        return;
-      }
+          if (screenWidth >= 1280) {
+            if (isCurrentlyVisible) {
+              isCurrentlyVisible = false;
+              setShowStickyBar(false);
+              window.dispatchEvent(new CustomEvent("stickyBarStateChange", { detail: { isVisible: false } }));
+            }
+            ticking = false;
+            return;
+          }
 
-      let scrollThreshold = 450;
-      if (screenWidth < 768) {
-        scrollThreshold = 1070;
-      } else if (screenWidth >= 768 && screenWidth < 1024) {
-        scrollThreshold = 900;
-      } else {
-        scrollThreshold = 500;
-      }
+          let scrollThreshold = 450;
+          if (screenWidth < 768) {
+            scrollThreshold = 1070;
+          } else if (screenWidth >= 768 && screenWidth < 1024) {
+            scrollThreshold = 900;
+          } else {
+            scrollThreshold = 500;
+          }
 
-      const shouldBeVisible = scrollPos > scrollThreshold;
+          const shouldBeVisible = scrollPos > scrollThreshold;
 
-      if (shouldBeVisible !== isCurrentlyVisible) {
-        isCurrentlyVisible = shouldBeVisible;
-        setShowStickyBar(shouldBeVisible);
-        window.dispatchEvent(new CustomEvent("stickyBarStateChange", { detail: { isVisible: shouldBeVisible } }));
+          if (shouldBeVisible !== isCurrentlyVisible) {
+            isCurrentlyVisible = shouldBeVisible;
+            setShowStickyBar(shouldBeVisible);
+            window.dispatchEvent(new CustomEvent("stickyBarStateChange", { detail: { isVisible: shouldBeVisible } }));
+          }
+
+          ticking = false; // Reset ticking after execution
+        });
+
+        ticking = true; // Set ticking to true while waiting for the next frame
       }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // Call once on mount to set initial state correctly
+    handleScroll();
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 

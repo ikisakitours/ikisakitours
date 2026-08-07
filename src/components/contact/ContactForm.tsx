@@ -1,6 +1,6 @@
 "use client";
 
-import { type FormEvent, useState, useEffect } from "react";
+import { type FormEvent, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import CustomSelect from "@/components/ui/CustomSelect";
 import { floatingLabelClass, inputClass, fieldLabelClass } from "@/components/contact/formStyles";
@@ -10,7 +10,7 @@ import { CustomCountrySelect } from "@/components/ui/CustomCountrySelect";
 import PhoneInput, { Country } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { useTranslations } from "next-intl";
-
+import { useUserLocation } from "@/hooks/useUserLocation";
 export default function ContactForm() {
   const tPage = useTranslations("ContactPage.Form");
   const tForm = useTranslations("SharedForm");
@@ -29,37 +29,13 @@ export default function ContactForm() {
   const [inquiryType, setInquiryType] = useState("");
   const [tourType, setTourType] = useState("");
 
-  const [detectedCode, setDetectedCode] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
-  const [isDetecting, setIsDetecting] = useState(true);
   const [userInteracted, setUserInteracted] = useState(false);
 
   const { errors, validate, setErrors } = useValidationForm();
+  const { data: locationData, isDetecting } = useUserLocation();
 
-  useEffect(() => {
-    const fetchCountry = async () => {
-      try {
-        setIsDetecting(true);
-        const res = await fetch("https://ipapi.co/json/");
-
-        if (!res.ok) {
-          throw new Error(`API Fetch Failed with status: ${res.status}`);
-        }
-
-        const apiData = await res.json();
-
-        if (apiData.country_code) {
-          setDetectedCode(apiData.country_code);
-          setSelectedCountry(apiData.country_code);
-        }
-      } catch (error) {
-        console.warn("Location detection failed in Contact Form (API Limit maybe).", error);
-      } finally {
-        setIsDetecting(false);
-      }
-    };
-    fetchCountry();
-  }, []);
+  const detectedCode = locationData?.country_code || "";
 
   const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
     const target = e.currentTarget;
@@ -85,7 +61,7 @@ export default function ContactForm() {
       message: formData.message,
     };
 
-    // Note: Assuming "Tour Inquiry & Availability" or equivalent index logic. 
+    // Note: Assuming "Tour Inquiry & Availability" or equivalent index logic.
     // We check if it's the first option or strictly string match.
     if (inquiryType === INQUIRY_OPTIONS[0]) {
       validationPayload.tourInterest = tourType;

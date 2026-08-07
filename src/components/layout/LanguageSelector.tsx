@@ -8,6 +8,7 @@ import { createPortal } from "react-dom";
 // Icons
 import { ChevronDown, Search } from "lucide-react";
 import { LanguagePromptToast } from "./LanguageSelector/LanguagePromptToast";
+import { useUserLocation } from "@/hooks/useUserLocation";
 
 export function LanguageSelector() {
   const router = useRouter();
@@ -30,6 +31,7 @@ export function LanguageSelector() {
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const selectedItemRef = useRef<HTMLButtonElement>(null);
+  const { data: locationData } = useUserLocation();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -77,7 +79,7 @@ export function LanguageSelector() {
             });
           }
         } else {
-          // Desktop වල
+          // Desktop
           dropdownRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
         }
       }, 150);
@@ -88,53 +90,57 @@ export function LanguageSelector() {
   }, []);
 
   useEffect(() => {
-    const checkUserLocation = async () => {
-      try {
+    const handlePreloaderFinished = () => {
+      setTimeout(() => {
         const hasSeenPrompt = localStorage.getItem("mapmate_lang_prompt_seen");
-        if (hasSeenPrompt) return;
+        if (hasSeenPrompt || !locationData) return;
 
-        const res = await fetch("https://ipapi.co/json/");
-        if (!res.ok) return;
+        if (detectedCountry !== locationData.country_name) {
+          setDetectedCountry(locationData.country_name);
+        }
 
-        const apiData = await res.json();
+        const primaryLangCode = locationData.languages.split(",")[0].split("-")[0].toLowerCase();
+        const matchedLang = languages.find((l) => l.code.toLowerCase() === primaryLangCode);
 
-        if (apiData.country_name && apiData.languages) {
-          const countryName = apiData.country_name;
-          setDetectedCountry(countryName);
+        if (matchedLang) {
+          if (currentLocale.toLowerCase() !== matchedLang.code.toLowerCase()) {
+            if (targetLangObj?.code !== matchedLang.code) setTargetLangObj(matchedLang);
+            if (promptType !== "switch") setPromptType("switch");
 
-          const primaryLangCode = apiData.languages.split(",")[0].split("-")[0].toLowerCase();
-          const matchedLang = languages.find((l) => l.code.toLowerCase() === primaryLangCode);
-
-          if (matchedLang) {
-            if (currentLocale.toLowerCase() !== matchedLang.code.toLowerCase()) {
-              setTargetLangObj(matchedLang);
-              setPromptType("switch");
+            if (!showPrompt) {
               setShowPrompt(true);
-            } else {
+
               localStorage.setItem("mapmate_lang_prompt_seen", "true");
             }
           } else {
-            setPromptType("unsupported");
+            localStorage.setItem("mapmate_lang_prompt_seen", "true");
+          }
+        } else {
+          if (promptType !== "unsupported") setPromptType("unsupported");
+
+          if (!showPrompt) {
             setShowPrompt(true);
+
+            localStorage.setItem("mapmate_lang_prompt_seen", "true");
           }
         }
-      } catch (error) {
-        console.warn("Language auto-detect failed:", error);
-      }
-    };
-    const handlePreloaderFinished = () => {
-      setTimeout(() => {
-        checkUserLocation();
       }, 1500);
     };
 
-    window.addEventListener("preloaderFinished", handlePreloaderFinished);
+    if (typeof window !== "undefined") {
+      if ((window as Window & { __preloaderDone?: boolean }).__preloaderDone) {
+        handlePreloaderFinished();
+      } else {
+        window.addEventListener("preloaderFinished", handlePreloaderFinished);
+      }
+    }
 
     return () => {
-      window.removeEventListener("preloaderFinished", handlePreloaderFinished);
+      if (typeof window !== "undefined") {
+        window.removeEventListener("preloaderFinished", handlePreloaderFinished);
+      }
     };
-    checkUserLocation();
-  }, [currentLocale]);
+  }, [locationData, currentLocale, detectedCountry, promptType, showPrompt, targetLangObj]);
 
   // Prompt Actions
   const handlePromptAccept = () => {
@@ -151,7 +157,7 @@ export function LanguageSelector() {
   };
 
   const handlePromptDismiss = (openDropdown: boolean) => {
-    window.dispatchEvent(new CustomEvent("hideLanguagePrompt")); // 🌟
+    window.dispatchEvent(new CustomEvent("hideLanguagePrompt"));
     localStorage.setItem("mapmate_lang_prompt_seen", "true");
 
     if (openDropdown) {

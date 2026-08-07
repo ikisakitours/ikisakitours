@@ -12,6 +12,8 @@ export interface NotFoundUIProps {
   homeButtonText?: string;
   fallbackLocale?: string;
   badgeText?: string;
+  hideBackButton?: boolean;
+  hideHomeButton?: boolean;
 }
 
 export function NotFoundUI({
@@ -21,8 +23,20 @@ export function NotFoundUI({
   homeButtonText = "Return Home",
   fallbackLocale = "en",
   badgeText = "Error 404 • Nothing Found",
+  hideBackButton = false,
+  hideHomeButton = false,
 }: NotFoundUIProps) {
   const router = useRouter();
+
+  const canGoBack = (() => {
+    if (typeof window === "undefined") return false;
+    const hasReferrer = document.referrer.length > 0;
+    const hasLongHistory = window.history.length > 2;
+    return hasReferrer || hasLongHistory;
+  })();
+
+  const showBackBtn = !hideBackButton && canGoBack;
+  const showHomeBtn = !hideHomeButton;
 
   return (
     <div className="relative flex min-h-[90vh] w-full flex-col items-center justify-center px-6 overflow-hidden bg-lanka-dark py-12">
@@ -92,21 +106,29 @@ export function NotFoundUI({
           transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="relative z-10 flex w-full flex-col sm:flex-row items-center justify-center gap-4 max-w-lg"
         >
-          <button
-            onClick={() => router.back()}
-            className="w-full sm:w-1/2 group flex items-center justify-center gap-2.5 rounded-2xl border border-white/10 bg-white/3 px-6 py-4 text-[11px] font-bold uppercase tracking-[0.15em] text-slate-300 transition-all duration-300 hover:bg-white/10 hover:text-white hover:border-white/20 active:scale-95 backdrop-blur-md shadow-lg whitespace-nowrap"
-          >
-            <ArrowLeft className="h-4 w-4 shrink-0 transition-transform group-hover:-translate-x-1" />
-            <span>{backButtonText}</span>
-          </button>
+          {showBackBtn && (
+            <button
+              onClick={() => router.back()}
+              className={`group flex items-center justify-center gap-2.5 rounded-2xl border border-white/10 bg-white/3 px-6 py-4 text-[11px] font-bold uppercase tracking-[0.15em] text-slate-300 transition-all duration-300 hover:bg-white/10 hover:text-white hover:border-white/20 active:scale-95 backdrop-blur-md shadow-lg whitespace-nowrap ${
+                showHomeBtn ? "w-full sm:w-1/2" : "w-full sm:w-auto sm:px-12"
+              }`}
+            >
+              <ArrowLeft className="h-4 w-4 shrink-0 transition-transform group-hover:-translate-x-1" />
+              <span>{backButtonText}</span>
+            </button>
+          )}
 
-          <button
-            onClick={() => router.push(`/${fallbackLocale}`)}
-            className="w-full sm:w-1/2 group relative flex items-center justify-center gap-2.5 overflow-hidden rounded-2xl bg-gold px-6 py-4 text-[11px] font-black uppercase tracking-[0.15em] text-lanka-black shadow-[0_0_30px_rgba(197,160,89,0.3)] transition-all duration-300 hover:bg-gold-light hover:shadow-[0_0_45px_rgba(197,160,89,0.5)] hover:scale-[1.02] active:scale-95 whitespace-nowrap"
-          >
-            <Home className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5" />
-            <span>{homeButtonText}</span>
-          </button>
+          {showHomeBtn && (
+            <button
+              onClick={() => router.push(`/${fallbackLocale}`)}
+              className={`group relative flex items-center justify-center gap-2.5 overflow-hidden rounded-2xl bg-gold px-6 py-4 text-[11px] font-black uppercase tracking-[0.15em] text-lanka-black shadow-[0_0_30px_rgba(197,160,89,0.3)] transition-all duration-300 hover:bg-gold-light hover:shadow-[0_0_45px_rgba(197,160,89,0.5)] hover:scale-[1.02] active:scale-95 whitespace-nowrap ${
+                showBackBtn ? "w-full sm:w-1/2" : "w-full sm:w-auto sm:px-12"
+              }`}
+            >
+              <Home className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5" />
+              <span>{homeButtonText}</span>
+            </button>
+          )}
         </motion.div>
       </div>
     </div>

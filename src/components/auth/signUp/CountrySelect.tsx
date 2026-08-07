@@ -5,6 +5,7 @@ import Image from "next/image";
 import { FormError } from "@/components/ui/FormError";
 import { ALL_COUNTRIES } from "@/data/auth";
 import { useTranslations } from "next-intl";
+import { useUserLocation } from "@/hooks/useUserLocation";
 //Icons
 import { Globe, ChevronDown, Search } from "lucide-react";
 
@@ -33,13 +34,14 @@ export function CountrySelect({
   const [countriesList, setCountriesList] = useState(ALL_COUNTRIES);
   const [countryCode, setCountryCode] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isDetecting, setIsDetecting] = useState(true);
 
   const [detectedCode, setDetectedCode] = useState("");
   const [userInteracted, setUserInteracted] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const { data: locationData, isDetecting } = useUserLocation();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -53,38 +55,33 @@ export function CountrySelect({
   }, []);
 
   useEffect(() => {
-    const fetchCountry = async () => {
-      try {
-        setIsDetecting(true);
-        const res = await fetch("https://ipapi.co/json/");
+    if (locationData?.country_code && locationData?.country_name) {
+      const timer = setTimeout(() => {
+        setCountriesList((prev) => {
+          if (!prev.some((c) => c.code === locationData.country_code)) {
+            const updatedList = [...prev, { code: locationData.country_code, name: locationData.country_name }];
+            return updatedList.sort((a, b) => a.name.localeCompare(b.name));
+          }
+          return prev;
+        });
 
-        if (!res.ok) {
-          throw new Error(`API Fetch Failed with status: ${res.status}`);
+        if (detectedCode !== locationData.country_code) {
+          setDetectedCode(locationData.country_code);
         }
 
-        const data = await res.json();
-
-        if (data.country_name && data.country_code) {
-          setCountriesList((prev) => {
-            if (!prev.some((c) => c.code === data.country_code)) {
-              const updatedList = [...prev, { code: data.country_code, name: data.country_name }];
-              return updatedList.sort((a, b) => a.name.localeCompare(b.name));
-            }
-            return prev;
-          });
-
-          setDetectedCode(data.country_code);
-          setCountryCode(data.country_code);
-          setCountryName(data.country_name);
+        if (!userInteracted) {
+          if (countryCode !== locationData.country_code) {
+            setCountryCode(locationData.country_code);
+          }
+          if (countryName !== locationData.country_name) {
+            setCountryName(locationData.country_name);
+          }
         }
-      } catch (error) {
-        console.warn("Location detection failed (API Limit maybe). User needs to select manually.", error);
-      } finally {
-        setIsDetecting(false);
-      }
-    };
-    fetchCountry();
-  }, [setCountryName]);
+      }, 0); // Queues state updates to the next tick
+
+      return () => clearTimeout(timer);
+    }
+  }, [locationData, userInteracted, detectedCode, countryCode, countryName, setCountryName]);
 
   const filteredCountries = countriesList.filter((c) => c.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
@@ -120,6 +117,7 @@ export function CountrySelect({
                   height={15}
                   unoptimized
                   className="w-5 h-auto object-cover shadow-sm"
+                  style={{ height: "auto" }}
                 />
               )}
               <span className="text-white text-sm 3xl:text-lg">{countryName}</span>
@@ -173,6 +171,7 @@ export function CountrySelect({
                       height={15}
                       unoptimized
                       className="w-5 h-auto object-cover shadow-sm"
+                      style={{ height: "auto" }}
                     />
                     <span className="text-sm">{c.name}</span>
                   </div>

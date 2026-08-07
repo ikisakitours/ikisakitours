@@ -91,8 +91,10 @@ export function FilterSidebar({
       document.body.classList.remove("overflow-hidden");
       window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: false } }));
     }
-    return () => document.body.classList.remove("overflow-hidden");
-    window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: false } }));
+return () => {
+      document.body.classList.remove("overflow-hidden");
+      window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: false } }));
+    };
   }, [isOpen]);
 
   return (

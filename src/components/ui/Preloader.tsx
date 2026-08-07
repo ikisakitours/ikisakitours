@@ -22,8 +22,10 @@ export default function Preloader() {
       document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
       document.removeEventListener("touchmove", preventTouchScroll);
-
-      window.dispatchEvent(new CustomEvent("preloaderFinished"));
+      if (typeof window !== "undefined") {
+        (window as Window & { __preloaderDone?: boolean }).__preloaderDone = true;
+        window.dispatchEvent(new CustomEvent("preloaderFinished"));
+      }
     }, 4000);
     return () => {
       clearTimeout(timer);

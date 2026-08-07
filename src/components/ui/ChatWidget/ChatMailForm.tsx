@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, type FormEvent } from "react";
+import React, { useState, type FormEvent } from "react";
 import { Send } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { floatingLabelClass, inputClass, fieldLabelClass } from "@/components/contact/formStyles";
@@ -10,6 +10,7 @@ import { CustomCountrySelect } from "@/components/ui/CustomCountrySelect";
 import PhoneInput, { Country } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { useTranslations } from "next-intl";
+import { useUserLocation } from "@/hooks/useUserLocation";
 
 export function ChatMailForm() {
   const t = useTranslations("ChatWidget.MailForm");
@@ -21,34 +22,13 @@ export function ChatMailForm() {
     message: "",
   });
 
-  const [detectedCode, setDetectedCode] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
-  const [isDetecting, setIsDetecting] = useState(true);
   const [userInteracted, setUserInteracted] = useState(false);
-
+  const { data: locationData, isDetecting } = useUserLocation();
   const { errors, validate, setErrors } = useValidationForm();
 
   // IP Location Detection
-  useEffect(() => {
-    const fetchCountry = async () => {
-      try {
-        setIsDetecting(true);
-        const res = await fetch("https://ipapi.co/json/");
-        if (!res.ok) throw new Error(`API Fetch Failed with status: ${res.status}`);
-        const apiData = await res.json();
-        if (apiData.country_code) {
-          setDetectedCode(apiData.country_code);
-          setSelectedCountry(apiData.country_code);
-        }
-      } catch (error) {
-        console.warn("Location detection failed.", error);
-      } finally {
-        setIsDetecting(false);
-      }
-    };
-    fetchCountry();
-  }, []);
-
+const detectedCode = locationData?.country_code || "";
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });

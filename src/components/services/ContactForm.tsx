@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { floatingLabelClass, inputClass, fieldLabelClass } from "./formStyles";
 import { Button } from "@/components/ui/Button";
 import { FormError } from "@/components/ui/FormError";
@@ -9,7 +9,7 @@ import { CustomCountrySelect } from "@/components/ui/CustomCountrySelect";
 import PhoneInput, { Country } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { useTranslations } from "next-intl";
-
+import { useUserLocation } from "@/hooks/useUserLocation";
 //Icons
 import { UserRound, ShieldCheck, CreditCard, Headset } from "lucide-react";
 
@@ -36,35 +36,11 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
 
   const assuranceBadges = tServices.raw("AssuranceBadges") as string[];
 
-  const [detectedCode, setDetectedCode] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
-  const [isDetecting, setIsDetecting] = useState(true);
   const [userInteracted, setUserInteracted] = useState(false);
 
-  useEffect(() => {
-    const fetchCountry = async () => {
-      try {
-        setIsDetecting(true);
-        const res = await fetch("https://ipapi.co/json/");
-
-        if (!res.ok) {
-          throw new Error(`API Fetch Failed with status: ${res.status}`);
-        }
-
-        const apiData = await res.json();
-
-        if (apiData.country_code) {
-          setDetectedCode(apiData.country_code);
-          setSelectedCountry(apiData.country_code);
-        }
-      } catch (error) {
-        console.warn("Location detection failed in Contact Form (API Limit maybe).", error);
-      } finally {
-        setIsDetecting(false);
-      }
-    };
-    fetchCountry();
-  }, []);
+  const { data: locationData, isDetecting } = useUserLocation();
+  const detectedCode = locationData?.country_code || "";
 
   const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
     const target = e.currentTarget;
