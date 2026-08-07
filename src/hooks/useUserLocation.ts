@@ -7,7 +7,6 @@ export interface LocationData {
   languages: string;
 }
 
-// 🌟 Global Cache Variable: මෙය පිටුව පුරාම එකවරක් පමණක් API කෝල් එක යැවීමට උපකාරී වේ
 let cachedLocationPromise: Promise<LocationData> | null = null;
 
 export function useUserLocation(timeoutMs = 4000) {
@@ -22,7 +21,6 @@ export function useUserLocation(timeoutMs = 4000) {
       try {
         setIsDetecting(true);
 
-        // මේ වන විටත් කවුරුහරි API Request එක යවලා නැත්නම් විතරක් අලුත් එකක් යවනවා
         if (!cachedLocationPromise) {
           const controller = new AbortController();
           const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
@@ -36,12 +34,11 @@ export function useUserLocation(timeoutMs = 4000) {
               return res.json();
             })
             .catch((err) => {
-              cachedLocationPromise = null; // ෆේල් වුණොත් Cache එක මකනවා
+              cachedLocationPromise = null;
               throw err;
             });
         }
 
-        // Cache එකේ තියෙන Promise එකෙන් ප්‍රතිඵලය එනකම් ඉන්නවා
         const result = await cachedLocationPromise;
 
         if (isMounted) {

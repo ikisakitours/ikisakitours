@@ -7,6 +7,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { languages } from "@/data/Languages-CurrencyData";
+import ProgressBarProvider from "@/components/ui/ProgressBarProvider";
 // import TawkToChat from "@/components/ui/TawkToChat";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -89,6 +90,7 @@ const isSupportedLocale = languages.some((lang) => lang.code.toLowerCase() === l
       <body className="min-h-full bg-lanka-dark text-slate-200">
         <NextIntlClientProvider messages={messages}>
           <Preloader />
+          <ProgressBarProvider />
           {/* <TawkToChat /> */}
           {children}
           <Toaster position="top-center" richColors />
