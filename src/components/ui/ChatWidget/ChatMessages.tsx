@@ -52,9 +52,9 @@ export function ChatMessages({ onEmailClick, waLink }: ChatMessagesProps) {
                 </svg>
                 <div className="text-left">
                   <p className="text-[13px] font-bold text-white group-hover:text-[#06C755] transition-colors">
-                    Chat on Line
+                    {t("lineTitle")}
                   </p>
-                  <p className="text-[10px] text-slate-500">Connect via Line app</p>
+                  <p className="text-[10px] text-slate-500">{t("lineSubtitle")}</p>
                 </div>
               </div>
             </a>
