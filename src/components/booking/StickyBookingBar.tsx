@@ -60,7 +60,12 @@ export function StickyBookingBar({ tour, options, assurances }: MobileBookingBar
             scrollThreshold = 500;
           }
 
-          const shouldBeVisible = scrollPos > scrollThreshold;
+          let shouldBeVisible = isCurrentlyVisible;
+          if (scrollPos > scrollThreshold + 20) {
+            shouldBeVisible = true;
+          } else if (scrollPos < scrollThreshold - 20) {
+            shouldBeVisible = false;
+          }
 
           if (shouldBeVisible !== isCurrentlyVisible) {
             isCurrentlyVisible = shouldBeVisible;
@@ -90,12 +95,11 @@ export function StickyBookingBar({ tour, options, assurances }: MobileBookingBar
         animate={{
           y: showStickyBar ? 0 : 48,
           opacity: showStickyBar ? 1 : 0,
-          scale: showStickyBar ? 1 : 0.95,
         }}
         transition={{
           type: "tween",
-          duration: 0.75,
-          ease: [0.4, 0, 0.2, 1],
+          duration: 0.6,
+          ease: [0.16, 1, 0.3, 1],
         }}
         className={`fixed z-50 flex items-center justify-between border-t border-b-0 border-x-0 md:border border-gold/40 bg-linear-to-r from-lanka-black/95 via-[#141414]/95 to-lanka-black/95 px-6 py-4 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.1)] xl:hidden ${"bottom-0 left-0 right-0 rounded-none md:bottom-6 md:left-1/2 md:right-auto md:-translate-x-1/2 md:w-87.5 md:rounded-2xl"} ${
           !showStickyBar ? "pointer-events-none" : ""

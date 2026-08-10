@@ -1,0 +1,18 @@
+export default {
+  "badge": "MapMate Pass",
+  "tag": "#VIP25",
+  "bottomText": "Instant Luxury Credit",
+  "floatingTag": "★ Exclusive Reward",
+  "specialOffer": "Special Offer",
+  "title": "Savvy planners like you deserve a little credit.",
+  "description": "Use it on any of our luxury multi-day tours before the end of the month. Discount will appear at checkout automatically when you activate it now. Valid on orders over $200.",
+  "activateButton": "Activate Discount Now",
+  "cancelButton": "No thanks, I prefer paying full price",
+  
+  "generating": "Generating Code...",
+  "successTitle": "You're all set!",
+  "successDesc": "Here is your exclusive, one-time promo code. Copy it and apply it at checkout.",
+  "copyCode": "Copy Code",
+  "copied": "Copied!",
+  "continueBrowsing": "Continue Browsing"
+} as const;

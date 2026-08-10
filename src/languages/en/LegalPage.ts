@@ -1,0 +1,15 @@
+export default {
+  "Hero": {
+    "lastUpdated": "Last Updated:"
+  },
+  "Tabs": {
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "booking": "Booking Policy",
+    "payment": "Payment Policy"
+  },
+  "Metadata": {
+    "title": "Terms of Service, Privacy, Booking & Payment Policies",
+    "description": "Review MapMate's comprehensive legal information, including our terms of service, privacy policy, booking terms, and secure payment policies."
+  }
+} as const;

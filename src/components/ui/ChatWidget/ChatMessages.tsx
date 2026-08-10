@@ -7,9 +7,10 @@ import { SiWhatsapp } from "react-icons/si";
 interface ChatMessagesProps {
   onEmailClick: () => void;
   waLink: string;
+  lineLink: string;
 }
 
-export function ChatMessages({ onEmailClick, waLink }: ChatMessagesProps) {
+export function ChatMessages({ onEmailClick, waLink, lineLink }: ChatMessagesProps) {
   const t = useTranslations("ChatWidget.Messages");
   return (
     <div className="space-y-6 animate-fade-in-up min-h-90  flex flex-col justify-between">
@@ -40,7 +41,7 @@ export function ChatMessages({ onEmailClick, waLink }: ChatMessagesProps) {
 
             {/* Line App Button */}
             <a
-              href="https://line.me/ti/p/dcnpathirana"
+              href={lineLink}
               target="_blank"
               rel="noopener noreferrer"
               className="group flex w-full items-center justify-between rounded-xl bg-lanka-black border border-[#06C755]/30 p-3.5 hover:border-[#06C755] hover:bg-[#06C755]/5 transition-all duration-300"

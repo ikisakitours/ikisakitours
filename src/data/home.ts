@@ -22,8 +22,7 @@ export const heroPopularServices = [
 export const HeroBackGroundImages = [
   {
     id: "sigiriyaView",
-    mobileUrl: "/images/sander-traa-bfdshIHD5Y4-unsplash.webp",
-    desktopUrl: "/images/sander-traa-bfdshIHD5Y4-unsplash.webp",
+    url: "/images/sander-traa-bfdshIHD5Y4-unsplash.webp",
   },
 ] as const;
 

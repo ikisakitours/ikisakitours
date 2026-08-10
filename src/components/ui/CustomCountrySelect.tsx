@@ -1,7 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import Image from "next/image";
 import { Country, getCountryCallingCode } from "react-phone-number-input";
 import { Globe, ChevronDown, Search } from "lucide-react";
 
@@ -40,12 +40,9 @@ export const CustomCountrySelect = ({ value, onChange, options }: CustomCountryS
         onClick={() => setIsOpen(!isOpen)}
       >
         {selectedOption && selectedOption.value ? (
-          <Image
+          <img
             src={`https://flagcdn.com/w20/${selectedOption.value.toLowerCase()}.png`}
             alt={selectedOption.label}
-            width={20}
-            height={15}
-            unoptimized
             className="w-5 h-auto object-cover shadow-sm"
             style={{ height: "auto" }}
           />
@@ -88,12 +85,9 @@ export const CustomCountrySelect = ({ value, onChange, options }: CustomCountryS
                   }`}
                 >
                   {option.value ? (
-                    <Image
+                    <img
                       src={`https://flagcdn.com/w20/${option.value.toLowerCase()}.png`}
                       alt={option.label}
-                      width={20}
-                      height={15}
-                      unoptimized
                       className="w-5 h-auto object-cover shadow-sm"
                       style={{ height: "auto" }}
                     />

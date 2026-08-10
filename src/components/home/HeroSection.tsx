@@ -1,5 +1,4 @@
 "use client";
-import { Fragment } from "react/jsx-runtime";
 import Image from "next/image";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { heroStats, heroPopularTags, heroPopularServices, HeroBackGroundImages } from "@/data/home";
@@ -19,33 +18,21 @@ const smoothTransition: Transition = {
 
 export function HeroSection() {
   const t = useTranslations("HomePage.Hero");
+  const bgImage = HeroBackGroundImages[0];
+
   return (
     <header className="relative flex flex-col justify-center text-center bg-[#050505] pt-20 pb-12  sm:py-24 md:py-26 lg:py-28 2xl:py-30 3xl:py-32">
       {/*py-20*/}
       <div className="absolute inset-0 z-0 h-full w-full overflow-hidden">
-        {HeroBackGroundImages.map((image) => (
-          <Fragment key={image.id}>
-            <Image
-              src={image.mobileUrl}
-              alt={t(`bgImagesAlt.${image.id}Mobile`)}
-              fill
-              priority
-              quality={100}
-              sizes="(max-width: 640px) 100vw, 0vw"
-              className="block sm:hidden scale-110 object-cover object-center opacity-70 animate-slow-zoom"
-            />
-
-            <Image
-              src={image.desktopUrl}
-              alt={t(`bgImagesAlt.${image.id}Desktop`)}
-              fill
-              priority
-              quality={100}
-              sizes="(max-width: 640px) 0vw, (max-width: 768px) 100vw, (max-width: 1024px) 100vw, (max-width: 1280px) 100vw, (max-width: 1536px) 100vw, 100vw"
-              className="hidden sm:block scale-110 object-cover object-center opacity-70 animate-slow-zoom"
-            />
-          </Fragment>
-        ))}
+        <Image
+          src={bgImage.url}
+          alt={t(`bgImagesAlt.${bgImage.id}`)}
+          fill
+          priority
+          quality={90}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+          className="scale-110 object-cover object-center opacity-70 animate-slow-zoom"
+        />
         <div className="absolute inset-0 bg-linear-to-r from-lanka-black/90 via-lanka-black/40 to-transparent" />
         <div className="absolute inset-0 bg-linear-to-t from-lanka-black via-transparent to-transparent opacity-80" />
       </div>

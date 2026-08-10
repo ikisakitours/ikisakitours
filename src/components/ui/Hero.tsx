@@ -16,26 +16,14 @@ export function Hero({ image, altText, eyebrow, title, accent, strapline }: Hero
   return (
     <header className="relative flex flex-col justify-center text-center bg-lanka-dark h-[53vh] min-h-93 md:h-[45vh] md:min-h-95 lg:h-[58vh] lg:min-h-120 xl:h-[63vh] xl:min-h-120 2xl:h-[60vh] 2xl:min-h-125 3xl:h-[60vh] 3xl:min-h-127.5">
       <div className="absolute inset-0 z-0 overflow-hidden">
-        {/* 1. Mobile Image  */}
         <Image
           src={image}
           alt={altText}
           fill
           priority
-          quality={100}
-          sizes="(max-width: 768px) 300vw, 100vw"
-          className="block sm:hidden scale-110 object-cover object-center  animate-slow-zoom"
-        />
-
-        {/* 2. Desktop Image */}
-        <Image
-          src={image}
-          alt={altText}
-          fill
-          priority
-          quality={100}
-          sizes="100vw"
-          className="hidden sm:block scale-110 object-cover object-center animate-slow-zoom"
+          quality={90}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+          className="object-cover object-center scale-110 animate-slow-zoom"
         />
         <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/80 to-lanka-dark" />
       </div>

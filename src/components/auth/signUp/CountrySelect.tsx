@@ -1,7 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
 import { FormError } from "@/components/ui/FormError";
 import { ALL_COUNTRIES } from "@/data/auth";
 import { useTranslations } from "next-intl";
@@ -110,14 +110,10 @@ export function CountrySelect({
           {countryName ? (
             <div className="flex items-center gap-3">
               {countryCode && (
-                <Image
+                <img
                   src={`https://flagcdn.com/w20/${countryCode.toLowerCase()}.png`}
                   alt={countryName}
-                  width={20}
-                  height={15}
-                  unoptimized
                   className="w-5 h-auto object-cover shadow-sm"
-                  style={{ height: "auto" }}
                 />
               )}
               <span className="text-white text-sm 3xl:text-lg">{countryName}</span>
@@ -164,15 +160,12 @@ export function CountrySelect({
                     }}
                     className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors hover:bg-gold/10 ${countryCode === c.code ? "bg-gold/20 text-gold" : "text-slate-200"}`}
                   >
-                    <Image
+                    <img
                       src={`https://flagcdn.com/w20/${c.code.toLowerCase()}.png`}
                       alt={c.name}
-                      width={20}
-                      height={15}
-                      unoptimized
                       className="w-5 h-auto object-cover shadow-sm"
-                      style={{ height: "auto" }}
                     />
+
                     <span className="text-sm">{c.name}</span>
                   </div>
                 ))

@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# custom scripts
+sync-langs.mjs
+convert.mjs
+auto-translate.mjs
+fix-untranslated.mjs

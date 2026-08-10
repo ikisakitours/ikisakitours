@@ -57,30 +57,6 @@ export function FullChatWidget() {
     return () => clearTimeout(timeoutId);
   }, []);
 
-  // Tab Title Blinking effect when bottom tooltip is shown
-  // useEffect(() => {
-  //   if (!isMounted) return;
-
-  //   let intervalId: NodeJS.Timeout;
-
-  //   if (showBottomTooltip && !isOpen) {
-  //     const currentTitle = document.title.startsWith("💬") ? "MapMate - Sri Lanka Tours" : document.title;
-  //     let toggle = false;
-
-  //     intervalId = setInterval(() => {
-  //       document.title = toggle ? "💬 1 New Message!" : currentTitle;
-  //       toggle = !toggle;
-  //     }, 1500);
-  //   }
-
-  //   return () => {
-  //     clearInterval(intervalId);
-  //     if (document.title.startsWith("💬")) {
-  //       document.title = document.title.includes("MapMate") ? "MapMate - Sri Lanka Tours" : "MapMate";
-  //     }
-  //   };
-  // }, [showBottomTooltip, isOpen, isMounted]);
-
   useEffect(() => {
     if (!isMounted || isPreloaderFinished) return;
 
@@ -119,7 +95,7 @@ export function FullChatWidget() {
       const customEvent = e as CustomEvent<{ isOpen: boolean }>;
       setIsGlobalModalOpen(customEvent.detail.isOpen);
       if (customEvent.detail.isOpen) {
-        setIsOpen(false); // Modal එකක් එද්දි Chat එකත් වහනවා
+        setIsOpen(false);
       }
     };
 
@@ -280,7 +256,7 @@ export function FullChatWidget() {
   const whatsappNumber = "94789187072";
   const defaultMessage = tWidget("whatsappDefaultText");
   const waLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(defaultMessage)}`;
-
+  const lineLink = "https://line.me/ti/p/dcnpathirana";
   if (!isMounted) return null; // Prevents hydration error by rendering nothing until client-side is ready
 
   return (
@@ -304,7 +280,7 @@ export function FullChatWidget() {
           ) : activeTab === "home" ? (
             <ChatHome onNewChat={() => setActiveTab("messages")} />
           ) : (
-            <ChatMessages onEmailClick={() => setShowMailForm(true)} waLink={waLink} />
+            <ChatMessages onEmailClick={() => setShowMailForm(true)} waLink={waLink} lineLink={lineLink}/>
           )}
         </div>
 

@@ -1,0 +1,83 @@
+export default {
+  "Metadata": {
+    "title": "目的地",
+    "description": "スリランカ全土で最も息をのむような都市、文化的ランドマーク、隠れた名所を探索してください。"
+  },
+  "Hero": {
+    "eyebrow": "島を探索する",
+    "title": "オーダーメイドの",
+    "accent": "目的地",
+    "strapline": "スリランカの時代を超越した遺産、手付かずのビーチ、霧に包まれた高地を発見してください。",
+    "image": "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
+    "alt": "手付かずのスリランカのビーチに沈む息をのむような夕日"
+  },
+  "Explorer": {
+    "filterRegions": "地域で絞り込む",
+    "searchPlaceholder": "目的地を検索...",
+    "watermark": "MapMate",
+    "geoBadge": "地理的発見",
+    "mapTitle": "視覚的に目的地を発見する",
+    "mapDesc": "インタラクティブな島の地図ビューに切り替えて地理的に場所を探索するか、クラシックな厳選されたグリッドを閲覧してください。",
+    "viewMapBtn": "ルートマップを見る",
+    "loadMore": "さらに目的地を読み込む",
+    "showing": "表示中",
+    "of": "/",
+    "destinations": "目的地",
+    "destinationSingular": "目的地",
+    "EmptyState": {
+      "backgroundText": "島",
+      "title": "目的地が見つかりません",
+      "searchNoResult": "「{query}」の検索結果に場所はありませんでした。",
+      "filterNoResult": "選択した地域 ({category}) に場所はありませんでした。",
+      "redefine": "フィルターをリセットしてみてください。",
+      "resetBtn": "探索をリセット"
+    },
+    "Sidebar": {
+      "all": "すべて",
+      "clearFilter": "フィルターをクリア"
+    }
+  },
+  "Card": {
+    "country": "スリランカ",
+    "bestTime": "ベストシーズン",
+    "details": "詳細"
+  },
+  "Slug": {
+    "backToDestinations": "目的地一覧に戻る",
+    "backToIslandMap": "島の地図に戻る",
+    "backToRouteMap": "ルートマップに戻る",
+    "backToTour": "ツアーに戻る",
+    "about": "{name}について",
+    "highlights": "ハイライトと主な観光スポット",
+    "visualJourney": "ビジュアルジャーニー",
+    "explore": "{name}を探索する",
+    "viewAll": "すべて見る",
+    "viewGallery": "ギャラリーを見る",
+    "highlight": "ハイライト",
+    "destinationGuide": "目的地ガイド",
+    "guideSubtitle": "次の休暇に役立つ情報。",
+    "bestTime": "ベストシーズン",
+    "climate": "気候",
+    "languages": "主な言語",
+    "currency": "現地通貨",
+    "personalizedNote": "{name}を巡るパーソナライズされたカスタム旅程を作成します。理想の休日の調整を始めるにお問い合わせください。"
+  },
+  "MapHeader": {
+    "badge": "インタラクティブスリランカマップ",
+    "title": "地理的に目的地を発見する",
+    "searchPlaceholder": "目的地を検索...",
+    "itemLabel": "目的地",
+    "lightMap": "ライトマップ",
+    "darkMap": "ダークマップ",
+    "mapMood": "マップの雰囲気を設定"
+  },
+  "Map": {
+    "choosePlace": "発見する場所を選ぶ",
+    "loading": "インタラクティブマップを読み込んでいます...",
+    "explore": "探索",
+    "noDestinationsTitle": "目的地が見つかりません",
+    "noDestinationsDesc": "検索条件に一致する場所が見つかりませんでした。検索をリセットしてください。",
+    "resetExploration": "探索をリセット",
+    "viewDestination": "目的地を見る"
+  }
+} as const;
