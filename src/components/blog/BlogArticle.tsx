@@ -184,7 +184,7 @@ import { ArticleActions } from "@/components/blog/ArticleActions";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { ArrowRight, Images } from "lucide-react";
 import { useTranslations } from "next-intl";
-import BlogBackButton from "@/components/blog/BlogBackButton";
+// import BlogBackButton from "@/components/blog/BlogBackButton";
 
 interface BlogArticleProps {
   post: {
@@ -208,11 +208,11 @@ function BlogArticleInner({ post }: BlogArticleProps) {
         {/* --- 1. TOP EDITORIAL HEADER --- */}
         <div className="flex flex-col px-6 pt-6 md:px-12 md:pt-10">
           {/* Back Button - Top Left */}
-          <div className="mb-5">
+          {/* <div className="mb-5">
             <Suspense fallback={<div className="h-8 w-24 animate-pulse bg-white/5 rounded-full" />}>
               <BlogBackButton />
             </Suspense>
-          </div>
+          </div> */}
 
           <div className="flex w-full flex-row items-end justify-between border-b border-white/10 pb-6">
             {/* Left: Published */}
