@@ -176,18 +176,15 @@
 //   );
 // }
 
-
-
 "use client";
 import { LoadingImage } from "@/components/ui/LoadingImage";
 import { Link } from "@/i18nNavigation";
 import React, { Suspense } from "react";
 import { ArticleActions } from "@/components/blog/ArticleActions";
-import { useSearchParams } from "next/navigation"; 
-import { useRouter } from "@/i18nNavigation"; 
 import { EmptyState } from "@/components/ui/EmptyState";
-import { ArrowLeft, ArrowRight, Images } from "lucide-react";
+import { ArrowRight, Images } from "lucide-react";
 import { useTranslations } from "next-intl";
+import BlogBackButton from "@/components/blog/BlogBackButton";
 
 interface BlogArticleProps {
   post: {
@@ -201,43 +198,8 @@ interface BlogArticleProps {
   };
 }
 
-
-function BackButtonWrapper() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const fromWhere = searchParams?.get("from");
-  const t = useTranslations("Blog.Article");
-
-  const backHref = fromWhere === "home" ? "/" : "/blog";
-  const backText = fromWhere === "home" ? t("backToHome") : t("backToJournal");
-
-  return (
-    <Link
-      href={backHref}
-      onClick={(e) => {
-        if (!e.ctrlKey && !e.metaKey) {
-          e.preventDefault();
-          router.back();
-        }
-      }}
-      className="group flex w-fit items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em]! text-white/60 transition-colors hover:text-gold"
-    >
-      <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-all duration-300 group-hover:-translate-x-1 group-hover:border-gold/50 group-hover:bg-gold/10">
-        <ArrowLeft size={14} className="text-white group-hover:text-gold" />
-      </span>
-      {backText}
-    </Link>
-  );
-}
-
 function BlogArticleInner({ post }: BlogArticleProps) {
-  // const searchParams = useSearchParams();
-  // const router = useRouter();
-  // const fromWhere = searchParams?.get("from");
   const t = useTranslations("Blog.Article");
-
-  // const backHref = fromWhere === "home" ? "/" : "/blog";
-  // const backText = fromWhere === "home" ? t("backToHome") : t("backToJournal");
 
   return (
     <article className="relative z-20 mx-auto max-w-4xl px-4 pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
@@ -247,8 +209,8 @@ function BlogArticleInner({ post }: BlogArticleProps) {
         <div className="flex flex-col px-6 pt-6 md:px-12 md:pt-10">
           {/* Back Button - Top Left */}
           <div className="mb-5">
-          <Suspense fallback={<div className="h-8 w-24 animate-pulse bg-white/5 rounded-full" />}>
-              <BackButtonWrapper />
+            <Suspense fallback={<div className="h-8 w-24 animate-pulse bg-white/5 rounded-full" />}>
+              <BlogBackButton />
             </Suspense>
           </div>
 

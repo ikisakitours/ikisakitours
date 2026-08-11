@@ -7,7 +7,6 @@ import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { PromoModal } from "@/components/ui/PromoModal";
 import { setRequestLocale } from "next-intl/server";
-import { Suspense } from "react";
 
 type BlogDetailPageProps = {
   params: Promise<{
@@ -78,9 +77,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
           accent={post.accent}
           strapline={post.excerpt}
         />
-       <Suspense fallback={<div className="h-32 w-full animate-pulse bg-white/5 rounded-2xl mx-auto max-w-4xl" />}>
           <BlogArticle post={post} />
-        </Suspense>
         <ContainerLayout>
           <PromoModal />
         </ContainerLayout>
