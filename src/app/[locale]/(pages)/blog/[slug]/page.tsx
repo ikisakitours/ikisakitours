@@ -6,10 +6,12 @@ import { BlogArticle } from "@/components/blog/BlogArticle";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { PromoModal } from "@/components/ui/PromoModal";
+import { setRequestLocale } from "next-intl/server";
 
 type BlogDetailPageProps = {
   params: Promise<{
     slug: string;
+    locale: string;
   }>;
 };
 
@@ -18,7 +20,9 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: BlogDetailPageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
+
+  setRequestLocale(locale);
   const post = blogPosts.find((item) => item.slug === slug);
 
   if (!post) {
@@ -54,7 +58,8 @@ export async function generateMetadata({ params }: BlogDetailPageProps): Promise
 }
 
 export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
-  const { slug } = await params;
+  const { slug, locale } = await params;
+  setRequestLocale(locale);
   const post = blogPosts.find((item) => item.slug === slug);
 
   if (!post) {

@@ -41,7 +41,7 @@ export default function InsightCard({ item }: { item: InsightType }) {
         <h4 className="premium-serif mb-3 text-xl font-bold leading-tight text-white">{item.title}</h4>
         <p className="mb-6 line-clamp-2 text-sm font-light text-slate-400">{item.excerpt}</p>
 
-        <div className="mt-auto flex items-center justify-between border-t border-white/10 pt-5">
+        <div className="mt-auto flex items-center justify-end border-t border-white/10 pt-5">
           <span className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.35em] text-gold transition-all duration-300 group-hover:gap-5 group-hover:text-white">
             {t("readArticle")}
             <ArrowRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-1" />

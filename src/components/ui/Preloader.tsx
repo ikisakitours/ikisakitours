@@ -5,9 +5,18 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 export default function Preloader() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => {
+    if (typeof window !== "undefined" && (window as Window & { __preloaderDone?: boolean }).__preloaderDone) {
+      return false;
+    }
+    return true;
+  });
 
+  
   useEffect(() => {
+    if (typeof window !== "undefined" && (window as Window & { __preloaderDone?: boolean }).__preloaderDone) {
+      return;
+    }
     document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
 

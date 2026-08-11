@@ -9,22 +9,22 @@ export type NavItem = NavLink | NavDropdown;
 
 export const primaryNavigation: NavItem[] = [
   { key: "Home", href: "/", sectionId: "" },
-  { key: "Experience", href: "/about", sectionId: "#about" },
+  { key: "Experience", href: "/about", sectionId: "" },
   {
     key: "Tours",
     isDropdown: true,
     subItems: [
-      { key: "Multi Days Tours", href: "/tours/multi-days", sectionId: "#tours-multi" },
-      { key: "One Day Tours", href: "/tours/one-day", sectionId: "#tours-one" },
+      { key: "Multi Days Tours", href: "/tours/multi-days", sectionId: "" },
+      { key: "One Day Tours", href: "/tours/one-day", sectionId: "" },
     ],
   },
   {
     key: "Services",
     isDropdown: true,
     subItems: [
-      { key: "Custom Made Journeys", href: "/services/bespoke-travel", sectionId: "#custom-tours" },
-      { key: "Private Chauffeur Service", href: "/services/private-vehicle", sectionId: "#private-Vehicle-Hire" },
-      { key: "Airport & City Transfers", href: "/services/transfers", sectionId: "#transfers" },
+      { key: "Custom Made Journeys", href: "/services/bespoke-travel", sectionId: "" },
+      { key: "Private Chauffeur Service", href: "/services/private-vehicle", sectionId: "" },
+      { key: "Airport & City Transfers", href: "/services/transfers", sectionId: "" },
     ],
   },
   {
@@ -33,13 +33,13 @@ export const primaryNavigation: NavItem[] = [
     subItems: [
       // 1. Discovery & Stories
       { key: "Hidden Havens", href: "/destination", sectionId: "" },
-      { key: "Cultural Pageants", href: "/events", sectionId: "#events" },
-      { key: "Journal", href: "/blog", sectionId: "#blog" },
+      { key: "Cultural Pageants", href: "/events", sectionId: "" },
+      { key: "Journal", href: "/blog", sectionId: "" },
 
       // 2. Trust & Support
-      { key: "Reviews", href: "/testimonials", sectionId: "#testimonials" },
+      { key: "Reviews", href: "/testimonials", sectionId: "" },
       { key: "FAQs", href: "/faq", sectionId: "" },
-      { key: "Contact", href: "/contact", sectionId: "#contact" },
+      { key: "Contact", href: "/contact", sectionId: "" },
     ],
   },
 ];
@@ -47,17 +47,17 @@ export const primaryNavigation: NavItem[] = [
 export const footerLinks = [
   // 1. Core Navigation
   { label: "Home", href: "/" },
-  { label: "The Experience", href: "/about", sectionId: "#about" },
+  { label: "The Experience", href: "/about", sectionId: "" },
 
   // 2. Core Products
-  { label: "Tour Packages", href: "/tours/multi-days", sectionId: "#packages" },
+  { label: "Tour Packages", href: "/tours/multi-days", sectionId: "" },
   { label: "Hidden Havens", href: "/destination", sectionId: "" },
-  { label: "Cultural Pageants", href: "/events", sectionId: "#events" },
+  { label: "Cultural Pageants", href: "/events", sectionId: "" },
 
   // 3. Trust, Stories & Support
-  { label: "Journal", href: "/blog", sectionId: "#blog" },
+  { label: "Journal", href: "/blog", sectionId: "" },
   { label: "FAQ", href: "/faq" },
-  { label: "Contact", href: "/contact", sectionId: "#contact" },
+  { label: "Contact", href: "/contact", sectionId: "" },
 ];
 export const socialLinks = [
   { label: "Instagram", href: "#" },
