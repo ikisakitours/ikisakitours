@@ -4,14 +4,10 @@ import { blogPosts } from "@/data/blog";
 import { Hero } from "@/components/ui/Hero";
 import { BlogArticle } from "@/components/blog/BlogArticle";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
-import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { PromoModal } from "@/components/ui/PromoModal";
-import { setRequestLocale } from "next-intl/server";
 
 type BlogDetailPageProps = {
   params: Promise<{
     slug: string;
-    locale: string;
   }>;
 };
 
@@ -20,9 +16,7 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: BlogDetailPageProps): Promise<Metadata> {
-  const { slug, locale } = await params;
-
-  setRequestLocale(locale);
+  const { slug } = await params;
   const post = blogPosts.find((item) => item.slug === slug);
 
   if (!post) {
@@ -58,8 +52,7 @@ export async function generateMetadata({ params }: BlogDetailPageProps): Promise
 }
 
 export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
-  const { slug, locale } = await params;
-  setRequestLocale(locale);
+  const { slug } = await params;
   const post = blogPosts.find((item) => item.slug === slug);
 
   if (!post) {
@@ -77,10 +70,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
           accent={post.accent}
           strapline={post.excerpt}
         />
-          <BlogArticle post={post} />
-        <ContainerLayout>
-          <PromoModal />
-        </ContainerLayout>
+        <BlogArticle post={post} />
       </main>
     </UserPageLayout>
   );

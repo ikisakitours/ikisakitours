@@ -3,13 +3,6 @@ import { BlogExplorer } from "@/components/blog/BlogExplorer";
 import { blogPosts, blogHero } from "@/data/blog";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import { Hero } from "@/components/ui/Hero";
-import { getTranslations, setRequestLocale } from "next-intl/server";
-
-type BlogPageProps = {
-  params: Promise<{
-    locale: string;
-  }>;
-};
 
 export const metadata: Metadata = {
   title: "Journal",
@@ -36,22 +29,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function BlogPage({ params }: BlogPageProps) {
-  const { locale } = await params;
-  setRequestLocale(locale);
-
-  const t = await getTranslations("Blog.Hero");
-
+export default function BlogPage() {
   return (
     <main className="min-h-screen bg-lanka-dark ">
       <UserPageLayout>
         <Hero
-          image={t("image")}
-          altText={t("alt")}
-          eyebrow={t("eyebrow")}
-          title={t("title")}
-          accent={t("accent")}
-          strapline={t("strapline")}
+          image={blogHero.image}
+          altText={blogHero.eyebrow}
+          eyebrow={blogHero.eyebrow}
+          title={blogHero.title}
+          accent={blogHero.accent}
+          strapline={blogHero.strapline}
         />
         <BlogExplorer posts={blogPosts} />
       </UserPageLayout>
