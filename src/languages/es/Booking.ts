@@ -15,7 +15,7 @@ export default {
     "loveTour": "¿Te encanta esta gira?",
     "mapMateRate": "Tarifa MapMate",
     "perPerson": "/ Por Persona",
-    "save": "Ahorre {descuento} %",
+    "save": "Ahorra {discount} %",
     "groupDiscount": "Se aplica descuento grupal.",
     "priceDecreases": "El precio por persona disminuye para grupos más grandes.",
     "priceMayVary": "El precio puede variar según las selecciones personalizadas.",
@@ -132,7 +132,7 @@ export default {
   "Itinerary": {
     "title": "Itinerario y punto de encuentro",
     "day": "Día",
-    "travelTime": "Tiempo de viaje: {tiempo}",
+    "travelTime": "Tiempo de viaje: {time}",
     "routeOverview": "Descripción general de la ruta",
     "keyDestinations": "Destinos clave",
     "dayItinerary": "Itinerario del día",

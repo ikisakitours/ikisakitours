@@ -28,7 +28,7 @@ export default {
       "backgroundText": "Diario",
       "title": "no se encontraron artículos",
       "searchNoResult": "Su búsqueda de \"{query}\" no arrojó artículos.",
-      "filterNoResult": "La categoría seleccionada ({categoría}) no devolvió ningún artículo.",
+      "filterNoResult": "La categoría seleccionada ( {category} ) no devolvió ningún artículo.",
       "searchAndFilterNoResult": "Su búsqueda de \"{query}\" en la categoría \"{category}\" no arrojó artículos.",
       "redefine": "Por favor redefina su búsqueda o restablezca los filtros.",
       "resetBtn": "Restablecer exploración"

@@ -41,7 +41,10 @@ yarn-error.log*
 next-env.d.ts
 
 # custom scripts
-sync-langs.mjs
-convert.mjs
-auto-translate.mjs
-fix-untranslated.mjs
+scripts/sync-langs.mjs
+scripts/convert.mjs
+scripts/auto-translate.mjs
+scripts/fix-untranslated.mjs
+scripts/verify-translations.mjs
+scripts/cleanup-extra-keys.mjs
+scripts/fix-variables.mjs

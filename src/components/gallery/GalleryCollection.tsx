@@ -6,6 +6,7 @@ import { GalleryLightbox } from "@/components/gallery/GalleryLightbox";
 import type { GalleryItem } from "@/data/blog";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
+import { useTranslations } from "next-intl";
 
 type GalleryCollectionProps = {
   items: GalleryItem[];
@@ -14,6 +15,7 @@ type GalleryCollectionProps = {
 const INITIAL_COUNT = 4;
 
 export function GalleryCollection({ items }: GalleryCollectionProps) {
+  const t = useTranslations("Gallery.Collection");
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const touchStartX = useRef<number | null>(null);
 
@@ -101,15 +103,15 @@ export function GalleryCollection({ items }: GalleryCollectionProps) {
         <div className="mt-10 flex flex-col items-center md:mt-14">
           {hasMore ? (
             <Button type="button" variant="explore" onClick={() => setVisibleCount((count) => count + INITIAL_COUNT)}>
-              Load More Experiences
+              {t("loadMore")}
             </Button>
           ) : null}
 
           <div className="mt-8 flex items-center gap-3">
             <div className="h-px w-8 bg-gold/20" />
             <p className="whitespace-nowrap text-[10px] font-medium uppercase tracking-[0.2em] text-slate-500">
-              Showing <span className="text-gold">{visibleItems.length}</span> of{" "}
-              <span className="text-white">{items.length}</span> Images
+              {t("showing")} <span className="text-gold">{visibleItems.length}</span> {t("of")}
+              <span className="text-white">{items.length}</span> {t("images")}
             </p>
             <div className="h-px w-8 bg-gold/20" />
           </div>

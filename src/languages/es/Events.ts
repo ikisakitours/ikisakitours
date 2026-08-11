@@ -34,7 +34,7 @@ export default {
       "backgroundText": "Eventos",
       "title": "No se encontraron celebraciones coincidentes",
       "searchNoResult": "No pudimos encontrar ningún evento que coincida con \"{query}\".",
-      "filterNoResult": "No pudimos encontrar ningún evento en la categoría \"{categoría}\".",
+      "filterNoResult": "No pudimos encontrar ningún evento en la categoría \" {category} \".",
       "searchAndFilterNoResult": "No pudimos encontrar ningún evento que coincida con \"{query}\" en la categoría \"{category}\".",
       "redefine": "Intente restablecer sus filtros para explorar más.",
       "resetBtn": "Restablecer filtros"

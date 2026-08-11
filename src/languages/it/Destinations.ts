@@ -47,10 +47,10 @@ export default {
     "backToIslandMap": "Torna alla mappa dell'isola",
     "backToRouteMap": "Torna alla mappa del percorso",
     "backToTour": "Torniamo al Giro",
-    "about": "Informazioni su {nome}",
+    "about": "Circa {name}",
     "highlights": "Punti salienti e attrazioni principali",
     "visualJourney": "Viaggio visivo",
-    "explore": "Esplora {nome}",
+    "explore": "Esplora {name}",
     "viewAll": "Visualizza tutto",
     "viewGallery": "Visualizza Galleria",
     "highlight": "Punti salienti",
@@ -60,7 +60,7 @@ export default {
     "climate": "Clima",
     "languages": "Lingue primarie",
     "currency": "Valuta locale",
-    "personalizedNote": "Creiamo itinerari personalizzati personalizzati che attraversano {nome}. Contattaci per iniziare a personalizzare la tua vacanza da sogno."
+    "personalizedNote": "Creiamo itinerari personalizzati personalizzati che attraversano {name} . Contattaci per iniziare a personalizzare la tua vacanza da sogno."
   },
   "MapHeader": {
     "badge": "Mappa interattiva dello Sri Lanka",

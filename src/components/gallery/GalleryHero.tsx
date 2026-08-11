@@ -1,8 +1,9 @@
 "use client";
-
-import { ArrowLeft } from "lucide-react";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { useRouter } from "@/i18nNavigation";
+import { useTranslations } from "next-intl";
+//Icons
+import { ArrowLeft } from "lucide-react";
 
 type GalleryHeroProps = {
   backLink: string;
@@ -12,14 +13,13 @@ type GalleryHeroProps = {
   subtitle?: string;
 };
 
-export function GalleryHero({
-  backLink,
-  backLabel,
-  title = "The",
-  accent = "Heritage",
-  subtitle = "Curated Visual Experience",
-}: GalleryHeroProps) {
+export function GalleryHero({ backLink, backLabel, title, accent, subtitle }: GalleryHeroProps) {
   const router = useRouter();
+  const t = useTranslations("Gallery.Hero");
+
+  const displayTitle = title || t("defaultTitle");
+  const displayAccent = accent || t("defaultAccent");
+  const displaySubtitle = subtitle || t("defaultSubtitle");
 
   const handleBack = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -45,11 +45,11 @@ export function GalleryHero({
         </a>
 
         <h1 className="premium-serif text-4xl font-light uppercase leading-tight tracking-[0.14em] text-white sm:text-5xl md:text-6xl md:tracking-[0.2em]">
-          {title} <span className="text-gold">{accent}</span>
+          {displayTitle} <span className="text-gold">{displayAccent}</span>
         </h1>
 
         <p className="mt-5 text-[10px] font-bold uppercase tracking-[0.35em] text-slate-500 sm:text-[11px] md:tracking-[0.5em]">
-          {subtitle}
+          {displaySubtitle}
         </p>
 
         <div className="mx-auto mt-8 h-px w-20 bg-linear-to-r from-transparent via-gold to-transparent" />

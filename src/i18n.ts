@@ -37,6 +37,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       Booking: (await import(`./languages/${locale}/Booking`)).default,
       PromoModal: (await import(`./languages/${locale}/PromoModal`)).default,
       NotFoundPage: (await import(`./languages/${locale}/NotFoundPage`)).default,
+      Gallery: (await import(`./languages/${locale}/Gallery`)).default,
     },
   };
 });

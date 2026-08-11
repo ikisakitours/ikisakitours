@@ -7,6 +7,7 @@ import { allSpecialEventsList } from "@/data/specialEvents";
 import { GalleryCollection } from "@/components/gallery/GalleryCollection";
 import { GalleryHero } from "@/components/gallery/GalleryHero";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 type GalleryDetailPageProps = {
   params: Promise<{ slug: string }>;
@@ -14,6 +15,7 @@ type GalleryDetailPageProps = {
 };
 
 export async function generateMetadata({ params, searchParams }: GalleryDetailPageProps): Promise<Metadata> {
+  const t = await getTranslations("Gallery.Metadata");
   const { slug } = await params;
   const resolvedSearchParams = await searchParams;
 
@@ -56,33 +58,33 @@ export async function generateMetadata({ params, searchParams }: GalleryDetailPa
 
   if (!post) {
     return {
-      title: "Gallery Not Found",
-      description: "The requested gallery could not be found.",
+      title: t("notFoundTitle"),
+      description: t("notFoundDesc"),
     };
   }
 
   let title = post.title;
-  let description = `Explore visual moments and photo gallery for ${post.title}.`;
+  let description = t("blogDesc", { title: post.title });
 
   if (isEventGallery) {
-    title = `${post.title} - Event Highlights`;
+    title = t("eventTitle", { title: post.title });
     description = `Discover visual highlights and exclusive images from ${post.title}.`;
   } else if (isBookingTour) {
     const tour = post as typeof multiDayTour;
     if (activeFilter === "moments" || activeFilter === "all-moments") {
-      title = `Guest Moments - ${tour.fullTitle}`;
-      description = `Captured memories and guest moments from ${tour.fullTitle}.`;
+      title = t("guestMomentsTitle", { title: tour.fullTitle });
+      description = t("guestMomentsDesc", { title: tour.fullTitle });
     } else if (activeFilter && activeFilter.startsWith("review-")) {
       const encodedUserName = activeFilter.replace("review-", "");
       const userName = decodeURIComponent(encodedUserName).trim();
-      title = `Review Gallery by ${userName} | ${tour.fullTitle}`;
-      description = `Photo gallery and shared experiences by ${userName} for ${tour.fullTitle}.`;
+      title = t("reviewTitle", { name: userName, title: tour.fullTitle });
+      description = t("reviewDesc", { name: userName, title: tour.fullTitle });
     } else {
-      title = `${tour.fullTitle} - Tour Gallery`;
-      description = `Explore the complete photo gallery of ${tour.fullTitle}.`;
+      title = t("tourTitle", { title: tour.fullTitle });
+      description = t("tourDesc", { title: tour.fullTitle });
     }
   } else {
-    title = `${post.title} - Story Gallery`;
+    title = t("storyTitle", { title: post.title });
   }
 
   return {
@@ -92,6 +94,7 @@ export async function generateMetadata({ params, searchParams }: GalleryDetailPa
 }
 
 export default async function GalleryDetailPage({ params, searchParams }: GalleryDetailPageProps) {
+  const t = await getTranslations("Gallery.Labels");
   const { slug } = await params;
   const resolvedSearchParams = await searchParams;
 
@@ -142,29 +145,29 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
   }
 
   let dynamicBackLink = `/blog/${slug}`;
-  let dynamicBackLabel = "Back to Story";
+  let dynamicBackLabel = t("backToStory");
 
   if (isEventGallery) {
     dynamicBackLink = `/events/${slug}`;
-    dynamicBackLabel = "Back to Event";
+    dynamicBackLabel = t("backToEvent");
   } else if (isBookingTour) {
     dynamicBackLink = tourType === "one" ? `/booking/one-day-tours/${slug}` : `/booking/multi-days-tours/${slug}`;
-    dynamicBackLabel = "Back to Tour";
+    dynamicBackLabel = t("backToTour");
 
     if (from === "reviews") {
       dynamicBackLink =
         tourType === "one" ? `/booking/one-day-tours/${slug}/reviews` : `/booking/multi-days-tours/${slug}/reviews`;
-      dynamicBackLabel = "Back to Reviews";
+      dynamicBackLabel = t("backToReviews");
     }
   }
 
   let itemsToShow: GalleryItem[] = [];
   let heroTitle = post.title;
-  let heroSubtitle = "Story Gallery";
+  let heroSubtitle = t("storyGallery");
 
   if (isEventGallery) {
     const event = post as (typeof allSpecialEventsList)[0];
-    heroSubtitle = "Event Highlights Gallery";
+    heroSubtitle = t("eventHighlightsGallery");
 
     if (event.images && event.images.length > 0) {
       itemsToShow = event.images.map((imgStr, index) => ({
@@ -172,12 +175,12 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
         src: imgStr,
         alt: `${event.title} Highlight ${index + 1}`,
         title: event.title,
-        category: "Event Highlight",
+        category: t("eventHighlightCat"),
       }));
     }
   } else if (isBookingTour) {
     const tour = post as typeof multiDayTour;
-    heroSubtitle = "Tour Gallery";
+    heroSubtitle = t("tourGallery");
 
     if (activeFilter === "gallery") {
       itemsToShow = tour.gallery as GalleryItem[];
@@ -186,11 +189,11 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
         id: `moment-${index}`,
         src: moment.src,
         alt: moment.alt,
-        title: "Guest Moment",
-        category: "Guest Moments",
+        title: t("guestMoments"),
+        category: t("guestMoments"),
       }));
-      heroTitle = "Guest Moments";
-      heroSubtitle = `Captured memories from ${tour.title}`;
+      heroTitle = t("guestMoments");
+      heroSubtitle = t("capturedMemories", { title: tour.title });
     } else if (activeFilter && activeFilter.startsWith("review-")) {
       const encodedUserName = activeFilter.replace("review-", "");
       const userName = decodeURIComponent(encodedUserName).trim();
@@ -203,10 +206,10 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
           src: photo.src,
           alt: photo.alt,
           title: photo.title,
-          category: `Review by ${specificReview.name}`,
+          category: t("reviewBy", { name: specificReview.name }),
         }));
-        heroTitle = `Review by ${specificReview.name}`;
-        heroSubtitle = `${specificReview.name}'s Gallery Moments`;
+        heroTitle = t("reviewBy", { name: specificReview.name });
+        heroSubtitle = t("galleryMoments", { name: specificReview.name });
       } else {
         itemsToShow = tour.gallery as GalleryItem[];
       }

@@ -30,7 +30,7 @@ export default {
     "noResults": "Geen talen gevonden.",
     "autoDetect": {
       "switchTitle": "Taalsuggestie",
-      "switchDesc": "We hebben gemerkt dat u zich in <b>{country}</b> bevindt. Wilt u de taal wijzigen naar <b>{taal}</b>?",
+      "switchDesc": "We hebben gemerkt dat u zich in <b> {country} </b> bevindt. Wilt u de taal wijzigen naar <b> {language} </b>?",
       "unsupportedTitle": "Taal niet ondersteund",
       "unsupportedDesc": "We hebben gemerkt dat u zich in <b>{country}</b> bevindt, maar we ondersteunen uw lokale taal nog niet. Selecteer een andere taal uit onze lijst die het beste bij u past.",
       "btnYes": "Ja, overstappen",

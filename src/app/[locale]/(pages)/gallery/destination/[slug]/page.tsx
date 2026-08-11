@@ -4,6 +4,7 @@ import { GalleryCollection } from "@/components/gallery/GalleryCollection";
 import { GalleryHero } from "@/components/gallery/GalleryHero";
 import type { GalleryItem } from "@/data/blog";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 type DestinationGalleryPageProps = {
   params: Promise<{ slug: string }>;
@@ -11,23 +12,25 @@ type DestinationGalleryPageProps = {
 };
 
 export async function generateMetadata({ params }: DestinationGalleryPageProps): Promise<Metadata> {
+  const t = await getTranslations("Gallery.Metadata");
   const { slug } = await params;
   const dest = destinationsData.find((d) => d.slug === slug);
 
   if (!dest) {
     return {
-      title: "Gallery Not Found",
-      description: "The requested destination gallery could not be found.",
+     title: t("notFoundTitle"),
+      description: t("notFoundDestDesc"),
     };
   }
 
   return {
-    title: `${dest.name} Photo Gallery - Visual Journey`,
-    description: `Explore stunning photographs and visual highlights of ${dest.name}.`,
+    title: t("destTitle", { name: dest.name }),
+    description: t("destDesc", { name: dest.name }),
   };
 }
 
 export default async function DestinationGalleryPage({ params }: DestinationGalleryPageProps) {
+  const t = await getTranslations("Gallery.Labels");
   const { slug } = await params;
 
   const dest = destinationsData.find((d) => d.slug === slug);
@@ -37,13 +40,13 @@ export default async function DestinationGalleryPage({ params }: DestinationGall
   }
 
   const dynamicBackLink = `/destination/${slug}`;
-  const dynamicBackLabel = "Back to Destination";
+  const dynamicBackLabel = t("backToDestination");
 
   const itemsToShow: GalleryItem[] = dest.photos.map((photoSrc, index) => ({
     id: `${dest.slug}-${index}`,
     src: photoSrc,
     alt: `${dest.name} Image ${index + 1}`,
-    title: `${dest.name} Highlights`,
+   title: t("destHighlights", { name: dest.name }),
     category: dest.name,
   }));
 
@@ -52,9 +55,9 @@ export default async function DestinationGalleryPage({ params }: DestinationGall
       <GalleryHero
         backLink={dynamicBackLink}
         backLabel={dynamicBackLabel}
-        title="Explore"
+       title={t("explore")}
         accent={dest.name}
-        subtitle={`Visual Journey Through ${dest.name}`}
+       subtitle={t("visualJourneyThrough", { name: dest.name })}
       />
       <GalleryCollection items={itemsToShow} />
     </main>

@@ -15,7 +15,7 @@ export default {
     "loveTour": "Ben je dol op deze tour?",
     "mapMateRate": "MapMate-tarief",
     "perPerson": "/ Per persoon",
-    "save": "Bespaar {korting}%",
+    "save": "Bespaar {discount} %",
     "groupDiscount": "Groepskorting is van toepassing",
     "priceDecreases": "Bij grotere groepen daalt de prijs per persoon.",
     "priceMayVary": "Prijs kan variëren op basis van aangepaste selecties.",

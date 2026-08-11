@@ -33,7 +33,7 @@ export default {
     "buttonText": "Restablecer filtros",
     "descSearchAndCategory": "No pudimos encontrar ninguna pregunta que coincida con \"{query}\" en la categoría \"{category}\". Borre los filtros o pruebe con otra palabra clave.",
     "descSearchOnly": "No pudimos encontrar ninguna pregunta que coincida con \"{query}\". Borre los filtros o pruebe con otra palabra clave.",
-    "descCategoryOnly": "No pudimos encontrar ninguna pregunta disponible en la categoría \"{categoría}\".",
+    "descCategoryOnly": "No pudimos encontrar ninguna pregunta disponible en la categoría \" {category} \".",
     "descDefault": "No se encontraron preguntas que coincidan con sus criterios."
   }
 } as const;

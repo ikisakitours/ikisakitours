@@ -28,7 +28,7 @@ export default {
       "backgroundText": "Isla",
       "title": "no se encontraron destinos",
       "searchNoResult": "Su búsqueda de \"{query}\" no arrojó ubicaciones.",
-      "filterNoResult": "La región seleccionada ({categoría}) no arrojó ninguna ubicación.",
+      "filterNoResult": "La región seleccionada ( {category} ) no arrojó ninguna ubicación.",
       "redefine": "Intente restablecer sus filtros.",
       "resetBtn": "Restablecer exploración"
     },
@@ -47,10 +47,10 @@ export default {
     "backToIslandMap": "Volver al mapa de la isla",
     "backToRouteMap": "Volver al mapa de ruta",
     "backToTour": "Volver al recorrido",
-    "about": "Acerca de {nombre}",
+    "about": "Acerca de {name}",
     "highlights": "Aspectos destacados y atracciones clave",
     "visualJourney": "Viaje visual",
-    "explore": "Explora {nombre}",
+    "explore": "Explorar {name}",
     "viewAll": "Ver todo",
     "viewGallery": "Ver galería",
     "highlight": "Reflejos",
@@ -60,7 +60,7 @@ export default {
     "climate": "Clima",
     "languages": "Idiomas primarios",
     "currency": "Moneda Local",
-    "personalizedNote": "Creamos itinerarios personalizados atravesando {nombre}. Contáctenos para comenzar a personalizar las vacaciones de sus sueños."
+    "personalizedNote": "Creamos itinerarios personalizados atravesando {name} . Contáctenos para comenzar a personalizar las vacaciones de sus sueños."
   },
   "MapHeader": {
     "badge": "Mapa interactivo de Sri Lanka",

@@ -30,7 +30,7 @@ export default {
     "noResults": "언어를 찾을 수 없습니다.",
     "autoDetect": {
       "switchTitle": "언어 제안",
-      "switchDesc": "귀하는 <b>{국가}</b>에 계신 것으로 확인되었습니다. 언어를 <b>{언어}</b>로 전환하시겠습니까?",
+      "switchDesc": "귀하는 <b> {country} _ </b>에 있는 것으로 확인되었습니다. 언어를 <b> {language} </b>로 전환하시겠습니까?",
       "unsupportedTitle": "지원되지 않는 언어",
       "unsupportedDesc": "귀하는 <b>{country}</b>에 거주하고 계시지만 아직 현지 언어를 지원하지 않습니다. 목록에서 귀하에게 가장 적합한 다른 언어를 선택하십시오.",
       "btnYes": "네, 전환하세요",

@@ -132,7 +132,7 @@ export default {
   "Itinerary": {
     "title": "行程及集合地点",
     "day": "天",
-    "travelTime": "行程时间：{时间}",
+    "travelTime": "旅行时间： {time}",
     "routeOverview": "路线概览",
     "keyDestinations": "主要目的地",
     "dayItinerary": "一日行程",

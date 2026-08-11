@@ -30,12 +30,12 @@ export default {
     "noResults": "Aucune langue trouvée.",
     "autoDetect": {
       "switchTitle": "Suggestion de langue",
-      "switchDesc": "Nous avons remarqué que vous vous trouvez en <b>{pays</b>. Souhaitez-vous changer la langue en <b>{langue></b> ?",
+      "switchDesc": "Nous avons remarqué que vous vous trouvez dans <b> {country} </b>. Souhaitez-vous changer la langue en <b> {language} </b> ?",
       "unsupportedTitle": "Langue non prise en charge",
-      "unsupportedDesc": "Nous avons remarqué que vous résidez en <b>{pays></b>, mais nous ne prenons pas encore en charge votre langue locale. Veuillez sélectionner une autre langue dans notre liste qui vous convient le mieux.",
+      "unsupportedDesc": "Nous avons remarqué que vous êtes en <b> {country} </b>, mais nous ne prenons pas encore en charge votre langue locale. Veuillez sélectionner une autre langue dans notre liste qui vous convient le mieux.",
       "btnYes": "Oui, change",
       "btnNo": "Non merci",
-      "btnKeep": "Gardez {langage}",
+      "btnKeep": "Gardez {lang}",
       "btnChoose": "Choisir la langue"
     }
   },

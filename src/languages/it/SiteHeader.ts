@@ -30,7 +30,7 @@ export default {
     "noResults": "Nessuna lingua trovata.",
     "autoDetect": {
       "switchTitle": "Suggerimento linguistico",
-      "switchDesc": "Abbiamo notato che ti trovi in ​​<b>{country}</b>. Desideri cambiare la lingua in <b>{lingual}</b>?",
+      "switchDesc": "Abbiamo notato che ti trovi in ​​<b> {country} </b>. Desideri cambiare la lingua in <b> {language} </b>?",
       "unsupportedTitle": "Lingua non supportata",
       "unsupportedDesc": "Abbiamo notato che ti trovi in ​​<b>{country}</b>, ma non supportiamo ancora la tua lingua locale. Seleziona un'altra lingua dal nostro elenco che funziona meglio per te.",
       "btnYes": "Sì, cambia",

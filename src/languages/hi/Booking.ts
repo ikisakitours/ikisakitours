@@ -15,7 +15,7 @@ export default {
     "loveTour": "क्या आपको यह दौरा पसंद है?",
     "mapMateRate": "मैपमेट दर",
     "perPerson": "/ प्रति व्यक्ति",
-    "save": "{छूट}% बचाएं",
+    "save": "{discount} % बचाएं",
     "groupDiscount": "समूह छूट लागू होती है",
     "priceDecreases": "बड़े समूहों के लिए प्रति व्यक्ति कीमत घट जाती है।",
     "priceMayVary": "कस्टम चयन के आधार पर कीमत भिन्न हो सकती है।",
@@ -87,7 +87,7 @@ export default {
   },
   "CoveredCities": {
     "title": "कवर किए गए शहरों का मार्ग",
-    "magicalStops": "{गिनती} जादुई पड़ाव",
+    "magicalStops": "{count} जादुई पड़ाव",
     "viewRouteMap": "मार्ग मानचित्र देखें",
     "clickMap": "पूरा मार्ग देखने के लिए मानचित्र पर क्लिक करें",
     "swipeHint": "संपूर्ण यात्रा क्रम को नेविगेट करने के लिए स्वाइप करें या तीरों का उपयोग करें"
@@ -132,7 +132,7 @@ export default {
   "Itinerary": {
     "title": "यात्रा कार्यक्रम एवं बैठक स्थल",
     "day": "दिन",
-    "travelTime": "यात्रा का समय: {समय}",
+    "travelTime": "यात्रा का समय: {time}",
     "routeOverview": "मार्ग अवलोकन",
     "keyDestinations": "प्रमुख गंतव्य",
     "dayItinerary": "दिन यात्रा कार्यक्रम",

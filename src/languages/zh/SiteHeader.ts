@@ -30,7 +30,7 @@ export default {
     "noResults": "未找到语言。",
     "autoDetect": {
       "switchTitle": "语言建议",
-      "switchDesc": "我们注意到您位于<b>{country}</b>。 您想将语言切换为<b>{语言}</b>吗？",
+      "switchDesc": "我们注意到您位于<b> {country} </b>。 您想将语言切换为<b> {language} </b>吗？",
       "unsupportedTitle": "不支持的语言",
       "unsupportedDesc": "我们注意到您位于<b>{country}</b>，但我们尚不支持您的本地语言。 请从我们的列表中选择最适合您的另一种语言。",
       "btnYes": "是的，切换",

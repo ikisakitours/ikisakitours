@@ -15,7 +15,7 @@ export default {
     "loveTour": "Vous aimez cette tournée?",
     "mapMateRate": "Tarif MapMate",
     "perPerson": "/ Par personne",
-    "save": "Économisez {remise} %",
+    "save": "Économisez {discount} %",
     "groupDiscount": "Le rabais de groupe s'applique",
     "priceDecreases": "Le prix par personne diminue pour les grands groupes.",
     "priceMayVary": "Le prix peut varier en fonction des sélections personnalisées.",

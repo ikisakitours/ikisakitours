@@ -15,7 +15,7 @@ export default {
     "loveTour": "أحب هذه الجولة؟",
     "mapMateRate": "معدل MapMate",
     "perPerson": "/ لكل شخص",
-    "save": "توفير {خصم}%",
+    "save": "حفظ {discount} _ %",
     "groupDiscount": "ينطبق خصم المجموعة",
     "priceDecreases": "ينخفض ​​سعر الفرد للمجموعات الأكبر.",
     "priceMayVary": "قد يختلف السعر بناءً على الاختيارات المخصصة.",
@@ -87,7 +87,7 @@ export default {
   },
   "CoveredCities": {
     "title": "طريق المدن المغطاة",
-    "magicalStops": "{عدد} توقفات سحرية",
+    "magicalStops": "{count} _ توقفات سحرية",
     "viewRouteMap": "عرض خريطة الطريق",
     "clickMap": "انقر على الخريطة لعرض الطريق الكامل",
     "swipeHint": "اسحب أو استخدم الأسهم للتنقل في تسلسل الرحلة الكامل"

@@ -15,7 +15,7 @@ export default {
     "loveTour": "이 투어가 마음에 드시나요?",
     "mapMateRate": "MapMate 비율",
     "perPerson": "/ 1인당",
-    "save": "{할인}% 할인",
+    "save": "_ {discount} % 절약",
     "groupDiscount": "단체할인 적용",
     "priceDecreases": "인원이 많을수록 1인당 가격이 낮아집니다.",
     "priceMayVary": "가격은 맞춤 선택에 따라 달라질 수 있습니다.",

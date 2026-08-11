@@ -47,7 +47,7 @@ export default {
     "backToIslandMap": "섬 지도로 돌아가기",
     "backToRouteMap": "노선도로 돌아가기",
     "backToTour": "투어로 돌아가기",
-    "about": "{이름} 소개",
+    "about": "_ {name} 정보",
     "highlights": "하이라이트 및 주요 명소",
     "visualJourney": "시각적 여행",
     "explore": "{name} 탐색",
