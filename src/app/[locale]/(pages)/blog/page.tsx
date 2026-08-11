@@ -40,7 +40,6 @@ export default async function BlogPage({ params }: BlogPageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  // 🔥 2. async component එකක් ඇතුලේ await දාලා getTranslations පාවිච්චි කරන්න 
   const t = await getTranslations("Blog.Hero");
 
   return (
