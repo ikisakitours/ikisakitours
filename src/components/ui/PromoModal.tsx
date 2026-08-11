@@ -130,10 +130,26 @@ export function PromoModal({
       document.body.removeChild(textArea);
     }
   };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, [isOpen]);
+
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-200 flex items-center justify-center p-4 sm:p-6">
+        <div className="fixed inset-0 z-200 flex overflow-y-auto no-scrollbar p-4 sm:p-6">
           {isClaimed && <ConfettiRain />}
 
           <motion.div
@@ -142,7 +158,7 @@ export function PromoModal({
             exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             onClick={handleClose}
-            className="absolute inset-0 bg-black/60"
+            className="fixed inset-0 bg-black/60"
           />
 
           <motion.div
@@ -150,7 +166,7 @@ export function PromoModal({
             animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } }}
             transition={{ type: "spring", damping: 30, stiffness: 200, mass: 0.8 }}
-            className="relative w-full max-w-3xl bg-surface border border-gold/30 rounded-3xl shadow-[0_40px_80px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col md:flex-row z-10"
+            className="relative m-auto w-full max-w-3xl bg-surface border border-gold/30 rounded-3xl shadow-[0_40px_80px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col md:flex-row z-10 shrink-0"
           >
             {/* Close Button */}
             <button
@@ -161,10 +177,8 @@ export function PromoModal({
               <X className="h-4 w-4 transform group-hover:rotate-90 transition-transform duration-300" />
             </button>
 
-            {/* 🌟 2. Left Side Graphic Component */}
             <PromoGraphic discountAmount={discountAmount} discountType={discountType} t={t} />
 
-            {/* 🌟 3. Right Side: Text & Dynamic CTA */}
             <div className="w-full md:w-7/12 p-8 md:p-10 flex flex-col justify-center bg-[#0d0d0d] relative overflow-hidden">
               <AnimatePresence mode="popLayout">
                 {!isClaimed ? (

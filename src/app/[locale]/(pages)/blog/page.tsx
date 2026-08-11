@@ -3,7 +3,13 @@ import { BlogExplorer } from "@/components/blog/BlogExplorer";
 import { blogPosts, blogHero } from "@/data/blog";
 import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import { Hero } from "@/components/ui/Hero";
-import { useTranslations } from "next-intl";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+
+type BlogPageProps = {
+  params: Promise<{
+    locale: string;
+  }>;
+};
 
 export const metadata: Metadata = {
   title: "Journal",
@@ -30,8 +36,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BlogPage() {
-  const t = useTranslations("Blog.Hero");
+export default async function BlogPage({ params }: BlogPageProps) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  // 🔥 2. async component එකක් ඇතුලේ await දාලා getTranslations පාවිච්චි කරන්න 
+  const t = await getTranslations("Blog.Hero");
 
   return (
     <main className="min-h-screen bg-lanka-dark ">
