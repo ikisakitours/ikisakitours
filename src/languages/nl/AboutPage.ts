@@ -19,33 +19,33 @@ export default {
     "slides": [
       {
         "image": "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Sigiriya Rock Fortress",
-        "badge": "Authentic Heritage",
-        "desc": "Bespoke itineraries designed around your personal pace"
+        "alt": "Sigiriya-rotsfort",
+        "badge": "Authentiek erfgoed",
+        "desc": "Op maat gemaakte routes ontworpen rond uw persoonlijke tempo"
       },
       {
         "image": "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Traditional Stilt Fishermen",
-        "badge": "Local Culture",
-        "desc": "Connect directly with the island's timeless traditions"
+        "alt": "Traditionele steltvissers",
+        "badge": "Lokale cultuur",
+        "desc": "Maak rechtstreeks verbinding met de tijdloze tradities van het eiland"
       },
       {
         "image": "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Lush Tea Plantations",
-        "badge": "Nature Escapes",
-        "desc": "Immerse yourself in Sri Lanka's breathtaking landscapes"
+        "alt": "Weelderige theeplantages",
+        "badge": "De natuur ontsnapt",
+        "desc": "Dompel jezelf onder in de adembenemende landschappen van Sri Lanka"
       },
       {
         "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Tropical Sandy Beaches",
-        "badge": "Coastal Bliss",
-        "desc": "Unwind on pristine shores away from the crowds"
+        "alt": "Tropische zandstranden",
+        "badge": "Kustgeluk",
+        "desc": "Kom tot rust op ongerepte kusten, weg van de drukte"
       },
       {
         "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Wild Elephants in Safari",
-        "badge": "Wildlife Encounters",
-        "desc": "Experience thrilling safaris with expert local naturalists"
+        "alt": "Wilde olifanten in Safari",
+        "badge": "Ontmoetingen met wilde dieren",
+        "desc": "Ervaar spannende safari's met deskundige lokale natuuronderzoekers"
       }
     ]
   },
@@ -54,35 +54,35 @@ export default {
     "headerTitle": "Belangrijkste statistieken",
     "items": [
       {
-        "label": "Happy Travelers",
+        "label": "Gelukkige reizigers",
         "value": "2,500+"
       },
       {
-        "label": "Years of Luxury Hosting",
+        "label": "Jarenlange luxe hosting",
         "value": "15+"
       },
       {
-        "label": "Custom Itineraries",
+        "label": "Aangepaste reisroutes",
         "value": "1,200+"
       },
       {
-        "label": "24/7 Concierge Support",
+        "label": "24/7 conciërgeondersteuning",
         "value": "100%"
       },
       {
-        "label": "Local Expert Guides",
+        "label": "Lokale deskundige gidsen",
         "value": "50+"
       },
       {
-        "label": "Customer Satisfaction",
+        "label": "Klanttevredenheid",
         "value": "99%"
       },
       {
-        "label": "Island-wide Tours Executed",
+        "label": "Rondleidingen over het hele eiland uitgevoerd",
         "value": "3,000+"
       },
       {
-        "label": "Destinations Covered",
+        "label": "Bestemmingen gedekt",
         "value": "30+"
       }
     ]
@@ -97,20 +97,20 @@ export default {
     "title": "Onze kernwaarden",
     "items": [
       {
-        "title": "Authenticity",
-        "description": "Genuine encounters that connect you directly with Sri Lanka's heritage."
+        "title": "Authenticiteit",
+        "description": "Echte ontmoetingen die je rechtstreeks verbinden met het erfgoed van Sri Lanka."
       },
       {
-        "title": "Personalization",
-        "description": "Tailored tour paths crafted around your personal requirements and pace."
+        "title": "Personalisatie",
+        "description": "Op maat gemaakte tourpaden, samengesteld rond uw persoonlijke vereisten en tempo."
       },
       {
-        "title": "Integrity",
-        "description": "Transparent rates directly with local suppliers with zero hidden costs."
+        "title": "Integriteit",
+        "description": "Transparante tarieven rechtstreeks bij lokale leveranciers zonder verborgen kosten."
       },
       {
-        "title": "Sustainability",
-        "description": "Protecting local eco-environments and boosting family-run suppliers."
+        "title": "Duurzaamheid",
+        "description": "Het beschermen van de lokale ecologische omgeving en het stimuleren van familiebedrijven."
       }
     ]
   },

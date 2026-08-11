@@ -40,7 +40,7 @@ export default {
   "Card": {
     "country": "Sri Lanka",
     "bestTime": "Beste Zeit",
-    "details": "Details"
+    "details": "Einzelheiten"
   },
   "Slug": {
     "backToDestinations": "Zurück zu den Zielen",

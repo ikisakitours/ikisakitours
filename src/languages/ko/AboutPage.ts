@@ -19,33 +19,33 @@ export default {
     "slides": [
       {
         "image": "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Sigiriya Rock Fortress",
-        "badge": "Authentic Heritage",
-        "desc": "Bespoke itineraries designed around your personal pace"
+        "alt": "시기리야 바위 요새",
+        "badge": "정통 유산",
+        "desc": "개인의 속도에 맞춰 설계된 맞춤형 여행 일정"
       },
       {
         "image": "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Traditional Stilt Fishermen",
-        "badge": "Local Culture",
-        "desc": "Connect directly with the island's timeless traditions"
+        "alt": "전통 죽마 어부",
+        "badge": "지역문화",
+        "desc": "섬의 시대를 초월한 전통과 직접 연결해보세요"
       },
       {
         "image": "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Lush Tea Plantations",
-        "badge": "Nature Escapes",
-        "desc": "Immerse yourself in Sri Lanka's breathtaking landscapes"
+        "alt": "무성한 차 농장",
+        "badge": "자연 탈출",
+        "desc": "스리랑카의 숨막히는 풍경에 푹 빠져보세요"
       },
       {
         "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Tropical Sandy Beaches",
-        "badge": "Coastal Bliss",
-        "desc": "Unwind on pristine shores away from the crowds"
+        "alt": "열대 모래사장",
+        "badge": "해안의 행복",
+        "desc": "군중에서 벗어나 깨끗한 해변에서 휴식을 취해보세요"
       },
       {
         "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Wild Elephants in Safari",
-        "badge": "Wildlife Encounters",
-        "desc": "Experience thrilling safaris with expert local naturalists"
+        "alt": "사파리의 야생 코끼리",
+        "badge": "야생동물과의 만남",
+        "desc": "전문 현지 동식물학자와 함께 스릴 넘치는 사파리를 경험해보세요"
       }
     ]
   },
@@ -54,35 +54,35 @@ export default {
     "headerTitle": "주요 통계",
     "items": [
       {
-        "label": "Happy Travelers",
+        "label": "행복한 여행자",
         "value": "2,500+"
       },
       {
-        "label": "Years of Luxury Hosting",
+        "label": "수년간의 럭셔리 호스팅",
         "value": "15+"
       },
       {
-        "label": "Custom Itineraries",
+        "label": "맞춤형 여행 일정",
         "value": "1,200+"
       },
       {
-        "label": "24/7 Concierge Support",
+        "label": "연중무휴 컨시어지 지원",
         "value": "100%"
       },
       {
-        "label": "Local Expert Guides",
+        "label": "지역 전문가 가이드",
         "value": "50+"
       },
       {
-        "label": "Customer Satisfaction",
+        "label": "고객 만족",
         "value": "99%"
       },
       {
-        "label": "Island-wide Tours Executed",
+        "label": "섬 전역 투어 실시",
         "value": "3,000+"
       },
       {
-        "label": "Destinations Covered",
+        "label": "대상 목적지",
         "value": "30+"
       }
     ]
@@ -97,20 +97,20 @@ export default {
     "title": "우리의 핵심 가치",
     "items": [
       {
-        "title": "Authenticity",
-        "description": "Genuine encounters that connect you directly with Sri Lanka's heritage."
+        "title": "확실성",
+        "description": "스리랑카의 유산과 직접 연결되는 진정한 만남."
       },
       {
-        "title": "Personalization",
-        "description": "Tailored tour paths crafted around your personal requirements and pace."
+        "title": "개인화",
+        "description": "귀하의 개인 요구 사항과 속도에 맞춰 구성된 맞춤형 투어 경로입니다."
       },
       {
-        "title": "Integrity",
-        "description": "Transparent rates directly with local suppliers with zero hidden costs."
+        "title": "진실성",
+        "description": "숨겨진 비용 없이 현지 공급업체와 직접 투명한 가격을 제공합니다."
       },
       {
-        "title": "Sustainability",
-        "description": "Protecting local eco-environments and boosting family-run suppliers."
+        "title": "지속 가능성",
+        "description": "지역 생태환경을 보호하고 가족경영 협력회사를 육성합니다."
       }
     ]
   },

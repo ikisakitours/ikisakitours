@@ -70,9 +70,9 @@ export default {
     "startingFrom": "से शुरू"
   },
   "AssuranceBadges": [
-    "Premium Quality",
-    "No Pre-payment",
-    "24/7 Support"
+    "प्रीमियम गुणवत्ता",
+    "कोई पूर्व भुगतान नहीं",
+    "24/7 सहायता"
   ],
   "Bespoke": {
     "Sidebar": {
@@ -81,16 +81,16 @@ export default {
       "subtitle": "समझौताहीन विलासिता, गोपनीयता और सटीकता के साथ वैयक्तिकृत यात्राएँ तैयार करना।",
       "features": [
         {
-          "title": "Ultimate Privacy",
-          "description": "Discreet chauffeurs and tinted vehicles ensuring your complete confidentiality."
+          "title": "परम गोपनीयता",
+          "description": "विवेकशील चालक और रंगे हुए वाहन आपकी पूर्ण गोपनीयता सुनिश्चित करते हैं।"
         },
         {
-          "title": "Total Flexibility",
-          "description": "Your itinerary is fluid. Adjust routes or extend your journey as you wish."
+          "title": "पूर्ण लचीलापन",
+          "description": "आपका यात्रा कार्यक्रम तरल है. अपनी इच्छानुसार मार्ग समायोजित करें या अपनी यात्रा बढ़ाएँ।"
         },
         {
-          "title": "24/7 Concierge",
-          "description": "A dedicated travel manager is available at your fingertips, anytime."
+          "title": "24/7 द्वारपाल",
+          "description": "एक समर्पित यात्रा प्रबंधक आपकी उंगलियों पर किसी भी समय उपलब्ध है।"
         }
       ],
       "footerTitle": "किसी अग्रिम भुगतान की आवश्यकता नहीं है",
@@ -104,16 +104,16 @@ export default {
       "subtitle": "अपने यात्रा कार्यक्रम के लिए समर्पित पेशेवर ड्राइवर के साथ निर्बाध यात्रा का अनुभव करें।",
       "features": [
         {
-          "title": "Dedicated Vehicle",
-          "description": "Comfortable, well-maintained luxury vehicle exclusively for your group."
+          "title": "समर्पित वाहन",
+          "description": "विशेष रूप से आपके समूह के लिए आरामदायक, सुव्यवस्थित लक्जरी वाहन।"
         },
         {
-          "title": "Expert Driver",
-          "description": "Professional, English-speaking driver trained for safe and smooth navigation."
+          "title": "विशेषज्ञ ड्राइवर",
+          "description": "पेशेवर, अंग्रेजी बोलने वाले ड्राइवर को सुरक्षित और सुचारू नेविगेशन के लिए प्रशिक्षित किया गया।"
         },
         {
-          "title": "Your Pace",
-          "description": "Complete freedom to stop anywhere. No rigid schedules, just your own plan."
+          "title": "आपकी गति",
+          "description": "कहीं भी रुकने की पूरी आजादी. कोई कठोर कार्यक्रम नहीं, बस आपकी अपनी योजना।"
         }
       ],
       "footerTitle": "सर्व-समावेशी दरें",
@@ -123,40 +123,40 @@ export default {
   "Transfers": {
     "ServiceTypes": [
       {
-        "title": "Airport Pick-Up",
-        "description": "Meet and greet arrival support at Bandaranaike International Airport.",
-        "summaryLabel": "Airport arrival transfer"
+        "title": "हवाई अड्डे से घर तक छोड़ने वाली गाड़ी",
+        "description": "भंडारनायके अंतरराष्ट्रीय हवाई अड्डे पर आगमन सहायता से मिलें और स्वागत करें।",
+        "summaryLabel": "हवाई अड्डा आगमन स्थानांतरण"
       },
       {
-        "title": "Hotel & City",
-        "description": "Private transfer between hotels, city stops, beaches, and heritage sites.",
-        "summaryLabel": "Hotel and city transfer"
+        "title": "होटल और शहर",
+        "description": "होटल, सिटी स्टॉप, समुद्र तटों और विरासत स्थलों के बीच निजी स्थानांतरण।",
+        "summaryLabel": "होटल और शहर स्थानांतरण"
       },
       {
-        "title": "Airport Drop-Off",
-        "description": "Timed departure transfer with route planning for a calm airport arrival.",
-        "summaryLabel": "Airport departure transfer"
+        "title": "एयरपोर्ट ड्रॉप-ऑफ",
+        "description": "शांतिपूर्ण हवाईअड्डे पर आगमन के लिए मार्ग योजना के साथ समयबद्ध प्रस्थान स्थानांतरण।",
+        "summaryLabel": "हवाई अड्डा प्रस्थान स्थानांतरण"
       }
     ],
     "Assurances": [
       {
-        "title": "Fully Insured Fleet",
-        "description": "Commercial passenger coverage for every confirmed journey."
+        "title": "पूरी तरह से बीमाकृत बेड़ा",
+        "description": "प्रत्येक पक्की यात्रा के लिए वाणिज्यिक यात्री कवरेज।"
       },
       {
-        "title": "24/7 Availability",
-        "description": "Concierge support for early arrivals, late flights, and route changes."
+        "title": "24/7 उपलब्धता",
+        "description": "जल्दी आगमन, देर से उड़ान और मार्ग परिवर्तन के लिए द्वारपाल सहायता।"
       },
       {
-        "title": "GPS Mileage Confirmation",
-        "description": "Final fare is checked against exact route mileage before payment."
+        "title": "जीपीएस माइलेज पुष्टिकरण",
+        "description": "भुगतान से पहले अंतिम किराये की जांच सटीक रूट माइलेज के आधार पर की जाती है।"
       }
     ],
     "FareInclusions": [
-      "Meet and greet service",
-      "Professional chauffeur",
-      "Premium insurance",
-      "Multi-language concierge support"
+      "मिलें और अभिवादन करें सेवा",
+      "पेशेवर चालक",
+      "प्रीमियम बीमा",
+      "बहुभाषी द्वारपाल समर्थन"
     ]
   }
 } as const;

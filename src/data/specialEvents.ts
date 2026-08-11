@@ -200,6 +200,7 @@ export const allSpecialEventsList: SpecialEventListItem[] = [
     status: "Available",
     description:
       "The grandest cultural festival in Asia is commencing soon. Reserve your luxury seating, passes, and exclusive itinerary packages in advance.",
+    videoUrl: "https://youtu.be/WRo-_cDedq0?si=hpKXU3xIh_1GIgtP",
     image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
     mode: "upcoming",
     badge: "Upcoming Cultural Event",

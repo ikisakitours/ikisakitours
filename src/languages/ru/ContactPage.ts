@@ -19,33 +19,33 @@ export default {
     "slides": [
       {
         "image": "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Local Travel Desk",
-        "badge": "Expert Advice",
-        "desc": "Personal planning, fast follow-up, practical guidance"
+        "alt": "Местное бюро путешествий",
+        "badge": "Совет эксперта",
+        "desc": "Личное планирование, быстрое последующее наблюдение, практическое руководство."
       },
       {
         "image": "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Custom Itinerary Planning",
-        "badge": "Tailored Routes",
-        "desc": "Share your interests and we'll craft the perfect journey"
+        "alt": "Индивидуальное планирование маршрута",
+        "badge": "Индивидуальные маршруты",
+        "desc": "Поделитесь своими интересами, и мы создадим идеальное путешествие"
       },
       {
         "image": "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Transport and Chauffeur Services",
-        "badge": "Seamless Transport",
-        "desc": "Reliable drivers and comfortable vehicles for your trip"
+        "alt": "Транспорт и услуги водителя",
+        "badge": "Бесшовный транспорт",
+        "desc": "Надежные водители и комфортабельный транспорт для вашей поездки"
       },
       {
         "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Accommodation Booking",
-        "badge": "Boutique Stays",
-        "desc": "Handpicked hotels and resorts to match your style"
+        "alt": "Бронирование проживания",
+        "badge": "Бутик-проживание",
+        "desc": "Подобранные отели и курорты в соответствии с вашим стилем"
       },
       {
         "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Wildlife and Safari Tours",
-        "badge": "Unforgettable Safaris",
-        "desc": "Expert naturalists and thrilling wildlife encounters"
+        "alt": "Дикая природа и сафари-туры",
+        "badge": "Незабываемые сафари",
+        "desc": "Опытные натуралисты и захватывающие встречи с дикой природой"
       }
     ]
   },
@@ -55,54 +55,53 @@ export default {
     "whatsappButton": "Чат в WhatsApp",
     "lineButton": "Чат в LINE",
     "onlineStatus": "Онлайн и готов к общению",
-    "clickToChat": "Нажмите, чтобы пообщаться",
     "info": [
       {
-        "label": "Email",
-        "value": "hello@mapmate.lk"
+        "label": "Электронная почта",
+        "value": "привет@mapmate.lk"
       },
       {
-        "label": "Phone",
+        "label": "Телефон",
         "value": "+94 77 123 4567"
       },
       {
-        "label": "Location",
-        "value": "Colombo, Sri Lanka"
+        "label": "Расположение",
+        "value": "Коломбо, Шри-Ланка"
       },
       {
-        "label": "Working Hours",
-        "value": "24/7 Available"
+        "label": "Рабочие часы",
+        "value": "Доступно 24/7"
       }
     ]
   },
   "Form": {
     "title": "Отправьте нам сообщение",
     "inquiryOptions": [
-      "Tour Inquiry & Availability",
-      "Custom Journey Planning",
-      "Chauffeur & Transfers",
-      "General Support",
-      "Partnership"
+      "Запрос на тур и наличие",
+      "Индивидуальное планирование поездки",
+      "Шофер и трансферы",
+      "Общая поддержка",
+      "Партнерство"
     ],
     "tourOptions": [
-      "Multi-Day Tour",
-      "One-Day Tour",
-      "Honeymoon Package",
-      "Wildlife Safari"
+      "Многодневный тур",
+      "Однодневный тур",
+      "Пакет услуг для молодоженов",
+      "Сафари по дикой природе"
     ]
   },
   "Features": [
     {
-      "title": "Travel Specialists",
-      "desc": "Talk to a local team that understands routes, timing, hotels, and guest comfort."
+      "title": "Специалисты по путешествиям",
+      "desc": "Поговорите с местной командой, которая разбирается в маршрутах, времени, отелях и комфорте гостей."
     },
     {
-      "title": "Custom Planning",
-      "desc": "Share your pace, interests, budget, and dates. We will shape the next steps around you."
+      "title": "Индивидуальное планирование",
+      "desc": "Поделитесь своим темпом, интересами, бюджетом и датами. Мы будем формировать следующие шаги вокруг вас."
     },
     {
-      "title": "Clear Follow-up",
-      "desc": "Your inquiry is sent into our lead desk so the right person can respond with context."
+      "title": "Очистить отслеживание",
+      "desc": "Ваш запрос отправляется в нашу ведущую службу, чтобы нужный человек мог ответить с учетом контекста."
     }
   ]
 } as const;

@@ -66,13 +66,13 @@ export default {
     "guestStories": "Gastgeschichten",
     "viewAll": "Alle anzeigen",
     "readMore": "Mehr lesen",
-    "details": "Details",
+    "details": "Einzelheiten",
     "startingFrom": "Ab"
   },
   "AssuranceBadges": [
-    "Premium Quality",
-    "No Pre-payment",
-    "24/7 Support"
+    "Premium-Qualität",
+    "Keine Vorauszahlung",
+    "24/7-Support"
   ],
   "Bespoke": {
     "Sidebar": {
@@ -81,16 +81,16 @@ export default {
       "subtitle": "Gestalten Sie personalisierte Reisen mit kompromisslosem Luxus, Privatsphäre und Präzision.",
       "features": [
         {
-          "title": "Ultimate Privacy",
-          "description": "Discreet chauffeurs and tinted vehicles ensuring your complete confidentiality."
+          "title": "Ultimative Privatsphäre",
+          "description": "Diskrete Chauffeure und getönte Fahrzeuge gewährleisten Ihre absolute Vertraulichkeit."
         },
         {
-          "title": "Total Flexibility",
-          "description": "Your itinerary is fluid. Adjust routes or extend your journey as you wish."
+          "title": "Völlige Flexibilität",
+          "description": "Ihre Reiseroute ist fließend. Passen Sie Routen an oder verlängern Sie Ihre Reise nach Ihren Wünschen."
         },
         {
-          "title": "24/7 Concierge",
-          "description": "A dedicated travel manager is available at your fingertips, anytime."
+          "title": "Concierge rund um die Uhr",
+          "description": "Ein engagierter Reisemanager steht Ihnen jederzeit zur Verfügung."
         }
       ],
       "footerTitle": "Keine Vorauszahlung erforderlich",
@@ -104,16 +104,16 @@ export default {
       "subtitle": "Erleben Sie eine reibungslose Reise mit einem professionellen Fahrer, der speziell auf Ihre Reiseroute eingeht.",
       "features": [
         {
-          "title": "Dedicated Vehicle",
-          "description": "Comfortable, well-maintained luxury vehicle exclusively for your group."
+          "title": "Spezielles Fahrzeug",
+          "description": "Komfortables, gepflegtes Luxusfahrzeug exklusiv für Ihre Gruppe."
         },
         {
-          "title": "Expert Driver",
-          "description": "Professional, English-speaking driver trained for safe and smooth navigation."
+          "title": "Erfahrener Fahrer",
+          "description": "Professioneller, englischsprachiger Fahrer, der für eine sichere und reibungslose Navigation geschult ist."
         },
         {
-          "title": "Your Pace",
-          "description": "Complete freedom to stop anywhere. No rigid schedules, just your own plan."
+          "title": "Dein Tempo",
+          "description": "Völlige Freiheit, überall anzuhalten. Keine starren Zeitpläne, nur Ihr eigener Plan."
         }
       ],
       "footerTitle": "All-Inclusive-Preise",
@@ -123,40 +123,40 @@ export default {
   "Transfers": {
     "ServiceTypes": [
       {
-        "title": "Airport Pick-Up",
-        "description": "Meet and greet arrival support at Bandaranaike International Airport.",
-        "summaryLabel": "Airport arrival transfer"
+        "title": "Abholung vom Flughafen",
+        "description": "Treffen und Begrüßung der Ankunftsunterstützung am Bandaranaike International Airport.",
+        "summaryLabel": "Ankunftstransfer am Flughafen"
       },
       {
-        "title": "Hotel & City",
-        "description": "Private transfer between hotels, city stops, beaches, and heritage sites.",
-        "summaryLabel": "Hotel and city transfer"
+        "title": "Hotel & Stadt",
+        "description": "Privater Transfer zwischen Hotels, Haltestellen in der Stadt, Stränden und Kulturdenkmälern.",
+        "summaryLabel": "Hotel- und Stadttransfer"
       },
       {
-        "title": "Airport Drop-Off",
-        "description": "Timed departure transfer with route planning for a calm airport arrival.",
-        "summaryLabel": "Airport departure transfer"
+        "title": "Abgabe am Flughafen",
+        "description": "Zeitgesteuerter Abflugtransfer mit Routenplanung für eine ruhige Ankunft am Flughafen.",
+        "summaryLabel": "Flughafen-Abflugtransfer"
       }
     ],
     "Assurances": [
       {
-        "title": "Fully Insured Fleet",
-        "description": "Commercial passenger coverage for every confirmed journey."
+        "title": "Vollversicherte Flotte",
+        "description": "Gewerblicher Passagierschutz für jede bestätigte Reise."
       },
       {
-        "title": "24/7 Availability",
-        "description": "Concierge support for early arrivals, late flights, and route changes."
+        "title": "Verfügbarkeit rund um die Uhr",
+        "description": "Concierge-Unterstützung bei früher Ankunft, verspäteten Flügen und Routenänderungen."
       },
       {
-        "title": "GPS Mileage Confirmation",
-        "description": "Final fare is checked against exact route mileage before payment."
+        "title": "GPS-Kilometerbestätigung",
+        "description": "Der endgültige Fahrpreis wird vor der Zahlung mit der genauen Streckenmeilenzahl verglichen."
       }
     ],
     "FareInclusions": [
-      "Meet and greet service",
-      "Professional chauffeur",
-      "Premium insurance",
-      "Multi-language concierge support"
+      "Meet-and-Greet-Service",
+      "Professioneller Chauffeur",
+      "Premium-Versicherung",
+      "Mehrsprachiger Concierge-Support"
     ]
   }
 } as const;

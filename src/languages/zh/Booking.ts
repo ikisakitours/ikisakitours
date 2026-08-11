@@ -20,9 +20,9 @@ export default {
     "priceDecreases": "对于较大的团体，每人价格会降低。",
     "priceMayVary": "价格可能会根据定制选择而有所不同。",
     "assurances": [
-      "Instant availability check",
-      "Zero booking fees",
-      "Flexible date changes"
+      "即时可用性检查",
+      "零预订费",
+      "灵活的日期变更"
     ]
   },
   "Related": {

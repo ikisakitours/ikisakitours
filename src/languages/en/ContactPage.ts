@@ -55,7 +55,6 @@ export default {
     "whatsappButton": "Chat on WhatsApp",
     "lineButton": "Chat on LINE",
     "onlineStatus": "Online & Ready to Chat",
-    "clickToChat": "Click to chat",
     "info": [
       { "label": "Email", "value": "hello@mapmate.lk" },
       { "label": "Phone", "value": "+94 77 123 4567" },

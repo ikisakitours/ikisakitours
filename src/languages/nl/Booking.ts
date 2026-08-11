@@ -20,9 +20,9 @@ export default {
     "priceDecreases": "Bij grotere groepen daalt de prijs per persoon.",
     "priceMayVary": "Prijs kan variëren op basis van aangepaste selecties.",
     "assurances": [
-      "Instant availability check",
-      "Zero booking fees",
-      "Flexible date changes"
+      "Directe beschikbaarheidscontrole",
+      "Geen boekingskosten",
+      "Flexibele datumwijzigingen"
     ]
   },
   "Related": {

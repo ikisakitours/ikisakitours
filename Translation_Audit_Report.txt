@@ -1,0 +1,514 @@
+========================================================================
+📊 COMPREHENSIVE TRANSLATION VERIFICATION REPORT
+========================================================================
+
+
+==================================================
+🔎 LANGUAGE: [DE]
+==================================================
+
+📄 FILE: AboutPage.ts
+   🔄 Untranslated?    : "Leadership.name" (Target matches EN exactly)
+   🔄 Untranslated?    : "Trademark.company" (Target matches EN exactly)
+
+
+📄 FILE: Blog.ts
+   🔄 Untranslated?    : "Explorer.filter" (Target matches EN exactly)
+
+
+📄 FILE: ChatWidget.ts
+   🔄 Untranslated?    : "Header.titleDefault" (Target matches EN exactly)
+   🔄 Untranslated?    : "Tooltips.actionText2" (Target matches EN exactly)
+
+
+📄 FILE: ContactPage.ts
+   🔄 Untranslated?    : "Sidebar.info.2.value" (Target matches EN exactly)
+   🔄 Untranslated?    : "Form.inquiryOptions.2" (Target matches EN exactly)
+
+
+📄 FILE: Destinations.ts
+   🔄 Untranslated?    : "Explorer.watermark" (Target matches EN exactly)
+   🔄 Untranslated?    : "Card.country" (Target matches EN exactly)
+
+
+📄 FILE: FaqPage.ts
+   🔄 Untranslated?    : "Hero.eyebrow" (Target matches EN exactly)
+   🔄 Untranslated?    : "EmptyState.backgroundText" (Target matches EN exactly)
+
+
+📄 FILE: Footer.ts
+   🔄 Untranslated?    : "newsletterTitle" (Target matches EN exactly)
+   🔄 Untranslated?    : "nav.FAQ" (Target matches EN exactly)
+   🔄 Untranslated?    : "contactInfo.Address" (Target matches EN exactly)
+   🔄 Untranslated?    : "TimeDiv.location" (Target matches EN exactly)
+
+
+📄 FILE: HomePage.ts
+   🔄 Untranslated?    : "Hero.stats.TripAdvisor" (Target matches EN exactly)
+   🔄 Untranslated?    : "Hero.content.titleMain" (Target matches EN exactly)
+   🔄 Untranslated?    : "Discovery.destinations.sigiriya" (Target matches EN exactly)
+   🔄 Untranslated?    : "Discovery.destinations.ella" (Target matches EN exactly)
+   🔄 Untranslated?    : "Discovery.destinations.nuwaraEliya" (Target matches EN exactly)
+   🔄 Untranslated?    : "Discovery.destinations.galleFort" (Target matches EN exactly)
+   🔄 Untranslated?    : "Services.PrivateVehicle.modalWhatsapp" (Target matches EN exactly)
+   🔄 Untranslated?    : "Services.PrivateVehicle.model.modalWhatsapp" (Target matches EN exactly)
+   🔄 Untranslated?    : "ClientExperiences.titleAccent" (Target matches EN exactly)
+
+
+📄 FILE: ProfilePage.ts
+   🔄 Untranslated?    : "Modals.Crop.zoom" (Target matches EN exactly)
+
+
+📄 FILE: RootLayout.ts
+   🔄 Untranslated?    : "Metadata.titleTemplate" (Target matches EN exactly)
+
+
+📄 FILE: Services.ts
+   🔄 Untranslated?    : "Hero.Transfers.accent" (Target matches EN exactly)
+
+
+📄 FILE: SharedForm.ts
+   🔄 Untranslated?    : "DatePicker.days.1" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.days.4" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.days.5" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.months.0" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.months.3" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.months.5" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.months.7" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.months.10" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.fullMonths.3" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.fullMonths.7" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.fullMonths.8" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.fullMonths.10" (Target matches EN exactly)
+
+
+📄 FILE: SiteHeader.ts
+   🔄 Untranslated?    : "navigation.FAQs" (Target matches EN exactly)
+
+
+📄 FILE: Testimonials.ts
+   🔄 Untranslated?    : "Explorer.filter" (Target matches EN exactly)
+   🔄 Untranslated?    : "FormHero.titleHighlight" (Target matches EN exactly)
+
+
+📄 FILE: Tours.ts
+   🔄 Untranslated?    : "Card.details" (Target matches EN exactly)
+
+   ⚠️ No structural issues, but found 43 untranslated items.
+
+==================================================
+🔎 LANGUAGE: [FR]
+==================================================
+
+📄 FILE: AboutPage.ts
+   🔄 Untranslated?    : "Leadership.name" (Target matches EN exactly)
+
+
+📄 FILE: Blog.ts
+   🔄 Untranslated?    : "Metadata.title" (Target matches EN exactly)
+   🔄 Untranslated?    : "Explorer.articleSingular" (Target matches EN exactly)
+   🔄 Untranslated?    : "Explorer.EmptyState.backgroundText" (Target matches EN exactly)
+
+
+📄 FILE: Booking.ts
+   🔄 Untranslated?    : "Navigation.destinations" (Target matches EN exactly)
+
+
+📄 FILE: ChatWidget.ts
+   🔄 Untranslated?    : "Header.titleDefault" (Target matches EN exactly)
+   🔄 Untranslated?    : "MailForm.messageLabel" (Target matches EN exactly)
+
+
+📄 FILE: ContactPage.ts
+   🔄 Untranslated?    : "Sidebar.info.2.value" (Target matches EN exactly)
+
+
+📄 FILE: Destinations.ts
+   🔄 Untranslated?    : "Metadata.title" (Target matches EN exactly)
+   🔄 Untranslated?    : "Hero.accent" (Target matches EN exactly)
+   🔄 Untranslated?    : "Explorer.watermark" (Target matches EN exactly)
+   🔄 Untranslated?    : "Explorer.destinations" (Target matches EN exactly)
+   🔄 Untranslated?    : "Explorer.destinationSingular" (Target matches EN exactly)
+   🔄 Untranslated?    : "Card.country" (Target matches EN exactly)
+   🔄 Untranslated?    : "MapHeader.itemLabel" (Target matches EN exactly)
+
+
+📄 FILE: Events.ts
+   🔄 Untranslated?    : "Slug.date" (Target matches EN exactly)
+
+
+📄 FILE: FaqPage.ts
+   🔄 Untranslated?    : "UI.searchItemLabel" (Target matches EN exactly)
+   🔄 Untranslated?    : "EmptyState.backgroundText" (Target matches EN exactly)
+
+
+📄 FILE: Footer.ts
+   🔄 Untranslated?    : "nav.Journal" (Target matches EN exactly)
+   🔄 Untranslated?    : "nav.FAQ" (Target matches EN exactly)
+   🔄 Untranslated?    : "nav.Contact" (Target matches EN exactly)
+   🔄 Untranslated?    : "TimeDiv.location" (Target matches EN exactly)
+
+
+📄 FILE: Gallery.ts
+   🔄 Untranslated?    : "Collection.images" (Target matches EN exactly)
+
+
+📄 FILE: HomePage.ts
+   🔄 Untranslated?    : "Hero.stats.TripAdvisor" (Target matches EN exactly)
+   🔄 Untranslated?    : "Hero.content.titleMain" (Target matches EN exactly)
+   🔄 Untranslated?    : "Discovery.destinations.ella" (Target matches EN exactly)
+   🔄 Untranslated?    : "Discovery.destinations.nuwaraEliya" (Target matches EN exactly)
+   🔄 Untranslated?    : "Services.PrivateVehicle.modalWhatsapp" (Target matches EN exactly)
+   🔄 Untranslated?    : "Services.PrivateVehicle.model.modalWhatsapp" (Target matches EN exactly)
+   🔄 Untranslated?    : "JournalPreview.titleAccent" (Target matches EN exactly)
+   🔄 Untranslated?    : "ClientExperiences.titleAccent" (Target matches EN exactly)
+   🔄 Untranslated?    : "ContactCta.watermark" (Target matches EN exactly)
+
+
+📄 FILE: ProfilePage.ts
+   🔄 Untranslated?    : "Modals.Crop.zoom" (Target matches EN exactly)
+
+
+📄 FILE: RootLayout.ts
+   🔄 Untranslated?    : "Metadata.titleTemplate" (Target matches EN exactly)
+   🔄 Untranslated?    : "Metadata.siteName" (Target matches EN exactly)
+
+
+📄 FILE: SharedForm.ts
+   🔄 Untranslated?    : "Labels.message" (Target matches EN exactly)
+   🔄 Untranslated?    : "TravelerOptions.couple" (Target matches EN exactly)
+   🔄 Untranslated?    : "TravelerOptions.couples" (Target matches EN exactly)
+   🔄 Untranslated?    : "TravelerPicker.couple" (Target matches EN exactly)
+   🔄 Untranslated?    : "TravelerPicker.couples" (Target matches EN exactly)
+   🔄 Untranslated?    : "TimePicker.minutes" (Target matches EN exactly)
+   🔄 Untranslated?    : "TimePicker.ampm" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.days.1" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.days.5" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.months.0" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.months.2" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.months.8" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.months.10" (Target matches EN exactly)
+
+
+📄 FILE: SiteHeader.ts
+   🔄 Untranslated?    : "navigation.Services" (Target matches EN exactly)
+   🔄 Untranslated?    : "navigation.Journal" (Target matches EN exactly)
+   🔄 Untranslated?    : "navigation.Contact" (Target matches EN exactly)
+
+
+📄 FILE: Testimonials.ts
+   🔄 Untranslated?    : "Explorer.journalSingular" (Target matches EN exactly)
+
+
+📄 FILE: Tours.ts
+   🔄 Untranslated?    : "MultiDay.Hero.startTitle" (Target matches EN exactly)
+   🔄 Untranslated?    : "MultiDay.Hero.EndTitle" (Target matches EN exactly)
+   🔄 Untranslated?    : "OneDay.Hero.EndTitle" (Target matches EN exactly)
+
+   ⚠️ No structural issues, but found 55 untranslated items.
+
+==================================================
+🔎 LANGUAGE: [ES]
+==================================================
+
+📄 FILE: AboutPage.ts
+   🔄 Untranslated?    : "Leadership.name" (Target matches EN exactly)
+
+
+📄 FILE: ChatWidget.ts
+   🔄 Untranslated?    : "Header.titleDefault" (Target matches EN exactly)
+
+
+📄 FILE: ContactPage.ts
+   🔄 Untranslated?    : "Sidebar.info.2.value" (Target matches EN exactly)
+
+
+📄 FILE: Destinations.ts
+   🔄 Untranslated?    : "Card.country" (Target matches EN exactly)
+
+
+📄 FILE: FaqPage.ts
+   🔄 Untranslated?    : "Categories.General" (Target matches EN exactly)
+
+
+📄 FILE: Footer.ts
+   🔄 Untranslated?    : "contactInfo.Address" (Target matches EN exactly)
+   🔄 Untranslated?    : "TimeDiv.location" (Target matches EN exactly)
+
+
+📄 FILE: HomePage.ts
+   🔄 Untranslated?    : "Hero.content.titleMain" (Target matches EN exactly)
+   🔄 Untranslated?    : "Hero.content.popularLabel" (Target matches EN exactly)
+   🔄 Untranslated?    : "Discovery.destinations.sigiriya" (Target matches EN exactly)
+   🔄 Untranslated?    : "Discovery.destinations.nuwaraEliya" (Target matches EN exactly)
+   🔄 Untranslated?    : "Services.PrivateVehicle.modalWhatsapp" (Target matches EN exactly)
+   🔄 Untranslated?    : "Services.PrivateVehicle.model.modalWhatsapp" (Target matches EN exactly)
+
+
+📄 FILE: ProfilePage.ts
+   🔄 Untranslated?    : "Modals.Crop.zoom" (Target matches EN exactly)
+
+
+📄 FILE: SharedForm.ts
+   🔄 Untranslated?    : "DatePicker.days.4" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.months.1" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.months.2" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.months.5" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.months.6" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.months.8" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.months.9" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.months.10" (Target matches EN exactly)
+
+   ⚠️ No structural issues, but found 22 untranslated items.
+
+==================================================
+🔎 LANGUAGE: [IT]
+==================================================
+
+📄 FILE: AboutPage.ts
+   🔄 Untranslated?    : "Leadership.name" (Target matches EN exactly)
+   🔄 Untranslated?    : "Trademark.company" (Target matches EN exactly)
+
+
+📄 FILE: ChatWidget.ts
+   🔄 Untranslated?    : "Header.titleDefault" (Target matches EN exactly)
+
+
+📄 FILE: ContactPage.ts
+   🔄 Untranslated?    : "Sidebar.info.2.value" (Target matches EN exactly)
+
+
+📄 FILE: Destinations.ts
+   🔄 Untranslated?    : "Explorer.watermark" (Target matches EN exactly)
+   🔄 Untranslated?    : "Card.country" (Target matches EN exactly)
+
+
+📄 FILE: Footer.ts
+   🔄 Untranslated?    : "contactInfo.Address" (Target matches EN exactly)
+   🔄 Untranslated?    : "TimeDiv.location" (Target matches EN exactly)
+
+
+📄 FILE: HomePage.ts
+   🔄 Untranslated?    : "Hero.stats.TripAdvisor" (Target matches EN exactly)
+   🔄 Untranslated?    : "Hero.content.titleMain" (Target matches EN exactly)
+   🔄 Untranslated?    : "Discovery.destinations.sigiriya" (Target matches EN exactly)
+   🔄 Untranslated?    : "Discovery.destinations.ella" (Target matches EN exactly)
+   🔄 Untranslated?    : "ClientExperiences.titleAccent" (Target matches EN exactly)
+
+
+📄 FILE: ProfilePage.ts
+   🔄 Untranslated?    : "Dashboard.titleBase" (Target matches EN exactly)
+   🔄 Untranslated?    : "Modals.Crop.zoom" (Target matches EN exactly)
+
+
+📄 FILE: RootLayout.ts
+   🔄 Untranslated?    : "Metadata.titleTemplate" (Target matches EN exactly)
+
+
+📄 FILE: Services.ts
+   🔄 Untranslated?    : "Hero.Transfers.accent" (Target matches EN exactly)
+
+
+📄 FILE: SharedForm.ts
+   🔄 Untranslated?    : "Labels.privacy" (Target matches EN exactly)
+   🔄 Untranslated?    : "Placeholders.password" (Target matches EN exactly)
+   🔄 Untranslated?    : "TimePicker.ampm" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.days.1" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.days.2" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.days.5" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.months.2" (Target matches EN exactly)
+
+   ⚠️ No structural issues, but found 24 untranslated items.
+
+==================================================
+🔎 LANGUAGE: [NL]
+==================================================
+
+📄 FILE: AboutPage.ts
+   🔄 Untranslated?    : "Leadership.name" (Target matches EN exactly)
+
+
+📄 FILE: Blog.ts
+   🔄 Untranslated?    : "Explorer.filter" (Target matches EN exactly)
+
+
+📄 FILE: Booking.ts
+   🔄 Untranslated?    : "Navigation.details" (Target matches EN exactly)
+   🔄 Untranslated?    : "Related.details" (Target matches EN exactly)
+
+
+📄 FILE: ChatWidget.ts
+   🔄 Untranslated?    : "Header.titleDefault" (Target matches EN exactly)
+   🔄 Untranslated?    : "Messages.recentTitle" (Target matches EN exactly)
+
+
+📄 FILE: ContactPage.ts
+   🔄 Untranslated?    : "Sidebar.info.2.value" (Target matches EN exactly)
+
+
+📄 FILE: Destinations.ts
+   🔄 Untranslated?    : "Card.country" (Target matches EN exactly)
+   🔄 Untranslated?    : "Card.details" (Target matches EN exactly)
+
+
+📄 FILE: Events.ts
+   🔄 Untranslated?    : "Explorer.Categories.Live" (Target matches EN exactly)
+   🔄 Untranslated?    : "Explorer.Categories.live" (Target matches EN exactly)
+
+
+📄 FILE: Footer.ts
+   🔄 Untranslated?    : "nav.Contact" (Target matches EN exactly)
+   🔄 Untranslated?    : "contactInfo.Address" (Target matches EN exactly)
+   🔄 Untranslated?    : "TimeDiv.location" (Target matches EN exactly)
+
+
+📄 FILE: HomePage.ts
+   🔄 Untranslated?    : "Hero.stats.TripAdvisor" (Target matches EN exactly)
+   🔄 Untranslated?    : "Hero.content.titleMain" (Target matches EN exactly)
+   🔄 Untranslated?    : "Discovery.status" (Target matches EN exactly)
+   🔄 Untranslated?    : "Discovery.destinations.sigiriya" (Target matches EN exactly)
+   🔄 Untranslated?    : "Discovery.destinations.ella" (Target matches EN exactly)
+   🔄 Untranslated?    : "Discovery.destinations.nuwaraEliya" (Target matches EN exactly)
+   🔄 Untranslated?    : "Services.PrivateVehicle.imagesAlt.luxuryVan" (Target matches EN exactly)
+   🔄 Untranslated?    : "Tours.detailsBtnText" (Target matches EN exactly)
+
+
+📄 FILE: ProfilePage.ts
+   🔄 Untranslated?    : "Modals.Crop.zoom" (Target matches EN exactly)
+
+
+📄 FILE: Services.ts
+   🔄 Untranslated?    : "Hero.Transfers.accent" (Target matches EN exactly)
+   🔄 Untranslated?    : "CrossPromotion.details" (Target matches EN exactly)
+   🔄 Untranslated?    : "PrivateVehicle.Sidebar.titleAccent" (Target matches EN exactly)
+
+
+📄 FILE: SharedForm.ts
+   🔄 Untranslated?    : "Labels.privacy" (Target matches EN exactly)
+   🔄 Untranslated?    : "TimePicker.ampm" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.days.5" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.fullMonths.10" (Target matches EN exactly)
+   🔄 Untranslated?    : "DatePicker.fullMonths.11" (Target matches EN exactly)
+
+
+📄 FILE: SiteHeader.ts
+   🔄 Untranslated?    : "navigation.Contact" (Target matches EN exactly)
+
+
+📄 FILE: Testimonials.ts
+   🔄 Untranslated?    : "Explorer.filter" (Target matches EN exactly)
+
+
+📄 FILE: Tours.ts
+   🔄 Untranslated?    : "Card.details" (Target matches EN exactly)
+
+   ⚠️ No structural issues, but found 34 untranslated items.
+
+==================================================
+🔎 LANGUAGE: [RU]
+==================================================
+
+📄 FILE: Destinations.ts
+   🔄 Untranslated?    : "Explorer.watermark" (Target matches EN exactly)
+
+
+📄 FILE: HomePage.ts
+   🔄 Untranslated?    : "Hero.stats.TripAdvisor" (Target matches EN exactly)
+   🔄 Untranslated?    : "Services.PrivateVehicle.modalWhatsapp" (Target matches EN exactly)
+   🔄 Untranslated?    : "Services.PrivateVehicle.model.modalWhatsapp" (Target matches EN exactly)
+   🔄 Untranslated?    : "ClientExperiences.titleAccent" (Target matches EN exactly)
+
+
+📄 FILE: RootLayout.ts
+   🔄 Untranslated?    : "Metadata.titleTemplate" (Target matches EN exactly)
+
+   ⚠️ No structural issues, but found 6 untranslated items.
+
+==================================================
+🔎 LANGUAGE: [ZH-CN]
+==================================================
+
+📄 FILE: HomePage.ts
+   🔄 Untranslated?    : "Services.PrivateVehicle.modalWhatsapp" (Target matches EN exactly)
+   🔄 Untranslated?    : "Services.PrivateVehicle.model.modalWhatsapp" (Target matches EN exactly)
+
+
+📄 FILE: SharedForm.ts
+   🔄 Untranslated?    : "DatePicker.days.5" (Target matches EN exactly)
+
+   ⚠️ No structural issues, but found 3 untranslated items.
+
+==================================================
+🔎 LANGUAGE: [KO]
+==================================================
+
+📄 FILE: FaqPage.ts
+   🔄 Untranslated?    : "EmptyState.backgroundText" (Target matches EN exactly)
+
+
+📄 FILE: Footer.ts
+   🔄 Untranslated?    : "nav.FAQ" (Target matches EN exactly)
+
+   ⚠️ No structural issues, but found 2 untranslated items.
+
+==================================================
+🔎 LANGUAGE: [AR]
+==================================================
+
+📄 FILE: Destinations.ts
+   🔄 Untranslated?    : "Explorer.watermark" (Target matches EN exactly)
+
+
+📄 FILE: HomePage.ts
+   🔄 Untranslated?    : "ClientExperiences.titleAccent" (Target matches EN exactly)
+
+
+📄 FILE: RootLayout.ts
+   🔄 Untranslated?    : "Metadata.titleTemplate" (Target matches EN exactly)
+
+   ⚠️ No structural issues, but found 3 untranslated items.
+
+==================================================
+🔎 LANGUAGE: [HI]
+==================================================
+
+📄 FILE: HomePage.ts
+   🔄 Untranslated?    : "Discovery.destinations.sigiriya" (Target matches EN exactly)
+   🔄 Untranslated?    : "Services.PrivateVehicle.modalWhatsapp" (Target matches EN exactly)
+   🔄 Untranslated?    : "Services.PrivateVehicle.model.modalWhatsapp" (Target matches EN exactly)
+
+   ⚠️ No structural issues, but found 3 untranslated items.
+
+==================================================
+🔎 LANGUAGE: [JA]
+==================================================
+
+📄 FILE: AboutPage.ts
+   🔄 Untranslated?    : "Leadership.name" (Target matches EN exactly)
+   🔄 Untranslated?    : "CTA.watermark" (Target matches EN exactly)
+   🔄 Untranslated?    : "Trademark.company" (Target matches EN exactly)
+
+
+📄 FILE: Destinations.ts
+   🔄 Untranslated?    : "Explorer.watermark" (Target matches EN exactly)
+
+
+📄 FILE: FaqPage.ts
+   🔄 Untranslated?    : "EmptyState.backgroundText" (Target matches EN exactly)
+
+
+📄 FILE: HomePage.ts
+   🔄 Untranslated?    : "Services.PrivateVehicle.modalWhatsapp" (Target matches EN exactly)
+   🔄 Untranslated?    : "Services.PrivateVehicle.model.modalWhatsapp" (Target matches EN exactly)
+   🔄 Untranslated?    : "ContactCta.watermark" (Target matches EN exactly)
+
+
+📄 FILE: RootLayout.ts
+   🔄 Untranslated?    : "Metadata.titleTemplate" (Target matches EN exactly)
+
+   ⚠️ No structural issues, but found 9 untranslated items.
+
+========================================================================
+⚠️  VERIFICATION REPORT:
+    - 0 structural/variable issue(s)
+    - 204 possibly untranslated item(s)

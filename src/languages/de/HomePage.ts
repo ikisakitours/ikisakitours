@@ -171,7 +171,7 @@ export default {
     "multiDayBtn": "Mehrtägige Touren",
     "oneDayBtn": "Eintägige Ausflüge",
     "startingFromText": "Ab",
-    "detailsBtnText": "Details",
+    "detailsBtnText": "Einzelheiten",
     "visitAllMultiText": "Besuchen Sie alle Mehrtagestouren",
     "viewAllOneText": "Alle Tagestouren anzeigen"
   },

@@ -19,33 +19,33 @@ export default {
     "slides": [
       {
         "image": "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Local Travel Desk",
-        "badge": "Expert Advice",
-        "desc": "Personal planning, fast follow-up, practical guidance"
+        "alt": "Lokale reisbalie",
+        "badge": "Deskundig advies",
+        "desc": "Persoonlijke planning, snelle opvolging, praktische begeleiding"
       },
       {
         "image": "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Custom Itinerary Planning",
-        "badge": "Tailored Routes",
-        "desc": "Share your interests and we'll craft the perfect journey"
+        "alt": "Aangepaste reisplanning",
+        "badge": "Op maat gemaakte routes",
+        "desc": "Deel uw interesses en wij stellen de perfecte reis samen"
       },
       {
         "image": "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Transport and Chauffeur Services",
-        "badge": "Seamless Transport",
-        "desc": "Reliable drivers and comfortable vehicles for your trip"
+        "alt": "Transport- en chauffeursdiensten",
+        "badge": "Naadloos transport",
+        "desc": "Betrouwbare chauffeurs en comfortabele voertuigen voor uw reis"
       },
       {
         "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Accommodation Booking",
-        "badge": "Boutique Stays",
-        "desc": "Handpicked hotels and resorts to match your style"
+        "alt": "Accommodatie boeken",
+        "badge": "Boetiekverblijven",
+        "desc": "Zorgvuldig geselecteerde hotels en resorts die bij uw stijl passen"
       },
       {
         "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Wildlife and Safari Tours",
-        "badge": "Unforgettable Safaris",
-        "desc": "Expert naturalists and thrilling wildlife encounters"
+        "alt": "Dieren- en safaritochten",
+        "badge": "Onvergetelijke safari's",
+        "desc": "Deskundige natuuronderzoekers en spannende ontmoetingen met wilde dieren"
       }
     ]
   },
@@ -55,54 +55,53 @@ export default {
     "whatsappButton": "Chatten op WhatsApp",
     "lineButton": "Chat op LINE",
     "onlineStatus": "Online en klaar om te chatten",
-    "clickToChat": "Klik om te chatten",
     "info": [
       {
-        "label": "Email",
-        "value": "hello@mapmate.lk"
+        "label": "E-mail",
+        "value": "hallo@mapmate.lk"
       },
       {
-        "label": "Phone",
+        "label": "Telefoon",
         "value": "+94 77 123 4567"
       },
       {
-        "label": "Location",
+        "label": "Locatie",
         "value": "Colombo, Sri Lanka"
       },
       {
-        "label": "Working Hours",
-        "value": "24/7 Available"
+        "label": "Werktijden",
+        "value": "24/7 Beschikbaar"
       }
     ]
   },
   "Form": {
     "title": "Stuur ons een bericht",
     "inquiryOptions": [
-      "Tour Inquiry & Availability",
-      "Custom Journey Planning",
-      "Chauffeur & Transfers",
-      "General Support",
-      "Partnership"
+      "Touraanvraag en beschikbaarheid",
+      "Aangepaste reisplanning",
+      "Chauffeur en transfers",
+      "Algemene ondersteuning",
+      "Partnerschap"
     ],
     "tourOptions": [
-      "Multi-Day Tour",
-      "One-Day Tour",
-      "Honeymoon Package",
-      "Wildlife Safari"
+      "Meerdaagse tour",
+      "Eendaagse tour",
+      "Huwelijksreispakket",
+      "Dierensafari"
     ]
   },
   "Features": [
     {
-      "title": "Travel Specialists",
-      "desc": "Talk to a local team that understands routes, timing, hotels, and guest comfort."
+      "title": "Reisspecialisten",
+      "desc": "Praat met een lokaal team dat verstand heeft van routes, timing, hotels en gastencomfort."
     },
     {
-      "title": "Custom Planning",
-      "desc": "Share your pace, interests, budget, and dates. We will shape the next steps around you."
+      "title": "Aangepaste planning",
+      "desc": "Deel uw tempo, interesses, budget en datums. Wij geven de volgende stappen rondom jou vorm."
     },
     {
-      "title": "Clear Follow-up",
-      "desc": "Your inquiry is sent into our lead desk so the right person can respond with context."
+      "title": "Duidelijke opvolging",
+      "desc": "Uw vraag wordt naar onze leaddesk gestuurd, zodat de juiste persoon met context kan reageren."
     }
   ]
 } as const;

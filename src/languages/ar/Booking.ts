@@ -20,9 +20,9 @@ export default {
     "priceDecreases": "ينخفض ​​سعر الفرد للمجموعات الأكبر.",
     "priceMayVary": "قد يختلف السعر بناءً على الاختيارات المخصصة.",
     "assurances": [
-      "Instant availability check",
-      "Zero booking fees",
-      "Flexible date changes"
+      "التحقق من التوفر الفوري",
+      "رسوم الحجز صفر",
+      "تغييرات التاريخ مرنة"
     ]
   },
   "Related": {

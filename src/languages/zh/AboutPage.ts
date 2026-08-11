@@ -19,33 +19,33 @@ export default {
     "slides": [
       {
         "image": "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Sigiriya Rock Fortress",
-        "badge": "Authentic Heritage",
-        "desc": "Bespoke itineraries designed around your personal pace"
+        "alt": "锡吉里亚岩石堡垒",
+        "badge": "正宗的遗产",
+        "desc": "根据您的个人节奏设计定制行程"
       },
       {
         "image": "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Traditional Stilt Fishermen",
-        "badge": "Local Culture",
-        "desc": "Connect directly with the island's timeless traditions"
+        "alt": "传统高跷渔夫",
+        "badge": "当地文化",
+        "desc": "直接接触岛上永恒的传统"
       },
       {
         "image": "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Lush Tea Plantations",
-        "badge": "Nature Escapes",
-        "desc": "Immerse yourself in Sri Lanka's breathtaking landscapes"
+        "alt": "郁郁葱葱的茶园",
+        "badge": "自然之旅",
+        "desc": "沉浸在斯里兰卡令人惊叹的风景中"
       },
       {
         "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Tropical Sandy Beaches",
-        "badge": "Coastal Bliss",
-        "desc": "Unwind on pristine shores away from the crowds"
+        "alt": "热带沙滩",
+        "badge": "海岸之乐",
+        "desc": "在远离人群的原始海岸上放松身心"
       },
       {
         "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Wild Elephants in Safari",
-        "badge": "Wildlife Encounters",
-        "desc": "Experience thrilling safaris with expert local naturalists"
+        "alt": "野生动物园中的野生大象",
+        "badge": "邂逅野生动物",
+        "desc": "与当地自然学家专家一起体验惊心动魄的狩猎之旅"
       }
     ]
   },
@@ -54,35 +54,35 @@ export default {
     "headerTitle": "主要统计数据",
     "items": [
       {
-        "label": "Happy Travelers",
+        "label": "快乐的旅行者",
         "value": "2,500+"
       },
       {
-        "label": "Years of Luxury Hosting",
+        "label": "多年的豪华托管经验",
         "value": "15+"
       },
       {
-        "label": "Custom Itineraries",
+        "label": "定制行程",
         "value": "1,200+"
       },
       {
-        "label": "24/7 Concierge Support",
+        "label": "24/7 礼宾支持",
         "value": "100%"
       },
       {
-        "label": "Local Expert Guides",
+        "label": "当地专家导游",
         "value": "50+"
       },
       {
-        "label": "Customer Satisfaction",
+        "label": "客户满意度",
         "value": "99%"
       },
       {
-        "label": "Island-wide Tours Executed",
+        "label": "开展全岛旅游",
         "value": "3,000+"
       },
       {
-        "label": "Destinations Covered",
+        "label": "覆盖目的地",
         "value": "30+"
       }
     ]
@@ -97,20 +97,20 @@ export default {
     "title": "我们的核心价值观",
     "items": [
       {
-        "title": "Authenticity",
-        "description": "Genuine encounters that connect you directly with Sri Lanka's heritage."
+        "title": "真实性",
+        "description": "真正的邂逅将您与斯里兰卡的传统直接联系起来。"
       },
       {
-        "title": "Personalization",
-        "description": "Tailored tour paths crafted around your personal requirements and pace."
+        "title": "个性化",
+        "description": "根据您的个人需求和步调量身定制的游览路径。"
       },
       {
-        "title": "Integrity",
-        "description": "Transparent rates directly with local suppliers with zero hidden costs."
+        "title": "正直",
+        "description": "直接与当地供应商进行透明费率，隐性成本为零。"
       },
       {
-        "title": "Sustainability",
-        "description": "Protecting local eco-environments and boosting family-run suppliers."
+        "title": "可持续发展",
+        "description": "保护当地生态环境，振兴家族供应商。"
       }
     ]
   },

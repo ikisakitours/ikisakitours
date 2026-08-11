@@ -70,9 +70,9 @@ export default {
     "startingFrom": "À partir de"
   },
   "AssuranceBadges": [
-    "Premium Quality",
-    "No Pre-payment",
-    "24/7 Support"
+    "Qualité supérieure",
+    "Pas de pré-paiement",
+    "Assistance 24h/24 et 7j/7"
   ],
   "Bespoke": {
     "Sidebar": {
@@ -81,16 +81,16 @@ export default {
       "subtitle": "Créer des voyages personnalisés avec un luxe, une intimité et une précision sans compromis.",
       "features": [
         {
-          "title": "Ultimate Privacy",
-          "description": "Discreet chauffeurs and tinted vehicles ensuring your complete confidentiality."
+          "title": "Confidentialité ultime",
+          "description": "Chauffeurs discrets et véhicules teintés assurant votre totale confidentialité."
         },
         {
-          "title": "Total Flexibility",
-          "description": "Your itinerary is fluid. Adjust routes or extend your journey as you wish."
+          "title": "Flexibilité totale",
+          "description": "Votre itinéraire est fluide. Ajustez les itinéraires ou prolongez votre voyage à votre guise."
         },
         {
-          "title": "24/7 Concierge",
-          "description": "A dedicated travel manager is available at your fingertips, anytime."
+          "title": "Conciergerie 24h/24 et 7j/7",
+          "description": "Un gestionnaire de voyages dédié est disponible à portée de main, à tout moment."
         }
       ],
       "footerTitle": "Aucun paiement initial requis",
@@ -104,16 +104,16 @@ export default {
       "subtitle": "Vivez un voyage fluide avec un chauffeur professionnel dédié à votre itinéraire.",
       "features": [
         {
-          "title": "Dedicated Vehicle",
-          "description": "Comfortable, well-maintained luxury vehicle exclusively for your group."
+          "title": "Véhicule dédié",
+          "description": "Véhicule de luxe confortable et bien entretenu exclusivement pour votre groupe."
         },
         {
-          "title": "Expert Driver",
-          "description": "Professional, English-speaking driver trained for safe and smooth navigation."
+          "title": "Chauffeur expert",
+          "description": "Chauffeur professionnel anglophone formé pour une navigation sûre et fluide."
         },
         {
-          "title": "Your Pace",
-          "description": "Complete freedom to stop anywhere. No rigid schedules, just your own plan."
+          "title": "Votre rythme",
+          "description": "Liberté totale de s'arrêter n'importe où. Pas d'horaires rigides, juste votre propre plan."
         }
       ],
       "footerTitle": "Tarifs tout compris",
@@ -123,40 +123,40 @@ export default {
   "Transfers": {
     "ServiceTypes": [
       {
-        "title": "Airport Pick-Up",
-        "description": "Meet and greet arrival support at Bandaranaike International Airport.",
-        "summaryLabel": "Airport arrival transfer"
+        "title": "Prise en charge à l'aéroport",
+        "description": "Rencontrez et accueillez l'assistance à l'arrivée à l'aéroport international de Bandaranaike.",
+        "summaryLabel": "Transfert à l'arrivée à l'aéroport"
       },
       {
-        "title": "Hotel & City",
-        "description": "Private transfer between hotels, city stops, beaches, and heritage sites.",
-        "summaryLabel": "Hotel and city transfer"
+        "title": "Hôtel & Ville",
+        "description": "Transfert privé entre les hôtels, les arrêts en ville, les plages et les sites patrimoniaux.",
+        "summaryLabel": "Transfert hôtel et ville"
       },
       {
-        "title": "Airport Drop-Off",
-        "description": "Timed departure transfer with route planning for a calm airport arrival.",
-        "summaryLabel": "Airport departure transfer"
+        "title": "Dépose à l'aéroport",
+        "description": "Transfert de départ programmé avec planification d'itinéraire pour une arrivée à l'aéroport sereine.",
+        "summaryLabel": "Transfert de départ de l'aéroport"
       }
     ],
     "Assurances": [
       {
-        "title": "Fully Insured Fleet",
-        "description": "Commercial passenger coverage for every confirmed journey."
+        "title": "Flotte entièrement assurée",
+        "description": "Couverture des passagers commerciaux pour chaque voyage confirmé."
       },
       {
-        "title": "24/7 Availability",
-        "description": "Concierge support for early arrivals, late flights, and route changes."
+        "title": "Disponibilité 24h/24 et 7j/7",
+        "description": "Assistance de concierge pour les arrivées anticipées, les vols en retard et les changements d'itinéraire."
       },
       {
-        "title": "GPS Mileage Confirmation",
-        "description": "Final fare is checked against exact route mileage before payment."
+        "title": "Confirmation de kilométrage GPS",
+        "description": "Le tarif final est vérifié par rapport au kilométrage exact de l'itinéraire avant le paiement."
       }
     ],
     "FareInclusions": [
-      "Meet and greet service",
-      "Professional chauffeur",
-      "Premium insurance",
-      "Multi-language concierge support"
+      "Service d'accueil",
+      "Chauffeur professionnel",
+      "Assurance premium",
+      "Support de conciergerie multilingue"
     ]
   }
 } as const;

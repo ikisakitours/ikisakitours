@@ -20,9 +20,9 @@ export default {
     "priceDecreases": "Il prezzo per persona diminuisce per gruppi più numerosi.",
     "priceMayVary": "Il prezzo può variare in base alle selezioni personalizzate.",
     "assurances": [
-      "Instant availability check",
-      "Zero booking fees",
-      "Flexible date changes"
+      "Verifica immediata della disponibilità",
+      "Zero spese di prenotazione",
+      "Modifiche flessibili della data"
     ]
   },
   "Related": {

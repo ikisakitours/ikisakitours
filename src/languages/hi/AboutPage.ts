@@ -19,33 +19,33 @@ export default {
     "slides": [
       {
         "image": "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Sigiriya Rock Fortress",
-        "badge": "Authentic Heritage",
-        "desc": "Bespoke itineraries designed around your personal pace"
+        "alt": "सिगिरिया रॉक किला",
+        "badge": "प्रामाणिक विरासत",
+        "desc": "आपकी व्यक्तिगत गति के अनुरूप डिज़ाइन किए गए विशेष यात्रा कार्यक्रम"
       },
       {
         "image": "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Traditional Stilt Fishermen",
-        "badge": "Local Culture",
-        "desc": "Connect directly with the island's timeless traditions"
+        "alt": "पारंपरिक स्टिल्ट मछुआरे",
+        "badge": "स्थानीय संस्कृति",
+        "desc": "द्वीप की शाश्वत परंपराओं से सीधे जुड़ें"
       },
       {
         "image": "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Lush Tea Plantations",
-        "badge": "Nature Escapes",
-        "desc": "Immerse yourself in Sri Lanka's breathtaking landscapes"
+        "alt": "हरे-भरे चाय के बागान",
+        "badge": "प्रकृति पलायन",
+        "desc": "श्रीलंका के मनमोहक परिदृश्यों में डूब जाएँ"
       },
       {
         "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Tropical Sandy Beaches",
-        "badge": "Coastal Bliss",
-        "desc": "Unwind on pristine shores away from the crowds"
+        "alt": "उष्णकटिबंधीय रेतीले समुद्र तट",
+        "badge": "तटीय आनंद",
+        "desc": "भीड़-भाड़ से दूर प्राचीन तटों पर आराम करें"
       },
       {
         "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Wild Elephants in Safari",
-        "badge": "Wildlife Encounters",
-        "desc": "Experience thrilling safaris with expert local naturalists"
+        "alt": "सफ़ारी में जंगली हाथी",
+        "badge": "वन्यजीव मुठभेड़",
+        "desc": "विशेषज्ञ स्थानीय प्रकृतिवादियों के साथ रोमांचक सफ़ारी का अनुभव लें"
       }
     ]
   },
@@ -54,35 +54,35 @@ export default {
     "headerTitle": "प्रमुख आँकड़े",
     "items": [
       {
-        "label": "Happy Travelers",
+        "label": "खुश यात्री",
         "value": "2,500+"
       },
       {
-        "label": "Years of Luxury Hosting",
+        "label": "लक्जरी होस्टिंग के वर्ष",
         "value": "15+"
       },
       {
-        "label": "Custom Itineraries",
+        "label": "कस्टम यात्रा कार्यक्रम",
         "value": "1,200+"
       },
       {
-        "label": "24/7 Concierge Support",
+        "label": "24/7 द्वारपाल सहायता",
         "value": "100%"
       },
       {
-        "label": "Local Expert Guides",
+        "label": "स्थानीय विशेषज्ञ मार्गदर्शक",
         "value": "50+"
       },
       {
-        "label": "Customer Satisfaction",
+        "label": "ग्राहक संतुष्टि",
         "value": "99%"
       },
       {
-        "label": "Island-wide Tours Executed",
+        "label": "द्वीप-व्यापी दौरे निष्पादित",
         "value": "3,000+"
       },
       {
-        "label": "Destinations Covered",
+        "label": "कवर किए गए गंतव्य",
         "value": "30+"
       }
     ]
@@ -97,20 +97,20 @@ export default {
     "title": "हमारे मूल मूल्य",
     "items": [
       {
-        "title": "Authenticity",
-        "description": "Genuine encounters that connect you directly with Sri Lanka's heritage."
+        "title": "सत्यता",
+        "description": "वास्तविक मुलाकातें जो आपको सीधे श्रीलंका की विरासत से जोड़ती हैं।"
       },
       {
-        "title": "Personalization",
-        "description": "Tailored tour paths crafted around your personal requirements and pace."
+        "title": "वैयक्तिकरण",
+        "description": "आपकी व्यक्तिगत आवश्यकताओं और गति के अनुरूप तैयार किए गए टूर पथ।"
       },
       {
-        "title": "Integrity",
-        "description": "Transparent rates directly with local suppliers with zero hidden costs."
+        "title": "अखंडता",
+        "description": "शून्य छुपी लागत के साथ स्थानीय आपूर्तिकर्ताओं के साथ सीधे पारदर्शी दरें।"
       },
       {
-        "title": "Sustainability",
-        "description": "Protecting local eco-environments and boosting family-run suppliers."
+        "title": "वहनीयता",
+        "description": "स्थानीय पर्यावरण-पर्यावरण की रक्षा करना और परिवार संचालित आपूर्तिकर्ताओं को बढ़ावा देना।"
       }
     ]
   },

@@ -70,9 +70,9 @@ export default {
     "startingFrom": "Начиная с"
   },
   "AssuranceBadges": [
-    "Premium Quality",
-    "No Pre-payment",
-    "24/7 Support"
+    "Премиальное качество",
+    "Без предоплаты",
+    "Круглосуточная поддержка"
   ],
   "Bespoke": {
     "Sidebar": {
@@ -81,16 +81,16 @@ export default {
       "subtitle": "Создание индивидуальных путешествий с бескомпромиссной роскошью, конфиденциальностью и точностью.",
       "features": [
         {
-          "title": "Ultimate Privacy",
-          "description": "Discreet chauffeurs and tinted vehicles ensuring your complete confidentiality."
+          "title": "Максимальная конфиденциальность",
+          "description": "Незаметные водители и тонированные автомобили гарантируют вашу полную конфиденциальность."
         },
         {
-          "title": "Total Flexibility",
-          "description": "Your itinerary is fluid. Adjust routes or extend your journey as you wish."
+          "title": "Полная гибкость",
+          "description": "Ваш маршрут изменчив. Корректируйте маршруты или продлите путешествие по своему желанию."
         },
         {
-          "title": "24/7 Concierge",
-          "description": "A dedicated travel manager is available at your fingertips, anytime."
+          "title": "24/7 консьерж",
+          "description": "Специальный менеджер по путешествиям всегда под рукой."
         }
       ],
       "footerTitle": "Не требуется предоплата",
@@ -104,16 +104,16 @@ export default {
       "subtitle": "Насладитесь комфортным путешествием с профессиональным водителем, который посвятит себя вашему маршруту.",
       "features": [
         {
-          "title": "Dedicated Vehicle",
-          "description": "Comfortable, well-maintained luxury vehicle exclusively for your group."
+          "title": "Специальный автомобиль",
+          "description": "Комфортабельный, ухоженный автомобиль класса люкс исключительно для вашей группы."
         },
         {
-          "title": "Expert Driver",
-          "description": "Professional, English-speaking driver trained for safe and smooth navigation."
+          "title": "Опытный водитель",
+          "description": "Профессиональный англоговорящий водитель, обученный безопасной и плавной навигации."
         },
         {
-          "title": "Your Pace",
-          "description": "Complete freedom to stop anywhere. No rigid schedules, just your own plan."
+          "title": "Ваш темп",
+          "description": "Полная свобода остановиться где угодно. Никаких жестких графиков, только свой план."
         }
       ],
       "footerTitle": "Тарифы «все включено»",
@@ -123,40 +123,40 @@ export default {
   "Transfers": {
     "ServiceTypes": [
       {
-        "title": "Airport Pick-Up",
-        "description": "Meet and greet arrival support at Bandaranaike International Airport.",
-        "summaryLabel": "Airport arrival transfer"
+        "title": "Встреча в аэропорту",
+        "description": "Встреча и приветствие по прибытии в международный аэропорт Бандаранаике.",
+        "summaryLabel": "Трансфер по прибытии в аэропорт"
       },
       {
-        "title": "Hotel & City",
-        "description": "Private transfer between hotels, city stops, beaches, and heritage sites.",
-        "summaryLabel": "Hotel and city transfer"
+        "title": "Отель и город",
+        "description": "Частный трансфер между отелями, городскими остановками, пляжами и объектами наследия.",
+        "summaryLabel": "Трансфер в отель и город"
       },
       {
-        "title": "Airport Drop-Off",
-        "description": "Timed departure transfer with route planning for a calm airport arrival.",
-        "summaryLabel": "Airport departure transfer"
+        "title": "Высадка в аэропорту",
+        "description": "Трансфер по времени с планированием маршрута для спокойного прибытия в аэропорт.",
+        "summaryLabel": "Трансфер из аэропорта"
       }
     ],
     "Assurances": [
       {
-        "title": "Fully Insured Fleet",
-        "description": "Commercial passenger coverage for every confirmed journey."
+        "title": "Полностью застрахованный флот",
+        "description": "Страхование коммерческих пассажиров для каждой подтвержденной поездки."
       },
       {
-        "title": "24/7 Availability",
-        "description": "Concierge support for early arrivals, late flights, and route changes."
+        "title": "Доступность 24/7",
+        "description": "Консьерж-поддержка в случае раннего прибытия, позднего рейса и изменения маршрута."
       },
       {
-        "title": "GPS Mileage Confirmation",
-        "description": "Final fare is checked against exact route mileage before payment."
+        "title": "GPS-подтверждение пробега",
+        "description": "Перед оплатой окончательный тариф сверяется с точным пробегом по маршруту."
       }
     ],
     "FareInclusions": [
-      "Meet and greet service",
-      "Professional chauffeur",
-      "Premium insurance",
-      "Multi-language concierge support"
+      "Служба встречи и приветствия",
+      "Профессиональный шофер",
+      "Премиум страхование",
+      "Многоязычная поддержка консьержа"
     ]
   }
 } as const;

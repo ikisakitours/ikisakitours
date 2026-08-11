@@ -61,7 +61,7 @@ const detectedCode = locationData?.country_code || "";
       className="space-y-4 animate-fade-in-up min-h-95 flex flex-col justify-between"
       noValidate
     >
-      <div className="space-y-3.5">
+      <div className="space-y-4">
         {/* Full Name */}
         <div>
           <label className="relative block">

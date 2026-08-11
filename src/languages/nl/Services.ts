@@ -70,9 +70,9 @@ export default {
     "startingFrom": "Vanaf"
   },
   "AssuranceBadges": [
-    "Premium Quality",
-    "No Pre-payment",
-    "24/7 Support"
+    "Premium kwaliteit",
+    "Geen vooruitbetaling",
+    "24/7 ondersteuning"
   ],
   "Bespoke": {
     "Sidebar": {
@@ -81,16 +81,16 @@ export default {
       "subtitle": "Gepersonaliseerde reizen maken met compromisloze luxe, privacy en precisie.",
       "features": [
         {
-          "title": "Ultimate Privacy",
-          "description": "Discreet chauffeurs and tinted vehicles ensuring your complete confidentiality."
+          "title": "Ultieme privacy",
+          "description": "Discrete chauffeurs en getinte voertuigen garanderen uw volledige vertrouwelijkheid."
         },
         {
-          "title": "Total Flexibility",
-          "description": "Your itinerary is fluid. Adjust routes or extend your journey as you wish."
+          "title": "Totale flexibiliteit",
+          "description": "Je reisschema is vloeiend. Pas routes aan of verleng uw reis zoals u dat wilt."
         },
         {
-          "title": "24/7 Concierge",
-          "description": "A dedicated travel manager is available at your fingertips, anytime."
+          "title": "24/7 conciërge",
+          "description": "Een toegewijde reismanager is altijd binnen handbereik."
         }
       ],
       "footerTitle": "Geen vooruitbetaling vereist",
@@ -104,16 +104,16 @@ export default {
       "subtitle": "Ervaar naadloos reizen met een professionele chauffeur die speciaal is afgestemd op uw reisschema.",
       "features": [
         {
-          "title": "Dedicated Vehicle",
-          "description": "Comfortable, well-maintained luxury vehicle exclusively for your group."
+          "title": "Speciaal voertuig",
+          "description": "Comfortabel, goed onderhouden luxe voertuig exclusief voor uw gezelschap."
         },
         {
-          "title": "Expert Driver",
-          "description": "Professional, English-speaking driver trained for safe and smooth navigation."
+          "title": "Deskundige chauffeur",
+          "description": "Professionele, Engelssprekende chauffeur opgeleid voor veilige en vlotte navigatie."
         },
         {
-          "title": "Your Pace",
-          "description": "Complete freedom to stop anywhere. No rigid schedules, just your own plan."
+          "title": "Jouw tempo",
+          "description": "Volledige vrijheid om overal te stoppen. Geen strakke schema’s, maar gewoon jouw eigen plan."
         }
       ],
       "footerTitle": "All-inclusive tarieven",
@@ -123,40 +123,40 @@ export default {
   "Transfers": {
     "ServiceTypes": [
       {
-        "title": "Airport Pick-Up",
-        "description": "Meet and greet arrival support at Bandaranaike International Airport.",
-        "summaryLabel": "Airport arrival transfer"
+        "title": "Ophaalservice vanaf de luchthaven",
+        "description": "Ontmoet en begroet aankomstondersteuning op Bandaranaike International Airport.",
+        "summaryLabel": "Luchthaventransfer bij aankomst"
       },
       {
-        "title": "Hotel & City",
-        "description": "Private transfer between hotels, city stops, beaches, and heritage sites.",
-        "summaryLabel": "Hotel and city transfer"
+        "title": "Hotel & Stad",
+        "description": "Privévervoer tussen hotels, stadshaltes, stranden en erfgoedlocaties.",
+        "summaryLabel": "Hotel- en stadstransfer"
       },
       {
-        "title": "Airport Drop-Off",
-        "description": "Timed departure transfer with route planning for a calm airport arrival.",
-        "summaryLabel": "Airport departure transfer"
+        "title": "Vervoer naar de luchthaven",
+        "description": "Getimede vertrektransfer met routeplanning voor een rustige aankomst op de luchthaven.",
+        "summaryLabel": "Transfer van vertrek naar de luchthaven"
       }
     ],
     "Assurances": [
       {
-        "title": "Fully Insured Fleet",
-        "description": "Commercial passenger coverage for every confirmed journey."
+        "title": "Volledig verzekerde vloot",
+        "description": "Commerciële passagiersdekking voor elke bevestigde reis."
       },
       {
-        "title": "24/7 Availability",
-        "description": "Concierge support for early arrivals, late flights, and route changes."
+        "title": "24/7 beschikbaarheid",
+        "description": "Conciërgeondersteuning bij vroege aankomst, late vluchten en routewijzigingen."
       },
       {
-        "title": "GPS Mileage Confirmation",
-        "description": "Final fare is checked against exact route mileage before payment."
+        "title": "Bevestiging van GPS-kilometerstand",
+        "description": "Het eindtarief wordt vóór betaling gecontroleerd aan de hand van de exacte routekilometers."
       }
     ],
     "FareInclusions": [
-      "Meet and greet service",
-      "Professional chauffeur",
-      "Premium insurance",
-      "Multi-language concierge support"
+      "Meet en greet-service",
+      "Professionele chauffeur",
+      "Premium verzekering",
+      "Meertalige conciërgeondersteuning"
     ]
   }
 } as const;

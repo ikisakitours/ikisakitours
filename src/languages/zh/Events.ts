@@ -56,7 +56,7 @@ export default {
     "date": "日期",
     "time": "时间",
     "location": "地点",
-    "timeRemaining": "Time Remaining",
+    "timeRemaining": "剩余时间",
     "streamingLive": "流媒体直播",
     "lovedThis": "喜欢这个",
     "share": "分享"

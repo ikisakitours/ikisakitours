@@ -19,33 +19,33 @@ export default {
     "slides": [
       {
         "image": "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Local Travel Desk",
-        "badge": "Expert Advice",
-        "desc": "Personal planning, fast follow-up, practical guidance"
+        "alt": "مكتب السفر المحلي",
+        "badge": "نصيحة الخبراء",
+        "desc": "التخطيط الشخصي، المتابعة السريعة، التوجيه العملي"
       },
       {
         "image": "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Custom Itinerary Planning",
-        "badge": "Tailored Routes",
-        "desc": "Share your interests and we'll craft the perfect journey"
+        "alt": "تخطيط خط سير مخصص",
+        "badge": "طرق مخصصة",
+        "desc": "شارك اهتماماتك وسنقوم بصياغة الرحلة المثالية"
       },
       {
         "image": "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Transport and Chauffeur Services",
-        "badge": "Seamless Transport",
-        "desc": "Reliable drivers and comfortable vehicles for your trip"
+        "alt": "خدمات النقل والسائق",
+        "badge": "النقل السلس",
+        "desc": "سائقين موثوقين ومركبات مريحة لرحلتك"
       },
       {
         "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Accommodation Booking",
-        "badge": "Boutique Stays",
-        "desc": "Handpicked hotels and resorts to match your style"
+        "alt": "حجز السكن",
+        "badge": "يبقى بوتيك",
+        "desc": "فنادق ومنتجعات مختارة لتناسب ذوقك"
       },
       {
         "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Wildlife and Safari Tours",
-        "badge": "Unforgettable Safaris",
-        "desc": "Expert naturalists and thrilling wildlife encounters"
+        "alt": "رحلات الحياة البرية ورحلات السفاري",
+        "badge": "رحلات سفاري لا تنسى",
+        "desc": "خبراء الطبيعة ولقاءات الحياة البرية المثيرة"
       }
     ]
   },
@@ -55,54 +55,53 @@ export default {
     "whatsappButton": "الدردشة على الواتساب",
     "lineButton": "الدردشة على الخط",
     "onlineStatus": "متصل بالإنترنت وجاهز للدردشة",
-    "clickToChat": "انقر للدردشة",
     "info": [
       {
-        "label": "Email",
+        "label": "بريد إلكتروني",
         "value": "hello@mapmate.lk"
       },
       {
-        "label": "Phone",
+        "label": "هاتف",
         "value": "+94 77 123 4567"
       },
       {
-        "label": "Location",
-        "value": "Colombo, Sri Lanka"
+        "label": "موقع",
+        "value": "كولومبو، سريلانكا"
       },
       {
-        "label": "Working Hours",
-        "value": "24/7 Available"
+        "label": "ساعات العمل",
+        "value": "متاح 24/7"
       }
     ]
   },
   "Form": {
     "title": "أرسل لنا رسالة",
     "inquiryOptions": [
-      "Tour Inquiry & Availability",
-      "Custom Journey Planning",
-      "Chauffeur & Transfers",
-      "General Support",
-      "Partnership"
+      "الاستعلام عن الجولة ومدى توفرها",
+      "تخطيط رحلة مخصصة",
+      "سائق والتحويلات",
+      "الدعم العام",
+      "شراكة"
     ],
     "tourOptions": [
-      "Multi-Day Tour",
-      "One-Day Tour",
-      "Honeymoon Package",
-      "Wildlife Safari"
+      "جولة متعددة الأيام",
+      "جولة ليوم واحد",
+      "باقة شهر العسل",
+      "سفاري الحياة البرية"
     ]
   },
   "Features": [
     {
-      "title": "Travel Specialists",
-      "desc": "Talk to a local team that understands routes, timing, hotels, and guest comfort."
+      "title": "متخصصون في السفر",
+      "desc": "تحدث إلى فريق محلي يفهم الطرق والتوقيت والفنادق وراحة الضيوف."
     },
     {
-      "title": "Custom Planning",
-      "desc": "Share your pace, interests, budget, and dates. We will shape the next steps around you."
+      "title": "التخطيط المخصص",
+      "desc": "شارك سرعتك واهتماماتك وميزانيتك وتواريخك. سنشكل الخطوات التالية من حولك."
     },
     {
-      "title": "Clear Follow-up",
-      "desc": "Your inquiry is sent into our lead desk so the right person can respond with context."
+      "title": "متابعة واضحة",
+      "desc": "يتم إرسال استفسارك إلى مكتبنا الرئيسي حتى يتمكن الشخص المناسب من الرد بالسياق."
     }
   ]
 } as const;

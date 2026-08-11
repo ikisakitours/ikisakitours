@@ -19,33 +19,33 @@ export default {
     "slides": [
       {
         "image": "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Sigiriya Rock Fortress",
-        "badge": "Authentic Heritage",
-        "desc": "Bespoke itineraries designed around your personal pace"
+        "alt": "قلعة سيجيريا روك",
+        "badge": "التراث الأصيل",
+        "desc": "برامج رحلات مخصصة مصممة وفقًا لسرعتك الشخصية"
       },
       {
         "image": "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Traditional Stilt Fishermen",
-        "badge": "Local Culture",
-        "desc": "Connect directly with the island's timeless traditions"
+        "alt": "صيادو السمك التقليديون",
+        "badge": "الثقافة المحلية",
+        "desc": "تواصل مباشرة مع تقاليد الجزيرة الخالدة"
       },
       {
         "image": "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Lush Tea Plantations",
-        "badge": "Nature Escapes",
-        "desc": "Immerse yourself in Sri Lanka's breathtaking landscapes"
+        "alt": "مزارع الشاي الخصبة",
+        "badge": "هروب الطبيعة",
+        "desc": "انغمس في المناظر الطبيعية الخلابة في سريلانكا"
       },
       {
         "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Tropical Sandy Beaches",
-        "badge": "Coastal Bliss",
-        "desc": "Unwind on pristine shores away from the crowds"
+        "alt": "الشواطئ الرملية الاستوائية",
+        "badge": "النعيم الساحلي",
+        "desc": "استرخِ على الشواطئ البكر بعيدًا عن الزحام"
       },
       {
         "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Wild Elephants in Safari",
-        "badge": "Wildlife Encounters",
-        "desc": "Experience thrilling safaris with expert local naturalists"
+        "alt": "الفيلة البرية في رحلات السفاري",
+        "badge": "لقاءات الحياة البرية",
+        "desc": "استمتع برحلات السفاري المثيرة مع خبراء الطبيعة المحليين"
       }
     ]
   },
@@ -54,35 +54,35 @@ export default {
     "headerTitle": "الإحصائيات الرئيسية",
     "items": [
       {
-        "label": "Happy Travelers",
+        "label": "مسافرون سعداء",
         "value": "2,500+"
       },
       {
-        "label": "Years of Luxury Hosting",
+        "label": "سنوات من الاستضافة الفاخرة",
         "value": "15+"
       },
       {
-        "label": "Custom Itineraries",
+        "label": "مسارات مخصصة",
         "value": "1,200+"
       },
       {
-        "label": "24/7 Concierge Support",
+        "label": "دعم الكونسيرج على مدار 24 ساعة طوال أيام الأسبوع",
         "value": "100%"
       },
       {
-        "label": "Local Expert Guides",
+        "label": "أدلة الخبراء المحليين",
         "value": "50+"
       },
       {
-        "label": "Customer Satisfaction",
+        "label": "رضا العملاء",
         "value": "99%"
       },
       {
-        "label": "Island-wide Tours Executed",
+        "label": "تم تنفيذ جولات على مستوى الجزيرة",
         "value": "3,000+"
       },
       {
-        "label": "Destinations Covered",
+        "label": "الوجهات المغطاة",
         "value": "30+"
       }
     ]
@@ -97,20 +97,20 @@ export default {
     "title": "قيمنا الأساسية",
     "items": [
       {
-        "title": "Authenticity",
-        "description": "Genuine encounters that connect you directly with Sri Lanka's heritage."
+        "title": "أصالة",
+        "description": "لقاءات حقيقية تربطك مباشرة بالتراث السريلانكي."
       },
       {
-        "title": "Personalization",
-        "description": "Tailored tour paths crafted around your personal requirements and pace."
+        "title": "التخصيص",
+        "description": "مسارات جولات مخصصة تم تصميمها وفقًا لمتطلباتك الشخصية وسرعتك."
       },
       {
-        "title": "Integrity",
-        "description": "Transparent rates directly with local suppliers with zero hidden costs."
+        "title": "نزاهة",
+        "description": "أسعار شفافة مباشرة مع الموردين المحليين بدون أي تكاليف مخفية."
       },
       {
-        "title": "Sustainability",
-        "description": "Protecting local eco-environments and boosting family-run suppliers."
+        "title": "الاستدامة",
+        "description": "حماية البيئات البيئية المحلية وتعزيز الموردين الذين تديرهم عائلات."
       }
     ]
   },

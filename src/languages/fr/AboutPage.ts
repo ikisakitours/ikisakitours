@@ -19,33 +19,33 @@ export default {
     "slides": [
       {
         "image": "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Sigiriya Rock Fortress",
-        "badge": "Authentic Heritage",
-        "desc": "Bespoke itineraries designed around your personal pace"
+        "alt": "Forteresse rocheuse de Sigiriya",
+        "badge": "Patrimoine authentique",
+        "desc": "Itinéraires sur mesure conçus selon votre rythme personnel"
       },
       {
         "image": "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Traditional Stilt Fishermen",
-        "badge": "Local Culture",
-        "desc": "Connect directly with the island's timeless traditions"
+        "alt": "Pêcheurs sur échasses traditionnels",
+        "badge": "Culture locale",
+        "desc": "Connectez-vous directement aux traditions intemporelles de l'île"
       },
       {
         "image": "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Lush Tea Plantations",
-        "badge": "Nature Escapes",
-        "desc": "Immerse yourself in Sri Lanka's breathtaking landscapes"
+        "alt": "Plantations de thé luxuriantes",
+        "badge": "Escapades Nature",
+        "desc": "Plongez dans les paysages à couper le souffle du Sri Lanka"
       },
       {
         "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Tropical Sandy Beaches",
-        "badge": "Coastal Bliss",
-        "desc": "Unwind on pristine shores away from the crowds"
+        "alt": "Plages de sable tropicales",
+        "badge": "Le bonheur côtier",
+        "desc": "Détendez-vous sur des côtes immaculées, loin des foules"
       },
       {
         "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Wild Elephants in Safari",
-        "badge": "Wildlife Encounters",
-        "desc": "Experience thrilling safaris with expert local naturalists"
+        "alt": "Éléphants sauvages en safari",
+        "badge": "Rencontres avec la faune",
+        "desc": "Vivez des safaris passionnants avec des naturalistes locaux experts"
       }
     ]
   },
@@ -54,35 +54,35 @@ export default {
     "headerTitle": "Statistiques clés",
     "items": [
       {
-        "label": "Happy Travelers",
+        "label": "Heureux voyageurs",
         "value": "2,500+"
       },
       {
-        "label": "Years of Luxury Hosting",
+        "label": "Des années d'hébergement de luxe",
         "value": "15+"
       },
       {
-        "label": "Custom Itineraries",
+        "label": "Itinéraires personnalisés",
         "value": "1,200+"
       },
       {
-        "label": "24/7 Concierge Support",
+        "label": "Service de conciergerie 24h/24 et 7j/7",
         "value": "100%"
       },
       {
-        "label": "Local Expert Guides",
+        "label": "Guides experts locaux",
         "value": "50+"
       },
       {
-        "label": "Customer Satisfaction",
+        "label": "Satisfaction client",
         "value": "99%"
       },
       {
-        "label": "Island-wide Tours Executed",
+        "label": "Visites exécutées dans toute l'île",
         "value": "3,000+"
       },
       {
-        "label": "Destinations Covered",
+        "label": "Destinations couvertes",
         "value": "30+"
       }
     ]
@@ -97,20 +97,20 @@ export default {
     "title": "Nos valeurs fondamentales",
     "items": [
       {
-        "title": "Authenticity",
-        "description": "Genuine encounters that connect you directly with Sri Lanka's heritage."
+        "title": "Authenticité",
+        "description": "De véritables rencontres qui vous connectent directement au patrimoine du Sri Lanka."
       },
       {
-        "title": "Personalization",
-        "description": "Tailored tour paths crafted around your personal requirements and pace."
+        "title": "Personnalisation",
+        "description": "Des parcours touristiques sur mesure conçus en fonction de vos besoins et de votre rythme personnels."
       },
       {
-        "title": "Integrity",
-        "description": "Transparent rates directly with local suppliers with zero hidden costs."
+        "title": "Intégrité",
+        "description": "Tarifs transparents directement avec les fournisseurs locaux sans frais cachés."
       },
       {
-        "title": "Sustainability",
-        "description": "Protecting local eco-environments and boosting family-run suppliers."
+        "title": "Durabilité",
+        "description": "Protéger les éco-environnements locaux et stimuler les fournisseurs familiaux."
       }
     ]
   },

@@ -19,33 +19,33 @@ export default {
     "slides": [
       {
         "image": "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Local Travel Desk",
-        "badge": "Expert Advice",
-        "desc": "Personal planning, fast follow-up, practical guidance"
+        "alt": "स्थानीय यात्रा डेस्क",
+        "badge": "अनुभवी सलाह",
+        "desc": "व्यक्तिगत योजना, त्वरित अनुवर्ती कार्रवाई, व्यावहारिक मार्गदर्शन"
       },
       {
         "image": "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Custom Itinerary Planning",
-        "badge": "Tailored Routes",
-        "desc": "Share your interests and we'll craft the perfect journey"
+        "alt": "कस्टम यात्रा कार्यक्रम योजना",
+        "badge": "अनुकूलित मार्ग",
+        "desc": "अपनी रुचियां साझा करें और हम उत्तम यात्रा तैयार करेंगे"
       },
       {
         "image": "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Transport and Chauffeur Services",
-        "badge": "Seamless Transport",
-        "desc": "Reliable drivers and comfortable vehicles for your trip"
+        "alt": "परिवहन एवं चालक सेवाएँ",
+        "badge": "निर्बाध परिवहन",
+        "desc": "आपकी यात्रा के लिए विश्वसनीय ड्राइवर और आरामदायक वाहन"
       },
       {
         "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Accommodation Booking",
-        "badge": "Boutique Stays",
-        "desc": "Handpicked hotels and resorts to match your style"
+        "alt": "आवास बुकिंग",
+        "badge": "बुटीक रहता है",
+        "desc": "आपकी शैली से मेल खाने के लिए चुने गए होटल और रिसॉर्ट"
       },
       {
         "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Wildlife and Safari Tours",
-        "badge": "Unforgettable Safaris",
-        "desc": "Expert naturalists and thrilling wildlife encounters"
+        "alt": "वन्य जीवन और सफ़ारी पर्यटन",
+        "badge": "अविस्मरणीय सफ़ारी",
+        "desc": "विशेषज्ञ प्रकृतिवादी और रोमांचकारी वन्यजीव मुठभेड़"
       }
     ]
   },
@@ -55,54 +55,53 @@ export default {
     "whatsappButton": "व्हाट्सएप पर चैट करें",
     "lineButton": "लाइन पर चैट करें",
     "onlineStatus": "ऑनलाइन और चैट के लिए तैयार",
-    "clickToChat": "चैट करने के लिए क्लिक करें",
     "info": [
       {
-        "label": "Email",
+        "label": "ईमेल",
         "value": "hello@mapmate.lk"
       },
       {
-        "label": "Phone",
+        "label": "फ़ोन",
         "value": "+94 77 123 4567"
       },
       {
-        "label": "Location",
-        "value": "Colombo, Sri Lanka"
+        "label": "जगह",
+        "value": "कोलम्बो, श्रीलंका"
       },
       {
-        "label": "Working Hours",
-        "value": "24/7 Available"
+        "label": "कार्य के घंटे",
+        "value": "24/7 उपलब्ध"
       }
     ]
   },
   "Form": {
     "title": "हमें एक संदेश भेजें",
     "inquiryOptions": [
-      "Tour Inquiry & Availability",
-      "Custom Journey Planning",
-      "Chauffeur & Transfers",
-      "General Support",
-      "Partnership"
+      "यात्रा संबंधी पूछताछ एवं उपलब्धता",
+      "कस्टम यात्रा योजना",
+      "चालक एवं स्थानान्तरण",
+      "सामान्य समर्थन",
+      "साझेदारी"
     ],
     "tourOptions": [
-      "Multi-Day Tour",
-      "One-Day Tour",
-      "Honeymoon Package",
-      "Wildlife Safari"
+      "बहु-दिवसीय यात्रा",
+      "एक दिवसीय दौरा",
+      "हनीमून पैकेज",
+      "वन्यजीव सफ़ारी"
     ]
   },
   "Features": [
     {
-      "title": "Travel Specialists",
-      "desc": "Talk to a local team that understands routes, timing, hotels, and guest comfort."
+      "title": "यात्रा विशेषज्ञ",
+      "desc": "एक स्थानीय टीम से बात करें जो मार्गों, समय, होटलों और मेहमानों की सुविधा को समझती है।"
     },
     {
-      "title": "Custom Planning",
-      "desc": "Share your pace, interests, budget, and dates. We will shape the next steps around you."
+      "title": "कस्टम योजना",
+      "desc": "अपनी गति, रुचियां, बजट और तिथियां साझा करें। हम आपके आसपास अगले कदमों को आकार देंगे।"
     },
     {
-      "title": "Clear Follow-up",
-      "desc": "Your inquiry is sent into our lead desk so the right person can respond with context."
+      "title": "स्पष्ट अनुवर्ती",
+      "desc": "आपकी पूछताछ हमारे लीड डेस्क पर भेजी जाती है ताकि सही व्यक्ति संदर्भ के साथ जवाब दे सके।"
     }
   ]
 } as const;

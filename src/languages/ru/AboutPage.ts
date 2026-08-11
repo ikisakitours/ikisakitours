@@ -19,33 +19,33 @@ export default {
     "slides": [
       {
         "image": "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Sigiriya Rock Fortress",
-        "badge": "Authentic Heritage",
-        "desc": "Bespoke itineraries designed around your personal pace"
+        "alt": "Скальная крепость Сигирия",
+        "badge": "Аутентичное наследие",
+        "desc": "Индивидуальные маршруты, разработанные с учетом вашего личного темпа"
       },
       {
         "image": "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Traditional Stilt Fishermen",
-        "badge": "Local Culture",
-        "desc": "Connect directly with the island's timeless traditions"
+        "alt": "Традиционные рыбаки на ходулях",
+        "badge": "Местная культура",
+        "desc": "Прикоснитесь напрямую к вечным традициям острова."
       },
       {
         "image": "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Lush Tea Plantations",
-        "badge": "Nature Escapes",
-        "desc": "Immerse yourself in Sri Lanka's breathtaking landscapes"
+        "alt": "Пышные чайные плантации",
+        "badge": "Побеги природы",
+        "desc": "Погрузитесь в захватывающие дух пейзажи Шри-Ланки"
       },
       {
         "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Tropical Sandy Beaches",
-        "badge": "Coastal Bliss",
-        "desc": "Unwind on pristine shores away from the crowds"
+        "alt": "Тропические песчаные пляжи",
+        "badge": "Прибрежное блаженство",
+        "desc": "Расслабьтесь на нетронутом берегу вдали от толпы"
       },
       {
         "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Wild Elephants in Safari",
-        "badge": "Wildlife Encounters",
-        "desc": "Experience thrilling safaris with expert local naturalists"
+        "alt": "Дикие слоны в сафари",
+        "badge": "Встречи с дикой природой",
+        "desc": "Отправьтесь в захватывающее сафари с опытными местными натуралистами."
       }
     ]
   },
@@ -54,35 +54,35 @@ export default {
     "headerTitle": "Ключевая статистика",
     "items": [
       {
-        "label": "Happy Travelers",
+        "label": "Счастливые путешественники",
         "value": "2,500+"
       },
       {
-        "label": "Years of Luxury Hosting",
+        "label": "Годы роскошного хостинга",
         "value": "15+"
       },
       {
-        "label": "Custom Itineraries",
+        "label": "Индивидуальные маршруты",
         "value": "1,200+"
       },
       {
-        "label": "24/7 Concierge Support",
+        "label": "Круглосуточная консьерж-поддержка",
         "value": "100%"
       },
       {
-        "label": "Local Expert Guides",
+        "label": "Местные экспертные гиды",
         "value": "50+"
       },
       {
-        "label": "Customer Satisfaction",
+        "label": "Удовлетворенность клиентов",
         "value": "99%"
       },
       {
-        "label": "Island-wide Tours Executed",
+        "label": "Выполнены туры по всему острову",
         "value": "3,000+"
       },
       {
-        "label": "Destinations Covered",
+        "label": "Охваченные направления",
         "value": "30+"
       }
     ]
@@ -97,20 +97,20 @@ export default {
     "title": "Наши основные ценности",
     "items": [
       {
-        "title": "Authenticity",
-        "description": "Genuine encounters that connect you directly with Sri Lanka's heritage."
+        "title": "Подлинность",
+        "description": "Подлинные встречи, которые напрямую связывают вас с наследием Шри-Ланки."
       },
       {
-        "title": "Personalization",
-        "description": "Tailored tour paths crafted around your personal requirements and pace."
+        "title": "Персонализация",
+        "description": "Индивидуальные маршруты туров, созданные с учетом ваших личных требований и темпа."
       },
       {
-        "title": "Integrity",
-        "description": "Transparent rates directly with local suppliers with zero hidden costs."
+        "title": "Честность",
+        "description": "Прозрачные тарифы напрямую с местными поставщиками без скрытых затрат."
       },
       {
-        "title": "Sustainability",
-        "description": "Protecting local eco-environments and boosting family-run suppliers."
+        "title": "Устойчивое развитие",
+        "description": "Защита местной экологической среды и развитие семейных поставщиков."
       }
     ]
   },

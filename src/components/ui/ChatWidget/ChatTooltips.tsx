@@ -49,7 +49,7 @@ export function ChatTooltips({
       </div>
 
       <div
-        className={`absolute bottom-[130%] right-0 w-72 sm:w-80 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] origin-bottom-right ${
+        className={`absolute bottom-[130%] right-0 w-80 sm:w-80 md:w-90 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] origin-bottom-right ${
           showBottomTooltip && !isOpen && !isBottomDismissed
             ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
             : "opacity-0 translate-y-6 scale-95 pointer-events-none"

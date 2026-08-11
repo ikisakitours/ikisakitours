@@ -266,7 +266,7 @@ export function FullChatWidget() {
       } ${isGlobalModalOpen ? "hidden" : isMobileMenuOpen ? "hidden xl:flex" : "flex"}`}
     >
       <div
-        className={`absolute bottom-20 -right-1 w-86.25 max-[365px]:w-81.25 max-[350px]:w-76.25 sm:w-90 md:w-92.5 lg:w-95 3xl:w-96.25 glass-card rounded-3xl overflow-hidden transition-all duration-500 origin-bottom-right flex flex-col ${
+        className={`absolute bottom-20 -right-1 w-87.25 max-[365px]:w-81.25 max-[350px]:w-76.25 sm:w-90 md:w-98.5 lg:w-105  2xl:w-90 3xl:w-110.25 glass-card rounded-3xl overflow-hidden transition-all duration-500 origin-bottom-right flex flex-col ${
           isOpen
             ? "opacity-100 scale-100 translate-y-0 pointer-events-auto shadow-2xl"
             : "opacity-0 scale-90 translate-y-10 pointer-events-none"

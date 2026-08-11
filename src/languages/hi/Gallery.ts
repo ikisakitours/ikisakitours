@@ -6,9 +6,9 @@ export default {
     "images": "इमेजिस"
   },
   "Hero": {
-    "defaultTitle": "The",
+    "defaultTitle": "द",
     "defaultAccent": "विरासत",
-    "defaultSubtitle": "क्यूरेटेड दृश्य अनुभव"
+    "defaultSubtitle": "क्यूरेटेड विजुअल अनुभव"
   },
   "Metadata": {
     "notFoundTitle": "गैलरी नहीं मिली",

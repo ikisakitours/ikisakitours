@@ -11,7 +11,7 @@ export default function ContactBody() {
       <ContainerLayout className="pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
         <ContactIntroCard />
 
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-12 xl:grid-cols-3">
           <ContactSidebar />
           <ContactForm />
         </div>

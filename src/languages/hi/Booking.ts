@@ -20,9 +20,9 @@ export default {
     "priceDecreases": "बड़े समूहों के लिए प्रति व्यक्ति कीमत घट जाती है।",
     "priceMayVary": "कस्टम चयन के आधार पर कीमत भिन्न हो सकती है।",
     "assurances": [
-      "Instant availability check",
-      "Zero booking fees",
-      "Flexible date changes"
+      "तत्काल उपलब्धता की जाँच करें",
+      "शून्य बुकिंग शुल्क",
+      "लचीले तिथि परिवर्तन"
     ]
   },
   "Related": {

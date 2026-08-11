@@ -70,9 +70,9 @@ export default {
     "startingFrom": "开始于"
   },
   "AssuranceBadges": [
-    "Premium Quality",
-    "No Pre-payment",
-    "24/7 Support"
+    "优质品质",
+    "无需预付款",
+    "24/7 支持"
   ],
   "Bespoke": {
     "Sidebar": {
@@ -81,16 +81,16 @@ export default {
       "subtitle": "以毫不妥协的奢华、隐私和精准打造个性化旅程。",
       "features": [
         {
-          "title": "Ultimate Privacy",
-          "description": "Discreet chauffeurs and tinted vehicles ensuring your complete confidentiality."
+          "title": "终极隐私",
+          "description": "谨慎的司机和有色车辆确保您的完全保密。"
         },
         {
-          "title": "Total Flexibility",
-          "description": "Your itinerary is fluid. Adjust routes or extend your journey as you wish."
+          "title": "完全的灵活性",
+          "description": "您的行程是流动的。 根据您的意愿调整路线或延长您的旅程。"
         },
         {
-          "title": "24/7 Concierge",
-          "description": "A dedicated travel manager is available at your fingertips, anytime."
+          "title": "24/7 礼宾服务",
+          "description": "专属差旅经理随时为您服务。"
         }
       ],
       "footerTitle": "无需预付款",
@@ -104,16 +104,16 @@ export default {
       "subtitle": "与专门为您安排行程的专业司机一起体验无缝旅行。",
       "features": [
         {
-          "title": "Dedicated Vehicle",
-          "description": "Comfortable, well-maintained luxury vehicle exclusively for your group."
+          "title": "专用车辆",
+          "description": "专为您的团队打造的舒适、维护良好的豪华车辆。"
         },
         {
-          "title": "Expert Driver",
-          "description": "Professional, English-speaking driver trained for safe and smooth navigation."
+          "title": "专家司机",
+          "description": "受过培训的专业英语司机可保证安全、顺利的导航。"
         },
         {
-          "title": "Your Pace",
-          "description": "Complete freedom to stop anywhere. No rigid schedules, just your own plan."
+          "title": "你的步伐",
+          "description": "完全自由地在任何地方停下来。 没有严格的时间表，只有你自己的计划。"
         }
       ],
       "footerTitle": "全包价格",
@@ -123,40 +123,40 @@ export default {
   "Transfers": {
     "ServiceTypes": [
       {
-        "title": "Airport Pick-Up",
-        "description": "Meet and greet arrival support at Bandaranaike International Airport.",
-        "summaryLabel": "Airport arrival transfer"
+        "title": "机场接机",
+        "description": "在班达拉奈克国际机场迎接抵达支持人员。",
+        "summaryLabel": "机场抵达接送"
       },
       {
-        "title": "Hotel & City",
-        "description": "Private transfer between hotels, city stops, beaches, and heritage sites.",
-        "summaryLabel": "Hotel and city transfer"
+        "title": "酒店与城市",
+        "description": "酒店、城市车站、海滩和遗产地之间的私人接送服务。",
+        "summaryLabel": "酒店和城市接送"
       },
       {
-        "title": "Airport Drop-Off",
-        "description": "Timed departure transfer with route planning for a calm airport arrival.",
-        "summaryLabel": "Airport departure transfer"
+        "title": "机场送机",
+        "description": "定时出发接送服务，并规划路线，让您平稳抵达机场。",
+        "summaryLabel": "机场出发接送"
       }
     ],
     "Assurances": [
       {
-        "title": "Fully Insured Fleet",
-        "description": "Commercial passenger coverage for every confirmed journey."
+        "title": "完全保险的车队",
+        "description": "每个已确认旅程的商业乘客承保。"
       },
       {
-        "title": "24/7 Availability",
-        "description": "Concierge support for early arrivals, late flights, and route changes."
+        "title": "24/7 可用",
+        "description": "针对提前抵达、航班延误和路线变更的礼宾支持。"
       },
       {
-        "title": "GPS Mileage Confirmation",
-        "description": "Final fare is checked against exact route mileage before payment."
+        "title": "GPS里程确认",
+        "description": "付款前将根据确切的路线里程检查最终票价。"
       }
     ],
     "FareInclusions": [
-      "Meet and greet service",
-      "Professional chauffeur",
-      "Premium insurance",
-      "Multi-language concierge support"
+      "迎接服务",
+      "专业司机",
+      "保费保险",
+      "多语言礼宾支持"
     ]
   }
 } as const;

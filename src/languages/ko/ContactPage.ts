@@ -19,33 +19,33 @@ export default {
     "slides": [
       {
         "image": "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Local Travel Desk",
-        "badge": "Expert Advice",
-        "desc": "Personal planning, fast follow-up, practical guidance"
+        "alt": "현지 여행 데스크",
+        "badge": "전문가의 조언",
+        "desc": "개인별 계획 수립, 빠른 후속 조치, 실무 지도"
       },
       {
         "image": "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Custom Itinerary Planning",
-        "badge": "Tailored Routes",
-        "desc": "Share your interests and we'll craft the perfect journey"
+        "alt": "맞춤형 여행 일정 계획",
+        "badge": "맞춤형 노선",
+        "desc": "관심사를 공유하시면 완벽한 여행을 만들어 드립니다."
       },
       {
         "image": "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Transport and Chauffeur Services",
-        "badge": "Seamless Transport",
-        "desc": "Reliable drivers and comfortable vehicles for your trip"
+        "alt": "운송 및 운전기사 서비스",
+        "badge": "원활한 운송",
+        "desc": "당신의 여행을 위한 믿을 수 있는 운전자와 편안한 차량"
       },
       {
         "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Accommodation Booking",
-        "badge": "Boutique Stays",
-        "desc": "Handpicked hotels and resorts to match your style"
+        "alt": "숙박 예약",
+        "badge": "부티크 스테이",
+        "desc": "당신의 스타일에 꼭 맞는 엄선된 호텔과 리조트"
       },
       {
         "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Wildlife and Safari Tours",
-        "badge": "Unforgettable Safaris",
-        "desc": "Expert naturalists and thrilling wildlife encounters"
+        "alt": "야생동물 및 사파리 투어",
+        "badge": "잊을 수 없는 사파리",
+        "desc": "전문 동식물학자와 스릴 넘치는 야생동물과의 만남"
       }
     ]
   },
@@ -55,54 +55,53 @@ export default {
     "whatsappButton": "WhatsApp에서 채팅",
     "lineButton": "LINE에서 채팅하기",
     "onlineStatus": "온라인 및 채팅 준비 완료",
-    "clickToChat": "채팅하려면 클릭하세요",
     "info": [
       {
-        "label": "Email",
-        "value": "hello@mapmate.lk"
+        "label": "이메일",
+        "value": "안녕하세요@mapmate.lk"
       },
       {
-        "label": "Phone",
+        "label": "핸드폰",
         "value": "+94 77 123 4567"
       },
       {
-        "label": "Location",
-        "value": "Colombo, Sri Lanka"
+        "label": "위치",
+        "value": "콜롬보, 스리랑카"
       },
       {
-        "label": "Working Hours",
-        "value": "24/7 Available"
+        "label": "근무시간",
+        "value": "연중무휴 24시간 이용 가능"
       }
     ]
   },
   "Form": {
     "title": "메시지 보내기",
     "inquiryOptions": [
-      "Tour Inquiry & Availability",
-      "Custom Journey Planning",
-      "Chauffeur & Transfers",
-      "General Support",
-      "Partnership"
+      "투어 문의 및 이용 가능 여부",
+      "맞춤형 여행 계획",
+      "운전기사 및 환승",
+      "일반 지원",
+      "공동"
     ],
     "tourOptions": [
-      "Multi-Day Tour",
-      "One-Day Tour",
-      "Honeymoon Package",
-      "Wildlife Safari"
+      "다일 투어",
+      "1일 투어",
+      "허니문 패키지",
+      "야생동물 사파리"
     ]
   },
   "Features": [
     {
-      "title": "Travel Specialists",
-      "desc": "Talk to a local team that understands routes, timing, hotels, and guest comfort."
+      "title": "여행 전문가",
+      "desc": "경로, 시간, 호텔, 고객 편의를 이해하는 현지 팀과 대화하세요."
     },
     {
-      "title": "Custom Planning",
-      "desc": "Share your pace, interests, budget, and dates. We will shape the next steps around you."
+      "title": "맞춤형 계획",
+      "desc": "속도, 관심사, 예산, 날짜를 공유하세요. 우리는 당신을 중심으로 다음 단계를 형성할 것입니다."
     },
     {
-      "title": "Clear Follow-up",
-      "desc": "Your inquiry is sent into our lead desk so the right person can respond with context."
+      "title": "명확한 후속 조치",
+      "desc": "귀하의 문의 사항은 당사의 리드 데스크로 전송되므로 적합한 사람이 상황에 맞게 답변할 수 있습니다."
     }
   ]
 } as const;

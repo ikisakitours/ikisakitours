@@ -20,9 +20,9 @@ export default {
     "priceDecreases": "인원이 많을수록 1인당 가격이 낮아집니다.",
     "priceMayVary": "가격은 맞춤 선택에 따라 달라질 수 있습니다.",
     "assurances": [
-      "Instant availability check",
-      "Zero booking fees",
-      "Flexible date changes"
+      "즉시 가용성 확인",
+      "예약 수수료 없음",
+      "유연한 날짜 변경"
     ]
   },
   "Related": {

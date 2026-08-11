@@ -19,33 +19,33 @@ export default {
     "slides": [
       {
         "image": "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Local Travel Desk",
-        "badge": "Expert Advice",
-        "desc": "Personal planning, fast follow-up, practical guidance"
+        "alt": "Mostrador de viajes local",
+        "badge": "Consejos de expertos",
+        "desc": "Planificación personal, seguimiento rápido, orientación práctica."
       },
       {
         "image": "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Custom Itinerary Planning",
-        "badge": "Tailored Routes",
-        "desc": "Share your interests and we'll craft the perfect journey"
+        "alt": "Planificación de itinerario personalizado",
+        "badge": "Rutas a medida",
+        "desc": "Comparte tus intereses y diseñaremos el viaje perfecto."
       },
       {
         "image": "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Transport and Chauffeur Services",
-        "badge": "Seamless Transport",
-        "desc": "Reliable drivers and comfortable vehicles for your trip"
+        "alt": "Servicios de transporte y chófer",
+        "badge": "Transporte sin interrupciones",
+        "desc": "Conductores confiables y vehículos cómodos para su viaje."
       },
       {
         "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Accommodation Booking",
-        "badge": "Boutique Stays",
-        "desc": "Handpicked hotels and resorts to match your style"
+        "alt": "Reserva de alojamiento",
+        "badge": "Estancias boutique",
+        "desc": "Hoteles y resorts cuidadosamente seleccionados que se adaptan a su estilo"
       },
       {
         "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=95&w=1600&auto=format&fit=crop",
-        "alt": "Wildlife and Safari Tours",
-        "badge": "Unforgettable Safaris",
-        "desc": "Expert naturalists and thrilling wildlife encounters"
+        "alt": "Tours de vida silvestre y safaris",
+        "badge": "Safaris inolvidables",
+        "desc": "Expertas naturalistas y emocionantes encuentros de vida silvestre."
       }
     ]
   },
@@ -55,54 +55,53 @@ export default {
     "whatsappButton": "Chatea en whatsapp",
     "lineButton": "Chatear en LINEA",
     "onlineStatus": "En línea y listo para chatear",
-    "clickToChat": "Haga clic para chatear",
     "info": [
       {
-        "label": "Email",
-        "value": "hello@mapmate.lk"
+        "label": "Correo electrónico",
+        "value": "hola@mapmate.lk"
       },
       {
-        "label": "Phone",
+        "label": "Teléfono",
         "value": "+94 77 123 4567"
       },
       {
-        "label": "Location",
+        "label": "Ubicación",
         "value": "Colombo, Sri Lanka"
       },
       {
-        "label": "Working Hours",
-        "value": "24/7 Available"
+        "label": "Horas de trabajo",
+        "value": "Disponible 24 horas al día, 7 días a la semana"
       }
     ]
   },
   "Form": {
     "title": "Envíanos un mensaje",
     "inquiryOptions": [
-      "Tour Inquiry & Availability",
-      "Custom Journey Planning",
-      "Chauffeur & Transfers",
-      "General Support",
-      "Partnership"
+      "Consulta y disponibilidad del tour",
+      "Planificación de viaje personalizada",
+      "Chofer y Traslados",
+      "Soporte general",
+      "Asociación"
     ],
     "tourOptions": [
-      "Multi-Day Tour",
-      "One-Day Tour",
-      "Honeymoon Package",
-      "Wildlife Safari"
+      "Tour de varios días",
+      "Tour de un día",
+      "Paquete de luna de miel",
+      "Safari de vida silvestre"
     ]
   },
   "Features": [
     {
-      "title": "Travel Specialists",
-      "desc": "Talk to a local team that understands routes, timing, hotels, and guest comfort."
+      "title": "Especialistas en viajes",
+      "desc": "Hable con un equipo local que comprenda las rutas, los horarios, los hoteles y la comodidad de los huéspedes."
     },
     {
-      "title": "Custom Planning",
-      "desc": "Share your pace, interests, budget, and dates. We will shape the next steps around you."
+      "title": "Planificación personalizada",
+      "desc": "Comparte tu ritmo, intereses, presupuesto y fechas. Daremos forma a los próximos pasos a tu alrededor."
     },
     {
-      "title": "Clear Follow-up",
-      "desc": "Your inquiry is sent into our lead desk so the right person can respond with context."
+      "title": "Seguimiento claro",
+      "desc": "Su consulta se envía a nuestro escritorio principal para que la persona adecuada pueda responder con contexto."
     }
   ]
 } as const;

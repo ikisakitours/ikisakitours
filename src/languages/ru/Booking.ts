@@ -20,9 +20,9 @@ export default {
     "priceDecreases": "Цена на человека снижается для больших групп.",
     "priceMayVary": "Цена может меняться в зависимости от индивидуального выбора.",
     "assurances": [
-      "Instant availability check",
-      "Zero booking fees",
-      "Flexible date changes"
+      "Мгновенная проверка доступности",
+      "Нулевая комиссия за бронирование",
+      "Гибкая смена дат"
     ]
   },
   "Related": {

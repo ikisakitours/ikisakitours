@@ -70,9 +70,9 @@ export default {
     "startingFrom": "ابتداء من"
   },
   "AssuranceBadges": [
-    "Premium Quality",
-    "No Pre-payment",
-    "24/7 Support"
+    "جودة ممتازة",
+    "لا الدفع المسبق",
+    "دعم 24/7"
   ],
   "Bespoke": {
     "Sidebar": {
@@ -81,16 +81,16 @@ export default {
       "subtitle": "صياغة رحلات مخصصة مع فخامة وخصوصية ودقة لا هوادة فيها.",
       "features": [
         {
-          "title": "Ultimate Privacy",
-          "description": "Discreet chauffeurs and tinted vehicles ensuring your complete confidentiality."
+          "title": "الخصوصية المطلقة",
+          "description": "سائقون سريون ومركبات مظللة لضمان السرية التامة."
         },
         {
-          "title": "Total Flexibility",
-          "description": "Your itinerary is fluid. Adjust routes or extend your journey as you wish."
+          "title": "المرونة الكاملة",
+          "description": "خط سير رحلتك سلس. اضبط المسارات أو قم بتمديد رحلتك كما يحلو لك."
         },
         {
-          "title": "24/7 Concierge",
-          "description": "A dedicated travel manager is available at your fingertips, anytime."
+          "title": "24/7 بواب",
+          "description": "يتوفر مدير سفر مخصص في متناول يدك في أي وقت."
         }
       ],
       "footerTitle": "لا يلزم الدفع مقدما",
@@ -104,16 +104,16 @@ export default {
       "subtitle": "استمتع بتجربة سفر سلسة مع سائق محترف مخصص لبرنامج رحلتك.",
       "features": [
         {
-          "title": "Dedicated Vehicle",
-          "description": "Comfortable, well-maintained luxury vehicle exclusively for your group."
+          "title": "مركبة مخصصة",
+          "description": "سيارة فاخرة مريحة ومُصانة جيدًا حصريًا لمجموعتك."
         },
         {
-          "title": "Expert Driver",
-          "description": "Professional, English-speaking driver trained for safe and smooth navigation."
+          "title": "سائق خبير",
+          "description": "سائق محترف يتحدث الإنجليزية ومدرب على التنقل الآمن والسلس."
         },
         {
-          "title": "Your Pace",
-          "description": "Complete freedom to stop anywhere. No rigid schedules, just your own plan."
+          "title": "سرعتك",
+          "description": "الحرية الكاملة للتوقف في أي مكان. لا توجد جداول زمنية صارمة، فقط خطتك الخاصة."
         }
       ],
       "footerTitle": "أسعار شاملة",
@@ -123,40 +123,40 @@ export default {
   "Transfers": {
     "ServiceTypes": [
       {
-        "title": "Airport Pick-Up",
-        "description": "Meet and greet arrival support at Bandaranaike International Airport.",
-        "summaryLabel": "Airport arrival transfer"
+        "title": "الاستقبال في المطار",
+        "description": "الالتقاء والترحيب بدعم الوصول في مطار باندارانايكي الدولي.",
+        "summaryLabel": "نقل وصول المطار"
       },
       {
-        "title": "Hotel & City",
-        "description": "Private transfer between hotels, city stops, beaches, and heritage sites.",
-        "summaryLabel": "Hotel and city transfer"
+        "title": "الفندق والمدينة",
+        "description": "نقل خاص بين الفنادق ومحطات المدينة والشواطئ والمواقع التراثية.",
+        "summaryLabel": "نقل الفندق والمدينة"
       },
       {
-        "title": "Airport Drop-Off",
-        "description": "Timed departure transfer with route planning for a calm airport arrival.",
-        "summaryLabel": "Airport departure transfer"
+        "title": "التوصيل إلى المطار",
+        "description": "نقل المغادرة في الوقت المحدد مع تخطيط الطريق للوصول إلى المطار بهدوء.",
+        "summaryLabel": "نقل مغادرة المطار"
       }
     ],
     "Assurances": [
       {
-        "title": "Fully Insured Fleet",
-        "description": "Commercial passenger coverage for every confirmed journey."
+        "title": "أسطول مؤمن بالكامل",
+        "description": "تغطية الركاب التجارية لكل رحلة مؤكدة."
       },
       {
-        "title": "24/7 Availability",
-        "description": "Concierge support for early arrivals, late flights, and route changes."
+        "title": "توافر 24/7",
+        "description": "دعم الكونسيرج للوصول المبكر ورحلات الطيران المتأخرة وتغيير المسار."
       },
       {
-        "title": "GPS Mileage Confirmation",
-        "description": "Final fare is checked against exact route mileage before payment."
+        "title": "تأكيد المسافة المقطوعة عبر نظام تحديد المواقع العالمي (GPS).",
+        "description": "يتم التحقق من الأجرة النهائية مقابل عدد الكيلومترات المقطوعة على الطريق قبل الدفع."
       }
     ],
     "FareInclusions": [
-      "Meet and greet service",
-      "Professional chauffeur",
-      "Premium insurance",
-      "Multi-language concierge support"
+      "خدمة اللقاء والترحيب",
+      "سائق محترف",
+      "التأمين قسط",
+      "دعم الكونسيرج متعدد اللغات"
     ]
   }
 } as const;

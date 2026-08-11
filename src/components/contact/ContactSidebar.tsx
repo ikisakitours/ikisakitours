@@ -26,7 +26,7 @@ export default function ContactSidebar() {
     <div className="space-y-8 lg:col-span-1">
       <div className="glass-card rounded-3xl p-8">
         <h2 className="premium-serif mb-6 text-xl text-white">{t("title")}</h2>
-        <div className="space-y-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-1">
           {infoArray.map((item, index) => {
             const Icon = contactInfoIcons[index] || Headphones;
             return <InfoItem key={index} icon={<Icon className="h-5 w-5" />} label={item.label} value={item.value} />;
@@ -37,54 +37,54 @@ export default function ContactSidebar() {
       <div className="relative lg:w-full lg:mx-0 overflow-hidden rounded-3xl bg-linear-to-br from-emerald-950/20 via-lanka-black/90 to-lanka-black p-8 md:p-5 lg:p-6 xl:p-8 3xl:p-10 border border-gold/30 shadow-2xl backdrop-blur-xl group/card transition-all duration-500 hover:border-emerald-500/50 hover:bg-emerald-950/30">
         <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gold/10 blur-2xl transition-all duration-500 group-hover/card:bg-emerald-500/20" />
 
-        <p className="relative z-10 premium-serif mb-6 md:mb-5 xl:mb-6 text-base md:text-sm xl:text-base 3xl:text-lg font-extrabold tracking-wide text-white flex items-center justify-start gap-2">
+        <p className="relative z-10 premium-serif mb-6 md:mb-5 xl:mb-6 text-[16px] md:text-{14px} xl:text-[15px] 3xl:text-[17px] font-extrabold tracking-wide text-white flex items-center justify-start gap-2">
           <span className="inline-block h-2 w-2 shrink-0 rounded-full bg-emerald-400 animate-pulse" />
           {t("messagesAppTitle")}
         </p>
 
-        <div className="flex flex-col md:flex-row lg:flex-col gap-5 relative z-10">
-          {" "}
-          {/* WhatsApp Button */}
+        <div className="relative z-10 flex w-full flex-col gap-4 md:flex-row xl:flex-col">
+          {/* WhatsApp Button Card */}
           <button
             type="button"
             onClick={() => window.open("https://wa.me/94771234567", "_blank")}
-            className="group mx-auto lg:mx-0 flex w-full sm:w-auto cursor-pointer items-center justify-center sm:justify-start md:justify-center lg:justify-start gap-4 md:gap-3 xl:gap-4 border-none bg-transparent p-0 text-left"
+            className="group flex w-full md:w-1/2 xl:w-full cursor-pointer items-start sm:items-center gap-4 rounded-2xl border border-white/5 bg-white/2 p-4 text-left shadow-sm transition-all duration-300 hover:border-white/10 hover:bg-white/5"
           >
-            {/* Icon Container */}
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white/5 border border-white/10 shadow-inner animate-blink-border transition-all duration-300 group-hover:border-[#25D366] group-hover:bg-[#25D366]/10 group-hover:scale-105 md:h-10 md:w-10 lg:h-12 lg:w-12 xl:h-13 xl:w-13 3xl:h-15 3xl:w-15">
-              <SiWhatsapp className="h-5 w-5 text-emerald-400 transition-colors group-hover:text-[#25D366] md:h-5 md:w-5 xl:h-6 xl:w-6 3xl:h-7 3xl:w-7" />
+            {/* Icon Container (Styles strictly preserved) */}
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/5 shadow-inner transition-all duration-300 group-hover:scale-105 group-hover:border-[#25D366] group-hover:bg-[#25D366]/10 animate-blink-border">
+              <SiWhatsapp className="h-6 w-6 text-emerald-400 transition-colors group-hover:text-[#25D366]" />
             </div>
 
             {/* Text Container */}
-            <div className="flex flex-col min-w-0">
-              <span className="whitespace-nowrap md:truncate xl:whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.2em] text-white/80 transition-colors group-hover:text-white md:text-[10px] lg:text-[11px] xl:text-[13px] 3xl:text-[15px]">
+            <div className="flex flex-1 flex-col gap-1.5">
+              {/* Title */}
+              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/80 transition-colors group-hover:text-white sm:text-[11px] md:text-[11px] lg:text-[10px] 3xl:text-[15px]">
                 {t("whatsappButton")}
               </span>
 
-              <span className="mt-1 flex flex-row lg:flex-col xl:flex-row items-center md:items-start xl:items-center gap-1.5 md:gap-0.5 xl:gap-1.5 whitespace-nowrap md:whitespace-normal xl:whitespace-nowrap text-[10px] font-medium text-emerald-400/90 transition-colors group-hover:text-[#25D366] md:text-[10px] lg:text-[10px] xl:text-[12px] 3xl:text-[14px] leading-tight">
-                <span className="flex items-center gap-1.5">
-                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400 animate-ping" />
-                  <span className="whitespace-nowrap">
-                    {t("onlineStatus")} <span className="inline md:hidden xl:inline">—</span>
+              {/* Subtitle / Status */}
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[10px] font-medium text-emerald-400/90 transition-colors group-hover:text-[#25D366] sm:text-[12px] md:text-[10px] lg:text-[12px] 3xl:text-[14px]">
+                {/* Online Indicator */}
+                <div className="flex shrink-0 items-center gap-2">
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
                   </span>
-                </span>
-
-                <span className="underline decoration-emerald-400/60 underline-offset-2 whitespace-nowrap lg:ml-3">
-                  {t("clickToChat")}
-                </span>
-              </span>
+                  <span>{t("onlineStatus")}</span>
+                </div>
+              </div>
             </div>
           </button>
-          {/* LINE Button */}
+
+          {/* LINE Button Card */}
           <button
             type="button"
             onClick={() => window.open("https://line.me/ti/p/dcnpathirana", "_blank")}
-            className="group mx-auto lg:mx-0 flex w-full sm:w-auto cursor-pointer items-center justify-center sm:justify-start md:justify-center lg:justify-start gap-4 md:gap-3 xl:gap-4 border-none bg-transparent p-0 text-left"
+            className="group flex w-full md:w-1/2 xl:w-full cursor-pointer items-start sm:items-center gap-4 rounded-2xl border border-white/5 bg-white/2 p-4 text-left shadow-sm transition-all duration-300 hover:border-white/10 hover:bg-white/5"
           >
-            {/* Icon Container */}
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white/5 border border-white/10 shadow-inner animate-blink-border transition-all duration-300 group-hover:border-[#06C755] group-hover:bg-[#06C755]/10 group-hover:scale-105 md:h-10 md:w-10 lg:h-12 lg:w-12 xl:h-13 xl:w-13 3xl:h-15 3xl:w-15">
+            {/* Icon Container (Styles strictly preserved) */}
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/5 shadow-inner transition-all duration-300 group-hover:scale-105 group-hover:border-[#06C755] group-hover:bg-[#06C755]/10 animate-blink-border">
               <svg
-                className="h-5 w-5 text-[#06C755]/80 transition-colors group-hover:text-[#06C755] md:h-5 md:w-5 xl:h-6 xl:w-6 3xl:h-7 3xl:w-7"
+                className="h-6 w-6 text-[#06C755]/80 transition-colors group-hover:text-[#06C755]"
                 fill="currentColor"
                 viewBox="0 0 24 24"
               >
@@ -93,23 +93,23 @@ export default function ContactSidebar() {
             </div>
 
             {/* Text Container */}
-            <div className="flex flex-col min-w-0">
-              <span className="whitespace-nowrap md:truncate xl:whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.2em] text-white/80 transition-colors group-hover:text-white md:text-[10px] lg:text-[11px] xl:text-[13px] 3xl:text-[15px]">
+            <div className="flex flex-1 flex-col gap-1.5">
+              {/* Title */}
+              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/80 transition-colors group-hover:text-white sm:text-[11px] md:text-[11px] lg:text-[10px] 3xl:text-[15px]">
                 {t("lineButton")}
               </span>
 
-              <span className="mt-1 flex flex-row lg:flex-col xl:flex-row items-center md:items-start xl:items-center gap-1.5 md:gap-0.5 xl:gap-1.5 whitespace-nowrap md:whitespace-normal xl:whitespace-nowrap text-[10px] font-medium text-[#06C755]/80 transition-colors group-hover:text-[#06C755] md:text-[10px] lg:text-[10px] xl:text-[12px] 3xl:text-[14px] leading-tight">
-                <span className="flex items-center gap-1.5">
-                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#06C755] animate-ping" />
-                  <span className="whitespace-nowrap">
-                    {t("onlineStatus")} <span className="inline md:hidden xl:inline">—</span>
+              {/* Subtitle / Status */}
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[10px] font-medium text-emerald-400/90 transition-colors group-hover:text-[#25D366] sm:text-[12px] md:text-[10px] lg:text-[12px] 3xl:text-[14px]">
+                {/* Online Indicator */}
+                <div className="flex shrink-0 items-center gap-2">
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#06C755] opacity-75"></span>
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-[#06C755]"></span>
                   </span>
-                </span>
-
-                <span className="underline decoration-[#06C755]/60 underline-offset-2 whitespace-nowrap lg:ml-3">
-                  {t("clickToChat")}
-                </span>
-              </span>
+                  <span>{t("onlineStatus")}</span>
+                </div>
+              </div>
             </div>
           </button>
         </div>

@@ -96,41 +96,41 @@ export default {
   "DatePicker": {
     "selectDate": "Seleccionar fecha",
     "days": [
-      "Su",
-      "Mo",
-      "Tu",
-      "We",
+      "Ellos son",
+      "Mes",
+      "tu",
+      "Nosotras",
       "Th",
-      "Fr",
-      "Sa"
+      "fr",
+      "en"
     ],
     "months": [
-      "Jan",
+      "Ene",
       "Feb",
       "Mar",
-      "Apr",
-      "May",
+      "Abr",
+      "Puede",
       "Jun",
       "Jul",
-      "Aug",
+      "Ago",
       "Sep",
       "Oct",
       "Nov",
-      "Dec"
+      "Dic"
     ],
     "fullMonths": [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December"
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Puede",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre"
     ]
   },
   "DurationPicker": {

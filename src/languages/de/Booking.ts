@@ -4,7 +4,7 @@ export default {
     "highlights": "Höhepunkte",
     "itinerary": "Route",
     "citiesRoute": "Städteroute",
-    "details": "Details",
+    "details": "Einzelheiten",
     "includesExcludes": "Einschließt und schließt aus",
     "bring": "Bringen",
     "bespoke": "Maßgeschneidert",
@@ -20,16 +20,16 @@ export default {
     "priceDecreases": "Bei größeren Gruppen reduziert sich der Preis pro Person.",
     "priceMayVary": "Der Preis kann je nach individueller Auswahl variieren.",
     "assurances": [
-      "Instant availability check",
-      "Zero booking fees",
-      "Flexible date changes"
+      "Sofortige Verfügbarkeitsprüfung",
+      "Keine Buchungsgebühren",
+      "Flexible Datumsänderungen"
     ]
   },
   "Related": {
     "youMightLike": "Das könnte Ihnen auch gefallen...",
     "exploreInsights": "Entdecken Sie lokale Einblicke",
     "readArticle": "Artikel lesen",
-    "details": "Details",
+    "details": "Einzelheiten",
     "startingFrom": "Ab"
   },
   "Cta": {
