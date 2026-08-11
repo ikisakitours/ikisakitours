@@ -78,7 +78,7 @@ export function OmniSearch() {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ ...smoothTransition, delay: 0.5 }}
       style={{ willChange: "transform, opacity" }}
-      className="max-w-2xl 3xl:max-w-4xl relative z-50"
+      className="max-w-xl 3xl:max-w-3xl relative z-50"
       ref={searchContainerRef}
     >
       <div className="group relative">
