@@ -11,7 +11,7 @@ import CustomSelect from "@/components/ui/CustomSelect";
 import { bookingTour } from "@/data/multiDaysBooking";
 import { useTranslations } from "next-intl";
 import { ListFilter, ArrowUpDown } from "lucide-react";
-import { EmptyState } from "@/components/ui/EmptyState"; // EmptyState Import කර ඇත
+import { EmptyState } from "@/components/ui/EmptyState"; 
 
 type ReviewsBodyProps = { tour: typeof bookingTour; tourType?: "multi" | "one" };
 const INITIAL_COUNT = 4;
@@ -118,7 +118,6 @@ export default function ReviewsBody({ tour, tourType }: ReviewsBodyProps) {
                 </div>
               </div>
 
-              {/* 🌟 මෙතැනදී Review නැති නම් EmptyState පෙන්වීම */}
               <div className="space-y-8 md:space-y-12 3xl:space-y-16">
                 {visibleReviews.length > 0 ? (
                   visibleReviews.map((review, index) => (

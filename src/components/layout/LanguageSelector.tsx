@@ -90,10 +90,13 @@ export function LanguageSelector() {
   }, []);
 
   useEffect(() => {
+    if (!locationData) return;
+
     const handlePreloaderFinished = () => {
       setTimeout(() => {
         const hasSeenPrompt = localStorage.getItem("mapmate_lang_prompt_seen");
-        if (hasSeenPrompt || !locationData) return;
+
+        if (hasSeenPrompt) return;
 
         if (detectedCountry !== locationData.country_name) {
           setDetectedCountry(locationData.country_name);
@@ -109,7 +112,6 @@ export function LanguageSelector() {
 
             if (!showPrompt) {
               setShowPrompt(true);
-
               localStorage.setItem("mapmate_lang_prompt_seen", "true");
             }
           } else {
@@ -120,7 +122,6 @@ export function LanguageSelector() {
 
           if (!showPrompt) {
             setShowPrompt(true);
-
             localStorage.setItem("mapmate_lang_prompt_seen", "true");
           }
         }
@@ -128,7 +129,9 @@ export function LanguageSelector() {
     };
 
     if (typeof window !== "undefined") {
-      if ((window as Window & { __preloaderDone?: boolean }).__preloaderDone) {
+      const isPreloaderAlreadyDone = document.cookie.includes("preloader_seen=true");
+
+      if (isPreloaderAlreadyDone || (window as Window & { __preloaderDone?: boolean }).__preloaderDone) {
         handlePreloaderFinished();
       } else {
         window.addEventListener("preloaderFinished", handlePreloaderFinished);
@@ -141,10 +144,9 @@ export function LanguageSelector() {
       }
     };
   }, [locationData, currentLocale, detectedCountry, promptType, showPrompt, targetLangObj]);
-
   // Prompt Actions
   const handlePromptAccept = () => {
-    window.dispatchEvent(new CustomEvent("hideLanguagePrompt")); // 🌟
+    window.dispatchEvent(new CustomEvent("hideLanguagePrompt"));
     localStorage.setItem("mapmate_lang_prompt_seen", "true");
 
     if (promptType === "switch" && targetLangObj) {

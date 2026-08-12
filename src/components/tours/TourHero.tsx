@@ -9,7 +9,7 @@ export function TourHero({ namespace }: TourHeroProps) {
   const t = useTranslations(`${namespace}.Hero`);
 
   return (
-    <header className="relative flex flex-col justify-center text-center bg-lanka-dark h-[53vh] min-h-93 md:h-[45vh] md:min-h-95 lg:h-[58vh] lg:min-h-120 xl:h-[63vh] xl:min-h-120 2xl:h-[60vh] 2xl:min-h-125 3xl:h-[60vh] 3xl:min-h-127.5">
+    <header className="relative flex flex-col justify-center text-center bg-lanka-dark min-h-[53vh] md:min-h-[45vh] lg:min-h-[58vh] xl:min-h-[63vh] 2xl:min-h-[60vh] pt-20 pb-12  sm:py-24 md:py-26 lg:py-28 2xl:py-30 3xl:py-32">
       <div className="absolute inset-0 z-0 overflow-hidden">
         <Image
           src={t("image")}

@@ -107,7 +107,7 @@ export function BespokeForm() {
       <div className="grid gap-8 xl:grid-cols-12 xl:items-start">
         <form onSubmit={handleSubmit} className="space-y-8 xl:col-span-8">
           <FormPanel className="z-10">
-            <StepHeading step="1">Journey Details</StepHeading>
+            <StepHeading step="1">{tStep("step1Journey")}</StepHeading>
             <BespokeJourneyFields
               activeFilter={activeFilter}
               onFilterChange={setActiveFilter}
@@ -133,8 +133,8 @@ export function BespokeForm() {
           </FormPanel>
 
           <FormPanel className="border-t-2 border-gold/30">
-            <StepHeading step="2" subtitle="Chauffeur assignment details">
-              Contact Information
+            <StepHeading step="2"  subtitle={tStep("stepContactSub")}>
+              {tStep("stepContact")}
             </StepHeading>
             <ContactForm data={contact} setData={setContact} errors={errors} setErrors={setErrors} />
           </FormPanel>

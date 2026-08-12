@@ -158,7 +158,7 @@ export function FullChatWidget() {
   useEffect(() => {
     if (!isMounted || !isPreloaderFinished || !hasInteracted) return;
 
-    scheduleSideTooltip(3000);
+    scheduleSideTooltip(1000); //3000
 
     if (!hasShownBottomTooltip) {
       const bottomTimer = setTimeout(() => {
@@ -177,7 +177,7 @@ export function FullChatWidget() {
             console.error("Audio error:", e);
           }
         }
-      }, 3000);
+      }, 800);
 
       return () => {
         clearSideTimer();
@@ -280,7 +280,7 @@ export function FullChatWidget() {
           ) : activeTab === "home" ? (
             <ChatHome onNewChat={() => setActiveTab("messages")} />
           ) : (
-            <ChatMessages onEmailClick={() => setShowMailForm(true)} waLink={waLink} lineLink={lineLink}/>
+            <ChatMessages onEmailClick={() => setShowMailForm(true)} waLink={waLink} lineLink={lineLink} />
           )}
         </div>
 

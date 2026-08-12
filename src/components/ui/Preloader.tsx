@@ -5,37 +5,31 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 export default function Preloader() {
-  const [loading, setLoading] = useState(() => {
-    if (typeof window !== "undefined" && (window as Window & { __preloaderDone?: boolean }).__preloaderDone) {
-      return false;
-    }
-    return true;
-  });
+  const [loading, setLoading] = useState(true);
 
-  
   useEffect(() => {
-    if (typeof window !== "undefined" && (window as Window & { __preloaderDone?: boolean }).__preloaderDone) {
-      return;
-    }
     document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
 
     const preventTouchScroll = (e: TouchEvent | Event) => {
       e.preventDefault();
     };
-
     document.addEventListener("touchmove", preventTouchScroll, { passive: false });
 
     const timer = setTimeout(() => {
       setLoading(false);
+
       document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
       document.removeEventListener("touchmove", preventTouchScroll);
+
+      document.cookie = "preloader_seen=true; path=/";
+
       if (typeof window !== "undefined") {
-        (window as Window & { __preloaderDone?: boolean }).__preloaderDone = true;
         window.dispatchEvent(new CustomEvent("preloaderFinished"));
       }
     }, 4000);
+
     return () => {
       clearTimeout(timer);
       document.documentElement.style.overflow = "";

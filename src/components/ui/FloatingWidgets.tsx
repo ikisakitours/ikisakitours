@@ -46,25 +46,24 @@ export function FloatingWidgets() {
   }, []);
 
   useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      const isCookieSeen = document.cookie.includes("preloader_seen=true");
+
+      if (isCookieSeen) {
+        setIsPreloaderDone(true);
+      }
+    }, 0);
+
     const handlePreloaderFinished = () => {
       setIsPreloaderDone(true);
     };
 
-    if (typeof window !== "undefined") {
-      // Cast window to a specific intersection type instead of 'any'
-      const customWindow = window as Window & { __preloaderDone?: boolean };
-
-      if (customWindow.__preloaderDone) {
-        handlePreloaderFinished();
-      } else {
-        window.addEventListener("preloaderFinished", handlePreloaderFinished);
-      }
-    }
+    window.addEventListener("preloaderFinished", handlePreloaderFinished);
 
     return () => {
-      if (typeof window !== "undefined") {
-        window.removeEventListener("preloaderFinished", handlePreloaderFinished);
-      }
+      // Cleanups
+      clearTimeout(timeoutId);
+      window.removeEventListener("preloaderFinished", handlePreloaderFinished);
     };
   }, []);
 

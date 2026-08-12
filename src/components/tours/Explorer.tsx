@@ -129,8 +129,8 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
 
   return (
     <section id="packages" className="bg-lanka-dark">
-      <ContainerLayout className="mb-12 md:mb-16 xl:mb-16 2xl:mb-20 3xl:mb-24 space-y-8">
-        <div className="">
+      <ContainerLayout className="pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28 space-y-8">
+        <div className="mb-12 md:mb-16 xl:mb-16 2xl:mb-20 3xl:mb-24 space-y-8">
           <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
             <div className="relative flex shrink-0 justify-start">
               <button

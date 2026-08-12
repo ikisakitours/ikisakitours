@@ -8,6 +8,7 @@ import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { languages } from "@/data/Languages-CurrencyData";
 import ProgressBarProvider from "@/components/ui/ProgressBarProvider";
+import { cookies } from "next/headers";
 // import TawkToChat from "@/components/ui/TawkToChat";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -26,6 +27,7 @@ const playfair = Playfair_Display({
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "RootLayout.Metadata" });
+
   return {
     metadataBase: new URL("https://mapmate-sri-lanka.vercel.app"),
 
@@ -79,6 +81,8 @@ export default async function RootLayout({
   const messages = await getMessages();
   const resolvedParams = await params;
   console.log("🔥 RootLayout resolved locale ->", resolvedParams.locale);
+  const cookieStore = await cookies();
+  const hasSeenPreloader = cookieStore.has("preloader_seen");
   return (
     <html
       lang={locale}
@@ -89,7 +93,7 @@ export default async function RootLayout({
     >
       <body className="min-h-full bg-lanka-dark text-slate-200">
         <NextIntlClientProvider messages={messages}>
-          <Preloader />
+          {!hasSeenPreloader && <Preloader />}
           <ProgressBarProvider />
           {/* <TawkToChat /> */}
           {children}
