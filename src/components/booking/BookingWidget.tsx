@@ -166,7 +166,7 @@ export function BookingWidget({ tour }: BookingWidgetProps) {
               </div>
             </div>
 
-            <div className="space-y-2 focus-within:pb-65 relative">
+            <div className="space-y-2 relative">
               <label className="ml-1 block text-[10px] font-bold uppercase tracking-[0.2em] text-gold/80">
                 {tForms("Labels.travelers")}
               </label>

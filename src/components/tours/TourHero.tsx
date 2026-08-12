@@ -16,20 +16,11 @@ export function TourHero({ namespace }: TourHeroProps) {
           alt={t("alt")}
           fill
           priority
-          quality={100}
-          sizes="(max-width: 768px) 300vw, 100vw"
-          className="block sm:hidden scale-110 object-cover object-center animate-slow-zoom"
+          quality={90}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+          className="object-cover object-center scale-110 animate-slow-zoom"
         />
 
-        <Image
-          src={t("image")}
-          alt={t("alt")}
-          fill
-          priority
-          quality={100}
-          sizes="100vw"
-          className="hidden sm:block scale-110 object-cover object-center animate-slow-zoom"
-        />
         <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/80 to-lanka-dark" />
       </div>
 
