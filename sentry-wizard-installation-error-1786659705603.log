@@ -1,0 +1,45 @@
+✓ Lockfile passes supply-chain policies (verified 3d ago)
+Progress: resolved 1, reused 0, downloaded 0, added 0
+
+   ╭──────────────────────────────────────────╮
+   │                                          │
+   │   Update available! 11.6.0 → 11.21.0.    │
+   │   Changelog: https://pnpm.io/v/11.21.0   │
+   │     To update, run: pnpm add -g pnpm     │
+   │                                          │
+   ╰──────────────────────────────────────────╯
+
+Progress: resolved 20, reused 16, downloaded 0, added 0
+Progress: resolved 23, reused 21, downloaded 0, added 0
+Progress: resolved 26, reused 23, downloaded 0, added 0
+Progress: resolved 150, reused 56, downloaded 1, added 0
+Progress: resolved 286, reused 97, downloaded 1, added 0
+Progress: resolved 466, reused 221, downloaded 2, added 0
+Progress: resolved 536, reused 347, downloaded 3, added 0
+Progress: resolved 551, reused 411, downloaded 8, added 0
+Progress: resolved 585, reused 438, downloaded 11, added 0
+Progress: resolved 622, reused 442, downloaded 21, added 0
+Progress: resolved 638, reused 443, downloaded 27, added 0
+Progress: resolved 642, reused 444, downloaded 33, added 0
+Progress: resolved 655, reused 444, downloaded 39, added 0
+Progress: resolved 677, reused 444, downloaded 56, added 0
+Progress: resolved 685, reused 444, downloaded 76, added 0
+Progress: resolved 685, reused 444, downloaded 78, added 0
+Packages: +109 -2
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--
+Progress: resolved 685, reused 444, downloaded 78, added 1
+Progress: resolved 685, reused 444, downloaded 78, added 6
+Progress: resolved 685, reused 444, downloaded 78, added 8
+Progress: resolved 685, reused 444, downloaded 78, added 18
+Progress: resolved 685, reused 444, downloaded 78, added 33
+Progress: resolved 685, reused 444, downloaded 78, added 70
+Progress: resolved 685, reused 444, downloaded 78, added 108
+Progress: resolved 685, reused 444, downloaded 78, added 109
+Progress: resolved 685, reused 444, downloaded 78, added 109, done
+
+dependencies:
++ @sentry/nextjs 10.70.0
+
+[ERR_PNPM_IGNORED_BUILDS] Ignored build scripts: @sentry/cli@2.58.6
+
+Run "pnpm approve-builds" to pick which dependencies should be allowed to run scripts.

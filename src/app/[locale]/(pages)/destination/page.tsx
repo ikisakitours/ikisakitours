@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { DestinationExplorer } from "@/components/Destinations/DestinationExplorer";
 import { destinationsData } from "@/data/destinationData";
-import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import { Hero } from "@/components/ui/Hero";
 import { Suspense } from "react";
 import { useTranslations } from "next-intl";
@@ -36,15 +35,13 @@ function TranslatedHero() {
 export default function DestinationsPage() {
   return (
     <main className="min-h-screen bg-lanka-dark">
-      <UserPageLayout>
-        <TranslatedHero />
-        <Suspense fallback={<div className="text-white">Loading...</div>}>
-          <DestinationExplorer destinations={destinationsData} />
-        </Suspense>
-        <ContainerLayout>
-          <PromoModal />
-        </ContainerLayout>
-      </UserPageLayout>
+      <TranslatedHero />
+      <Suspense fallback={<div className="text-white">Loading...</div>}>
+        <DestinationExplorer destinations={destinationsData} />
+      </Suspense>
+      <ContainerLayout>
+        <PromoModal />
+      </ContainerLayout>
     </main>
   );
 }

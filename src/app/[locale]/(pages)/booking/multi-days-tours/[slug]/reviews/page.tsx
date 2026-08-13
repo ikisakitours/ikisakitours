@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { bookingTour } from "@/data/multiDaysBooking";
 import ReviewsBody from "@/components/booking/bookingReviews/ReviewsBody";
-import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 
 type BookingReviewsPageProps = {
   params: Promise<{
@@ -37,8 +36,8 @@ export default async function BookingReviewsPage({ params }: BookingReviewsPageP
   }
 
   return (
-    <UserPageLayout>
-      <ReviewsBody tour={tour} tourType="multi"/>
-    </UserPageLayout>
+    <>
+      <ReviewsBody tour={tour} tourType="multi" />
+    </>
   );
 }

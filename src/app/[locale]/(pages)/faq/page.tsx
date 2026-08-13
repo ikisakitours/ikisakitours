@@ -1,6 +1,5 @@
 import React from "react";
 import FaqBody from "@/components/faq/FaqBody";
-import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import { Hero } from "@/components/ui/Hero";
 import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
@@ -19,18 +18,16 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default function Page() {
   const t = useTranslations("FaqPage.Hero");
   return (
-    <UserPageLayout>
-      <main className="min-h-screen bg-lanka-dark">
-        <Hero
-          image={t("backGroundImage")}
-          altText={t("altText")}
-          eyebrow={t("eyebrow")}
-          title={t("title")}
-          accent={t("accent")}
-          strapline={t("strapline")}
-        />
-        <FaqBody />
-      </main>
-    </UserPageLayout>
+    <main className="min-h-screen bg-lanka-dark">
+      <Hero
+        image={t("backGroundImage")}
+        altText={t("altText")}
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        accent={t("accent")}
+        strapline={t("strapline")}
+      />
+      <FaqBody />
+    </main>
   );
 }

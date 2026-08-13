@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { blogPosts } from "@/data/blog";
 import { Hero } from "@/components/ui/Hero";
 import { BlogArticle } from "@/components/blog/BlogArticle";
-import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 
 type BlogDetailPageProps = {
   params: Promise<{
@@ -55,18 +54,16 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   }
 
   return (
-    <UserPageLayout>
-      <main className="min-h-screen bg-lanka-dark">
-        <Hero
-          image={post.image}
-          altText={post.altText}
-          eyebrow={post.category}
-          title={post.title}
-          accent={post.accent}
-          strapline={post.excerpt}
-        />
-        <BlogArticle post={post} />
-      </main>
-    </UserPageLayout>
+    <main className="min-h-screen bg-lanka-dark">
+      <Hero
+        image={post.image}
+        altText={post.altText}
+        eyebrow={post.category}
+        title={post.title}
+        accent={post.accent}
+        strapline={post.excerpt}
+      />
+      <BlogArticle post={post} />
+    </main>
   );
 }

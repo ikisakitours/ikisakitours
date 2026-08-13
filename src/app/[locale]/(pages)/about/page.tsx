@@ -1,5 +1,4 @@
 import React from "react";
-import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import { Hero } from "@/components/ui/Hero";
 import AboutBody from "@/components/about/AboutBody";
 import { getTranslations } from "next-intl/server";
@@ -19,17 +18,15 @@ export default async function AboutUsPage() {
 
   return (
     <main className="min-h-screen bg-lanka-dark">
-      <UserPageLayout>
-        <Hero
-          image={t("image")}
-          altText={t("altText")}
-          eyebrow={t("eyebrow")}
-          title={t("title")}
-          accent={t("accent")}
-          strapline={t("strapline")}
-        />
-        <AboutBody />
-      </UserPageLayout>
+      <Hero
+        image={t("image")}
+        altText={t("altText")}
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        accent={t("accent")}
+        strapline={t("strapline")}
+      />
+      <AboutBody />
     </main>
   );
 }

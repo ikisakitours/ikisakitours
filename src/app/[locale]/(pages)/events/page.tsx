@@ -3,7 +3,6 @@ import { getTranslations } from "next-intl/server";
 import { Hero } from "@/components/ui/Hero";
 import { EventsBody } from "@/components/Events/EventsBody";
 import { allSpecialEventsList, categories } from "@/data/specialEvents";
-import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import { useTranslations } from "next-intl";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { PromoModal } from "@/components/ui/PromoModal";
@@ -33,14 +32,12 @@ function TranslatedHero() {
 
 export default function SpecialEventsPage() {
   return (
-    <UserPageLayout>
-      <main className="min-h-screen bg-background">
-        <TranslatedHero />
-        <EventsBody events={allSpecialEventsList} categories={categories} />
-        <ContainerLayout>
-          <PromoModal />
-        </ContainerLayout>
-      </main>
-    </UserPageLayout>
+    <main className="min-h-screen bg-background">
+      <TranslatedHero />
+      <EventsBody events={allSpecialEventsList} categories={categories} />
+      <ContainerLayout>
+        <PromoModal />
+      </ContainerLayout>
+    </main>
   );
 }

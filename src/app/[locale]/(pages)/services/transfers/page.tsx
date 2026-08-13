@@ -3,7 +3,6 @@ import { getTranslations } from "next-intl/server";
 import { useTranslations } from "next-intl";
 import { TransferBookingForm } from "@/components/services/transfers/TransferBookingForm";
 import { Hero } from "@/components/ui/Hero";
-import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { PromoModal } from "@/components/ui/PromoModal";
 
@@ -20,21 +19,19 @@ export default function TransfersPage() {
   const t = useTranslations("Services.Hero.Transfers");
 
   return (
-    <UserPageLayout>
-      <main className="min-h-screen bg-lanka-dark">
-        <Hero
-          image={t("image")}
-          altText={t("alt")}
-          eyebrow={t("eyebrow")}
-          title={t("title")}
-          accent={t("accent")}
-          strapline={t("strapline")}
-        />
-        <TransferBookingForm />
-        <ContainerLayout>
-          <PromoModal />
-        </ContainerLayout>
-      </main>
-    </UserPageLayout>
+    <main className="min-h-screen bg-lanka-dark">
+      <Hero
+        image={t("image")}
+        altText={t("alt")}
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        accent={t("accent")}
+        strapline={t("strapline")}
+      />
+      <TransferBookingForm />
+      <ContainerLayout>
+        <PromoModal />
+      </ContainerLayout>
+    </main>
   );
 }

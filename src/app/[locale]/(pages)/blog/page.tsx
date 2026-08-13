@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { BlogExplorer } from "@/components/blog/BlogExplorer";
 import { blogPosts, blogHero } from "@/data/blog";
-import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import { Hero } from "@/components/ui/Hero";
 
 export const metadata: Metadata = {
@@ -32,17 +31,15 @@ export const metadata: Metadata = {
 export default function BlogPage() {
   return (
     <main className="min-h-screen bg-lanka-dark ">
-      <UserPageLayout>
-        <Hero
-          image={blogHero.image}
-          altText={blogHero.eyebrow}
-          eyebrow={blogHero.eyebrow}
-          title={blogHero.title}
-          accent={blogHero.accent}
-          strapline={blogHero.strapline}
-        />
-        <BlogExplorer posts={blogPosts} />
-      </UserPageLayout>
+      <Hero
+        image={blogHero.image}
+        altText={blogHero.eyebrow}
+        eyebrow={blogHero.eyebrow}
+        title={blogHero.title}
+        accent={blogHero.accent}
+        strapline={blogHero.strapline}
+      />
+      <BlogExplorer posts={blogPosts} />
     </main>
   );
 }

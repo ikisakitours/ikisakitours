@@ -3,7 +3,6 @@ import { getTranslations } from "next-intl/server";
 import { useTranslations } from "next-intl";
 import { BespokeForm } from "@/components/services/bespoke/BespokeForm";
 import { Hero } from "@/components/ui/Hero";
-import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { PromoModal } from "@/components/ui/PromoModal";
 
@@ -21,22 +20,20 @@ export default function BespokePage() {
   const t = useTranslations("Services.Hero.Bespoke");
 
   return (
-    <UserPageLayout>
-      <main className="min-h-screen bg-lanka-dark">
-        <Hero
-          image={t("image")}
-          altText={t("alt")}
-          eyebrow={t("eyebrow")}
-          title={t("title")}
-          accent={t("accent")}
-          strapline={t("strapline")}
-        />
-        <BespokeForm />
+    <main className="min-h-screen bg-lanka-dark">
+      <Hero
+        image={t("image")}
+        altText={t("alt")}
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        accent={t("accent")}
+        strapline={t("strapline")}
+      />
+      <BespokeForm />
 
-        <ContainerLayout>
-          <PromoModal />
-        </ContainerLayout>
-      </main>
-    </UserPageLayout>
+      <ContainerLayout>
+        <PromoModal />
+      </ContainerLayout>
+    </main>
   );
 }

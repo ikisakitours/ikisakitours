@@ -6,7 +6,6 @@ import { JournalPreview } from "@/components/home/JournalPreview";
 import { ToursSection } from "@/components/home/ToursSection";
 import { PrivateVehicle } from "@/components/home/PrivateVehicle";
 import { TransfersSection } from "@/components/home/TransfersSection";
-import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import { CustomTourSection } from "@/components/home/CustomTourSection";
 import HomeContactCTA from "@/components/home/HomeContactCTA";
 import { SpecialEventsSection } from "@/components/home/EventsSection";
@@ -15,7 +14,7 @@ import { PromoModal } from "@/components/ui/PromoModal";
 
 export default function HomePage() {
   return (
-    <UserPageLayout>
+    <>
       {/* 1. Inspiration Phase */}
       <HeroSection />
       <DiscoverySection />
@@ -40,6 +39,6 @@ export default function HomePage() {
       <ContainerLayout>
         <PromoModal />
       </ContainerLayout>
-    </UserPageLayout>
+    </>
   );
 }

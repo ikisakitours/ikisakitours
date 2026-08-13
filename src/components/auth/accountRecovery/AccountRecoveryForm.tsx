@@ -24,8 +24,7 @@ function AccountRecoveryFormInner() {
   const searchParams = useSearchParams();
 
   const fromWhere = searchParams?.get("from");
-const backLabel =
-  fromWhere === "profile?tab=security" ? tAuth("Links.backToProfile") : tAuth("Links.backToSignIn");
+  const backLabel = fromWhere === "profile?tab=security" ? tAuth("Links.backToProfile") : tAuth("Links.backToSignIn");
 
   const handleBackClick = () => {
     if (fromWhere === "profile") {
@@ -50,7 +49,6 @@ const backLabel =
         <form className="space-y-6" onSubmit={handleSubmit} noValidate>
           <label className="block space-y-2">
             <span className="ml-1 block text-[10px] font-bold uppercase tracking-[0.2em] text-gold">
-              {" "}
               {tForm("Labels.email")}
             </span>
             <span className="group relative block">

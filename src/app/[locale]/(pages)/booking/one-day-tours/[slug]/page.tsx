@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import BookingBody from "@/components/booking/BookingBody";
-import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import { bookingTour, travelerOptions, bookingAssurances } from "@/data/oneDayBooking";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { PromoModal } from "@/components/ui/PromoModal";
@@ -60,11 +59,11 @@ export default async function BookingPage({ params }: BookingPageProps) {
   }
 
   return (
-    <UserPageLayout>
+    <>
       <BookingBody tour={tour} options={travelerOptions} assurances={bookingAssurances} tourType="one" />
       <ContainerLayout>
         <PromoModal />
       </ContainerLayout>
-    </UserPageLayout>
+    </>
   );
 }

@@ -1,6 +1,5 @@
 import React from "react";
 import { notFound } from "next/navigation";
-import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import { Hero } from "@/components/ui/Hero";
 import DestinationsBody from "@/components/Destinations/DestinationSlug/DestinationsBody";
 import { destinationsData } from "@/data/destinationData";
@@ -40,21 +39,19 @@ export default async function DestinationPage({ params }: DestinationPageProps) 
 
   return (
     <main className="min-h-screen bg-lanka-dark">
-      <UserPageLayout>
-        <Hero
-          image={dest.hero.image}
-          altText={dest.name}
-          eyebrow={dest.hero.eyebrow}
-          title={dest.hero.title}
-          accent={dest.hero.accent}
-          strapline={dest.hero.strapline}
-        />
+      <Hero
+        image={dest.hero.image}
+        altText={dest.name}
+        eyebrow={dest.hero.eyebrow}
+        title={dest.hero.title}
+        accent={dest.hero.accent}
+        strapline={dest.hero.strapline}
+      />
 
-        <DestinationsBody dest={dest} />
-        <ContainerLayout>
-          <PromoModal />
-        </ContainerLayout>
-      </UserPageLayout>
+      <DestinationsBody dest={dest} />
+      <ContainerLayout>
+        <PromoModal />
+      </ContainerLayout>
     </main>
   );
 }

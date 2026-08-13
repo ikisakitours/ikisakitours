@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { allSpecialEventsList } from "@/data/specialEvents";
-import UserPageLayout from "@/components/pageLayouts/UserPageLayout";
 import { EventBody } from "@/components/Events/slug/EventBody";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { PromoModal } from "@/components/ui/PromoModal";
@@ -52,11 +51,11 @@ export default async function SpecialEventDetailsPage({ params }: PageProps) {
   }
 
   return (
-    <UserPageLayout>
+    <main className="min-h-screen bg-lanka-dark">
       <EventBody listItem={listItem} />
       <ContainerLayout>
         <PromoModal />
       </ContainerLayout>
-    </UserPageLayout>
+    </main>
   );
 }
