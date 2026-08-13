@@ -48,5 +48,4 @@ scripts/fix-untranslated.mjs
 scripts/verify-translations.mjs
 scripts/cleanup-extra-keys.mjs
 scripts/fix-variables.mjs
-# Sentry Config File
-.env.sentry-build-plugin
+
