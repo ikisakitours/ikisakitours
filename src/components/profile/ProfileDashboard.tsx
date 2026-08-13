@@ -1,5 +1,5 @@
 "use client";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { ProfileDetailsPanel } from "./ProfileDetailsPanel";
 import { SecuritySettingsPanel } from "./SecuritySettingsPanel";
 import { profileTabs, type ProfileTabId } from "@/data/profile";
@@ -7,14 +7,18 @@ import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/i18nNavigation";
 import { useTranslations } from "next-intl";
+// import { ReferralPanel } from "./ReferralPanel";
+import { FilterSidebar } from "@/components/ui/FilterSidebar";
 
 //Icons
-import { ShieldCheck, UserRound, type LucideIcon } from "lucide-react";
-
+import { ShieldCheck, UserRound, Gift, Settings2, type LucideIcon } from "lucide-react";
 const tabIcons = {
   profile: UserRound,
   security: ShieldCheck,
+  referral: Gift,
 } satisfies Record<ProfileTabId, LucideIcon>;
+
+const ENABLE_REFERRALS = false;
 
 function ProfileDashboardInner() {
   const searchParams = useSearchParams();
@@ -22,26 +26,60 @@ function ProfileDashboardInner() {
   const t = useTranslations("ProfilePage");
 
   const tabParam = searchParams?.get("tab");
-  const activeTab: ProfileTabId = tabParam === "security" ? "security" : "profile";
+
+  const activeTab: ProfileTabId =
+    tabParam === "security" ? "security" : ENABLE_REFERRALS && tabParam === "referral" ? "referral" : "profile";
 
   const handleTabChange = (id: ProfileTabId) => {
     router.push(`/profile?tab=${id}`, { scroll: false });
   };
 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const tabCategories = ["profile", "security"] as const;
+  // const tabCategories = ["profile", "security", "referral"] as const;
+
+  const tabLabels = {
+    profile: t("Dashboard.tabProfile"),
+    security: t("Dashboard.tabSecurity"),
+    referral: t("Dashboard.tabReferral"),
+  };
   return (
-    <ContainerLayout className="grid grid-cols-1 gap-12 lg:grid-cols-12 py-20 sm:py-24 md:py-26 lg:py-28 2xl:py-30 3xl:py-32">
-      <aside className="w-full space-y-6 lg:col-span-4">
-        <h1 className="premium-serif mb-6 whitespace-nowrap text-center text-2xl text-white sm:mb-8 sm:text-3xl lg:text-left lg:text-4xl">
+    <ContainerLayout className="grid grid-cols-1 gap-8 xl:gap-12 xl:grid-cols-12 py-26 sm:py-27 md:py-26 lg:py-28 2xl:py-30 3xl:py-32">
+      <div className="xl:hidden col-span-full w-full flex items-center justify-between border-b border-white/10 pb-4">
+        <h1 className="premium-serif text-2xl text-white">
           {t("Dashboard.titleBase")} <span className="text-gold">{t("Dashboard.titleAccent")}</span>
         </h1>
+        <button
+          onClick={() => setIsSidebarOpen(true)}
+          className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-xs font-bold uppercase tracking-widest text-gold transition-colors hover:border-gold/50"
+        >
+          <Settings2 className="h-4 w-4" />
+          {t("Dashboard.menuBtn")}
+        </button>
+      </div>
 
-        <nav className="mx-auto flex w-full flex-nowrap justify-center gap-1.5 sm:gap-3 lg:mx-0 lg:max-w-full lg:flex-col lg:space-y-2.5 lg:gap-0">
+      <aside className="hidden xl:block w-full space-y-6 lg:col-span-4">
+        <h1 className="premium-serif mb-6 whitespace-nowrap text-left text-4xl text-white">
+          {t("Dashboard.titleBase")} <span className="text-gold">{t("Dashboard.titleAccent")}</span>
+        </h1>
+        <nav className="mx-0 flex w-full max-w-full flex-col space-y-2.5">
           {profileTabs.map((tab) => {
             const Icon = tabIcons[tab.id];
             const isActive = tab.id === activeTab;
 
-            const shortLabel = tab.id === "profile" ? t("Dashboard.shortProfile") : t("Dashboard.shortSecurity");
-            const fullLabel = tab.id === "profile" ? t("Dashboard.tabProfile") : t("Dashboard.tabSecurity");
+            const shortLabel =
+              tab.id === "profile"
+                ? t("Dashboard.shortProfile")
+                : tab.id === "security"
+                  ? t("Dashboard.shortSecurity")
+                  : t("Dashboard.shortReferral");
+
+            const fullLabel =
+              tab.id === "profile"
+                ? t("Dashboard.tabProfile")
+                : tab.id === "security"
+                  ? t("Dashboard.tabSecurity")
+                  : t("Dashboard.tabReferral");
 
             return (
               <button
@@ -66,9 +104,24 @@ function ProfileDashboardInner() {
           })}
         </nav>
       </aside>
-      <div className="lg:col-span-8">
-        {activeTab === "profile" ? <ProfileDetailsPanel /> : <SecuritySettingsPanel />}
+
+      <div className="col-span-full xl:col-span-8">
+        {activeTab === "profile" && <ProfileDetailsPanel />}
+        {activeTab === "security" && <SecuritySettingsPanel />}
+        {/* {activeTab === "referral" && <ReferralPanel />} */}
       </div>
+
+      <FilterSidebar
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+        categories={tabCategories}
+        selectedCategory={activeTab}
+        onSelectCategory={(category) => handleTabChange(category as ProfileTabId)}
+        title={t("Dashboard.accountMenuTitle")}
+        categoryLabels={tabLabels}
+        showClearButton={false}
+        showCounts={false}
+      />
     </ContainerLayout>
   );
 }

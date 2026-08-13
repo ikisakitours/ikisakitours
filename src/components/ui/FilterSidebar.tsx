@@ -62,16 +62,27 @@ const filterMenuVariants: Variants = {
   exit: { x: "calc(100% + 100px)", transition: { duration: 0.8, ease: customEase } },
 };
 
+// Animations (Ultra-Smooth, Zero-Lag Settings)
 const filterStagger: Variants = {
   initial: {},
-  enter: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } },
-  exit: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
+  enter: { transition: { staggerChildren: 0.05, delayChildren: 0.1 } },
+  exit: { transition: { staggerChildren: 0.03, staggerDirection: -1 } },
 };
 
 const filterItemVariants: Variants = {
-  initial: { opacity: 0, y: 15 },
-  enter: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
-  exit: { opacity: 0, y: 10, transition: { duration: 0.4 } },
+  initial: { opacity: 0, y: 20, scale: 0.98 },
+  enter: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+  },
+  exit: {
+    opacity: 0,
+    y: 10,
+    scale: 0.98,
+    transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
 export function FilterSidebar({
@@ -90,13 +101,16 @@ export function FilterSidebar({
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add("overflow-hidden");
+      document.documentElement.classList.add("overflow-hidden");
       window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: true } }));
     } else {
       document.body.classList.remove("overflow-hidden");
+      document.documentElement.classList.remove("overflow-hidden");
       window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: false } }));
     }
     return () => {
       document.body.classList.remove("overflow-hidden");
+      document.documentElement.classList.remove("overflow-hidden");
       window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: false } }));
     };
   }, [isOpen]);
@@ -172,6 +186,7 @@ export function FilterSidebar({
                     <motion.button
                       key={item}
                       variants={filterItemVariants}
+                      style={{ willChange: "transform, opacity" }}
                       onClick={() => {
                         onSelectCategory(item);
                         onClose();

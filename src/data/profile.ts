@@ -1,4 +1,4 @@
-export type ProfileTabId = "profile" | "security";
+export type ProfileTabId = "profile" | "security" | "referral";
 
 export type ProfileTab = {
   id: ProfileTabId;
@@ -21,6 +21,5 @@ export const profileUser = {
 export const profileTabs: ProfileTab[] = [
   { id: "profile", label: "Profile Management" },
   { id: "security", label: "Security & Privacy" },
+  //  { id: "referral", label: "Invite Friends" },// un comment want referral show 
 ];
-
-
