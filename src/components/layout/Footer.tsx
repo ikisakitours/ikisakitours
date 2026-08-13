@@ -57,7 +57,7 @@ export function Footer() {
       </div>
 
       <ContainerLayout className="relative z-10">
-        <div className="mb-20 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:gap-x-24 lg:gap-y-12 xl:grid-cols-12 xl:gap-8">
+        <div className="mb-20 2xl:mb-20 3xl:mb-20 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:gap-x-24 lg:gap-y-12 xl:grid-cols-12 xl:gap-8">
           <div className="flex flex-col items-center space-y-6 text-center sm:items-start sm:text-left xl:col-span-4">
             <div className="flex items-center space-x-3">
               <h3 className="text-2xl font-light tracking-[0.2em] text-white">
@@ -173,9 +173,9 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mb-10 h-px w-full bg-linear-to-r from-transparent via-white/20 to-transparent" />
+        <div className="mb-10 2xl:mb-30 3xl:mb-35 h-px w-full bg-linear-to-r from-transparent via-white/20 to-transparent" />
 
-        {/* Footer bottom section - Layout unchanged */}
+        {/* Footer bottom section */}
         <div className="flex flex-col items-center justify-between gap-8 xl:flex-row">
           <p className="flex flex-wrap items-center justify-center lg:justify-start gap-1.5 text-center text-[11px] font-medium uppercase tracking-[0.2em] text-slate-300 lg:text-left">
             <span>&copy; {tFooter("copyright")}</span>
@@ -183,20 +183,36 @@ export function Footer() {
             <span>{tFooter("forTravelers")}</span>
           </p>
 
-          <div className="flex flex-wrap justify-center gap-6 md:gap-10">
-            {legalLinks.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-300 transition-colors hover:text-white"
-              >
-                {tFooter(`legal.${item.label}`)}
-              </Link>
-            ))}
+          <div className="flex flex-wrap justify-center gap-6 md:gap-5">
+            {legalLinks.map((item) => {
+              if (item.label === "Cookie Consent") {
+                return (
+                  <button
+                    key={item.label}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.dispatchEvent(new CustomEvent("openCookieModal"));
+                    }}
+                    className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-300 transition-colors hover:text-white cursor-pointer"
+                  >
+                    {tFooter(`legal.${item.label}`)}
+                  </button>
+                );
+              }
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-300 transition-colors hover:text-white"
+                >
+                  {tFooter(`legal.${item.label}`)}
+                </Link>
+              );
+            })}
           </div>
         </div>
 
-        {/* 2. Industry Standard "Powered By" Signature Badge */}
+        {/*Powered By" Signature Badge */}
         <div className="mt-8 flex items-center justify-center">
           <Link
             href={BRAND_URL}

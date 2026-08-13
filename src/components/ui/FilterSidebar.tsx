@@ -11,9 +11,11 @@ type CategoryFilterSidebarProps = {
   selectedCategory: string;
   onSelectCategory: (category: string) => void;
   title?: string;
-  categoryCounts: Record<string, number>;
+  categoryCounts?: Record<string, number>;
   categoryLabels?: Record<string, string>;
   clearFilterText?: string;
+  showClearButton?: boolean;
+  showCounts?: boolean;
 };
 
 const customEase: [number, number, number, number] = [0.76, 0, 0.24, 1];
@@ -79,9 +81,11 @@ export function FilterSidebar({
   selectedCategory,
   onSelectCategory,
   title = "Select Category",
-  categoryCounts,
+  categoryCounts = {},
   categoryLabels,
   clearFilterText = "Clear Filter",
+  showClearButton = true,
+  showCounts = true,
 }: CategoryFilterSidebarProps) {
   useEffect(() => {
     if (isOpen) {
@@ -91,7 +95,7 @@ export function FilterSidebar({
       document.body.classList.remove("overflow-hidden");
       window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: false } }));
     }
-return () => {
+    return () => {
       document.body.classList.remove("overflow-hidden");
       window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: false } }));
     };
@@ -131,27 +135,28 @@ return () => {
             </div>
 
             {/* Categories List (Scrollable Area) */}
-            <div className="relative z-10 flex-1 overflow-y-auto px-6 pb-8 sm:px-8">
+            <div className={`relative z-10 flex-1 overflow-y-auto px-6 pb-8 sm:px-8 ${!showClearButton ? "pt-6" : ""}`}>
               {/* Sticky Clear Filter Button (Fixed) */}
-              <div className="sticky top-0 z-20 -mx-6 mb-6 border-b border-white/5 bg-[#0a0a0a] px-6 pb-4 pt-6 sm:-mx-8 sm:px-8">
-                <button
-                  type="button"
-                  onClick={() => {
-                    onSelectCategory("all");
-                    onClose();
-                  }}
-                  disabled={selectedCategory === "all"}
-                  className={`flex w-full items-center justify-center gap-2 rounded-xl border py-3.5 text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 ${
-                    selectedCategory !== "all"
-                      ? "border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white"
-                      : "cursor-not-allowed border-white/5 bg-white/5 text-white/20"
-                  }`}
-                >
-                  <FilterX className="h-4 w-4" />
-                  {clearFilterText}
-                </button>
-              </div>
-
+              {showClearButton && (
+                <div className="sticky top-0 z-20 -mx-6 mb-6 border-b border-white/5 bg-[#0a0a0a] px-6 pb-4 pt-6 sm:-mx-8 sm:px-8">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onSelectCategory("all");
+                      onClose();
+                    }}
+                    disabled={selectedCategory === "all"}
+                    className={`flex w-full items-center justify-center gap-2 rounded-xl border py-3.5 text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 ${
+                      selectedCategory !== "all"
+                        ? "border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white"
+                        : "cursor-not-allowed border-white/5 bg-white/5 text-white/20"
+                    }`}
+                  >
+                    <FilterX className="h-4 w-4" />
+                    {clearFilterText}
+                  </button>
+                </div>
+              )}
               <motion.div
                 variants={filterStagger}
                 initial="initial"
@@ -185,13 +190,15 @@ return () => {
                         >
                           {displayLabel}
                         </span>
-                        <span
-                          className={`text-[10px] font-bold ${
-                            isActive ? "text-black/60" : "text-white/30 group-hover:text-gold/50"
-                          }`}
-                        >
-                          ({count})
-                        </span>
+                        {showCounts && (
+                          <span
+                            className={`text-[10px] font-bold ${
+                              isActive ? "text-black/60" : "text-white/30 group-hover:text-gold/50"
+                            }`}
+                          >
+                            ({count})
+                          </span>
+                        )}
                       </div>
 
                       {/* Active Indicator */}

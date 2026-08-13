@@ -24,6 +24,12 @@ type CategoryFilterSidebarProps = {
   ratingCounts: Record<string, number>;
   priceCategories: readonly { value: string; label: string }[];
   ratingCategories: readonly { value: string; label: string }[];
+
+  duration: string;
+  onDurationChange: (duration: string) => void;
+  durationCategories: readonly string[];
+  durationCounts: Record<string, number>;
+  durationTitle: string;
 };
 
 const customEase: [number, number, number, number] = [0.76, 0, 0.24, 1];
@@ -80,6 +86,12 @@ export function FilterSidebar({
   ratingCounts,
   priceCategories,
   ratingCategories,
+
+  duration,
+  onDurationChange,
+  durationCategories,
+  durationCounts,
+  durationTitle,
 }: CategoryFilterSidebarProps) {
   const t = useTranslations("Tours.Explorer.Sidebar");
   useEffect(() => {
@@ -90,13 +102,14 @@ export function FilterSidebar({
       document.body.classList.remove("overflow-hidden");
       window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: false } }));
     }
-return () => {
+    return () => {
       document.body.classList.remove("overflow-hidden");
       window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: false } }));
     };
   }, [isOpen]);
 
-  const isFilterActive = selectedCategory !== "all" || priceRange !== "Any price" || rating !== "Any rating";
+  const isFilterActive =
+    selectedCategory !== "all" || duration !== "all" || priceRange !== "Any price" || rating !== "Any rating";
   return (
     <AnimatePresence mode="wait">
       {isOpen && (
@@ -151,6 +164,38 @@ return () => {
                         {item}
                       </span>
                       <span className="text-white/30">{categoryCounts[item]}</span>
+                    </button>
+                  ))}
+              </div>
+
+              {/* Duration Section (අලුතින් එකතු කරන කොටස) */}
+              <div className="space-y-4">
+                <h3 className="text-[10px] font-bold uppercase tracking-widest text-white/50">{durationTitle}</h3>
+
+                {/* All Option */}
+                <button
+                  onClick={() => onDurationChange("all")}
+                  className="flex w-full items-center justify-between text-sm text-slate-300 transition-colors hover:text-gold"
+                >
+                  <span className="flex items-center gap-3">
+                    <input type="radio" checked={duration === "all"} readOnly className="accent-gold" /> All
+                  </span>
+                  <span className="text-white/30">{durationCounts["all"]}</span>
+                </button>
+
+                {/* Dynamic Duration Options */}
+                {durationCategories
+                  .filter((d) => d !== "all")
+                  .map((item) => (
+                    <button
+                      key={item}
+                      onClick={() => onDurationChange(item)}
+                      className="flex w-full items-center justify-between text-sm text-slate-300 transition-colors hover:text-gold"
+                    >
+                      <span className="flex items-center gap-3">
+                        <input type="radio" checked={duration === item} readOnly className="accent-gold" /> {item}
+                      </span>
+                      <span className="text-white/30">{durationCounts[item]}</span>
                     </button>
                   ))}
               </div>

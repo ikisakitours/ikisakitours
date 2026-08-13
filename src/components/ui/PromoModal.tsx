@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { X, Sparkles, Copy, Check, Loader2 } from "lucide-react";
+import { X, Sparkles, Copy, Check, CheckCircle2, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 
@@ -149,7 +149,7 @@ export function PromoModal({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-200 flex overflow-y-auto no-scrollbar p-4 sm:p-6">
+        <div className="fixed inset-0 z-9999 flex overflow-y-auto no-scrollbar p-4 sm:p-6">
           {isClaimed && <ConfettiRain />}
 
           <motion.div
@@ -259,7 +259,7 @@ export function PromoModal({
                             : "bg-lanka-black border border-white/20 text-white hover:border-gold hover:text-gold shadow-lg"
                         }`}
                       >
-                        {isCopied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+                        {isCopied ? <CheckCircle2 className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
                         {isCopied ? t("copied") : t("copyCode")}
                       </button>
                     </div>

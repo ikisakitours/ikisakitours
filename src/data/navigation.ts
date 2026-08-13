@@ -73,6 +73,9 @@ export const legalLinks = [
   { label: "Privacy Policy", href: "/legal/privacy" },
   { label: "Booking Policy", href: "/legal/booking" },
   { label: "Payment Policy", href: "/legal/payment" },
+  { label: "Cookie Policy", href: "/legal/cookie" },
+  { label: "Cookie Consent", href: "" },
+  // { label: "How The Site Works", href: "/legal/cookie#how-it-works" },
 ] as const;
 
 export const contactInfo = [

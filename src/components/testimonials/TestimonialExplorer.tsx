@@ -23,7 +23,7 @@ const INITIAL_COUNT = 3;
 export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) {
   const router = useRouter();
   const t = useTranslations("Testimonials.Explorer");
-  
+
   const [language, setLanguage] = useState<string>("all");
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -57,7 +57,7 @@ export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) 
   const [isWritingReview, setIsWritingReview] = useState(false);
   const visibleTestimonials = filteredTestimonials.slice(0, visibleCount);
   const hasMore = visibleTestimonials.length < filteredTestimonials.length;
-
+  const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
   function selectLanguage(nextLanguage: string) {
     startTransition(() => {
       setLanguage(nextLanguage);
@@ -75,10 +75,11 @@ export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) 
               {!isWritingReview ? (
                 <motion.div
                   key="leave-mark"
-                  initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -10, scale: 0.98 }}
-                  transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.5, ease: smoothEase }}
+                  style={{ willChange: "transform, opacity" }}
                 >
                   <Button variant="shine" onClick={() => setIsWritingReview(true)}>
                     {t("leaveMark")}
@@ -87,10 +88,11 @@ export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) 
               ) : (
                 <motion.div
                   key="back-reviews"
-                  initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -10, scale: 0.98 }}
-                  transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.5, ease: smoothEase }} // 🔴 Buttery smooth transition
+                  style={{ willChange: "transform, opacity" }}
                 >
                   <Button variant="reviewTag" onClick={() => setIsWritingReview(false)}>
                     <ArrowLeft className="h-4 w-4" strokeWidth={3} />
@@ -125,62 +127,69 @@ export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) 
           )}
         </div>
 
-        {isWritingReview ? (
-          <motion.div
-            initial={{ opacity: 0, y: 15, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{
-              duration: 0.7,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="mt-12"
-          >
-            <WriteReviewForm />
-          </motion.div>
-        ) : (
-          <>
-            {/* Testimonials Grid */}
-            {visibleTestimonials.length > 0 ? (
-              <div
-                id="testimonial-grid"
-                className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4"
-              >
-                {visibleTestimonials.map((testimonial) => (
-                  <TestimonialCard key={testimonial.id} testimonial={testimonial} />
-                ))}
-              </div>
-            ) : (
-              <EmptyState
-                backgroundText={t("EmptyState.backgroundText")}
-                title={t("EmptyState.title")}
-                description={t("EmptyState.description")}
-                buttonText={t("EmptyState.goBack")}
-                onAction={() => router.push("/")}
-              />
-            )}
-
-            {/* Pagination / Load More */}
-            <div className="mt-8 flex flex-col items-center md:mt-14">
-              {hasMore && (
-                <Button
-                  type="button"
-                  variant="explore"
-                  onClick={() => setVisibleCount((count) => count + INITIAL_COUNT)}
+        <AnimatePresence mode="wait">
+          {isWritingReview ? (
+            <motion.div
+              key="review-form"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.5, ease: smoothEase }}
+              style={{ willChange: "transform, opacity" }}
+              className="mt-12"
+            >
+              <WriteReviewForm />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="testimonials-list"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.5, ease: smoothEase }}
+              style={{ willChange: "transform, opacity" }}
+            >
+              {visibleTestimonials.length > 0 ? (
+                <div
+                  id="testimonial-grid"
+                  className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4"
                 >
-                  {t("loadMore")}
-                </Button>
+                  {visibleTestimonials.map((testimonial) => (
+                    <TestimonialCard key={testimonial.id} testimonial={testimonial} />
+                  ))}
+                </div>
+              ) : (
+                <EmptyState
+                  backgroundText={t("EmptyState.backgroundText")}
+                  title={t("EmptyState.title")}
+                  description={t("EmptyState.description")}
+                  buttonText={t("EmptyState.goBack")}
+                  onAction={() => router.push("/")}
+                />
               )}
-              <div className="mt-4 flex items-center gap-3">
-                <div className="h-px w-8 bg-gold/20" />
-                <p className="whitespace-nowrap text-[10px] font-medium uppercase tracking-[0.2em] text-slate-500">
-                  {t("showing")} <span className="text-gold">{visibleTestimonials.length}</span> {t("of")}
-                  <span className="text-white"> {filteredTestimonials.length}</span> {t("journals")}
-                </p>
-                <div className="h-px w-8 bg-gold/20" />
+
+              <div className="mt-8 flex flex-col items-center md:mt-14">
+                {hasMore && (
+                  <Button
+                    type="button"
+                    variant="explore"
+                    onClick={() => setVisibleCount((count) => count + INITIAL_COUNT)}
+                  >
+                    {t("loadMore")}
+                  </Button>
+                )}
+                <div className="mt-4 flex items-center gap-3">
+                  <div className="h-px w-8 bg-gold/20" />
+                  <p className="whitespace-nowrap text-[10px] font-medium uppercase tracking-[0.2em] text-slate-500">
+                    {t("showing")} <span className="text-gold">{visibleTestimonials.length}</span> {t("of")}
+                    <span className="text-white"> {filteredTestimonials.length}</span> {t("journals")}
+                  </p>
+                  <div className="h-px w-8 bg-gold/20" />
+                </div>
               </div>
-            </div>
-          </>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </ContainerLayout>
 
       {/* Reusable Filter Sidebar */}

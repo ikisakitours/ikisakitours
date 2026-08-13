@@ -15,7 +15,11 @@ import { Fuel, MapPinned, Check } from "lucide-react";
 import { SiWhatsapp } from "react-icons/si";
 const featureCardsIcons = [MapPinned, Fuel];
 
-export function PrivateVehicle() {
+interface PrivateVehicleProps {
+  hideImageOnMobile?: boolean;
+}
+
+export function PrivateVehicle({ hideImageOnMobile = false }: PrivateVehicleProps) {
   const t = useTranslations("HomePage.Services.PrivateVehicle");
   const [isContactOpen, setIsContactOpen] = useState(false);
 
@@ -47,7 +51,9 @@ export function PrivateVehicle() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.9, ease: [0.25, 1, 0.5, 1] }}
-              className="relative w-full max-w-125 xl:w-5/12 xl:max-w-none"
+              className={`relative w-full max-w-125 xl:w-5/12 xl:max-w-none ${
+                hideImageOnMobile ? "hidden md:block" : ""
+              }`}
             >
               <div className="relative z-10 overflow-hidden rounded-3xl border border-white/10 shadow-2xl md:rounded-[2.5rem]">
                 <LoadingImage

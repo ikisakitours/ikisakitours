@@ -119,15 +119,18 @@ export function SiteHeader() {
     }
   };
 
-  useEffect(() => {
+useEffect(() => {
     if (isMenuOpen) {
       document.body.classList.add("overflow-hidden");
+      document.documentElement.classList.add("overflow-hidden"); // අලුතින් එකතු කළා
     } else {
       document.body.classList.remove("overflow-hidden");
+      document.documentElement.classList.remove("overflow-hidden"); // අලුතින් එකතු කළා
     }
 
     return () => {
       document.body.classList.remove("overflow-hidden");
+      document.documentElement.classList.remove("overflow-hidden"); // අලුතින් එකතු කළා
     };
   }, [isMenuOpen]);
 

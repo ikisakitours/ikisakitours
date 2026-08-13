@@ -24,7 +24,7 @@ export default function HomePage() {
       {/* 2. Core Products Phase*/}
       <ToursSection />
       <CustomTourSection />
-      <PrivateVehicle />
+      <PrivateVehicle hideImageOnMobile={true} />
       <TransfersSection />
 
       {/* 3. entertainment & Content Phase */}
@@ -35,8 +35,8 @@ export default function HomePage() {
       <JournalPreview />
 
       {/* 5. Action Phase */}
-      <HomeContactCTA />
-      
+      <HomeContactCTA hideOnMobile={true} />
+
       <ContainerLayout>
         <PromoModal />
       </ContainerLayout>

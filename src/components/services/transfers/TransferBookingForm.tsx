@@ -1,7 +1,7 @@
 "use client";
 
 import { type FormEvent, useMemo, useState } from "react";
-import { type TransferServiceId } from "@/data/transfers";
+import { transferServiceIds, type TransferServiceId } from "@/data/transfers";
 import { vehicles } from "@/data/vehicles";
 import { TransferFareSummary } from "./TransferFareSummary";
 import { TransferJourneyFields } from "./TransferJourneyFields";
@@ -15,13 +15,18 @@ import FormPanel from "@/components/services/FormPanel";
 import StepHeading from "@/components/services/StepHeading";
 import { useTranslations } from "next-intl";
 import { languages } from "@/data/Languages-CurrencyData";
+import { useSearchParams } from "next/navigation";
 
 export function TransferBookingForm() {
   const tStep = useTranslations("Services.StepHeadings");
   const defaultCategory = vehicles[0].category;
   const defaultVehicleId = vehicles[0].id;
 
-  const [serviceType, setServiceType] = useState<TransferServiceId>("pickup");
+  const searchParams = useSearchParams();
+  const typeParam = searchParams.get("type") as TransferServiceId | null;
+  const initialServiceType = typeParam && transferServiceIds.includes(typeParam) ? typeParam : "pickup";
+
+  const [serviceType, setServiceType] = useState<TransferServiceId>(initialServiceType);
   const [activeFilter, setActiveFilter] = useState<ActiveVehicleFilter>(defaultCategory);
   const [selectedVehicleId, setSelectedVehicleId] = useState(defaultVehicleId);
 

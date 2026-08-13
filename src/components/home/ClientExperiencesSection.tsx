@@ -26,17 +26,18 @@ export function ClientExperiencesSection() {
   const checkScrollPosition = () => {
     if (scrollContainerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-      setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
+      setCanScrollLeft(scrollLeft > 2);
+      setCanScrollRight(Math.ceil(scrollLeft + clientWidth) < scrollWidth - 2);
     }
   };
 
   useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (container) {
-      container.addEventListener("scroll", checkScrollPosition);
-      return () => container.removeEventListener("scroll", checkScrollPosition);
-    }
+    checkScrollPosition();
+    window.addEventListener("resize", checkScrollPosition);
+
+    return () => {
+      window.removeEventListener("resize", checkScrollPosition);
+    };
   }, []);
 
   const scroll = (direction: "left" | "right") => {
@@ -63,6 +64,8 @@ export function ClientExperiencesSection() {
 
   const displayTestimonials = testimonials.filter((t) => (t.rating ?? 3) === 5).slice(0, 3);
 
+  const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
   return (
     <section
       id="testimonials"
@@ -77,7 +80,7 @@ export function ClientExperiencesSection() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
+            transition={{ duration: 0.8, ease: smoothEase }}
             className="text-center md:text-left"
           >
             <SectionBadge badge={t("badge")} />
@@ -94,7 +97,7 @@ export function ClientExperiencesSection() {
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 1, 0.5, 1] }}
+              transition={{ duration: 0.8, delay: 0.2, ease: smoothEase }}
               className="flex shrink-0 items-center space-x-6 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm"
             >
               <div className="border-r border-white/10 pr-6 text-center">
@@ -127,7 +130,7 @@ export function ClientExperiencesSection() {
                   initial={{ opacity: 0, y: 10, scale: 0.98 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.98 }}
-                  transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
+                  transition={{ duration: 0.5, ease: smoothEase }}
                 >
                   <Button variant="shine" onClick={() => setIsWritingReview(true)}>
                     {t("leaveMarkBtn")}
@@ -139,7 +142,7 @@ export function ClientExperiencesSection() {
                   initial={{ opacity: 0, y: 10, scale: 0.98 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.98 }}
-                  transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
+                  transition={{ duration: 0.5, ease: smoothEase }}
                 >
                   <Button variant="reviewTag" onClick={() => setIsWritingReview(false)}>
                     <ArrowLeft className="h-4 w-4 shrink-0" strokeWidth={3} />
@@ -154,17 +157,14 @@ export function ClientExperiencesSection() {
             <motion.div
               initial={{ opacity: 0, y: 15, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{
-                duration: 0.7,
-                ease: [0.22, 1, 0.36, 1], // Fluid "Out Expo" ease
-              }}
+              transition={{ duration: 0.6, ease: smoothEase }}
               className="flex items-center justify-end gap-3 xl:hidden"
             >
               <button
                 onClick={() => scroll("left")}
                 disabled={!canScrollLeft}
                 className={`flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white backdrop-blur-md transition-all 
-               ${!canScrollLeft ? "opacity-30 cursor-not-allowed" : "hover:border-gold hover:bg-gold hover:text-black cursor-pointer"}`}
+                ${!canScrollLeft ? "opacity-30 cursor-not-allowed" : "hover:border-gold hover:bg-gold hover:text-black cursor-pointer"}`}
                 aria-label="Scroll left"
               >
                 <ChevronLeft className="h-5 w-5" />
@@ -183,56 +183,63 @@ export function ClientExperiencesSection() {
         </div>
 
         {/*Main Content Area*/}
-        {isWritingReview ? (
-          <motion.div
-            initial={{ opacity: 0, y: 15, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{
-              duration: 0.7,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-          >
-            <WriteReviewForm />
-          </motion.div>
-        ) : (
-          <div className="relative">
-            <div
-              ref={scrollContainerRef}
-              className="flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto pb-12 scrollbar-none [-ms-overflow-style:none] sm:gap-6 md:gap-8 xl:grid xl:grid-cols-3 xl:overflow-visible xl:pb-0 [&::-webkit-scrollbar]:hidden"
-            >
-              {displayTestimonials.map((testimonial) => (
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "0px" }}
-                  transition={{
-                    duration: 0.7,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  style={{ willChange: "transform, opacity" }}
-                  key={testimonial.name}
-                  // Slider එකට අදාළ පළල (width) සහ Snapping මේ wrapper එකෙන් පාලනය කරයි
-                  className="w-[85%] shrink-0 snap-center sm:w-[60%] md:w-[45%] lg:w-[40%] xl:w-auto xl:min-w-0"
-                >
-                  {/* 🔴 ඔබ සාදාගත් Component එක මෙතනට යොදන්න */}
-                  <TestimonialCard testimonial={testimonial} />
-                </motion.div>
-              ))}
-            </div>
-
+        <AnimatePresence mode="wait">
+          {isWritingReview ? (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.5, ease: [0.25, 1, 0.5, 1] }}
-              className="mt-12 flex justify-center md:mt-20"
+              key="review-form"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.5, ease: smoothEase }}
+              style={{ willChange: "transform, opacity" }}
             >
-              <Button variant="explore" href="/testimonials">
-                {t("exploreMoreTestimonialsBtn")}
-              </Button>
+              <WriteReviewForm />
             </motion.div>
-          </div>
-        )}
+          ) : (
+            <motion.div
+              key="testimonials-list"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.5, ease: smoothEase }}
+              style={{ willChange: "transform, opacity" }}
+              className="relative"
+              onAnimationComplete={() => checkScrollPosition()}
+            >
+              <div
+                ref={scrollContainerRef}
+                onScroll={checkScrollPosition}
+                className="flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto pb-12 scrollbar-none [-ms-overflow-style:none] sm:gap-6 md:gap-8 xl:grid xl:grid-cols-3 xl:overflow-visible xl:pb-0 [&::-webkit-scrollbar]:hidden"
+              >
+                {displayTestimonials.map((testimonial) => (
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "0px" }}
+                    transition={{ duration: 0.6, ease: smoothEase }}
+                    style={{ willChange: "transform, opacity" }}
+                    key={testimonial.name}
+                    className="w-[85%] shrink-0 snap-center sm:w-[60%] md:w-[45%] lg:w-[40%] xl:w-auto xl:min-w-0"
+                  >
+                    <TestimonialCard testimonial={testimonial} />
+                  </motion.div>
+                ))}
+              </div>
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1, ease: smoothEase }}
+                style={{ willChange: "transform, opacity" }}
+                className="mt-12 flex justify-center md:mt-20"
+              >
+                <Button variant="explore" href="/testimonials">
+                  {t("exploreMoreTestimonialsBtn")}
+                </Button>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </ContainerLayout>
     </section>
   );

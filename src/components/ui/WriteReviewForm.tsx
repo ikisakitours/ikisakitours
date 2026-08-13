@@ -65,6 +65,7 @@ export function WriteReviewForm() {
               src="https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop"
               alt="Safari Experience"
               fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover transition-transform duration-1000 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent" />

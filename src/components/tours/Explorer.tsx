@@ -42,6 +42,7 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
 
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<string>("all");
+  const [duration, setDuration] = useState<string>("all");
   const [priceRange, setPriceRange] = useState(dynamicPriceFilters[0].label);
   const [rating, setRating] = useState(dynamicRatingFilters[0].label);
 
@@ -65,6 +66,24 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
     });
     return counts;
   }, [packages, dynamicCategories]);
+
+  const dynamicDurations = useMemo(() => {
+    const uniqueDurations = Array.from(new Set(packages.map((pkg) => pkg.duration)));
+    return ["all", ...uniqueDurations];
+  }, [packages]);
+
+  // 3. Duration Counts හදාගන්න
+  const durationCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    dynamicDurations.forEach((dur) => {
+      if (dur === "all") {
+        counts[dur] = packages.length;
+      } else {
+        counts[dur] = packages.filter((p) => p.duration === dur).length;
+      }
+    });
+    return counts;
+  }, [packages, dynamicDurations]);
 
   const priceCounts = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -98,6 +117,7 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
 
     return packages.filter((item) => {
       const matchesCategory = category === "all" || item.categoryLabel === category;
+      const matchesDuration = duration === "all" || item.duration === duration;
       const matchesSearch =
         normalizedQuery.length === 0 ||
         `${item.title} ${item.description} ${item.categoryLabel}`.toLowerCase().includes(normalizedQuery);
@@ -120,9 +140,9 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
         }
       }
 
-      return matchesCategory && matchesSearch && matchesPrice && matchesRating;
+      return matchesCategory && matchesDuration && matchesSearch && matchesPrice && matchesRating;
     });
-  }, [category, packages, query, priceRange, rating, dynamicPriceFilters, dynamicRatingFilters]);
+  }, [category, duration, packages, query, priceRange, rating, dynamicPriceFilters, dynamicRatingFilters]);
 
   const visiblePackages = filteredPackages.slice(0, visibleCount);
   const hasMore = visiblePackages.length < filteredPackages.length;
@@ -142,10 +162,12 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
                 <span className="transition-colors duration-300 group-hover:text-black">{t("filterPackages")}</span>
 
                 {(category !== "all" ||
+                  duration !== "all" ||
                   priceRange !== dynamicPriceFilters[0].label ||
                   rating !== dynamicRatingFilters[0].label) && (
                   <span className="ml-2 flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-[9px] font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a] group-hover:text-gold">
                     {(category !== "all" ? 1 : 0) +
+                      (duration !== "all" ? 1 : 0) +
                       (priceRange !== dynamicPriceFilters[0].label ? 1 : 0) +
                       (rating !== dynamicRatingFilters[0].label ? 1 : 0)}
                   </span>
@@ -217,6 +239,7 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
             onAction={() => {
               setQuery("");
               setCategory("all");
+              setDuration("all");
               setPriceRange(dynamicPriceFilters[0].label);
               setRating(dynamicRatingFilters[0].label);
             }}
@@ -252,8 +275,19 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
           setRating(val);
           setVisibleCount(INITIAL_COUNT);
         }}
+        duration={duration}
+        onDurationChange={(val) => {
+          startTransition(() => {
+            setDuration(val);
+            setVisibleCount(INITIAL_COUNT);
+          });
+        }}
+        durationCategories={dynamicDurations}
+        durationCounts={durationCounts}
+        durationTitle={tourType === "multi" ? "Duration (Days)" : "Duration (Hours)"}
         onClearAll={() => {
           setCategory("all");
+          setDuration("all");
           setPriceRange(dynamicPriceFilters[0].label);
           setRating(dynamicRatingFilters[0].label);
           setQuery("");

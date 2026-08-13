@@ -9,7 +9,8 @@ import { notFound } from "next/navigation";
 import { languages } from "@/data/Languages-CurrencyData";
 import ProgressBarProvider from "@/components/ui/ProgressBarProvider";
 import { cookies } from "next/headers";
-// import TawkToChat from "@/components/ui/TawkToChat";
+import { CookieConsent } from "@/components/ui/CookieModel/CookieConsent";
+import { GlobalCookieModal } from "@/components/ui/CookieModel/GlobalCookieModal";
 
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -95,7 +96,6 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           {!hasSeenPreloader && <Preloader />}
           <ProgressBarProvider />
-          {/* <TawkToChat /> */}
           {children}
           <Toaster
             position="top-right"
@@ -116,6 +116,8 @@ export default async function RootLayout({
               },
             }}
           />
+          <CookieConsent />
+          <GlobalCookieModal />
         </NextIntlClientProvider>
       </body>
     </html>

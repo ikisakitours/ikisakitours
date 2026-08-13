@@ -65,15 +65,15 @@ export const trustBadgesData = [{ id: "insured" }, { id: "availability" }] as co
 export const transferCards = [
   {
     id: "airportPickup",
-    href: "/services/transfers",
+    href: "/services/transfers?type=pickup",
   },
   {
     id: "hotelCity",
-    href: "/services/transfers",
+    href: "/services/transfers?type=hotel",
   },
   {
     id: "dropOff",
-    href: "/services/transfers",
+    href: "/services/transfers?type=dropoff",
   },
 ] as const;
 // ==========================================

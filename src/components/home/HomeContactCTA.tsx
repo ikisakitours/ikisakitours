@@ -7,13 +7,18 @@ import { contactCtaUsersData, contactCtaImagesData } from "@/data/home";
 import { useTranslations } from "next-intl";
 //Icons
 import { MapPin, Sparkles, Star, ArrowRight } from "lucide-react";
+interface HomeContactCTAProps {
+  hideOnMobile?: boolean;
+}
 
-export default function HomeContactCTA() {
+export default function HomeContactCTA({ hideOnMobile = false }: HomeContactCTAProps) {
   const t = useTranslations("HomePage.ContactCta");
   return (
     <section
       id="contact"
-      className="relative overflow-hidden bg-lanka-dark py-20 md:py-20 xl:py-20 2xl:py-24 3xl:py-32"
+      className={`relative overflow-hidden bg-lanka-dark py-20 md:py-20 xl:py-20 2xl:py-24 3xl:py-32 ${
+        hideOnMobile ? "hidden md:block" : ""
+      }`}
     >
       {/* Background Ambient Glow */}
       <div className="absolute left-1/2 top-1/2 -z-10 h-150 w-150 -translate-x-1/2 -translate-y-1/2 pointer-events-none rounded-full bg-gold/5 blur-[120px]" />

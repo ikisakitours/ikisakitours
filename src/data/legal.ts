@@ -1,174 +1,405 @@
-export type LegalDocumentId = "terms" | "privacy" | "booking" | "payment";
+export type SectionType = "paragraph" | "checklist" | "grid" | "icon-list" | "row-list" | "contact";
 
-export type LegalItem = {
-  heading: string;
+export type LegalSubItem = {
+  title?: string;
   body: string;
+  icon?: string;
 };
+
+export type LegalSection = {
+  heading: string;
+  sectionIcon: string;
+  type: SectionType;
+  content?: string;
+  subItems?: LegalSubItem[];
+};
+
+export type LegalDocumentId = "terms" | "privacy" | "booking" | "payment" | "cookie";
 
 export type LegalDocument = {
   id: LegalDocumentId;
   eyebrow: string;
   title: string;
-  items: LegalItem[];
   accent: string;
   lastUpdated: string;
+  sections: LegalSection[];
 };
 
 export const legalDocuments: LegalDocument[] = [
+  // ==========================================
+  // 1. TERMS OF SERVICE
+  // ==========================================
   {
     id: "terms",
     eyebrow: "MapMate Terms Information",
     title: "Terms of Service",
     accent: "Service",
     lastUpdated: "February 2026",
-    items: [
+    sections: [
       {
-        heading: "01. Booking Policy",
-        body: "All safari reservations are subject to availability. A confirmed booking is only valid upon receipt of the full payment and issuance of the Elite Journey ID.",
+        heading: "Booking & Cancellations",
+        sectionIcon: "FileText",
+        type: "checklist",
+        subItems: [
+          {
+            title: "Booking Policy",
+            body: "All safari reservations are subject to availability. A confirmed booking is only valid upon receipt of the full payment and issuance of the Elite Journey ID.",
+          },
+          {
+            title: "Cancellation & Refunds",
+            body: "Free cancellations are permitted up to 24 hours before the journey. Cancellations made within 24 hours of the departure time are non-refundable.",
+          },
+        ],
       },
       {
-        heading: "02. Cancellation & Refunds",
-        body: "Free cancellations are permitted up to 24 hours before the journey. Cancellations made within 24 hours of the departure time are non-refundable.",
+        heading: "Guest Responsibilities",
+        sectionIcon: "Users",
+        type: "grid",
+        subItems: [
+          {
+            title: "Guest Conduct",
+            body: "Guests must follow all safety instructions provided by the ranger. Elite Safari reserves the right to terminate a journey if conduct endangers wildlife or other guests.",
+          },
+          {
+            title: "Documentation",
+            body: "Guests are responsible for ensuring they have valid passports, visas, and health certificates required for entry into safari zones.",
+          },
+          {
+            title: "Travel Insurance",
+            body: "We strongly recommend that all guests possess valid international travel insurance covering medical emergencies and safari activities.",
+          },
+        ],
       },
       {
-        heading: "03. Guest Conduct",
-        body: "Guests must follow all safety instructions provided by the ranger. Elite Safari reserves the right to terminate a journey if conduct endangers wildlife or other guests.",
+        heading: "Financials & Legalities",
+        sectionIcon: "Shield",
+        type: "icon-list",
+        subItems: [
+          {
+            icon: "Database",
+            title: "Pricing & Taxes",
+            body: "All prices are inclusive of local conservation fees unless stated otherwise. Elite Safari reserves the right to adjust pricing due to government tax changes.",
+          },
+          {
+            icon: "Shield",
+            title: "Liability Waiver",
+            body: "Participants acknowledge the inherent risks of wildlife expeditions. Elite Safari Journeys is not liable for natural delays or weather-related changes.",
+          },
+          {
+            icon: "Globe",
+            title: "Force Majeure",
+            body: "Elite Safari Journeys is not responsible for failure to perform obligations due to events beyond our control, including natural disasters or civil unrest.",
+          },
+        ],
       },
       {
-        heading: "04. Liability Waiver",
-        body: "Participants acknowledge the inherent risks of wildlife expeditions. Elite Safari Journeys is not liable for natural delays or weather-related changes.",
-      },
-      {
-        heading: "05. Travel Insurance",
-        body: "We strongly recommend that all guests possess valid international travel insurance covering medical emergencies and safari activities.",
-      },
-      {
-        heading: "06. Documentation",
-        body: "Guests are responsible for ensuring they have valid passports, visas, and health certificates required for entry into safari zones.",
-      },
-      {
-        heading: "07. Pricing & Taxes",
-        body: "All prices are inclusive of local conservation fees unless stated otherwise. Elite Safari reserves the right to adjust pricing due to government tax changes.",
-      },
-      {
-        heading: "08. Force Majeure",
-        body: "Elite Safari Journeys is not responsible for failure to perform obligations due to events beyond our control, including natural disasters or civil unrest.",
-      },
-      {
-        heading: "09. Photographic Rights",
-        body: "Photos taken by our official photographers during journeys may be used for marketing unless the guest explicitly opts out during booking.",
-      },
-      {
-        heading: "10. Governing Law",
-        body: "These terms are governed by the laws of the jurisdiction in which the safari headquarters is registered.",
+        heading: "Media & Jurisdiction",
+        sectionIcon: "FileText",
+        type: "row-list",
+        subItems: [
+          {
+            title: "Photographic Rights",
+            body: "Photos taken by our photographers may be used for marketing unless opted out.",
+          },
+          {
+            title: "Governing Law",
+            body: "These terms are governed by the laws of the registered safari headquarters.",
+          },
+        ],
       },
     ],
   },
+
+  // ==========================================
+  // 2. PRIVACY POLICY
+  // ==========================================
   {
     id: "privacy",
     eyebrow: "MapMate Privacy Policy Information",
     title: "Privacy Policy",
     accent: "Policy",
     lastUpdated: "January 2026",
-    items: [
+    sections: [
       {
-        heading: "01. Data Protection",
-        body: "We utilize high-level encryption to protect your personal details and payment information. Your data is never sold to third-party luxury vendors.",
+        heading: "Introduction",
+        sectionIcon: "FileText",
+        type: "paragraph",
+        content:
+          'MapMate Luxury ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.\n\nBy using our services, you agree to the collection and use of information in accordance with this policy.',
       },
       {
-        heading: "02. Cookie Usage",
-        body: "We use cookies to enhance your browsing experience and provide personalized safari recommendations based on your preferences.",
+        heading: "Information We Collect",
+        sectionIcon: "Database",
+        type: "checklist",
+        subItems: [
+          {
+            title: "Personal Identification",
+            body: "Full name, date of birth, nationality, email address, and phone/contact number.",
+          },
+          {
+            title: "Travel Documents",
+            body: "Passport number and passport expiry date (required for booking confirmations).",
+          },
+          { title: "Health & Preferences", body: "Food allergies, medical conditions, mobility assistance needs." },
+        ],
       },
       {
-        heading: "03. Information Collection",
-        body: "We collect names, emails, and phone numbers solely for the purpose of booking management and safety communication.",
+        heading: "How We Use Your Information",
+        sectionIcon: "Users",
+        type: "grid",
+        subItems: [
+          {
+            title: "Service Delivery",
+            body: "Process bookings, provide customer support, and deliver travel services.",
+          },
+          { title: "Personalization", body: "Customize content and recommendations based on your preferences." },
+          { title: "Communication", body: "Send booking confirmations, updates, and promotional offers." },
+          { title: "Analytics", body: "Improve our services and website functionality." },
+        ],
       },
       {
-        heading: "04. Payment Security",
-        body: "Transactions are processed via secure, PCI-compliant gateways. Elite Safari does not store full credit card numbers on our local servers.",
+        heading: "Data Protection & Security",
+        sectionIcon: "Shield",
+        type: "icon-list",
+        subItems: [
+          {
+            icon: "Lock",
+            title: "Encryption",
+            body: "All sensitive data is encrypted using industry-standard SSL/TLS protocols.",
+          },
+          {
+            icon: "Server",
+            title: "Secure Storage",
+            body: "Data is stored on secure servers with regular security audits.",
+          },
+        ],
       },
       {
-        heading: "05. Location Data",
-        body: "GPS data may be used during the journey to provide real-time updates on wildlife sightings and ensure guest safety via our tracker apps.",
-      },
-      {
-        heading: "06. Third-Party Links",
-        body: "Our site may contain links to luxury partners. We are not responsible for the privacy practices of external websites.",
-      },
-      {
-        heading: "07. Data Retention",
-        body: "Personal data is stored only as long as necessary to fulfill booking requirements or comply with legal audit obligations.",
-      },
-      {
-        heading: "08. Guest Rights",
-        body: "You have the right to request a copy of your personal data or request its deletion after your journey is completed.",
-      },
-      {
-        heading: "09. Newsletter Opt-out",
-        body: "Guests may unsubscribe from our 'Elite Insights' newsletter at any time using the link provided in the email footer.",
-      },
-      {
-        heading: "10. Policy Changes",
-        body: "We reserve the right to update this policy. Significant changes will be communicated to guests via the email provided at booking.",
+        heading: "Questions About This Policy?",
+        sectionIcon: "HelpCircle",
+        type: "contact",
+        subItems: [
+          { title: "Email", body: "hello@mapmate.com" },
+          { title: "Phone", body: "+94 11 234 5678" },
+        ],
       },
     ],
   },
 
+  // ==========================================
+  // 3. BOOKING POLICY
+  // ==========================================
   {
     id: "booking",
     eyebrow: "MapMate Booking Policy Information",
     title: "Booking Policy",
     accent: "Policy",
     lastUpdated: "March 2026",
-    items: [
+    sections: [
       {
-        heading: "01. Reservation Procedure",
-        body: "All reservations for Map Mate experiences must be processed through our official website. A booking is considered 'Pending' until a verification email is received.",
+        heading: "General Procedures",
+        sectionIcon: "FileText",
+        type: "paragraph",
+        content:
+          "All reservations for Map Mate experiences must be processed through our official website. A booking is considered 'Pending' until a verification email is received and the initial deposit is confirmed.",
       },
       {
-        heading: "02. Group Bookings",
-        body: "Bookings for more than 6 guests require prior approval from our concierge team. Special group rates and tailored itineraries will be assigned accordingly.",
+        heading: "Special Bookings & Requirements",
+        sectionIcon: "Users",
+        type: "grid",
+        subItems: [
+          {
+            title: "Group Bookings",
+            body: "Bookings for more than 6 guests require prior approval from our concierge team. Special group rates will be assigned accordingly.",
+          },
+          {
+            title: "Age Restrictions",
+            body: "Certain expeditions require guests to be at least 12 years of age for safety reasons. Please verify tour requirements.",
+          },
+        ],
       },
       {
-        heading: "03. Age Restrictions",
-        body: "Certain expeditions require guests to be at least 12 years of age for safety reasons. Please verify specific tour requirements before confirming your booking.",
-      },
-      {
-        heading: "04. Amendment Policy",
-        body: "Requests to change dates or guest details must be submitted in writing at least 72 hours before the scheduled departure. Amendments are subject to availability.",
-      },
-      {
-        heading: "05. Elite Journey ID",
-        body: "Your Elite Journey ID is your unique access code. Please keep this code secure as it will be required for all check-in procedures and on-site services.",
+        heading: "Modifications & Access",
+        sectionIcon: "Shield",
+        type: "icon-list",
+        subItems: [
+          {
+            icon: "FileText",
+            title: "Amendment Policy",
+            body: "Requests to change dates or guest details must be submitted in writing at least 72 hours before departure.",
+          },
+          {
+            icon: "Fingerprint",
+            title: "Elite Journey ID",
+            body: "Your unique access code. Keep this code secure as it will be required for all check-in procedures.",
+          },
+        ],
       },
     ],
   },
+
+  // ==========================================
+  // 4. PAYMENT POLICY
+  // ==========================================
   {
     id: "payment",
     eyebrow: "MapMate Payment Policy Information",
     title: "Payment Policy",
     accent: "Policy",
     lastUpdated: "April 2026",
-    items: [
+    sections: [
       {
-        heading: "01. Accepted Payment Methods",
-        body: "We securely accept Visa, Mastercard, American Express, and direct wire transfers for high-value corporate bookings.",
+        heading: "Accepted Methods & Currency",
+        sectionIcon: "Database",
+        type: "row-list",
+        content: "We offer secure and flexible payment options for all our luxury expeditions.",
+        subItems: [
+          { title: "Payment Methods", body: "Visa, Mastercard, Amex, and Direct Wire Transfer" },
+          { title: "Currency", body: "All transactions are processed in USD" },
+        ],
       },
       {
-        heading: "02. Currency & Exchange",
-        body: "All transactions are processed in USD. International guests may be subject to their bank's exchange rates and applicable foreign transaction fees.",
+        heading: "Security Measures",
+        sectionIcon: "Lock",
+        type: "icon-list",
+        subItems: [
+          {
+            icon: "Lock",
+            title: "Payment Security",
+            body: "We utilize 256-bit SSL encryption and Stripe-certified payment gateways to ensure your financial data remains private.",
+          },
+        ],
       },
       {
-        heading: "03. Payment Security",
-        body: "Your payment security is our priority. We utilize 256-bit SSL encryption and Stripe-certified payment gateways to ensure your financial data remains private.",
+        heading: "Invoicing & Refunds",
+        sectionIcon: "FileText",
+        type: "grid",
+        subItems: [
+          {
+            title: "Tax Invoicing",
+            body: "Digital invoices will be issued immediately upon successful payment. Contact finance for corporate receipts.",
+          },
+          {
+            title: "Refund Processing",
+            body: "Approved refunds are processed to the original payment method within 5-10 business days.",
+          },
+        ],
+      },
+    ],
+  },
+
+  // ==========================================
+  // 5. COOKIE POLICY
+  // ==========================================
+  {
+    id: "cookie",
+    eyebrow: "MapMate Cookie Policy Information",
+    title: "Cookie Policy",
+    accent: "Policy",
+    lastUpdated: "May 2026",
+    sections: [
+      {
+        heading: "What Are Cookies",
+        sectionIcon: "Globe",
+        type: "paragraph",
+        content:
+          "Cookies are small data files stored on your browser by our website to remember your preferences, ensure security, and improve your overall luxury browsing experience.",
       },
       {
-        heading: "04. Tax Invoicing",
-        body: "Digital invoices will be issued immediately upon successful payment. For corporate tax receipts, please contact our finance department with your business details.",
+        heading: "Information Collected Automatically",
+        sectionIcon: "Database",
+        type: "checklist",
+        subItems: [
+          {
+            title: "Device & Browser Data",
+            body: "IP address, browser type, device brand/model, and operating system.",
+          },
+          { title: "Usage Metrics", body: "Website usage metrics, page views, click pathways, and session durations." },
+          { title: "Preferences", body: "Language settings, preloader states, and UI theme choices." },
+        ],
       },
       {
-        heading: "05. Refund Processing",
-        body: "Approved refunds are processed to the original payment method within 5-10 business days, depending on your financial institution's processing time.",
+        heading: "Types of Cookies We Use",
+        sectionIcon: "Server",
+        type: "row-list",
+        subItems: [
+          {
+            title: "Essential Cookies",
+            body: "Strictly necessary to provide core functionalities (e.g., security, routing).",
+          },
+          { title: "Analytics & Performance", body: "Helps us track visitor counts and improve page performance." },
+          { title: "Marketing Cookies", body: "Used to deliver relevant advertisements and track ad performance." },
+        ],
+      },
+      {
+        heading: "How We Use Cookie Data",
+        sectionIcon: "Users",
+        type: "grid",
+        subItems: [
+          {
+            title: "Service Delivery",
+            body: "Ensure secure logins, process bookings smoothly, and maintain site stability.",
+          },
+          {
+            title: "Personalization",
+            body: "Customize content, language preferences, and recommendations based on your behavior.",
+          },
+          {
+            title: "Analytics",
+            body: "Improve our services, understand user journeys, and optimize website functionality.",
+          },
+          { title: "Marketing", body: "Deliver personalized luxury travel offers through our advertising partners." },
+        ],
+      },
+      {
+        heading: "Data Protection & Security",
+        sectionIcon: "Shield",
+        type: "icon-list",
+        subItems: [
+          {
+            icon: "Lock",
+            title: "Encryption",
+            body: "All cookie data containing sensitive identifiers is encrypted using industry-standard SSL/TLS protocols.",
+          },
+          {
+            icon: "Server",
+            title: "Secure Storage",
+            body: "Cookie preference logs are stored on secure servers with regular security audits.",
+          },
+          {
+            icon: "Fingerprint",
+            title: "Access Control",
+            body: "Strictly limited internal access to any identifiable analytics data.",
+          },
+        ],
+      },
+      {
+        heading: "Managing Your Rights",
+        sectionIcon: "CheckCircle2",
+        type: "grid",
+        subItems: [
+          {
+            title: "Browser Control",
+            body: "You can configure your browser to reject all cookies or notify you when a cookie is set.",
+          },
+          {
+            title: "Opt-out Options",
+            body: "Use our Cookie Preferences tool or third-party opt-out extensions to block non-essential tracking.",
+          },
+          {
+            title: "Data Deletion",
+            body: "You can clear your browser cache at any time to remove all stored MapMate cookies.",
+          },
+        ],
+      },
+      {
+        heading: "Questions About This Policy?",
+        sectionIcon: "HelpCircle",
+        type: "contact",
+        subItems: [
+          { title: "Email", body: "hello@mapmate.com" },
+          { title: "Phone", body: "+94 11 234 5678" },
+        ],
       },
     ],
   },

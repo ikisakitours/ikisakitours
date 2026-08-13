@@ -23,7 +23,7 @@ export default function Preloader() {
       document.body.style.overflow = "";
       document.removeEventListener("touchmove", preventTouchScroll);
 
-      document.cookie = "preloader_seen=true; path=/";
+      document.cookie = "preloader_seen=true; max-age=86400; path=/";
 
       if (typeof window !== "undefined") {
         window.dispatchEvent(new CustomEvent("preloaderFinished"));
@@ -84,7 +84,7 @@ export default function Preloader() {
                 transition={{ duration: 1.5, ease: "easeOut" }}
               >
                 <Image
-                  src="/images/bg-remove.png"
+                  src="/images/preloader.webp"
                   alt="Logo"
                   width={200}
                   height={200}
