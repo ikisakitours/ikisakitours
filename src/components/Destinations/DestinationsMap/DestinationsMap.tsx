@@ -5,9 +5,9 @@ import "leaflet/dist/leaflet.css";
 import MapHeader from "./MapHeader";
 import MapContent from "./MapContent";
 import { useTranslations } from "next-intl";
+import MapLoader from "./MapLoader";
 //Icons
 import { X } from "lucide-react";
-
 
 // Mock Data Import
 import { destinationsData, type Destination } from "@/data/destinationData";
@@ -38,14 +38,16 @@ export default function DestinationsMap({ onClose, routeDestinations, isRouteMod
     Promise.all([import("react-leaflet"), import("leaflet")]).then(([mod, L]) => {
       // @ts-expect-error: Deleting this internal prototype property fixes the default marker icon missing issue
       delete L.Icon.Default.prototype._getIconUrl;
-      setMapComponents({
-        MapContainer: mod.MapContainer,
-        TileLayer: mod.TileLayer,
-        Marker: mod.Marker,
-        Popup: mod.Popup,
-        Polyline: mod.Polyline,
-        divIcon: L.divIcon,
-      });
+      setTimeout(() => {
+        setMapComponents({
+          MapContainer: mod.MapContainer,
+          TileLayer: mod.TileLayer,
+          Marker: mod.Marker,
+          Popup: mod.Popup,
+          Polyline: mod.Polyline,
+          divIcon: L.divIcon,
+        });
+      }, 0);
     });
   }, []);
 
@@ -70,11 +72,7 @@ export default function DestinationsMap({ onClose, routeDestinations, isRouteMod
   }, []);
 
   if (!MapComponents) {
-    return (
-      <div className="flex h-137.5 w-full items-center justify-center rounded-4xl border border-white/5 bg-lanka-black text-gold">
-       {tMap("loading")}
-      </div>
-    );
+    return <MapLoader loadingText={tMap("loading")} />;
   }
 
   return (

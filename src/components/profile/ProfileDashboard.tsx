@@ -7,18 +7,20 @@ import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/i18nNavigation";
 import { useTranslations } from "next-intl";
-// import { ReferralPanel } from "./ReferralPanel";
+import { ReferralPanel } from "./ReferralPanel";
 import { FilterSidebar } from "@/components/ui/FilterSidebar";
 
 //Icons
 import { ShieldCheck, UserRound, Gift, Settings2, type LucideIcon } from "lucide-react";
+
 const tabIcons = {
   profile: UserRound,
   security: ShieldCheck,
   referral: Gift,
 } satisfies Record<ProfileTabId, LucideIcon>;
 
-const ENABLE_REFERRALS = false;
+// you false rferel wen not use
+const ENABLE_REFERRALS = true;
 
 function ProfileDashboardInner() {
   const searchParams = useSearchParams();
@@ -35,8 +37,8 @@ function ProfileDashboardInner() {
   };
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const tabCategories = ["profile", "security"] as const;
-  // const tabCategories = ["profile", "security", "referral"] as const;
+  // const tabCategories = ["profile", "security"] as const;
+  const tabCategories = ["profile", "security", "referral"] as const;
 
   const tabLabels = {
     profile: t("Dashboard.tabProfile"),
@@ -108,7 +110,7 @@ function ProfileDashboardInner() {
       <div className="col-span-full xl:col-span-8">
         {activeTab === "profile" && <ProfileDetailsPanel />}
         {activeTab === "security" && <SecuritySettingsPanel />}
-        {/* {activeTab === "referral" && <ReferralPanel />} */}
+        {activeTab === "referral" && <ReferralPanel />}
       </div>
 
       <FilterSidebar

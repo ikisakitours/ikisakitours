@@ -12,8 +12,8 @@ export default {
     shortSecurity: "Security",
     tabReferral: "Invite Friends",
     shortReferral: "Referrals",
-    menuBtn: "Menu", 
-    accountMenuTitle: "Account Menu"
+    menuBtn: "Menu",
+    accountMenuTitle: "Account Menu",
   },
   Badge: {
     verified: "Verified",

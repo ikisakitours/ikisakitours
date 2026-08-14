@@ -80,12 +80,12 @@ export function ReferralPanel() {
           <div className="mb-12 space-y-4">
             <span className="block text-[10px] font-bold uppercase tracking-[0.2em] text-gold">{t("yourLink")}</span>
             <div className="flex flex-col gap-3 sm:flex-row">
-              <div className="relative flex flex-1 items-center rounded-xl border border-white/10 bg-white/5 p-1 pl-4 transition-colors hover:border-gold/30">
+              <div className="relative max-w-lg flex flex-1 items-center rounded-xl border border-white/10 bg-white/5 p-1 pl-4 transition-colors hover:border-gold/30">
                 <input
                   type="text"
                   readOnly
                   value={referralLink}
-                  className="w-full bg-transparent text-xs font-medium tracking-wide text-white outline-none sm:text-sm"
+                  className="w-full truncate bg-transparent text-xs font-medium tracking-wide text-white outline-none sm:text-sm"
                 />
                 <button
                   onClick={handleCopy}

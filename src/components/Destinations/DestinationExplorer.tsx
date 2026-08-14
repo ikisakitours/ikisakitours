@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
-import { useSearchParams } from "next/navigation"; 
-import { useRouter } from "@/i18nNavigation"; 
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18nNavigation";
 import { type Destination } from "@/data/destinationData";
 import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -112,16 +112,10 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
                 <div className="relative z-10 text-center lg:text-left">
                   <div className="mb-1.5 flex items-center justify-center lg:justify-start gap-2 text-gold">
                     <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold animate-pulse"></span>
-                    <span className="text-[10px] font-extrabold uppercase tracking-[0.3em]">
-                      {t("geoBadge")}
-                    </span>
+                    <span className="text-[10px] font-extrabold uppercase tracking-[0.3em]">{t("geoBadge")}</span>
                   </div>
-                  <h3 className="premium-serif text-xl italic text-white md:text-3xl tracking-wide">
-                    {t("mapTitle")}
-                  </h3>
-                  <p className="mt-1.5 text-xs font-light text-slate-400 max-w-md">
-                    {t("mapDesc")}
-                  </p>
+                  <h3 className="premium-serif text-xl italic text-white md:text-3xl tracking-wide">{t("mapTitle")}</h3>
+                  <p className="mt-1.5 text-xs font-light text-slate-400 max-w-md">{t("mapDesc")}</p>
                 </div>
 
                 <div className="relative z-10 shrink-0">
@@ -206,7 +200,7 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
           }}
         />
       )}
-      
+
       <FilterSidebar
         isOpen={isFilterOpen}
         onClose={() => setIsFilterOpen(false)}
@@ -221,7 +215,7 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
         title={t("filterRegions")}
         categoryCounts={categoryCounts}
         clearFilterText={t("Sidebar.clearFilter")}
-        categoryLabels={{ all: t("Sidebar.all") }} 
+        categoryLabels={{ all: t("Sidebar.all") }}
       />
     </section>
   );
