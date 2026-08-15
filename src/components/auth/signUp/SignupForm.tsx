@@ -3,15 +3,15 @@
 import { Link } from "@/i18nNavigation";
 import { type FormEvent, useState, useRef } from "react";
 import { AuthFormHeader } from "../AuthFormHeader";
-import { AuthSocialButtons } from "../AuthSocialButtons";
 import { Button } from "@/components/ui/Button";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { FormError } from "@/components/ui/FormError";
 import { CountrySelect } from "./CountrySelect";
 import { useTranslations } from "next-intl";
 import { usePasswordStrength } from "@/hooks/usePasswordStrength";
+import { AuthLegalFooter } from "../AuthLegalFooter";
 // Icons
-import { User, Mail, ShieldCheck, Eye, EyeOff, CheckCircle2 } from "lucide-react";
+import { User, UserCheck, Mail, ShieldCheck, Eye, EyeOff, CheckCircle2 } from "lucide-react";
 
 const inputClass =
   "w-full rounded-2xl border border-white/10 bg-white/[0.03] py-3.5 px-5 text-sm text-white outline-none transition-all placeholder:text-slate-700 focus:border-gold focus:bg-gold/5 focus:shadow-[0_0_15px_rgba(197,160,89,0.05)]";
@@ -21,7 +21,8 @@ export function SignupForm() {
   const tForm = useTranslations("SharedForm");
   const tError = useTranslations("ValidationErrors");
 
-  const [fullName, setFullName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -67,9 +68,9 @@ export function SignupForm() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const isValid = validate({ fullName, email, password, confirmPassword, country: countryName, terms });
+    const isValid = validate({ firstName, lastName, email, password, confirmPassword, country: countryName, terms });
     if (isValid) {
-      console.log("Signup Valid!", { fullName, email, password, country: countryName });
+      console.log("Signup Valid!", { firstName, lastName, email, password, country: countryName });
     }
   };
 
@@ -80,30 +81,58 @@ export function SignupForm() {
       <div className="overflow-y-auto no-scrollbar pr-2">
         <form className="space-y-5" onSubmit={handleSubmit} noValidate>
           <div className="space-y-4">
-            {/* Full Name */}
-            <label className="block space-y-2">
-              <span className="ml-1 block text-[10px] font-bold uppercase tracking-[0.2em] text-gold">
-                {tForm("Labels.fullName")}
-              </span>
-              <span className="group relative block">
-                <User className="absolute left-5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-600 transition-colors group-focus-within:text-gold" />
-                <input
-                  type="text"
-                  name="fullName"
-                  autoComplete="name"
-                  placeholder={tForm("Placeholders.fullName")}
-                  value={fullName}
-                  onChange={(e) => {
-                    setFullName(e.target.value);
-                    setErrors((prev) => ({ ...prev, fullName: "" }));
-                  }}
-                  className={`${inputClass} pl-12 pr-6`}
-                />
-              </span>
-              <div className="ml-2 mt-1">
-                <FormError message={errors.fullName} />
-              </div>
-            </label>
+            {/* Name Fields (First Name & Last Name) */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {/* First Name */}
+              <label className="block space-y-2">
+                <span className="ml-1 block text-[10px] font-bold uppercase tracking-[0.2em] text-gold">
+                  {tForm("Labels.firstName")}
+                </span>
+                <span className="group relative block">
+                  <User className="absolute left-5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-600 transition-colors group-focus-within:text-gold" />
+                  <input
+                    type="text"
+                    name="firstName"
+                    autoComplete="given-name"
+                    placeholder={tForm("Placeholders.firstName")}
+                    value={firstName}
+                    onChange={(e) => {
+                      setFirstName(e.target.value);
+                      setErrors((prev) => ({ ...prev, firstName: "" }));
+                    }}
+                    className={`${inputClass} pl-12 pr-6`}
+                  />
+                </span>
+                <div className="ml-2 mt-1">
+                  <FormError message={errors.firstName} />
+                </div>
+              </label>
+
+              {/* Last Name */}
+              <label className="block space-y-2">
+                <span className="ml-1 block text-[10px] font-bold uppercase tracking-[0.2em] text-gold">
+                  {tForm("Labels.lastName")}
+                </span>
+                <span className="group relative block">
+                  <UserCheck className="absolute left-5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-600 transition-colors group-focus-within:text-gold" />
+                  <input
+                    type="text"
+                    name="lastName"
+                    autoComplete="family-name"
+                    placeholder={tForm("Placeholders.lastName")}
+                    value={lastName}
+                    onChange={(e) => {
+                      setLastName(e.target.value);
+                      setErrors((prev) => ({ ...prev, lastName: "" }));
+                    }}
+                    className={`${inputClass} pl-12 pr-6`}
+                  />
+                </span>
+                <div className="ml-2 mt-1">
+                  <FormError message={errors.lastName} />
+                </div>
+              </label>
+            </div>
 
             {/* Email Address */}
             <label className="block space-y-2">
@@ -272,9 +301,7 @@ export function SignupForm() {
             {tForm("Buttons.registerMembership")}
           </Button>
 
-          <AuthSocialButtons label={tAuth("Social.signupLabel")} />
-
-          <div className="mt-8 pb-12 text-center">
+          <div className="mt-8 pb-4 text-center">
             <p className="text-[14px] md:text-[14px] lg:text-[15px] 2xl:text-[16px] 3xl:text-[17px] font-light text-slate-500">
               {tAuth("Links.alreadyHaveAccount")}
               <Link
@@ -287,6 +314,7 @@ export function SignupForm() {
           </div>
         </form>
       </div>
+      <AuthLegalFooter />
     </section>
   );
 }

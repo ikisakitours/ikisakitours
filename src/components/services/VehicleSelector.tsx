@@ -117,7 +117,7 @@ export function VehicleSelector({
               {currentVehicle.touristNote && (
                 <div className="mt-5 pt-4 border-t border-gold/15 w-full text-left flex flex-col items-start">
                   <div className="flex items-center gap-1.5 mb-1.5">
-                    <span className="text-[14px]">💡</span>
+                    <span className="text-[14px]">📌</span>
                     <span className="text-gold font-bold uppercase tracking-widest text-[9px] sm:text-[10px]">
                       {tVeh("note")}
                     </span>

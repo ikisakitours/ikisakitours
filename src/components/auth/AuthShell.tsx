@@ -2,7 +2,7 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import { useTranslations } from "next-intl";
 
-type AuthIntroKey = "Signup" | "Login" | "Recovery" | "Reset";
+type AuthIntroKey = "Gateway" | "Signup" | "Login" | "Recovery" | "Reset";
 
 type AuthShellProps = {
   children: ReactNode;

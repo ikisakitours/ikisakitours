@@ -6,6 +6,8 @@ export interface ValidationData {
   counts?: Record<string, number>;
   time?: string;
   days?: number;
+  firstName?: string;
+  lastName?: string;
   fullName?: string;
   country?: string;
   rating?: number;
@@ -210,10 +212,20 @@ export const useValidationForm = () => {
       }
     }
 
+    // 23. Inquiry Type  Validation
     if (data.inquiryType !== undefined && (!data.inquiryType || data.inquiryType.trim() === "")) {
       newErrors.inquiryType = t("inquiryTypeRequired");
     }
 
+    // 24. First Name Validation
+    if (data.firstName !== undefined && !data.firstName.trim()) {
+      newErrors.firstName = t("firstNameRequired");
+    }
+
+    // 22. Last Name Validation
+    if (data.lastName !== undefined && !data.lastName.trim()) {
+      newErrors.lastName = t("lastNameRequired");
+    }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };

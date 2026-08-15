@@ -3,12 +3,12 @@
 import { Link } from "@/i18nNavigation";
 import { type FormEvent, useState } from "react";
 import { AuthFormHeader } from "../AuthFormHeader";
-import { AuthSocialButtons } from "../AuthSocialButtons";
 import { Button } from "@/components/ui/Button";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { FormError } from "@/components/ui/FormError";
 import { useTranslations } from "next-intl";
 import { usePasswordStrength } from "@/hooks/usePasswordStrength";
+import { AuthLegalFooter } from "../AuthLegalFooter";
 //Icons
 import { CheckCircle2, Eye, EyeOff, Mail, ShieldCheck } from "lucide-react";
 
@@ -138,11 +138,9 @@ export function LoginForm() {
           <Button type="submit" variant="auth">
             {tForm("Buttons.enterGateway")}
           </Button>
-
-          <AuthSocialButtons label={tAuth("Social.loginLabel")} />
         </form>
 
-        <div className="mt-4 pb-6 text-center">
+        <div className="mt-8 text-center">
           <p className="text-[14px] md:text-[14px] lg:text-[15px] 2xl:text-[16px] 3xl:text-[17px] font-light text-slate-500">
             {tAuth("Links.firstTime")}
             <Link
@@ -154,6 +152,7 @@ export function LoginForm() {
           </p>
         </div>
       </div>
+      <AuthLegalFooter />
     </section>
   );
 }

@@ -51,14 +51,15 @@ export function ReferralPanel() {
         <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-gold/10 blur-[100px]" />
 
         <div className="relative z-10">
-          <div className="mb-8 flex items-center gap-4 border-b border-white/10 pb-6">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gold/10 text-gold">
-              <Gift className="h-6 w-6" />
-            </div>
-            <div>
+          <div className="mb-8 border-b border-white/10 pb-6">
+            <div className="flex items-center gap-4 mb-3">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gold/10 text-gold">
+                <Gift className="h-6 w-6" />
+              </div>
               <h2 className="premium-serif text-2xl text-white">{t("title")}</h2>
-              <p className="text-xs text-slate-400 mt-1">{t("subtitle")}</p>
             </div>
+
+            <p className="text-xs text-slate-400 text-left">{t("subtitle")}</p>
           </div>
 
           {/* Referral Stats (Industry Standard Layout) */}

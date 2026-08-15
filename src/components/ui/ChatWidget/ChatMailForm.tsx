@@ -11,6 +11,7 @@ import PhoneInput, { Country } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { useTranslations } from "next-intl";
 import { useUserLocation } from "@/hooks/useUserLocation";
+import { LocationDetectionFeedback } from "@/components/ui/LocationDetectionFeedback";
 
 export function ChatMailForm() {
   const t = useTranslations("ChatWidget.MailForm");
@@ -28,7 +29,7 @@ export function ChatMailForm() {
   const { errors, validate, setErrors } = useValidationForm();
 
   // IP Location Detection
-const detectedCode = locationData?.country_code || "";
+  const detectedCode = locationData?.country_code || "";
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -128,21 +129,19 @@ const detectedCode = locationData?.country_code || "";
 
           {/* IP Detection Feedbacks */}
           <div className="ml-2 mt-0.5">
-            {isDetecting ? (
-              <p className="text-[9px] italic text-slate-500 animate-pulse">{tPhone("detecting")}</p>
-            ) : (
-              <>
-                {!userInteracted && detectedCode && (
-                  <p className="text-[9px] font-medium text-emerald-500/80">{tPhone("autoDetected")}</p>
-                )}
-                {userInteracted && detectedCode && selectedCountry === detectedCode && (
-                  <p className="text-[9px] font-medium text-emerald-500/80">{tPhone("confirmed")}</p>
-                )}
-                {userInteracted && detectedCode && selectedCountry !== detectedCode && (
-                  <p className="text-[9px] font-medium text-amber-500/90">{tPhone("mismatch")}</p>
-                )}
-              </>
-            )}
+            <LocationDetectionFeedback
+              isDetecting={isDetecting}
+              userInteracted={userInteracted}
+              detectedCode={detectedCode}
+              selectedCode={selectedCountry}
+              textClassName="text-[9px]" // අවශ්‍ය නම් class එක මෙහෙම වෙනස් කරන්න පුළුවන්
+              messages={{
+                detecting: tPhone("detecting"),
+                autoDetected: tPhone("autoDetected"),
+                confirmed: tPhone("confirmed"),
+                mismatch: tPhone("mismatch"),
+              }}
+            />
             <FormError message={errors.phone} />
           </div>
         </div>

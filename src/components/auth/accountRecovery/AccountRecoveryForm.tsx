@@ -38,6 +38,7 @@ function AccountRecoveryFormInner() {
     e.preventDefault();
     if (validate({ email })) {
       console.log("Valid Email for recovery:", email);
+       router.push('/accountRecovery');
     }
   };
 

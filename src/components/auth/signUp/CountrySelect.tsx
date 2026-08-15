@@ -6,6 +6,8 @@ import { FormError } from "@/components/ui/FormError";
 import { ALL_COUNTRIES } from "@/data/auth";
 import { useTranslations } from "next-intl";
 import { useUserLocation } from "@/hooks/useUserLocation";
+import { LocationDetectionFeedback } from "@/components/ui/LocationDetectionFeedback";
+
 //Icons
 import { Globe, ChevronDown, Search } from "lucide-react";
 
@@ -178,41 +180,20 @@ export function CountrySelect({
       </div>
 
       <div className="ml-2 mt-2">
-        {isDetecting ? (
-          <p className="text-[10px] italic text-slate-500 animate-pulse">{tValidate("LocationDetection.detecting")}</p>
-        ) : (
-          <>
-            {!userInteracted && detectedCode && (
-              <p className="text-[10px] font-medium leading-relaxed text-emerald-500/80">
-                {tValidate("LocationDetection.autoDetected")}
-              </p>
-            )}
-
-            {!userInteracted && !detectedCode && (
-              <p className="text-[10px] font-medium leading-relaxed text-slate-400">
-                {tValidate("LocationDetection.fallback")}
-              </p>
-            )}
-
-            {userInteracted && detectedCode && countryCode === detectedCode && (
-              <p className="text-[10px] font-medium leading-relaxed text-emerald-500/80">
-                {tValidate("LocationDetection.confirmed")}
-              </p>
-            )}
-
-            {userInteracted && detectedCode && countryCode !== detectedCode && (
-              <p className="text-[10px] font-medium leading-relaxed text-amber-500/90">
-                {tValidate("LocationDetection.mismatch")}
-              </p>
-            )}
-
-            {userInteracted && !detectedCode && (
-              <p className="text-[10px] font-medium leading-relaxed text-emerald-500/80">
-                {tValidate("LocationDetection.success")}
-              </p>
-            )}
-          </>
-        )}
+        <LocationDetectionFeedback
+          isDetecting={isDetecting}
+          userInteracted={userInteracted}
+          detectedCode={detectedCode}
+          selectedCode={countryCode}
+          messages={{
+            detecting: tValidate("LocationDetection.detecting"),
+            autoDetected: tValidate("LocationDetection.autoDetected"),
+            fallback: tValidate("LocationDetection.fallback"),
+            confirmed: tValidate("LocationDetection.confirmed"),
+            mismatch: tValidate("LocationDetection.mismatch"),
+            success: tValidate("LocationDetection.success"),
+          }}
+        />
         <FormError message={error} />
       </div>
     </div>

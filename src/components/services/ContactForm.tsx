@@ -5,7 +5,7 @@ import { floatingLabelClass, inputClass, fieldLabelClass } from "./formStyles";
 import { Button } from "@/components/ui/Button";
 import { FormError } from "@/components/ui/FormError";
 import { CustomCountrySelect } from "@/components/ui/CustomCountrySelect";
-
+import { LocationDetectionFeedback } from "@/components/ui/LocationDetectionFeedback";
 import PhoneInput, { Country } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { useTranslations } from "next-intl";
@@ -123,29 +123,19 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
             </label>
 
             <div className="ml-2 mt-1">
-              {isDetecting ? (
-                <p className="text-[10px] italic text-slate-500 animate-pulse">{tErr("PhoneDetection.detecting")}</p>
-              ) : (
-                <>
-                  {!userInteracted && detectedCode && (
-                    <p className="text-[10px] font-medium leading-relaxed text-emerald-500/80">
-                      {tErr("PhoneDetection.autoDetected")}
-                    </p>
-                  )}
-
-                  {userInteracted && detectedCode && selectedCountry === detectedCode && (
-                    <p className="text-[10px] font-medium leading-relaxed text-emerald-500/80">
-                      {tErr("PhoneDetection.confirmed")}
-                    </p>
-                  )}
-
-                  {userInteracted && detectedCode && selectedCountry !== detectedCode && (
-                    <p className="text-[10px] font-medium leading-relaxed text-amber-500/90">
-                      {tErr("PhoneDetection.mismatch")}
-                    </p>
-                  )}
-                </>
-              )}
+              <LocationDetectionFeedback
+                isDetecting={isDetecting}
+                userInteracted={userInteracted}
+                detectedCode={detectedCode}
+                selectedCode={selectedCountry}
+                textClassName="text-[10px]"
+                messages={{
+                  detecting: tErr("PhoneDetection.detecting"),
+                  autoDetected: tErr("PhoneDetection.autoDetected"),
+                  confirmed: tErr("PhoneDetection.confirmed"),
+                  mismatch: tErr("PhoneDetection.mismatch"),
+                }}
+              />
               <FormError message={errors.phone} />
             </div>
           </div>
