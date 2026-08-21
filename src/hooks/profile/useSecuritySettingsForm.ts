@@ -1,6 +1,7 @@
 import { useState, useRef, type FormEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { usePasswordStrength, type TransientMsgType } from "@/hooks/usePasswordStrength";
+import { profileService } from "@/services/profile/profileService";
 
 export function useSecuritySettingsForm(tError: (key: string) => string) {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -60,7 +61,8 @@ export function useSecuritySettingsForm(tError: (key: string) => string) {
 
     try {
       setIsLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      await profileService.updateSecurity({ currentPassword, newPassword, confirmPassword });
+      // await new Promise((resolve) => setTimeout(resolve, 1500));
       console.log("Security Updated!", { currentPassword, newPassword });
     } catch {
       setErrors((prev) => ({ ...prev, form: "Update failed" }));

@@ -19,9 +19,10 @@ interface TravelerPickerProps {
   options: TravelerOption[];
   counts: Record<string, number>;
   onChange: (type: string, delta: number) => void;
+  isLoading?: boolean;
 }
 
-export function TravelerPicker({ options, counts, onChange }: TravelerPickerProps) {
+export function TravelerPicker({ options, counts, onChange, isLoading = false }: TravelerPickerProps) {
   const t = useTranslations("SharedForm.TravelerPicker");
   const [isOpen, setIsOpen] = useState(false);
 
@@ -45,10 +46,13 @@ export function TravelerPicker({ options, counts, onChange }: TravelerPickerProp
       {/* Trigger Field */}
       <div
         tabIndex={0}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          if (isLoading) return;
+          setIsOpen(!isOpen);
+        }}
         className={`${inputClass} cursor-pointer flex justify-between items-center pl-11 ${
           isOpen ? "border-gold/60! bg-white/[0.07]!" : ""
-        }`}
+        }${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
       >
         <Users className="absolute left-4 top-1/2 -translate-y-1/2 h-4.5 w-4.5 md:h-5 md:w-5 text-slate-500" />
         <span className="text-white text-body-sm font-medium truncate pr-4">{triggerLabel}</span>

@@ -1,6 +1,7 @@
 import { useState, useRef, type FormEvent, type KeyboardEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { usePasswordStrength, type TransientMsgType } from "@/hooks/usePasswordStrength";
+import { authService } from "@/services/auth/authService";
 
 const otpLength = 6;
 
@@ -72,7 +73,8 @@ export function usePasswordResetForm(tError: (key: string) => string) {
 
     try {
       setIsLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+     await authService.resetPassword({ otp, password, confirmPassword });
+      // await new Promise((resolve) => setTimeout(resolve, 1500));
       console.log("Password Reset Valid & Submitted!", { otp, password });
     } catch {
       setErrors((prev) => ({ ...prev, form: "Password reset failed" }));

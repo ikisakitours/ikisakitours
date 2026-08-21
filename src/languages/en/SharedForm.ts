@@ -71,6 +71,18 @@ export default {
     updateSecurity: "Update Security Settings",
     showPassword: "Show password",
     hidePassword: "Hide password",
+    submitBtn: "Submit Review",
+    startChat: "Start Chat",
+  },
+  ButtonsLoading: {
+    authenticating: "Authenticating...",
+    registering: "Registering...",
+    sending: "Sending...",
+    updating: "Updating...",
+    checking: "Checking...",
+    submitting: "Submitting...",
+    saving: "Saving...",
+    checkingAvailability: "Checking Availability...",
   },
   TravelerOptions: {
     adult: "Adult",

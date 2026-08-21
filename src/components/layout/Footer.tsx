@@ -1,15 +1,13 @@
 "use client";
-import { type FormEvent, useState } from "react";
 import { LoadingImage } from "@/components/ui/LoadingImage";
 import { LoadingVideo } from "@/components/ui/LoadingVideo";
 import { Link, usePathname } from "@/lib/i18nNavigation";
 import { footerLinks, socialLinks, legalLinks, contactInfo } from "@/data/navigation";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import TimeDiv from "@/components/ui/TimeDiv";
-import { useValidationForm } from "@/hooks/useValidationForm";
 import { FormError } from "@/components/ui/FormError";
 import { useTranslations } from "next-intl";
-
+import { useNewsletterForm } from "@/hooks/Footer/useNewsletterForm";
 //Icons
 import { Heart, Mail, MapPin, Phone, Send, Globe } from "lucide-react";
 import { FaInstagram, FaTiktok, FaFacebookF, FaTwitter, FaYoutube, FaWhatsapp } from "react-icons/fa6";
@@ -22,23 +20,8 @@ export function Footer() {
   const pathname = usePathname();
   const isHome = pathname === "/";
 
-  const [formData, setFormData] = useState({ email: "" });
-
-  // Validation Hook
-  const { errors, validate, setErrors } = useValidationForm();
-
-  // Form Submit Handler
-  const handleBookingSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const isValid = validate({
-      email: formData.email,
-    });
-
-    if (isValid) {
-      console.log("Form is valid, proceed to API call", { ...formData });
-    }
-  };
+  //Hook
+  const { formData, setFormData, errors, setErrors, isLoading, handleBookingSubmit } = useNewsletterForm();
 
   const BRAND_NAME = "AETHERIA LABS";
   const BRAND_URL = "https://portfolio-app-pyqf.vercel.app/";
@@ -152,19 +135,22 @@ export function Footer() {
                 type="text"
                 placeholder={tFooter("emailPlaceholder")}
                 value={formData.email}
+                autoComplete="email"
+                disabled={isLoading}
                 onChange={(e) => {
                   setFormData({ email: e.target.value });
                   if (errors.email) setErrors({ ...errors, email: "" });
                 }}
                 aria-label={tFooter("emailPlaceholder")}
-                className="w-full  rounded-full border border-white/20 bg-white/10 px-6 py-4 text-body-sm text-white transition-all placeholder:text-slate-400 focus:border-gold/60 focus:outline-none [&:-webkit-autofill]:shadow-[inset_0_0_0px_1000px_rgb(20,20,20)]"
+                className="disabled:opacity-60 disabled:cursor-not-allowed w-full  rounded-full border border-white/20 bg-white/10 px-6 py-4 text-body-sm text-white transition-all placeholder:text-slate-400 focus:border-gold/60 focus:outline-none [&:-webkit-autofill]:shadow-[inset_0_0_0px_1000px_rgb(20,20,20)]"
               />
               <button
                 type="submit"
                 aria-label={tFooter("buttonText")}
                 className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-gold text-black transition-all hover:scale-105 hover:bg-white"
               >
-                <Send className="h-4 w-4" strokeWidth={2} />
+                <Send className={`h-4 w-4 ${isLoading ? "animate-pulse" : ""}`} strokeWidth={2} />
+                {/* <Send className="h-4 w-4" strokeWidth={2} /> */}
               </button>
             </form>
             <div className="-ml-30 md:ml-5 lg:ml-5 xl:ml-5">

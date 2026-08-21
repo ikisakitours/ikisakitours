@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-// අදාළ අවස්ථාවන්ට ගැළපෙන Premium Icons ටික Import කරගන්නවා
+//Icons
 import { Loader2, MapPin, CheckCircle2, AlertTriangle, Info } from "lucide-react";
 
 export interface LocationDetectionFeedbackProps {

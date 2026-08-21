@@ -1,93 +1,47 @@
 "use client";
-
-import { type FormEvent, useMemo, useState } from "react";
-import { transferServiceIds, type TransferServiceId } from "@/data/transfers";
-import { vehicles } from "@/data/vehicles";
 import { TransferFareSummary } from "./TransferFareSummary";
 import { TransferJourneyFields } from "./TransferJourneyFields";
 import { TransferServiceSelector } from "./TransferServiceSelector";
-import { type ActiveVehicleFilter } from "@/components/services/VehicleSelector";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { ContactForm, type ContactData } from "@/components/services/ContactForm";
-import { useValidationForm } from "@/hooks/useValidationForm";
+import { ContactForm } from "@/components/services/ContactForm";
 import { CrossPromotionSection } from "@/components/services/CrossPromotionSection";
 import FormPanel from "@/components/services/FormPanel";
 import StepHeading from "@/components/services/StepHeading";
 import { useTranslations } from "next-intl";
 import { languages } from "@/data/Languages-CurrencyData";
-import { useSearchParams } from "next/navigation";
+import { useTransferBookingForm } from "@/hooks/services/useTransferBookingForm";
 
 export function TransferBookingForm() {
   const tStep = useTranslations("Services.StepHeadings");
-  const defaultCategory = vehicles[0].category;
-  const defaultVehicleId = vehicles[0].id;
 
-  const searchParams = useSearchParams();
-  const typeParam = searchParams.get("type") as TransferServiceId | null;
-  const initialServiceType = typeParam && transferServiceIds.includes(typeParam) ? typeParam : "pickup";
-
-  const [serviceType, setServiceType] = useState<TransferServiceId>(initialServiceType);
-  const [activeFilter, setActiveFilter] = useState<ActiveVehicleFilter>(defaultCategory);
-  const [selectedVehicleId, setSelectedVehicleId] = useState(defaultVehicleId);
-
-  const [pickupLocation, setPickupLocation] = useState("");
-  const [dropoffLocation, setDropoffLocation] = useState("");
-
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [language, setLanguage] = useState<string>("");
-  const [travelerCounts, setTravelerCounts] = useState<Record<string, number>>({
-    adult: 0,
-    couple: 0,
-    child: 0,
-    infant: 0,
-  });
-
-  const handleTravelerChange = (type: string, delta: number) => {
-    setTravelerCounts((prev) => {
-      const actualDelta = type === "couple" ? delta * 2 : delta;
-      const current = prev[type] || 0;
-      const next = current + actualDelta;
-
-      if (next < 0) return prev;
-
-      return { ...prev, [type]: next };
-    });
-  };
-
-  const selectedVehicle = useMemo(
-    () => vehicles.find((vehicle) => vehicle.id === selectedVehicleId) ?? vehicles[0],
-    [selectedVehicleId],
-  );
-
-  const { errors, validate, setErrors } = useValidationForm();
-  const [contact, setContact] = useState<ContactData>({
-    fullName: "",
-    email: "",
-    phone: "",
-    specialRequests: "",
-  });
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const isValid = validate({
-      date,
-      time,
-      language,
-      counts: travelerCounts,
-      pickupLocation,
-      dropoffLocation,
-      fullName: contact.fullName,
-      email: contact.email,
-      phone: contact.phone,
-      specialRequests: contact.specialRequests,
-    });
-
-    if (isValid) {
-      console.log("Form is valid, proceed to API call");
-    }
-  };
+  // Hook
+  const {
+    serviceType,
+    setServiceType,
+    activeFilter,
+    setActiveFilter,
+    // selectedVehicleId,
+    setSelectedVehicleId,
+    pickupLocation,
+    setPickupLocation,
+    dropoffLocation,
+    setDropoffLocation,
+    date,
+    setDate,
+    time,
+    setTime,
+    language,
+    setLanguage,
+    travelerCounts,
+    handleTravelerChange,
+    selectedVehicle,
+    contact,
+    setContact,
+    errors,
+    setErrors,
+    isLoading,
+    handleSubmit,
+  } = useTransferBookingForm();
 
   return (
     <ContainerLayout className="relative z-20 pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
@@ -100,6 +54,7 @@ export function TransferBookingForm() {
               onServiceChange={(id) => {
                 setServiceType(id);
               }}
+              isLoading={isLoading}
             />
           </FormPanel>
 
@@ -124,6 +79,7 @@ export function TransferBookingForm() {
               errors={errors}
               setErrors={setErrors}
               languagesList={languages}
+              isLoading={isLoading}
             />
           </FormPanel>
 
@@ -131,7 +87,13 @@ export function TransferBookingForm() {
             <StepHeading step="3" subtitle={tStep("stepContactSub")}>
               {tStep("stepContact")}
             </StepHeading>
-            <ContactForm data={contact} setData={setContact} errors={errors} setErrors={setErrors} />
+            <ContactForm
+              data={contact}
+              setData={setContact}
+              errors={errors}
+              setErrors={setErrors}
+              isLoading={isLoading}
+            />
           </FormPanel>
         </form>
 

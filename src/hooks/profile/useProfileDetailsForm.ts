@@ -1,6 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import { profileUser } from "@/data/profile";
 import { useValidationForm } from "@/hooks/useValidationForm";
+import { profileService } from "@/services/profile/profileService";
 
 export function useProfileDetailsForm(tError: (key: string) => string) {
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
@@ -54,7 +55,8 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
 
     try {
       setIsLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      await profileService.updateDetails({ firstName, lastName, email });
+      // await new Promise((resolve) => setTimeout(resolve, 1500));
       console.log("Details saved successfully:", { firstName, lastName, email });
     } catch (error) {
       console.error("Update error:", error);
@@ -70,7 +72,8 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
     try {
       setIsProfileLoading(true);
       // Image Upload API Call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await profileService.uploadAvatar(avatarPreview);
+      // await new Promise((resolve) => setTimeout(resolve, 2000));
       console.log("Uploading cropped avatar:", avatarPreview);
     } catch (error) {
       console.error("Avatar upload error:", error);

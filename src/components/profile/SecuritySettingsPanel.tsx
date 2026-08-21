@@ -10,7 +10,7 @@ import { useSecuritySettingsForm } from "@/hooks/profile/useSecuritySettingsForm
 import { Eye, EyeOff } from "lucide-react";
 
 const inputClass =
-  "w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 pr-12 text-body-sm! text-white outline-none transition-all placeholder:text-slate-500 focus:border-gold/50";
+  "disabled:opacity-60 disabled:cursor-not-allowed w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 pr-12 text-body-sm! text-white outline-none transition-all placeholder:text-slate-500 focus:border-gold/50";
 
 export function SecuritySettingsPanel() {
   const t = useTranslations("ProfilePage");
@@ -172,7 +172,7 @@ export function SecuritySettingsPanel() {
               disabled={isLoading}
               className="[&_span]:text-caption! order-1 w-full justify-center sm:order-2 sm:w-max"
             >
-              {isLoading ? "Updating..." : tForm("Buttons.updateSecurity")}
+              {isLoading ? tForm("ButtonsLoading.updating") : tForm("Buttons.updateSecurity")}
             </Button>
           </div>
         </form>

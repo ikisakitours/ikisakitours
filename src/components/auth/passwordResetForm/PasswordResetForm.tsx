@@ -10,7 +10,7 @@ import { usePasswordResetForm } from "@/hooks/auth/usePasswordResetForm";
 import { Eye, EyeOff, Lock, ShieldCheck } from "lucide-react";
 
 const inputClass =
-  "w-full rounded-2xl border border-white/10 bg-white/[0.03] py-3.5 px-5 text-body-sm text-white outline-none transition-all placeholder:text-slate-700 focus:border-gold focus:bg-gold/5 focus:shadow-[0_0_15px_rgba(197,160,89,0.05)]";
+  "disabled:opacity-60 disabled:cursor-not-allowed w-full rounded-2xl border border-white/10 bg-white/[0.03] py-3.5 px-5 text-body-sm text-white outline-none transition-all placeholder:text-slate-700 focus:border-gold focus:bg-gold/5 focus:shadow-[0_0_15px_rgba(197,160,89,0.05)]";
 
 export function PasswordResetForm() {
   const tAuth = useTranslations("Auth");
@@ -70,7 +70,7 @@ export function PasswordResetForm() {
                   disabled={isLoading}
                   onChange={(event) => handleOtpChange(index, event.target.value)}
                   onKeyDown={(event) => handleOtpKeyDown(index, event)}
-                  className="h-12 w-full max-w-14 rounded-xl border border-white/10 bg-white/3 text-center text-lg font-extrabold text-gold outline-none transition-all focus:border-gold focus:bg-gold/5 sm:h-14 sm:text-xl"
+                  className="disabled:opacity-60 disabled:cursor-not-allowed h-12 w-full max-w-14 rounded-xl border border-white/10 bg-white/3 text-center text-lg font-extrabold text-gold outline-none transition-all focus:border-gold focus:bg-gold/5 sm:h-14 sm:text-xl"
                 />
               ))}
             </div>
@@ -169,8 +169,8 @@ export function PasswordResetForm() {
             </label>
           </div>
 
-          <Button type="submit" className="md:w-97.5! text-body-sm!" variant="auth">
-            {isLoading ? "Authenticating..." : tForm("Buttons.updatePassword")}
+          <Button type="submit" disabled={isLoading} className="md:w-97.5! text-body-sm!" variant="auth">
+            {isLoading ? tForm("ButtonsLoading.updating") : tForm("Buttons.updatePassword")}
           </Button>
 
           <div className="mt-8 md:mt-6 text-center">

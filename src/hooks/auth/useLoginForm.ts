@@ -2,6 +2,7 @@
 import { useState, type FormEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { useRouter } from "@/lib/i18nNavigation";
+import { authService } from "@/services/auth/authService";
 
 export function useLoginForm() {
   const [email, setEmail] = useState("");
@@ -20,8 +21,9 @@ export function useLoginForm() {
 
     try {
       setIsLoading(true);
-      // Simulated API request
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+     const response =  await authService.login({ email, password });
+      // await new Promise((resolve) => setTimeout(resolve, 1500));
+      console.log("Login valid and submitted!", response);
       console.log("Login valid and submitted!", { email, password });
 
       router.push("/");

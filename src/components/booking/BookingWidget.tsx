@@ -1,14 +1,13 @@
 "use client";
-import { type FormEvent, useState } from "react";
 import { LikeButton } from "@/components/ui/LikeButton";
 import { ShareButton } from "@/components/ui/ShareButton";
 import CustomDatePicker from "@/components/ui/CustomDatePicker";
 import { TravelerPicker } from "@/components/ui/TravelerPicker";
 import { Button } from "@/components/ui/Button";
-import { useValidationForm } from "@/hooks/useValidationForm";
 import { FormError } from "@/components/ui/FormError";
 import { Check, Info, Zap, Banknote, CalendarDays } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useBookingWidget } from "@/hooks/Booking/useBookingWidget";
 
 type TourType = {
   title: string;
@@ -64,38 +63,20 @@ export function BookingWidget({ tour, className = "" }: BookingWidgetProps) {
     },
   ];
 
-  const [travelerCounts, setTravelerCounts] = useState<Record<string, number>>({
-    adult: 0,
-    couple: 0,
-    child: 0,
-    infant: 0,
-  });
-  const [journeyDate, setJourneyDate] = useState("");
-
-  const handleTravelerChange = (type: string, delta: number) => {
-    setTravelerCounts((prev) => {
-      const actualDelta = type === "couple" ? delta * 2 : delta;
-      const current = prev[type] || 0;
-      const next = current + actualDelta;
-
-      if (next < 0) return prev;
-      return { ...prev, [type]: next };
-    });
-  };
-
-  const { errors, validate, setErrors } = useValidationForm();
-
-  const handleBookingSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const isValid = validate({ date: journeyDate, counts: travelerCounts });
-    if (isValid) {
-      console.log("Form is valid, proceed to API call");
-    }
-  };
+  //Hook
+  const {
+    travelerCounts,
+    journeyDate,
+    setJourneyDate,
+    handleTravelerChange,
+    errors,
+    setErrors,
+    isLoading,
+    handleBookingSubmit,
+  } = useBookingWidget();
 
   return (
     <aside className={`mt-12 w-full md:mx-auto md:max-w-105 xl:mx-0 xl:mt-0 xl:w-1/3 xl:max-w-none ${className}`}>
-      {" "}
       <div className="sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto no-scrollbar space-y-4 pb-4">
         <div className="flex items-center justify-between px-2">
           <span className="text-caption font-bold uppercase tracking-[0.2em] text-slate-400">{t("loveTour")}</span>
@@ -160,6 +141,7 @@ export function BookingWidget({ tour, className = "" }: BookingWidgetProps) {
               </label>
               <CustomDatePicker
                 value={journeyDate}
+                isLoading={isLoading}
                 onChange={(d) => {
                   setJourneyDate(d);
                   if (errors.date) setErrors((prev) => ({ ...prev, date: "" }));
@@ -177,6 +159,7 @@ export function BookingWidget({ tour, className = "" }: BookingWidgetProps) {
               <TravelerPicker
                 options={travelerOptions}
                 counts={travelerCounts}
+                isLoading={isLoading}
                 onChange={(type, delta) => {
                   handleTravelerChange(type, delta);
                   if (errors.travelers) setErrors((prev) => ({ ...prev, travelers: "" }));
@@ -188,8 +171,8 @@ export function BookingWidget({ tour, className = "" }: BookingWidgetProps) {
             </div>
           </div>
 
-          <Button type="submit" variant="auth" className="w-full">
-            {tForms("Buttons.checkAvailability")}
+          <Button type="submit" disabled={isLoading} variant="auth" className="w-full">
+            {isLoading ? tForms("ButtonsLoading.checkingAvailability") : tForms("Buttons.checkAvailability")}
           </Button>
 
           <div className="space-y-3 border-t border-white/5 pt-4 mt-4">

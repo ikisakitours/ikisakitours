@@ -12,7 +12,7 @@ import { useSignupForm } from "@/hooks/auth/useSignupForm";
 import { User, UserCheck, Mail, Lock, ShieldCheck, Eye, EyeOff } from "lucide-react";
 
 const inputClass =
-  "w-full rounded-2xl border border-white/10 bg-white/[0.03] py-3.5 px-5 text-body-sm text-white outline-none transition-all placeholder:text-slate-700 focus:border-gold focus:bg-gold/5 focus:shadow-[0_0_15px_rgba(197,160,89,0.05)]";
+  "disabled:opacity-60 disabled:cursor-not-allowed w-full rounded-2xl border border-white/10 bg-white/[0.03] py-3.5 px-5 text-body-sm text-white outline-none transition-all placeholder:text-slate-700 focus:border-gold focus:bg-gold/5 focus:shadow-[0_0_15px_rgba(197,160,89,0.05)]";
 
 export function SignupForm() {
   const tAuth = useTranslations("Auth");
@@ -275,8 +275,8 @@ export function SignupForm() {
             </div>
           </div>
 
-          <Button type="submit" className="md:w-102.5! text-body-sm!" variant="auth">
-            {isLoading ? "Registering..." : tForm("Buttons.registerMembership")}
+          <Button type="submit" disabled={isLoading} className="md:w-102.5! text-body-sm!" variant="auth">
+            {isLoading ? tForm("ButtonsLoading.registering") : tForm("Buttons.registerMembership")}
           </Button>
 
           <div className="mt-8 md:mt-6 text-center mb-5">

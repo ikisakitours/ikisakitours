@@ -7,9 +7,10 @@ import { FiClock } from "react-icons/fi";
 interface CustomTimePickerProps {
   value: string;
   onChange: (time: string) => void;
+  isLoading?: boolean;
 }
 
-export default function CustomTimePicker({ value, onChange }: CustomTimePickerProps) {
+export default function CustomTimePicker({ value, onChange, isLoading = false }: CustomTimePickerProps) {
   const t = useTranslations("SharedForm.TimePicker");
   const locale = useLocale();
   const [isOpen, setIsOpen] = useState(false);
@@ -38,19 +39,19 @@ export default function CustomTimePicker({ value, onChange }: CustomTimePickerPr
 
   const hoursLength = is12HourFormat ? 12 : 24;
   const hours = Array.from({ length: hoursLength }, (_, i) => {
-    const hourVal = is12HourFormat ? i + 1 : i; 
+    const hourVal = is12HourFormat ? i + 1 : i;
     return String(hourVal).padStart(2, "0");
   });
-  
+
   const minutes = Array.from({ length: 12 }, (_, i) => String(i * 5).padStart(2, "0"));
   const periods = ["AM", "PM"];
 
   const handleTimeChange = (h: string, m: string, p: string) => {
     setSelectedHour(h);
     setSelectedMinute(m);
-    
+
     if (is12HourFormat) setSelectedPeriod(p);
-    
+
     const formattedTime = is12HourFormat ? `${h}:${m} ${p}` : `${h}:${m}`;
     onChange(formattedTime);
   };
@@ -60,14 +61,15 @@ export default function CustomTimePicker({ value, onChange }: CustomTimePickerPr
       {/* Trigger Field */}
       <div
         tabIndex={0}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          if (isLoading) return;
+          setIsOpen(!isOpen);
+        }}
         className={`w-full rounded-xl border border-white/10 bg-white/3 px-4 py-3 text-body-sm text-white outline-none transition-all placeholder:text-slate-500 hover:border-white/20 focus:border-gold/60 focus:bg-white/[0.07] cursor-pointer flex justify-between items-center ${
           isOpen ? "border-gold/60! bg-white/[0.07]!" : ""
-        }`}
+        }${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
       >
-        <span className={value ? "text-white" : "text-slate-500"}>
-          {value ? value : t("selectTime")}
-        </span>
+        <span className={value ? "text-white" : "text-slate-500"}>{value ? value : t("selectTime")}</span>
         <FiClock className="h-4.5 w-4.5 md:h-5 md:w-5 text-slate-500" />
       </div>
 
@@ -77,13 +79,16 @@ export default function CustomTimePicker({ value, onChange }: CustomTimePickerPr
       {/* Dropdown Box */}
       {isOpen && (
         <div className="absolute top-full mt-2 right-0 sm:left-0 bg-[#0a0a0a] border border-white/10 rounded-2xl shadow-2xl z-50 p-5 w-full sm:w-72 animate-in fade-in zoom-in-95 duration-200 backdrop-blur-xl">
-          
           {/* Header */}
           <div className="flex justify-between items-center mb-3 px-2">
-            <span className={`text-caption text-center font-bold text-slate-500 uppercase tracking-widest ${is12HourFormat ? 'w-1/3' : 'w-1/2'}`}>
+            <span
+              className={`text-caption text-center font-bold text-slate-500 uppercase tracking-widest ${is12HourFormat ? "w-1/3" : "w-1/2"}`}
+            >
               {t("hours")}
             </span>
-            <span className={`text-caption text-center font-bold text-slate-500 uppercase tracking-widest ${is12HourFormat ? 'w-1/3' : 'w-1/2'}`}>
+            <span
+              className={`text-caption text-center font-bold text-slate-500 uppercase tracking-widest ${is12HourFormat ? "w-1/3" : "w-1/2"}`}
+            >
               {t("minutes")}
             </span>
             {is12HourFormat && (

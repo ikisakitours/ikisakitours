@@ -10,7 +10,7 @@ import { useLoginForm } from "@/hooks/auth/useLoginForm";
 import { Eye, EyeOff, Mail, ShieldCheck } from "lucide-react";
 
 const inputClass =
-  "w-full rounded-2xl border border-white/10 bg-white/[0.03] py-3.5 px-5 text-body-sm text-white outline-none transition-all placeholder:text-slate-700 focus:border-gold focus:bg-gold/5 focus:shadow-[0_0_15px_rgba(197,160,89,0.05)]";
+  "disabled:opacity-60 disabled:cursor-not-allowed w-full rounded-2xl border border-white/10 bg-white/[0.03] py-3.5 px-5 text-body-sm text-white outline-none transition-all placeholder:text-slate-700 focus:border-gold focus:bg-gold/5 focus:shadow-[0_0_15px_rgba(197,160,89,0.05)]";
 
 export function LoginForm() {
   //  Hook
@@ -117,8 +117,8 @@ export function LoginForm() {
           </div>
 
           {/* Submit Button */}
-          <Button type="submit" className="md:w-92.5! text-body-sm!" variant="auth">
-            {isLoading ? "Authenticating..." : tForm("Buttons.enterGateway")}
+          <Button type="submit" disabled={isLoading} className="md:w-92.5! text-body-sm!" variant="auth">
+            {isLoading ? tForm("ButtonsLoading.authenticating") : tForm("Buttons.enterGateway")}
           </Button>
         </form>
 

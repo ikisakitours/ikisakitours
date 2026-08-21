@@ -12,18 +12,22 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "images.unsplash.com",
+        pathname: "/**",
       },
       {
         protocol: "https",
         hostname: "flagcdn.com",
+        pathname: "/**",
       },
       {
         protocol: "https",
         hostname: "randomuser.me",
+        pathname: "/**",
       },
       {
         protocol: "https",
         hostname: "i.pravatar.cc",
+        pathname: "/**",
       },
     ],
   },

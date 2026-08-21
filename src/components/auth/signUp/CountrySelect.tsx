@@ -28,7 +28,7 @@ export function CountrySelect({
   error,
   clearError,
   inputClass,
-  showIcon = true,
+  showIcon = false,
   customLabel,
   disabled = false,
 }: CountrySelectProps) {
@@ -130,7 +130,7 @@ export function CountrySelect({
           )}
         </div>
         <ChevronDown
-        strokeWidth={3}
+          strokeWidth={3}
           className={`absolute right-5 top-1/2 h-4 w-4 -translate-y-1/2 pointer-events-none text-slate-500 transition-all duration-300 group-hover:text-gold ${isDropdownOpen ? "rotate-180 text-gold" : ""}`}
         />
 

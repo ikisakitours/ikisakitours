@@ -1,12 +1,11 @@
 "use client";
-import React, { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import Image from "next/image";
-import { useValidationForm } from "@/hooks/useValidationForm";
 import { FormError } from "@/components/ui/FormError";
 import { CountrySelect } from "@/components/auth/signUp/CountrySelect";
 import { UploadCloud, ArrowLeft, Star, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useReviewForm } from "@/hooks/Booking/usePackageReviewForm";
 
 const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
   const target = e.currentTarget;
@@ -18,54 +17,33 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
   const t = useTranslations("Booking.ReviewForm");
   const tForms = useTranslations("SharedForm");
 
-  const [fullName, setFullName] = useState("");
-  const [country, setCountry] = useState("");
-  const [rating, setRating] = useState<number>(0);
-  const [experience, setExperience] = useState("");
-  const [images, setImages] = useState<File[]>([]);
-  const [previews, setPreviews] = useState<string[]>([]);
-
-  const { errors, validate, setErrors } = useValidationForm();
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const filesArray = Array.from(e.target.files);
-      if (images.length + filesArray.length > 5) {
-        setErrors((prev) => ({ ...prev, images: "Maximum 5 photos allowed" }));
-        return;
-      }
-      const MAX_SIZE = 5 * 1024 * 1024;
-      const hasLargeFile = filesArray.some((file) => file.size > MAX_SIZE);
-      if (hasLargeFile) {
-        setErrors((prev) => ({ ...prev, images: "Each photo must be less than 5MB" }));
-        return;
-      }
-      setErrors((prev) => ({ ...prev, images: "" }));
-      const newImages = [...images, ...filesArray];
-      setImages(newImages);
-      setPreviews(newImages.map((file) => URL.createObjectURL(file)));
-    }
-  };
-
-  const removeImage = (index: number) => {
-    const newImages = images.filter((_, i) => i !== index);
-    setImages(newImages);
-    setPreviews(newImages.map((file) => URL.createObjectURL(file)));
-    if (newImages.length <= 5) setErrors((prev) => ({ ...prev, images: "" }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const isValid = validate({ fullName, country, rating, experience, images });
-    if (isValid) console.log("Form is valid! Submitting...", { fullName, country, rating, experience, images });
-  };
-
+  //  Hook
+  const {
+    fullName,
+    setFullName,
+    email,
+    setEmail,
+    country,
+    setCountry,
+    rating,
+    setRating,
+    experience,
+    setExperience,
+    previews,
+    handleImageChange,
+    removeImage,
+    isLoading,
+    errors,
+    setErrors,
+    handleSubmit,
+  } = useReviewForm();
   return (
     <div className="animate-fade-in-up mx-auto max-w-2xl 3xl:max-w-4xl">
       <div className="mb-8 flex justify-end">
         <Button
           variant="tag"
           onClick={onBack}
+          disabled={isLoading}
           className="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 pt-2.25 pb-1.75 transition-all duration-300 hover:border-gold/40 hover:bg-gold/10 md:px-5 md:pt-2.25 md:pb-1.75 3xl:px-6 3xl:pt-2.5 3xl:pb-2"
         >
           <ArrowLeft
@@ -84,6 +62,7 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
         </div>
         <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8 3xl:space-y-12">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {/* Full Name */}
             <div className="flex flex-col">
               <label className="ml-2 mb-1 text-caption font-bold uppercase tracking-widest text-gold">
                 {tForms("Labels.fullName")}
@@ -91,6 +70,7 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
               <input
                 type="text"
                 value={fullName}
+                disabled={isLoading}
                 onChange={(e) => {
                   setFullName(e.target.value);
                   setErrors((prev) => ({ ...prev, fullName: "" }));
@@ -98,11 +78,37 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
                 placeholder={tForms("Placeholders.fullName")}
                 className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-body-sm text-white transition-colors focus:border-gold/50 focus:outline-none 3xl:py-6"
               />
-              <FormError message={errors.fullName} />
+              <div className="ml-2">
+                <FormError message={errors.fullName} />
+              </div>
             </div>
+
+            {/* email */}
+            <div className="flex flex-col">
+              <label className="ml-2 mb-1 text-caption font-bold uppercase tracking-widest text-gold">
+                {tForms("Labels.email")}
+              </label>
+              <input
+                type="email"
+                value={email}
+                disabled={isLoading}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setErrors((prev) => ({ ...prev, email: "" }));
+                }}
+                placeholder={tForms("Placeholders.email")}
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-body-sm text-white transition-colors focus:border-gold/50 focus:outline-none 3xl:py-6 disabled:opacity-60 disabled:cursor-not-allowed"
+              />
+              <div className="ml-2">
+                <FormError message={errors.email} />
+              </div>
+            </div>
+
+            {/* Country */}
             <div className="flex flex-col">
               <CountrySelect
                 countryName={country}
+                disabled={isLoading}
                 setCountryName={(val) => {
                   setCountry(val);
                   setErrors((prev) => ({ ...prev, country: "" }));
@@ -119,6 +125,8 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
               />
             </div>
           </div>
+
+          {/* Rating */}
           <div className="flex flex-col gap-1">
             <div className="rounded-2xl border border-white/5 bg-white/5 py-8 text-center shadow-inner 3xl:py-12">
               <label className="mb-4 block text-caption font-bold uppercase tracking-[0.4em] text-gold opacity-80 3xl:text-xs">
@@ -129,10 +137,13 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
                   <Star
                     key={star}
                     onClick={() => {
+                      if (isLoading) return;
                       setRating(star);
                       setErrors((prev) => ({ ...prev, rating: "" }));
                     }}
-                    className={`h-6 w-6 cursor-pointer transition-all duration-300 hover:scale-125 3xl:h-12 3xl:w-12 ${rating >= star ? "fill-gold text-gold" : "hover:text-gold/50"}`}
+                    className={`h-6 w-6 transition-all duration-300 3xl:h-12 3xl:w-12 ${
+                      isLoading ? "opacity-60 cursor-not-allowed" : "cursor-pointer hover:scale-125 hover:text-gold/50"
+                    } ${rating >= star ? "fill-gold text-gold" : ""}`}
                   />
                 ))}
               </div>
@@ -141,12 +152,15 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
               <FormError message={errors.rating} />
             </div>
           </div>
+
+          {/* Experience */}
           <div className="flex flex-col ">
             <label className="ml-2 mb-1 text-caption font-bold uppercase tracking-widest text-gold 3xl:text-xs">
               {t("experienceLabel")}
             </label>
             <textarea
               value={experience}
+              disabled={isLoading}
               onInput={handleInput}
               onChange={(e) => {
                 setExperience(e.target.value);
@@ -162,14 +176,19 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
               <FormError message={errors.experience} />
             </div>
           </div>
+
+          {/* Image Upload */}
           <div className="flex flex-col gap-1">
             <div
-              className={`group relative cursor-pointer rounded-2xl border-2 border-dashed p-8 text-center transition-colors 3xl:p-12 ${errors.images ? "border-red-500/50 hover:border-red-500" : "border-white/10 hover:border-gold/30"}`}
+              className={`group relative rounded-2xl border-2 border-dashed p-8 text-center transition-colors 3xl:p-12 ${
+                errors.images ? "border-red-500/50 hover:border-red-500" : "border-white/10 hover:border-gold/30"
+              } ${isLoading ? "opacity-60 cursor-not-allowed pointer-events-none" : "cursor-pointer"}`}
             >
               <input
                 type="file"
                 multiple
                 accept="image/*"
+                disabled={isLoading}
                 onChange={handleImageChange}
                 className="absolute inset-0 z-10 cursor-pointer opacity-0"
               />
@@ -189,12 +208,15 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
                 {previews.map((preview, index) => (
                   <div
                     key={index}
-                    className="relative aspect-square overflow-hidden rounded-xl border border-white/10 bg-white/5"
+                    className={`relative aspect-square overflow-hidden rounded-xl border border-white/10 bg-white/5 ${
+                      isLoading ? "opacity-60" : ""
+                    }`}
                   >
                     <Image src={preview} alt="preview" fill className="object-cover" />
                     <div className="absolute -bottom-px -left-px -right-px h-8 flex items-center justify-center border-t border-white/10 bg-black/60 backdrop-blur-md rounded-b-xl">
                       <button
                         type="button"
+                        disabled={isLoading}
                         onClick={() => removeImage(index)}
                         className="flex h-full w-full items-center justify-center group/btn"
                       >
@@ -206,12 +228,14 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
               </div>
             )}
           </div>
+
           <Button
             variant="primary"
             type="submit"
+            disabled={isLoading}
             className="block w-full md:w-auto md:ml-auto md:px-16 py-5 text-caption! tracking-[0.3em] shadow-xl shadow-gold/10 3xl:py-8"
           >
-            {t("submitBtn")}
+            {isLoading ? tForms("ButtonsLoading.submitting") : tForms("Buttons.submitBtn")}
           </Button>
         </form>
       </div>

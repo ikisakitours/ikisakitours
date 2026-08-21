@@ -155,7 +155,7 @@ export default function FaqAccordionList({
                       className="overflow-hidden"
                     >
                       <div className="px-6 pb-6 pt-0">
-                        <p className="text-body md:text-body-lead text-left md:text-justify hyphens-auto font-light leading-relaxed text-slate-300 ">
+                        <p className="text-body text-left md:text-justify hyphens-auto font-light leading-relaxed text-slate-300 ">
                           {faq.answer}
                         </p>
                       </div>

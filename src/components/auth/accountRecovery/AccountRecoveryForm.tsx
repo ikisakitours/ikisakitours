@@ -11,7 +11,7 @@ import { useRecoveryForm } from "@/hooks/auth/useRecoveryForm";
 import { ArrowLeft, Mail } from "lucide-react";
 
 const inputClass =
-  "w-full rounded-2xl border border-white/10 bg-white/[0.03] py-3.5 px-5 text-body-sm text-white outline-none transition-all placeholder:text-slate-700 focus:border-gold focus:bg-gold/5 focus:shadow-[0_0_15px_rgba(197,160,89,0.05)]";
+  "disabled:opacity-60 disabled:cursor-not-allowed w-full rounded-2xl border border-white/10 bg-white/[0.03] py-3.5 px-5 text-body-sm text-white outline-none transition-all placeholder:text-slate-700 focus:border-gold focus:bg-gold/5 focus:shadow-[0_0_15px_rgba(197,160,89,0.05)]";
 
 function AccountRecoveryFormInner() {
   const tAuth = useTranslations("Auth");
@@ -55,8 +55,8 @@ function AccountRecoveryFormInner() {
             </div>
           </label>
 
-          <Button type="submit" className="md:w-97.5! text-body-sm!" variant="auth">
-            {isLoading ? "Sending..." : tForm("Buttons.sendResetLink")}
+          <Button type="submit" disabled={isLoading} className="md:w-97.5! text-body-sm!" variant="auth">
+            {isLoading ? tForm("ButtonsLoading.sending") : tForm("Buttons.sendResetLink")}
           </Button>
         </form>
 

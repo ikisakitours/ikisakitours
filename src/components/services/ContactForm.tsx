@@ -25,11 +25,12 @@ type ContactFieldsProps = {
   setData: React.Dispatch<React.SetStateAction<ContactData>>;
   errors: Record<string, string>;
   setErrors: React.Dispatch<React.SetStateAction<Record<string, string>>>;
+  isLoading?: boolean;
 };
 
 const badgeIcons = [ShieldCheck, CreditCard, Headset];
 
-export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsProps) {
+export function ContactForm({ data, setData, errors, setErrors, isLoading }: ContactFieldsProps) {
   const tForm = useTranslations("SharedForm");
   const tErr = useTranslations("ValidationErrors");
   const tServices = useTranslations("Services");
@@ -41,6 +42,7 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
 
   const { data: locationData, isDetecting } = useUserLocation();
   const detectedCode = locationData?.country_code || "";
+  const [hideMessage, setHideMessage] = useState(false);
 
   const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
     const target = e.currentTarget;
@@ -70,6 +72,7 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
               <input
                 className={`${inputClass} pt-5`}
                 value={data.fullName}
+                disabled={isLoading}
                 onChange={(e) => updateField("fullName", e.target.value)}
                 placeholder={tForm("Placeholders.fullName")}
               />
@@ -88,6 +91,7 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
                 className={`${inputClass} pt-5`}
                 placeholder={tForm("Placeholders.email")}
                 value={data.email}
+                disabled={isLoading}
                 onChange={(e) => updateField("email", e.target.value)}
               />
             </label>
@@ -104,37 +108,43 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
                 international
                 defaultCountry={(detectedCode as Country) || "LK"}
                 value={data.phone}
+                disabled={isLoading}
                 onCountryChange={(country) => {
-                  if (country) setSelectedCountry(country);
-                  setUserInteracted(true);
+                  if (country) {
+                    setSelectedCountry(country);
+                    setUserInteracted(true);
+                    setHideMessage(false);
+                  }
                 }}
                 onChange={(value) => {
                   updateField("phone", value || "");
-                  setUserInteracted(true);
                 }}
                 countrySelectComponent={CustomCountrySelect}
                 className={`${inputClass} focus-within:border-gold/60 focus-within:bg-white/[0.07] pt-5 flex items-center [&_.PhoneInputCountry]:bg-transparent! [&_.PhoneInputCountry]:hover:bg-transparent!`}
                 numberInputProps={{
                   className:
-                    "w-full bg-transparent border-none outline-none text-white focus:ring-0 placeholder:text-slate-400 p-0 text-body-sm! ml-2",
+                    "disabled:opacity-60 disabled:cursor-not-allowed w-full bg-transparent! border-none outline-none text-white focus:ring-0 placeholder:text-slate-400 p-0 text-body-sm! ml-2",
                   placeholder: tForm("Placeholders.phone"),
+                  onInput: () => setHideMessage(true),
                 }}
               />
             </label>
 
             <div className="ml-2 mt-1">
-              <LocationDetectionFeedback
-                isDetecting={isDetecting}
-                userInteracted={userInteracted}
-                detectedCode={detectedCode}
-                selectedCode={selectedCountry}
-                messages={{
-                  detecting: tErr("PhoneDetection.detecting"),
-                  autoDetected: tErr("PhoneDetection.autoDetected"),
-                  confirmed: tErr("PhoneDetection.confirmed"),
-                  mismatch: tErr("PhoneDetection.mismatch"),
-                }}
-              />
+              {!hideMessage && (
+                <LocationDetectionFeedback
+                  isDetecting={isDetecting}
+                  userInteracted={userInteracted}
+                  detectedCode={detectedCode}
+                  selectedCode={selectedCountry}
+                  messages={{
+                    detecting: tErr("PhoneDetection.detecting"),
+                    autoDetected: tErr("PhoneDetection.autoDetected"),
+                    confirmed: tErr("PhoneDetection.confirmed"),
+                    mismatch: tErr("PhoneDetection.mismatch"),
+                  }}
+                />
+              )}
               <FormError message={errors.phone} />
             </div>
           </div>
@@ -149,6 +159,7 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
               placeholder={tForm("Placeholders.specialRequests")}
               onInput={handleInput}
               value={data.specialRequests}
+              disabled={isLoading}
               onChange={(e) => updateField("specialRequests", e.target.value)}
             />
             <span className="mt-1 block text-caption font-medium text-slate-500 leading-relaxed">
@@ -162,7 +173,7 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
 
         <div className="mx-auto max-w-xs">
           <Button type="submit" variant="explore" className="[&_span]:text-caption! w-full justify-center">
-            {tForm("Buttons.checkAvailability")}
+            {isLoading ? tForm("ButtonsLoading.checkingAvailability") : tForm("Buttons.checkAvailability")}
           </Button>
 
           <div className="mt-8 flex flex-wrap md:flex-nowrap items-center justify-center gap-x-5 gap-y-3">

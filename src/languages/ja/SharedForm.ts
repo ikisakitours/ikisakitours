@@ -71,6 +71,18 @@ export default {
     updateSecurity: "セキュリティ設定を更新",
     showPassword: "パスワードを表示",
     hidePassword: "パスワードを非表示",
+    submitBtn: "レビューを投稿",
+    startChat: "チャットを開始",
+  },
+  ButtonsLoading: {
+    authenticating: "認証中...",
+    registering: "登録中...",
+    sending: "送信中...",
+    updating: "更新中...",
+    checking: "確認中...",
+    submitting: "送信中...",
+    saving: "保存中...",
+    checkingAvailability: "空き状況を確認中...",
   },
   TravelerOptions: {
     adult: "大人",

@@ -11,20 +11,31 @@ interface TourDurationPickerProps {
   days: number;
   onChange: (delta: number) => void;
   className?: string;
+  isLoading?: boolean;
 }
 
-export function TourDurationPicker({ days, onChange, className = "" }: TourDurationPickerProps) {
+export function TourDurationPicker({ days, onChange, className = "", isLoading = false }: TourDurationPickerProps) {
   const t = useTranslations("SharedForm.DurationPicker");
 
   return (
     <div className={`relative ${className}`}>
       <div
         tabIndex={-1}
-        className={`${inputClass} py-2! relative flex items-center pl-11 focus-within:border-gold/60! focus-within:bg-white/[0.07]!`}
+        className={`${inputClass} py-2! relative flex items-center pl-11 focus-within:border-gold! focus-within:bg-white/[0.07]! ${
+          isLoading ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
+        }`}
       >
-        <div onClick={() => onChange(1)} className="flex items-center gap-3 grow cursor-pointer select-none">
+        <div
+          onClick={() => {
+            if (isLoading) return;
+            onChange(1);
+          }}
+          className="flex items-center gap-3 grow cursor-pointer select-none"
+        >
           <Timer className="absolute left-4 top-1/2 -translate-y-1/2 h-4.5 w-4.5 md:h-5 md:w-5 text-slate-500 pointer-events-none" />
-          <span className={days === 0 ? "text-slate-500 font-medium text-body-sm" : "text-white font-medium text-body-sm"}>
+          <span
+            className={days === 0 ? "text-slate-500 font-medium text-body-sm" : "text-white font-medium text-body-sm"}
+          >
             {days === 0 ? t("selectDuration") : `${days} ${days === 1 ? t("day") : t("days")}`}
           </span>
         </div>
@@ -36,7 +47,7 @@ export function TourDurationPicker({ days, onChange, className = "" }: TourDurat
               e.stopPropagation();
               onChange(-1);
             }}
-            disabled={days <= 0}
+            disabled={days <= 0 || isLoading}
             className="flex h-7 w-7 items-center justify-center rounded-full border border-white/20 text-white transition-all hover:bg-gold hover:text-black hover:border-gold disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-white disabled:hover:border-white/20 disabled:cursor-not-allowed"
           >
             <Minus strokeWidth={3} className="h-3 w-3" />
@@ -44,6 +55,7 @@ export function TourDurationPicker({ days, onChange, className = "" }: TourDurat
 
           <button
             type="button"
+            disabled={isLoading}
             onClick={(e) => {
               e.stopPropagation();
               onChange(1);

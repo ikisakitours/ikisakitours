@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { useRouter } from "@/lib/i18nNavigation";
 import { useSearchParams } from "next/navigation";
+import { authService } from "@/services/auth/authService";
 
 export function useRecoveryForm(tAuth: (key: string) => string) {
   const [email, setEmail] = useState("");
@@ -28,7 +29,8 @@ export function useRecoveryForm(tAuth: (key: string) => string) {
 
     try {
       setIsLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      await authService.recoverPassword(email);
+      // await new Promise((resolve) => setTimeout(resolve, 1500));
       console.log("Valid Email for recovery:", email);
       router.push("/password-change");
     } catch (error) {

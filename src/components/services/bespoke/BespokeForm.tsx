@@ -1,18 +1,14 @@
 "use client";
-
-import { type FormEvent, useState } from "react";
-import { vehicles } from "@/data/vehicles";
 import { BespokeJourneyFields } from "./BespokeJourneyFields";
-import { type ActiveVehicleFilter } from "@/components/services/VehicleSelector";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { CrossPromotionSection } from "@/components/services/CrossPromotionSection";
-import { ContactForm, type ContactData } from "@/components/services/ContactForm";
-import { useValidationForm } from "@/hooks/useValidationForm";
+import { ContactForm } from "@/components/services/ContactForm";
 import FormPanel from "@/components/services/FormPanel";
 import StepHeading from "@/components/services/StepHeading";
 import { languages } from "@/data/Languages-CurrencyData";
 import { InfoSidebar } from "@/components/services/InfoSidebar";
 import { useTranslations } from "next-intl";
+import { useBespokeForm } from "@/hooks/services/useBespokeForm";
 
 // Icons for Sidebar
 import { ShieldCheck, Clock, Headset, Sparkles } from "lucide-react";
@@ -20,71 +16,6 @@ import { ShieldCheck, Clock, Headset, Sparkles } from "lucide-react";
 export function BespokeForm() {
   const tStep = useTranslations("Services.StepHeadings");
   const tSidebar = useTranslations("Services.Bespoke.Sidebar");
-
-  const defaultCategory = vehicles[0].category;
-  const defaultVehicleId = vehicles[0].id;
-
-  const [activeFilter, setActiveFilter] = useState<ActiveVehicleFilter>(defaultCategory);
-  const [selectedVehicleId, setSelectedVehicleId] = useState(defaultVehicleId);
-
-  const [pickupLocation, setPickupLocation] = useState("");
-  const [tourRequests, setTourRequests] = useState("");
-
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [language, setLanguage] = useState<string>("");
-  const [tourDays, setTourDays] = useState<number>(0);
-  const [travelerCounts, setTravelerCounts] = useState<Record<string, number>>({
-    adult: 0,
-    couple: 0,
-    child: 0,
-    infant: 0,
-  });
-
-  const { errors, validate, setErrors } = useValidationForm();
-
-  const [contact, setContact] = useState<ContactData>({
-    fullName: "",
-    email: "",
-    phone: "",
-    specialRequests: "",
-  });
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const isValid = validate({
-      date,
-      time,
-      language,
-      days: tourDays,
-      counts: travelerCounts,
-      pickupLocation,
-      tourRequests,
-      fullName: contact.fullName,
-      email: contact.email,
-      phone: contact.phone,
-      specialRequests: contact.specialRequests,
-    });
-
-    if (isValid) {
-      console.log("Form is valid, proceed to API call");
-    }
-  };
-
-  const handleTourDaysChange = (delta: number) => {
-    setTourDays((prev) => Math.max(0, prev + delta));
-  };
-
-  const handleTravelerChange = (type: string, delta: number) => {
-    setTravelerCounts((prev) => {
-      const actualDelta = type === "couple" ? delta * 2 : delta;
-      const current = prev[type] || 0;
-      const next = current + actualDelta;
-      if (next < 0) return prev;
-      return { ...prev, [type]: next };
-    });
-  };
 
   const featuresData = tSidebar.raw("features") as { title: string; description: string }[];
 
@@ -101,6 +32,34 @@ export function BespokeForm() {
     footerTitle: tSidebar("footerTitle"),
     footerDescription: tSidebar("footerDescription"),
   };
+
+  //Hook
+  const {
+    activeFilter,
+    setActiveFilter,
+    // selectedVehicleId,
+    setSelectedVehicleId,
+    pickupLocation,
+    setPickupLocation,
+    tourRequests,
+    setTourRequests,
+    date,
+    setDate,
+    time,
+    setTime,
+    language,
+    setLanguage,
+    tourDays,
+    handleTourDaysChange,
+    travelerCounts,
+    handleTravelerChange,
+    contact,
+    setContact,
+    errors,
+    setErrors,
+    isLoading,
+    handleSubmit,
+  } = useBespokeForm();
 
   return (
     <ContainerLayout className="relative z-20 pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
@@ -129,14 +88,21 @@ export function BespokeForm() {
               errors={errors}
               setErrors={setErrors}
               languagesList={languages}
+              isLoading={isLoading}
             />
           </FormPanel>
 
           <FormPanel className="border-t-2 border-gold/30">
-            <StepHeading step="2"  subtitle={tStep("stepContactSub")}>
+            <StepHeading step="2" subtitle={tStep("stepContactSub")}>
               {tStep("stepContact")}
             </StepHeading>
-            <ContactForm data={contact} setData={setContact} errors={errors} setErrors={setErrors} />
+            <ContactForm
+              data={contact}
+              setData={setContact}
+              errors={errors}
+              setErrors={setErrors}
+              isLoading={isLoading}
+            />
           </FormPanel>
         </form>
         {/* Right Side: Info Sidebar */}

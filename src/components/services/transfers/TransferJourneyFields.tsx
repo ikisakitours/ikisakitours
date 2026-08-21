@@ -13,7 +13,6 @@ type TransferJourneyFieldsProps = {
   activeFilter: ActiveVehicleFilter;
   onFilterChange: (filter: ActiveVehicleFilter) => void;
   onVehicleChange: (vehicleId: string) => void;
-
   date: string;
   onDateChange: (date: string) => void;
   time: string;
@@ -29,6 +28,7 @@ type TransferJourneyFieldsProps = {
   errors: Record<string, string>;
   setErrors: React.Dispatch<React.SetStateAction<Record<string, string>>>;
   languagesList: LanguageOption[];
+  isLoading?: boolean;
 };
 
 export function TransferJourneyFields({
@@ -50,6 +50,7 @@ export function TransferJourneyFields({
   errors,
   setErrors,
   languagesList,
+  isLoading = false,
 }: TransferJourneyFieldsProps) {
   const tForm = useTranslations("SharedForm");
 
@@ -89,10 +90,12 @@ export function TransferJourneyFields({
           activeFilter={activeFilter}
           onFilterChange={onFilterChange}
           onVehicleChange={onVehicleChange}
+          isLoading={isLoading}
         />
       </div>
 
       <div className="grid gap-x-8 gap-y-7 md:grid-cols-2">
+        {/* Pick up Location */}
         <label className="flex flex-col gap-1">
           <span className={fieldLabelClass}>{tForm("Labels.pickupLocation")}</span>
           <span className="relative block">
@@ -101,6 +104,7 @@ export function TransferJourneyFields({
               className={`${inputClass} pl-11`}
               placeholder={tForm("Placeholders.pickupLocation")}
               value={pickupLocation}
+              disabled={isLoading}
               onChange={(e) => {
                 onPickupLocationChange(e.target.value);
                 setErrors((prev) => ({ ...prev, pickupLocation: "" }));
@@ -111,7 +115,7 @@ export function TransferJourneyFields({
             <FormError message={errors.pickupLocation} />
           </div>
         </label>
-
+        {/* Drp off Location */}
         <label className="flex flex-col gap-1">
           <span className={fieldLabelClass}>{tForm("Labels.dropoffLocation")}</span>
           <span className="relative block">
@@ -120,6 +124,7 @@ export function TransferJourneyFields({
               className={`${inputClass} pl-11`}
               placeholder={tForm("Placeholders.dropoffLocation")}
               value={dropoffLocation}
+              disabled={isLoading}
               onChange={(e) => {
                 onDropoffLocationChange(e.target.value);
                 setErrors((prev) => ({ ...prev, dropoffLocation: "" }));
@@ -130,11 +135,12 @@ export function TransferJourneyFields({
             <FormError message={errors.dropoffLocation} />
           </div>
         </label>
-
+        {/* Date */}
         <label className="flex flex-col gap-1">
           <span className={fieldLabelClass}>{tForm("Labels.journeyDate")}</span>
           <CustomDatePicker
             value={date}
+            isLoading={isLoading}
             onChange={(d) => {
               onDateChange(d);
               setErrors((prev) => ({ ...prev, date: "" }));
@@ -144,11 +150,12 @@ export function TransferJourneyFields({
             <FormError message={errors.date} />
           </div>
         </label>
-
+        {/* Time */}
         <label className="flex flex-col gap-1">
           <span className={fieldLabelClass}>{tForm("Labels.pickupTime")}</span>
           <CustomTimePicker
             value={time}
+            isLoading={isLoading}
             onChange={(t) => {
               onTimeChange(t);
               setErrors((prev) => ({ ...prev, time: "" }));
@@ -158,11 +165,12 @@ export function TransferJourneyFields({
             <FormError message={errors.time} />
           </div>
         </label>
-
+        {/* Language */}
         <label className="flex flex-col gap-1">
           <span className={fieldLabelClass}>{tForm("Labels.conciergeLanguage")}</span>
           <LanguageSelect
             value={language}
+            isLoading={isLoading}
             onChange={(val) => {
               onLanguageChange(val);
               setErrors((prev) => ({ ...prev, language: "" }));
@@ -175,12 +183,13 @@ export function TransferJourneyFields({
             <FormError message={errors.language} />
           </div>
         </label>
-
+        {/* Travelers */}
         <label className="flex flex-col gap-1">
           <span className={fieldLabelClass}>{tForm("Labels.travelers")}</span>
           <TravelerPicker
             options={travelerOptions}
             counts={travelerCounts}
+            isLoading={isLoading}
             onChange={(type, delta) => {
               onTravelerChange(type, delta);
               setErrors((prev) => ({ ...prev, travelers: "" }));

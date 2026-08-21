@@ -17,6 +17,7 @@ interface LanguageSelectProps {
   icon?: React.ReactNode;
   className?: string;
   placeholder?: string;
+  isLoading?: boolean;
 }
 
 export default function LanguageSelect({
@@ -26,6 +27,7 @@ export default function LanguageSelect({
   icon,
   className = "",
   placeholder = "Select language",
+  isLoading = false,
 }: LanguageSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -36,10 +38,13 @@ export default function LanguageSelect({
       {/* Trigger Field */}
       <div
         tabIndex={0}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          if (isLoading) return;
+          setIsOpen(!isOpen);
+        }}
         className={`w-full rounded-xl border border-white/10 bg-white/3 py-3 pr-4 text-body-sm outline-none transition-all hover:border-white/20 focus:border-gold/60 focus:bg-white/[0.07] cursor-pointer flex justify-between items-center ${
           icon ? "pl-11" : "px-4"
-        }${className}`}
+        } ${isLoading ? "opacity-50 cursor-not-allowed pointer-events-none" : ""} ${className}`}
       >
         {icon && <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">{icon}</div>}
 

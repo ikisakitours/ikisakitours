@@ -31,6 +31,7 @@ type BespokeJourneyFieldsProps = {
   errors: Record<string, string>;
   setErrors: React.Dispatch<React.SetStateAction<Record<string, string>>>;
   languagesList: LanguageOption[];
+  isLoading?: boolean;
 };
 
 const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
@@ -60,6 +61,7 @@ export function BespokeJourneyFields({
   errors,
   setErrors,
   languagesList,
+  isLoading = false,
 }: BespokeJourneyFieldsProps) {
   const tForm = useTranslations("SharedForm");
 
@@ -91,16 +93,19 @@ export function BespokeJourneyFields({
   ];
   return (
     <div className="space-y-8">
+     {/* Vehicle Type Filter */}
       <div>
         <span className={fieldLabelClass + " mb-4 block"}>{tForm("Labels.selectVehicle")}</span>
         <VehicleSelector
           activeFilter={activeFilter}
           onFilterChange={onFilterChange}
           onVehicleChange={onVehicleChange}
+          isLoading={isLoading}
         />
       </div>
 
       <div className="grid gap-x-8 gap-y-7 md:grid-cols-2">
+        {/* Pick up location */}
         <label className="flex flex-col gap-1">
           <span className={fieldLabelClass}>{tForm("Labels.pickupLocation")}</span>
           <span className="relative block">
@@ -109,6 +114,7 @@ export function BespokeJourneyFields({
               className={`${inputClass} pl-11`}
               placeholder={tForm("Placeholders.pickupLocation")}
               value={pickupLocation}
+              disabled={isLoading}
               onChange={(e) => {
                 onPickupLocationChange(e.target.value);
                 setErrors((prev) => ({ ...prev, pickupLocation: "" }));
@@ -119,11 +125,12 @@ export function BespokeJourneyFields({
             <FormError message={errors.pickupLocation} />
           </div>
         </label>
-
+        {/* Language */}
         <label className="flex flex-col gap-1">
           <span className={fieldLabelClass}>{tForm("Labels.conciergeLanguage")}</span>
           <LanguageSelect
             value={language}
+            isLoading={isLoading}
             onChange={(val) => {
               onLanguageChange(val);
               setErrors((prev) => ({ ...prev, language: "" }));
@@ -136,11 +143,12 @@ export function BespokeJourneyFields({
             <FormError message={errors.language} />
           </div>
         </label>
-
+        {/* Date */}
         <label className="flex flex-col gap-1">
           <span className={fieldLabelClass}>{tForm("Labels.journeyDate")}</span>
           <CustomDatePicker
             value={date}
+            isLoading={isLoading}
             onChange={(d) => {
               onDateChange(d);
               setErrors((prev) => ({ ...prev, date: "" }));
@@ -150,11 +158,12 @@ export function BespokeJourneyFields({
             <FormError message={errors.date} />
           </div>
         </label>
-
+        {/* Time */}
         <label className="flex flex-col gap-1">
           <span className={fieldLabelClass}>{tForm("Labels.pickupTime")}</span>
           <CustomTimePicker
             value={time}
+            isLoading={isLoading}
             onChange={(t) => {
               onTimeChange(t);
               setErrors((prev) => ({ ...prev, time: "" }));
@@ -164,12 +173,13 @@ export function BespokeJourneyFields({
             <FormError message={errors.time} />
           </div>
         </label>
-
+        {/* Travelers */}
         <label className="flex flex-col gap-1">
           <span className={fieldLabelClass}>{tForm("Labels.travelers")}</span>
           <TravelerPicker
             options={travelerOptions}
             counts={travelerCounts}
+            isLoading={isLoading}
             onChange={(type, delta) => {
               onTravelerChange(type, delta);
               setErrors((prev) => ({ ...prev, travelers: "" }));
@@ -179,11 +189,12 @@ export function BespokeJourneyFields({
             <FormError message={errors.travelers} />
           </div>
         </label>
-
+        {/* Durations */}
         <label className="flex flex-col gap-1">
           <span className={fieldLabelClass}>{tForm("Labels.tourDuration")}</span>
           <TourDurationPicker
             days={tourDays}
+            isLoading={isLoading}
             onChange={(delta) => {
               onTourDaysChange(delta);
               setErrors((prev) => ({ ...prev, days: "" }));
@@ -194,7 +205,7 @@ export function BespokeJourneyFields({
           </div>
         </label>
       </div>
-
+      {/* Plan Requests */}
       <label className="mb-8 flex flex-col gap-1">
         <span className={fieldLabelClass}>{tForm("Labels.tourPlanRequests")}</span>
         <textarea
@@ -202,6 +213,7 @@ export function BespokeJourneyFields({
           placeholder={tForm("Placeholders.tourPlanRequests")}
           onInput={handleInput}
           value={tourRequests}
+          disabled={isLoading}
           onChange={(e) => {
             onTourRequestsChange(e.target.value);
             if (errors.tourRequests) {

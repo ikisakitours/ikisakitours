@@ -7,9 +7,10 @@ import { useTranslations } from "next-intl";
 interface CustomDatePickerProps {
   value: string;
   onChange: (date: string) => void;
+  isLoading?: boolean;
 }
 
-export default function CustomDatePicker({ value, onChange }: CustomDatePickerProps) {
+export default function CustomDatePicker({ value, onChange, isLoading = false }: CustomDatePickerProps) {
   const t = useTranslations("SharedForm.DatePicker");
   const [isOpen, setIsOpen] = useState(false);
 
@@ -67,10 +68,13 @@ export default function CustomDatePicker({ value, onChange }: CustomDatePickerPr
       {/* Trigger Field */}
       <div
         tabIndex={0}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          if (isLoading) return;
+          setIsOpen(!isOpen);
+        }}
         className={`w-full rounded-xl border border-white/10 bg-white/3 px-4 py-3 text-body-sm text-white outline-none transition-all placeholder:text-slate-500 hover:border-white/20 focus:border-gold/60 focus:bg-white/[0.07] cursor-pointer flex justify-between items-center ${
           isOpen ? "border-gold/60! bg-white/[0.07]!" : ""
-        }`}
+        }${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
       >
         <span className={value ? "text-white" : "text-slate-500"}>{formatDisplayDate(value)}</span>
         <FiCalendar className="h-4.5 w-4.5 md:h-5 md:w-5 text-slate-500" />
@@ -95,7 +99,10 @@ export default function CustomDatePicker({ value, onChange }: CustomDatePickerPr
                   </option>
                 ))}
               </select>
-              <FiChevronDown  strokeWidth={2} className="absolute right-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400 pointer-events-none" />
+              <FiChevronDown
+                strokeWidth={2}
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400 pointer-events-none"
+              />
             </div>
 
             {/* Year Select */}
@@ -111,7 +118,10 @@ export default function CustomDatePicker({ value, onChange }: CustomDatePickerPr
                   </option>
                 ))}
               </select>
-              <FiChevronDown strokeWidth={2} className="absolute right-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400 pointer-events-none" />
+              <FiChevronDown
+                strokeWidth={2}
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400 pointer-events-none"
+              />
             </div>
           </div>
 

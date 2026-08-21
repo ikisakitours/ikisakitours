@@ -13,7 +13,7 @@ import { BsPatchCheck } from "react-icons/bs";
 import { Crown } from "lucide-react";
 
 const inputClass =
-  "w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-body-sm text-white outline-none transition-all placeholder:text-slate-500 focus:border-gold/50";
+  "disabled:opacity-60 disabled:cursor-not-allowed w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-body-sm text-white outline-none transition-all placeholder:text-slate-500 focus:border-gold/50";
 
 export function ProfileDetailsPanel() {
   const t = useTranslations("ProfilePage");
@@ -234,9 +234,10 @@ export function ProfileDetailsPanel() {
                       <Button
                         type="submit"
                         variant="explore"
+                        disabled={isLoading}
                         className="[&_span]:text-caption! w-full justify-center sm:w-max"
                       >
-                        {isLoading ? "Saving..." : tForm("Buttons.saveChanges")}
+                        {isLoading ? tForm("ButtonsLoading.saving") : tForm("Buttons.saveChanges")}
                       </Button>
                     </div>
                   </div>

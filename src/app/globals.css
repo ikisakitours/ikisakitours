@@ -125,7 +125,6 @@
   --text-micro-2xl: 0.6rem;
   --text-micro-3xl: 0.6rem;
   --text-micro--line-height: 1.1;
-  
 }
 
 @theme inline {
@@ -557,8 +556,9 @@ section {
 /* globals.css */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
-input:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.03) inset !important;
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
   -webkit-text-fill-color: white !important;
   transition: background-color 5000s ease-in-out 0s;
 }

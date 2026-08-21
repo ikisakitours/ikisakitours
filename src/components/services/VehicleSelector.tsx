@@ -10,6 +10,7 @@ type VehicleSelectorProps = {
   onFilterChange: (filter: ActiveVehicleFilter) => void;
   onVehicleChange: (vehicleId: string) => void;
   showDriverIncludedNote?: boolean;
+  isLoading?: boolean;
 };
 
 // 1. Reusable Component for Data Point Items (Price, Passengers, Luggage)
@@ -76,10 +77,12 @@ export function VehicleSelector({
   onFilterChange,
   onVehicleChange,
   showDriverIncludedNote = false,
+  isLoading = false,
 }: VehicleSelectorProps) {
   const tVeh = useTranslations("Services.VehicleSelector");
 
   const handleFilterClick = (filterValue: ActiveVehicleFilter) => {
+    if (isLoading) return;
     onFilterChange(filterValue);
 
     const firstVehicleInCategory = vehicles.find((v) => v.category === filterValue);
@@ -91,24 +94,27 @@ export function VehicleSelector({
 
   return (
     <>
-      <div className="mb-8 flex flex-wrap justify-center gap-2 md:justify-start md:gap-4">
-        {vehicleFilters.map((filter) => {
-          const isActive = filter.value === activeFilter;
-          return (
-            <button
-              key={filter.value}
-              type="button"
-              onClick={() => handleFilterClick(filter.value)}
-              className={`rounded-full border px-6 py-2.5 text-caption font-bold uppercase tracking-widest transition-all ${
-                isActive
-                  ? "border-gold bg-gold text-black"
-                  : "border-white/10 text-white hover:border-gold hover:text-gold"
-              }`}
-            >
-              {filter.label}
-            </button>
-          );
-        })}
+      <div className={isLoading ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}>
+        <div className="mb-8 flex flex-wrap justify-center gap-2 md:justify-start md:gap-4">
+          {vehicleFilters.map((filter) => {
+            const isActive = filter.value === activeFilter;
+            return (
+              <button
+                key={filter.value}
+                type="button"
+                disabled={isLoading}
+                onClick={() => handleFilterClick(filter.value)}
+                className={`rounded-full border px-6 py-2.5 text-caption font-bold uppercase tracking-widest transition-all ${
+                  isActive
+                    ? "border-gold bg-gold text-black"
+                    : "border-white/10 text-white hover:border-gold hover:text-gold"
+                }`}
+              >
+                {filter.label}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Messages Section */}

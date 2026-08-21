@@ -289,7 +289,7 @@ export function SiteHeader() {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="mt-1.75 hidden items-center space-x-8 text-body-sm font-bold uppercase tracking-[0.2em] text-slate-200 xl:flex xl:space-x-4 2xl:space-x-8">
+            <div className="mt-1.75 hidden items-center space-x-8 text-[13px]! font-bold uppercase tracking-[0.2em] text-slate-200 xl:flex xl:space-x-4 2xl:space-x-7">
               {primaryNavigation.map((item) => {
                 return (
                   <div key={item.key} className="group relative flex items-center">
@@ -312,7 +312,7 @@ export function SiteHeader() {
                                 key={sub.href}
                                 href={subFinalHref}
                                 onClick={(e) => handleNavigation(e, subFinalHref, false)}
-                                className="px-5 py-2.5 text-[11px] tracking-[0.15em] [word-spacing:3px] text-white/80 hover:bg-gold/10 hover:text-gold transition-colors block"
+                                className="px-5 py-2.5 text-[11px]! tracking-[0.15em] [word-spacing:3px] text-white/80 hover:bg-gold/10 hover:text-gold transition-colors block"
                               >
                                 {tNav(sub.key)}
                               </Link>
@@ -325,7 +325,7 @@ export function SiteHeader() {
                         <Link
                           href={getFinalHref(item.href, item.sectionId)}
                           onClick={(e) => handleNavigation(e, getFinalHref(item.href, item.sectionId), false)}
-                          className={`${navLinkClass} flex items-center text-body-sm tracking-[0.25em] [word-spacing:3px]`}
+                          className={`${navLinkClass} flex items-center text-[13px]! tracking-[0.25em] [word-spacing:3px]`}
                         >
                           {tNav(item.key)}
                         </Link>
@@ -363,7 +363,7 @@ export function SiteHeader() {
                     initials="AT"
                     initialsClassName="font-serif text-xs"
                   />
-                  <span className="pointer-events-none absolute top-full left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap rounded-md bg-[#0a0a0a] border border-gold/30 px-3 py-1.5 text-caption font-bold uppercase tracking-wider text-gold opacity-0 transition-all duration-200 group-hover:opacity-100 shadow-2xl z-50 hidden md:block">
+                  <span className="pointer-events-none absolute top-full left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap rounded-md bg-[#0a0a0a] border border-gold/30 px-3 py-1.5 text-tiny font-bold uppercase tracking-wider text-gold opacity-0 transition-all duration-200 group-hover:opacity-100 shadow-2xl z-50 hidden md:block">
                     {tDropdown("tooltip")}
                   </span>
                 </button>
@@ -478,7 +478,7 @@ export function SiteHeader() {
                       <motion.div key={item.key} variants={linkVariants}>
                         {"isDropdown" in item && item.isDropdown ? (
                           <div className="flex flex-col space-y-4 mt-4">
-                            <span className="text-body-lead font-bold uppercase tracking-[0.2em] text-white/40 border-b border-white/10 pb-2 mx-auto inline-block">
+                            <span className="text-[17px] font-bold uppercase tracking-[0.2em] text-white/40 border-b border-white/10 pb-2 mx-auto inline-block">
                               {tNav(item.key)}
                             </span>
                             {item.subItems?.map((sub) => {
@@ -488,7 +488,7 @@ export function SiteHeader() {
                                   key={sub.href}
                                   onClick={(e) => handleNavigation(e, subFinalHref, true)}
                                   href={subFinalHref}
-                                  className="text-body font-bold uppercase tracking-[0.25em] [word-spacing:6px] block transition-colors duration-300 text-white hover:text-gold hover:scale-105"
+                                  className="text-[15px] font-bold uppercase tracking-[0.25em] [word-spacing:6px] block transition-colors duration-300 text-white hover:text-gold hover:scale-105"
                                 >
                                   {tNav(sub.key)}
                                 </Link>
@@ -500,7 +500,7 @@ export function SiteHeader() {
                             <Link
                               onClick={(e) => handleNavigation(e, getFinalHref(item.href, item.sectionId), true)}
                               href={getFinalHref(item.href, item.sectionId)}
-                              className="text-body font-bold uppercase tracking-[0.35em] [word-spacing:6px] block transition-colors duration-300 text-white hover:text-gold hover:scale-105"
+                              className="text-[15px] font-bold uppercase tracking-[0.35em] [word-spacing:6px] block transition-colors duration-300 text-white hover:text-gold hover:scale-105"
                             >
                               {tNav(item.key)}
                             </Link>

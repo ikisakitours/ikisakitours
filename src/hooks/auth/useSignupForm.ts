@@ -2,6 +2,7 @@ import { useState, useRef, type FormEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { usePasswordStrength, type TransientMsgType } from "@/hooks/usePasswordStrength";
 import { useRouter } from "@/lib/i18nNavigation";
+import { authService } from "@/services/auth/authService";
 
 export function useSignupForm(tError: (key: string) => string) {
   const [firstName, setFirstName] = useState("");
@@ -51,12 +52,14 @@ export function useSignupForm(tError: (key: string) => string) {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const isValid = validate({ firstName, lastName, email, password, confirmPassword, country: countryName, terms });
+    const payload = { firstName, lastName, email, password, confirmPassword, country: countryName, terms };
+    const isValid = validate(payload);
     if (!isValid) return;
 
     try {
       setIsLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      await authService.signup(payload);
+      // await new Promise((resolve) => setTimeout(resolve, 1500));
       console.log("Signup Valid & Submitted!", { firstName, lastName, email, country: countryName });
       router.push("/login");
     } catch (error) {

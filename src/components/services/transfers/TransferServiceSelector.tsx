@@ -12,14 +12,14 @@ const serviceIcons = {
 type TransferServiceSelectorProps = {
   selectedServiceId: TransferServiceId;
   onServiceChange: (serviceId: TransferServiceId) => void;
+  isLoading?: boolean;
 };
 
-export function TransferServiceSelector({ selectedServiceId, onServiceChange }: TransferServiceSelectorProps) {
+export function TransferServiceSelector({ selectedServiceId, onServiceChange ,isLoading = false}: TransferServiceSelectorProps) {
   const t = useTranslations("Services.Transfers.ServiceTypes");
 
   return (
-    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 md:gap-4">
-      {transferServiceIds.map((id, index) => {
+<div className={`grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 md:gap-4 ${isLoading ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}`}>      {transferServiceIds.map((id, index) => {
         const Icon = serviceIcons[id];
         const isSelected = id === selectedServiceId;
 
@@ -29,6 +29,7 @@ export function TransferServiceSelector({ selectedServiceId, onServiceChange }: 
               type="radio"
               name="serviceType"
               value={id}
+              disabled={isLoading}
               checked={isSelected}
               onChange={() => onServiceChange(id)}
               className="sr-only"
