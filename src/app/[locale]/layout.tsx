@@ -11,6 +11,7 @@ import ProgressBarProvider from "@/components/ui/ProgressBarProvider";
 import { cookies } from "next/headers";
 import { CookieConsent } from "@/components/ui/CookieModel/CookieConsent";
 import { GlobalCookieModal } from "@/components/ui/CookieModel/GlobalCookieModal";
+import IOSZoomFix from "@/components/ui/IOSZoomFix";
 
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -96,6 +97,7 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           {!hasSeenPreloader && <Preloader />}
           <ProgressBarProvider />
+          <IOSZoomFix />
           {children}
           <Toaster
             position="top-right"
