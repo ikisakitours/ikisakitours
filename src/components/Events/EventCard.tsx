@@ -88,12 +88,12 @@ export function EventCard({ event }: EventCardProps) {
 
         {/* --- LIVE NOW Broadcast Badge (Top Left) --- */}
         {event.mode === "live" && (
-          <div className="absolute top-3 left-3 z-20 flex items-center gap-2 rounded-full border border-red-500/30 bg-red-950/80 px-3 py-1 backdrop-blur-md shadow-lg">
+          <div className="absolute top-3 left-3 z-20 flex items-center gap-2 rounded-full border border-red-500/30 bg-red-950/80 px-3 py-1.5 mt-6.5 -ml-1 backdrop-blur-md shadow-lg">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
             </span>
-            <span className="text-[10px] font-extrabold uppercase tracking-widest text-red-300">
+            <span className="text-micro font-extrabold uppercase tracking-widest text-red-300">
               {event.broadcastTag || "LIVE NOW"}
             </span>
           </div>
@@ -101,7 +101,7 @@ export function EventCard({ event }: EventCardProps) {
 
         {/* Category Badge (Top Right if Live, otherwise Top Left) */}
         <div
-          className={`absolute top-3 z-10 flex items-center gap-1.5 rounded-full border border-white/20 bg-black/70 px-3 py-1 backdrop-blur-md shadow-lg ${
+          className={`absolute top-3 z-10 flex items-center gap-1.5 rounded-full border border-white/20 bg-black/70 px-3 py-1.5 -mt-1.5 backdrop-blur-md shadow-lg ${
             event.mode === "live" ? "right-3" : "left-3"
           }`}
         >
@@ -110,31 +110,36 @@ export function EventCard({ event }: EventCardProps) {
           ) : (
             <Sparkles className="h-3 w-3 text-gold" />
           )}
-          <span className="text-[10px] font-bold uppercase tracking-wider text-white">
+          <span className="text-micro font-bold uppercase tracking-wider text-white">
             {event.badge || event.category}
           </span>
         </div>
 
         {/* Status / Date Tag */}
-        <div className="absolute bottom-4 left-4 right-4 z-10 flex items-center justify-between text-xs text-slate-300">
+        <div className="absolute bottom-2 left-4 right-4 z-10 flex items-center justify-between text-caption text-slate-300">
           <div className="flex items-center gap-1.5 font-medium">
             <CalendarDays className="h-3.5 w-3.5 text-gold" />
             <span>{displayDate}</span>
           </div>
-          <span className="rounded-full bg-gold/20 border border-gold/40 px-2.5 py-0.5 text-[10px] font-bold text-gold uppercase shadow-md backdrop-blur-sm">
-            {event.statusTag || event.status}
-          </span>
+          {event.mode !== "live" && (
+            <span className="rounded-full bg-gold/20 border border-gold/40 px-2.5 py-0.5 text-[10px] font-bold text-gold uppercase shadow-md backdrop-blur-sm">
+              {event.statusTag || event.status}
+            </span>
+          )}
         </div>
       </div>
 
       {/* Card Details */}
       <div className="flex flex-col grow p-4 pt-6">
-        <h3 className="premium-serif text-xl font-normal text-white mb-3 group-hover:text-gold transition-colors">
+        <h3 className="premium-serif text-heading-sub font-normal leading-tight text-white mb-3 group-hover:text-gold transition-colors">
           {event.title}
         </h3>
-        <p className="text-xs font-light leading-relaxed text-slate-300 line-clamp-3 mb-6 grow">{event.description}</p>
 
-        <Button variant="details" href={eventLink} className="w-full py-4!">
+        <p className="line-clamp-3 font-normal text-body leading-relaxed text-slate-400 mb-6 grow">
+          {event.description}
+        </p>
+
+        <Button variant="details" href={eventLink} className="w-full py-4! [&_span]:text-tiny!">
           <span className="flex w-full items-center justify-center gap-2 whitespace-nowrap">
             <span>{getButtonText()}</span>
             <ExternalLink className="h-3.5 w-3.5" />

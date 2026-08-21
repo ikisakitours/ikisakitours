@@ -97,8 +97,8 @@ export function DiscoverySection() {
     <div className="flex items-center whitespace-nowrap py-10 shrink-0">
       {destinations.map((destination) => (
         <div key={destination.id} className="group/item flex cursor-pointer items-center">
-          <span className="mx-12 font-mono text-sm tracking-tighter text-gold/40">{destination.number}</span>
-          <span className="text-2xl font-light uppercase tracking-[0.3em] text-white/70 transition-all duration-500 group-hover/item:text-gold md:text-3xl">
+          <span className="mx-12 font-mono text-heading-sub tracking-tighter text-gold/40">{destination.number}</span>
+          <span className="text-heading-card font-light uppercase tracking-[0.3em] text-white/70 transition-all duration-500 group-hover/item:text-gold md:text-3xl">
             {t(`destinations.${destination.id}`)}
           </span>
         </div>
@@ -131,20 +131,20 @@ export function DiscoverySection() {
             transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
             className="w-full lg:max-w-2xl"
           >
-            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.5em] text-gold">{t("tag")}</p>
-            <h3 className="mb-4 text-2xl font-light italic leading-tight text-white md:text-3xl lg:text-4xl">
+            <p className="mb-3 text-caption font-bold uppercase tracking-[0.5em] text-gold">{t("tag")}</p>
+            <h3 className="mb-4 premium-serif  text-heading-section font-light italic leading-tight text-white">
               {t("titleOne")} <span className="text-gold"> {t("titleTwo")}</span>
             </h3>
 
             <div className="group relative mb-4 mt-6 pl-6 md:pl-8">
               <div className="absolute bottom-0 left-0 top-0 w-px bg-linear-to-b from-gold via-gold/20 to-transparent" />
-              <p className="text-sm font-light leading-relaxed tracking-wide text-slate-300 md:text-base">
-                <span className="mb-2 block text-[11px] font-medium uppercase tracking-[0.2em] text-white/90">
+              <p className="text-body font-light leading-relaxed tracking-wide text-slate-300">
+                <span className="mb-2 block text-body font-medium uppercase tracking-[0.2em] text-white/90">
                   {t("subheading")}
                 </span>
                 {t("descriptionPart1")}
                 <span className="relative inline transition-colors duration-500 group-hover:text-gold">
-                  <span className="inline text-lg font-bold italic tracking-normal text-white md:text-xl">
+                  <span className="inline text-body-lead font-bold italic tracking-normal text-white">
                     {t("highlightText")}
                   </span>
                   <span className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-gold/30 transition-transform duration-700 group-hover:scale-x-100" />
@@ -161,7 +161,7 @@ export function DiscoverySection() {
             transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 1, 0.5, 1] }}
             className="flex shrink-0 flex-col items-start lg:items-end"
           >
-            <div className="mb-2 text-[10px] uppercase tracking-[0.3em] text-slate-200">{t("status")}</div>
+            <div className="mb-2 text-caption uppercase tracking-[0.3em] text-slate-200">{t("status")}</div>
             <div className="h-px w-24 bg-gold/30 md:w-32" />
           </motion.div>
         </div>

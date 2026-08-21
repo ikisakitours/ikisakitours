@@ -64,6 +64,7 @@ export default {
     lower: "小文字1文字",
     num: "数字1文字",
     special: "特殊文字1文字",
+    secured: "強力なパスワードが設定されました",
   },
   CameraErrors: {
     notSupported: "お使いのブラウザはカメラをサポートしていません",

@@ -51,10 +51,9 @@ export function LanguagePromptToast({
               <X className="h-3.5 w-3.5 text-slate-400 transition-colors group-hover:text-red-400" />
             </button>
 
-            <div className="px-6 py-6 sm:px-7">
-              {/* Header Section */}
-              <div className="flex items-center gap-4 mb-3">
-                <div className="relative shrink-0">
+            <div className="px-6 py-6 sm:px-7 flex flex-col space-y-4">
+              <div className="flex items-start gap-3 pr-10">
+                <div className="relative shrink-0 -mt-2">
                   <div className="absolute inset-0 bg-gold/20 blur-xl rounded-full" />
                   <div className="relative h-11 w-11 rounded-full bg-linear-to-br from-[#1a1a1a] to-[#050505] border border-gold/30 flex items-center justify-center shadow-lg">
                     {promptType === "switch" ? (
@@ -64,15 +63,21 @@ export function LanguagePromptToast({
                     )}
                   </div>
                 </div>
-                <div className="pt-0.5 pr-6">
-                  <h3 className="font-serif font-bold text-white text-[16px] sm:text-[17px] tracking-wide leading-tight">
-                    {promptType === "switch" ? t("autoDetect.switchTitle") : t("autoDetect.unsupportedTitle")}
+
+                <div className="pt-0.5">
+                  <h3 className="font-serif font-bold text-white text-heading-card tracking-wide leading-tight">
+                    {promptType === "switch"
+                      ? t("autoDetect.switchTitle")
+                      : t.rich("autoDetect.unsupportedTitle", {
+                          country: detectedCountry,
+                          b: (chunks: React.ReactNode) => <strong className="text-gold! font-bold">{chunks}</strong>,
+                        })}
                   </h3>
                 </div>
               </div>
 
               {/* Description - Sweet & Short */}
-              <p className="text-[12.5px] sm:text-[13px] text-slate-300/90 leading-relaxed mb-6 font-light">
+              <p className="text-body-sm text-left text-slate-300/90 leading-relaxed mb-6 font-light">
                 {promptType === "switch"
                   ? t.rich("autoDetect.switchDesc", {
                       country: detectedCountry,
@@ -91,13 +96,13 @@ export function LanguagePromptToast({
                   <>
                     <button
                       onClick={() => onDismiss(false)}
-                      className="flex-1 py-2.5 rounded-xl border border-white/10 bg-transparent hover:bg-white/5 text-slate-400 hover:text-white font-semibold text-[11px] uppercase tracking-widest transition-all duration-300"
+                      className="flex-1 py-2.5 rounded-xl border border-white/10 bg-transparent hover:bg-white/5 text-slate-400 hover:text-white font-semibold text-caption! uppercase tracking-widest transition-all duration-300"
                     >
                       {t("autoDetect.btnNo")}
                     </button>
                     <button
                       onClick={onAccept}
-                      className="flex-1 py-2.5 rounded-xl bg-gold hover:bg-gold-light text-lanka-black font-bold text-[11px] uppercase tracking-widest shadow-[0_0_20px_rgba(197,160,89,0.2)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                      className="flex-1 py-2.5 rounded-xl bg-gold hover:bg-gold-light text-lanka-black font-bold text-caption! uppercase tracking-widest shadow-[0_0_20px_rgba(197,160,89,0.2)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
                     >
                       {t("autoDetect.btnYes")}
                     </button>
@@ -107,14 +112,14 @@ export function LanguagePromptToast({
                     {/* Unsupported: Keep English Button */}
                     <button
                       onClick={() => onDismiss(false)}
-                      className="flex-1 py-2.5 px-2 rounded-xl border border-white/10 bg-transparent hover:bg-white/5 text-slate-400 hover:text-white font-semibold text-[10px] sm:text-[11px] uppercase tracking-widest transition-all duration-300 text-center"
+                      className="flex-1 py-2.5 px-2 rounded-xl border border-white/10 bg-transparent hover:bg-white/5 text-slate-400 hover:text-white font-semibold text-caption! uppercase tracking-widest transition-all duration-300 text-center"
                     >
                       {t("autoDetect.btnKeep", { lang: currentLangName })}
                     </button>
                     {/* Unsupported: Choose Language Button */}
                     <button
                       onClick={() => onDismiss(true)}
-                      className="flex-1 py-2.5 px-2 rounded-xl bg-gold hover:bg-gold-light text-lanka-black font-bold text-[10px] sm:text-[11px] uppercase tracking-widest shadow-[0_0_20px_rgba(197,160,89,0.2)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] text-center"
+                      className="flex-1 py-2.5 px-2 rounded-xl bg-gold hover:bg-gold-light text-lanka-black font-bold text-caption! uppercase tracking-widest shadow-[0_0_20px_rgba(197,160,89,0.2)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] text-center"
                     >
                       {t("autoDetect.btnChoose")}
                     </button>

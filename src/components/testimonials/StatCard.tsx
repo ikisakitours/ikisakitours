@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 type StatCardProps = {
   featured?: boolean;
@@ -14,15 +14,13 @@ export default function StatCard({ featured, label, value }: StatCardProps) {
       }`}
     >
       <div
-        className={`premium-serif mb-2 text-3xl transition-colors md:text-4xl ${
+        className={`premium-serif text-heading-section transition-colors  ${
           featured ? "text-gold" : "text-white group-hover:text-gold"
         }`}
       >
         {value}
       </div>
-      <div className="text-[9px] font-bold uppercase tracking-widest text-gold">
-        {label}
-      </div>
+      <div className="mt-2 text-tiny font-bold uppercase tracking-widest text-gold">{label}</div>
     </div>
   );
 }

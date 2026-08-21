@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Link, usePathname } from "@/i18nNavigation";
+import { Link, usePathname } from "@/lib/i18nNavigation";
 import { CookiePreferenceModal } from "./CookiePreferenceModal";
 import { saveCookiePreferences, declineAllCookies } from "@/utils/cookiesHandle";
 import { useTranslations } from "next-intl";
@@ -102,7 +102,7 @@ export function CookieConsent() {
             <X className="h-3.5 w-3.5 text-slate-400 transition-colors group-hover:text-red-400" />
           </button>
 
-          <div className="flex flex-col space-y-4 pr-4">
+          <div className="flex flex-col space-y-4 pr-4 ">
             <div className="flex items-center gap-3">
               <div className="relative shrink-0">
                 <div className="absolute inset-0 bg-gold/20 blur-xl rounded-full" />
@@ -111,16 +111,14 @@ export function CookieConsent() {
                 </div>
               </div>
 
-              <h3 className="font-serif text-[16px] sm:text-[17px] font-bold text-white tracking-wide leading-tight">
+              <h3 className="font-serif text-heading-card font-bold text-white tracking-wide leading-tight">
                 {t("titlePrefix")} <span className="gold-gradient-text">{t("titleHighlight")}</span>
               </h3>
             </div>
 
-            <p className="text-left text-[12.5px] sm:text-[13px] text-slate-300/90 font-light leading-relaxed">
-              {t("description")}
-            </p>
+            <p className="text-left text-body-sm text-slate-300/90 font-light leading-relaxed">{t("description")}</p>
 
-            <p className="text-left text-[12.5px] sm:text-[13px] text-slate-400 font-light">
+            <p className="text-left text-body-sm  text-slate-400 font-light">
               {t("wantToCustomize")}&nbsp;
               <button
                 onClick={() => setIsPreferenceOpen(true)}
@@ -133,13 +131,13 @@ export function CookieConsent() {
             <div className="flex items-center justify-between pt-2">
               <Link
                 href="/legal/cookie"
-                className="text-[10px] font-bold uppercase tracking-widest text-slate-400 transition-colors hover:text-gold md:text-xs"
+                className="text-caption! font-bold uppercase tracking-widest text-slate-400 transition-colors hover:text-gold"
               >
                 {t("cookiePolicy")}
               </Link>
               <button
                 onClick={handleAccept}
-                className="rounded-xl bg-gold hover:bg-gold-light text-lanka-black font-bold text-[11px] uppercase tracking-widest shadow-[0_0_20px_rgba(197,160,89,0.2)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] px-6 py-2.5"
+                className="rounded-xl bg-gold hover:bg-gold-light text-lanka-black font-bold text-caption! uppercase tracking-widest shadow-[0_0_20px_rgba(197,160,89,0.2)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] px-6 py-2.5"
               >
                 {t("acceptAll")}
               </button>

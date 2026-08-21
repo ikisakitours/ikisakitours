@@ -8,11 +8,13 @@ const contactInfoIcons = [Mail, Phone, MapPin, Clock];
 
 function InfoItem({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
-    <div className="flex items-start gap-4">
-      <div className="text-gold mt-1">{icon}</div>
+    <div className="flex flex-row items-center justify-between gap-4 w-full">
+      <div className="flex items-center gap-3">
+        <div className="text-gold">{icon}</div>
+        <p className="text-body-sm font-medium text-slate-400">{label}</p>
+      </div>
       <div>
-        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">{label}</p>
-        <p className="text-sm text-white">{value}</p>
+        <p className="text-right text-body-sm font-bold text-white">{value}</p>
       </div>
     </div>
   );
@@ -25,7 +27,7 @@ export default function ContactSidebar() {
   return (
     <div className="space-y-8 lg:col-span-1">
       <div className="glass-card rounded-3xl p-8">
-        <h2 className="premium-serif mb-6 text-xl text-white">{t("title")}</h2>
+        <h2 className="premium-serif mb-6 text-heading-sub text-white">{t("title")}</h2>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-1">
           {infoArray.map((item, index) => {
             const Icon = contactInfoIcons[index] || Headphones;
@@ -37,9 +39,9 @@ export default function ContactSidebar() {
       <div className="relative lg:w-full lg:mx-0 overflow-hidden rounded-3xl bg-linear-to-br from-emerald-950/20 via-lanka-black/90 to-lanka-black p-8 md:p-5 lg:p-6 xl:p-8 3xl:p-10 border border-gold/30 shadow-2xl backdrop-blur-xl group/card transition-all duration-500 hover:border-emerald-500/50 hover:bg-emerald-950/30">
         <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gold/10 blur-2xl transition-all duration-500 group-hover/card:bg-emerald-500/20" />
 
-        <p className="relative z-10 premium-serif mb-6 md:mb-5 xl:mb-6 text-[16px] md:text-{14px} xl:text-[15px] 3xl:text-[17px] font-extrabold tracking-wide text-white flex items-center justify-start gap-2">
+        <p className="relative z-10 premium-serif mb-6 md:mb-5 xl:mb-6 text-heading-card font-extrabold tracking-wide text-white flex items-center justify-start gap-2">
           <span className="inline-block h-2 w-2 shrink-0 rounded-full bg-emerald-400 animate-pulse" />
-          {t("messagesAppTitle")}
+          {t("messagesTitle")}
         </p>
 
         <div className="relative z-10 flex w-full flex-col gap-4 md:flex-row xl:flex-col">
@@ -57,12 +59,12 @@ export default function ContactSidebar() {
             {/* Text Container */}
             <div className="flex flex-1 flex-col gap-1.5">
               {/* Title */}
-              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/80 transition-colors group-hover:text-white sm:text-[11px] md:text-[11px] lg:text-[10px] 3xl:text-[15px]">
+              <span className="text-caption font-bold uppercase tracking-[0.2em] text-white/80 transition-colors group-hover:text-white">
                 {t("whatsappButton")}
               </span>
 
               {/* Subtitle / Status */}
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[10px] font-medium text-emerald-400/90 transition-colors group-hover:text-[#25D366] sm:text-[12px] md:text-[10px] lg:text-[12px] 3xl:text-[14px]">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-caption font-medium text-emerald-400/90 transition-colors group-hover:text-[#25D366]">
                 {/* Online Indicator */}
                 <div className="flex shrink-0 items-center gap-2">
                   <span className="relative flex h-2 w-2">
@@ -89,12 +91,12 @@ export default function ContactSidebar() {
             {/* Text Container */}
             <div className="flex flex-1 flex-col gap-1.5">
               {/* Title */}
-              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/80 transition-colors group-hover:text-white sm:text-[11px] md:text-[11px] lg:text-[10px] 3xl:text-[15px]">
+              <span className="text-caption font-bold uppercase tracking-[0.2em] text-white/80 transition-colors group-hover:text-white">
                 {t("lineButton")}
               </span>
 
               {/* Subtitle / Status */}
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[10px] font-medium text-emerald-400/90 transition-colors group-hover:text-[#25D366] sm:text-[12px] md:text-[10px] lg:text-[12px] 3xl:text-[14px]">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-caption font-medium text-emerald-400/90 transition-colors group-hover:text-[#25D366]">
                 {/* Online Indicator */}
                 <div className="flex shrink-0 items-center gap-2">
                   <span className="relative flex h-2 w-2">

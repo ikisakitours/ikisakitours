@@ -14,11 +14,11 @@ export default function ContactIntroCard() {
           <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] text-gold">{t("badge")}</span>
         </div>
 
-        <h1 className="premium-serif text-2xl md:text-3xl lg:text-4xl text-white leading-tight">
+        <h1 className="premium-serif text-heading-section text-white leading-tight">
           {t("titleMain")} <br className="hidden md:block" /> {t("titleBreak")}
         </h1>
 
-        <p className="text-slate-400 text-sm md:text-base leading-relaxed">{t("description")}</p>
+        <p className="text-slate-400 text-body leading-relaxed">{t("description")}</p>
       </div>
 
       <div

@@ -104,13 +104,13 @@ export default function CoveredCitiesRoute({ destinations }: CoveredCitiesRouteP
           <div className="pointer-events-none absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-gold/5 blur-3xl" />
 
           <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-            <div className="flex items-center gap-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-gold">
-              <MapPin className="h-4 w-4 animate-pulse" />
+            <div className="flex items-center gap-2.5 text-caption font-bold uppercase tracking-[0.2em] text-gold">
+              <MapPin className="h-4.5 w-4.5 md:h-5 md:w-5 animate-pulse" />
               {t("title")}
             </div>
 
             <div className="flex w-full items-center justify-end gap-4 sm:w-auto">
-              <span className="text-[11px] sm:text-xs md:text-[13px] font-semibold uppercase tracking-widest text-slate-400">
+              <span className="text-caption font-semibold uppercase tracking-widest text-slate-400">
                 {t("magicalStops", { count: destinations.length })}
               </span>
             </div>
@@ -129,12 +129,12 @@ export default function CoveredCitiesRoute({ destinations }: CoveredCitiesRouteP
                   {/* Clean City Pill */}
                   <div className="group flex shrink-0 items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:bg-white/10">
                     {/* Simple Number Badge */}
-                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-gold text-[10px] font-bold text-lanka-black">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-gold text-tiny font-bold text-lanka-black">
                       {dest.id || idx + 1}
                     </span>
 
                     {/* City Name */}
-                    <span className="text-xs font-semibold tracking-wide text-white transition-colors group-hover:text-gold">
+                    <span className="text-body-sm font-semibold tracking-wide text-white transition-colors group-hover:text-gold">
                       {dest.name}
                     </span>
                   </div>
@@ -150,7 +150,7 @@ export default function CoveredCitiesRoute({ destinations }: CoveredCitiesRouteP
               <Button
                 variant="shine"
                 onClick={() => handleMapToggle(true)}
-                className="px-3 py-1.5 text-[10px] sm:px-4 sm:py-2 sm:text-[11px] md:text-xs 2xl:px-5 2xl:py-2.5 2xl:text-sm 3xl:px-6 3xl:py-3 3xl:text-base"
+                className="px-3 py-1.5 text-caption! sm:px-4 sm:py-2 2xl:px-5 2xl:py-2.5  3xl:px-6 3xl:py-3"
               >
                 <span className="group-hover:text-black flex items-center gap-1.5 sm:gap-2 transition-colors duration-300">
                   <Map className="h-3 w-3 sm:h-3.5 sm:w-3.5 2xl:h-4 2xl:w-4 3xl:h-5 3xl:w-5 transition-transform duration-300 group-hover:scale-110" />
@@ -165,7 +165,7 @@ export default function CoveredCitiesRoute({ destinations }: CoveredCitiesRouteP
                  ${!canScrollLeft ? "cursor-not-allowed opacity-30" : "cursor-pointer hover:border-gold hover:bg-gold hover:text-black"}`}
                   aria-label="Scroll left"
                 >
-                  <ChevronLeft className="h-4 w-4" />
+                  <ChevronLeft className="h-4 w-4" strokeWidth={2} />
                 </button>
                 <button
                   onClick={() => scroll("right")}
@@ -174,12 +174,12 @@ export default function CoveredCitiesRoute({ destinations }: CoveredCitiesRouteP
                  ${!canScrollRight ? "cursor-not-allowed opacity-30" : "cursor-pointer hover:border-gold hover:bg-gold hover:text-black"}`}
                   aria-label="Scroll right"
                 >
-                  <ChevronRight className="h-4 w-4" />
+                  <ChevronRight className="h-4 w-4" strokeWidth={2}/>
                 </button>
               </div>
             </div>
 
-            <div className="mt-4 flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between text-[8px] sm:text-[9px] tracking-wider text-slate-400">
+            <div className="mt-4 flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between text-micro tracking-wider text-slate-400">
               <span className="flex items-start sm:items-center gap-1.5 text-gold/80 leading-relaxed font-semibold uppercase tracking-[0.2em]">
                 <span className="mt-1 sm:mt-0 shrink-0 inline-block h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
                 <span>{t("clickMap")}</span>

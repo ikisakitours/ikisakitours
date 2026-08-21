@@ -4,9 +4,11 @@ import { motion } from "framer-motion";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
 import { contactCtaUsersData, contactCtaImagesData } from "@/data/home";
+import SectionBadge from "@/components/home/Events/SectionBadge";
+
 import { useTranslations } from "next-intl";
 //Icons
-import { MapPin, Sparkles, Star, ArrowRight } from "lucide-react";
+import { MapPin, Star, ArrowRight } from "lucide-react";
 interface HomeContactCTAProps {
   hideOnMobile?: boolean;
 }
@@ -42,13 +44,10 @@ export default function HomeContactCTA({ hideOnMobile = false }: HomeContactCTAP
             className="w-full lg:w-1/2 space-y-10"
           >
             {/* Top Badge */}
-            <div className="inline-flex items-center gap-3 rounded-full border border-gold/30 bg-gold/10 px-5 py-2 backdrop-blur-md">
-              <Sparkles className="h-4 w-4 text-gold" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold">{t("badge")}</span>
-            </div>
 
+            <SectionBadge badge={t("badge")} />
             {/* Heading */}
-            <h2 className="text-5xl md:text-6xl xl:text-7xl font-serif text-white leading-[1.1] tracking-tight">
+            <h2 className="text-heading-section font-serif text-white leading-[1.1] tracking-tight">
               {t("titlePart1")} <br />
               <span className="relative mt-2 inline-block">
                 <span className="relative z-10 pr-4 font-light italic text-gold">{t("titleAccent")}</span>
@@ -58,11 +57,11 @@ export default function HomeContactCTA({ hideOnMobile = false }: HomeContactCTAP
               {t("titlePart2")}
             </h2>
 
-            <p className="max-w-lg text-lg font-light leading-relaxed text-slate-400 md:text-xl">{t("description")}</p>
+            <p className="max-w-lg text-body font-light leading-relaxed text-slate-400">{t("description")}</p>
 
             {/* CTA Buttons & Trust Indicators */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-8 pt-4">
-              <Button variant="inquire" href="/contact" className="group shrink-0">
+              <Button variant="inquire" href="/contact" className="text-caption! group shrink-0">
                 {t("ctaButtonText")}
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" strokeWidth={3} />
               </Button>
@@ -89,10 +88,10 @@ export default function HomeContactCTA({ hideOnMobile = false }: HomeContactCTAP
                 <div>
                   <div className="flex gap-1 text-gold">
                     {[1, 2, 3, 4, 5].map((star) => (
-                      <Star key={star} className="h-3 w-3 fill-gold" />
+                      <Star key={star} className="h-3.5 w-3.5 fill-gold" />
                     ))}
                   </div>
-                  <p className="mt-1 text-[10px] uppercase tracking-widest text-white/50">{t("reviewCountText")}</p>
+                  <p className="mt-1 text-caption uppercase tracking-widest text-white/50">{t("reviewCountText")}</p>
                 </div>
               </div>
             </div>
@@ -150,8 +149,8 @@ export default function HomeContactCTA({ hideOnMobile = false }: HomeContactCTAP
                   <MapPin className="h-5 w-5 text-gold" />
                 </div>
                 <div className="pr-2">
-                  <p className="text-[15px] font-bold text-white">{t("localExpertsText")}</p>
-                  <p className="mt-0.5 text-[12px] font-bold uppercase tracking-widest gold-gradient-text">
+                  <p className="text-body font-bold text-white">{t("localExpertsText")}</p>
+                  <p className="mt-0.5 text-body-sm font-bold uppercase tracking-widest gold-gradient-text">
                     {t("supportText")}
                   </p>
                 </div>

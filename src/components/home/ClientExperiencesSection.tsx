@@ -84,11 +84,9 @@ export function ClientExperiencesSection() {
             className="text-center md:text-left"
           >
             <SectionBadge badge={t("badge")} />
-            <h2 className="font-serif text-3xl font-light leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            <h2 className="premium-serif  font-light leading-tight text-white text-heading-section">
               {t("titlePart1")}
-              <span className="bg-[linear-gradient(to_right,#d4af37,#fbe106,#c5a028)] bg-clip-text font-normal italic text-transparent pl-3">
-                {t("titleAccent")}
-              </span>
+              <span className=" gold-gradient-text font-normal italic pl-3">{t("titleAccent")}</span>
             </h2>
           </motion.div>
 
@@ -102,17 +100,15 @@ export function ClientExperiencesSection() {
             >
               <div className="border-r border-white/10 pr-6 text-center">
                 <div className="text-4xl font-light leading-none text-white">{averageScore}</div>
-                <div className="mt-2 text-[10px] font-bold uppercase tracking-widest text-gold">
-                  {t("avgScoreLabel")}
-                </div>
+                <div className="mt-2 text-tiny font-bold uppercase tracking-widest text-gold">{t("avgScoreLabel")}</div>
               </div>
               <div>
                 <div className="mb-3">
                   <RatingStars rating={starCount} starClassName="h-3.5 w-3.5 text-gold" />
                 </div>
-                <p className="text-xs font-light tracking-wide text-slate-400">
+                <p className="text-caption font-light tracking-wide text-slate-400">
                   {t("basedOnText")}
-                  <span className="font-bold text-white">{reviewCountDisplay}</span>
+                  <span className="mx-1 font-bold text-white">{reviewCountDisplay}</span>
                   {t("globalReviewsText")}
                 </p>
               </div>
@@ -132,7 +128,7 @@ export function ClientExperiencesSection() {
                   exit={{ opacity: 0, y: -10, scale: 0.98 }}
                   transition={{ duration: 0.5, ease: smoothEase }}
                 >
-                  <Button variant="shine" onClick={() => setIsWritingReview(true)}>
+                  <Button variant="shine" className="[&_span]:text-tiny!" onClick={() => setIsWritingReview(true)}>
                     {t("leaveMarkBtn")}
                   </Button>
                 </motion.div>
@@ -144,7 +140,7 @@ export function ClientExperiencesSection() {
                   exit={{ opacity: 0, y: -10, scale: 0.98 }}
                   transition={{ duration: 0.5, ease: smoothEase }}
                 >
-                  <Button variant="reviewTag" onClick={() => setIsWritingReview(false)}>
+                  <Button variant="reviewTag" className="[&_span]:text-tiny!" onClick={() => setIsWritingReview(false)}>
                     <ArrowLeft className="h-4 w-4 shrink-0" strokeWidth={3} />
                     {t("backReviewsBtn")}
                   </Button>
@@ -209,7 +205,7 @@ export function ClientExperiencesSection() {
               <div
                 ref={scrollContainerRef}
                 onScroll={checkScrollPosition}
-                className="flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto pb-12 scrollbar-none [-ms-overflow-style:none] sm:gap-6 md:gap-8 xl:grid xl:grid-cols-3 xl:overflow-visible xl:pb-0 [&::-webkit-scrollbar]:hidden"
+                className="flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto scrollbar-none [-ms-overflow-style:none] sm:gap-6 md:gap-8 xl:grid xl:grid-cols-3 xl:overflow-visible xl:pb-0 [&::-webkit-scrollbar]:hidden"
               >
                 {displayTestimonials.map((testimonial) => (
                   <motion.div
@@ -231,9 +227,9 @@ export function ClientExperiencesSection() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1, ease: smoothEase }}
                 style={{ willChange: "transform, opacity" }}
-                className="mt-12 flex justify-center md:mt-20"
+                className="mt-16 flex justify-center md:mt-20 3xl:mt-32"
               >
-                <Button variant="explore" href="/testimonials">
+                <Button variant="explore" className="[&_span]:text-caption!" href="/testimonials">
                   {t("exploreMoreTestimonialsBtn")}
                 </Button>
               </motion.div>

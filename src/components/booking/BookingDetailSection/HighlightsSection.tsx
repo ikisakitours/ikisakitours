@@ -50,7 +50,7 @@ export default function HighlightsSection({ tour }: HighlightsSectionProps) {
 
   return (
     <section id="highlights" className="mb-10 md:mb-14 px-1">
-      <h2 className="premium-serif mb-6 border-l-2 border-gold pl-4 text-2xl italic text-white md:mb-8 md:border-l md:pl-6 md:text-3xl">
+      <h2 className="premium-serif mb-6 border-l-2 border-gold pl-4 text-[25px] italic text-white md:mb-8 md:border-l md:pl-6 md:text-[28px]">
         {t("title")}
       </h2>
 

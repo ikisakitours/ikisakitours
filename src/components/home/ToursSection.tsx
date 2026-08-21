@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { usePathname } from "@/i18nNavigation";
+import { usePathname } from "@/lib/i18nNavigation";
 import { LoadingImage } from "@/components/ui/LoadingImage";
 import { packages } from "@/data/multiDaysTours";
 import { oneDayTours } from "@/data/oneDayTours";
@@ -57,7 +57,7 @@ export function ToursSection() {
   }, []);
 
   const currentPackages = activeTab === "multi" ? packages : oneDayTours;
-  const displayPackages = [...currentPackages].sort((a, b) => Number(b.rating) - Number(a.rating)).slice(0, 4);
+  const displayPackages = [...currentPackages].sort((a, b) => Number(b.rating) - Number(a.rating)).slice(0, 3);
 
   return (
     <section id="tours" className="bg-background py-12 md:py-20 xl:py-20 2xl:py-24 3xl:py-28">
@@ -71,7 +71,7 @@ export function ToursSection() {
           className="mb-10 text-center md:mb-14 3xl:mb-20"
         >
           <SectionBadge badge={t("badge")} />
-          <h2 className="premium-serif text-3xl font-light leading-tight text-white sm:text-5xl md:text-6xl 3xl:text-7xl">
+          <h2 className="premium-serif  font-light leading-tight text-white text-heading-section">
             {t("titlePart1")}
             <span className="gold-gradient-text italic">{t("titleAccent")}</span>
           </h2>
@@ -87,7 +87,7 @@ export function ToursSection() {
           <Button
             variant="shine"
             onClick={() => setActiveTab("multi")}
-            className={`whitespace-nowrap px-3! py-2.5! sm:px-5! sm:py-3! lg:px-7! lg:py-3.5! transition-all duration-300 [&_span]:text-[8.5px]! sm:[&_span]:text-[10px]! lg:[&_span]:text-[9px]! xl:[&_span]:text-[10px]! ${
+            className={`whitespace-nowrap px-3! py-2.5! sm:px-5! sm:py-3! lg:px-7! lg:py-3.5! transition-all duration-300 [&_span]:text-tiny! ${
               activeTab === "multi"
                 ? "bg-gold! border-gold! shadow-[0_0_20px_rgba(197,160,89,0.4)] [&_span]:text-black!"
                 : "border-white/20 hover:border-gold/50 hover:bg-gold/10 [&_span]:text-white/70! hover:[&_span]:text-white!"
@@ -98,7 +98,7 @@ export function ToursSection() {
           <Button
             variant="shine"
             onClick={() => setActiveTab("one")}
-            className={`whitespace-nowrap px-3! py-2.5! sm:px-5! sm:py-3! lg:px-7! lg:py-3.5! transition-all duration-300 [&_span]:text-[8.5px]! sm:[&_span]:text-[10px]! lg:[&_span]:text-[9px]! xl:[&_span]:text-[10px]! ${
+            className={`whitespace-nowrap px-3! py-2.5! sm:px-5! sm:py-3! lg:px-7! lg:py-3.5! transition-all duration-300 [&_span]:text-tiny! ${
               activeTab === "one"
                 ? "bg-gold! border-gold! shadow-[0_0_20px_rgba(197,160,89,0.4)] [&_span]:text-black!"
                 : "border-white/20 hover:border-gold/50 hover:bg-gold/10 [&_span]:text-white/70! hover:[&_span]:text-white!"
@@ -116,7 +116,7 @@ export function ToursSection() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
-            className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4 3xl:gap-10"
+            className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3 3xl:gap-10"
           >
             {displayPackages.map((item, index) => (
               <motion.article
@@ -133,7 +133,7 @@ export function ToursSection() {
                     {item.badges.map((badge) => (
                       <span
                         key={badge.label}
-                        className={`${getBadgeStyles(badge.type)} rounded-sm px-2 py-1 text-[8px] 3xl:px-3 3xl:py-1.5 3xl:text-[10px] font-bold uppercase tracking-widest`}
+                        className={`${getBadgeStyles(badge.type)} rounded-sm px-2 py-2 text-micro 3xl:px-3 3xl:py-1.5  font-bold uppercase tracking-widest`}
                       >
                         {badge.label}
                       </span>
@@ -154,36 +154,37 @@ export function ToursSection() {
                   <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-black/40" />
                   <div className="absolute bottom-4 left-4 right-4 z-20 flex items-end justify-between 3xl:bottom-6 3xl:left-6 3xl:right-6">
                     <div className="flex flex-col">
-                      <span className="mb-1 text-[10px] 3xl:text-xs uppercase tracking-[0.2em] font-bold text-gold">
+                      <span className="mb-1 text-tiny uppercase tracking-[0.2em] font-bold text-gold">
                         {item.categoryLabel}
                       </span>
                       <div className="flex items-center space-x-2 text-white">
                         <FaClock className="h-3.5 w-3.5 3xl:h-4 3xl:w-4 text-gold" />
-                        <span className="text-[12px] 3xl:text-sm font-bold">{item.duration}</span>
+                        <span className="text-body-sm font-bold">{item.duration}</span>
                       </div>
                     </div>
                     <div className="flex items-center space-x-1 rounded border border-white/10 bg-black/80 px-2 py-1 3xl:px-3 3xl:py-1.5 backdrop-blur-md">
                       <Star className="h-3.5 w-3.5 3xl:h-4 3xl:w-4 text-gold" fill="currentColor" />
-                      <span className="text-[12px] 3xl:text-sm font-bold text-white">{item.rating}</span>
+                      <span className="text-body-sm font-bold text-white">{item.rating}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Body */}
                 <div className="flex grow flex-col p-5 sm:p-6 3xl:p-8">
-                  <h4 className="mb-2 text-[17px] 3xl:text-2xl font-bold italic text-white">{item.title}</h4>
-                  <p className="line-clamp-2 mb-6 3xl:mb-8 grow text-[13px] 3xl:text-base font-normal leading-relaxed text-slate-200">
+                  <h4 className="mb-2 text-body-lead font-bold italic text-white">{item.title}</h4>
+                  <p className="line-clamp-2 mb-6 3xl:mb-8 grow text-body-sm font-normal leading-relaxed text-slate-200">
                     {item.description}
                   </p>
                   <div className="mt-auto flex items-center justify-between border-t border-white/5 pt-4">
                     <div>
-                      <p className="text-[11px] uppercase leading-none tracking-widest text-slate-300">
+                      <p className="text-tiny uppercase leading-none tracking-widest text-slate-300">
                         {t("startingFromText")}
                       </p>
-                      <p className="mt-1 text-lg font-bold text-gold">{item.price}</p>
+                      <p className="mt-1 text-heading-card font-bold text-gold">{item.price}</p>
                     </div>
                     <Button
                       variant="details"
+                      className="[&_span]:text-tiny!"
                       href={
                         activeTab === "multi"
                           ? `/booking/multi-days-tours/${item.slug}`
@@ -207,7 +208,11 @@ export function ToursSection() {
           transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
           className="mt-16 flex w-full items-center justify-center md:mt-20 3xl:mt-32"
         >
-          <Button variant="explore" href={activeTab === "multi" ? "/tours/multi-days" : "/tours/one-day"}>
+          <Button
+            variant="explore"
+            className="[&_span]:text-caption!"
+            href={activeTab === "multi" ? "/tours/multi-days" : "/tours/one-day"}
+          >
             {activeTab === "multi" ? t("visitAllMultiText") : t("viewAllOneText")}
           </Button>
         </motion.div>

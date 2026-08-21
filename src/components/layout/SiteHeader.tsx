@@ -1,16 +1,16 @@
 "use client";
-import { UserProfileAvatar } from "./UserProfileAvatar";
-import { useTranslations } from "next-intl";
-import Image from "next/image";
-import { primaryNavigation } from "@/data/navigation";
-import { motion, AnimatePresence, type Variants } from "framer-motion";
-import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { Link, useRouter, usePathname } from "@/i18nNavigation";
-//Icons
-import { LogOut, UserRound } from "lucide-react";
 import { type MouseEvent, useEffect, useRef, useState } from "react";
 import { CurrencySelector } from "@/components/layout/CurrencySelector";
 import { LanguageSelector } from "@/components/layout/LanguageSelector";
+import { LoadingImage } from "@/components/ui/LoadingImage";
+import { UserProfileAvatar } from "./UserProfileAvatar";
+import { useTranslations } from "next-intl";
+import { primaryNavigation } from "@/data/navigation";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
+import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
+import { Link, useRouter, usePathname } from "@/lib/i18nNavigation";
+//Icons
+import { LogOut, UserRound } from "lucide-react";
 
 const navLinkClass =
   "relative pb-1 transition-colors duration-[400ms] after:absolute after:-bottom-0.5 after:left-1/2 after:h-px after:w-0 after:-translate-x-1/2 after:bg-[linear-gradient(90deg,transparent,var(--gold),transparent)] after:transition-all after:duration-[400ms] after:ease-[cubic-bezier(0.4,0,0.2,1)] after:content-[''] hover:text-gold hover:[text-shadow:0_0_10px_rgba(197,160,89,0.3)] hover:after:w-full";
@@ -271,11 +271,12 @@ export function SiteHeader() {
               onClick={closeMobileMenu}
               className="group flex shrink-0 items-center space-x-2 relative z-101"
             >
-              <Image
+              <LoadingImage
                 src="/images/bg-remove.png"
                 alt="MapMate Logo"
                 width={200}
                 height={80}
+                wrapperClassName="w-full h-full"
                 className="h-15 w-auto object-contain transition-transform duration-500 group-hover:scale-105 sm:h-16 lg:h-18"
                 priority
                 onError={(event) => {
@@ -283,25 +284,27 @@ export function SiteHeader() {
                 }}
               />
               <div className="text-2xl font-bold uppercase tracking-widest text-white sm:text-3xl">
-                Map<span className="text-gold">Mate</span>
+                Map<span className="gold-gradient-text">Mate</span>
               </div>
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden items-center space-x-8 text-[11px] 2xl:text-[12px] font-bold uppercase tracking-[0.2em] text-slate-200 xl:flex xl:space-x-4 2xl:space-x-9">
+            <div className="mt-1.75 hidden items-center space-x-8 text-body-sm font-bold uppercase tracking-[0.2em] text-slate-200 xl:flex xl:space-x-4 2xl:space-x-8">
               {primaryNavigation.map((item) => {
                 return (
-                  <div key={item.key} className="group relative">
+                  <div key={item.key} className="group relative flex items-center">
                     {"isDropdown" in item && item.isDropdown ? (
                       <>
-                        <button className={`${navLinkClass} flex items-center gap-1 uppercase`}>
+                        <button
+                          className={`${navLinkClass} flex items-center gap-1 uppercase tracking-[0.25em] [word-spacing:3px]`}
+                        >
                           {tNav(item.key)}
                           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                           </svg>
                         </button>
 
-                        <div className="absolute left-0 top-full invisible mt-4 flex w-56 flex-col rounded-xl border border-white/10 bg-[#0a0a0a]/95 py-3 opacity-0 shadow-2xl backdrop-blur-2xl transition-all duration-300 group-hover:visible group-hover:mt-2 group-hover:opacity-100">
+                        <div className="absolute left-0 top-full invisible mt-4 flex min-w-max flex-col rounded-xl border border-white/10 bg-[#0a0a0a]/95 py-3 opacity-0 shadow-2xl backdrop-blur-2xl transition-all duration-300 group-hover:visible group-hover:mt-2 group-hover:opacity-100">
                           {item.subItems?.map((sub) => {
                             const subFinalHref = getFinalHref(sub.href, sub.sectionId);
                             return (
@@ -309,7 +312,7 @@ export function SiteHeader() {
                                 key={sub.href}
                                 href={subFinalHref}
                                 onClick={(e) => handleNavigation(e, subFinalHref, false)}
-                                className="px-5 py-2.5 text-[9px] xl:text-[10px] tracking-[0.15em] [word-spacing:3px] text-white/80 hover:bg-gold/10 hover:text-gold transition-colors block"
+                                className="px-5 py-2.5 text-[11px] tracking-[0.15em] [word-spacing:3px] text-white/80 hover:bg-gold/10 hover:text-gold transition-colors block"
                               >
                                 {tNav(sub.key)}
                               </Link>
@@ -322,7 +325,7 @@ export function SiteHeader() {
                         <Link
                           href={getFinalHref(item.href, item.sectionId)}
                           onClick={(e) => handleNavigation(e, getFinalHref(item.href, item.sectionId), false)}
-                          className={`${navLinkClass} text-[10px] xl:text-[11px] 2xl:text-[12px] tracking-[0.25em] [word-spacing:3px]`}
+                          className={`${navLinkClass} flex items-center text-body-sm tracking-[0.25em] [word-spacing:3px]`}
                         >
                           {tNav(item.key)}
                         </Link>
@@ -360,7 +363,7 @@ export function SiteHeader() {
                     initials="AT"
                     initialsClassName="font-serif text-xs"
                   />
-                  <span className="pointer-events-none absolute top-full left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap rounded-md bg-[#0a0a0a] border border-gold/30 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-gold opacity-0 transition-all duration-200 group-hover:opacity-100 shadow-2xl z-50 hidden md:block">
+                  <span className="pointer-events-none absolute top-full left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap rounded-md bg-[#0a0a0a] border border-gold/30 px-3 py-1.5 text-caption font-bold uppercase tracking-wider text-gold opacity-0 transition-all duration-200 group-hover:opacity-100 shadow-2xl z-50 hidden md:block">
                     {tDropdown("tooltip")}
                   </span>
                 </button>
@@ -375,13 +378,10 @@ export function SiteHeader() {
                   }`}
                 >
                   <div className="border-b border-white/5 bg-white/5 px-6 py-4">
-                    <p className="truncate text-sm font-bold text-white" id="dropdown-user-name">
+                    <p className="truncate text-body-sm font-bold text-white" id="dropdown-user-name">
                       Alex Thompson
                     </p>
-                    <p
-                      className="mt-1 truncate text-[11px] uppercase tracking-widest text-slate-400"
-                      id="dropdown-user-email"
-                    >
+                    <p className="truncate text-caption tracking-widest text-slate-400" id="dropdown-user-email">
                       pramodpremudu10@gmail.com
                     </p>
                   </div>
@@ -389,7 +389,7 @@ export function SiteHeader() {
                     <Link
                       href="/profile"
                       onClick={closeProfileDropdown}
-                      className="flex items-center px-6 py-3 text-sm text-slate-200 transition-colors hover:bg-gold/10 hover:text-gold"
+                      className="flex items-center px-6 py-3 text-body-sm text-slate-200 transition-colors hover:bg-gold/10 hover:text-gold"
                     >
                       <UserRound className="mr-3 h-4 w-4" />
                       {tDropdown("seeProfile")}
@@ -397,7 +397,7 @@ export function SiteHeader() {
                     <div className="mx-4 my-1 border-t border-white/5" />
                     <button
                       type="button"
-                      className="flex w-full items-center px-6 py-3 text-left text-sm text-red-400 transition-colors hover:bg-red-500/10"
+                      className="flex w-full items-center px-6 py-3 text-left text-body-sm text-red-400 transition-colors hover:bg-red-500/10"
                     >
                       <LogOut className="mr-3 h-4 w-4" />
                       {tDropdown("logOut")}
@@ -478,7 +478,7 @@ export function SiteHeader() {
                       <motion.div key={item.key} variants={linkVariants}>
                         {"isDropdown" in item && item.isDropdown ? (
                           <div className="flex flex-col space-y-4 mt-4">
-                            <span className="text-lg sm:text-xl font-bold uppercase tracking-[0.2em] text-white/40 border-b border-white/10 pb-2 mx-auto inline-block">
+                            <span className="text-body-lead font-bold uppercase tracking-[0.2em] text-white/40 border-b border-white/10 pb-2 mx-auto inline-block">
                               {tNav(item.key)}
                             </span>
                             {item.subItems?.map((sub) => {
@@ -488,7 +488,7 @@ export function SiteHeader() {
                                   key={sub.href}
                                   onClick={(e) => handleNavigation(e, subFinalHref, true)}
                                   href={subFinalHref}
-                                  className="text-sm sm:text-base font-bold uppercase tracking-[0.25em] [word-spacing:6px] block transition-colors duration-300 text-white hover:text-gold hover:scale-105"
+                                  className="text-body font-bold uppercase tracking-[0.25em] [word-spacing:6px] block transition-colors duration-300 text-white hover:text-gold hover:scale-105"
                                 >
                                   {tNav(sub.key)}
                                 </Link>
@@ -500,7 +500,7 @@ export function SiteHeader() {
                             <Link
                               onClick={(e) => handleNavigation(e, getFinalHref(item.href, item.sectionId), true)}
                               href={getFinalHref(item.href, item.sectionId)}
-                              className="text-base sm:text-lg font-bold uppercase tracking-[0.35em] [word-spacing:6px] block transition-colors duration-300 text-white hover:text-gold hover:scale-105"
+                              className="text-body font-bold uppercase tracking-[0.35em] [word-spacing:6px] block transition-colors duration-300 text-white hover:text-gold hover:scale-105"
                             >
                               {tNav(item.key)}
                             </Link>

@@ -35,12 +35,12 @@ export function SearchInput({
           onChange={(e) => onChange(e.target.value)}
           autoComplete="off"
           placeholder={placeholder}
-          className="w-full rounded-xl border border-white/10 bg-white/3 pl-5 pr-28 py-4 text-sm text-white backdrop-blur-md transition-all duration-300 placeholder:text-gray-600 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold/30 [&::-webkit-search-cancel-button]:appearance-none"
+          className="w-full rounded-xl border border-white/10 bg-white/3 pl-5 pr-28 py-4 text-body-sm text-white backdrop-blur-md transition-all duration-300 placeholder:text-gray-600 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold/30 [&::-webkit-search-cancel-button]:appearance-none"
         />
 
         {/* Count Badge එක */}
         {count !== undefined && (
-          <span className="absolute right-4 rounded border border-white/10 bg-white/5 px-2 py-1 text-[10px] font-bold text-gray-400">
+          <span className="absolute right-4 rounded border border-white/10 bg-white/5 px-2 py-1 text-caption font-bold text-gray-400">
             {count} {itemLabel}
             {count === 1 ? "" : "s"}
           </span>

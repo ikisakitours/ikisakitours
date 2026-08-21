@@ -82,9 +82,9 @@ export function CurrencySelector() {
           isOpen ? "bg-gold/10 border-gold/50" : "bg-white/5 border-white/10 hover:border-gold/30 hover:bg-gold/5"
         }`}
       >
-        <Globe className="h-3.5 w-3.5 text-gold" />
-        <span className="text-[13px] font-bold text-white transition-colors group-hover:text-gold">{baseCurrency}</span>
-        <span className="text-[12px] font-bold text-gold/90">({currentSymbol})</span>
+        <Globe className="h-3.5 w-3.5 md:h-4 md:w-4 text-gold" />
+        <span className="text-body-sm font-bold text-white transition-colors group-hover:text-gold">{baseCurrency}</span>
+        <span className="text-caption font-bold text-gold/90">({currentSymbol})</span>
         <ChevronDown
           className={`h-4 w-4 text-slate-300 transition-transform duration-300 group-hover:text-gold ${
             isOpen ? "rotate-180" : ""
@@ -93,7 +93,7 @@ export function CurrencySelector() {
         />
 
         {/* Hover Tooltip */}
-        <span className="pointer-events-none absolute top-full left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap rounded-md bg-[#0a0a0a] border border-gold/30 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-gold opacity-0 transition-all duration-200 group-hover:opacity-100 shadow-2xl z-50 hidden md:block">
+        <span className="pointer-events-none absolute top-full left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap rounded-md bg-[#0a0a0a] border border-gold/30 px-3 py-1.5 text-caption font-bold uppercase tracking-wider text-gold opacity-0 transition-all duration-200 group-hover:opacity-100 shadow-2xl z-50 hidden md:block">
           {t("tooltip")}
         </span>
       </button>
@@ -105,7 +105,7 @@ export function CurrencySelector() {
         }`}
       >
         <div className="border-b border-white/10 bg-white/5 p-3">
-          <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">{t("select")}</p>
+          <p className="mb-2 text-caption font-bold uppercase tracking-widest text-slate-400">{t("select")}</p>
           <div className="relative flex items-center">
             <Search className="absolute left-3 h-3.5 w-3.5 text-slate-400" />
             <input
@@ -113,7 +113,7 @@ export function CurrencySelector() {
               placeholder={t("searchPlaceholder")}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-md border border-white/10 bg-[#050505] py-2 pl-9 pr-3 text-[13px] text-white placeholder:text-slate-600 focus:border-gold/50 focus:outline-none focus:ring-1 focus:ring-gold/50"
+              className="w-full rounded-md border border-white/10 bg-[#050505] py-2 pl-9 pr-3 text-body-sm text-white placeholder:text-slate-600 focus:border-gold/50 focus:outline-none focus:ring-1 focus:ring-gold/50"
             />
           </div>
         </div>
@@ -138,15 +138,15 @@ export function CurrencySelector() {
                 >
                   <div className="flex flex-col">
                     <span
-                      className={`text-[13px] ${isSelected ? "font-bold text-gold" : "font-medium text-slate-200"}`}
+                      className={`text-body-sm ${isSelected ? "font-bold text-gold" : "font-medium text-slate-200"}`}
                     >
                       {currency.name}
                     </span>
-                    <span className="text-[10px] text-slate-500 font-semibold">{currency.code}</span>
+                    <span className="text-caption text-slate-500 font-semibold">{currency.code}</span>
                   </div>
 
                   <div className="flex items-center">
-                    <span className={`text-[13px] font-bold ${isSelected ? "text-gold" : "text-white"}`}>
+                    <span className={`text-body-sm font-bold ${isSelected ? "text-gold" : "text-white"}`}>
                       {currency.symbol}
                     </span>
                   </div>
@@ -154,7 +154,7 @@ export function CurrencySelector() {
               );
             })
           ) : (
-            <div className="px-4 py-4 text-center text-sm text-slate-500">{t("noResults")}</div>
+            <div className="px-4 py-4 text-center text-body-sm text-slate-500">{t("noResults")}</div>
           )}
         </div>
       </div>

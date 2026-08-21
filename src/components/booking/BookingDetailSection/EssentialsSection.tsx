@@ -34,7 +34,7 @@ export default function EssentialsSection() {
               <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full border border-white/5 bg-white/5 transition-all group-hover:border-gold/40 md:mb-4 md:h-20 md:w-20">
                 <Icon className="h-6 w-6 text-gold/60 md:h-7 md:w-7" />
               </div>
-              <span className="text-[9px] font-bold uppercase tracking-widest text-slate-400 md:text-[10px]">
+              <span className="text-micro font-bold uppercase tracking-widest text-slate-400">
                 {t(`items.${key}`)}
               </span>
             </article>

@@ -101,7 +101,7 @@ export function StickyBookingBar({ tour, options, assurances }: MobileBookingBar
           duration: 0.6,
           ease: [0.16, 1, 0.3, 1],
         }}
-        className={`fixed z-50 flex items-center justify-between border-t border-b-0 border-x-0 md:border border-gold/40 bg-linear-to-r from-lanka-black/95 via-[#141414]/95 to-lanka-black/95 px-6 py-4 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.1)] xl:hidden ${"bottom-0 left-0 right-0 rounded-none md:bottom-6 md:left-1/2 md:right-auto md:-translate-x-1/2 md:w-97.5 md:rounded-2xl"} ${
+        className={`fixed z-50 flex items-center justify-between border-t border-b-0 border-x-0 md:border border-gold/40 bg-linear-to-r from-lanka-black/95 via-[#141414]/95 to-lanka-black/95 px-6 py-4 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.1)] xl:hidden ${"bottom-0 left-0 right-0 rounded-none md:bottom-6 md:left-1/2 md:right-auto md:-translate-x-1/2 md:w-105.5 md:rounded-2xl"} ${
           !showStickyBar ? "pointer-events-none" : ""
         }`}
         style={{ willChange: "transform, opacity" }}
@@ -109,20 +109,20 @@ export function StickyBookingBar({ tour, options, assurances }: MobileBookingBar
         <div className="absolute inset-0 rounded-none md:rounded-2xl bg-linear-to-r from-gold/5 via-gold/10 to-transparent pointer-events-none" />
 
         <div className="relative z-10 flex flex-col">
-          <div className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.2em] text-gold drop-shadow-[0_0_8px_rgba(197,160,89,0.5)]">
+          <div className="flex items-center gap-1.5 text-caption font-bold uppercase tracking-[0.2em] text-gold drop-shadow-[0_0_8px_rgba(197,160,89,0.5)]">
             <Sparkles className="h-3 w-3 animate-pulse" />
             <span>MapMate Rate</span>
           </div>
           <div className="flex items-baseline gap-1.5">
-            <span className="text-xl font-black tracking-tight text-white drop-shadow-md">${tour.price}</span>
-            <span className="text-[10px] font-light text-slate-400">/ Person</span>
+            <span className="text-heading-sub font-black tracking-tight text-white drop-shadow-md">${tour.price}</span>
+            <span className="text-caption font-light text-slate-400">/ Person</span>
           </div>
         </div>
 
         <button
           type="button"
           onClick={() => setIsMobileModalOpen(true)}
-          className="group relative z-10 flex items-center gap-2 overflow-hidden rounded-full bg-linear-to-r from-gold-dark via-gold to-gold-light px-7 py-3 text-[11px] font-black uppercase tracking-[0.25em] text-lanka-black shadow-[0_0_25px_rgba(197,160,89,0.4)] transition-all duration-300 hover:shadow-[0_0_35px_rgba(197,160,89,0.6)] active:scale-95"
+          className="group relative z-10 flex items-center gap-2 overflow-hidden rounded-full bg-linear-to-r from-gold-dark via-gold to-gold-light px-7 py-3 text-caption! font-black uppercase tracking-[0.25em] text-lanka-black shadow-[0_0_25px_rgba(197,160,89,0.4)] transition-all duration-300 hover:shadow-[0_0_35px_rgba(197,160,89,0.6)] active:scale-95"
         >
           <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/40 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
           <CalendarCheck className="h-4 w-4 relative z-10" />
@@ -165,7 +165,7 @@ export function StickyBookingBar({ tour, options, assurances }: MobileBookingBar
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold opacity-75" />
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-gold" />
                   </div>
-                  <span className="text-[11px] font-black uppercase tracking-[0.25em] gold-gradient-text">
+                  <span className="text-caption! font-black uppercase tracking-[0.25em] gold-gradient-text">
                     Secure Your Journey
                   </span>
                 </div>

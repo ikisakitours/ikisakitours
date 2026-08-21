@@ -72,7 +72,6 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
     return ["all", ...uniqueDurations];
   }, [packages]);
 
-  // 3. Duration Counts හදාගන්න
   const durationCounts = useMemo(() => {
     const counts: Record<string, number> = {};
     dynamicDurations.forEach((dur) => {
@@ -156,7 +155,7 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
               <button
                 type="button"
                 onClick={() => setIsFilterOpen(true)}
-                className="group flex w-full items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-8 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:w-auto"
+                className="group flex w-full items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-8 py-3.5  text-caption font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:w-auto"
               >
                 <Filter className="h-4 w-4 transition-all duration-300 group-hover:scale-110 group-hover:text-black" />
                 <span className="transition-colors duration-300 group-hover:text-black">{t("filterPackages")}</span>
@@ -165,7 +164,7 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
                   duration !== "all" ||
                   priceRange !== dynamicPriceFilters[0].label ||
                   rating !== dynamicRatingFilters[0].label) && (
-                  <span className="ml-2 flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-[9px] font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a] group-hover:text-gold">
+                  <span className="ml-2 flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-micro font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a] group-hover:text-gold">
                     {(category !== "all" ? 1 : 0) +
                       (duration !== "all" ? 1 : 0) +
                       (priceRange !== dynamicPriceFilters[0].label ? 1 : 0) +
@@ -193,7 +192,7 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
 
         {filteredPackages.length > 0 ? (
           <>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4 3xl:gap-10">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 3xl:gap-10">
               {visiblePackages.map((item) => (
                 <Card key={item.title} item={item} tourType={tourType} />
               ))}
@@ -203,6 +202,7 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
               {hasMore ? (
                 <Button
                   type="button"
+                  className="[&_span]:text-caption!"
                   variant="explore"
                   onClick={() => setVisibleCount((count) => count + INITIAL_COUNT)}
                 >
@@ -210,9 +210,9 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
                 </Button>
               ) : null}
 
-              <div className="mt-4 flex items-center gap-3">
+              <div className="mt-8 flex items-center gap-3">
                 <div className="h-px w-8 bg-gold/20" />
-                <p className="whitespace-nowrap text-[10px] font-medium uppercase tracking-[0.2em] text-slate-500">
+                <p className="whitespace-nowrap text-tiny font-medium uppercase tracking-[0.2em] text-slate-500">
                   {t("showing")} <span className="text-gold">{visiblePackages.length}</span> {t("of")}{" "}
                   <span className="text-white">{filteredPackages.length}</span> {t("packages")}
                 </p>

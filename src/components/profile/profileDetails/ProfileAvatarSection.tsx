@@ -15,6 +15,7 @@ type ProfileAvatarSectionProps = {
   onOpenSourceModal: () => void;
   onAvatarSelect: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onImageUpdate: () => void;
+  isLoading?: boolean;
 };
 
 export function ProfileAvatarSection({
@@ -25,16 +26,13 @@ export function ProfileAvatarSection({
   onOpenSourceModal,
   onAvatarSelect,
   onImageUpdate,
+  isLoading,
 }: ProfileAvatarSectionProps) {
   const t = useTranslations("ProfilePage");
 
   return (
     <div className="flex flex-col items-center space-y-6 border-b border-white/5 pb-8 sm:flex-row sm:space-x-8 sm:space-y-0">
-      <button
-        type="button"
-        onClick={onOpenSourceModal}
-        className="group relative h-24 w-24 shrink-0 cursor-pointer"
-      >
+      <button type="button" onClick={onOpenSourceModal} className="group relative h-24 w-24 shrink-0 cursor-pointer">
         <span
           className="relative flex h-full w-full items-center justify-center rounded-full border-2 bg-white/5 p-1 transition-colors"
           style={{ borderColor: avatarError ? "#dc2626" : "#c5a059" }}
@@ -69,23 +67,20 @@ export function ProfileAvatarSection({
       />
 
       <div className="text-center sm:text-left">
-        <h3 className="text-sm font-bold text-white">{t("DetailsPanel.profilePicTitle")}</h3>
-        <p className="mt-1 text-xs text-slate-400">{t("DetailsPanel.profilePicDesc")}</p>
+        <h3 className="text-body font-bold text-white">{t("DetailsPanel.profilePicTitle")}</h3>
+        <p className="mt-1 text-caption text-slate-400">{t("DetailsPanel.profilePicDesc")}</p>
 
-        {avatarError && (
-          <div className="mt-2 text-[13px] font-medium text-red-500">
-            {avatarError}
-          </div>
-        )}
+        {avatarError && <div className="mt-2 text-body-sm font-medium text-red-500">{avatarError}</div>}
 
         {avatarPreview && !avatarError && (
           <Button
             type="button"
             variant="details"
+            disabled={isLoading}
             onClick={onImageUpdate}
-            className="mt-3 mx-auto sm:mx-0 block"
+            className="mt-3 mx-auto sm:mx-0 block [&_span]:text-tiny!"
           >
-            {t("DetailsPanel.savePhotoBtn")}
+            {isLoading ? "Saving..." : t("DetailsPanel.savePhotoBtn")}{" "}
           </Button>
         )}
       </div>

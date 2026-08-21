@@ -1,6 +1,6 @@
 import React from "react";
 import { LoadingImage } from "@/components/ui/LoadingImage";
-import { Link } from "@/i18nNavigation";
+import { Link } from "@/lib/i18nNavigation";
 import { useTranslations } from "next-intl";
 //Icons
 import { Images, Plus } from "lucide-react";
@@ -25,9 +25,9 @@ export default function PhotosSection({ name, slug, photos }: Props) {
         <div className="relative z-10">
           <div className="mb-2 flex items-center gap-2">
             <Images className="h-4 w-4 text-gold" />
-            <span className="text-[10px] font-bold uppercase tracking-widest text-gold">{t("visualJourney")}</span>
+            <span className="text-tiny font-bold uppercase tracking-widest text-gold">{t("visualJourney")}</span>
           </div>
-          <h2 className="premium-serif text-2xl italic text-white sm:text-3xl md:text-4xl">{t("explore", { name: name })}</h2>
+          <h2 className="premium-serif text-2xl italic text-white text-heading-sub">{t("explore", { name: name })}</h2>
         </div>
 
         {/* View All Link */}
@@ -35,12 +35,10 @@ export default function PhotosSection({ name, slug, photos }: Props) {
           href={galleryUrl}
           className="shrink-0 inline-flex items-center gap-1.5 text-gold transition-colors hover:text-white pb-1"
         >
-          <span className="text-[9px] font-bold uppercase tracking-[0.2em] sm:text-[10px] sm:tracking-[0.2em] md:text-[11px]">
-           {t("viewAll")}
-          </span>
+          <span className="text-caption font-bold uppercase tracking-[0.2em] sm:tracking-[0.2em]">{t("viewAll")}</span>
 
           <div className="inline-flex items-center gap-0.5">
-            <span className="text-[10px] font-black sm:text-[11px] md:text-[12px]">{photos.length}</span>
+            <span className="text-caption font-black ">{photos.length}</span>
             <Plus className="h-2.5 w-2.5 sm:h-3 sm:w-3" strokeWidth={4} />
           </div>
         </Link>
@@ -67,15 +65,15 @@ export default function PhotosSection({ name, slug, photos }: Props) {
               {isLast ? (
                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/45 transition-colors duration-300 group-hover:bg-black/65">
                   <Images className="mb-2 text-white" size={28} />
-                  <span className="px-2 text-center text-[9px] font-bold uppercase tracking-[0.2em] text-white">
-                 {t("viewGallery")}
+                  <span className="px-2 text-center text-tiny font-bold uppercase tracking-[0.2em] text-white">
+                    {t("viewGallery")}
                   </span>
                 </div>
               ) : (
                 <>
                   <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent transition-opacity duration-300 group-hover:opacity-90" />
                   <div className="absolute bottom-4 left-4 right-4 z-10 flex items-center justify-between">
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-white/80">
+                    <span className="text-tiny font-bold uppercase tracking-widest text-white/80">
                       0{index + 1} — {t("highlight")}
                     </span>
                   </div>

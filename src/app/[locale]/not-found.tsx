@@ -6,6 +6,7 @@ export default function LocalizedNotFound() {
     <div className="flex min-h-screen items-center justify-center bg-[#050505]">
      <NotFoundUI 
         badgeText={t("NotFoundPage.badge")}
+        oopsText ={t("NotFoundPage.oops")}
         title={t("NotFoundPage.title")}
         description={t("NotFoundPage.description")}
         backButtonText={t("NotFoundPage.backButton")}

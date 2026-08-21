@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, Variants } from "framer-motion";
-import { Link } from "@/i18nNavigation";
+import { Link } from "@/lib/i18nNavigation";
 
 const CACHE_KEY = "mapmate_loaded_sliders";
 const getInitialCache = () => {
@@ -240,12 +240,12 @@ export function ImageSlider({
               className="absolute bottom-0 left-0 right-0 p-6 md:p-8 flex flex-col justify-end"
             >
               {currentSlide.badge && (
-                <p className="text-xs sm:text-sm lg:text-xs 3xl:text-sm font-bold uppercase tracking-widest text-gold drop-shadow-md mb-2">
+                <p className="text-caption font-bold uppercase tracking-widest text-gold drop-shadow-md mb-2">
                   {currentSlide.badge}
                 </p>
               )}
               {currentSlide.desc && (
-                <p className="text-xs sm:text-sm lg:text-xs 3xl:text-sm font-bold text-gray-100 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)] leading-snug">
+                <p className="text-body-sm font-bold text-gray-100 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)] leading-snug">
                   {currentSlide.desc}
                 </p>
               )}

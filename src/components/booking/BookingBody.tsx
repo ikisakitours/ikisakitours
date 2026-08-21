@@ -21,7 +21,7 @@ export default function BookingBody({ tour, options, assurances, tourType }: Boo
           <BookingDetailSections tour={tour} tourType={tourType} />
         </div>
 
-        <BookingWidget tour={tour} options={options} assurances={assurances} />
+        <BookingWidget tour={tour} options={options} assurances={assurances} className="hidden xl:block"/>
       </div>
 
       <RelatedBookingSections recommendations={tour.recommendations} insights={tour.insights} />

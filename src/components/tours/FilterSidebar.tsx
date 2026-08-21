@@ -126,7 +126,7 @@ export function FilterSidebar({
 
             {/* Header */}
             <div className="relative z-10 flex items-center justify-between border-b border-white/10 px-8 py-6">
-              <span className="text-sm font-bold uppercase tracking-[0.2em] text-gold">{title}</span>
+              <span className="text-body font-bold uppercase tracking-[0.2em] text-gold">{title}</span>
               <button
                 type="button"
                 onClick={onClose}
@@ -140,10 +140,10 @@ export function FilterSidebar({
             <div className="flex-1 overflow-y-auto px-8 py-6 space-y-8">
               {/* Category Section */}
               <div className="space-y-4">
-                <h3 className="text-[10px] font-bold uppercase tracking-widest text-white/50">{t("categories")}</h3>
+                <h3 className="text-caption font-bold uppercase tracking-widest text-white/50">{t("categories")}</h3>
                 <button
                   onClick={() => onSelectCategory("all")}
-                  className="flex w-full items-center justify-between text-sm text-slate-300 transition-colors hover:text-gold"
+                  className="flex w-full items-center justify-between text-body-sm text-slate-300 transition-colors hover:text-gold"
                 >
                   <span className="flex items-center gap-3">
                     <input type="radio" checked={selectedCategory === "all"} readOnly className="accent-gold" /> All
@@ -157,7 +157,7 @@ export function FilterSidebar({
                     <button
                       key={item}
                       onClick={() => onSelectCategory(item)}
-                      className="flex w-full items-center justify-between text-sm text-slate-300 transition-colors hover:text-gold"
+                      className="flex w-full items-center justify-between text-body-sm text-slate-300 transition-colors hover:text-gold"
                     >
                       <span className="flex items-center gap-3">
                         <input type="radio" checked={selectedCategory === item} readOnly className="accent-gold" />{" "}
@@ -168,14 +168,14 @@ export function FilterSidebar({
                   ))}
               </div>
 
-              {/* Duration Section (අලුතින් එකතු කරන කොටස) */}
+              {/* Duration Section*/}
               <div className="space-y-4">
-                <h3 className="text-[10px] font-bold uppercase tracking-widest text-white/50">{durationTitle}</h3>
+                <h3 className="text-caption font-bold uppercase tracking-widest text-white/50">{durationTitle}</h3>
 
                 {/* All Option */}
                 <button
                   onClick={() => onDurationChange("all")}
-                  className="flex w-full items-center justify-between text-sm text-slate-300 transition-colors hover:text-gold"
+                  className="flex w-full items-center justify-between text-body-sm text-slate-300 transition-colors hover:text-gold"
                 >
                   <span className="flex items-center gap-3">
                     <input type="radio" checked={duration === "all"} readOnly className="accent-gold" /> All
@@ -190,7 +190,7 @@ export function FilterSidebar({
                     <button
                       key={item}
                       onClick={() => onDurationChange(item)}
-                      className="flex w-full items-center justify-between text-sm text-slate-300 transition-colors hover:text-gold"
+                      className="flex w-full items-center justify-between text-body-sm text-slate-300 transition-colors hover:text-gold"
                     >
                       <span className="flex items-center gap-3">
                         <input type="radio" checked={duration === item} readOnly className="accent-gold" /> {item}
@@ -202,11 +202,11 @@ export function FilterSidebar({
 
               {/* Price Range Section */}
               <div className="space-y-4">
-                <h3 className="text-[10px] font-bold uppercase tracking-widest text-white/50">{t("price")}</h3>
+                <h3 className="text-caption font-bold uppercase tracking-widest text-white/50">{t("price")}</h3>
                 {priceCategories.map((p) => (
                   <label
                     key={p.value}
-                    className="flex w-full cursor-pointer items-center justify-between text-sm font-medium text-slate-300 transition-colors hover:text-gold"
+                    className="flex w-full cursor-pointer items-center justify-between text-body-sm font-medium text-slate-300 transition-colors hover:text-gold"
                   >
                     <span className="flex items-center gap-3">
                       <input
@@ -218,18 +218,18 @@ export function FilterSidebar({
                       />
                       {p.label}
                     </span>
-                    <span className="text-xs text-white/30">{priceCounts[p.label] || 0}</span>
+                    <span className="text-body-sm text-white/30">{priceCounts[p.label] || 0}</span>
                   </label>
                 ))}
               </div>
 
               {/* Rating Section */}
               <div className="space-y-4">
-                <h3 className="text-[10px] font-bold uppercase tracking-widest text-white/50">{t("rating")}</h3>
+                <h3 className="text-caption font-bold uppercase tracking-widest text-white/50">{t("rating")}</h3>
                 {ratingCategories.map((r) => (
                   <label
                     key={r.value}
-                    className="flex w-full cursor-pointer items-center justify-between text-sm font-medium text-slate-300 transition-colors hover:text-gold"
+                    className="flex w-full cursor-pointer items-center justify-between text-body-sm font-medium text-slate-300 transition-colors hover:text-gold"
                   >
                     <span className="flex items-center gap-3">
                       <input
@@ -241,7 +241,7 @@ export function FilterSidebar({
                       />
                       {r.label}
                     </span>
-                    <span className="text-xs text-white/30">{ratingCounts[r.label] || 0}</span>
+                    <span className="text-body-sm text-white/30">{ratingCounts[r.label] || 0}</span>
                   </label>
                 ))}
               </div>
@@ -251,7 +251,7 @@ export function FilterSidebar({
             <div className="p-8 border-t border-white/10 flex gap-4">
               <button
                 onClick={onClearAll}
-                className={`flex flex-1 items-center justify-center gap-2 rounded-full border py-4 text-[11px] font-bold uppercase transition-all duration-300 ${
+                className={`flex flex-1 items-center justify-center gap-2 rounded-full border py-4 text-caption font-bold uppercase transition-all duration-300 ${
                   isFilterActive
                     ? "border-red-500/40 bg-red-950/30 text-red-400 hover:border-red-500/60 hover:bg-red-900/50"
                     : "border-white/10 text-white hover:bg-white/5"
@@ -262,7 +262,7 @@ export function FilterSidebar({
               </button>
               <button
                 onClick={onClose}
-                className="flex-1 py-4 bg-gold rounded-full text-[11px] font-black text-black uppercase tracking-[0.3em] transition-colors hover:bg-yellow-500 shadow-md"
+                className="flex-1 py-4 bg-gold rounded-full text-caption font-black text-black uppercase tracking-[0.3em] transition-colors hover:bg-yellow-500 shadow-md"
               >
                 {t("showResults")} ({totalResults})
               </button>

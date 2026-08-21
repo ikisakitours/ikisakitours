@@ -1,6 +1,6 @@
 "use client";
 import { LoadingImage } from "@/components/ui/LoadingImage";
-import { Link } from "@/i18nNavigation";
+import { Link } from "@/lib/i18nNavigation";
 import type { BlogPost } from "@/data/blog";
 import { ShareButton } from "@/components/ui/ShareButton";
 import { LikeButton } from "@/components/ui/LikeButton";
@@ -31,25 +31,31 @@ export function BlogCard({ post }: BlogCardProps) {
             className="h-full w-full object-cover grayscale  group-hover:scale-105 group-hover:grayscale-0"
           />
         </div>
-        <div className="mb-4 text-[10px] uppercase tracking-widest text-gold opacity-60">
+        <div className="mb-4 text-tiny uppercase tracking-widest text-gold opacity-60">
           {post.category} &bull; {post.readTime}
         </div>
-        <h3 className="premium-serif mb-4 text-2xl leading-tight text-white transition-colors group-hover:text-gold md:text-3xl">
+        <h3 className="premium-serif mb-4 text-heading-sub leading-tight text-white transition-colors group-hover:text-gold">
           {post.title}
         </h3>
-        <p className="line-clamp-3 font-light leading-relaxed text-slate-400">{post.excerpt}</p>
+        <p className="line-clamp-3 font-normal text-body leading-relaxed text-foreground/80 ">{post.excerpt}</p>
       </div>
 
       <div className="relative z-10 mt-8 flex items-center justify-between border-t border-white/10 pt-6">
         <Link
           href={`/blog/${post.slug}`}
-          className="text-xs font-bold uppercase tracking-[0.2em] text-gold transition-all hover:tracking-[0.3em]"
+          className="text-caption font-bold uppercase tracking-[0.2em] text-gold transition-all hover:tracking-[0.3em]"
         >
           {t("readMore")}
         </Link>
         <div className="flex items-center gap-4">
-          <LikeButton initialLikes={post.likes} lovedLabel={t("lovedThis")} className="flex items-center gap-2 text-gold" />
-          <ShareButton title={post.title} text={post.excerpt} url={`/blog/${post.slug}`} />
+          <LikeButton
+            initialLikes={post.likes}
+            lovedLabel={t("lovedThis")}
+            className="flex items-center gap-2 text-gold"
+            countClassName="text-body-sm!"
+            iconSize={21}
+          />
+          <ShareButton iconSize={21} title={post.title} text={post.excerpt} url={`/blog/${post.slug}`} />
         </div>
       </div>
     </article>

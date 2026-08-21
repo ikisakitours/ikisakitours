@@ -36,7 +36,7 @@ export function Card({ item, tourType }: PackageCardProps) {
           {item.badges.map((badge) => (
             <span
               key={badge.label}
-              className={`${getBadgeStyles(badge.type)} rounded-sm px-2 py-1 text-[8px] 3xl:px-3 3xl:py-1.5 3xl:text-[10px] font-bold uppercase tracking-widest`}
+              className={`${getBadgeStyles(badge.type)} rounded-sm px-2 py-2 text-micro 3xl:px-3 3xl:py-1.5  font-bold uppercase tracking-widest`}
             >
               {badge.label}
             </span>
@@ -55,31 +55,29 @@ export function Card({ item, tourType }: PackageCardProps) {
         <div className="absolute inset-0 bg-linear-to-t from-[#111] via-transparent to-black/40" />
         <div className="absolute bottom-4 left-4 right-4 z-20 flex items-end justify-between">
           <div className="flex flex-col">
-            <span className="mb-1 text-[10px] uppercase tracking-[0.2em] font-bold text-gold">
-              {item.categoryLabel}
-            </span>
+            <span className="mb-1 text-tiny uppercase tracking-[0.2em] font-bold text-gold">{item.categoryLabel}</span>
             <div className="flex items-center space-x-2 text-white">
               <FaClock className="h-3.5 w-3.5 3xl:h-4 3xl:w-4 text-gold" />
-              <span className="text-[12px] 3xl:text-sm font-bold">{item.duration}</span>
+              <span className="text-body-sm font-bold">{item.duration}</span>
             </div>
           </div>
           <div className="flex items-center space-x-1 rounded border border-white/10 bg-black/80 px-2 py-1 3xl:px-3 3xl:py-1.5 backdrop-blur-md">
             <Star className="h-3.5 w-3.5 3xl:h-4 3xl:w-4 text-gold" fill="currentColor" />
-            <span className="text-[12px] 3xl:text-sm font-bold text-white">{item.rating}</span>
+            <span className="text-body-sm font-bold text-white">{item.rating}</span>
           </div>
         </div>
       </div>
       <div className="flex grow flex-col p-5 sm:p-6">
-        <h2 className="mb-2 text-[17px] font-bold italic text-white">{item.title}</h2>
-        <p className="mb-6 grow text-[13px] font-normal leading-relaxed text-slate-200 line-clamp-2">
+        <h4 className="mb-2 text-body-lead font-bold italic text-white">{item.title}</h4>
+        <p className="line-clamp-2 mb-6 3xl:mb-8 grow text-body-sm font-normal leading-relaxed text-slate-200">
           {item.description}
         </p>
         <div className="mt-auto flex items-center justify-between border-t border-white/5 pt-4">
           <div>
-            <p className="text-[11px] uppercase leading-none tracking-widest text-slate-300">{t("startingFrom")}</p>
-            <p className="mt-1 text-lg font-bold text-gold">{item.price}</p>
+            <p className="text-tiny uppercase leading-none tracking-widest text-slate-300">{t("startingFrom")}</p>
+            <p className="mt-1 text-heading-card font-bold text-gold">{item.price}</p>
           </div>
-          <Button variant="details" href={bookingHref}>
+          <Button variant="details" className="[&_span]:text-tiny!" href={bookingHref}>
             {t("details")}
           </Button>
         </div>

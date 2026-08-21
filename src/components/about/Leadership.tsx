@@ -22,9 +22,9 @@ export default function Leadership() {
         />
       </div>
 
-      <h3 className="text-xl font-bold text-white mb-1">{t("name")}</h3>
-      <span className="text-[10px] font-bold uppercase tracking-widest text-gold mb-6">{t("role")}</span>
-      <p className="text-slate-400 text-sm max-w-2xl leading-relaxed">{t("bio")}</p>
+      <h3 className="text-heading-sub font-bold text-white mb-1">{t("name")}</h3>
+      <span className="text-caption font-bold uppercase tracking-widest text-gold mb-6">{t("role")}</span>
+      <p className="text-foreground/80 text-body max-w-2xl leading-relaxed">{t("bio")}</p>
     </div>
   );
 }

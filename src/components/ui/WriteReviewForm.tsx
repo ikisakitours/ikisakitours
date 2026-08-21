@@ -76,7 +76,7 @@ export function WriteReviewForm() {
 
           <div className="relative z-30 p-8 3xl:p-12">
             <div className="mb-4 inline-block rounded-full border border-gold/20 bg-gold/10 px-3 py-1 backdrop-blur-md">
-              <span className="text-[9px] font-bold uppercase tracking-widest text-gold 3xl:text-xs">
+              <span className="text-caption font-bold uppercase tracking-widest text-gold 3xl:text-xs">
                 {tForm("badge")}
               </span>
             </div>
@@ -84,7 +84,7 @@ export function WriteReviewForm() {
               {tForm("title1")} <br />
               <span className="premium-serif italic text-gold">{tForm("titleHighlight")}</span> {tForm("title2")}
             </h3>
-            <p className="text-sm font-light leading-relaxed text-white/70 3xl:text-base">{tForm("description")}</p>
+            <p className="text-body-sm font-light leading-relaxed text-white/70">{tForm("description")}</p>
           </div>
         </div>
 
@@ -92,7 +92,7 @@ export function WriteReviewForm() {
           <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8 3xl:space-y-12">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div className="flex flex-col">
-                <label className="mb-1 ml-2 text-[10px] font-bold uppercase tracking-widest text-gold 3xl:text-xs">
+                <label className="mb-1 ml-2 text-caption font-bold uppercase tracking-widest text-gold">
                   {tLabels("fullName")}
                 </label>
                 <input
@@ -103,7 +103,7 @@ export function WriteReviewForm() {
                     setErrors((prev) => ({ ...prev, fullName: "" }));
                   }}
                   placeholder={tPlaceholders("fullName")}
-                  className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-sm text-white transition-colors focus:border-gold/50 focus:outline-none 3xl:py-6 3xl:text-lg"
+                  className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-body-sm text-white transition-colors focus:border-gold/50 focus:outline-none 3xl:py-6"
                 />
                 <div className="ml-2">
                   <FormError message={errors.fullName} />
@@ -118,10 +118,10 @@ export function WriteReviewForm() {
                   }}
                   error={errors.country}
                   clearError={() => setErrors((prev) => ({ ...prev, country: "" }))}
-                  inputClass="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-sm text-white transition-colors group-hover:border-gold/50 focus:border-gold/50 focus:outline-none 3xl:py-6"
+                  inputClass="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-body-sm! text-white transition-colors group-hover:border-gold/50 focus:border-gold/50 focus:outline-none 3xl:py-6"
                   showIcon={false}
                   customLabel={
-                    <label className="mb-1 ml-2 block text-[10px] font-bold uppercase tracking-widest text-gold 3xl:text-xs">
+                    <label className="mb-1 ml-2 block text-caption font-bold uppercase tracking-widest text-gold">
                       {tLabels("country")}
                     </label>
                   }
@@ -131,7 +131,7 @@ export function WriteReviewForm() {
 
             <div className="flex flex-col gap-1">
               <div className="rounded-2xl border border-white/5 bg-white/5 py-8 text-center shadow-inner 3xl:py-12">
-                <label className="mb-4 block text-[10px] font-bold uppercase tracking-[0.4em] text-gold opacity-80 3xl:text-xs">
+                <label className="mb-4 block text-caption font-bold uppercase tracking-[0.4em] text-gold opacity-80">
                   {tForm("ratingLabel")}
                 </label>
                 <div className="flex justify-center gap-2 text-2xl text-slate-600 3xl:gap-8 3xl:text-4xl">
@@ -153,7 +153,7 @@ export function WriteReviewForm() {
             </div>
 
             <div className="flex flex-col">
-              <label className="mb-1 ml-2 text-[10px] font-bold uppercase tracking-widest text-gold 3xl:text-xs">
+              <label className="mb-1 ml-2 text-caption font-bold uppercase tracking-widest text-gold">
                 {tForm("experienceLabel")}
               </label>
               <textarea
@@ -164,23 +164,24 @@ export function WriteReviewForm() {
                   setErrors((prev) => ({ ...prev, experience: "" }));
                 }}
                 placeholder={tForm("experiencePlaceholder")}
-                className="auto-resize-textarea min-h-30 w-full resize-none rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-[14px] italic leading-relaxed text-white transition-colors focus:border-gold/50 focus:outline-none md:text-[15px] 3xl:py-6 3xl:text-xl"
+                className="auto-resize-textarea min-h-30 w-full resize-none rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-body-sm italic leading-relaxed text-white transition-colors focus:border-gold/50 focus:outline-none 3xl:py-6"
               />
-              <span className="mt-1 block text-[11px] font-medium text-slate-500 md:text-[12px] lg:text-[13px] 3xl:text-[14px] leading-relaxed">
+              <span className="mt-1 block text-caption font-medium text-slate-500 leading-relaxed">
                 {tMessage("autoExpand")}
               </span>
               <div className="ml-2">
                 <FormError message={errors.experience} />
               </div>
             </div>
-
-            <Button
-              variant="primary"
-              type="submit"
-              className="w-full py-5 text-[11px] tracking-[0.3em] shadow-xl shadow-gold/10 3xl:py-8 3xl:text-sm"
-            >
-              {tForm("submitBtn")}
-            </Button>
+            <div className="w-full flex justify-end">
+              <Button
+                variant="primary"
+                type="submit"
+                className="w-full md:w-80 py-5 text-caption! tracking-[0.3em] shadow-xl shadow-gold/10 3xl:py-8"
+              >
+                {tForm("submitBtn")}
+              </Button>
+            </div>
           </form>
         </div>
       </div>

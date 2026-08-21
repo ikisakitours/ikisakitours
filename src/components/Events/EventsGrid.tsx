@@ -106,14 +106,14 @@ export function EventsGrid({ events, categories }: SpecialEventsGridProps) {
 
           <div className="mt-8 flex flex-col items-center md:mt-14">
             {hasMore ? (
-              <Button type="button" variant="explore" onClick={() => setVisibleCount((count) => count + INITIAL_COUNT)}>
+              <Button type="button" variant="explore" className="[&_span]:text-caption!" onClick={() => setVisibleCount((count) => count + INITIAL_COUNT)}>
                 {t("loadMore")}
               </Button>
             ) : null}
 
-            <div className="mt-4 flex items-center gap-3">
+            <div className="mt-8 flex items-center gap-3">
               <div className="h-px w-8 bg-gold/20" />
-              <p className="whitespace-nowrap text-[10px] font-medium uppercase tracking-[0.2em] text-slate-500">
+              <p className="whitespace-nowrap text-tiny font-medium uppercase tracking-[0.2em] text-slate-500">
                 {t("showing")} <span className="text-gold">{visibleEvents.length}</span> {t("of")}{" "}
                 <span className="text-white">{filteredEvents.length}</span> {t("events")}
               </p>

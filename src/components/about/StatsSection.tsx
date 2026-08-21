@@ -44,28 +44,28 @@ export default function StatsSection() {
       {/* Header with Navigation Buttons on Top Right */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <span className="text-[10px] font-bold tracking-widest text-gold uppercase">{t("headerBadge")}</span>
-          <h2 className="premium-serif text-xl sm:text-2xl text-white font-light">{t("headerTitle")}</h2>
+          <span className="text-caption font-bold tracking-widest text-gold uppercase">{t("headerBadge")}</span>
+          <h2 className="premium-serif text-heading-sub text-white font-light">{t("headerTitle")}</h2>
         </div>
 
         <div className="flex items-center gap-2">
           <button
             onClick={() => scroll("left")}
             disabled={!canScrollLeft}
-            className={`p-2 rounded-full border border-white/10 bg-[#0a0a0a] text-white transition-all duration-300 ${
+            className={`p-3 rounded-full border border-white/10 bg-[#0a0a0a] text-white transition-all duration-300 ${
               canScrollLeft ? "hover:border-gold/50 hover:text-gold cursor-pointer" : "opacity-30 cursor-not-allowed"
             }`}
           >
-            <ChevronLeft className="h-4 w-4" />
+            <ChevronLeft className="h-4 w-4" strokeWidth={3} />
           </button>
           <button
             onClick={() => scroll("right")}
             disabled={!canScrollRight}
-            className={`p-2 rounded-full border border-white/10 bg-[#0a0a0a] text-white transition-all duration-300 ${
+            className={`p-3 rounded-full border border-white/10 bg-[#0a0a0a] text-white transition-all duration-300 ${
               canScrollRight ? "hover:border-gold/50 hover:text-gold cursor-pointer" : "opacity-30 cursor-not-allowed"
             }`}
           >
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRight className="h-4 w-4" strokeWidth={3} />
           </button>
         </div>
       </div>
@@ -82,16 +82,16 @@ export default function StatsSection() {
           >
             <div className="absolute top-0 left-4 right-4 h-px bg-linear-to-r from-transparent via-gold/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="flex items-center justify-between mb-3">
-              <span className="text-[9px] font-mono tracking-widest text-white/30 group-hover:text-gold transition-colors">
+              <span className="text-body font-mono tracking-widest text-white/30 group-hover:text-gold transition-colors">
                 #{String(index + 1).padStart(2, "0")}
               </span>
-              <div className="h-1.5 w-1.5 rounded-full bg-white/10 group-hover:bg-gold transition-colors" />
+              <div className="h-2 w-2 rounded-full bg-white/10 group-hover:bg-gold transition-colors" />
             </div>
-            <div className="space-y-1">
-              <h3 className="premium-serif text-2xl sm:text-3xl text-white font-light tracking-tight group-hover:text-gold transition-colors duration-300">
+            <div className="space-y-1.5">
+              <h3 className="premium-serif text-heading-section text-white font-light tracking-tight group-hover:text-gold transition-colors duration-300">
                 {stat.value}
               </h3>
-              <p className="text-[10px] font-medium uppercase tracking-[0.15em] text-slate-400 group-hover:text-slate-200 transition-colors duration-300 line-clamp-1 font-sans">
+              <p className="text-caption font-medium uppercase tracking-[0.15em] text-slate-400 group-hover:text-slate-200 transition-colors duration-300 line-clamp-1 font-sans">
                 {stat.label}
               </p>
             </div>

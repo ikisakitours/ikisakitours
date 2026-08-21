@@ -1,11 +1,11 @@
 "use client";
-
-import React from "react";
+import React, { useState } from "react";
+import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { useTranslations } from "next-intl";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 //Icons
 import { Plus, Minus } from "lucide-react";
-import { motion, AnimatePresence, Variants } from "framer-motion";
 
 type FaqItem = {
   id: string;
@@ -76,6 +76,12 @@ export default function FaqAccordionList({
   setActiveCategory,
 }: FaqAccordionListProps) {
   const t = useTranslations("FaqPage");
+
+  const INITIAL_COUNT = 5;
+  const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
+  const visibleFaqs = filteredFaqs.slice(0, visibleCount);
+  const hasMore = visibleFaqs.length < filteredFaqs.length;
+
   const getEmptyDescription = () => {
     const hasSearch = searchQuery.trim().length > 0;
     const hasCategory = activeCategory.toLowerCase() !== "all";
@@ -104,57 +110,85 @@ export default function FaqAccordionList({
           }}
         />
       ) : (
-        filteredFaqs.map((faq) => {
-          const isOpen = openFaqId === faq.id;
-
-          return (
-            <div
-              key={faq.id}
-              className={`glass-card rounded-3xl transition-all duration-300 ${isOpen ? "border-gold/30 bg-white/6" : "hover:bg-white/4"}`}
-            >
-              {/* Header / Trigger */}
-              <button
-                onClick={() => toggleFaq(faq.id)}
-                className="w-full flex items-center justify-between p-6 text-left outline-none"
+        <>
+          {visibleFaqs.map((faq) => {
+            const isOpen = openFaqId === faq.id;
+            return (
+              <div
+                key={faq.id}
+                className={`glass-card rounded-3xl transition-all duration-300 ${isOpen ? "border-gold/30 bg-white/6" : "hover:bg-white/4"}`}
               >
-                <div className="flex flex-col gap-1 pr-6">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-gold">
-                    {t(`Categories.${faq.category}`)}
-                  </span>
-                  <h3 className={`text-base font-medium transition-colors ${isOpen ? "text-white" : "text-slate-200"}`}>
-                    {faq.question}
-                  </h3>
-                </div>
-
-                {/* Icon */}
-                <div
-                  className={`shrink-0 flex items-center justify-center w-8 h-8 rounded-full border transition-colors ${isOpen ? "border-gold/40 bg-gold/10 text-gold" : "border-white/10 text-slate-400"}`}
+                {/* Header / Trigger */}
+                <button
+                  onClick={() => toggleFaq(faq.id)}
+                  className="w-full flex items-center justify-between p-6 text-left outline-none"
                 >
-                  {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
-                </div>
-              </button>
+                  <div className="flex flex-col gap-1 pr-6">
+                    <span className="text-body-sm font-bold uppercase tracking-widest text-gold">
+                      {t(`Categories.${faq.category}`)}
+                    </span>
+                    <h3
+                      className={`text-body font-medium transition-colors ${isOpen ? "text-white" : "text-slate-200"}`}
+                    >
+                      {faq.question}
+                    </h3>
+                  </div>
 
-              {/* Framer Motion Animation Body */}
-              <AnimatePresence initial={false}>
-                {isOpen && (
-                  <motion.div
-                    key="faq-answer"
-                    variants={butterySmoothVariants}
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                    style={{ originY: 0, ...perfStyle }}
-                    className="overflow-hidden"
+                  {/* Icon */}
+                  <div
+                    className={`shrink-0 flex items-center justify-center w-8 h-8 rounded-full border transition-colors ${isOpen ? "border-gold/40 bg-gold/10 text-gold" : "border-white/10 text-slate-400"}`}
                   >
-                    <div className="px-6 pb-6 pt-0">
-                      <p className="text-sm text-slate-400 leading-relaxed">{faq.answer}</p>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                    {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                  </div>
+                </button>
+
+                {/* Framer Motion Animation Body */}
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      key="faq-answer"
+                      variants={butterySmoothVariants}
+                      initial="initial"
+                      animate="animate"
+                      exit="exit"
+                      style={{ originY: 0, ...perfStyle }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-6 pb-6 pt-0">
+                        <p className="text-body md:text-body-lead text-left md:text-justify hyphens-auto font-light leading-relaxed text-slate-300 ">
+                          {faq.answer}
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+          {filteredFaqs.length > 0 && (
+            <div className="mt-8 flex flex-col items-center md:mt-14">
+              {hasMore ? (
+                <Button
+                  type="button"
+                  className="[&_span]:text-caption!"
+                  variant="explore"
+                  onClick={() => setVisibleCount((count) => count + INITIAL_COUNT)}
+                >
+                  {t("UI.loadMore")}
+                </Button>
+              ) : null}
+
+              <div className="mt-8 flex items-center gap-3">
+                <div className="h-px w-8 bg-gold/20" />
+                <p className="whitespace-nowrap text-tiny font-medium uppercase tracking-[0.2em] text-slate-500">
+                  {t("UI.showing")} <span className="text-gold">{visibleFaqs.length}</span> {t("UI.of")}{" "}
+                  <span className="text-white">{filteredFaqs.length}</span> {t("UI.faqs")}{" "}
+                </p>
+                <div className="h-px w-8 bg-gold/20" />
+              </div>
             </div>
-          );
-        })
+          )}
+        </>
       )}
     </div>
   );

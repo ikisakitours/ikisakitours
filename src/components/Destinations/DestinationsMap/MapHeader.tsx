@@ -20,9 +20,9 @@ export default function MapHeader({ query, setQuery, filteredCount, isDarkMode, 
     <div className="mb-7 flex flex-col gap-3 sm:gap-4">
       {/* Title Section */}
       <div className="w-full pr-0 sm:pr-12 overflow-hidden">
-        <div className="mb-2 flex items-center gap-2 text-gold">
+        <div className="mb-2 flex items-center gap-2 text-gold mt-1">
           <MapPin className="h-4 w-4 animate-pulse" />
-          <span className="text-[10px] font-bold uppercase tracking-widest">{t("badge")}</span>
+          <span className="text-tiny font-bold uppercase tracking-widest">{t("badge")}</span>
         </div>
         <h2 className="premium-serif text-[5vw] sm:text-2xl md:text-3xl lg:text-4xl 3xl:text-5xl italic transition-colors duration-300 text-white whitespace-nowrap pb-2">
           {t("title")}
@@ -48,7 +48,7 @@ export default function MapHeader({ query, setQuery, filteredCount, isDarkMode, 
             <button
               onClick={() => setIsDarkMode(!isDarkMode)}
               style={{ outline: "none", boxShadow: "none", WebkitTapHighlightColor: "transparent" }}
-              className={`flex shrink-0 items-center gap-1.5 sm:gap-2 rounded-full border px-3 py-1.5 sm:px-3.5 text-[10px] sm:text-xs font-bold transition-all cursor-pointer focus:outline-none focus:ring-0 [-webkit-tap-highlight-color:transparent] ${
+              className={`flex shrink-0 items-center gap-1.5 sm:gap-2 rounded-full border px-3 py-1.5 sm:px-3.5 text-caption font-bold transition-all cursor-pointer focus:outline-none focus:ring-0 [-webkit-tap-highlight-color:transparent] ${
                 isDarkMode
                   ? "border-white/10 bg-white/5 text-gold hover:bg-white/10"
                   : "border-gold/60 bg-lanka-black text-gold hover:bg-black hover:border-gold"
@@ -59,7 +59,7 @@ export default function MapHeader({ query, setQuery, filteredCount, isDarkMode, 
               <span>{isDarkMode ? t("lightMap") : t("darkMap")}</span>
             </button>
 
-            <span className="absolute -bottom-5 right-1 sm:right-2 whitespace-nowrap text-[8px] sm:text-[9px] uppercase tracking-[0.2em] text-slate-400">
+            <span className="absolute -bottom-5 right-1 sm:right-2 whitespace-nowrap text-micro uppercase tracking-[0.2em] text-slate-400">
              {t("mapMood")}
             </span>
           </div>

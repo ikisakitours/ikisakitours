@@ -21,6 +21,17 @@ export const ConfettiRain = () => {
   const [particles, setParticles] = useState<Particle[]>([]);
 
   useEffect(() => {
+    let particleCount = 50;
+    if (typeof window !== "undefined") {
+      if (window.innerWidth >= 1024) {
+        particleCount = 150;
+      } else if (window.innerWidth >= 768) {
+        particleCount = 100;
+      } else {
+        particleCount = 80;
+      }
+    }
+
     const colors = [
       "bg-[#C5A059] shadow-[0_0_8px_rgba(197,160,89,0.5)]",
       "bg-[#ffffff] shadow-[0_0_8px_rgba(255,255,255,0.5)]",
@@ -35,7 +46,7 @@ export const ConfettiRain = () => {
     const shapes: ("square" | "circle" | "rectangle")[] = ["square", "circle", "rectangle"];
 
     const generateParticles = (): Particle[] => {
-      return Array.from({ length: 50 }).map((_, i) => ({
+      return Array.from({ length: particleCount }).map((_, i) => ({
         id: i,
         x: Math.random() * 120 - 10,
         yOffset: Math.random() * 20 - 10,
@@ -43,6 +54,7 @@ export const ConfettiRain = () => {
         colorClass: colors[Math.floor(Math.random() * colors.length)],
         delay: Math.random() * 8,
         duration: 10 + Math.random() * 10,
+        // duration: 3 + Math.random() * 4,
         rotationZ: Math.random() * 360,
         rotationX: Math.random() * 360,
         rotationY: Math.random() * 360,
@@ -85,11 +97,11 @@ export const ConfettiRain = () => {
               opacity: 0,
             }}
             animate={{
-              y: "110vh",
-              rotateX: p.rotationX + 720,
-              rotateY: p.rotationY + 720,
-              rotateZ: p.rotationZ + 360,
-              opacity: [0, 0.8, 0.8, 0],
+              y: ["-10vh", "110vh"],
+              rotateX: [0, p.rotationX + 720],
+              rotateY: [0, p.rotationY + 720],
+              rotateZ: [p.rotationZ, p.rotationZ + 360],
+              opacity: [0, 1, 1, 0],
             }}
             transition={{
               duration: p.duration,

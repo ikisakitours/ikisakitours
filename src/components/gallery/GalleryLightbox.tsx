@@ -321,11 +321,11 @@ export function GalleryLightbox({
                 animate="animate"
                 exit="exit"
               >
-                <p className="premium-serif text-sm uppercase tracking-[0.3em] text-white md:text-lg">
+                <p className="premium-serif text-body-sm uppercase tracking-[0.3em] pl-[0.3em] text-white">
                   {activeItem.title}
                 </p>
                 <div className="mx-auto my-3 h-px w-12 bg-gold/50" />
-                <p className="text-[11px] font-semibold uppercase tracking-[0.4em] text-gold">
+                <p className="text-caption font-semibold uppercase tracking-[0.4em] pl-[0.3em] text-gold">
                   {activeIndex + 1} / {totalCount}
                 </p>
               </motion.div>
@@ -356,7 +356,7 @@ export function GalleryLightbox({
           </div>
         </div>
 
-        <p className="hidden text-[9px] font-bold uppercase tracking-[0.3em] text-white/40 pointer-coarse:block -mt-1">
+        <p className="hidden text-caption font-bold uppercase tracking-[0.3em] text-white/40 pointer-coarse:block -mt-1">
           Swipe to explore
         </p>
       </div>

@@ -1,48 +1,49 @@
 export default {
-  "navigation": {
-    "Home": "Home",
-    "Experience": "Experience",
-    "Tours": "Tours",
+  navigation: {
+    Home: "Home",
+    Experience: "Experience",
+    Tours: "Tours",
     "Multi Days Tours": "Multi Days Tours",
     "One Day Tours": "One Day Tours",
-    "Services": "Services",
+    Services: "Services",
     "Custom Made Journeys": "Custom Made Journeys",
     "Private Chauffeur Service": "Private Chauffeur Service",
     "Airport & City Transfers": "Airport & City Transfers",
-    "More": "More",
+    More: "More",
     "Hidden Havens": "Hidden Havens",
     "Cultural Pageants": "Cultural Pageants",
-    "Journal": "Journal",
-    "Reviews": "Reviews",
-    "FAQs": "FAQs",
-    "Contact": "Contact"
+    Journal: "Journal",
+    Reviews: "Reviews",
+    FAQs: "FAQs",
+    Contact: "Contact",
   },
-  "Dropdown": {
-    "tooltip": "Click for profile options",
-    "seeProfile": "See Profile",
-    "logIn": "Log In",
-    "logOut": "Log Out"
+  Dropdown: {
+    tooltip: "Click for profile options",
+    seeProfile: "See Profile",
+    logIn: "Log In",
+    logOut: "Log Out",
   },
-  "Language": {
-    "tooltip": "Change Language",
-    "select": "Select Language",
-    "searchPlaceholder": "Search languages...",
-    "noResults": "No languages found.",
-    "autoDetect": {
-      "switchTitle": "Language Suggestion",
-      "switchDesc": "We noticed you are in <b>{country}</b>. Would you like to switch the language to <b>{language}</b>?",
-      "unsupportedTitle": "Language Not Supported",
-      "unsupportedDesc": "We noticed you are in <b>{country}</b>, but we don't support your local language yet. Please select another language from our list that works best for you.",
-      "btnYes": "Yes, switch",
-      "btnNo": "No, thanks",
-      "btnKeep": "Keep {lang}",
-      "btnChoose": "Choose Language"
-    }
+  Language: {
+    tooltip: "Change Language",
+    select: "Select Language",
+    searchPlaceholder: "Search languages...",
+    noResults: "No languages found.",
+    autoDetect: {
+      switchTitle: "Language Suggestion",
+      switchDesc: "We noticed you are in <b>{country}</b>. Would you like to switch the language to <b>{language}</b>?",
+      unsupportedTitle: "Hello, <b>{country}</b>! 🌍",
+      unsupportedDesc:
+        "We noticed you are in <b>{country}</b>, but we don't support your local language yet. Please select another language from our list that works best for you.",
+      btnYes: "Yes, switch",
+      btnNo: "No, thanks",
+      btnKeep: "Keep {lang}",
+      btnChoose: "Choose Language",
+    },
   },
-  "Currency": {
-    "tooltip": "Click for currency options",
-    "select": "Select Currency",
-    "searchPlaceholder": "Search currency (e.g. LKR, Euro)...",
-    "noResults": "No currency found"
-  }
+  Currency: {
+    tooltip: "Click for currency options",
+    select: "Select Currency",
+    searchPlaceholder: "Search currency (e.g. LKR, Euro)...",
+    noResults: "No currency found",
+  },
 } as const;

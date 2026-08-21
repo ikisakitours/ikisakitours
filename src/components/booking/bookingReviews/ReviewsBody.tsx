@@ -11,7 +11,7 @@ import CustomSelect from "@/components/ui/CustomSelect";
 import { bookingTour } from "@/data/multiDaysBooking";
 import { useTranslations } from "next-intl";
 import { ListFilter, ArrowUpDown } from "lucide-react";
-import { EmptyState } from "@/components/ui/EmptyState"; 
+import { EmptyState } from "@/components/ui/EmptyState";
 
 type ReviewsBodyProps = { tour: typeof bookingTour; tourType?: "multi" | "one" };
 const INITIAL_COUNT = 4;
@@ -79,10 +79,14 @@ export default function ReviewsBody({ tour, tourType }: ReviewsBodyProps) {
             <>
               <Cta onShareClick={() => setShowForm(true)} />
               <div className="mb-8 mt-16 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-                <h2 className="premium-serif text-2xl italic text-white md:text-3xl">{t("title")}</h2>
+                <h2 className="premium-serif text-[26px] italic text-white md:text-[30px]">{t("title")}</h2>
                 <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
                   <div
-                    className={`w-full sm:w-52 rounded-xl transition-all duration-300 ${sortOrder !== sortAll ? "shadow-[0_10px_30px_rgba(197,160,89,0.1)] [&>div>div:first-child]:border-gold/30! [&>div>div:first-child]:bg-[#0a0a0a]! [&>div>div:first-child]:hover:bg-gold! [&>div>div:first-child]:hover:border-gold! [&>div>div:first-child_span]:text-gold! [&>div>div:first-child:hover_span]:text-black! [&>div>div:first-child:hover_svg]:text-black!" : ""}`}
+                    className={`w-full sm:w-52 rounded-xl transition-all duration-300 ${
+                      sortOrder !== sortAll
+                        ? "shadow-[0_10px_30px_rgba(197,160,89,0.1)] [&>div>div:first-child]:border-gold/30! [&>div>div:first-child]:bg-[#0a0a0a]! [&>div>div:first-child_span]:text-gold!"
+                        : ""
+                    }`}
                   >
                     <CustomSelect
                       value={sortOrder}
@@ -91,7 +95,12 @@ export default function ReviewsBody({ tour, tourType }: ReviewsBodyProps) {
                         setVisibleCount(INITIAL_COUNT);
                       }}
                       options={SORT_OPTIONS}
-                      icon={<ArrowUpDown className="h-4 w-4 text-gold transition-all duration-300" strokeWidth={3} />}
+                      icon={
+                        <ArrowUpDown
+                          className="h-4 w-4 text-gold transition-all duration-300 shrink-0"
+                          strokeWidth={3}
+                        />
+                      }
                     />
                   </div>
                   <button
@@ -104,13 +113,13 @@ export default function ReviewsBody({ tour, tourType }: ReviewsBodyProps) {
                         strokeWidth={3}
                       />
                       <span
-                        className={`text-sm transition-colors duration-300 ${selectedCategory !== "all" ? "text-gold group-hover:text-black!" : "text-white group-hover:text-gold"}`}
+                        className={`text-body-sm transition-colors duration-300 ${selectedCategory !== "all" ? "text-gold group-hover:text-black!" : "text-white group-hover:text-gold"}`}
                       >
                         {t("filterLanguage")}
                       </span>
                     </div>
                     {selectedCategory !== "all" && (
-                      <div className="flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-[9px] font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a] group-hover:text-gold!">
+                      <div className="flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-micro font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a] group-hover:text-gold!">
                         1
                       </div>
                     )}
@@ -147,14 +156,14 @@ export default function ReviewsBody({ tour, tourType }: ReviewsBodyProps) {
                       type="button"
                       variant="explore"
                       onClick={() => setVisibleCount((prev) => prev + INITIAL_COUNT)}
-                      className="w-full max-w-75 justify-center sm:w-auto"
+                      className="w-full max-w-75 justify-center sm:w-auto [&_span]:text-caption!"
                     >
                       {t("loadMore")}
                     </Button>
                   )}
-                  <div className="mt-4 flex items-center gap-3">
+                  <div className="mt-8 flex items-center gap-3">
                     <div className="h-px w-8 bg-gold/20" />
-                    <p className="whitespace-nowrap text-[10px] font-medium uppercase tracking-[0.2em] text-slate-500">
+                    <p className="whitespace-nowrap text-tiny font-medium uppercase tracking-[0.2em] text-slate-500">
                       {t("showing")} <span className="text-gold">{visibleReviews.length}</span> {t("of")}{" "}
                       <span className="text-white">{filteredAndSortedReviews.length}</span> {t("stories")}
                     </p>

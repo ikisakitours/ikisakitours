@@ -1,207 +1,182 @@
 "use client";
-import { Link } from "@/i18nNavigation";
-import { type FormEvent, useState, useRef } from "react";
+import { Link } from "@/lib/i18nNavigation";
 import { Button } from "@/components/ui/Button";
-import { useValidationForm } from "@/hooks/useValidationForm";
 import { FormError } from "@/components/ui/FormError";
+import { TransientMessage } from "@/components/ui/TransientMessage";
 import { useTranslations } from "next-intl";
-import { usePasswordStrength } from "@/hooks/usePasswordStrength";
+import { useSecuritySettingsForm } from "@/hooks/profile/useSecuritySettingsForm";
+
 //Icons
-import { CheckCircle2, Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 
 const inputClass =
-  "w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 pr-12 text-white outline-none transition-all placeholder:text-slate-500 focus:border-gold/50";
-
-type PasswordFieldKey = "current" | "new" | "confirm";
+  "w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 pr-12 text-body-sm! text-white outline-none transition-all placeholder:text-slate-500 focus:border-gold/50";
 
 export function SecuritySettingsPanel() {
   const t = useTranslations("ProfilePage");
   const tForm = useTranslations("SharedForm");
   const tError = useTranslations("ValidationErrors");
 
-  const [visibleFields, setVisibleFields] = useState<Record<PasswordFieldKey, boolean>>({
-    current: false,
-    new: false,
-    confirm: false,
-  });
-
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
+  //Hook
   const {
+    currentPassword,
+    newPassword,
+    setNewPassword,
+    confirmPassword,
+    showCurrentPassword,
+    setShowCurrentPassword,
+    showNewPassword,
+    setShowNewPassword,
+    showConfirmPassword,
+    setShowConfirmPassword,
+    errors,
+    setErrors,
     transientSuccessMsgs,
     localError,
+    handleCurrentChange,
     handlePasswordChange,
     handlePasswordBlur,
-  } = usePasswordStrength();
-
-  const [transientConfirmSuccess, setTransientConfirmSuccess] = useState<string[]>([]);
-  const [localConfirmError, setLocalConfirmError] = useState("");
-  const confirmTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const { errors, validate, setErrors } = useValidationForm();
-
-  const togglePassword = (field: PasswordFieldKey) => {
-    setVisibleFields((current) => ({ ...current, [field]: !current[field] }));
-  };
-
-  const handleCurrentPasswordChange = (val: string) => {
-    setCurrentPassword(val);
-    setErrors((prev) => ({ ...prev, currentPassword: "" }));
-  };
-
-  const handleConfirmChange = (val: string) => {
-    setConfirmPassword(val);
-    setErrors((prev) => ({ ...prev, confirmPassword: "" }));
-    setLocalConfirmError("");
-
-    if (val === "") {
-      setTransientConfirmSuccess([]);
-      return;
-    }
-
-    if (val === newPassword) {
-      setTransientConfirmSuccess([tError("passwordsMatch")]);
-      if (confirmTimerRef.current) clearTimeout(confirmTimerRef.current);
-      confirmTimerRef.current = setTimeout(() => setTransientConfirmSuccess([]), 2000);
-    } else {
-      setTransientConfirmSuccess([]);
-    }
-  };
-
-  const handleConfirmBlur = () => {
-    if (confirmPassword !== "" && confirmPassword !== newPassword) {
-      setLocalConfirmError(tError("passwordsDoNotMatch"));
-    }
-  };
-
-  const handleSecurityUpdate = (e: FormEvent) => {
-    e.preventDefault();
-
-    if (
-      validate({
-        currentPassword: currentPassword,
-        password: newPassword,
-        confirmPassword: confirmPassword,
-      })
-    ) {
-      console.log("Validation passed!");
-    }
-  };
+    transientConfirmSuccess,
+    localConfirmError,
+    handleConfirmChange,
+    handleConfirmBlur,
+    isLoading,
+    handleSubmit,
+  } = useSecuritySettingsForm(tError);
 
   return (
     <section className="animate-fade-in-up space-y-8">
       <div className="glass-card rounded-3xl p-6 md:p-12">
-        <h2 className="premium-serif mb-6 text-2xl text-white">{t("SecurityPanel.title")}</h2>
+        <h2 className="premium-serif mb-6 text-heading-sub text-white">{t("SecurityPanel.title")}</h2>
 
-        <form className="space-y-6" onSubmit={handleSecurityUpdate} noValidate>
+        <form className="space-y-6" onSubmit={handleSubmit} noValidate>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            <PasswordField
-              label={tForm("Labels.currentPassword")}
-              value={currentPassword}
-              onChange={handleCurrentPasswordChange}
-              isVisible={visibleFields.current}
-              onToggle={() => togglePassword("current")}
-              error={errors.currentPassword}
-            />
+            {/* 1. Current Password (No TransientMessage) */}
+            <label className="block space-y-2">
+              <span className="block text-caption font-bold uppercase tracking-[0.2em] text-gold">
+                {tForm("Labels.currentPassword")}
+              </span>
+              <span className="relative block">
+                <input
+                  type={showCurrentPassword ? "text" : "password"}
+                  placeholder={tForm("Placeholders.password")}
+                  value={currentPassword}
+                  disabled={isLoading}
+                  onChange={(e) => handleCurrentChange(e.target.value)}
+                  className={inputClass}
+                />
+                <button
+                  type="button"
+                  aria-label={showCurrentPassword ? tForm("Buttons.hidePassword") : tForm("Buttons.showPassword")}
+                  onClick={() => setShowCurrentPassword((prev) => !prev)}
+                  className="outline-none focus:outline-none absolute active:scale-95 right-3.5 p-2 top-1/2 -translate-y-1/2 text-slate-500 transition-colors hover:text-gold"
+                >
+                  {showCurrentPassword ? <EyeOff className="h-6 w-6" /> : <Eye className="h-6 w-6" />}
+                </button>
+              </span>
+              <div className="ml-1">
+                <FormError message={errors.currentPassword} />
+              </div>
+            </label>
 
-            <PasswordField
-              label={tForm("Labels.newPassword")}
-              value={newPassword}
-              onChange={(val) =>
-                handlePasswordChange(val, setNewPassword, () =>
-                  setErrors((prev) => ({ ...prev, password: "" }))
-                )
-              }
-              onBlur={() => handlePasswordBlur(newPassword)}
-              isVisible={visibleFields.new}
-              onToggle={() => togglePassword("new")}
-              error={localError || errors.password}
-              successMsg={transientSuccessMsgs}
-            />
+            {/* 2. New Password */}
+            <label className="block space-y-2">
+              <span className="block text-caption font-bold uppercase tracking-[0.2em] text-gold">
+                {tForm("Labels.newPassword")}
+              </span>
+              <span className="relative block">
+                <input
+                  type={showNewPassword ? "text" : "password"}
+                  placeholder={tForm("Placeholders.password")}
+                  value={newPassword}
+                  disabled={isLoading}
+                  onChange={(e) =>
+                    handlePasswordChange(e.target.value, setNewPassword, () =>
+                      setErrors((prev) => ({ ...prev, password: "" })),
+                    )
+                  }
+                  onBlur={() => handlePasswordBlur(newPassword)}
+                  className={inputClass}
+                />
+                <button
+                  type="button"
+                  aria-label={showNewPassword ? tForm("Buttons.hidePassword") : tForm("Buttons.showPassword")}
+                  onClick={() => setShowNewPassword((prev) => !prev)}
+                  className="outline-none focus:outline-none absolute active:scale-95 right-3.5 p-2 top-1/2 -translate-y-1/2 text-slate-500 transition-colors hover:text-gold"
+                >
+                  {showNewPassword ? <EyeOff className="h-6 w-6" /> : <Eye className="h-6 w-6" />}
+                </button>
+              </span>
 
-            <PasswordField
-              label={tForm("Labels.confirmPassword")}
-              value={confirmPassword}
-              onChange={handleConfirmChange}
-              onBlur={handleConfirmBlur}
-              isVisible={visibleFields.confirm}
-              onToggle={() => togglePassword("confirm")}
-              error={localConfirmError || errors.confirmPassword}
-              successMsg={transientConfirmSuccess}
-            />
+              {transientSuccessMsgs.length > 0 && !(localError || errors.password) && (
+                <TransientMessage messages={transientSuccessMsgs} />
+              )}
+
+              {newPassword === "" && !localError && !errors.password && (
+                <p className="ml-2 mt-2 text-tiny text-slate-500 italic">
+                  * Must be at least 8 characters long and include uppercase, lowercase, numbers, and special
+                  characters.
+                </p>
+              )}
+              <div className="ml-1">
+                <FormError message={localError || errors.password} />
+              </div>
+            </label>
+
+            {/* 3. Confirm Password */}
+            <label className="block space-y-2">
+              <span className="block text-caption font-bold uppercase tracking-[0.2em] text-gold">
+                {tForm("Labels.confirmPassword")}
+              </span>
+              <span className="relative block">
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder={tForm("Placeholders.confirmPassword")}
+                  value={confirmPassword}
+                  disabled={isLoading}
+                  onChange={(e) => handleConfirmChange(e.target.value)}
+                  onBlur={handleConfirmBlur}
+                  className={inputClass}
+                />
+                <button
+                  type="button"
+                  aria-label={showConfirmPassword ? tForm("Buttons.hidePassword") : tForm("Buttons.showPassword")}
+                  onClick={() => setShowConfirmPassword((prev) => !prev)}
+                  className="outline-none focus:outline-none absolute active:scale-95 right-3.5 p-2 top-1/2 -translate-y-1/2 text-slate-500 transition-colors hover:text-gold"
+                >
+                  {showConfirmPassword ? <EyeOff className="h-6 w-6" /> : <Eye className="h-6 w-6" />}
+                </button>
+              </span>
+
+              {transientConfirmSuccess.length > 0 && !(localConfirmError || errors.confirmPassword) && (
+                <TransientMessage messages={transientConfirmSuccess} />
+              )}
+
+              <div className="ml-1">
+                <FormError message={localConfirmError || errors.confirmPassword} />
+              </div>
+            </label>
           </div>
 
           <div className="flex flex-col items-center justify-between gap-6 pt-6 sm:flex-row">
             <Link
               href="/confirm-email?from=profile?tab=security"
-              className="order-2 text-[10px] font-bold uppercase tracking-[0.2em] text-red-500 transition-all duration-300 hover:text-white hover:underline sm:order-1 sm:text-[11px]"
+              className="order-2 text-caption font-bold uppercase tracking-[0.2em] text-red-500 transition-all duration-300 hover:text-white hover:underline sm:order-1"
             >
               {t("SecurityPanel.forgotPassword")}
             </Link>
 
-            <Button type="submit" variant="explore" className="order-1 w-full justify-center sm:order-2 sm:w-max">
-              {tForm("Buttons.updateSecurity")}
+            <Button
+              type="submit"
+              variant="explore"
+              disabled={isLoading}
+              className="[&_span]:text-caption! order-1 w-full justify-center sm:order-2 sm:w-max"
+            >
+              {isLoading ? "Updating..." : tForm("Buttons.updateSecurity")}
             </Button>
           </div>
         </form>
       </div>
     </section>
-  );
-}
-
-type PasswordFieldProps = {
-  label: string;
-  value: string;
-  onChange: (val: string) => void;
-  onBlur?: () => void;
-  isVisible: boolean;
-  onToggle: () => void;
-  error?: string;
-  successMsg?: string[];
-};
-
-function PasswordField({ label, value, onChange, onBlur, isVisible, onToggle, error, successMsg }: PasswordFieldProps) {
-  const tForm = useTranslations("SharedForm");
-
-  return (
-    <label className="space-y-2 block">
-      <span className="block text-[10px] font-bold uppercase tracking-[0.2em] text-gold">{label}</span>
-      <span className="relative block">
-        <input
-          type={isVisible ? "text" : "password"}
-          placeholder={tForm("Placeholders.password")}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          onBlur={onBlur}
-          className={inputClass}
-        />
-        <button
-          type="button"
-          aria-label={isVisible ? tForm("Buttons.hidePassword") : tForm("Buttons.showPassword")}
-          onClick={onToggle}
-          className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 transition-colors hover:text-gold"
-        >
-          {isVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-        </button>
-      </span>
-
-      {successMsg && successMsg.length > 0 && !error && (
-        <div className="ml-2 mt-1 flex flex-col space-y-1 animate-fade-in">
-          {successMsg.map((msg, idx) => (
-            <div key={idx} className="flex items-center space-x-1.5 text-[11px] font-medium text-emerald-400">
-              <CheckCircle2 className="h-3.5 w-3.5 shrink-0" />
-              <span>{msg}</span>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {error && (
-        <div className="ml-2 mt-1">
-          <FormError message={error} />
-        </div>
-      )}
-    </label>
   );
 }

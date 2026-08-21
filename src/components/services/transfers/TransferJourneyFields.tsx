@@ -6,7 +6,7 @@ import { VehicleSelector, type ActiveVehicleFilter } from "@/components/services
 import { FormError } from "@/components/ui/FormError";
 import LanguageSelect, { type LanguageOption } from "@/components/services/LanguageSelect";
 //Icons
-import { Globe, MapPin } from "lucide-react";
+import { Globe, MapPin, MapPinCheckInside } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 type TransferJourneyFieldsProps = {
@@ -96,7 +96,7 @@ export function TransferJourneyFields({
         <label className="flex flex-col gap-1">
           <span className={fieldLabelClass}>{tForm("Labels.pickupLocation")}</span>
           <span className="relative block">
-            <MapPin className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 transition-colors group-focus-within:text-gold" />
+            <MapPin className="absolute left-4 top-1/2 w-4.5 md:h-5 md:w-5 -translate-y-1/2 text-slate-500 transition-colors group-focus-within:text-gold" />
             <input
               className={`${inputClass} pl-11`}
               placeholder={tForm("Placeholders.pickupLocation")}
@@ -115,7 +115,7 @@ export function TransferJourneyFields({
         <label className="flex flex-col gap-1">
           <span className={fieldLabelClass}>{tForm("Labels.dropoffLocation")}</span>
           <span className="relative block">
-            <MapPin className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 transition-colors group-focus-within:text-gold" />
+            <MapPinCheckInside className="absolute left-4 top-1/2 w-4.5 md:h-5 md:w-5 -translate-y-1/2 text-slate-500 transition-colors group-focus-within:text-gold" />
             <input
               className={`${inputClass} pl-11`}
               placeholder={tForm("Placeholders.dropoffLocation")}
@@ -168,7 +168,7 @@ export function TransferJourneyFields({
               setErrors((prev) => ({ ...prev, language: "" }));
             }}
             options={languagesList}
-            icon={<Globe className="h-4 w-4" />}
+            icon={<Globe className="w-4.5 md:h-5 md:w-5" />}
             placeholder={tForm("Placeholders.selectLanguage")}
           />
           <div className="ml-2">

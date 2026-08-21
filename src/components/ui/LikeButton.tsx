@@ -12,6 +12,7 @@ interface LikeButtonProps {
   iconClassName?: string;
   countClassName?: string;
   labelClassName?: string;
+  iconSize?: number;
 }
 
 export function LikeButton({
@@ -22,6 +23,7 @@ export function LikeButton({
   iconClassName,
   countClassName,
   labelClassName,
+  iconSize,
 }: LikeButtonProps) {
   const [isLiked, setIsLiked] = useState(false);
   const totalLikes = initialLikes + (isLiked ? 1 : 0);
@@ -37,7 +39,7 @@ export function LikeButton({
       className={className}
     >
       <Heart
-        size={showLabel ? 20 : 18}
+        size={iconSize || (showLabel ? 20 : 18)}
         className={`transition-all duration-300 ${
           isLiked ? "text-gold" : "text-white/25 group-hover:text-gold hover:text-gold"
         } ${iconClassName || ""}`}

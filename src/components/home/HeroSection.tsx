@@ -8,8 +8,7 @@ import { motion, Transition } from "framer-motion";
 import { OmniSearch } from "./heroSearchField/OmniSearch";
 import { useTranslations } from "next-intl";
 //Icons
-import { Star, Car, Compass, Route, Check } from "lucide-react";
-const serviceIcons = [Car, Compass, Route];
+import { Star } from "lucide-react";
 
 const smoothTransition: Transition = {
   duration: 1.2,
@@ -49,15 +48,23 @@ export function HeroSection() {
               style={{ willChange: "transform, opacity" }}
               className="mb-4 flex flex-wrap items-center gap-4 sm:gap-5 md:mb-8 md:gap-6 3xl:mb-12"
             >
-              <div className="inline-flex items-center space-x-2 rounded-full border border-gold/30 bg-gold/10 px-3 py-1.5 backdrop-blur-md md:space-x-3 md:px-4 md:py-2 3xl:px-6 3xl:py-3">
-                <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse md:h-2 md:w-2 3xl:h-3 3xl:w-3" />
-                <span className="text-[0.5rem] font-bold uppercase tracking-[0.2em] text-gold md:text-[0.625rem] md:tracking-[0.4em] 3xl:text-sm">
+              <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-foreground/5 to-transparent transition-transform duration-1000 ease-in-out group-hover:translate-x-full" />
+
+              <div className="relative z-10 flex items-center space-x-2.5 md:space-x-3">
+                <span className="relative flex h-2 w-2 items-center justify-center md:h-2.5 md:w-2.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold opacity-75"></span>
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-gold md:h-2 md:w-2"></span>
+                </span>
+                <span className="gold-gradient-text text-caption font-bold uppercase tracking-[0.25em] 3xl:tracking-[0.3em]">
                   {t("content.badge")}
                 </span>
               </div>
-              <div className="flex items-center space-x-2 border-l border-foreground/20 pl-4 text-[0.625rem] uppercase tracking-widest text-foreground/50 md:text-[0.6875rem] 3xl:pl-6 3xl:text-sm">
-                <FaAward className="h-3 w-3 text-gold 3xl:h-5 3xl:w-5" />
-                <span>{t("content.award")}</span>
+
+              <div className="relative z-10 hidden h-4 w-px bg-gold/50 md:mx-5 md:block 3xl:mx-7 3xl:h-5" />
+
+              <div className="relative z-10 flex items-center space-x-2 text-caption uppercase tracking-widest text-foreground/90 md:space-x-3">
+                <FaAward className="h-3.5 w-3.5 text-gold drop-shadow-[0_0_8px_rgba(197,160,89,0.6)] md:h-4.5 md:w-4.5 3xl:h-5 3xl:w-5" />
+                <span className="pt-px font-medium tracking-[0.15em]">{t("content.award")}</span>
               </div>
             </motion.div>
 
@@ -66,7 +73,7 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ ...smoothTransition, delay: 0.2 }}
               style={{ willChange: "transform, opacity" }}
-              className="mb-4 font-serif text-3xl font-medium leading-[1.1] tracking-tight text-foreground sm:text-4xl md:mb-6 md:text-6xl lg:text-7xl xl:text-8xl 3xl:mb-10 3xl:text-[8rem]"
+              className="mb-4 font-serif text-heading-hero font-medium leading-[1.1] tracking-tight text-foreground  md:mb-6 3xl:mb-10"
             >
               {t("content.titleMain")}
               <br />
@@ -80,7 +87,7 @@ export function HeroSection() {
               animate={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ ...smoothTransition, delay: 0.4 }}
               style={{ willChange: "transform, opacity" }}
-              className="mb-6 max-w-lg border-l-2 border-gold/40 pl-4 text-sm font-light leading-relaxed text-foreground/90 sm:text-base md:mb-8 md:pl-6 md:text-xl lg:text-2xl 3xl:mb-12 3xl:max-w-4xl 3xl:pl-8 3xl:text-3xl"
+              className="mb-6 max-w-lg border-l-2 border-gold/40 pl-4 text-body-lead font-light leading-relaxed text-foreground/90 md:mb-8 md:pl-6 3xl:mb-12 3xl:max-w-4xl 3xl:pl-8"
             >
               {t("content.description")}
               <span className="font-semibold text-foreground"> {t("content.languagesOne")}</span> and
@@ -94,41 +101,54 @@ export function HeroSection() {
               style={{ willChange: "transform, opacity" }}
               className="max-w-2xl 3xl:max-w-4xl"
             >
-              <OmniSearch />
-
-              <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 3xl:mt-6 3xl:gap-x-6">
-                <span className="text-[0.6875rem] uppercase tracking-wider text-foreground/40 3xl:text-base">
-                  {t("content.popularLabel")}
-                </span>
-                {heroPopularTags.map((tag, idx) => (
-                  <Button key={idx} variant="tag" href={tag.href} className="3xl:text-base 3xl:pb-1">
-                    {t(`popularTags.${tag.id}`)}
-                  </Button>
-                ))}
+              <div className="relative z-20">
+                <OmniSearch />
               </div>
 
-              <div className="mt-8 flex flex-col gap-4 border-t border-foreground/10 pt-6 sm:mt-10 md:mt-12 md:gap-5 3xl:mt-16 3xl:pt-10">
-                <p className="text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-foreground/50 md:text-xs 3xl:text-base">
-                  {t("content.servicesHeading")}
-                </p>
-                <div className="flex flex-wrap items-center gap-3 sm:gap-4 3xl:gap-6">
-                  {heroPopularServices.map((service, idx) => {
-                    const Icon = serviceIcons[idx] || Check;
-                    return (
-                      <Button
-                        key={idx}
-                        variant="service"
-                        href={service.href}
-                        className="relative overflow-hidden shrink-0 3xl:px-8 3xl:py-4"
-                      >
-                        <div className="absolute inset-0 rounded-full bg-gold/15 animate-pulse blur-sm" />
-                        <Icon className="relative z-10 h-4 w-4 text-gold transition-colors group-hover:text-gold-light md:h-5 md:w-5 3xl:h-8 3xl:w-8" />
-                        <span className="relative z-10 text-xs font-semibold tracking-wide text-foreground/90 transition-colors group-hover:text-white md:text-sm 3xl:text-lg">
+              {/* 1. Popular Tags - Ultra-Minimal Inline Row */}
+              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 px-1 sm:mt-4 md:gap-x-4 3xl:mt-5">
+                <span className="flex items-center gap-1.5 text-caption font-bold uppercase tracking-[0.2em] text-foreground/40">
+                  <span className="h-1 w-1 rounded-full bg-gold/50" /> {/* Tiny subtle dot */}
+                  {t("content.popularLabel")}
+                </span>
+                <div className="hidden h-3 w-px bg-foreground/10 sm:block" />
+                <div className="flex flex-wrap items-center gap-2 md:gap-3">
+                  {heroPopularTags.map((tag, idx) => (
+                    <Button
+                      key={idx}
+                      variant="tag"
+                      href={tag.href}
+                      className="text-caption font-medium text-foreground/60 transition-colors hover:text-gold"
+                    >
+                      {t(`popularTags.${tag.id}`)}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+
+              {/* 2. Premium Services - The Luxury Dock Layout */}
+              <div className="mt-8 flex flex-col gap-4 sm:mt-10 md:mt-12 md:gap-5 3xl:mt-16">
+                {/* Elegant Section Divider */}
+                <div className="flex w-full items-center justify-start gap-4 opacity-80">
+                  <div className="hidden h-px w-10 bg-linear-to-r from-transparent to-gold/50 sm:block md:w-16 3xl:w-20" />
+                  <p className="whitespace-nowrap text-center text-caption font-bold uppercase tracking-[0.25em] text-gold sm:text-left">
+                    {t("content.servicesHeading")}
+                  </p>
+                  <div className="hidden h-px w-10 bg-linear-to-r from-gold/50 to-transparent sm:block md:w-16 3xl:w-20" />
+                </div>
+
+                {/* Service Buttons Row */}
+                <div className="flex flex-wrap items-center justify-start gap-3 sm:gap-4 3xl:gap-6">
+                  {heroPopularServices.map((service, idx) => (
+                    <Button key={idx} variant="service" href={service.href}>
+                      <span className="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,rgba(197,160,89,0.5)_50%,transparent_100%)] transition-all duration-500 group-hover:bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,rgba(241,213,146,1)_50%,transparent_100%)]" />
+                      <span className="relative flex h-full w-full items-center justify-center rounded-full bg-surface/90 px-3.5 py-2 backdrop-blur-xl transition-colors duration-500 group-hover:bg-surface/70 md:px-4 md:py-2 3xl:px-5 3xl:py-2.5">
+                        <span className="relative z-10 text-body-sm! font-medium tracking-wider text-foreground/80 transition-colors group-hover:text-white">
                           {t(`popularServices.${service.id}`)}
                         </span>
-                      </Button>
-                    );
-                  })}
+                      </span>
+                    </Button>
+                  ))}
                 </div>
               </div>
             </motion.div>
@@ -148,14 +168,14 @@ export function HeroSection() {
                 style={{ willChange: "opacity" }}
                 className="transform-gpu group flex flex-1 flex-col items-center justify-center rounded-xl border border-foreground/10 bg-foreground/10 p-3 text-center transition-all hover:border-gold/30 hover:bg-foreground/20 sm:p-4 md:rounded-2xl md:p-8 lg:w-48 lg:flex-none 3xl:w-64 3xl:p-12"
               >
-                <div className="flex items-center gap-1 text-lg font-light text-foreground transition-transform group-hover:scale-105 sm:text-xl md:text-3xl 3xl:text-5xl">
+                <div className="flex items-center gap-1 text-[20px] font-light text-foreground transition-transform group-hover:scale-105 sm:text-xl md:text-3xl 3xl:text-5xl">
                   {stat.value}
                   {stat.id === "TripAdvisor" ? (
                     <Star className="h-3.5 w-3.5 animate-pulse text-gold 3xl:h-6 3xl:w-6" fill="currentColor" />
                   ) : null}
                 </div>
                 <p
-                  className={`mt-1 text-[0.4375rem] font-bold uppercase tracking-widest text-foreground/60 md:mt-3 md:text-[0.625rem] 3xl:mt-5 3xl:text-sm ${stat.id === "Private" ? "whitespace-nowrap" : ""}`}
+                  className={`mt-1 text-[0.6rem] font-bold uppercase tracking-widest text-foreground/60 md:mt-3 md:text-[0.725rem] 3xl:mt-5 3xl:text-[0.895rem] ${stat.id === "Private" ? "whitespace-nowrap" : ""}`}
                 >
                   {t(`stats.${stat.id}`)}
                 </p>

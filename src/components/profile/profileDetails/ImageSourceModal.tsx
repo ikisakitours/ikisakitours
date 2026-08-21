@@ -43,7 +43,7 @@ export function ImageSourceModal({ isOpen, cameraError, onClose, onTriggerInput 
               <motion.h3
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="text-[11px] font-extrabold uppercase tracking-[0.25em] text-gold sm:text-xs"
+                className="text-body-sm font-extrabold uppercase tracking-[0.25em] text-gold"
               >
                 {t("Modals.Source.title")}
               </motion.h3>
@@ -70,8 +70,10 @@ export function ImageSourceModal({ isOpen, cameraError, onClose, onTriggerInput 
                 </div>
 
                 <div className="flex flex-col">
-                  <span className="text-[9px] font-black uppercase tracking-[0.2em] text-red-400/90">{t("Modals.Source.errorTitle")}</span>
-                  <p className="text-[11px] font-medium leading-tight text-red-200/90">{cameraError}</p>
+                  <span className="text-caption font-black uppercase tracking-[0.2em] text-red-400/90">
+                    {t("Modals.Source.errorTitle")}
+                  </span>
+                  <p className="text-caption font-medium leading-tight text-red-200/90">{cameraError}</p>
                 </div>
               </motion.div>
             )}
@@ -92,10 +94,10 @@ export function ImageSourceModal({ isOpen, cameraError, onClose, onTriggerInput 
                     <Camera className="h-5 w-5" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-white transition-colors duration-300 group-hover:text-black">
+                    <span className="text-caption font-extrabold uppercase tracking-wider text-white transition-colors duration-300 group-hover:text-black">
                       {t("Modals.Source.btnTakePhoto")}
                     </span>
-                    <span className="text-[9px] text-slate-400 transition-colors duration-300 group-hover:text-black/70">
+                    <span className="text-tiny text-slate-400 transition-colors duration-300 group-hover:text-black/70">
                       {t("Modals.Source.btnTakePhotoSub")}
                     </span>
                   </div>
@@ -117,10 +119,10 @@ export function ImageSourceModal({ isOpen, cameraError, onClose, onTriggerInput 
                     <ImageIcon className="h-5 w-5" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-white transition-colors duration-300 group-hover:text-black">
+                    <span className="text-caption font-extrabold uppercase tracking-wider text-white transition-colors duration-300 group-hover:text-black">
                       {t("Modals.Source.btnGallery")}
                     </span>
-                    <span className="text-[9px] text-slate-400 transition-colors duration-300 group-hover:text-black/70">
+                    <span className="text-tiny text-slate-400 transition-colors duration-300 group-hover:text-black/70">
                       {t("Modals.Source.btnGallerySub")}
                     </span>
                   </div>

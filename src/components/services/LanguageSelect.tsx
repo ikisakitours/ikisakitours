@@ -37,7 +37,7 @@ export default function LanguageSelect({
       <div
         tabIndex={0}
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full rounded-xl border border-white/10 bg-white/3 py-3 pr-4 text-sm outline-none transition-all hover:border-white/20 focus:border-gold/60 focus:bg-white/[0.07] cursor-pointer flex justify-between items-center ${
+        className={`w-full rounded-xl border border-white/10 bg-white/3 py-3 pr-4 text-body-sm outline-none transition-all hover:border-white/20 focus:border-gold/60 focus:bg-white/[0.07] cursor-pointer flex justify-between items-center ${
           icon ? "pl-11" : "px-4"
         }${className}`}
       >
@@ -46,7 +46,7 @@ export default function LanguageSelect({
         <span className={value ? "text-white" : "text-slate-500"}>
           {selectedOpt ? (
             <span className="flex items-center gap-2">
-              <span className="text-base">{selectedOpt.flag}</span>
+              <span className="text-body-sm">{selectedOpt.flag}</span>
               <span>{selectedOpt.name}</span>
             </span>
           ) : (
@@ -55,6 +55,7 @@ export default function LanguageSelect({
         </span>
 
         <FiChevronDown
+          strokeWidth={3}
           className={`w-4 h-4 text-slate-500 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
         />
       </div>
@@ -72,16 +73,16 @@ export default function LanguageSelect({
                 onChange(opt.name);
                 setIsOpen(false);
               }}
-              className={`flex items-center gap-3 px-4 py-3 cursor-pointer text-sm transition-colors ${
+              className={`flex items-center gap-3 px-4 py-3 cursor-pointer text-body-sm transition-colors ${
                 value === opt.name
                   ? "bg-white/5 border-l-2 border-gold"
                   : "border-l-2 border-transparent hover:bg-white/[0.07]"
               }`}
             >
-              <span className="text-xl">{opt.flag}</span>
+              <span className="text-body-lead">{opt.flag}</span>
               <div className="flex flex-col">
                 <span className={`font-bold ${value === opt.name ? "text-gold" : "text-slate-200"}`}>{opt.name}</span>
-                <span className="text-[10px] text-slate-500 font-medium">{opt.nativeName}</span>
+                <span className="text-caption text-slate-500 font-medium">{opt.nativeName}</span>
               </div>
             </div>
           ))}

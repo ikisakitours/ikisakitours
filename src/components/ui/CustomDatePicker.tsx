@@ -68,12 +68,12 @@ export default function CustomDatePicker({ value, onChange }: CustomDatePickerPr
       <div
         tabIndex={0}
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full rounded-xl border border-white/10 bg-white/3 px-4 py-3 text-sm text-white outline-none transition-all placeholder:text-slate-500 hover:border-white/20 focus:border-gold/60 focus:bg-white/[0.07] cursor-pointer flex justify-between items-center ${
+        className={`w-full rounded-xl border border-white/10 bg-white/3 px-4 py-3 text-body-sm text-white outline-none transition-all placeholder:text-slate-500 hover:border-white/20 focus:border-gold/60 focus:bg-white/[0.07] cursor-pointer flex justify-between items-center ${
           isOpen ? "border-gold/60! bg-white/[0.07]!" : ""
         }`}
       >
         <span className={value ? "text-white" : "text-slate-500"}>{formatDisplayDate(value)}</span>
-        <FiCalendar className="w-4 h-4 text-slate-500" />
+        <FiCalendar className="h-4.5 w-4.5 md:h-5 md:w-5 text-slate-500" />
       </div>
 
       {isOpen && <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)}></div>}
@@ -87,7 +87,7 @@ export default function CustomDatePicker({ value, onChange }: CustomDatePickerPr
               <select
                 value={currentDate.getMonth()}
                 onChange={(e) => setCurrentDate(new Date(currentDate.getFullYear(), parseInt(e.target.value, 10), 1))}
-                className="w-full rounded-xl border border-white/10 bg-white/3 pl-3 pr-8 py-2 text-sm text-white outline-none transition-all hover:border-white/20 focus:border-gold/60 cursor-pointer appearance-none"
+                className="w-full rounded-xl border border-white/10 bg-white/3 pl-3 pr-8 py-2 text-body-sm text-white outline-none transition-all hover:border-white/20 focus:border-gold/60 cursor-pointer appearance-none"
               >
                 {months.map((m, i) => (
                   <option key={m} value={i} className="bg-[#0a0a0a]">
@@ -95,7 +95,7 @@ export default function CustomDatePicker({ value, onChange }: CustomDatePickerPr
                   </option>
                 ))}
               </select>
-              <FiChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400 pointer-events-none" />
+              <FiChevronDown  strokeWidth={2} className="absolute right-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400 pointer-events-none" />
             </div>
 
             {/* Year Select */}
@@ -103,7 +103,7 @@ export default function CustomDatePicker({ value, onChange }: CustomDatePickerPr
               <select
                 value={currentDate.getFullYear()}
                 onChange={(e) => setCurrentDate(new Date(parseInt(e.target.value, 10), currentDate.getMonth(), 1))}
-                className="w-full rounded-xl border border-white/10 bg-white/3 pl-3 pr-8 py-2 text-sm text-white outline-none transition-all hover:border-white/20 focus:border-gold/60 cursor-pointer appearance-none"
+                className="w-full rounded-xl border border-white/10 bg-white/3 pl-3 pr-8 py-2 text-body-sm text-white outline-none transition-all hover:border-white/20 focus:border-gold/60 cursor-pointer appearance-none"
               >
                 {years.map((y) => (
                   <option key={y} value={y} className="bg-[#0a0a0a]">
@@ -111,14 +111,14 @@ export default function CustomDatePicker({ value, onChange }: CustomDatePickerPr
                   </option>
                 ))}
               </select>
-              <FiChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400 pointer-events-none" />
+              <FiChevronDown strokeWidth={2} className="absolute right-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400 pointer-events-none" />
             </div>
           </div>
 
           {/* Week Days */}
           <div className="grid grid-cols-7 gap-1 mb-3 text-center">
             {weekDays.map((d) => (
-              <div key={d} className="text-[10px] font-bold text-slate-500 uppercase">
+              <div key={d} className="text-caption font-bold text-slate-500 uppercase">
                 {d}
               </div>
             ))}
@@ -139,7 +139,7 @@ export default function CustomDatePicker({ value, onChange }: CustomDatePickerPr
                     onChange(formattedDate);
                     setIsOpen(false);
                   }}
-                  className={`h-8 w-8 flex items-center justify-center rounded-full text-sm font-bold cursor-pointer transition-all 
+                  className={`h-8 w-8 flex items-center justify-center rounded-full text-body-sm font-bold cursor-pointer transition-all 
                     ${isSelected ? "bg-gold text-black" : "text-slate-300 hover:bg-white/[0.07] hover:text-white"}`}
                 >
                   {d}

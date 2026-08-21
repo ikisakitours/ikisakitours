@@ -59,7 +59,7 @@ export default function TimeDiv() {
 
       <div className="flex flex-1 flex-col items-center justify-center text-center">
         {/* Icon and Title */}
-        <div className="flex items-center justify-center gap-2 font-bold uppercase tracking-widest text-gold text-xs sm:text-sm md:text-sm lg:text-base xl:text-lg 2xl:text-lg 3xl:text-[1.325rem]">
+        <div className="flex items-center justify-center gap-2 font-bold uppercase tracking-widest text-gold text-body-sm">
           {/* <FaHourglass className="h-3 w-3 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4 3xl:h-5 3xl:w-5" /> */}
           {/* <LiveClockIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 lg:h-4.5 lg:w-4.5 3xl:h-6 3xl:w-6" />    */}
           <span>{tTimeDiv("title")}</span>
@@ -71,7 +71,7 @@ export default function TimeDiv() {
         </div>
 
         {/* Location */}
-        <div className="text-xs 2xl:text-[0.85rem] 3xl:text-[1.1rem] text-foreground/50 mt-1">{tTimeDiv("location")}</div>
+        <div className="text-body-sm text-foreground/50 mt-1">{tTimeDiv("location")}</div>
       </div>
     </div>
   );

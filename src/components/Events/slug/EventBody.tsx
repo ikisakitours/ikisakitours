@@ -12,7 +12,7 @@ interface EventBodyProps {
 
 export function EventBody({ listItem }: EventBodyProps) {
   return (
-    <main className="min-h-screen bg-background text-foreground relative overflow-hidden pt-27 sm:pt-25 md:pt-30 lg:pt-32 2xl:pt-34 3xl:pt-36 pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
+    <main className="min-h-screen bg-background text-foreground relative overflow-hidden pt-28 sm:pt-30 md:pt-34 lg:pt-28 2xl:pt-30 3xl:pt-32 pb-12 sm:pb-16 md:pb-18 lg:pb-20 2xl:pb-22 3xl:pb-24">
       <div className="pointer-events-none absolute left-1/2 top-20 -translate-x-1/2 h-96 w-96 rounded-full bg-gold/10 blur-[150px] z-0" />
 
       <ContainerLayout className="relative z-10">

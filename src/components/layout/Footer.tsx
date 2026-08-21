@@ -2,7 +2,7 @@
 import { type FormEvent, useState } from "react";
 import { LoadingImage } from "@/components/ui/LoadingImage";
 import { LoadingVideo } from "@/components/ui/LoadingVideo";
-import { Link, usePathname } from "@/i18nNavigation";
+import { Link, usePathname } from "@/lib/i18nNavigation";
 import { footerLinks, socialLinks, legalLinks, contactInfo } from "@/data/navigation";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import TimeDiv from "@/components/ui/TimeDiv";
@@ -60,8 +60,8 @@ export function Footer() {
         <div className="mb-20 2xl:mb-20 3xl:mb-20 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:gap-x-24 lg:gap-y-12 xl:grid-cols-12 xl:gap-8">
           <div className="flex flex-col items-center space-y-6 text-center sm:items-start sm:text-left xl:col-span-4">
             <div className="flex items-center space-x-3">
-              <h3 className="text-2xl font-light tracking-[0.2em] text-white">
-                MAP<span className="font-normal italic text-gold">MATE</span>
+              <h3 className="text-2xl font-bold tracking-[0.2em] text-white">
+                MAP<span className="gold-gradient-text font-bold italic text-gold">MATE</span>
               </h3>
               <div className="group relative flex h-5 w-7 items-center justify-center overflow-hidden border-[0.5px] border-white/20 bg-black shadow-[0_0_15px_rgba(197,160,89,0.15)] transition-all duration-500 hover:border-gold/80 hover:shadow-[0_0_25px_rgba(197,160,89,0.6)] hover:scale-110">
                 <div className="pointer-events-none absolute inset-0 z-20 -translate-x-full bg-linear-to-r from-transparent via-white/50 to-transparent transition-transform duration-1000 ease-in-out group-hover:translate-x-full" />
@@ -101,7 +101,7 @@ export function Footer() {
           </div>
 
           <div className="xl:col-span-2 text-center sm:text-left lg:pl-4">
-            <h4 className="mb-5 text-sm sm:text-base font-black uppercase tracking-[0.3em] text-white">
+            <h4 className="mb-5 text-base font-black uppercase tracking-[0.3em] text-white">
               {tFooter("exploreTitle")}
             </h4>
             <ul className="space-y-4">
@@ -122,7 +122,7 @@ export function Footer() {
           </div>
 
           <div className="xl:col-span-3 text-center sm:text-left">
-            <h4 className="mb-5 text-sm sm:text-base font-black uppercase tracking-[0.3em] text-white">
+            <h4 className="mb-5 text-base font-black uppercase tracking-[0.3em] text-white">
               {tFooter("contactTitle")}
             </h4>
             <ul className="space-y-5">
@@ -130,7 +130,7 @@ export function Footer() {
                 const Icon = contactInfoIcons[index];
                 return (
                   <li key={index} className="group flex items-start justify-center space-x-3 sm:justify-start">
-                    <Icon className="mt-1 h-3.5 w-3.5 shrink-0 text-gold" />
+                    <Icon className="mt-1 h-4 w-4 3xl:h-5 3xl:w-5 shrink-0 text-gold" />
                     <span
                       className={`text-base font-light leading-relaxed text-slate-300 ${item.label.includes("@") ? "transition-colors group-hover:text-gold" : ""}`}
                     >
@@ -143,7 +143,7 @@ export function Footer() {
           </div>
 
           <div className="xl:col-span-3 text-center sm:text-left">
-            <h4 className="mb-5 text-sm sm:text-base font-black uppercase tracking-[0.3em] text-white">
+            <h4 className="mb-5 text-base font-black uppercase tracking-[0.3em] text-white">
               {tFooter("newsletterTitle")}
             </h4>
             <p className="mb-6 text-base font-light text-slate-300">{tFooter("newsletterDescription")}</p>
@@ -157,14 +157,14 @@ export function Footer() {
                   if (errors.email) setErrors({ ...errors, email: "" });
                 }}
                 aria-label={tFooter("emailPlaceholder")}
-                className="w-full  rounded-full border border-white/20 bg-white/10 px-6 py-4 text-sm text-white transition-all placeholder:text-slate-400 focus:border-gold/60 focus:outline-none [&:-webkit-autofill]:shadow-[inset_0_0_0px_1000px_rgb(20,20,20)]"
+                className="w-full  rounded-full border border-white/20 bg-white/10 px-6 py-4 text-body-sm text-white transition-all placeholder:text-slate-400 focus:border-gold/60 focus:outline-none [&:-webkit-autofill]:shadow-[inset_0_0_0px_1000px_rgb(20,20,20)]"
               />
               <button
                 type="submit"
                 aria-label={tFooter("buttonText")}
                 className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-gold text-black transition-all hover:scale-105 hover:bg-white"
               >
-                <Send className="h-4 w-4" />
+                <Send className="h-4 w-4" strokeWidth={2} />
               </button>
             </form>
             <div className="-ml-30 md:ml-5 lg:ml-5 xl:ml-5">
@@ -177,9 +177,9 @@ export function Footer() {
 
         {/* Footer bottom section */}
         <div className="flex flex-col items-center justify-between gap-8 xl:flex-row">
-          <p className="flex flex-wrap items-center justify-center lg:justify-start gap-1.5 text-center text-[11px] font-medium uppercase tracking-[0.2em] text-slate-300 lg:text-left">
+          <p className="flex flex-wrap items-center justify-center lg:justify-start gap-1.5 text-center text-[12px] md:text-[11px] font-medium uppercase tracking-[0.2em] text-slate-300 lg:text-left">
             <span>&copy; {tFooter("copyright")}</span>
-            <Heart className="h-3.5 w-3.5 lg:h-3.75 lg:w-3.75 animate-pulse text-gold shrink-0" fill="currentColor" />
+            <Heart className="-mt-0.5 h-4 w-4 lg:h-4 lg:w-4 animate-pulse text-gold shrink-0" fill="currentColor" />
             <span>{tFooter("forTravelers")}</span>
           </p>
 
@@ -193,7 +193,7 @@ export function Footer() {
                       e.preventDefault();
                       window.dispatchEvent(new CustomEvent("openCookieModal"));
                     }}
-                    className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-300 transition-colors hover:text-white cursor-pointer"
+                    className="text-[12px] md:text-[11px] font-bold uppercase tracking-[0.2em] text-slate-300 transition-colors hover:text-white cursor-pointer"
                   >
                     {tFooter(`legal.${item.label}`)}
                   </button>
@@ -203,7 +203,7 @@ export function Footer() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-300 transition-colors hover:text-white"
+                  className="text-[12px] md:text-[11px] font-bold uppercase tracking-[0.2em] text-slate-300 transition-colors hover:text-white"
                 >
                   {tFooter(`legal.${item.label}`)}
                 </Link>
@@ -263,7 +263,7 @@ export function Footer() {
               <div className="flex flex-col transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-8">
                 {/* Default State ) */}
                 <div className="flex h-8 flex-col justify-center gap-0.5">
-                  <span className="text-[7px] font-semibold uppercase tracking-[0.4em] text-slate-500">
+                  <span className="text-[8px] font-semibold uppercase tracking-[0.4em] text-slate-500">
                     Engineered by
                   </span>
                   <span className="text-[11px] font-bold tracking-[0.15em] text-slate-300">{BRAND_NAME}</span>
@@ -271,7 +271,7 @@ export function Footer() {
 
                 {/* Hover State */}
                 <div className="flex h-8 flex-col justify-center gap-0.5">
-                  <span className="text-[7px] font-semibold uppercase tracking-[0.4em] text-gold/70">Developed by</span>
+                  <span className="text-[8px] font-semibold uppercase tracking-[0.4em] text-gold/70">Developed by</span>
                   <span className="text-[11px] font-bold tracking-[0.15em] text-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]">
                     {BRAND_NAME}
                   </span>

@@ -26,10 +26,10 @@ export function GalleryCard({ item, priority, onSelect }: GalleryCardProps) {
       />
       <span className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100" />
       <span className="absolute inset-x-0 bottom-0 z-10 flex flex-col p-3 sm:p-4 md:p-6 transition-all duration-500 opacity-100 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 group-focus-visible:opacity-100">
-        <span className="mb-1 truncate text-[10px] font-extrabold uppercase tracking-[0.25em] text-yellow-400 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] sm:text-[11px] sm:tracking-[0.3em]">
+        <span className="mb-1 truncate text-tiny font-extrabold uppercase tracking-[0.25em] text-yellow-400 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] sm:text-[11px] sm:tracking-[0.3em]">
           {item.category}
         </span>
-        <span className="truncate text-[11px] font-bold leading-snug tracking-wider text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] sm:text-[12px] sm:tracking-widest md:text-[13px]">
+        <span className="truncate text-caption font-bold leading-snug tracking-wider text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] sm:text-[12px] sm:tracking-widest md:text-[13px]">
           {item.title}
         </span>
       </span>

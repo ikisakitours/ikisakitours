@@ -10,7 +10,6 @@ interface EventSidebarProps {
   eventDate: string;
   eventTime: string;
   eventLocation: string;
-
   eventTitle: string;
   eventSlug: string;
   mode: string;
@@ -21,7 +20,6 @@ export function EventSidebar({
   eventDate,
   eventTime,
   eventLocation,
-
   eventTitle,
   eventSlug,
   mode,
@@ -29,46 +27,63 @@ export function EventSidebar({
 }: EventSidebarProps) {
   const t = useTranslations("Events.Slug");
 
+  // 👇 Data array for mapping
+  const eventDetails = [
+    {
+      id: "date",
+      icon: CalendarDays,
+      label: t("date"),
+      value: eventDate,
+      hasBorder: true,
+    },
+    {
+      id: "time",
+      icon: Clock,
+      label: t("time"),
+      value: eventTime,
+      hasBorder: true,
+    },
+    {
+      id: "location",
+      icon: MapPin,
+      label: t("location"),
+      value: eventLocation,
+      hasBorder: false, // අන්තිම එකට border එක ඕන නැති නිසා
+    },
+  ];
+
   return (
     <div className="glass-card rounded-[2.5rem] border border-gold/20 p-6 md:p-8 sticky top-28 space-y-6 ">
       <div className="border-b border-white/10 pb-6">
-        <span className="text-xs uppercase tracking-[0.2em] text-gold font-bold">
+        <span className="text-caption uppercase tracking-[0.2em] text-gold font-bold">
           {mode === "live" ? t("liveBroadcast") : mode === "upcoming" ? t("upcomingEvent") : t("featuredExperience")}
         </span>
-        <h3 className="premium-serif text-2xl text-white mt-1">
+        <h3 className="premium-serif text-heading-sub text-white mt-1">
           {mode === "live" ? t("happeningNow") : t("secureAccess")}
         </h3>
       </div>
 
-      <div className="space-y-4 text-sm text-slate-300">
-        <div className="flex items-center gap-3">
-          <CalendarDays className="h-5 w-5 text-gold shrink-0" />
-          <div>
-            <span className="block text-xs text-slate-400">{t("date")}</span>
-            <span className="font-medium text-white">{eventDate}</span>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <Clock className="h-5 w-5 text-gold shrink-0" />
-          <div>
-            <span className="block text-xs text-slate-400">{t("time")}</span>
-            <span className="font-medium text-white">{eventTime}</span>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <MapPin className="h-5 w-5 text-gold shrink-0" />
-          <div>
-            <span className="block text-xs text-slate-400">{t("location")}</span>
-            <span className="font-medium text-white">{eventLocation}</span>
-          </div>
-        </div>
+      <div className="flex flex-col">
+        {eventDetails.map((detail) => {
+          const IconComponent = detail.icon;
+          return (
+            <div
+              key={detail.id}
+              className={`flex items-center justify-between py-4 ${detail.hasBorder ? "border-b border-white/5" : ""}`}
+            >
+              <div className="flex items-center gap-3">
+                <IconComponent className="h-5 w-5 shrink-0 text-gold" />
+                <span className="text-body-sm font-medium text-slate-400">{detail.label}</span>
+              </div>
+              <span className="text-right text-body-sm font-bold text-white">{detail.value}</span>
+            </div>
+          );
+        })}
       </div>
 
       {mode === "upcoming" && targetDate && (
         <div className="pt-6 pb-2 border-t border-white/10 mt-6">
-          <p className="text-[10px] text-center text-slate-400 uppercase tracking-widest mb-4">{t("timeRemaining")}</p>
+          <p className="text-caption text-center text-slate-400 uppercase tracking-widest mb-4">{t("timeRemaining")}</p>
           <CountdownTimer targetDate={targetDate} />
         </div>
       )}
@@ -88,8 +103,8 @@ export function EventSidebar({
                   </span>
                 </div>
 
-                <span className="whitespace-nowrap text-[11px] md:text-xs font-bold tracking-[0.25em] text-red-400 uppercase drop-shadow-[0_0_8px_rgba(239,68,68,0.6)]">
-                 {t("streamingLive")}
+                <span className="whitespace-nowrap text-caption font-bold tracking-[0.25em] text-red-400 uppercase drop-shadow-[0_0_8px_rgba(239,68,68,0.6)]">
+                  {t("streamingLive")}
                 </span>
               </div>
 
@@ -103,15 +118,15 @@ export function EventSidebar({
         <div className="grid grid-cols-2 pt-2 border-t border-white/10">
           {/* Left: Like Section */}
           <div className="flex justify-center border-r border-white/10 py-3">
-            <div className="group flex cursor-pointer items-center justify-center gap-2.5 sm:gap-3">
-              <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500 transition-colors group-hover:text-gold/80">
-               {t("lovedThis")}
+            <div className="group flex cursor-pointer items-center justify-center gap-2 sm:gap-3">
+              <span className="text-tiny font-extrabold uppercase tracking-[0.2em] text-slate-500 transition-colors group-hover:text-gold/80">
+                {t("lovedThis")}
               </span>
               <LikeButton
                 initialLikes={42}
                 className="flex items-center justify-center gap-1.5 text-slate-300 transition-colors group-hover:text-gold"
                 iconClassName="transition-transform group-hover:scale-110 w-5 h-5 sm:w-5.5 sm:h-5.5"
-                countClassName="text-[13px] sm:text-[14px] font-medium"
+                countClassName="text-body-sm! font-bold!"
               />
             </div>
           </div>
@@ -123,10 +138,10 @@ export function EventSidebar({
                 title={eventTitle}
                 text={`Check out ${eventTitle} on MapMate Sri Lanka!`}
                 url={`/special-events/${eventSlug}`}
-                className="flex items-center justify-center gap-1.5 text-slate-300 transition-colors group-hover:text-gold"
+                className="text-body-sm! flex items-center justify-center gap-1.5 text-slate-300 transition-colors group-hover:text-gold"
                 iconClassName="transition-transform group-hover:scale-110 w-4.5 h-4.5 sm:w-5 sm:h-5"
               />
-              <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500 transition-colors group-hover:text-gold/80">
+              <span className="text-tiny font-extrabold uppercase tracking-[0.2em] text-slate-500 transition-colors group-hover:text-gold/80">
                 {t("share")}
               </span>
             </div>

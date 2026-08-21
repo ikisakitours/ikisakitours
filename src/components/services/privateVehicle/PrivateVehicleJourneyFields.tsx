@@ -105,7 +105,7 @@ export function PrivateVehicleJourneyFields({
         <label className="flex flex-col gap-1">
           <span className={fieldLabelClass}>{tForm("Labels.pickupLocation")}</span>
           <span className="relative block">
-            <MapPin className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+            <MapPin className="absolute left-4 top-1/2 h-4.5 w-4.5 md:h-5 md:w-5 -translate-y-1/2 text-slate-500" />
             <input
               className={`${inputClass} pl-11`}
               placeholder={tForm("Placeholders.pickupLocation")}
@@ -130,7 +130,7 @@ export function PrivateVehicleJourneyFields({
               setErrors((prev) => ({ ...prev, language: "" }));
             }}
             options={languagesList}
-            icon={<Globe className="h-4 w-4" />}
+            icon={<Globe className="h-4.5 w-4.5 md:h-5 md:w-5" />}
             placeholder={tForm("Placeholders.selectLanguage")}
           />
           <div className="ml-2">
@@ -210,12 +210,12 @@ export function PrivateVehicleJourneyFields({
             }
           }}
         />
+        <span className="mt-1 block text-caption font-medium text-slate-500 leading-relaxed">
+          {tForm("Messages.autoExpand")}
+        </span>
         <div className="ml-2 mt-1">
           <FormError message={errors.tourRequests} />
         </div>
-        <span className="mt-1 block text-[11px] font-medium text-slate-500 md:text-[12px] lg:text-[13px] 3xl:text-[14px] leading-relaxed">
-          {tForm("Messages.autoExpand")}
-        </span>
       </label>
     </div>
   );

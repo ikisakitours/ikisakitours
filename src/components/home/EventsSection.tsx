@@ -6,7 +6,7 @@ import { EventsMedia } from "@/components/home/Events/EventsMedia";
 import { apiResponseEvents } from "@/data/specialEvents";
 
 export function SpecialEventsSection() {
-  const activeEvent = apiResponseEvents.find((evt) => evt.mode === "upcoming") || apiResponseEvents[0];
+  const activeEvent = apiResponseEvents.find((evt) => evt.mode === "live") || apiResponseEvents[0];
 
   if (!activeEvent) return null;
 

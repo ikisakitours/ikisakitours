@@ -6,7 +6,8 @@ export type ProfileTab = {
 };
 
 export const profileUser = {
-  name: "Alex Thompson",
+  firstName: "Alex",
+  lastName: "Thompson",
   email: "pramodpremudu10@gmail.com",
   photo: "https://i.pravatar.cc/96?img=12",
   initials: "AT",

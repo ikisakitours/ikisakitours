@@ -70,22 +70,22 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
         >
           <ArrowLeft
             strokeWidth={2}
-            className="h-2.5 w-2.5 text-gold transition-transform duration-300 group-hover:-translate-x-1 md:h-3 md:w-3 lg:h-3.5 lg:w-3.5 3xl:h-4 3xl:w-4"
+            className="h-3.5 w-3.5 text-gold transition-transform duration-300 group-hover:-translate-x-1 md:h-3 md:w-3 lg:h-3.5 lg:w-3.5 3xl:h-4 3xl:w-4"
           />
-          <span className="text-[9px] font-bold uppercase leading-none tracking-[0.2em] text-slate-400 transition-colors group-hover:text-white md:text-[10px] lg:text-[11px] 3xl:text-[12px]">
+          <span className="text-tiny font-bold uppercase leading-none tracking-[0.2em] text-slate-400 transition-colors group-hover:text-white">
             {t("backToReviews")}
           </span>
         </Button>
       </div>
       <div className="glass-card rounded-4xl border border-white/10 p-6 shadow-2xl md:rounded-[2.5rem] md:p-12 3xl:rounded-[3rem] 3xl:p-20">
         <div className="mb-10 text-center">
-          <h3 className="premium-serif mb-2 text-2xl italic text-white md:text-4xl 3xl:text-6xl">{t("title")}</h3>
-          <p className="text-[10px] uppercase tracking-widest text-slate-400 3xl:text-sm">{t("subtitle")}</p>
+          <h3 className="premium-serif mb-2 text-[25px] italic text-white md:text-[29px]">{t("title")}</h3>
+          <p className="text-caption uppercase tracking-widest text-slate-400 3xl:text-sm">{t("subtitle")}</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8 3xl:space-y-12">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="flex flex-col">
-              <label className="ml-2 mb-1 text-[10px] font-bold uppercase tracking-widest text-gold 3xl:text-xs">
+              <label className="ml-2 mb-1 text-caption font-bold uppercase tracking-widest text-gold">
                 {tForms("Labels.fullName")}
               </label>
               <input
@@ -96,7 +96,7 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
                   setErrors((prev) => ({ ...prev, fullName: "" }));
                 }}
                 placeholder={tForms("Placeholders.fullName")}
-                className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-sm text-white transition-colors focus:border-gold/50 focus:outline-none 3xl:text-lg 3xl:py-6"
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-body-sm text-white transition-colors focus:border-gold/50 focus:outline-none 3xl:py-6"
               />
               <FormError message={errors.fullName} />
             </div>
@@ -109,10 +109,10 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
                 }}
                 error={errors.country}
                 clearError={() => setErrors((prev) => ({ ...prev, country: "" }))}
-                inputClass="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-sm text-white transition-colors group-hover:border-gold/50 focus:border-gold/50 focus:outline-none 3xl:py-6"
+                inputClass="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-body-sm! text-white transition-colors group-hover:border-gold/50 focus:border-gold/50 focus:outline-none 3xl:py-6"
                 showIcon={false}
                 customLabel={
-                  <label className="mb-1 ml-2 block text-[10px] font-bold uppercase tracking-widest text-gold 3xl:text-xs">
+                  <label className="mb-1 ml-2 block text-caption font-bold uppercase tracking-widest text-gold 3xl:text-xs">
                     {tForms("Labels.country")}
                   </label>
                 }
@@ -121,7 +121,7 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
           </div>
           <div className="flex flex-col gap-1">
             <div className="rounded-2xl border border-white/5 bg-white/5 py-8 text-center shadow-inner 3xl:py-12">
-              <label className="mb-4 block text-[10px] font-bold uppercase tracking-[0.4em] text-gold opacity-80 3xl:text-xs">
+              <label className="mb-4 block text-caption font-bold uppercase tracking-[0.4em] text-gold opacity-80 3xl:text-xs">
                 {t("ratingLabel")}
               </label>
               <div className="flex justify-center gap-2 text-2xl text-slate-600 3xl:text-4xl 3xl:gap-8">
@@ -142,7 +142,7 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
             </div>
           </div>
           <div className="flex flex-col ">
-            <label className="ml-2 mb-1 text-[10px] font-bold uppercase tracking-widest text-gold 3xl:text-xs">
+            <label className="ml-2 mb-1 text-caption font-bold uppercase tracking-widest text-gold 3xl:text-xs">
               {t("experienceLabel")}
             </label>
             <textarea
@@ -153,9 +153,9 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
                 setErrors((prev) => ({ ...prev, experience: "" }));
               }}
               placeholder={t("experiencePlaceholder")}
-              className="auto-resize-textarea min-h-30 w-full resize-none rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-[14px] italic leading-relaxed text-white transition-colors focus:border-gold/50 focus:outline-none md:text-[15px] 3xl:text-xl 3xl:py-6"
+              className="auto-resize-textarea min-h-30 w-full resize-none rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-body-sm italic leading-relaxed text-white transition-colors focus:border-gold/50 focus:outline-none 3xl:py-6"
             ></textarea>
-            <span className="mt-1 block text-[11px] font-medium text-slate-500 md:text-[12px] lg:text-[13px] 3xl:text-[14px] leading-relaxed">
+            <span className="mt-1 block text-caption font-medium text-slate-500 leading-relaxed">
               {tForms("Messages.autoExpand")}
             </span>
             <div className="ml-2">
@@ -177,10 +177,8 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
                 <UploadCloud
                   className={`mx-auto mb-3 h-8 w-8 transition-colors 3xl:h-12 3xl:w-12 ${errors.images ? "text-red-400" : "text-slate-500 group-hover:text-gold"}`}
                 />
-                <p className="text-[10px] font-bold uppercase tracking-widest text-white md:text-xs 3xl:text-sm">
-                  {t("uploadTitle")}
-                </p>
-                <p className="mt-2 text-[9px] text-slate-500 3xl:text-xs">{t("uploadSubtitle")}</p>
+                <p className="text-caption font-bold uppercase tracking-widest text-white">{t("uploadTitle")}</p>
+                <p className="mt-2 text-tiny text-slate-500">{t("uploadSubtitle")}</p>
               </div>
             </div>
             <div className="ml-2">
@@ -211,7 +209,7 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
           <Button
             variant="primary"
             type="submit"
-            className="w-full py-5 text-[11px] tracking-[0.3em] shadow-xl shadow-gold/10 3xl:text-sm 3xl:py-8"
+            className="block w-full md:w-auto md:ml-auto md:px-16 py-5 text-caption! tracking-[0.3em] shadow-xl shadow-gold/10 3xl:py-8"
           >
             {t("submitBtn")}
           </Button>

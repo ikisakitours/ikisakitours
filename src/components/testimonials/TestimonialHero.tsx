@@ -21,21 +21,24 @@ export function TestimonialHero() {
   ];
 
   return (
-    <header className="relative overflow-hidden border-b border-white/5 pt-20 sm:pt-24 md:pt-26 lg:pt-28 2xl:pt-30 3xl:pt-32 pb-12 sm:pb-16 md:pb-18 lg:pb-20 2xl:pb-22 3xl:pb-24">
+    <header className="relative overflow-hidden border-b border-white/5 pt-28 sm:pt-30 md:pt-34 lg:pt-28 2xl:pt-30 3xl:pt-32 pb-12 sm:pb-16 md:pb-18 lg:pb-20 2xl:pb-22 3xl:pb-24">
       <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(197,160,89,0.08),transparent_28%,transparent_72%,rgba(197,160,89,0.05))]" />
       <div className="absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-gold/30 to-transparent" />
 
       <ContainerLayout className="relative z-10">
-        <div className="flex flex-col items-center justify-between gap-12 md:flex-row md:gap-8 lg:gap-16 xl:gap-24">
+        <div className="flex flex-col items-center justify-between gap-12 md:flex-row md:gap-3 lg:gap-16 xl:gap-24">
           <div className="max-w-2xl text-center xl:text-left">
             <EyeBrow eyebrow={t("badge")} />
 
-            <h1 className="premium-serif mb-6 text-5xl leading-[1.08] tracking-tight text-white md:mb-8 md:text-8xl">
-              {t("titleStart")} <br />
-              <span className="gold-gradient-text italic">{t("titleHighlight")}</span>
+            <h1 className="premium-serif mb-6 text-heading-hero leading-[1.08] tracking-tight text-white">
+              {t("titleStart")}
+              <span className="hidden sm:inline">
+                <br />
+              </span>
+              <span className="gold-gradient-text italic ml-2 md:ml-0!">{t("titleHighlight")}</span>
             </h1>
 
-            <p className="mx-auto max-w-lg text-base font-light leading-relaxed text-slate-400 md:text-xl xl:mx-0">
+            <p className="mx-auto max-w-lg text-body-lead font-light leading-relaxed text-slate-400 xl:mx-0">
               {t("description")}
             </p>
           </div>

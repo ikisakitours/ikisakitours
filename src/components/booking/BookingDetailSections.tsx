@@ -29,7 +29,7 @@ export function BookingDetailSections({ tour, tourType }: SharedTourProps) {
       <BookingNavigation />
       <ActivityDetails tour={tour} />
       <DescriptionSection tour={tour} />
-      <TourPriceGuideSection/>
+      {/* <TourPriceGuideSection/> */}
       <hr className="my-14 border-white/5" />
       <HighlightsSection tour={tour} />
       <ItinerarySection tour={tour} />

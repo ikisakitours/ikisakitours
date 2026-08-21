@@ -34,7 +34,7 @@ export function CookiePageActions({ onManageCookies, onAcceptAll }: CookiePageAc
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
         {/* Left Side: Title & Status Badge */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-          <h4 className="premium-serif text-base sm:text-lg font-bold text-white">
+          <h4 className="premium-serif text-heading-card font-bold text-white">
             {t("pageActionTitle")} <span className="gold-gradient-text">{t("pageActionTitleHighlight")}</span>?
           </h4>
         </div>
@@ -43,7 +43,7 @@ export function CookiePageActions({ onManageCookies, onAcceptAll }: CookiePageAc
         <div className="flex flex-nowrap items-center gap-2.5 sm:gap-3 shrink-0 ml-auto lg:ml-0">
           <button
             onClick={onManageCookies}
-            className="flex items-center gap-1.5 sm:gap-2 rounded-xl border border-gold/40 px-3.5 sm:px-5 py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-widest text-gold transition-all duration-300 hover:bg-gold hover:text-lanka-black! whitespace-nowrap"
+            className="flex items-center gap-1.5 sm:gap-2 rounded-xl border border-gold/40 px-3.5 sm:px-5 py-2.5 text-caption! font-bold uppercase tracking-widest text-gold transition-all duration-300 hover:bg-gold hover:text-lanka-black! whitespace-nowrap"
           >
             <Sliders className="h-3.5 w-3.5 shrink-0" />
             <span> {t("manageCookiesBtn")} </span>
@@ -52,7 +52,7 @@ export function CookiePageActions({ onManageCookies, onAcceptAll }: CookiePageAc
           <button
             onClick={onAcceptAll}
             disabled={isAccepted || isDeclined}
-            className={`rounded-xl px-4 sm:px-6 py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 whitespace-nowrap ${
+            className={`rounded-xl px-4 sm:px-6 py-2.5 text-caption! font-bold uppercase tracking-widest transition-all duration-300 whitespace-nowrap ${
               isAccepted
                 ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 cursor-not-allowed opacity-80"
                 : isDeclined

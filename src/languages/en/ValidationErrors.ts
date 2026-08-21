@@ -64,6 +64,7 @@ export default {
     lower: "1 Lowercase letter",
     num: "1 Numeral",
     special: "1 Special character",
+    secured: "Strong password secured",
   },
   CameraErrors: {
     notSupported: "Camera is not supported by your browser",

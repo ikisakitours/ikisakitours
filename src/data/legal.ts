@@ -181,6 +181,7 @@ export const legalDocuments: LegalDocument[] = [
         subItems: [
           { title: "Email", body: "hello@mapmate.com" },
           { title: "Phone", body: "+94 11 234 5678" },
+          { title: "Response Time", body: "Within 48 hours" },
         ],
       },
     ],
@@ -399,6 +400,7 @@ export const legalDocuments: LegalDocument[] = [
         subItems: [
           { title: "Email", body: "hello@mapmate.com" },
           { title: "Phone", body: "+94 11 234 5678" },
+          { title: "Response Time", body: "Within 48 hours" },
         ],
       },
     ],

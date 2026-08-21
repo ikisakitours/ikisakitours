@@ -10,9 +10,9 @@ import SectionBadge from "@/components/home/Events/SectionBadge";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 //Icons
-import { MessagesSquare, X } from "lucide-react";
 import { Fuel, MapPinned, Check } from "lucide-react";
-import { SiWhatsapp } from "react-icons/si";
+import { SiWhatsapp, SiLine } from "react-icons/si";
+
 const featureCardsIcons = [MapPinned, Fuel];
 
 interface PrivateVehicleProps {
@@ -34,6 +34,11 @@ export function PrivateVehicle({ hideImageOnMobile = false }: PrivateVehicleProp
       window.removeEventListener("keydown", handleEscape);
     };
   }, [isContactOpen]);
+
+  const whatsappNumber = "94789187072";
+  const defaultMessage = t("appDefaultText");
+  const waLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(defaultMessage)}`;
+  const lineLink = "https://line.me/ti/p/dcnpathiran";
 
   return (
     <>
@@ -76,11 +81,11 @@ export function PrivateVehicle({ hideImageOnMobile = false }: PrivateVehicleProp
                         </span>
                       ))}
                     </div>
-                    <span className="text-[8px] font-black uppercase tracking-[0.2em] text-gold md:text-[9px]">
+                    <span className="text-tiny font-black uppercase tracking-[0.2em] text-gold">
                       {t("nativeFriendlyText")}
                     </span>
                   </div>
-                  <p className="text-xs font-medium leading-relaxed text-white md:text-sm">&quot;{t("quote")}&quot;</p>
+                  <p className="text-body-sm font-medium leading-relaxed text-white">&quot;{t("quote")}&quot;</p>
                 </div>
               </div>
               <div className="pointer-events-none absolute -right-3 -top-3 h-16 w-16 rounded-tr-3xl border-r-2 border-t-2 border-gold/30 md:-right-6 md:-top-6 md:h-32 md:w-32 md:rounded-tr-[3rem]" />
@@ -103,9 +108,7 @@ export function PrivateVehicle({ hideImageOnMobile = false }: PrivateVehicleProp
                   <br className="hidden sm:block md:hidden xl:block" />
                   <span className="font-serif">{t("titlePart2")}</span>
                 </h2>
-                <p className="max-w-none text-sm font-light leading-relaxed text-slate-300 md:text-base xl:text-lg">
-                  {t("description")}
-                </p>
+                <p className="max-w-none font-light leading-relaxed  text-slate-300 text-body">{t("description")}</p>
               </header>
 
               <div className="mb-10 grid grid-cols-1 gap-6 sm:grid-cols-2 md:mb-12 md:gap-8">
@@ -121,12 +124,10 @@ export function PrivateVehicle({ hideImageOnMobile = false }: PrivateVehicleProp
                       className="group rounded-3xl border border-transparent bg-white/1 p-5 transition-colors hover:border-white/5 hover:bg-white/2 sm:bg-transparent md:p-6"
                     >
                       <Icon className="mb-3 h-5 w-5 text-gold md:mb-4 md:h-6 md:w-6" />
-                      <h4 className="mb-2 text-[10px] font-bold uppercase tracking-widest text-white md:text-xs">
+                      <h4 className="mb-2 text-body-sm font-bold uppercase tracking-widest text-white">
                         {t(`features.${id}.title`)}
                       </h4>
-                      <p className="text-xs leading-relaxed text-slate-400 md:text-sm">
-                        {t(`features.${id}.description`)}
-                      </p>
+                      <p className="text-body leading-relaxed text-slate-400">{t(`features.${id}.description`)}</p>
                     </motion.div>
                   );
                 })}
@@ -139,88 +140,44 @@ export function PrivateVehicle({ hideImageOnMobile = false }: PrivateVehicleProp
                 transition={{ duration: 0.8, delay: 0.6, ease: [0.25, 1, 0.5, 1] }}
                 className="flex w-full flex-col items-center justify-start gap-6 sm:flex-row md:gap-8"
               >
-                <Button variant="inquire" href="/services/private-vehicle">
+                <Button variant="inquire" className="text-caption!" href="/services/private-vehicle">
                   {t("hireButtonText")}
                 </Button>
-                <button
-                  type="button"
-                  onClick={() => setIsContactOpen(true)}
-                  className="group flex w-full cursor-pointer items-center justify-center gap-4 border-none bg-transparent p-0 text-left sm:w-auto sm:justify-start"
-                >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 animate-blink-border transition-all duration-300 group-hover:border-gold group-hover:bg-gold/5 md:h-12 md:w-12">
-                    <SiWhatsapp className="h-4 w-4 text-white transition-colors group-hover:text-gold md:h-5 md:w-5" />
+                <div className="flex w-full items-center justify-center gap-4 sm:w-auto sm:justify-start">
+                  <div className="flex gap-3">
+                    {/* 1. WhatsApp Button */}
+                    <button
+                      type="button"
+                      onClick={() => window.open(waLink, "_blank")}
+                      className="group flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center rounded-full border-2 border-[#25D366]/40 bg-transparent shadow-[0_0_10px_rgba(37,211,102,0.2)] animate-pulse transition-all duration-300 hover:-translate-y-1 hover:animate-none hover:border-[#25D366] hover:bg-[#25D366]/10 hover:shadow-[0_0_15px_rgba(37,211,102,0.5)] md:h-12 md:w-12"
+                      aria-label="WhatsApp Contact"
+                    >
+                      <SiWhatsapp className="h-5 w-5 text-white transition-all duration-300 group-hover:scale-110 group-hover:text-[#25D366] md:h-5 md:w-5" />
+                    </button>
+
+                    {/* 2. Line Button */}
+                    <button
+                      type="button"
+                      onClick={() => window.open(lineLink, "_blank")}
+                      className="group flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center rounded-full border-2 border-[#00C300]/40 bg-transparent shadow-[0_0_10px_rgba(0,195,0,0.2)] animate-pulse transition-all duration-300 hover:-translate-y-1 hover:animate-none hover:border-[#00C300] hover:bg-[#00C300]/10 hover:shadow-[0_0_15px_rgba(0,195,0,0.5)] md:h-12 md:w-12"
+                      aria-label="Line Contact"
+                    >
+                      <SiLine className="h-5 w-5 text-white transition-all duration-300 group-hover:scale-110 group-hover:text-[#00C300] md:h-5 md:w-5" />
+                    </button>
                   </div>
-                  <div className="flex flex-col">
-                    <span className="whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.15em] text-white/60 transition-colors group-hover:text-white md:text-[12px]">
+
+                  <div className="flex flex-col text-left">
+                    <span className="whitespace-nowrap text-caption font-bold uppercase tracking-[0.15em] text-white/80">
                       {t("consultText")}
                     </span>
-                    <span className="mt-1 whitespace-nowrap text-[9px] font-medium text-gold/80 md:text-[11px]">
-                      {t("whatsappText")}
-                    </span>
+                    <span className="mt-1 whitespace-nowrap text-caption font-medium text-gold/80">{t("appText")}</span>
                   </div>
-                </button>
+                </div>
               </motion.div>
             </motion.div>
           </div>
         </ContainerLayout>
       </section>
-
-      {/* Modal - Kept Original */}
-      <div
-        id="contact-modal"
-        className={`fixed inset-0 z-100 items-center justify-center p-4 ${isContactOpen ? "flex" : "hidden"}`}
-        aria-hidden={!isContactOpen}
-      >
-        <button
-          type="button"
-          className="absolute inset-0 bg-black/90 backdrop-blur-sm"
-          onClick={() => setIsContactOpen(false)}
-        />
-        <div className="relative w-full max-w-sm rounded-[2.5rem] border border-white/10 bg-[#111] p-8 shadow-2xl animate-[fade-in-up_0.3s_ease_both]">
-          {/* Modal content unchanged */}
-          <button
-            type="button"
-            onClick={() => setIsContactOpen(false)}
-            className="absolute right-6 top-6 text-slate-500 hover:text-white"
-          >
-            <X className="h-5 w-5" />
-          </button>
-          <div className="mb-8 text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-gold/20 bg-gold/10">
-              <MessagesSquare className="h-5 w-5 text-gold" />
-            </div>
-            <h3 className="text-lg font-light tracking-tight text-white">
-              {t("model.modalTitlePart")}
-              <span className="italic text-gold"> {t("model.modalTitleAccent")}</span>
-            </h3>
-          </div>
-          <div className="space-y-3">
-            <a
-              href="https://wa.me/94789187072"
-              className="group flex items-center justify-between rounded-2xl border border-white/5 bg-white/5 p-4 hover:border-emerald-500/50 hover:bg-emerald-500/5"
-            >
-              <div className="flex items-center gap-4">
-                <SiWhatsapp className="h-5 w-5 text-emerald-500" />
-                <span className="text-xs font-bold uppercase tracking-widest text-white">
-                  {t("model.modalWhatsapp")}
-                </span>
-              </div>
-            </a>
-            <a
-              href="mailto:info@elitetransfers.lk"
-              className="group flex items-center justify-between rounded-2xl border border-white/5 bg-white/5 p-4 hover:border-[#c5a059]/50 hover:bg-[#c5a059]/5"
-            >
-              <div className="flex items-center gap-4">
-                <MessagesSquare className="h-4.5 w-4.5 text-[#c5a059]" />
-                <span className="text-xs font-bold uppercase tracking-widest text-white">{t("model.modalEmail")}</span>
-              </div>
-            </a>
-          </div>
-          <p className="mt-8 text-center text-[10px] leading-relaxed text-slate-500 whitespace-pre-line">
-            {t("model.modalResponseText")}
-          </p>
-        </div>
-      </div>
     </>
   );
 }

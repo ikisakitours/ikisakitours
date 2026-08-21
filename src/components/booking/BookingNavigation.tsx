@@ -103,7 +103,7 @@ export function BookingNavigation() {
             onClick={() => scroll("left")}
             className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-black/20 text-white border border-white/10 backdrop-blur-md hover:border-gold hover:text-gold transition-all"
           >
-            <ChevronLeft className="h-4 w-4" />
+            <ChevronLeft className="h-4 w-4" strokeWidth={3} />
           </button>
           {/* Main scroll container: internal gaps and padding kept for element spacing */}
           <div ref={scrollRef} className="no-scrollbar flex flex-1 gap-6 overflow-x-auto pl-4 pr-4 py-4 justify-start">
@@ -113,7 +113,7 @@ export function BookingNavigation() {
                 href={`#${item.id}`}
                 onClick={(e) => handleScrollTo(e, item.id)}
                 className={`whitespace-nowrap font-bold uppercase tracking-[0.2em] transition-all duration-300 
-            text-[12px] md:text-[13px] lg:text-[14px] 
+            text-[12px] md:text-[13px]
             ${activeSection === item.id ? "text-gold scale-105" : "text-slate-300 hover:text-white"}`}
               >
                 {t(item.key)}
@@ -124,7 +124,7 @@ export function BookingNavigation() {
             onClick={() => scroll("right")}
             className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-black/20 text-white border border-white/10 backdrop-blur-md hover:border-gold hover:text-gold transition-all"
           >
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRight className="h-4 w-4" strokeWidth={3} />
           </button>
         </div>
       </div>

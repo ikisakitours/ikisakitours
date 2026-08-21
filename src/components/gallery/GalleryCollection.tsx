@@ -102,14 +102,19 @@ export function GalleryCollection({ items }: GalleryCollectionProps) {
 
         <div className="mt-10 flex flex-col items-center md:mt-14">
           {hasMore ? (
-            <Button type="button" variant="explore" onClick={() => setVisibleCount((count) => count + INITIAL_COUNT)}>
+            <Button
+              type="button"
+              className="[&_span]:text-caption!"
+              variant="explore"
+              onClick={() => setVisibleCount((count) => count + INITIAL_COUNT)}
+            >
               {t("loadMore")}
             </Button>
           ) : null}
 
-          <div className="mt-8 flex items-center gap-3">
+          <div className="mt-5 flex items-center gap-3">
             <div className="h-px w-8 bg-gold/20" />
-            <p className="whitespace-nowrap text-[10px] font-medium uppercase tracking-[0.2em] text-slate-500">
+            <p className="whitespace-nowrap text-tiny font-medium uppercase tracking-[0.2em] text-slate-500">
               {t("showing")} <span className="text-gold">{visibleItems.length}</span> {t("of")}
               <span className="text-white">{items.length}</span> {t("images")}
             </p>

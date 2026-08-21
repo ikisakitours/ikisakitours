@@ -27,11 +27,12 @@ type BookingWidgetProps = {
   tour: TourType;
   options?: TravelerOptionType[];
   assurances?: readonly string[];
+  className?: string;
 };
 
 const bookingAssurancesIcons = [Zap, Banknote, CalendarDays];
 
-export function BookingWidget({ tour }: BookingWidgetProps) {
+export function BookingWidget({ tour, className = "" }: BookingWidgetProps) {
   const t = useTranslations("Booking.Widget");
   const tForms = useTranslations("SharedForm");
   const rawAssurances = t.raw("assurances") as string[];
@@ -93,13 +94,16 @@ export function BookingWidget({ tour }: BookingWidgetProps) {
   };
 
   return (
-    <aside className="mt-12 w-full md:mx-auto md:max-w-105 xl:mx-0 xl:mt-0 xl:w-1/3 xl:max-w-none">
+    <aside className={`mt-12 w-full md:mx-auto md:max-w-105 xl:mx-0 xl:mt-0 xl:w-1/3 xl:max-w-none ${className}`}>
+      {" "}
       <div className="sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto no-scrollbar space-y-4 pb-4">
         <div className="flex items-center justify-between px-2">
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">{t("loveTour")}</span>
+          <span className="text-caption font-bold uppercase tracking-[0.2em] text-slate-400">{t("loveTour")}</span>
           <div className="flex items-center gap-3">
             <LikeButton
               initialLikes={tour.likes}
+              countClassName="text-caption!"
+              iconClassName="w-5 h-5 sm:w-5.5 sm:h-5.5"
               className="group glass-card flex h-10 w-auto items-center justify-center gap-2.5 rounded-full border border-white/5 px-4 transition-all hover:border-gold/30"
             />
             <div className="glass-card flex h-10 w-10 items-center justify-center rounded-full border border-white/5 transition-all hover:border-gold/30">
@@ -112,18 +116,18 @@ export function BookingWidget({ tour }: BookingWidgetProps) {
           <div className="mb-6 border-b border-white/10 pb-5">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <div className="mb-1 text-[10px] font-bold uppercase tracking-[0.3em] text-gold">
+                <div className="mb-1 text-caption font-bold uppercase tracking-[0.3em] text-gold">
                   {t("mapMateRate")}
                 </div>
                 <div className="flex items-baseline gap-2">
                   <span className="text-4xl font-bold tracking-tighter text-white">${tour.price}</span>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                  <span className="text-caption font-bold uppercase tracking-widest text-slate-400">
                     {t("perPerson")}
                   </span>
                 </div>
               </div>
               {tour.discount && Number(tour.discount) > 0 && (
-                <span className="rounded-full border border-gold/30 bg-gold/10 px-3 py-1.5 text-[9px] font-bold uppercase tracking-widest text-gold">
+                <span className="rounded-full border border-gold/30 bg-gold/10 px-3 py-1.5 text-tiny font-bold uppercase tracking-widest text-gold">
                   {t("save", { discount: Number(tour.discount) })}
                 </span>
               )}
@@ -139,10 +143,10 @@ export function BookingWidget({ tour }: BookingWidgetProps) {
               />
               <div className="absolute inset-0.5 rounded-xl bg-[#0a0a0a]" />
               <div className="relative z-10 flex flex-col items-center gap-1">
-                <h4 className="flex items-center justify-center gap-1.5 text-[10px] sm:text-[11px] md:text-[12px] font-black uppercase tracking-widest text-gold">
-                  <span className="text-sm sm:text-base md:text-lg">✨</span> {t("groupDiscount")}
+                <h4 className="flex items-center justify-center gap-1.5 text-[11px] sm:text-[12px] md:text-[12px] font-black uppercase tracking-widest text-gold">
+                  <span className="text-[14px] sm:text-[16px] md:text-[18px]">✨</span> {t("groupDiscount")}
                 </h4>
-                <p className="text-[11px] sm:text-[12px] md:text-[13px] font-medium text-slate-400 italic leading-tight text-center">
+                <p className="text-[12px] sm:text-[13px] md:text-[13px] font-medium text-slate-400 italic leading-tight text-center">
                   {t("priceDecreases")}
                 </p>
               </div>
@@ -151,7 +155,7 @@ export function BookingWidget({ tour }: BookingWidgetProps) {
 
           <div className="mb-6 space-y-4">
             <div className="space-y-2">
-              <label className="ml-1 block text-[10px] font-bold uppercase tracking-[0.2em] text-gold/80">
+              <label className="ml-1 block text-caption font-bold uppercase tracking-[0.2em] text-gold/80">
                 {tForms("Labels.journeyDate")}
               </label>
               <CustomDatePicker
@@ -167,7 +171,7 @@ export function BookingWidget({ tour }: BookingWidgetProps) {
             </div>
 
             <div className="space-y-2 relative">
-              <label className="ml-1 block text-[10px] font-bold uppercase tracking-[0.2em] text-gold/80">
+              <label className="ml-1 block text-caption font-bold uppercase tracking-[0.2em] text-gold/80">
                 {tForms("Labels.travelers")}
               </label>
               <TravelerPicker
@@ -195,17 +199,17 @@ export function BookingWidget({ tour }: BookingWidgetProps) {
                 return (
                   <p
                     key={assurance}
-                    className="flex items-center justify-center gap-3 text-[10px] font-bold uppercase tracking-widest text-slate-400"
+                    className="flex items-center justify-center gap-3 text-caption font-bold uppercase tracking-widest text-slate-400"
                   >
                     <Icon className="h-3.5 w-3.5 text-gold" />
                     {assurance}
                   </p>
                 );
               })}
-            <div className="rounded-xl border border-gold/10 bg-gold/5 p-3 mt-4">
-              <p className="flex items-center justify-center text-center text-[9px] font-medium uppercase leading-relaxed tracking-[0.15em] text-slate-300">
-                <Info className="mr-1.5 h-3.5 w-3.5 shrink-0 text-gold opacity-70" />
-                <span>{t("priceMayVary")}</span>
+            <div className="mt-4 rounded-xl border border-gold/10 bg-gold/5 p-3">
+              <p className="text-center text-tiny font-medium uppercase leading-relaxed tracking-[0.15em] text-slate-300">
+                <Info className="relative top-[-1.5px] md:top-[-0.5px] mr-1.5 inline-block h-4 w-4 text-gold opacity-70 3xl:h-5 3xl:w-5" />
+                {t("priceMayVary")}
               </p>
             </div>
           </div>

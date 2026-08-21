@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from "@/i18nNavigation";
+import { Link } from "@/lib/i18nNavigation";
 import { LoadingImage } from "@/components/ui/LoadingImage";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { type Destination } from "@/data/destinationData";
@@ -155,9 +155,17 @@ export default function MapContent({
   const t = useTranslations("Destinations.Map");
   return (
     <div className="relative mx-auto h-112.5 w-full max-w-full overflow-hidden rounded-3xl border border-white/10 shadow-2xl z-10 sm:h-137.5 md:h-187.5 lg:h-205">
-      <div className="pointer-events-none absolute right-2 top-2 sm:right-4 sm:top-4 z-1000 flex items-center gap-1.5 rounded-full border border-white/10 bg-black/70 px-3 py-1.5 shadow-lg backdrop-blur-md">
+      <div
+        className={`pointer-events-none absolute right-2 top-2 sm:right-4 sm:top-4 z-1000 flex items-center gap-1.5 rounded-full border px-3 py-1.5 shadow-lg backdrop-blur-md ${
+          isDarkMode ? "border-white/10 bg-black/70" : "border-black/10 bg-white/80"
+        }`}
+      >
         <span className="shrink-0 inline-block h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
-        <span className="translate-y-[0.5px] text-[8px] sm:text-[9px] text-gold/90 font-semibold uppercase tracking-[0.2em] leading-none">
+        <span
+          className={`translate-y-[0.5px] text-micro font-semibold uppercase tracking-[0.2em] leading-none ${
+            isDarkMode ? "text-gold/90" : "text-lanka-black"
+          }`}
+        >
           {t("choosePlace")}
         </span>
       </div>
@@ -201,9 +209,9 @@ export default function MapContent({
               pathOptions={{
                 color: isDarkMode ? "#C5A059" : "#4285F4",
                 weight: lineWidth,
-                dashArray: "12, 12", 
+                dashArray: "12, 12",
                 className: "moving-route-line",
-                lineCap: "round", 
+                lineCap: "round",
               }}
             />
           )}
@@ -213,15 +221,15 @@ export default function MapContent({
               className: "custom-map-marker-wrapper",
               html: `
                 <div class="pointer-events-auto relative flex scale-90 flex-col items-center sm:scale-100">
-                  <div class="group relative mb-1 flex w-max cursor-pointer items-center gap-1.5 rounded-full border border-gold/40 bg-lanka-black/90 px-1 py-0.5 shadow-xl backdrop-blur-md transition-transform hover:scale-105 sm:gap-2 sm:px-1.5 sm:py-1">
+                  <div class="group relative mb-1 flex w-max cursor-pointer items-center gap-1.5 rounded-full border border-gold/40 ${isDarkMode ? "bg-lanka-black/90" : "bg-white/90 shadow-sm"} px-1 py-0.5 shadow-xl backdrop-blur-md transition-transform hover:scale-105 sm:gap-2 sm:px-1.5 sm:py-1">
                     <div class="relative h-5 w-5 shrink-0 overflow-hidden rounded-full border border-gold/60 sm:h-6 sm:w-6">
                       <img src="${dest.hero.image}" alt="${dest.name}" class="h-full w-full object-cover" />
                     </div>
-                    <span class="whitespace-nowrap pr-1.5 text-[9px] font-bold uppercase tracking-wider text-white sm:pr-2 sm:text-[10px]">${dest.name}</span>
+                    <span class="whitespace-nowrap pr-1.5 text-tiny font-bold uppercase tracking-wider ${isDarkMode ? "text-white" : "text-lanka-black"} sm:pr-2 ">${dest.name}</span>
                   </div>
-                  <div class="flex h-3.5 w-3.5 items-center justify-center rounded-full border border-white bg-gold shadow-[0_0_10px_rgba(197,160,89,0.9)] sm:h-4 sm:w-4">
-                    <div class="h-1 w-1 rounded-full bg-lanka-black sm:h-1.5 sm:w-1.5"></div>
-                  </div>
+                <div class="relative h-3.5 w-3.5 rounded-full border shadow-[0_0_10px_rgba(197,160,89,0.9)] sm:h-4 sm:w-4 ${isDarkMode ? "border-white bg-gold" : "border-gold bg-lanka-black"}">
+                    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-1 w-1 rounded-full sm:h-1.2 sm:w-1.2 ${isDarkMode ? "bg-lanka-black" : "bg-gold"}"></div>
+                </div>
                 </div>
               `,
               iconSize: [120, 50],
@@ -262,7 +270,11 @@ export default function MapContent({
               >
                 <Popup className="custom-map-popup">
                   <div
-                    className="relative w-56 overflow-hidden rounded-2xl border border-white/10 bg-lanka-black p-0 text-left text-white shadow-2xl backdrop-blur-xl transition-colors duration-300"
+                    className={`relative w-56 overflow-hidden rounded-2xl border p-0 text-left shadow-2xl backdrop-blur-xl transition-colors duration-300 ${
+                      isDarkMode
+                        ? "border-white/10 bg-lanka-black text-white"
+                        : "border-black/10 bg-white text-lanka-black"
+                    }`}
                     onMouseEnter={() => {
                       if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
                     }}
@@ -292,7 +304,11 @@ export default function MapContent({
                         setQuery("");
                       }}
                       style={{ outline: "none", boxShadow: "none", WebkitTapHighlightColor: "transparent" }}
-                      className="text-white! hover:bg-gold! hover:text-lanka-black! absolute right-2 top-2 z-20 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-black/60 backdrop-blur-md transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-0 [-webkit-tap-highlight-color:transparent]"
+                      className={`absolute right-2 top-2 z-20 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-gold! hover:text-lanka-black! focus:outline-none focus:ring-0 [-webkit-tap-highlight-color:transparent] ${
+                        isDarkMode
+                          ? "bg-black/60 border-white/20 text-white!"
+                          : "bg-white/60 border-black/10 text-lanka-black!"
+                      }`}
                       title="Close"
                     >
                       <X className="h-3.5 w-3.5" />
@@ -311,15 +327,20 @@ export default function MapContent({
                     </div>
 
                     <div className="p-3">
-                      <h3 className="mb-1 text-sm font-bold tracking-wide text-white">{dest.name}</h3>
-                      <p className="mb-3 line-clamp-2 text-[11px] font-light leading-relaxed text-slate-300">
+                      <h3
+                        className={`mb-1 text-body-sm font-bold tracking-wide ${isDarkMode ? "text-white" : "text-lanka-black"}`}
+                      >
+                        {dest.name}
+                      </h3>
+                      <p
+                        className={`mb-3 line-clamp-2 text-caption font-light leading-relaxed ${isDarkMode ? "text-slate-300" : "text-slate-600"}`}
+                      >
                         {dest.hero.strapline}
                       </p>
-
                       <Link
                         href={`/destination/${dest.slug}?from=${isRouteMode ? "routeMap" : "map"}`}
                         style={{ outline: "none", boxShadow: "none", WebkitTapHighlightColor: "transparent" }}
-                        className="bg-gold! text-lanka-black! hover:bg-white! hover:text-lanka-black! flex w-full items-center justify-center rounded-xl py-2 text-[10px] font-extrabold uppercase tracking-widest shadow-md transition-all focus:outline-none focus:ring-0 [-webkit-tap-highlight-color:transparent]"
+                        className="bg-gold! text-lanka-black! hover:bg-white! hover:text-lanka-black! flex w-full items-center justify-center rounded-xl py-2 text-caption font-extrabold uppercase tracking-widest shadow-md transition-all focus:outline-none focus:ring-0 [-webkit-tap-highlight-color:transparent]"
                       >
                         {t("viewDestination")}
                       </Link>

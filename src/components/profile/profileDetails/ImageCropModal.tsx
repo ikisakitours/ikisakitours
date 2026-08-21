@@ -63,12 +63,12 @@ export function ImageCropModal({ isOpen, imageSrc, onClose, onCropComplete }: Im
             className="relative flex w-full max-w-md flex-col overflow-hidden rounded-3xl border border-gold/30 bg-[#0a0a0a] shadow-2xl"
           >
             <div className="flex items-center justify-between border-b border-white/10 p-4 sm:p-5">
-              <h3 className="text-sm font-bold uppercase tracking-widest text-gold">{t("Modals.Crop.title")}</h3>
+              <h3 className="text-body-sm font-bold uppercase tracking-widest text-gold">{t("Modals.Crop.title")}</h3>
               <button
                 onClick={onClose}
-                className="rounded-full bg-white/5 p-1.5 text-slate-400 transition-colors hover:bg-white/10 hover:text-white"
+                className="rounded-full bg-white/5 p-2 text-slate-400 transition-colors hover:bg-white/10 hover:text-white"
               >
-                <X className="h-4 w-4" />
+                <X className="h-4.5 w-4.5" />
               </button>
             </div>
 
@@ -89,11 +89,13 @@ export function ImageCropModal({ isOpen, imageSrc, onClose, onCropComplete }: Im
 
             <div className="space-y-6 p-5 sm:p-6">
               <div className="flex flex-col gap-2">
-                <div className="flex items-center justify-between text-xs font-bold text-slate-400">
+                <div className="flex items-center justify-between text-body-sm font-bold text-slate-400">
                   <span className="flex items-center gap-1.5">
                     {t("Modals.Crop.zoom")} <span className="text-gold">{Math.round(zoom * 100)}%</span>
                   </span>
-                  <span className="font-normal text-slate-500 capitalize">{t("Modals.Crop.dragHelp")}</span>
+                  <span className="font-normal text-body-sm text-slate-500 capitalize">
+                    {t("Modals.Crop.dragHelp")}
+                  </span>
                 </div>
                 <input
                   type="range"
@@ -111,7 +113,7 @@ export function ImageCropModal({ isOpen, imageSrc, onClose, onCropComplete }: Im
                 <Button
                   variant="explore"
                   onClick={handleSave}
-                  className="flex-1 justify-center"
+                  className="flex-1 justify-center [&_span]:text-caption!"
                   disabled={isProcessing}
                 >
                   {isProcessing ? t("Modals.Crop.btnProcessing") : t("Modals.Crop.btnCropSave")}

@@ -1,6 +1,6 @@
 "use client";
 
-import { Link } from "@/i18nNavigation";
+import { Link } from "@/lib/i18nNavigation";
 import { Button } from "@/components/ui/Button";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { motion } from "framer-motion";
@@ -27,12 +27,12 @@ export function JournalPreview() {
         >
           <div className="max-w-2xl">
             <SectionBadge badge={t("badge")} />
-            <h2 className="font-serif text-3xl font-light leading-[1.1] text-white sm:text-5xl md:text-6xl 3xl:text-7xl">
+            <h2 className="premium-serif text-heading-section font-light leading-[1.1] text-white">
               {t("titlePart1")}
-              <span className="gold-gradient-text italic">{t("titleAccent")}</span>
+              <span className="ml-2 gold-gradient-text italic">{t("titleAccent")}</span>
             </h2>
           </div>
-          <p className="max-w-md text-base font-light italic leading-relaxed text-slate-400 md:text-lg lg:mb-2 3xl:max-w-xl 3xl:text-xl">
+          <p className="max-w-md text-body font-light italic leading-relaxed text-foreground/80 lg:mb-2 3xl:max-w-xl ">
             {t("subtitle")}
           </p>
         </motion.div>
@@ -48,19 +48,19 @@ export function JournalPreview() {
               transition={{ duration: 0.8, delay: index * 0.15, ease: [0.25, 1, 0.5, 1] }}
               className="group flex flex-row gap-4 sm:gap-6 md:gap-8 3xl:gap-10"
             >
-              <div className="shrink-0 text-3xl font-light text-gold/20 transition-all duration-500 group-hover:-translate-y-2 group-hover:text-gold sm:text-4xl md:text-5xl 3xl:text-6xl">
+              <div className="shrink-0 text-heading-section font-light text-gold/20 transition-all duration-500 group-hover:-translate-y-2 group-hover:text-gold">
                 {post.number}
               </div>
               <div className="flex flex-col">
-                <h4 className="mb-3 text-lg leading-snug text-white transition-colors duration-300 group-hover:text-gold sm:text-xl md:text-2xl 3xl:mb-4 3xl:text-3xl">
+                <h4 className="mb-3 leading-snug text-heading-card text-white transition-colors duration-300 group-hover:text-gold sm:text-xl">
                   {post.title}
                 </h4>
-                <p className="line-clamp-2 mb-4 text-sm font-light italic leading-relaxed text-slate-300 md:text-base 3xl:mb-6 3xl:text-lg">
+                <p className="line-clamp-2 mb-4 text-body font-light italic leading-relaxed text-slate-300">
                   {post.excerpt}
                 </p>
                 <Link
                   href={`/blog/${post.slug}?from=home`}
-                  className="group/link inline-flex w-fit items-center text-[10px] font-bold uppercase tracking-[0.2em] text-gold 3xl:text-xs"
+                  className="group/link inline-flex w-fit items-center text-caption font-bold uppercase tracking-[0.2em] text-gold"
                 >
                   {t("readMoreText")}
                   <ArrowRight className="ml-2 h-3.5 w-3.5 transition-transform group-hover/link:translate-x-2 3xl:h-4 3xl:w-4" />
@@ -76,9 +76,9 @@ export function JournalPreview() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
-          className="mt-16 flex w-full items-center justify-center md:mt-24 3xl:mt-32"
+          className="mt-16 flex w-full items-center justify-center md:mt-20 3xl:mt-32"
         >
-          <Button variant="explore" href="/blog">
+          <Button variant="explore" className="[&_span]:text-caption!" href="/blog">
             {t("exploreMoreBtn")}
           </Button>
         </motion.div>

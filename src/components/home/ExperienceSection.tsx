@@ -61,10 +61,10 @@ export function ExperienceSection() {
                   <MapPinned className="h-4 w-4 text-gold sm:h-5 sm:w-5" />
                 </div>
                 <div>
-                  <p className="text-base font-bold leading-none text-foreground sm:text-lg">
+                  <p className="text-body-lead font-bold leading-none text-foreground ">
                     {experienceFloatingStatsData[0].value}
                   </p>
-                  <p className="mt-0.5 text-[7px] uppercase tracking-widest text-gold sm:text-[8px]">
+                  <p className="mt-0.5 text-caption uppercase tracking-widest text-gold sm:text-[8px]">
                     {t(`floatingStats.ToursMobile`)}
                   </p>
                 </div>
@@ -72,9 +72,9 @@ export function ExperienceSection() {
 
               <div className="h-8 w-px bg-gold/30 sm:h-10" />
 
-              <div className="flex items-center space-x-3">
-                <div className="text-2xl font-bold text-gold sm:text-3xl">{experienceFloatingStatsData[1].value}</div>
-                <p className="text-[7px] font-bold uppercase leading-tight tracking-[0.2em] text-foreground/80 sm:text-[8px]">
+              <div className="flex items-center space-x-2">
+                <div className="text-heading-sub font-bold text-gold ">{experienceFloatingStatsData[1].value}</div>
+                <p className="text-micro font-bold uppercase leading-tight tracking-[0.2em] text-foreground/80">
                   {t(`floatingStats.YearsOf`)}
                   <br />
                   {t(`floatingStats.LuxuryHosting`)}
@@ -95,10 +95,10 @@ export function ExperienceSection() {
                   <MapPinned className="h-4.5 w-4.5 text-gold 3xl:h-6 3xl:w-6" />
                 </div>
                 <div>
-                  <p className="text-lg font-bold leading-none text-foreground 3xl:text-2xl">
+                  <p className="text-heading-card font-bold leading-none text-foreground">
                     {experienceFloatingStatsData[0].value}
                   </p>
-                  <p className="mt-1 text-[8px] uppercase tracking-widest text-gold 3xl:mt-2 3xl:text-[10px]">
+                  <p className="mt-1 text-tiny uppercase tracking-widest text-gold 3xl:mt-2">
                     {t(`floatingStats.CompletedTours`)}
                   </p>
                 </div>
@@ -115,7 +115,7 @@ export function ExperienceSection() {
               <div className="flex items-center space-x-4 3xl:space-x-6">
                 <div className="text-4xl font-bold text-gold 3xl:text-5xl">{experienceFloatingStatsData[1].value}</div>
                 <div className="h-10 w-px bg-gold/30 3xl:h-14" />
-                <p className="text-[9px] font-bold uppercase leading-tight tracking-[0.2em] text-foreground/80 3xl:text-xs">
+                <p className="text-tiny font-bold uppercase leading-tight tracking-[0.2em] text-foreground/80 3xl:text-xs">
                   {t(`floatingStats.YearsOf`)}
                   <br />
                   {t(`floatingStats.LuxuryHosting`)}
@@ -133,14 +133,14 @@ export function ExperienceSection() {
             className="order-1 text-center xl:order-2 xl:text-left"
           >
             <SectionBadge badge={t("content.badge")} />
-            <h2 className="mb-6 font-serif text-3xl font-light leading-tight text-foreground sm:text-4xl md:text-5xl xl:text-5xl 2xl:text-6xl 3xl:mb-10 3xl:text-[5rem]">
+            <h2 className="mb-6 premium-serif  font-light leading-tight text-white text-heading-section">
               {t("content.titlePart1")}
               <br className="hidden xl:block" />
               <span className="mt-1 block pb-2 pr-2 gold-gradient-text font-normal italic md:mt-2 md:pb-4 3xl:pb-6">
                 {t("content.titleAccent")}
               </span>
             </h2>
-            <p className="mx-auto mb-10 max-w-2xl text-base font-light leading-relaxed text-foreground/80 md:text-lg xl:mx-0 3xl:mb-16 3xl:max-w-4xl 3xl:text-2xl">
+            <p className="mx-auto mb-10 max-w-2xl text-body font-light leading-relaxed text-foreground/80  xl:mx-0 3xl:mb-16 3xl:max-w-4xl">
               {t("content.description")}
             </p>
 
@@ -169,12 +169,12 @@ export function ExperienceSection() {
                           className={`text-gold ${pillar.id === "PrivateFleet" ? "h-3.5 w-3.5 3xl:h-5 3xl:w-5" : "h-4.5 w-4.5 3xl:h-6 3xl:w-6"}`}
                         />
                       </div>
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-foreground 3xl:text-base">
+                      <h4 className="text-body-sm font-bold uppercase tracking-wider text-foreground">
                         {t(`pillars.${pillar.id}.title`)}
                       </h4>
                     </div>
                     <p
-                      className={`${isHighlighted ? "text-foreground/90" : "text-foreground/60"} text-sm font-light leading-relaxed 3xl:text-xl`}
+                      className={`${isHighlighted ? "text-foreground/90" : "text-foreground/60"} text-body font-light leading-relaxed `}
                     >
                       {t(`pillars.${pillar.id}.description`)}
                     </p>
@@ -190,13 +190,13 @@ export function ExperienceSection() {
               transition={{ duration: 0.8, delay: 0.6, ease: [0.25, 1, 0.5, 1] }}
               className="mt-12 flex flex-col items-center justify-center gap-8 border-t border-foreground/5 pt-8 sm:flex-row xl:justify-start 3xl:mt-20 3xl:gap-12 3xl:pt-12"
             >
-              <Button variant="inquire" href="/contact">
+              <Button variant="inquire" className="[&_span]:text-caption!" href="/contact">
                 {t("content.inquireButtonText")}
                 <ArrowRight className="ml-3 inline h-3 w-3 transition-transform group-hover:translate-x-2 3xl:h-5 3xl:w-5" />
               </Button>
               <div className="text-center xl:text-left">
-                <p className="text-sm font-bold text-foreground 3xl:text-xl">{t("content.responseTitle")}</p>
-                <p className="text-[10px] uppercase tracking-widest text-gold/60 3xl:mt-2 3xl:text-sm">
+                <p className="text-body-sm font-bold text-foreground">{t("content.responseTitle")}</p>
+                <p className="text-tiny uppercase tracking-widest text-gold/60 3xl:mt-2 3xl:text-sm">
                   {t("content.responseSubtitle")}
                 </p>
               </div>

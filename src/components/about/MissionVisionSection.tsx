@@ -8,16 +8,16 @@ export default function MissionVisionSection() {
   return (
     <div className="grid gap-6 md:grid-cols-2">
       <div className="glass-card rounded-3xl p-8 md:p-10 group hover:border-gold/30 transition-colors duration-300">
-        <h3 className="premium-serif text-2xl text-white mb-4 group-hover:text-gold transition-colors">
+        <h3 className="premium-serif text-3xl text-white mb-4 group-hover:text-gold transition-colors">
           {t("missionTitle")}
         </h3>
-        <p className="text-slate-400 text-sm leading-relaxed">{t("missionDesc")}</p>
+        <p className="text-foreground/80 text-body leading-relaxed">{t("missionDesc")}</p>
       </div>
       <div className="glass-card rounded-3xl p-8 md:p-10 group hover:border-gold/30 transition-colors duration-300">
-        <h3 className="premium-serif text-2xl text-white mb-4 group-hover:text-gold transition-colors">
+        <h3 className="premium-serif text-3xl text-white mb-4 group-hover:text-gold transition-colors">
           {t("visionTitle")}
         </h3>
-        <p className="text-slate-400 text-sm leading-relaxed">{t("visionDesc")}</p>
+        <p className="text-foreground/80 text-body leading-relaxed">{t("visionDesc")}</p>
       </div>
     </div>
   );

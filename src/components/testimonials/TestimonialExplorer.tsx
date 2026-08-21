@@ -10,7 +10,7 @@ import { ArrowLeft } from "lucide-react";
 import { WriteReviewForm } from "@/components/ui/WriteReviewForm";
 import { motion, AnimatePresence } from "framer-motion";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { useRouter } from "@/i18nNavigation";
+import { useRouter } from "@/lib/i18nNavigation";
 import { Filter } from "lucide-react";
 import { useTranslations } from "next-intl";
 
@@ -81,7 +81,7 @@ export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) 
                   transition={{ duration: 0.5, ease: smoothEase }}
                   style={{ willChange: "transform, opacity" }}
                 >
-                  <Button variant="shine" onClick={() => setIsWritingReview(true)}>
+                  <Button variant="shine" className="[&_span]:text-tiny!" onClick={() => setIsWritingReview(true)}>
                     {t("leaveMark")}
                   </Button>
                 </motion.div>
@@ -91,10 +91,10 @@ export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.5, ease: smoothEase }} // 🔴 Buttery smooth transition
+                  transition={{ duration: 0.5, ease: smoothEase }}
                   style={{ willChange: "transform, opacity" }}
                 >
-                  <Button variant="reviewTag" onClick={() => setIsWritingReview(false)}>
+                  <Button variant="reviewTag" className="[&_span]:text-tiny!" onClick={() => setIsWritingReview(false)}>
                     <ArrowLeft className="h-4 w-4" strokeWidth={3} />
                     {t("backReviews")}
                   </Button>
@@ -107,7 +107,7 @@ export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) 
               <button
                 type="button"
                 onClick={() => setIsFilterOpen(true)}
-                className="group flex items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-8 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:w-auto"
+                className="group flex items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-8 py-3.5 text-caption! font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:w-auto"
               >
                 <Filter className="h-4 w-4 transition-all duration-300 group-hover:scale-110 group-hover:text-black" />
 
@@ -118,7 +118,7 @@ export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) 
                 </span>
 
                 {language !== "all" && (
-                  <span className="ml-2 flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-[9px] font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a] group-hover:text-gold">
+                  <span className="ml-2 flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-micro font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a] group-hover:text-gold">
                     1
                   </span>
                 )}
@@ -172,15 +172,16 @@ export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) 
                 {hasMore && (
                   <Button
                     type="button"
+                    className="[&_span]:text-caption!"
                     variant="explore"
                     onClick={() => setVisibleCount((count) => count + INITIAL_COUNT)}
                   >
                     {t("loadMore")}
                   </Button>
                 )}
-                <div className="mt-4 flex items-center gap-3">
+                <div className="mt-8 flex items-center gap-3">
                   <div className="h-px w-8 bg-gold/20" />
-                  <p className="whitespace-nowrap text-[10px] font-medium uppercase tracking-[0.2em] text-slate-500">
+                  <p className="whitespace-nowrap text-tiny font-medium uppercase tracking-[0.2em] text-slate-500">
                     {t("showing")} <span className="text-gold">{visibleTestimonials.length}</span> {t("of")}
                     <span className="text-white"> {filteredTestimonials.length}</span> {t("journals")}
                   </p>

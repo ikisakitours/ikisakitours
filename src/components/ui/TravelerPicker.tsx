@@ -50,9 +50,12 @@ export function TravelerPicker({ options, counts, onChange }: TravelerPickerProp
           isOpen ? "border-gold/60! bg-white/[0.07]!" : ""
         }`}
       >
-        <Users className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
-        <span className="text-white font-medium truncate pr-4">{triggerLabel}</span>
-        <ChevronDown className={`h-4 w-4 text-slate-500 transition-transform shrink-0 ${isOpen ? "rotate-180" : ""}`} />
+        <Users className="absolute left-4 top-1/2 -translate-y-1/2 h-4.5 w-4.5 md:h-5 md:w-5 text-slate-500" />
+        <span className="text-white text-body-sm font-medium truncate pr-4">{triggerLabel}</span>
+        <ChevronDown
+          strokeWidth={3}
+          className={`w-4 h-4 text-slate-500 transition-transform shrink-0 ${isOpen ? "rotate-180" : ""}`}
+        />
       </div>
 
       {/* Overlay */}
@@ -70,8 +73,8 @@ export function TravelerPicker({ options, counts, onChange }: TravelerPickerProp
                 }`}
               >
                 <div>
-                  <div className="text-[15px] font-bold text-white">{option.label}</div>
-                  <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-0.5">{option.ageRange}</div>
+                  <div className="text-body-sm font-bold text-white">{option.label}</div>
+                  <div className="text-caption text-slate-500 uppercase tracking-widest mt-0.5">{option.ageRange}</div>
                 </div>
 
                 <div className="flex items-center gap-4">
@@ -81,17 +84,17 @@ export function TravelerPicker({ options, counts, onChange }: TravelerPickerProp
                     disabled={(counts[option.type] || 0) === 0}
                     className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-white transition-all hover:bg-gold hover:text-black hover:border-gold disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-white disabled:hover:border-white/20 disabled:cursor-not-allowed"
                   >
-                    <Minus className="h-4 w-4" />
+                    <Minus strokeWidth={3} className="h-4 w-4" />
                   </button>
 
-                  <span className="text-sm font-bold w-4 text-center text-white">{counts[option.type] || 0}</span>
+                  <span className="text-body-sm font-bold w-4 text-center text-white">{counts[option.type] || 0}</span>
 
                   <button
                     type="button"
                     onClick={() => onChange(option.type, 1)}
                     className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-white transition-all hover:bg-gold hover:text-black hover:border-gold"
                   >
-                    <Plus className="h-4 w-4" />
+                    <Plus strokeWidth={2} className="h-4 w-4" />
                   </button>
                 </div>
               </div>

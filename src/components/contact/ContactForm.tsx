@@ -139,7 +139,7 @@ export default function ContactForm() {
                 className={`${inputClass} focus-within:border-gold/60 focus-within:bg-white/[0.07] pt-5 flex items-center [&_.PhoneInputCountry]:bg-transparent! [&_.PhoneInputCountry]:hover:bg-transparent!`}
                 numberInputProps={{
                   className:
-                    "w-full bg-transparent border-none outline-none text-white focus:ring-0 placeholder:text-slate-400 p-0 text-sm ml-2",
+                    "w-full bg-transparent border-none outline-none text-white focus:ring-0 placeholder:text-slate-400 p-0 text-body-sm! ml-2",
                   placeholder: tForm("Placeholders.phone"),
                 }}
               />
@@ -151,7 +151,6 @@ export default function ContactForm() {
                 userInteracted={userInteracted}
                 detectedCode={detectedCode}
                 selectedCode={selectedCountry}
-                textClassName="text-[10px]"
                 messages={{
                   detecting: tErr("PhoneDetection.detecting"),
                   autoDetected: tErr("PhoneDetection.autoDetected"),
@@ -237,7 +236,7 @@ export default function ContactForm() {
                 className={`${inputClass} auto-resize-textarea min-h-30 w-full resize-none pt-5 transition-all duration-300 focus:border-gold/60 focus:bg-white/[0.07] focus:outline-none`}
                 placeholder={tForm("Placeholders.message")}
               />
-              <span className="mt-1 block text-[11px] font-medium text-slate-500 md:text-[12px] lg:text-[13px] 3xl:text-[14px] leading-relaxed">
+              <span className="mt-1 block text-caption font-medium text-slate-500 leading-relaxed">
                 {tForm("Messages.autoExpand")}
               </span>
             </label>
@@ -247,8 +246,8 @@ export default function ContactForm() {
           </div>
 
           {/* Submit Button */}
-          <div className="md:col-span-2 pt-4">
-            <Button type="submit" variant="inquire" className="w-full justify-center">
+          <div className="md:col-span-2 pt-4 flex justify-end">
+            <Button type="submit" variant="inquire" className="text-caption! w-full md:justify-center!">
               {tForm("Buttons.sendMessage")}
             </Button>
           </div>

@@ -138,7 +138,7 @@ export function FilterSidebar({
 
             {/* Sidebar Header */}
             <div className="relative z-10 flex items-center justify-between border-b border-white/10 px-8 py-6">
-              <span className="text-sm font-bold uppercase tracking-[0.2em] text-gold">{title}</span>
+              <span className="text-body font-bold uppercase tracking-[0.2em] text-gold">{title}</span>
               <button
                 type="button"
                 onClick={onClose}
@@ -160,7 +160,7 @@ export function FilterSidebar({
                       onClose();
                     }}
                     disabled={selectedCategory === "all"}
-                    className={`flex w-full items-center justify-center gap-2 rounded-xl border py-3.5 text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 ${
+                    className={`flex w-full items-center justify-center gap-2 rounded-xl border py-3.5 text-caption font-bold uppercase tracking-[0.2em] transition-all duration-300 ${
                       selectedCategory !== "all"
                         ? "border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white"
                         : "cursor-not-allowed border-white/5 bg-white/5 text-white/20"
@@ -199,7 +199,7 @@ export function FilterSidebar({
                     >
                       <div className="flex items-center gap-3">
                         <span
-                          className={`text-[11px] font-bold uppercase tracking-[0.2em] sm:text-xs ${
+                          className={`text-caption  font-bold uppercase tracking-[0.2em] ${
                             isActive ? "text-black" : "text-white transition-colors group-hover:text-gold"
                           }`}
                         >
@@ -207,7 +207,7 @@ export function FilterSidebar({
                         </span>
                         {showCounts && (
                           <span
-                            className={`text-[10px] font-bold ${
+                            className={`text-caption font-bold ${
                               isActive ? "text-black/60" : "text-white/30 group-hover:text-gold/50"
                             }`}
                           >

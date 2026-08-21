@@ -1,4 +1,4 @@
-import { Link } from "@/i18nNavigation";
+import { Link } from "@/lib/i18nNavigation";
 import React from "react";
 
 type ButtonVariant =
@@ -28,17 +28,17 @@ export function Button({ variant = "primary", href, children, className = "", ..
       "rounded-lg bg-gold px-4 py-2.5 text-[0.625rem] font-bold uppercase tracking-widest text-lanka-black hover:bg-foreground md:rounded-xl md:px-8 md:py-4 md:text-xs",
     tag: "border-b border-transparent pb-0.5 text-xs font-medium text-foreground/70 hover:border-gold/50 hover:text-gold md:text-[0.8125rem]",
     service:
-      "group relative flex cursor-pointer items-center gap-3 rounded-full border border-gold/40 bg-lanka-black/60 px-4 py-2 backdrop-blur-md hover:scale-105 hover:border-gold hover:bg-gold/20 md:px-6 md:py-3 shadow-[0_0_15px_rgba(197,160,89,0.15)] hover:shadow-[0_0_25px_rgba(197,160,89,0.3)]",
+      "group relative inline-flex shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full p-[1.5px] transition-all duration-500 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-4px_rgba(197,160,89,0.3)]",
     inquire:
       "group flex w-full sm:w-auto items-center justify-center rounded-full bg-gold px-12 py-5 text-center text-xs font-bold uppercase tracking-[0.2em] text-lanka-black shadow-xl shadow-gold/10 hover:scale-105 3xl:px-16 3xl:py-6 3xl:text-sm 4xl:px-20 4xl:py-8 4xl:text-base",
     explore: "group inline-flex items-center",
-    auth: "!tracking-[0.2em] flex w-full items-center justify-center rounded-2xl bg-gradient-to-br from-gold to-gold-dark py-5 px-8 text-[13px] font-extrabold uppercase tracking-[0.6em] text-black transition-transform duration-300 hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0",
+    auth: "w-full md:w-auto md:min-w-[280px] md:mx-auto block rounded-xl border border-gold/20 bg-gradient-to-b from-white/5 to-transparent py-4 px-8 text-center text-xs font-bold uppercase tracking-[0.3em]! text-white transition-all duration-500 hover:border-gold hover:text-gold hover:bg-gold/5 active:scale-[0.99] shadow-[0_0_15px_rgba(197,160,89,0.15),inset_0_1px_1px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(197,160,89,0.3),inset_0_1px_1px_rgba(255,255,255,0.1)]",
     details:
-      "group relative flex shrink-0 items-center justify-center overflow-hidden rounded border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-500 hover:bg-gold hover:border-gold min-h-[44px] px-5 py-3 sm:min-h-0 sm:px-5 sm:py-2.5 lg:px-6",
+      "group relative flex shrink-0 items-center justify-center overflow-hidden rounded border border-white/10 bg-white/5 transition-all duration-500 hover:bg-gold hover:border-gold min-h-[44px] px-5 py-3 sm:min-h-0 sm:px-5 sm:py-2.5 lg:px-6",
     shine:
       "group relative flex items-center justify-center overflow-hidden rounded border-2 border-gold/30 bg-white/5 backdrop-blur-sm transition-all duration-500 hover:bg-gold hover:border-gold animate-pulse shadow-[0_0_15px_rgba(197,160,89,0.3)] px-6 py-3 md:px-8 md:py-4 3xl:px-10 3xl:py-5",
     reviewTag:
-      "flex w-full sm:w-fit items-center justify-center rounded border-2 border-gold/30 bg-white/5 backdrop-blur-sm transition-all duration-500 hover:bg-gold hover:border-gold px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-white/70 hover:text-black md:px-8 md:py-4 md:text-xs",
+      "tracking-[0.2em]! flex w-full sm:w-fit items-center justify-center rounded border-2 border-gold/30 bg-white/5 transition-all duration-500 hover:bg-gold hover:border-gold font-bold uppercase tracking-widest text-white/70 hover:text-black px-6 py-3 text-[10px] md:px-8 md:py-4 md:text-xs",
     outline:
       "group relative flex w-full sm:w-auto items-center justify-center overflow-hidden rounded-full border border-gold/50 bg-transparent px-6 py-3 transition-all duration-500 hover:border-gold hover:shadow-[0_0_20px_rgba(197,160,89,0.25)] md:px-8 md:py-3.5",
   };

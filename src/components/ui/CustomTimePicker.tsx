@@ -61,14 +61,14 @@ export default function CustomTimePicker({ value, onChange }: CustomTimePickerPr
       <div
         tabIndex={0}
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full rounded-xl border border-white/10 bg-white/3 px-4 py-3 text-sm text-white outline-none transition-all placeholder:text-slate-500 hover:border-white/20 focus:border-gold/60 focus:bg-white/[0.07] cursor-pointer flex justify-between items-center ${
+        className={`w-full rounded-xl border border-white/10 bg-white/3 px-4 py-3 text-body-sm text-white outline-none transition-all placeholder:text-slate-500 hover:border-white/20 focus:border-gold/60 focus:bg-white/[0.07] cursor-pointer flex justify-between items-center ${
           isOpen ? "border-gold/60! bg-white/[0.07]!" : ""
         }`}
       >
         <span className={value ? "text-white" : "text-slate-500"}>
           {value ? value : t("selectTime")}
         </span>
-        <FiClock className="w-4 h-4 text-slate-500" />
+        <FiClock className="h-4.5 w-4.5 md:h-5 md:w-5 text-slate-500" />
       </div>
 
       {/* Overlay to close dropdown when clicking outside */}
@@ -80,14 +80,14 @@ export default function CustomTimePicker({ value, onChange }: CustomTimePickerPr
           
           {/* Header */}
           <div className="flex justify-between items-center mb-3 px-2">
-            <span className={`text-[10px] text-center font-bold text-slate-500 uppercase tracking-widest ${is12HourFormat ? 'w-1/3' : 'w-1/2'}`}>
+            <span className={`text-caption text-center font-bold text-slate-500 uppercase tracking-widest ${is12HourFormat ? 'w-1/3' : 'w-1/2'}`}>
               {t("hours")}
             </span>
-            <span className={`text-[10px] text-center font-bold text-slate-500 uppercase tracking-widest ${is12HourFormat ? 'w-1/3' : 'w-1/2'}`}>
+            <span className={`text-caption text-center font-bold text-slate-500 uppercase tracking-widest ${is12HourFormat ? 'w-1/3' : 'w-1/2'}`}>
               {t("minutes")}
             </span>
             {is12HourFormat && (
-              <span className="text-[10px] w-1/3 text-center font-bold text-slate-500 uppercase tracking-widest">
+              <span className="text-caption w-1/3 text-center font-bold text-slate-500 uppercase tracking-widest">
                 {t("ampm")}
               </span>
             )}
@@ -100,7 +100,7 @@ export default function CustomTimePicker({ value, onChange }: CustomTimePickerPr
                 <div
                   key={`h-${h}`}
                   onClick={() => handleTimeChange(h, selectedMinute, selectedPeriod)}
-                  className={`py-2 text-center rounded-xl text-sm font-bold cursor-pointer transition-all ${
+                  className={`py-2 text-center rounded-xl text-body-sm font-bold cursor-pointer transition-all ${
                     selectedHour === h ? "bg-gold text-black" : "text-slate-300 hover:bg-white/[0.07] hover:text-white"
                   }`}
                 >
@@ -118,7 +118,7 @@ export default function CustomTimePicker({ value, onChange }: CustomTimePickerPr
                 <div
                   key={`m-${m}`}
                   onClick={() => handleTimeChange(selectedHour, m, selectedPeriod)}
-                  className={`py-2 text-center rounded-xl text-sm font-bold cursor-pointer transition-all ${
+                  className={`py-2 text-center rounded-xl text-body-sm font-bold cursor-pointer transition-all ${
                     selectedMinute === m
                       ? "bg-gold text-black"
                       : "text-slate-300 hover:bg-white/[0.07] hover:text-white"
@@ -140,7 +140,7 @@ export default function CustomTimePicker({ value, onChange }: CustomTimePickerPr
                     <div
                       key={`p-${p}`}
                       onClick={() => handleTimeChange(selectedHour, selectedMinute, p)}
-                      className={`py-2 text-center rounded-xl text-sm font-bold cursor-pointer transition-all ${
+                      className={`py-2 text-center rounded-xl text-body-sm font-bold cursor-pointer transition-all ${
                         selectedPeriod === p
                           ? "bg-gold text-black"
                           : "text-slate-300 hover:bg-white/[0.07] hover:text-white"

@@ -1,7 +1,6 @@
 import React from "react";
 import { useTranslations } from "next-intl";
-//Icons
-import { WandSparkles } from "lucide-react";
+
 type StoryBannerProps = {
   tour: {
     lead: string;
@@ -10,14 +9,24 @@ type StoryBannerProps = {
 export default function StoryBanner({ tour }: StoryBannerProps) {
   const t = useTranslations("Booking.StoryBanner");
   return (
-    <section className="mb-8 rounded-r-xl border-l-[3px] border-gold bg-gold/5 p-4 sm:p-6 md:mb-14 md:rounded-r-3xl md:border-l-4 md:p-8">
-      <h2 className="premium-serif mb-3 flex items-center gap-3 text-lg text-white sm:text-xl md:text-2xl">
-        <WandSparkles className="h-5 w-5 shrink-0 text-gold" />
-        <span>{t("title")}</span>
-      </h2>
-      <p className="text-[12px] font-light italic leading-relaxed tracking-wide text-slate-400 md:text-sm">
-        {tour.lead}
-      </p>
+    <section className="relative my-10 flex flex-col items-center gap-6 text-center md:my-16 md:flex-row md:items-start md:gap-10 md:text-left">
+      <div className="relative max-w-3xl pt-2">
+        <span className="premium-serif absolute -top-1 left-1/2 z-0 -translate-x-1/2 select-none text-[140px] leading-none text-white/3 md:-left-8 md:translate-x-0 md:-top-2 md:text-[170px]">
+          ✧
+        </span>
+
+        <div className="relative z-10">
+          <h2 className="premium-serif mb-4 text-2xl tracking-wide text-white md:text-4xl leading-tight">
+            <span className="bg-linear-to-r from-gold-light via-gold to-gold-dark bg-clip-text text-transparent drop-shadow-sm">
+              {t("title")}
+            </span>
+          </h2>
+
+          <p className="text-body-sm font-light leading-[1.8] tracking-widest text-slate-300/90 md:text-[15px]">
+            {tour.lead}
+          </p>
+        </div>
+      </div>
     </section>
   );
 }

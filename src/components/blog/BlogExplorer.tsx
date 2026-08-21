@@ -79,8 +79,8 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
   }
 
   return (
-    <section id="blog" className="pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
-      <ContainerLayout>
+    <section id="blog" className="bg-lanka-dark">
+      <ContainerLayout className="pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
         {/* Search Bar & Categories Trigger Button Section */}
         <div className="mb-12 md:mb-16 xl:mb-16 2xl:mb-20 3xl:mb-24 space-y-8">
           <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
@@ -88,7 +88,7 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
               <button
                 type="button"
                 onClick={() => setIsFilterOpen(true)}
-                className="group flex w-full items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-8 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:w-auto"
+                className="group flex w-full items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-8 py-3.5 text-caption font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:w-auto"
               >
                 <Filter className="h-4 w-4 transition-all duration-300 group-hover:scale-110 group-hover:text-black" />
                 <span className="transition-colors duration-300 group-hover:text-black sm:hidden">{t("filter")}</span>
@@ -97,7 +97,7 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
                 </span>
 
                 {category !== "all" && (
-                  <span className="ml-2 flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-[9px] font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a] group-hover:text-gold">
+                  <span className="ml-2 flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-micro font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a] group-hover:text-gold">
                     1
                   </span>
                 )}
@@ -167,15 +167,15 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
               type="button"
               variant="explore"
               onClick={() => setVisibleCount((count) => count + INITIAL_COUNT)}
-              className="w-full max-w-75 justify-center sm:w-auto"
+              className="w-full max-w-75 justify-center sm:w-auto [&_span]:text-caption!"
             >
               {t("loadMore")}
             </Button>
           ) : null}
 
-          <div className="mt-4 flex items-center gap-3">
+          <div className="mt-8 flex items-center gap-3">
             <div className="h-px w-8 bg-gold/20" />
-            <p className="whitespace-nowrap text-[10px] font-medium uppercase tracking-[0.2em] text-slate-500">
+            <p className="whitespace-nowrap text-tiny font-medium uppercase tracking-[0.2em] text-slate-500">
               {t("showing")} <span className="text-gold">{visiblePosts.length}</span> {t("of")}{" "}
               <span className="text-white">{filteredPosts.length}</span> {t("stories")}
             </p>
@@ -183,7 +183,7 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
           </div>
         </div>
 
-        <PromoModal/>
+        <PromoModal />
       </ContainerLayout>
     </section>
   );

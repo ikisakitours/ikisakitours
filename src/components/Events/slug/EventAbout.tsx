@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "@/i18nNavigation";
+import { Link } from "@/lib/i18nNavigation";
 import { LoadingImage } from "@/components/ui/LoadingImage";
 import { useTranslations } from "next-intl";
 //Icons
@@ -19,7 +19,7 @@ export function EventAbout({ slug, aboutTitle, aboutText1, aboutText2, perks, im
   return (
     <div className="mt-12 space-y-8 text-slate-300 font-light leading-relaxed">
       <div className="space-y-6">
-        <h3 className="premium-serif text-2xl text-white font-normal">{aboutTitle}</h3>
+        <h3 className="premium-serif text-heading-sub text-white font-normal">{aboutTitle}</h3>
         <p>{aboutText1}</p>
         <p>{aboutText2}</p>
       </div>
@@ -32,7 +32,7 @@ export function EventAbout({ slug, aboutTitle, aboutText1, aboutText2, perks, im
             className="flex items-center gap-3 bg-surface/50 border border-white/5 p-4 rounded-2xl transition-colors hover:border-gold/30 hover:bg-surface/80"
           >
             <CheckCircle2 className="h-5 w-5 text-gold shrink-0" />
-            <span className="text-sm text-slate-200">{item}</span>
+            <span className="text-[15px] text-slate-200">{item}</span>
           </div>
         ))}
       </div>
@@ -41,7 +41,7 @@ export function EventAbout({ slug, aboutTitle, aboutText1, aboutText2, perks, im
         <div className="pt-8">
           <div className="mb-6 flex items-center gap-4">
             <div className="h-px flex-1 bg-linear-to-r from-transparent via-gold/30 to-transparent"></div>
-            <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-gold/80">{t("highlights")}</span>
+            <span className="text-tiny font-bold uppercase tracking-widest  text-gold/80">{t("highlights")}</span>
             <div className="h-px flex-1 bg-linear-to-r from-transparent via-gold/30 to-transparent"></div>
           </div>
 
@@ -70,8 +70,8 @@ export function EventAbout({ slug, aboutTitle, aboutText1, aboutText2, perks, im
                   {isGalleryLink ? (
                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/45 transition-colors duration-300 group-hover:bg-black/70">
                       <Images className="mb-2 text-white" size={24} />
-                      <span className="px-2 text-center text-[9px] font-bold uppercase tracking-[0.2em] text-white">
-                       {t("viewGallery")}
+                      <span className="px-2 text-center text-tiny font-bold uppercase tracking-[0.2em] text-white">
+                        {t("viewGallery")}
                       </span>
                     </div>
                   ) : null}

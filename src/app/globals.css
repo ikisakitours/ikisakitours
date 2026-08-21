@@ -10,6 +10,122 @@
   --surface: #101010;
   --background: var(--lanka-dark);
   --foreground: #e2e8f0;
+
+  /* ==========================================================
+     * ULTRA-PREMIUM RESPONSIVE TYPOGRAPHY
+     * Mobile/Tablet: Untouched.
+     * Desktop (lg to 3xl): Drastically reduced for an elegant, luxury UI.
+     * ========================================================== */
+
+  /* [ LEVEL 1 ] - Main Hero Title */
+  --text-heading-hero: 2.25rem; /* Mobile */
+  --text-heading-hero-sm: 2.75rem;
+  --text-heading-hero-md: 3.25rem;
+  --text-heading-hero-lg: 3.75rem;
+  --text-heading-hero-xl: 4.25rem;
+  --text-heading-hero-2xl: 4.75rem;
+  --text-heading-hero-3xl: 5.5rem; /* 4K */
+  --text-heading-hero--line-height: 1.1;
+
+  /* [ LEVEL 2 ] - Section Titles */
+  --text-heading-section: 1.75rem; /* Mobile */
+  --text-heading-section-sm: 2rem;
+  --text-heading-section-md: 2.25rem;
+  /* --- Desktop --- */
+  --text-heading-section-lg: 2.5rem;
+  --text-heading-section-xl: 2.75rem;
+  --text-heading-section-2xl: 3rem;
+  --text-heading-section-3xl: 3.5rem; /* 4K */
+  --text-heading-section--line-height: 1.15;
+
+  /* [ LEVEL 3 ] - Subheadings & Large Numbers (e.g. $299) */
+  --text-heading-sub: 1.35rem; /* Mobile */
+  --text-heading-sub-sm: 1.5rem;
+  --text-heading-sub-md: 1.65rem;
+  /* --- Desktop --- */
+  --text-heading-sub-lg: 1.35rem;
+  --text-heading-sub-xl: 1.4rem;
+  --text-heading-sub-2xl: 1.5rem;
+  --text-heading-sub-3xl: 1.6rem;
+  --text-heading-sub--line-height: 1.25;
+
+  /* [ LEVEL 4 ] - Card Titles (e.g. Ancient Kingdom Sigiriya) */
+  --text-heading-card: 1.125rem; /* Mobile */
+  --text-heading-card-sm: 1.2rem;
+  --text-heading-card-md: 1.3rem;
+  /* --- Desktop --- */
+  --text-heading-card-lg: 1.1rem;
+  --text-heading-card-xl: 1.15rem;
+  --text-heading-card-2xl: 1.2rem;
+  --text-heading-card-3xl: 1.25rem;
+  --text-heading-card--line-height: 1.35;
+
+  /* [ LEVEL 5 ] - Lead Paragraphs */
+  --text-body-lead: 1.05rem; /* Mobile */
+  --text-body-lead-sm: 1.1rem;
+  --text-body-lead-md: 1.15rem;
+  /* --- Desktop --- */
+  --text-body-lead-lg: 1rem;
+  --text-body-lead-xl: 1.05rem;
+  --text-body-lead-2xl: 1.1rem;
+  --text-body-lead-3xl: 1.15rem;
+  --text-body-lead--line-height: 1.65;
+
+  /* [ LEVEL 6 ] - Standard Body Text */
+  --text-body: 0.95rem; /* Mobile */
+  --text-body-sm-screen: 1rem;
+  --text-body-md: 1rem;
+  /* --- Desktop --- */
+  --text-body-lg: 0.9rem;
+  --text-body-xl: 0.95rem;
+  --text-body-2xl: 0.95rem;
+  --text-body-3xl: 1rem;
+  --text-body--line-height: 1.6;
+
+  /* [ LEVEL 6.5 ] - Body Small (Card Descriptions) */
+  --text-body-sm: 0.85rem; /* Mobile */
+  --text-body-sm-base: 0.875rem;
+  --text-body-sm-md: 0.9rem;
+  /* --- Desktop --- */
+  --text-body-sm-lg: 0.8rem;
+  --text-body-sm-xl: 0.85rem;
+  --text-body-sm-2xl: 0.85rem;
+  --text-body-sm-3xl: 0.9rem;
+  --text-body-sm--line-height: 1.5;
+
+  /* [ LEVEL 7 ] - Captions & Badges (Uppercase) */
+  --text-caption: 0.7rem; /* Mobile */
+  --text-caption-sm: 0.75rem;
+  --text-caption-md: 0.75rem;
+  /* --- Desktop --- */
+  --text-caption-lg: 0.65rem;
+  --text-caption-xl: 0.7rem;
+  --text-caption-2xl: 0.7rem;
+  --text-caption-3xl: 0.75rem;
+  --text-caption--line-height: 1.4;
+
+  /* [ LEVEL 8 ] - Tiny Notes */
+  --text-tiny: 0.65rem; /* Mobile */
+  --text-tiny-sm: 0.7rem;
+  --text-tiny-md: 0.7rem;
+  /* --- Desktop --- */
+  --text-tiny-lg: 0.6rem;
+  --text-tiny-xl: 0.65rem;
+  --text-tiny-2xl: 0.65rem;
+  --text-tiny-3xl: 0.7rem;
+  --text-tiny--line-height: 1.2;
+
+  /* [ LEVEL 9 ] - Micro Text */
+  --text-micro: 0.55rem; /* Mobile */
+  --text-micro-sm: 0.6rem;
+  --text-micro-md: 0.6rem;
+  /* --- Desktop --- */
+  --text-micro-lg: 0.55rem;
+  --text-micro-xl: 0.55rem;
+  --text-micro-2xl: 0.6rem;
+  --text-micro-3xl: 0.6rem;
+  --text-micro--line-height: 1.1;
+  
 }
 
 @theme inline {
@@ -24,6 +140,240 @@
   --font-sans: var(--font-plus-jakarta);
   --font-serif: var(--font-playfair);
   --breakpoint-3xl: 120rem;
+}
+
+/* ==========================================================
+ * AUTOMATIC BREAKPOINT UTILITIES (Tailwind Integration)
+ * ========================================================== */
+
+@utility text-heading-hero {
+  font-size: var(--text-heading-hero);
+  line-height: var(--text-heading-hero--line-height);
+  @media (min-width: 380px) {
+    font-size: var(--text-heading-hero-sm);
+  }
+  @media (min-width: 640px) {
+    font-size: var(--text-heading-hero-md);
+  }
+  @media (min-width: 1024px) {
+    font-size: var(--text-heading-hero-lg);
+  }
+  @media (min-width: 1280px) {
+    font-size: var(--text-heading-hero-xl);
+  }
+  @media (min-width: 1536px) {
+    font-size: var(--text-heading-hero-2xl);
+  }
+  @media (min-width: 1920px) {
+    font-size: var(--text-heading-hero-3xl);
+  }
+}
+
+@utility text-heading-section {
+  font-size: var(--text-heading-section);
+  line-height: var(--text-heading-section--line-height);
+  @media (min-width: 380px) {
+    font-size: var(--text-heading-section-sm);
+  }
+  @media (min-width: 640px) {
+    font-size: var(--text-heading-section-md);
+  }
+  @media (min-width: 1024px) {
+    font-size: var(--text-heading-section-lg);
+  }
+  @media (min-width: 1280px) {
+    font-size: var(--text-heading-section-xl);
+  }
+  @media (min-width: 1536px) {
+    font-size: var(--text-heading-section-2xl);
+  }
+  @media (min-width: 1920px) {
+    font-size: var(--text-heading-section-3xl);
+  }
+}
+
+@utility text-heading-sub {
+  font-size: var(--text-heading-sub);
+  line-height: var(--text-heading-sub--line-height);
+  @media (min-width: 380px) {
+    font-size: var(--text-heading-sub-sm);
+  }
+  @media (min-width: 640px) {
+    font-size: var(--text-heading-sub-md);
+  }
+  @media (min-width: 1024px) {
+    font-size: var(--text-heading-sub-lg);
+  }
+  @media (min-width: 1280px) {
+    font-size: var(--text-heading-sub-xl);
+  }
+  @media (min-width: 1536px) {
+    font-size: var(--text-heading-sub-2xl);
+  }
+  @media (min-width: 1920px) {
+    font-size: var(--text-heading-sub-3xl);
+  }
+}
+
+@utility text-heading-card {
+  font-size: var(--text-heading-card);
+  line-height: var(--text-heading-card--line-height);
+  @media (min-width: 380px) {
+    font-size: var(--text-heading-card-sm);
+  }
+  @media (min-width: 640px) {
+    font-size: var(--text-heading-card-md);
+  }
+  @media (min-width: 1024px) {
+    font-size: var(--text-heading-card-lg);
+  }
+  @media (min-width: 1280px) {
+    font-size: var(--text-heading-card-xl);
+  }
+  @media (min-width: 1536px) {
+    font-size: var(--text-heading-card-2xl);
+  }
+  @media (min-width: 1920px) {
+    font-size: var(--text-heading-card-3xl);
+  }
+}
+
+@utility text-body-lead {
+  font-size: var(--text-body-lead);
+  line-height: var(--text-body-lead--line-height);
+  @media (min-width: 380px) {
+    font-size: var(--text-body-lead-sm);
+  }
+  @media (min-width: 640px) {
+    font-size: var(--text-body-lead-md);
+  }
+  @media (min-width: 1024px) {
+    font-size: var(--text-body-lead-lg);
+  }
+  @media (min-width: 1280px) {
+    font-size: var(--text-body-lead-xl);
+  }
+  @media (min-width: 1536px) {
+    font-size: var(--text-body-lead-2xl);
+  }
+  @media (min-width: 1920px) {
+    font-size: var(--text-body-lead-3xl);
+  }
+}
+
+@utility text-body {
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
+  @media (min-width: 380px) {
+    font-size: var(--text-body-sm-screen);
+  }
+  @media (min-width: 640px) {
+    font-size: var(--text-body-md);
+  }
+  @media (min-width: 1024px) {
+    font-size: var(--text-body-lg);
+  }
+  @media (min-width: 1280px) {
+    font-size: var(--text-body-xl);
+  }
+  @media (min-width: 1536px) {
+    font-size: var(--text-body-2xl);
+  }
+  @media (min-width: 1920px) {
+    font-size: var(--text-body-3xl);
+  }
+}
+
+@utility text-body-sm {
+  font-size: var(--text-body-sm);
+  line-height: var(--text-body-sm--line-height);
+  @media (min-width: 380px) {
+    font-size: var(--text-body-sm-base);
+  }
+  @media (min-width: 640px) {
+    font-size: var(--text-body-sm-md);
+  }
+  @media (min-width: 1024px) {
+    font-size: var(--text-body-sm-lg);
+  }
+  @media (min-width: 1280px) {
+    font-size: var(--text-body-sm-xl);
+  }
+  @media (min-width: 1536px) {
+    font-size: var(--text-body-sm-2xl);
+  }
+  @media (min-width: 1920px) {
+    font-size: var(--text-body-sm-3xl);
+  }
+}
+
+@utility text-caption {
+  font-size: var(--text-caption);
+  line-height: var(--text-caption--line-height);
+  @media (min-width: 380px) {
+    font-size: var(--text-caption-sm);
+  }
+  @media (min-width: 640px) {
+    font-size: var(--text-caption-md);
+  }
+  @media (min-width: 1024px) {
+    font-size: var(--text-caption-lg);
+  }
+  @media (min-width: 1280px) {
+    font-size: var(--text-caption-xl);
+  }
+  @media (min-width: 1536px) {
+    font-size: var(--text-caption-2xl);
+  }
+  @media (min-width: 1920px) {
+    font-size: var(--text-caption-3xl);
+  }
+}
+
+@utility text-tiny {
+  font-size: var(--text-tiny);
+  line-height: var(--text-tiny--line-height);
+  @media (min-width: 380px) {
+    font-size: var(--text-tiny-sm);
+  }
+  @media (min-width: 640px) {
+    font-size: var(--text-tiny-md);
+  }
+  @media (min-width: 1024px) {
+    font-size: var(--text-tiny-lg);
+  }
+  @media (min-width: 1280px) {
+    font-size: var(--text-tiny-xl);
+  }
+  @media (min-width: 1536px) {
+    font-size: var(--text-tiny-2xl);
+  }
+  @media (min-width: 1920px) {
+    font-size: var(--text-tiny-3xl);
+  }
+}
+
+@utility text-micro {
+  font-size: var(--text-micro);
+  line-height: var(--text-micro--line-height);
+  @media (min-width: 380px) {
+    font-size: var(--text-micro-sm);
+  }
+  @media (min-width: 640px) {
+    font-size: var(--text-micro-md);
+  }
+  @media (min-width: 1024px) {
+    font-size: var(--text-micro-lg);
+  }
+  @media (min-width: 1280px) {
+    font-size: var(--text-micro-xl);
+  }
+  @media (min-width: 1536px) {
+    font-size: var(--text-micro-2xl);
+  }
+  @media (min-width: 1920px) {
+    font-size: var(--text-micro-3xl);
+  }
 }
 
 html {

@@ -1,60 +1,61 @@
 export default {
-  "Header": {
-    "titleDefault": "MapMate スリランカ",
-    "titleEmail": "メールを送信",
-    "onlineStatus": "オンライン",
-    "logoAlt": "MapMate ロゴ"
+  Header: {
+    titleDefault: "MapMate スリランカ",
+    titleEmail: "メールを送信",
+    onlineStatus: "オンライン",
+    logoAlt: "MapMate ロゴ",
   },
-  "Home": {
-    "greeting": "こんにちは！ 👋",
-    "description": "サポートが必要ですか？新しい会話を始めていただければ、旅行アシスタントがご案内します。",
-    "badges": {
-      "quickReplies": "迅速な返信",
-      "safeSecure": "安心・安全",
-      "service": "24時間対応",
-      "tailoredTours": "オーダーメイドツアー"
+  Home: {
+    greeting: "こんにちは！ 👋",
+    description: "サポートが必要ですか？新しい会話を始めていただければ、旅行アシスタントがご案内します。",
+    badges: {
+      quickReplies: "迅速な返信",
+      safeSecure: "安心・安全",
+      service: "24時間対応",
+      tailoredTours: "オーダーメイドツアー",
     },
-    "newConversation": "新しい会話を始める",
-    "replyTime": "通常数分以内に返信いたします"
+    newConversation: "新しい会話を始める",
+    replyTime: "通常数分以内に返信いたします",
   },
-  "Messages": {
-    "startChatTitle": "新しい会話を始める",
-    "whatsappTitle": "WhatsAppチャット",
-    "whatsappSubtitle": "最も早い返信",
-    "lineTitle": "LINEでチャット",
-    "lineSubtitle": "LINEアプリで接続",
-    "emailTitle": "メールを送信",
-    "emailSubtitle": "詳細な問い合わせ",
-    "recentTitle": "最近のチャット",
-    "customerSupport": "カスタマーサポート",
-    "recentMessage": "👋 こんにちは！どのようにお手伝いしましょうか？",
-    "timeNow": "たった今"
+  Messages: {
+    startChatTitle: "新しい会話を始める",
+    whatsappTitle: "WhatsAppチャット",
+    whatsappSubtitle: "最も早い返信",
+    lineTitle: "LINEでチャット",
+    lineSubtitle: "LINEアプリで接続",
+    emailTitle: "メールを送信",
+    emailSubtitle: "詳細な問い合わせ",
+    recentTitle: "最近のチャット",
+    customerSupport: "カスタマーサポート",
+    recentMessage: "👋 こんにちは！どのようにお手伝いしましょうか？",
+    timeNow: "たった今",
   },
-  "MailForm": {
-    "fullNameLabel": "氏名 *",
-    "fullNamePlaceholder": "山田 太郎",
-    "emailLabel": "メールアドレス *",
-    "emailPlaceholder": "taro@example.com",
-    "phoneLabel": "電話番号 *",
-    "messageLabel": "メッセージ *",
-    "messagePlaceholder": "メッセージを入力してEnterを押してください...",
-    "messageNote": "* 入力に合わせてボックスが自動的に拡大します。",
-    "submitButton": "チャットを開始"
+  MailForm: {
+    fullNameLabel: "氏名 *",
+    fullNamePlaceholder: "山田 太郎",
+    emailLabel: "メールアドレス *",
+    emailPlaceholder: "taro@example.com",
+    phoneLabel: "電話番号 *",
+    messageLabel: "メッセージ *",
+    messagePlaceholder: "メッセージを入力してEnterを押してください...",
+    messageNote: "* 入力に合わせてボックスが自動的に拡大します。",
+    submitButton: "チャットを開始",
   },
-  "Tooltips": {
-    "sideTooltip": "お待ちしております！",
-    "bottomHeading": "こんにちは！",
-    "bottomBadge": "新着メッセージ",
-    "bottomBody": "スリランカの息を呑むような美しさを探求する準備はできましたか？あなたにぴったりの完璧な旅行プランを作成するお手伝いをさせてください。",
-    "actionHighlight": "オーダーメイド体験",
-    "actionText1": "カスタマイズされた",
-    "actionText2": "プライベートツアー"
+  Tooltips: {
+    sideTooltip: "お待ちしております！",
+    bottomHeading: "こんにちは！",
+    bottomBadge: "新着メッセージ",
+    bottomBody:
+      "スリランカの息を呑むような美しさを探求する準備はできましたか？あなたにぴったりの完璧な旅行プランを作成するお手伝いをさせてください。",
+    actionHighlight: "オーダーメイド体験",
+    actionText1: "カスタマイズされた",
+    actionText2: "プライベートツアー",
   },
-  "Widget": {
-    "documentTitle": "💬 1件の新着メッセージ！",
-    "whatsappDefaultText": "こんにちは！スリランカへの旅行を計画したいのですが。",
-    "closeTooltipAria": "ツールチップを閉じる",
-    "closeChatAria": "チャットを閉じる",
-    "toggleAria": "チャットを切り替える"
-  }
+  Widget: {
+    documentTitle: "💬 1件の新着メッセージ！",
+    whatsappDefaultText: "こんにちは！スリランカへの旅行を計画したいのですが。",
+    closeTooltipAria: "ツールチップを閉じる",
+    closeChatAria: "チャットを閉じる",
+    toggleAria: "チャットを切り替える",
+  },
 } as const;

@@ -5,7 +5,7 @@ import { SecuritySettingsPanel } from "./SecuritySettingsPanel";
 import { profileTabs, type ProfileTabId } from "@/data/profile";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { useSearchParams } from "next/navigation";
-import { useRouter } from "@/i18nNavigation";
+import { useRouter } from "@/lib/i18nNavigation";
 import { useTranslations } from "next-intl";
 import { ReferralPanel } from "./ReferralPanel";
 import { FilterSidebar } from "@/components/ui/FilterSidebar";
@@ -19,7 +19,7 @@ const tabIcons = {
   referral: Gift,
 } satisfies Record<ProfileTabId, LucideIcon>;
 
-// you false rferel wen not use
+// you  can false referral wen not use
 const ENABLE_REFERRALS = true;
 
 function ProfileDashboardInner() {
@@ -48,12 +48,13 @@ function ProfileDashboardInner() {
   return (
     <ContainerLayout className="grid grid-cols-1 gap-8 xl:gap-12 xl:grid-cols-12 py-26 sm:py-27 md:py-26 lg:py-28 2xl:py-30 3xl:py-32">
       <div className="xl:hidden col-span-full w-full flex items-center justify-between border-b border-white/10 pb-4">
-        <h1 className="premium-serif text-2xl text-white">
+        <h1 className="premium-serif text-heading-section text-white leading-none -mt-1 ">
           {t("Dashboard.titleBase")} <span className="text-gold">{t("Dashboard.titleAccent")}</span>
         </h1>
+
         <button
           onClick={() => setIsSidebarOpen(true)}
-          className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-xs font-bold uppercase tracking-widest text-gold transition-colors hover:border-gold/50"
+          className=" flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2.5 md:px-4 text-caption font-bold uppercase tracking-widest text-gold transition-colors hover:border-gold/50"
         >
           <Settings2 className="h-4 w-4" />
           {t("Dashboard.menuBtn")}
@@ -61,7 +62,7 @@ function ProfileDashboardInner() {
       </div>
 
       <aside className="hidden xl:block w-full space-y-6 lg:col-span-4">
-        <h1 className="premium-serif mb-6 whitespace-nowrap text-left text-4xl text-white">
+        <h1 className="premium-serif mb-6 whitespace-nowrap text-left text-4xl 3xl:text-5xl text-white">
           {t("Dashboard.titleBase")} <span className="text-gold">{t("Dashboard.titleAccent")}</span>
         </h1>
         <nav className="mx-0 flex w-full max-w-full flex-col space-y-2.5">
@@ -97,7 +98,7 @@ function ProfileDashboardInner() {
               >
                 <Icon className="h-4 w-4 shrink-0 sm:h-5 sm:w-5" />
 
-                <span className="text-[10px] font-bold uppercase tracking-widest sm:text-xs whitespace-nowrap">
+                <span className="text-caption font-bold uppercase tracking-widest whitespace-nowrap">
                   <span className="hidden max-[380px]:inline">{shortLabel}</span>
                   <span className="inline max-[380px]:hidden">{fullLabel}</span>
                 </span>

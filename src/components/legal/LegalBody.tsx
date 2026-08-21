@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useRouter, usePathname } from "@/i18nNavigation";
+import { useRouter, usePathname } from "@/lib/i18nNavigation";
 import { LegalDocumentSection } from "@/components/legal/LegalDocumentSection";
 import { LegalHero } from "@/components/legal/LegalHero";
 import { legalDocuments, type LegalDocumentId } from "@/data/legal";
@@ -46,7 +46,7 @@ export default function LegalBody() {
   );
 
   return (
-    <ContainerLayout className="py-20 sm:py-24 md:py-26 lg:py-28 2xl:py-30 3xl:py-32">
+    <ContainerLayout className="pt-28 sm:pt-30 md:pt-34 lg:pt-28 2xl:pt-30 3xl:pt-32 pb-12 sm:pb-16 md:pb-18 lg:pb-20 2xl:pb-22 3xl:pb-24">
       <div className="mx-auto max-w-7xl">
         <LegalHero activeDoc={activeDoc} />
 
@@ -55,7 +55,7 @@ export default function LegalBody() {
           <button
             type="button"
             onClick={() => setIsFilterSidebarOpen(true)}
-            className="group flex items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-8 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:w-auto"
+            className="group flex items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-8 py-3.5 text-tiny font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:w-auto"
           >
             <Filter className="h-4 w-4 transition-all duration-300 group-hover:scale-110 group-hover:text-black" />
 

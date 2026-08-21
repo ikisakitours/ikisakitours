@@ -37,16 +37,14 @@ function BlogArticleInner({ post }: BlogArticleProps) {
           <div className="flex w-full flex-row items-end justify-between border-b border-white/10 pb-6">
             {/* Left: Published */}
             <div className="flex flex-col gap-2">
-              <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-gold/70">{t("published")}</span>
-              <span className="text-sm font-extrabold uppercase tracking-wide text-white md:text-base">
-                {post.published}
-              </span>
+              <span className="text-tiny font-bold uppercase tracking-[0.3em] text-gold/70">{t("published")}</span>
+              <span className="text-body-sm font-extrabold uppercase tracking-wide text-white">{post.published}</span>
             </div>
 
             {/* Right: Reading Time */}
             <div className="flex flex-col items-end gap-2 text-right">
-              <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-gold/70">{t("readingTime")}</span>
-              <span className="text-sm font-extrabold uppercase tracking-wide text-white md:text-base">
+              <span className="text-tiny font-bold uppercase tracking-[0.3em] text-gold/70">{t("readingTime")}</span>
+              <span className="text-body-sm font-extrabold uppercase tracking-wide text-white">
                 {post.readTime.replace(/read/i, "").trim()}
               </span>
             </div>
@@ -55,7 +53,7 @@ function BlogArticleInner({ post }: BlogArticleProps) {
 
         {/* --- 2. ARTICLE CONTENT AREA --- */}
         <div className="px-6 py-10 md:px-12 md:py-14">
-          <div className="prose prose-invert prose-lg max-w-none space-y-6 text-base font-light leading-relaxed text-slate-300 md:text-[17px]">
+          <div className="prose prose-invert prose-lg max-w-none space-y-6 font-light leading-relaxed text-slate-300 text-body text-left md:text-justify hyphens-auto">
             {post.content && post.content.length > 0 ? (
               post.content.map((paragraph, index) => <p key={index}>{paragraph}</p>)
             ) : (
@@ -74,8 +72,8 @@ function BlogArticleInner({ post }: BlogArticleProps) {
             <div className="mt-16">
               <div className="mb-10 flex items-center gap-4">
                 <div className="h-px flex-1 bg-linear-to-r from-transparent via-gold/30 to-transparent"></div>
-                <h3 className="text-center text-[10px] font-bold uppercase tracking-[0.4em] text-gold/80">
-                 {t("visualGlimpse")}
+                <h3 className="text-center text-caption font-bold uppercase tracking-[0.4em] text-gold/80">
+                  {t("visualGlimpse")}
                 </h3>
                 <div className="h-px flex-1 bg-linear-to-r from-transparent via-gold/30 to-transparent"></div>
               </div>
@@ -101,7 +99,7 @@ function BlogArticleInner({ post }: BlogArticleProps) {
                       {isGalleryLink ? (
                         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/45 transition-colors duration-300 group-hover:bg-black/70">
                           <Images className="mb-2 text-white" size={24} />
-                          <span className="px-2 text-center text-[9px] font-bold uppercase tracking-[0.2em] text-white">
+                          <span className="px-2 text-center text-tiny font-bold uppercase tracking-[0.2em] text-white">
                             {t("viewGallery")}
                           </span>
                         </div>
@@ -132,11 +130,11 @@ function BlogArticleInner({ post }: BlogArticleProps) {
 
             {/* Right: Minimal More Articles Link */}
             <Link href="/blog" className="group flex items-center gap-2.5 text-right whitespace-nowrap sm:gap-3">
-              <span className="text-[8px] lg:text-[12px] font-bold uppercase tracking-[0.15em] text-gold transition-colors group-hover:text-white sm:text-[9px] sm:tracking-[0.2em] md:text-[10px] md:tracking-[0.2em]">
-              {t("moreArticles")}
+              <span className="text-caption font-bold uppercase tracking-[0.15em] text-gold transition-colors group-hover:text-white sm:tracking-[0.2em] md:tracking-[0.2em]">
+                {t("moreArticles")}
               </span>
 
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-all duration-300 group-hover:border-gold/50 group-hover:bg-gold/10 group-hover:translate-x-1 sm:h-11 sm:w-11">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-all duration-300 group-hover:border-gold/50 group-hover:bg-gold/10 group-hover:translate-x-1">
                 <ArrowRight className="w-5 h-5 text-white transition-transform group-hover:text-gold" />
               </span>
             </Link>

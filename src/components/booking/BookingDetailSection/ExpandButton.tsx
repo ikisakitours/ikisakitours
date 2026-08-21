@@ -30,7 +30,7 @@ export default function ExpandButton({
     >
       <button
         onClick={onClick}
-        className={`group flex cursor-pointer items-center gap-1.5  px-6 py-3 text-[12px] font-bold uppercase tracking-widest text-gold transition-colors  focus:outline-none [-webkit-tap-highlight-color:transparent] ${className}`}
+        className={`group flex cursor-pointer items-center gap-1.5  px-6 py-3 text-caption font-bold uppercase tracking-widest text-gold transition-colors  focus:outline-none [-webkit-tap-highlight-color:transparent] ${className}`}
       >
         {isExpanded ? collapseText : expandText}
         <ChevronDown

@@ -116,7 +116,7 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
                 className={`${inputClass} focus-within:border-gold/60 focus-within:bg-white/[0.07] pt-5 flex items-center [&_.PhoneInputCountry]:bg-transparent! [&_.PhoneInputCountry]:hover:bg-transparent!`}
                 numberInputProps={{
                   className:
-                    "w-full bg-transparent border-none outline-none text-white focus:ring-0 placeholder:text-slate-400 p-0 text-sm ml-2",
+                    "w-full bg-transparent border-none outline-none text-white focus:ring-0 placeholder:text-slate-400 p-0 text-body-sm! ml-2",
                   placeholder: tForm("Placeholders.phone"),
                 }}
               />
@@ -128,7 +128,6 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
                 userInteracted={userInteracted}
                 detectedCode={detectedCode}
                 selectedCode={selectedCountry}
-                textClassName="text-[10px]"
                 messages={{
                   detecting: tErr("PhoneDetection.detecting"),
                   autoDetected: tErr("PhoneDetection.autoDetected"),
@@ -152,7 +151,7 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
               value={data.specialRequests}
               onChange={(e) => updateField("specialRequests", e.target.value)}
             />
-            <span className="mt-1 block text-[11px] font-medium text-slate-500 md:text-[12px] lg:text-[13px] 3xl:text-[14px] leading-relaxed">
+            <span className="mt-1 block text-caption font-medium text-slate-500 leading-relaxed">
               {tForm("Messages.autoExpand")}
             </span>
           </label>
@@ -162,7 +161,7 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
         </div>
 
         <div className="mx-auto max-w-xs">
-          <Button type="submit" variant="explore" className="w-full justify-center">
+          <Button type="submit" variant="explore" className="[&_span]:text-caption! w-full justify-center">
             {tForm("Buttons.checkAvailability")}
           </Button>
 
@@ -172,9 +171,9 @@ export function ContactForm({ data, setData, errors, setErrors }: ContactFieldsP
               return (
                 <span
                   key={badge}
-                  className="flex items-center gap-2 whitespace-nowrap text-[9px] font-bold uppercase tracking-widest text-slate-500"
+                  className="flex items-center gap-2 whitespace-nowrap text-caption font-bold uppercase tracking-widest text-slate-500"
                 >
-                  <Icon className="h-3.5 w-3.5 text-gold" />
+                  <Icon className="h-4 w-4 text-gold 3xl:h-5 3xl:w-5" />
                   {badge}
                 </span>
               );

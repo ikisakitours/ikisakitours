@@ -7,18 +7,18 @@ export default function Trademark() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <div className="rounded-3xl bg-lanka-black border border-white/5 p-8 md:p-10 text-xs text-slate-500 leading-relaxed text-center space-y-6">
+    <div className="rounded-3xl bg-lanka-black border border-white/5 p-8 md:p-10 text-caption text-slate-500 leading-relaxed text-center space-y-6">
       {/* Top Corporate Branding Line */}
       <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-slate-400 font-medium">
-        <span className="text-white tracking-wide">Map Mate™</span>
+        <span className="text-white text-body tracking-wide">Map Mate™</span>
         <span className="hidden sm:inline text-gold/40">•</span>
-        <span className="text-[11px] text-slate-400 tracking-wider uppercase">{t("tagline")}</span>
+        <span className="text-caption text-slate-400 tracking-wider uppercase">{t("tagline")}</span>
       </div>
 
       {/* Legal Ownership Statement */}
-      <p className="max-w-3xl mx-auto text-slate-500 leading-relaxed">
-        {t("statement")} <strong className="text-white font-medium">{t("company")}</strong> © {currentYear}.{" "}
-        {t("rights")}
+      <p className="max-w-3xl mx-auto text-caption text-slate-500 leading-relaxed">
+        {t("statement")} <strong className="text-white font-medium text-body-sm">{t("company")}</strong> © {currentYear}
+        . {t("rights")}
       </p>
 
       {/* Distinct Professional Contact Channels */}
@@ -26,14 +26,14 @@ export default function Trademark() {
         {/* General Support Desk */}
         <div className="rounded-2xl border border-white/5 bg-white/2 p-4 flex flex-col justify-between space-y-2 transition-colors hover:border-gold/20">
           <div>
-            <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-gold block mb-1">
+            <span className="text-caption font-bold tracking-[0.2em] uppercase text-gold block mb-1">
               {t("generalTitle")}
             </span>
-            <p className="text-[11px] text-slate-400 leading-normal">{t("generalDesc")}</p>
+            <p className="text-caption text-slate-400 leading-normal">{t("generalDesc")}</p>
           </div>
           <a
             href={`mailto:${t("email")}`}
-            className="text-white hover:text-gold font-medium tracking-wide transition-colors text-xs inline-flex items-center gap-1.5 pt-2"
+            className="text-white hover:text-gold font-medium tracking-wide transition-colors text-body-sm inline-flex items-center gap-1.5 pt-2"
           >
             <span>{t("email")}</span>
           </a>
@@ -42,14 +42,14 @@ export default function Trademark() {
         {/* Corporate Legal Desk */}
         <div className="rounded-2xl border border-white/5 bg-white/2 p-4 flex flex-col justify-between space-y-2 transition-colors hover:border-gold/20">
           <div>
-            <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-gold block mb-1">
+            <span className="text-caption font-bold tracking-[0.2em] uppercase text-gold block mb-1">
               {t("legalTitle")}
             </span>
-            <p className="text-[11px] text-slate-400 leading-normal">{t("inquiry")}</p>
+            <p className="text-caption text-slate-400 leading-normal">{t("inquiry")}</p>
           </div>
           <a
             href={`mailto:${t("legalEmail")}`}
-            className="text-white hover:text-gold font-medium tracking-wide transition-colors text-xs inline-flex items-center gap-1.5 pt-2"
+            className="text-white hover:text-gold font-medium tracking-wide transition-colors text-body-sm inline-flex items-center gap-1.5 pt-2"
           >
             <span>{t("legalEmail")}</span>
           </a>

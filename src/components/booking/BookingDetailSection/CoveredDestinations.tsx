@@ -1,5 +1,5 @@
 import { LoadingImage } from "@/components/ui/LoadingImage";
-import { Link } from "@/i18nNavigation";
+import { Link } from "@/lib/i18nNavigation";
 import { useTranslations } from "next-intl";
 //Icons
 import { Compass } from "lucide-react";
@@ -27,11 +27,11 @@ export default function CoveredDestinations({ destinations, tourSlug, tourType }
       id="Covered-Destinations"
       className="glass-card mb-10 rounded-4xl border border-white/5 p-6 md:mb-14 md:p-8"
     >
-      <div className="mb-2 flex items-center gap-3 text-lg font-bold text-white md:text-xl">
+      <div className="mb-2 flex items-center gap-3 text-heading-card font-bold text-white">
         <Compass className="h-6 w-6 text-gold" />
         {t("title")}
       </div>
-      <p className="mb-8 text-sm font-light text-slate-400">{t("description")}</p>
+      <p className="mb-8 text-body-sm font-light text-slate-400">{t("description")}</p>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {destinations.map((dest) => {
@@ -56,15 +56,15 @@ export default function CoveredDestinations({ destinations, tourSlug, tourType }
                   wrapperClassName="w-full h-full"
                   className="object-cover group-hover:scale-110"
                 />
-                <div className="absolute left-1.5 top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-gold text-[10px] font-black text-lanka-black z-10 shadow-sm">
+                <div className="absolute left-1.5 top-1.5 flex h-5.5 w-5.5 items-center justify-center rounded-full bg-gold text-caption font-black text-lanka-black z-10 shadow-sm">
                   {dest.id}
                 </div>
               </div>
               <div className="flex flex-col justify-center">
-                <h4 className="mb-1 text-[15px] font-bold tracking-wide text-white transition-colors group-hover:text-gold">
+                <h4 className="mb-1 text-body font-bold tracking-wide text-white transition-colors group-hover:text-gold">
                   {dest.name}
                 </h4>
-                <p className="line-clamp-2 text-[13px] font-light leading-relaxed text-slate-400">{dest.description}</p>
+                <p className="line-clamp-2 text-body-sm font-light leading-relaxed text-slate-400">{dest.description}</p>
               </div>
             </Link>
           );

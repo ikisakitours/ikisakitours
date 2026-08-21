@@ -41,10 +41,8 @@ export function TransferServiceSelector({ selectedServiceId, onServiceChange }: 
               }`}
             >
               <Icon className="mb-3 h-6 w-6 text-gold md:h-7 md:w-7" />
-              <h3 className="text-[12px] font-bold uppercase tracking-[0.08em] text-white md:text-sm">
-                {t(`${index}.title`)}
-              </h3>
-              <p className="mt-3 text-xs leading-relaxed text-slate-400">{t(`${index}.description`)}</p>
+              <h3 className="text-body-sm font-bold uppercase tracking-[0.08em] text-white">{t(`${index}.title`)}</h3>
+              <p className="mt-3 text-body-sm leading-relaxed text-slate-400">{t(`${index}.description`)}</p>
             </div>
           </label>
         );

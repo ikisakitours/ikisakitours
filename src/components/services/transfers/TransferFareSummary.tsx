@@ -26,24 +26,27 @@ export function TransferFareSummary({ selectedServiceId, selectedVehicle }: Tran
 
         <div className="p-6 md:p-7">
           <div className="mb-6 flex items-center justify-between">
-            <h2 className="premium-serif text-xl text-white">
+            <h2 className="premium-serif text-heading-sub text-white">
               {tFare("titleBase")} <span className="italic text-gold">{tFare("titleAccent")}</span>
             </h2>
-            <ReceiptText className="h-6 w-6 text-gold/30" />
+            <ReceiptText className="h-6 w-6  md:h-7 md:w-7 text-gold/30" />
           </div>
 
           <div className="space-y-5">
             <SummaryItem label={tFare("serviceType")} value={summaryLabel} isActive />
-            <SummaryItem label={tFare("vehicleCategory")} value={selectedVehicle.category.toUpperCase() + tFare("typeSuffix")} />
+            <SummaryItem
+              label={tFare("vehicleCategory")}
+              value={selectedVehicle.category.toUpperCase() + tFare("typeSuffix")}
+            />
           </div>
 
           <div className="mt-7 space-y-3 rounded-2xl border border-white/5 bg-white/3 p-4">
             {fareInclusions.map((item) => (
               <div key={item} className="flex items-center gap-3">
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold/10">
-                  <Check className="h-2.5 w-2.5 text-gold" />
+                <span className="flex h-5.5 w-5.5 shrink-0 items-center justify-center rounded-full bg-gold/10">
+                  <Check className="h-3 w-3 text-gold" strokeWidth={3} />
                 </span>
-                <span className="text-[10px] font-medium uppercase tracking-widest text-slate-300">{item}</span>
+                <span className="text-caption font-medium uppercase tracking-widest text-slate-300">{item}</span>
               </div>
             ))}
           </div>
@@ -51,8 +54,8 @@ export function TransferFareSummary({ selectedServiceId, selectedVehicle }: Tran
           <div className="mt-7 grid gap-3">
             {assurances.map((item) => (
               <div key={item.title} className="rounded-2xl border border-white/5 bg-black/20 p-4">
-                <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white">{item.title}</h3>
-                <p className="mt-2 text-xs leading-relaxed text-slate-400">{item.description}</p>
+                <h3 className="text-caption font-bold uppercase tracking-[0.2em] text-white">{item.title}</h3>
+                <p className="mt-2 text-body-sm leading-relaxed text-slate-400">{item.description}</p>
               </div>
             ))}
           </div>
@@ -74,8 +77,8 @@ function SummaryItem({ label, value, isActive = false }: SummaryItemProps) {
       {isActive ? (
         <span className="absolute -left-1.25 top-0 h-2.5 w-2.5 rounded-full bg-gold shadow-[0_0_10px_rgba(197,160,89,0.8)]" />
       ) : null}
-      <span className="mb-1 block text-[9px] font-bold uppercase tracking-[0.2em] text-slate-500">{label}</span>
-      <span className="text-sm font-bold tracking-wide text-white">{value}</span>
+      <span className="mb-1 block text-caption font-bold uppercase tracking-[0.2em] text-slate-500">{label}</span>
+      <span className="text-body-sm font-bold tracking-wide text-white">{value}</span>
     </div>
   );
 }

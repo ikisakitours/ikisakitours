@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "@/i18nNavigation";
-import Image from "next/image";
+import { Link } from "@/lib/i18nNavigation";
+import { LoadingImage } from "@/components/ui/LoadingImage";
 import { useTranslations } from "next-intl";
 //Icon
 import { ArrowRight } from "lucide-react";
@@ -23,28 +23,32 @@ export default function InsightCard({ item }: { item: InsightType }) {
     >
       <div className="relative h-48 shrink-0 overflow-hidden">
         <div className="absolute left-4 top-4 z-10">
-          <span className="rounded-full border border-gold/40 bg-black/80 px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-gold backdrop-blur-md">
+          <span className="rounded-full border border-gold/40 bg-black/80 px-3 py-1 text-tiny font-bold uppercase tracking-widest text-gold backdrop-blur-md">
             {item.category}
           </span>
         </div>
-        <Image
+        <LoadingImage
           src={item.image}
           alt={item.title}
           fill
           sizes="(min-width: 1280px) 380px, 85vw"
-          className="image-render-visible object-cover transition-transform duration-700 group-hover:scale-110"
+          wrapperClassName="w-full h-full"
+          className="image-render-visible object-cover opacity-70! group-hover:scale-110"
         />
       </div>
 
       <div className="flex grow flex-col p-6">
-        <div className="mb-2 text-[9px] font-bold uppercase tracking-[0.3em] text-gold">{item.label}</div>
-        <h4 className="premium-serif mb-3 text-xl font-bold leading-tight text-white">{item.title}</h4>
-        <p className="mb-6 line-clamp-2 text-sm font-light text-slate-400">{item.excerpt}</p>
+        <div className="mb-2 text-tiny font-bold uppercase tracking-[0.3em] text-gold">{item.label}</div>
+        <h4 className="premium-serif mb-3 text-heading-card font-bold leading-tight text-white">{item.title}</h4>
+        <p className="mb-6 line-clamp-2 text-body font-light text-slate-400">{item.excerpt}</p>
 
         <div className="mt-auto flex items-center justify-end border-t border-white/10 pt-5">
-          <span className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.35em] text-gold transition-all duration-300 group-hover:gap-5 group-hover:text-white">
+          <span className="flex items-center gap-3 text-tiny  font-bold uppercase tracking-[0.35em] text-gold transition-all duration-300 group-hover:gap-5 group-hover:text-white">
             {t("readArticle")}
-            <ArrowRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-1" />
+            <ArrowRight
+              strokeWidth={2}
+              className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1"
+            />
           </span>
         </div>
       </div>

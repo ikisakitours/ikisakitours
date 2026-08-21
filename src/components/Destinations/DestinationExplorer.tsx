@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
-import { useRouter } from "@/i18nNavigation";
+import { useRouter } from "@/lib/i18nNavigation";
 import { type Destination } from "@/data/destinationData";
 import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -88,7 +88,7 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
   return (
     <section id="destinations" className="bg-lanka-dark">
       <ContainerLayout className="pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
-        <div className="mb-12 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className=" flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="w-full flex-1">
             {!showMap && (
               <FilterButtonSearchInput
@@ -112,10 +112,10 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
                 <div className="relative z-10 text-center lg:text-left">
                   <div className="mb-1.5 flex items-center justify-center lg:justify-start gap-2 text-gold">
                     <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold animate-pulse"></span>
-                    <span className="text-[10px] font-extrabold uppercase tracking-[0.3em]">{t("geoBadge")}</span>
+                    <span className="text-tiny font-extrabold uppercase tracking-[0.3em]">{t("geoBadge")}</span>
                   </div>
-                  <h3 className="premium-serif text-xl italic text-white md:text-3xl tracking-wide">{t("mapTitle")}</h3>
-                  <p className="mt-1.5 text-xs font-light text-slate-400 max-w-md">{t("mapDesc")}</p>
+                  <h3 className="premium-serif text-heading-sub italic text-white  tracking-wide">{t("mapTitle")}</h3>
+                  <p className="mt-1.5 text-body font-light text-slate-400 max-w-md">{t("mapDesc")}</p>
                 </div>
 
                 <div className="relative z-10 shrink-0">
@@ -123,7 +123,7 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
                     <Button
                       variant="shine"
                       onClick={() => handleMapToggle(true)}
-                      className="px-3 py-1.5 text-[10px] sm:px-4 sm:py-2 sm:text-[11px] md:text-xs 2xl:px-5 2xl:py-2.5 2xl:text-sm 3xl:px-6 3xl:py-3 3xl:text-base"
+                      className="px-3 py-1.5 [&_span]:text-tiny! sm:px-4 sm:py-2 2xl:px-5 2xl:py-2.5 3xl:px-6 3xl:py-3 "
                     >
                       <span className="group-hover:text-black flex items-center gap-1.5 sm:gap-2 transition-colors duration-300">
                         <Map className="h-3 w-3 sm:h-3.5 sm:w-3.5 2xl:h-4 2xl:w-4 3xl:h-5 3xl:w-5 transition-transform duration-300 group-hover:scale-110" />
@@ -145,7 +145,7 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
           <>
             {filteredDestinations.length > 0 ? (
               <>
-                <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 xl:gap-10 3xl:grid-cols-4 3xl:gap-12">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 3xl:gap-12">
                   {visibleDestinations.map((dest) => (
                     <DestinationsCard key={dest.slug} dest={dest} />
                   ))}
@@ -154,6 +154,7 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
                 <div className="mt-8 flex flex-col items-center md:mt-24">
                   {hasMore ? (
                     <Button
+                      className="[&_span]:text-caption!"
                       type="button"
                       variant="explore"
                       onClick={() => setVisibleCount((count) => count + INITIAL_COUNT)}
@@ -162,9 +163,9 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
                     </Button>
                   ) : null}
 
-                  <div className="mt-4 flex items-center gap-3">
+                  <div className="mt-8 flex items-center gap-3">
                     <div className="h-px w-8 bg-gold/20" />
-                    <p className="whitespace-nowrap text-[10px] font-medium uppercase tracking-[0.2em] text-slate-500">
+                    <p className="whitespace-nowrap text-tiny font-medium uppercase tracking-[0.2em] text-slate-500">
                       {t("showing")} <span className="text-gold">{visibleDestinations.length}</span> {t("of")}{" "}
                       <span className="text-white">{filteredDestinations.length}</span> {t("destinations")}
                     </p>
@@ -172,34 +173,32 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
                   </div>
                 </div>
               </>
-            ) : null}
+            ) : (
+              <EmptyState
+                backgroundText={t("EmptyState.backgroundText")}
+                title={t("EmptyState.title")}
+                description={
+                  <>
+                    {query.trim() !== "" ? (
+                      <>{t("EmptyState.searchNoResult", { query: query })}</>
+                    ) : (
+                      <>{t("EmptyState.filterNoResult", { category: category })}</>
+                    )}
+                    <br />
+                    {t("EmptyState.redefine")}
+                  </>
+                }
+                buttonText={t("EmptyState.resetBtn")}
+                onAction={() => {
+                  setQuery("");
+                  setCategory("all");
+                  setVisibleCount(INITIAL_COUNT);
+                }}
+              />
+            )}
           </>
         )}
       </ContainerLayout>
-
-      {!showMap && filteredDestinations.length === 0 && (
-        <EmptyState
-          backgroundText={t("EmptyState.backgroundText")}
-          title={t("EmptyState.title")}
-          description={
-            <>
-              {query.trim() !== "" ? (
-                <>{t("EmptyState.searchNoResult", { query: query })}</>
-              ) : (
-                <>{t("EmptyState.filterNoResult", { category: category })}</>
-              )}
-              <br />
-              {t("EmptyState.redefine")}
-            </>
-          }
-          buttonText={t("EmptyState.resetBtn")}
-          onAction={() => {
-            setQuery("");
-            setCategory("all");
-            setVisibleCount(INITIAL_COUNT);
-          }}
-        />
-      )}
 
       <FilterSidebar
         isOpen={isFilterOpen}

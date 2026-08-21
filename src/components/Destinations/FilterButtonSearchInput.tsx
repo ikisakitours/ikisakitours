@@ -31,16 +31,18 @@ export default function FilterButtonSearchInput({
           <button
             type="button"
             onClick={() => setIsFilterOpen(true)}
-            className="group flex w-full items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-8 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:w-auto"
+            className="group flex w-full items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-8 py-3.5 text-caption font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:w-auto"
           >
             <Filter className="h-4 w-4 transition-all duration-300 group-hover:scale-110 group-hover:text-black" />
-            <span className="transition-colors duration-300 group-hover:text-black sm:hidden">{t("filterRegions")}</span>
+            <span className="transition-colors duration-300 group-hover:text-black sm:hidden">
+              {t("filterRegions")}
+            </span>
             <span className="hidden transition-colors duration-300 group-hover:text-black sm:block">
               {t("filterRegions")}
             </span>
 
             {category !== "all" && (
-              <span className="ml-2 flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-[9px] font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a] group-hover:text-gold">
+              <span className="ml-2 flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-micro font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a] group-hover:text-gold">
                 1
               </span>
             )}
@@ -56,7 +58,7 @@ export default function FilterButtonSearchInput({
           placeholder={t("searchPlaceholder")}
           count={filteredCount}
           itemLabel={t("destinations")}
-          className="lg:w-96  md:w-72"
+          className="lg:w-96 md:w-72"
         />
       </div>
       <div className="h-px w-full bg-linear-to-r from-transparent via-white/10 to-transparent" />

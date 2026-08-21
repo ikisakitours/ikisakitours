@@ -19,6 +19,7 @@ interface CountrySelectProps {
   inputClass: string;
   showIcon?: boolean;
   customLabel?: React.ReactNode;
+  disabled?: boolean;
 }
 
 export function CountrySelect({
@@ -29,6 +30,7 @@ export function CountrySelect({
   inputClass,
   showIcon = true,
   customLabel,
+  disabled = false,
 }: CountrySelectProps) {
   const tValidate = useTranslations("ValidationErrors");
   const tForm = useTranslations("SharedForm");
@@ -92,20 +94,23 @@ export function CountrySelect({
       {customLabel ? (
         customLabel
       ) : (
-        <span className="ml-1 block text-[10px] font-bold uppercase tracking-[0.2em] text-gold">
+        <span className="ml-1 block text-caption font-bold uppercase tracking-[0.2em] text-gold">
           {tForm("Labels.country")}
         </span>
       )}
 
       <div
-        className="group relative block cursor-pointer w-full"
+        className={`group relative block w-full ${disabled ? "opacity-60 cursor-not-allowed" : "cursor-pointer"}`}
         onClick={() => {
+          if (disabled) return;
           setIsDropdownOpen(!isDropdownOpen);
           if (isDropdownOpen) setSearchQuery("");
         }}
       >
         {showIcon && (
-          <Globe className="absolute left-5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-600 transition-colors group-hover:text-gold" />
+          <span className="absolute left-5 inset-y-0 flex items-center pointer-events-none">
+            <Globe className="h-4.5 w-4.5 md:h-5 md:w-5 text-slate-600 transition-colors group-focus-within:text-gold" />
+          </span>
         )}
 
         <div className={`${inputClass} ${showIcon ? "pl-12" : ""} pr-10 flex items-center min-h-12 3xl:min-h-15`}>
@@ -118,17 +123,18 @@ export function CountrySelect({
                   className="w-5 h-auto object-cover shadow-sm"
                 />
               )}
-              <span className="text-white text-sm 3xl:text-lg">{countryName}</span>
+              <span className="text-white text-body-sm">{countryName}</span>
             </div>
           ) : (
-            <span className="text-slate-500 text-sm 3xl:text-lg">{tForm("Placeholders.selectCountry")}</span>
+            <span className="text-slate-500 text-body-sm">{tForm("Placeholders.selectCountry")}</span>
           )}
         </div>
         <ChevronDown
+        strokeWidth={3}
           className={`absolute right-5 top-1/2 h-4 w-4 -translate-y-1/2 pointer-events-none text-slate-500 transition-all duration-300 group-hover:text-gold ${isDropdownOpen ? "rotate-180 text-gold" : ""}`}
         />
 
-        {isDropdownOpen && (
+        {isDropdownOpen && !disabled && (
           <div
             className="absolute left-0 top-full mt-2 w-full max-h-72 overflow-hidden rounded-xl border border-white/10 bg-[#121212] shadow-2xl z-50 flex flex-col"
             onClick={(e) => e.stopPropagation()}
@@ -141,7 +147,7 @@ export function CountrySelect({
                   placeholder={tForm("Placeholders.searchCountry")}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-9 pr-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-gold/50 focus:bg-white/10 transition-colors"
+                  className="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-9 pr-3 text-body-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-gold/50 focus:bg-white/10 transition-colors"
                 />
               </div>
             </div>
@@ -168,11 +174,11 @@ export function CountrySelect({
                       className="w-5 h-auto object-cover shadow-sm"
                     />
 
-                    <span className="text-sm">{c.name}</span>
+                    <span className="text-body-sm">{c.name}</span>
                   </div>
                 ))
               ) : (
-                <div className="px-3 py-6 text-center text-sm text-slate-500">{tValidate("noCountries")}</div>
+                <div className="px-3 py-6 text-center text-body-sm text-slate-500">{tValidate("noCountries")}</div>
               )}
             </div>
           </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { Link } from "@/i18nNavigation";
+import { Link } from "@/lib/i18nNavigation";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { transferCards } from "@/data/home";
 import { trustBadgesData } from "@/data/home";
@@ -68,12 +68,13 @@ export function TransfersSection() {
           className="mb-12 text-center md:mb-20 lg:mb-24 3xl:mb-32"
         >
           <SectionBadge badge={t("badge")} />
-          <h2 className="mb-6 text-3xl font-light leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl 3xl:text-7xl">
+
+          <h2 className="mb-6 premium-serif text-heading-section font-light leading-[1.1] text-white">
             {t("titlePart1")}
-            <span className="italic text-gold">{t("titleAccent")}</span>
-            {t("titlePart2")}
+            <span className="ml-2 gold-gradient-text italic">{t("titlePart2")}</span>
           </h2>
-          <p className="mx-auto mb-10 max-w-2xl text-base font-light leading-relaxed text-slate-300 md:text-lg 3xl:text-xl 3xl:max-w-3xl">
+
+          <p className="mx-auto text-body mb-10 max-w-2xl  font-light 3xl:max-w-3xl leading-relaxed text-slate-300">
             {t("subtitle")}
           </p>
         </motion.div>
@@ -130,15 +131,15 @@ export function TransfersSection() {
                   <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-lanka-black transition-all duration-500 group-hover:scale-105 group-hover:border-gold md:mb-8 md:h-20 md:w-20 3xl:h-24 3xl:w-24">
                     <Icon className="h-6 w-6 text-gold md:h-8 md:w-8 3xl:h-10 3xl:w-10" />
                   </div>
-                  <h5 className="mb-4 text-lg font-bold uppercase tracking-[0.15em] text-white md:text-xl lg:text-lg xl:text-xl 3xl:text-2xl">
+                  <h5 className="mb-4 text-body-lead font-bold uppercase tracking-[0.15em] text-white">
                     {t(`cards.${id}.title`)}
                   </h5>
-                  <p className="mb-8 grow text-sm font-normal leading-relaxed text-slate-400 md:text-base 3xl:text-lg 3xl:mb-12">
+                  <p className="mb-8 grow text-body font-normal leading-relaxed text-slate-300">
                     {t(`cards.${id}.description`)}
                   </p>
                   <Link
                     href={href}
-                    className="inline-flex w-fit items-center text-[11px] font-bold uppercase tracking-[0.2em] text-gold transition-all group-hover:translate-x-2 md:text-[12px] 3xl:text-sm"
+                    className="inline-flex w-fit items-center text-body-sm font-bold uppercase tracking-[0.2em] text-gold transition-all group-hover:translate-x-2"
                   >
                     <span className="border-b border-gold/40 pb-1 group-hover:border-gold">
                       {t(`cards.${id}.action`)}
@@ -163,8 +164,8 @@ export function TransfersSection() {
             const Icon = trustBadges[index];
             return (
               <div key={id} className="flex items-center space-x-3 3xl:space-x-4">
-                <Icon className="h-3.5 w-3.5 text-gold 3xl:h-5 3xl:w-5" />
-                <span className="text-[10px] font-bold uppercase tracking-widest text-white md:text-[11px] 3xl:text-xs">
+                <Icon className="h-4 w-4 text-gold 3xl:h-5 3xl:w-5" />
+                <span className="text-caption font-bold uppercase tracking-widest text-white">
                   {t(`trustBadges.${id}`)}
                 </span>
               </div>

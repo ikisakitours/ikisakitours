@@ -69,14 +69,14 @@ export default function IncludesSection({ tour }: IncludesSectionProps) {
       <div className="grid grid-cols-1 md:grid-cols-2">
         {/* Included Column */}
         <div className="flex h-full w-full flex-col pb-8 md:pb-0 md:pr-8 lg:pr-12">
-          <h3 className="mb-6 flex items-center gap-2 text-[14px] sm:text-text-[14px] md:text-[14px] font-extrabold uppercase tracking-widest text-emerald-400">
+          <h3 className="mb-6 flex items-center gap-2 text-body-sm font-extrabold uppercase tracking-widest text-emerald-400">
             <CircleCheck className="h-4.5 w-4.5 shrink-0" /> {t("included")}
           </h3>
           <ul className="space-y-4">
             {displayIncludes.map((item: string, idx: number) => (
               <li key={`inc-${idx}`} className="flex items-start gap-3">
                 <IoMdCheckmarkCircleOutline className="mt-1 h-4.5 w-4.5 shrink-0 text-emerald-400" />
-                <span className="text-sm font-light leading-relaxed text-slate-300">{item}</span>
+                <span className="text-body font-light leading-relaxed text-slate-300">{item}</span>
               </li>
             ))}
           </ul>
@@ -96,7 +96,7 @@ export default function IncludesSection({ tour }: IncludesSectionProps) {
                     {extraIncludes.map((item: string, idx: number) => (
                       <li key={`extra-inc-${idx}`} className="flex items-start gap-3 pt-4">
                         <IoMdCheckmarkCircleOutline className="mt-1 h-4.5 w-4.5 shrink-0 text-emerald-400" />
-                        <span className="text-sm font-light leading-relaxed text-slate-300">{item}</span>
+                        <span className="text-body font-light leading-relaxed text-slate-300">{item}</span>
                       </li>
                     ))}
                   </ul>
@@ -119,14 +119,14 @@ export default function IncludesSection({ tour }: IncludesSectionProps) {
 
         {/* Excluded Column */}
         <div className="flex h-full w-full flex-col border-t border-white/10 pt-8 md:border-t-0 md:border-l md:pl-8 lg:pl-12 md:pt-0">
-          <h3 className="mb-6 flex items-center gap-2 text-[14px] sm:text-text-[14px] md:text-[14px] font-extrabold uppercase tracking-widest text-rose-400">
+          <h3 className="mb-6 flex items-center gap-2 text-body-sm font-extrabold uppercase tracking-widest text-rose-400">
             <X className="h-5 w-5 rounded-full bg-rose-400/10 p-0.5" /> {t("excluded")}
           </h3>
           <ul className="space-y-4">
             {displayExcludes.map((item: string, idx: number) => (
               <li key={`exc-${idx}`} className="flex items-start gap-3">
                 <RiCloseCircleLine className="mt-1 h-4.5 w-4.5 shrink-0 text-rose-400" />
-                <span className="text-sm font-light leading-relaxed text-slate-400">{item}</span>
+                <span className="text-body font-light leading-relaxed text-slate-300">{item}</span>
               </li>
             ))}
           </ul>
@@ -146,7 +146,7 @@ export default function IncludesSection({ tour }: IncludesSectionProps) {
                     {extraExcludes.map((item: string, idx: number) => (
                       <li key={`extra-exc-${idx}`} className="flex items-start gap-3 pt-4">
                         <RiCloseCircleLine className="mt-1 h-4.5 w-4.5 shrink-0 text-rose-400" />
-                        <span className="text-sm font-light leading-relaxed text-slate-400">{item}</span>
+                        <span className="text-body font-light leading-relaxed text-slate-300">{item}</span>
                       </li>
                     ))}
                   </ul>

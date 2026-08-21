@@ -1,6 +1,6 @@
 "use client";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { useRouter } from "@/i18nNavigation";
+import { useRouter } from "@/lib/i18nNavigation";
 import { useTranslations } from "next-intl";
 //Icons
 import { ArrowLeft } from "lucide-react";
@@ -37,18 +37,18 @@ export function GalleryHero({ backLink, backLabel, title, accent, subtitle }: Ga
         <a
           href={backLink}
           onClick={handleBack}
-          style={{ letterSpacing: "0.5em" }}
-          className="group relative z-10 mb-7 inline-flex cursor-pointer items-center gap-2 py-3 pr-4 text-[10px] font-bold uppercase text-gold transition-all hover:text-gold-light"
+          style={{ letterSpacing: "0.3em" }}
+          className="group relative z-10 mb-7 inline-flex cursor-pointer items-center gap-2 py-3 pr-4 text-caption font-bold uppercase text-gold transition-all hover:text-gold-light"
         >
-          <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" />
+          <ArrowLeft strokeWidth={3} className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" />
           {backLabel}
         </a>
 
-        <h1 className="premium-serif text-4xl font-light uppercase leading-tight tracking-[0.14em] text-white sm:text-5xl md:text-6xl md:tracking-[0.2em]">
+        <h1 className="premium-serif text-heading-section font-light uppercase leading-tight tracking-[0.14em] text-white md:tracking-[0.2em]">
           {displayTitle} <span className="text-gold">{displayAccent}</span>
         </h1>
 
-        <p className="mt-5 text-[10px] font-bold uppercase tracking-[0.35em] text-slate-500 sm:text-[11px] md:tracking-[0.5em]">
+        <p className="mt-5 text-caption font-bold uppercase tracking-[0.35em] text-slate-500 md:tracking-[0.5em]">
           {displaySubtitle}
         </p>
 

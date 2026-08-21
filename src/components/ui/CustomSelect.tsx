@@ -28,7 +28,7 @@ export default function CustomSelect({
       <div
         tabIndex={0}
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full rounded-xl border border-white/10 bg-white/3 py-3 pr-4 text-sm outline-none transition-all hover:border-white/20 focus:border-gold/60 focus:bg-white/[0.07] cursor-pointer flex justify-between items-center ${
+        className={`w-full rounded-xl border border-white/10 bg-white/3 py-3 pr-4 text-body-sm outline-none transition-all hover:border-white/20 focus:border-gold/60 focus:bg-white/[0.07] cursor-pointer flex justify-between items-center ${
           icon ? "pl-11" : "px-4"
         }${className}`}
       >
@@ -54,7 +54,7 @@ export default function CustomSelect({
                 onChange(opt);
                 setIsOpen(false);
               }}
-              className={`px-4 py-3 cursor-pointer text-sm font-bold transition-colors ${
+              className={`px-4 py-3 cursor-pointer text-body-sm font-bold transition-colors ${
                 value === opt ? "bg-gold text-black" : "text-slate-300 hover:bg-white/[0.07] hover:text-white"
               }`}
             >

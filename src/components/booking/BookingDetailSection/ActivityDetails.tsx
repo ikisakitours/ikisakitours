@@ -24,13 +24,14 @@ export default function ActivityDetails({ tour }: ActivityDetailsProps) {
         {tour.activityDetails.map((item) => (
           <article key={item.title} className="flex items-start gap-4 md:gap-5">
             <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-gold/20 bg-gold/10">
-              <Check className="h-3 w-3 text-gold" />
+              <Check className="h-3 w-3 text-gold" strokeWidth={3}/>
             </span>
             <div>
-              <h3 className="mb-1.5 text-xs font-bold uppercase tracking-[0.15em] text-white md:text-sm md:tracking-widest">
+              <h3 className="mb-1.5 text-body-sm font-bold uppercase tracking-[0.15em] text-white md:tracking-widest">
                 {item.title}
               </h3>
-              <p className="text-[11px] leading-relaxed text-slate-400 md:text-xs">{item.description}</p>
+              
+              <p className="text-body-sm leading-relaxed text-slate-400 ">{item.description}</p>
             </div>
           </article>
         ))}
