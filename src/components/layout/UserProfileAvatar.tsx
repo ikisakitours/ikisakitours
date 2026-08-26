@@ -4,7 +4,7 @@ import React, { useState, useEffect, useLayoutEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-const CACHE_KEY = "mapmate_loaded_avatars";
+const CACHE_KEY = "ikisaki_loaded_avatars";
 const getInitialCache = () => {
   if (typeof window !== "undefined") {
     try {

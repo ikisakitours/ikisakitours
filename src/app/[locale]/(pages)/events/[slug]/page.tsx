@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!listItem) {
     return {
-      title: "Event Not Found - MapMate Sri Lanka",
+      title: "Event Not Found - IkiSaki Tours Sri Lanka",
     };
   }
 

@@ -42,7 +42,7 @@ export const aboutData = {
     badge: "✨ OUR ORIGIN",
     title: "Crafting Meaningful Journeys",
     description1:
-      "Map Mate  was established with a singular vision: to dismantle the cookie-cutter approach to tourism and build deeply personal travel stories. We believe that Sri Lanka is best experienced when it is tailored to your unique interests and pace.",
+      "Iki Saki  was established with a singular vision: to dismantle the cookie-cutter approach to tourism and build deeply personal travel stories. We believe that Sri Lanka is best experienced when it is tailored to your unique interests and pace.",
     description2:
       "By bypassing large middlemen networks, we connect you directly to local boutique stays, trusted chauffeur drivers, and local naturalists, giving you the best rates without sacrificing service quality.",
     image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
@@ -91,13 +91,13 @@ export const aboutData = {
     title: "Our Leadership",
     name: "Danuja Perera",
     role: "FOUNDER & CEO",
-    bio: "Directing the custom travel experiences at Map Mate. Danuja is dedicated to integrating technology and local hospitality to deliver seamless, personalized itineraries to guests visiting Sri Lanka.",
+    bio: "Directing the custom travel experiences at Ikisaki Tours. Danuja is dedicated to integrating technology and local hospitality to deliver seamless, personalized itineraries to guests visiting Sri Lanka.",
   },
   trademark: {
     paragraphs: [
-      "<strong class='text-white font-medium'>Map Mate™</strong> is a registered trademark of Map Mate(Pvt) Ltd. All rights reserved.",
-      'The name "Map Mate," our official branding logos, visual assets, and customized web content are proprietary to Map Mate(Pvt) Ltd and may not be used, copied, or modified without our prior written authorization.',
-      "Any unauthorized use of our branding assets or copycat replication is strictly prohibited. For trademark usage queries, please reach out to us at <a href='mailto:hello@MapMate.com' class='text-gold hover:underline'>hello@MapMate.com</a>.",
+      "<strong class='text-white font-medium'>IkiSaki Tours™</strong> is a registered trademark of Iki Saki(Pvt) Ltd. All rights reserved.",
+      'The name "Iki Saki," our official branding logos, visual assets, and customized web content are proprietary to Iki Saki(Pvt) Ltd and may not be used, copied, or modified without our prior written authorization.',
+      "Any unauthorized use of our branding assets or copycat replication is strictly prohibited. For trademark usage queries, please reach out to us at <a href='mailto:hello@ikisakitours.com' class='text-gold hover:underline'>hello@ikisakitours.com</a>.",
     ],
   },
 };

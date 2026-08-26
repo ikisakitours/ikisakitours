@@ -81,5 +81,5 @@ export const legalLinks = [
 export const contactInfo = [
   { label: "Address", value: "123 Galle Road, Colombo 03" },
   { label: "Phone", value: "+94 11 234 5678" },
-  { label: "Email", value: "hello@MapMate.com" },
+  { label: "Email", value: "hello@ikisakitours.com" },
 ] as const;

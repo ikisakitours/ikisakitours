@@ -2,7 +2,7 @@ export default {
   MultiDay: {
     Metadata: {
       title: "遺産を巡るツアー",
-      description: "スリランカ全土のMapMate特製の遺産、自然、宗教、海岸ツアーパッケージを探索してください。",
+      description: "スリランカ全土のIkiSaki特製の遺産、自然、宗教、海岸ツアーパッケージを探索してください。",
     },
     Hero: {
       badge: "オーダーメイドの旅程",
@@ -17,7 +17,7 @@ export default {
   OneDay: {
     Metadata: {
       title: "日帰り旅行 | ヘリテージツアー",
-      description: "スリランカ全土のMapMate特製日帰り旅行とクイックエスケープを探索してください。",
+      description: "スリランカ全土のIkiSaki特製日帰り旅行とクイックエスケープを探索してください。",
     },
     Hero: {
       badge: "クイックエスケープ",

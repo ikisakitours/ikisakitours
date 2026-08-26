@@ -31,7 +31,7 @@ export const legalDocuments: LegalDocument[] = [
   // ==========================================
   {
     id: "terms",
-    eyebrow: "MapMate Terms Information",
+    eyebrow: "IkiSaki Terms Information",
     title: "Terms of Service",
     accent: "Service",
     lastUpdated: "February 2026",
@@ -115,7 +115,7 @@ export const legalDocuments: LegalDocument[] = [
   // ==========================================
   {
     id: "privacy",
-    eyebrow: "MapMate Privacy Policy Information",
+    eyebrow: "IkiSaki Privacy Policy Information",
     title: "Privacy Policy",
     accent: "Policy",
     lastUpdated: "January 2026",
@@ -125,7 +125,7 @@ export const legalDocuments: LegalDocument[] = [
         sectionIcon: "FileText",
         type: "paragraph",
         content:
-          'MapMate Luxury ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.\n\nBy using our services, you agree to the collection and use of information in accordance with this policy.',
+          'IkiSaki Luxury ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.\n\nBy using our services, you agree to the collection and use of information in accordance with this policy.',
       },
       {
         heading: "Information We Collect",
@@ -179,7 +179,7 @@ export const legalDocuments: LegalDocument[] = [
         sectionIcon: "HelpCircle",
         type: "contact",
         subItems: [
-          { title: "Email", body: "hello@mapmate.com" },
+          { title: "Email", body: "hello@ikisakitours.com" },
           { title: "Phone", body: "+94 11 234 5678" },
           { title: "Response Time", body: "Within 48 hours" },
         ],
@@ -192,7 +192,7 @@ export const legalDocuments: LegalDocument[] = [
   // ==========================================
   {
     id: "booking",
-    eyebrow: "MapMate Booking Policy Information",
+    eyebrow: "IkiSaki Booking Policy Information",
     title: "Booking Policy",
     accent: "Policy",
     lastUpdated: "March 2026",
@@ -202,7 +202,7 @@ export const legalDocuments: LegalDocument[] = [
         sectionIcon: "FileText",
         type: "paragraph",
         content:
-          "All reservations for Map Mate experiences must be processed through our official website. A booking is considered 'Pending' until a verification email is received and the initial deposit is confirmed.",
+          "All reservations for Iki Saki experiences must be processed through our official website. A booking is considered 'Pending' until a verification email is received and the initial deposit is confirmed.",
       },
       {
         heading: "Special Bookings & Requirements",
@@ -244,7 +244,7 @@ export const legalDocuments: LegalDocument[] = [
   // ==========================================
   {
     id: "payment",
-    eyebrow: "MapMate Payment Policy Information",
+    eyebrow: "IkiSaki Payment Policy Information",
     title: "Payment Policy",
     accent: "Policy",
     lastUpdated: "April 2026",
@@ -294,7 +294,7 @@ export const legalDocuments: LegalDocument[] = [
   // ==========================================
   {
     id: "cookie",
-    eyebrow: "MapMate Cookie Policy Information",
+    eyebrow: "IkiSaki Cookie Policy Information",
     title: "Cookie Policy",
     accent: "Policy",
     lastUpdated: "May 2026",
@@ -389,7 +389,7 @@ export const legalDocuments: LegalDocument[] = [
           },
           {
             title: "Data Deletion",
-            body: "You can clear your browser cache at any time to remove all stored MapMate cookies.",
+            body: "You can clear your browser cache at any time to remove all stored IkiSaki cookies.",
           },
         ],
       },
@@ -398,7 +398,7 @@ export const legalDocuments: LegalDocument[] = [
         sectionIcon: "HelpCircle",
         type: "contact",
         subItems: [
-          { title: "Email", body: "hello@mapmate.com" },
+          { title: "Email", body: "hello@ikisakitours.com" },
           { title: "Phone", body: "+94 11 234 5678" },
           { title: "Response Time", body: "Within 48 hours" },
         ],

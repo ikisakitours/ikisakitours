@@ -19,7 +19,7 @@ export function CurrencySelector() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      const savedCurrency = localStorage.getItem("mapmate_currency");
+      const savedCurrency = localStorage.getItem("ikisaki_currency");
       if (savedCurrency) {
         setBaseCurrency(savedCurrency);
       }
@@ -55,7 +55,7 @@ export function CurrencySelector() {
       if (customEvent.detail) {
         const newCurrency = customEvent.detail;
         setBaseCurrency(newCurrency);
-        localStorage.setItem("mapmate_currency", newCurrency);
+        localStorage.setItem("ikisaki_currency", newCurrency);
       }
     };
     window.addEventListener("languageChanged", handleLanguageChange);
@@ -128,7 +128,7 @@ export function CurrencySelector() {
                   ref={isSelected ? selectedItemRef : null}
                   onClick={() => {
                     setBaseCurrency(currency.code);
-                    localStorage.setItem("mapmate_currency", currency.code);
+                    localStorage.setItem("ikisaki_currency", currency.code);
                     setIsOpen(false);
                     setSearch("");
                   }}

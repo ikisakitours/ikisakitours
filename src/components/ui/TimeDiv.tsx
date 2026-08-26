@@ -40,10 +40,10 @@ export default function TimeDiv() {
 
   return (
     <div className="relative flex w-full items-center rounded-2xl border border-gold/20 bg-lanka-black/60 p-4 backdrop-blur-md min-h-25 overflow-hidden">
-      {/* Watermark: MAPMATE - Perfectly Centered */}
+      {/* Watermark: IKISAKI - Perfectly Centered */}
       <div className="pointer-events-none absolute inset-0 z-0 grid h-full w-full place-items-center overflow-hidden">
         <span className="whitespace-nowrap text-[3.9rem]  min-[340px]:max-[365px]:text-[3.5rem] min-[540px]:text-[5.5rem] sm:text-[4rem] md:text-[3.5rem]  lg:text-[5rem] xl:text-[3.8rem] 2xl:text-[4.5rem] 3xl:text-[5.5rem] font-black uppercase leading-none text-gold/10">
-          MAPMATE
+          IKISAKI
         </span>
       </div>
       {/* Top Left Watermark: LK */}
@@ -66,7 +66,7 @@ export default function TimeDiv() {
         </div>
 
         {/* Time and Date */}
-        <div className="text-xl min-[340px]:max-[365px]:text-[1.1rem] md:text-[1.15rem] 3xl:text-[1.6rem] font-bold text-foreground whitespace-nowrap mt-1">
+        <div className="text-[1.16rem] min-[340px]:max-[365px]:text-[1.0rem] md:text-[1rem] 3xl:text-[1.6rem] font-bold text-foreground whitespace-nowrap mt-1">
           {time ? `${formatDate(time)} | ${formatTime(time)}` : tTimeDiv("loading")}
         </div>
 

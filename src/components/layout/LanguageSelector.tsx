@@ -89,13 +89,14 @@ export function LanguageSelector() {
     return () => window.removeEventListener("openLanguageDropdown", handleOpenEvent as EventListener);
   }, []);
 
+  
+
   useEffect(() => {
     if (!locationData) return;
 
-    const handlePreloaderFinished = () => {
+    const evaluateAndShowPrompt = () => {
       setTimeout(() => {
-        const hasSeenPrompt = localStorage.getItem("mapmate_lang_prompt_seen");
-
+        const hasSeenPrompt = localStorage.getItem("ikisaki_lang_prompt_seen");
         if (hasSeenPrompt) return;
 
         if (detectedCountry !== locationData.country_name) {
@@ -112,42 +113,59 @@ export function LanguageSelector() {
 
             if (!showPrompt) {
               setShowPrompt(true);
-              localStorage.setItem("mapmate_lang_prompt_seen", "true");
+              localStorage.setItem("ikisaki_lang_prompt_seen", "true");
             }
           } else {
-            localStorage.setItem("mapmate_lang_prompt_seen", "true");
+            localStorage.setItem("ikisaki_lang_prompt_seen", "true");
           }
         } else {
           if (promptType !== "unsupported") setPromptType("unsupported");
 
           if (!showPrompt) {
             setShowPrompt(true);
-            localStorage.setItem("mapmate_lang_prompt_seen", "true");
+            localStorage.setItem("ikisaki_lang_prompt_seen", "true");
           }
         }
       }, 1500);
     };
 
-    if (typeof window !== "undefined") {
-      const isPreloaderAlreadyDone = document.cookie.includes("preloader_seen=true");
+    const runLanguagePromptSequence = () => {
+      const hasCookieConsent = document.cookie.includes("ikisaki_cookie_consent=");
 
-      if (isPreloaderAlreadyDone || (window as Window & { __preloaderDone?: boolean }).__preloaderDone) {
-        handlePreloaderFinished();
+      if (hasCookieConsent) {
+        evaluateAndShowPrompt();
       } else {
-        window.addEventListener("preloaderFinished", handlePreloaderFinished);
+        const onCookieConsentUpdated = () => {
+          evaluateAndShowPrompt();
+          window.removeEventListener("cookieConsentUpdated", onCookieConsentUpdated);
+        };
+        window.addEventListener("cookieConsentUpdated", onCookieConsentUpdated);
+      }
+    };
+
+    if (typeof window !== "undefined") {
+      const isPreloaderAlreadyDone =
+        document.cookie.includes("preloader_seen=true") ||
+        (window as Window & { __preloaderDone?: boolean }).__preloaderDone;
+
+      if (isPreloaderAlreadyDone) {
+        runLanguagePromptSequence();
+      } else {
+        window.addEventListener("preloaderFinished", runLanguagePromptSequence);
       }
     }
 
     return () => {
       if (typeof window !== "undefined") {
-        window.removeEventListener("preloaderFinished", handlePreloaderFinished);
+        window.removeEventListener("preloaderFinished", runLanguagePromptSequence);
       }
     };
   }, [locationData, currentLocale, detectedCountry, promptType, showPrompt, targetLangObj]);
+
   // Prompt Actions
   const handlePromptAccept = () => {
     window.dispatchEvent(new CustomEvent("hideLanguagePrompt"));
-    localStorage.setItem("mapmate_lang_prompt_seen", "true");
+    localStorage.setItem("ikisaki_lang_prompt_seen", "true");
 
     if (promptType === "switch" && targetLangObj) {
       const newLocale = targetLangObj.code.toLowerCase();
@@ -160,7 +178,7 @@ export function LanguageSelector() {
 
   const handlePromptDismiss = (openDropdown: boolean) => {
     window.dispatchEvent(new CustomEvent("hideLanguagePrompt"));
-    localStorage.setItem("mapmate_lang_prompt_seen", "true");
+    localStorage.setItem("ikisaki_lang_prompt_seen", "true");
 
     if (openDropdown) {
       if (window.innerWidth < 1280) {
@@ -209,11 +227,10 @@ export function LanguageSelector() {
           </span>
           <span className="text-caption font-bold text-gold/90">({currentLang.nativeName})</span>
           <ChevronDown
-          
             className={`h-4 w-4 text-slate-300 transition-transform duration-300 group-hover:text-gold ${
               isOpen ? "rotate-180" : ""
             }`}
-          strokeWidth={2.5}
+            strokeWidth={2.5}
           />
           <span className="pointer-events-none absolute top-full left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap rounded-md bg-[#0a0a0a] border border-gold/30 px-3 py-1.5 text-tiny font-bold uppercase tracking-wider text-gold opacity-0 transition-all duration-200 group-hover:opacity-100 shadow-2xl z-50 hidden md:block">
             {t("tooltip")}

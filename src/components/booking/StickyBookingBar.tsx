@@ -5,6 +5,7 @@ import { X, Sparkles, CalendarCheck } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BookingWidget } from "@/components/booking/BookingWidget";
 import type { bookingTour, travelerOptions } from "@/data/multiDaysBooking";
+import { useTranslations } from "next-intl";
 
 type MobileBookingBarProps = {
   tour: typeof bookingTour;
@@ -15,7 +16,7 @@ type MobileBookingBarProps = {
 export function StickyBookingBar({ tour, options, assurances }: MobileBookingBarProps) {
   const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
   const [showStickyBar, setShowStickyBar] = useState(false);
-
+  const t = useTranslations("Booking.StickyBar");
   useEffect(() => {
     window.dispatchEvent(new CustomEvent("bookingModalStateChange", { detail: { isOpen: isMobileModalOpen } }));
   }, [isMobileModalOpen]);
@@ -33,14 +34,16 @@ export function StickyBookingBar({ tour, options, assurances }: MobileBookingBar
 
   useEffect(() => {
     let isCurrentlyVisible = false;
-    let ticking = false; // Add ticking variable for requestAnimationFrame
+    let ticking = false;
 
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           const scrollPos = window.scrollY;
           const screenWidth = window.innerWidth;
-
+          const windowHeight = window.innerHeight;
+          const documentHeight = document.documentElement.scrollHeight;
+          const isNearBottom = scrollPos + windowHeight >= documentHeight - 1550;
           if (screenWidth >= 1280) {
             if (isCurrentlyVisible) {
               isCurrentlyVisible = false;
@@ -61,9 +64,9 @@ export function StickyBookingBar({ tour, options, assurances }: MobileBookingBar
           }
 
           let shouldBeVisible = isCurrentlyVisible;
-          if (scrollPos > scrollThreshold + 20) {
+          if (scrollPos > scrollThreshold + 20 && !isNearBottom) {
             shouldBeVisible = true;
-          } else if (scrollPos < scrollThreshold - 20) {
+          } else if (scrollPos < scrollThreshold - 20 || isNearBottom) {
             shouldBeVisible = false;
           }
 
@@ -111,11 +114,11 @@ export function StickyBookingBar({ tour, options, assurances }: MobileBookingBar
         <div className="relative z-10 flex flex-col">
           <div className="flex items-center gap-1.5 text-caption font-bold uppercase tracking-[0.2em] text-gold drop-shadow-[0_0_8px_rgba(197,160,89,0.5)]">
             <Sparkles className="h-3 w-3 animate-pulse" />
-            <span>MapMate Rate</span>
+            <span>IkiSaki {t("Rate")}</span>
           </div>
           <div className="flex items-baseline gap-1.5">
             <span className="text-heading-sub font-black tracking-tight text-white drop-shadow-md">${tour.price}</span>
-            <span className="text-caption font-light text-slate-400">/ Person</span>
+            <span className="text-caption font-light text-slate-400">{t("perPerson")}</span>
           </div>
         </div>
 
@@ -126,7 +129,7 @@ export function StickyBookingBar({ tour, options, assurances }: MobileBookingBar
         >
           <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/40 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
           <CalendarCheck className="h-4 w-4 relative z-10" />
-          <span className="relative z-10">Check Availability</span>
+          <span className="relative z-10">{t("checkAvailability")}</span>
         </button>
       </motion.div>
 
@@ -166,7 +169,7 @@ export function StickyBookingBar({ tour, options, assurances }: MobileBookingBar
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-gold" />
                   </div>
                   <span className="text-caption! font-black uppercase tracking-[0.25em] gold-gradient-text">
-                    Secure Your Journey
+                    {t("secureJourney")}
                   </span>
                 </div>
 
@@ -174,7 +177,7 @@ export function StickyBookingBar({ tour, options, assurances }: MobileBookingBar
                   type="button"
                   onClick={() => setIsMobileModalOpen(false)}
                   className="group relative flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 transition-all duration-300 hover:border-gold/50 hover:bg-gold hover:text-black hover:shadow-[0_0_15px_rgba(197,160,89,0.4)]"
-                  aria-label="Close modal"
+                  aria-label={t("closeModal")}
                 >
                   <X className="h-4.5 w-4.5 transition-transform duration-300 group-hover:rotate-90" />
                 </button>

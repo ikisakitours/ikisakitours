@@ -1,5 +1,5 @@
 export default {
-  badge: "MapMate Pass",
+  badge: "IkiSaki Pass",
   tag: "#VIP25",
   bottomText: "Instant Luxury Credit",
   floatingTag: "★ Exclusive Reward",

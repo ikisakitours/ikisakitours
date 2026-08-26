@@ -9,7 +9,7 @@ export const bookingTour = {
   rating: "4.9",
   likes: 85,
   reviewCount: 412,
-  provider: "Map Mate",
+  provider: "Iki Saki",
   price: 45,
   discount: "15",
   lead: "Step back in time and explore the monumental ruins of Sri Lanka's second great ancient kingdom.",

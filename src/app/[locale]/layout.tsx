@@ -31,8 +31,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const t = await getTranslations({ locale, namespace: "RootLayout.Metadata" });
 
   return {
-    metadataBase: new URL("https://mapmate-sri-lanka.vercel.app"),
-
+    // metadataBase: new URL("https://mapmate-sri-lanka.vercel.app"),
+  metadataBase: new URL("https://www.ikisakitours.com"),
     title: {
       default: t("titleDefault"),
       template: t("titleTemplate"),

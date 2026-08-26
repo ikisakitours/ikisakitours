@@ -53,26 +53,6 @@ export function InfoSidebar({
                   <p className="mt-1 text-body-sm leading-relaxed text-slate-400">{feature.description}</p>
                 </div>
               </div>
-
-              //                             <div
-              //   key={idx}
-              //   className="rounded-2xl border border-white/5 bg-white/2 p-4 transition-colors hover:bg-white/4"
-              // >
-              //   {/* Icon සහ Title පමණක් එකම පේළියට (Row) තබා ඇත. අයිකන් එකේ මැදට title එක කෙලින්ම එයි. */}
-              //   <div className="flex items-center gap-4">
-              //     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold/10">
-              //       <Icon className="h-5 w-5 text-gold" />
-              //     </div>
-              //     <h4 className="text-caption font-bold uppercase tracking-[0.2em] text-white">
-              //       {feature.title}
-              //     </h4>
-              //   </div>
-
-              //   {/* Paragraph එක දැන් කිසිම බාධාවකින් තොරව වම් කෙළවරටම align වේ */}
-              //   <p className="mt-3 text-body-sm leading-relaxed text-slate-400">
-              //     {feature.description}
-              //   </p>
-              // </div>
             );
           })}
         </div>

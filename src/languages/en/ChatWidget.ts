@@ -1,9 +1,9 @@
 export default {
   Header: {
-    titleDefault: "MapMate Sri Lanka",
+    titleDefault: "IKISAKI Tours Sri Lanka",
     titleEmail: "Send an Email",
     onlineStatus: "Online Now",
-    logoAlt: "MapMate Logo",
+    logoAlt: "IkiSaki Logo",
   },
   Home: {
     greeting: "Hello there! 👋",

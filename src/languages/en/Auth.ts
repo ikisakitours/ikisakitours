@@ -3,25 +3,25 @@ export default {
     Gateway: {
       title: "Sign In or Register",
       description:
-        "Access your MapMate account or join our exclusive travel community to unlock bespoke Sri Lankan itineraries.",
+        "Access your IkiSaki account or join our exclusive travel community to unlock bespoke Sri Lankan itineraries.",
     },
     Signup: {
       title: "Create Account",
       description:
-        "Create a MapMate member account for private travel planning, exclusive tour bookings, and personalized Sri Lankan itineraries.",
+        "Create a IkiSaki member account for private travel planning, exclusive tour bookings, and personalized Sri Lankan itineraries.",
     },
-    Login: { title: "Secure Gateway", description: "Sign in to the MapMate secure travel gateway." },
-    Recovery: { title: "Account Recovery", description: "Request a MapMate account recovery email." },
+    Login: { title: "Secure Gateway", description: "Sign in to the IkiSaki secure travel gateway." },
+    Recovery: { title: "Account Recovery", description: "Request a IkiSaki account recovery email." },
     Reset: {
       title: "Reset Password",
-      description: "Set a new MapMate account password after email verification.",
+      description: "Set a new IkiSaki account password after email verification.",
     },
   },
   Intros: {
     Gateway: {
       image: "/images/sander-traa-bfdshIHD5Y4-unsplash.webp",
       imageAlt: "A breathtaking view of a Sri Lankan tea estate",
-      eyebrow: "Welcome to MapMate",
+      eyebrow: "Welcome to IkiSaki",
       title: "Your Journey",
       accent: "Starts Here",
       body: "Sign in or create an account to manage your bookings, discover exclusive tours, and curate your ultimate Sri Lankan adventure.",
@@ -75,7 +75,7 @@ export default {
   Links: {
     alreadyHaveAccount: "Already a member?",
     signInHere: "Enter Gateway",
-    firstTime: "New to MapMate?",
+    firstTime: "New to IkiSaki?",
     createAccount: "Join the Circle",
     forgotPassword: "Lost your key?",
     rememberIt: "Found my key!",

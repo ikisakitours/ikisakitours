@@ -1,6 +1,7 @@
 // src/hooks/useBookingWidget.ts
 import { useState, type FormEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
+import { bookingWidgetService } from "@/services/Booking/bookingWidgetService";
 
 export function useBookingWidget() {
   const [travelerCounts, setTravelerCounts] = useState<Record<string, number>>({
@@ -28,14 +29,19 @@ export function useBookingWidget() {
   const handleBookingSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const isValid = validate({ date: journeyDate, counts: travelerCounts });
-    
+
     if (!isValid) return;
 
     try {
       setIsLoading(true);
       // Simulated API request
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // await new Promise((resolve) => setTimeout(resolve, 1500));
+      await bookingWidgetService.createBooking({ journeyDate, travelerCounts });
       console.log("Booking form is valid, proceed to API call", { journeyDate, travelerCounts });
+
+      //From clear
+      setJourneyDate("");
+      setTravelerCounts({ adult: 0, couple: 0, child: 0, infant: 0 });
     } catch (error) {
       console.error("Booking error:", error);
       setErrors((prev) => ({ ...prev, date: "Booking submission failed" }));

@@ -3,6 +3,7 @@ import { useValidationForm } from "@/hooks/useValidationForm";
 import { type ActiveVehicleFilter } from "@/components/services/VehicleSelector";
 import { type ContactData } from "@/components/services/ContactForm";
 import { vehicles } from "@/data/vehicles";
+import { privateVehicleService } from "@/services/services/privateVehicleService";
 
 export function usePrivateVehicleForm() {
   const defaultCategory = vehicles[0].category;
@@ -69,7 +70,22 @@ export function usePrivateVehicleForm() {
 
     try {
       setIsLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      const payload = {
+        activeFilter,
+        selectedVehicleId,
+        pickupLocation,
+        tourRequests,
+        date,
+        time,
+        language,
+        tourDays,
+        travelerCounts,
+        contact,
+      };
+
+      await privateVehicleService.bookVehicle(payload);
+      // await new Promise((resolve) => setTimeout(resolve, 1500));
       console.log("Private Vehicle Form valid and submitted!", {
         activeFilter,
         selectedVehicleId,
@@ -82,6 +98,17 @@ export function usePrivateVehicleForm() {
         travelerCounts,
         contact,
       });
+
+      // Form  Clear
+      setPickupLocation("");
+      setTourRequests("");
+      setDate("");
+      setTime("");
+      setLanguage("");
+      setTourDays(0);
+      setTravelerCounts({ adult: 0, couple: 0, child: 0, infant: 0 });
+      setContact({ fullName: "", email: "", phone: "", specialRequests: "" });
+      
     } catch (error) {
       console.error("Submission error:", error);
     } finally {

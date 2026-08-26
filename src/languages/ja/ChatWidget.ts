@@ -1,9 +1,9 @@
 export default {
   Header: {
-    titleDefault: "MapMate スリランカ",
+    titleDefault: "IKISAKI Tours スリランカ",
     titleEmail: "メールを送信",
     onlineStatus: "オンライン",
-    logoAlt: "MapMate ロゴ",
+    logoAlt: "IkiSaki ロゴ",
   },
   Home: {
     greeting: "こんにちは！ 👋",

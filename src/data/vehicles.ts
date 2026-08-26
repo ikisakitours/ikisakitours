@@ -7,7 +7,7 @@ export type Vehicle = {
   price: string;
   passengers: string;
   luggage: string;
-  touristNote?: string;
+  touristNote?: string[];
   pricingType?: string;
 };
 
@@ -25,7 +25,12 @@ export const vehicles: Vehicle[] = [
     price: "$120",
     passengers: "1-3",
     luggage: "", //2 Medium Bags
-    touristNote: "Ideal for couples or solo travelers looking for a comfortable city-to-city transfer.",
+    touristNote: [
+      "Ideal for couples or solo travelers.",
+      "Perfect for comfortable city-to-city transfers and highway drives.",
+      "Fully air-conditioned with premium seating for a relaxing journey.",
+      "Compact size allows for smooth navigation in busy city streets.",
+    ],
   },
   {
     id: "van-base",
@@ -34,7 +39,13 @@ export const vehicles: Vehicle[] = [
     price: "$180",
     passengers: "4-8",
     luggage: "", //6 Large Bags
-    touristNote: "Perfect for family tours or small groups with plenty of space for luggage and equipment.",
+    touristNote: [
+      "Perfect for family tours or small travel groups.",
+      "Plenty of space for luggage, surfboards, and travel equipment.",
+      "Spacious legroom designed for long-distance travel comfort.",
+      "Dual climate control (AC) for an optimal passenger experience.",
+      "Rates may vary depending on the van size and exact passenger capacity.",
+    ],
   },
   {
     id: "suv-base",
@@ -43,6 +54,11 @@ export const vehicles: Vehicle[] = [
     price: "$260",
     passengers: "1-5",
     luggage: "", //4 Large Bags
-    touristNote: "Best for rough terrains, mountain hill country tours (like Ella/Nuwara Eliya), and luxury comfort.",
+    touristNote: [
+      "Best for rough terrains and mountain hill country tours (Ella/Nuwara Eliya).",
+      "Offers high-end luxury comfort with elevated scenic viewing angles.",
+      "Premium spacious interior equipped with advanced safety features.",
+      "The perfect combination of robust power and VIP travel experience.",
+    ],
   },
 ];

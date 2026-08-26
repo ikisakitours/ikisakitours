@@ -3,7 +3,7 @@ export default {
     Transfers: {
       title: "Transfers",
       description:
-        "Book MapMate airport pick-ups, hotel transfers, and island-wide chauffeur services with live vehicle rates.",
+        "Book IkiSaki airport pick-ups, hotel transfers, and island-wide chauffeur services with live vehicle rates.",
     },
     PrivateVehicle: {
       title: "Private Chauffeur Service",
@@ -70,6 +70,30 @@ export default {
     pax: "Pax",
     luggage: "Luggage",
     note: "Note",
+    customizeTour: "Customize your tour package",
+    withDriver: "With Driver",
+    withGuide: "With Guide",
+    Notes: {
+      sedan: [
+        "Ideal for couples or solo travelers.",
+        "Perfect for comfortable city-to-city transfers and highway drives.",
+        "Fully air-conditioned with premium seating for a relaxing journey.",
+        "Compact size allows for smooth navigation in busy city streets.",
+      ],
+      van: [
+        "Perfect for family tours or small travel groups.",
+        "Plenty of space for luggage, surfboards, and travel equipment.",
+        "Spacious legroom designed for long-distance travel comfort.",
+        "Dual climate control (AC) for an optimal passenger experience.",
+        "Rates may vary depending on the van size and exact passenger capacity.",
+      ],
+      suv: [
+        "Best for rough terrains and mountain hill country tours (Ella/Nuwara Eliya).",
+        "Offers high-end luxury comfort with elevated scenic viewing angles.",
+        "Premium spacious interior equipped with advanced safety features.",
+        "The perfect combination of robust power and VIP travel experience.",
+      ],
+    },
   },
   CrossPromotion: {
     discoverMore: "Discover More",
@@ -161,5 +185,30 @@ export default {
       "Premium insurance",
       "Multi-language concierge support",
     ],
+  },
+  CharterRates: {
+    titleBase: "Private Vehicle",
+    titleAccent: "Charter Info",
+    subtitleStrong: "The longer you travel, the better the daily rate.",
+    subtitle:
+      "Our charter rates are designed for private, comfortable journeys throughout Sri Lanka, with the flexibility to customize your itinerary.",
+    popularBadge: "Most Popular Choice",
+    popularTitle: "10–14 Days Packages",
+    popularDesc:
+      "Highly recommended by our travelers for the perfect balance of exploration and relaxation across Sri Lanka.",
+    notesTitle: "Important Pricing Notes",
+    notes: [
+      "Prices are based on the advertised standard itinerary/base plan.",
+      "Depending on the itinerary, a lower price may be available.",
+      "Premium hotels/areas or special requirements may have additional charges.",
+      "High-season prices can vary, so customers should request an exact quotation.",
+      "Charter days are counted consecutively, even if the vehicle is not used on one of the days.",
+      "Standard rates apply to trips starting or ending in Colombo, Negombo, or Colombo Airport.",
+      "Pickups/drop-offs from other locations may have an additional charge.",
+      "Other language-speaking drivers are available on request.",
+    ],
+    ctaButton: "Request a Personalized Quote",
+    ctaDesc:
+      "Please provide your travel dates, vehicle preference, and itinerary in the form above to receive an exact, customized quotation.",
   },
 } as const;

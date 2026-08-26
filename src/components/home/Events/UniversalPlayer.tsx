@@ -94,7 +94,7 @@ export default function UniversalPlayer({ url }: UniversalPlayerProps) {
   // 03) Twitch - Mobile & Windows Autoplay Fix
   if (url.includes("twitch.tv")) {
     const channelName = url.split("twitch.tv/")[1]?.split("/")[0];
-    const parentDomain = typeof window !== "undefined" ? window.location.hostname : "mapmate-sri-lanka.vercel.app";
+    const parentDomain = typeof window !== "undefined" ? window.location.hostname : "ikisakitours.com";
     const embedUrl = `https://player.twitch.tv/?channel=${channelName}&parent=${parentDomain}&muted=true&autoplay=true&playsinline=true`;
 
     return (

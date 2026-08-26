@@ -4,7 +4,7 @@ import { useState, useEffect, useLayoutEffect } from "react";
 import Image, { ImageProps, StaticImageData } from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
-const CACHE_KEY = "mapmate_loaded_images";
+const CACHE_KEY = "ikisaki_loaded_images";
 
 const getInitialCache = () => {
   if (typeof window !== "undefined") {
@@ -154,7 +154,7 @@ export function LoadingImage({
                 <div
                   className={`pointer-events-none absolute whitespace-nowrap select-none font-bold leading-none tracking-tighter text-white/3 ${watermarkClassName}`}
                 >
-                  MapMate
+                  IkiSaki Tours
                 </div>
               </>
             )}

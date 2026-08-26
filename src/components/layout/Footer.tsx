@@ -29,22 +29,15 @@ export function Footer() {
   const isVideoLogo = BRAND_LOGO_URL?.match(/\.(mp4|webm|ogg)$/i);
 
   return (
-    <footer className="relative overflow-hidden border-t border-white/5 bg-[#050505] pt-20 pb-10">
+    <footer className="relative overflow-hidden border-t border-white/5 bg-[#050505] py-10">
       <div className="absolute bottom-0 left-1/2 -z-10 h-75 w-75 -translate-x-1/2 rounded-full bg-gold/5 blur-[100px] md:w-200" />
-
-      {/* MAPMATE Watermark */}
-      <div className="pointer-events-none absolute bottom-0 inset-x-0 z-0 grid w-full place-items-center overflow-hidden opacity-[0.03]">
-        <span className="whitespace-nowrap text-[4.4rem]  min-[340px]:max-[365px]:text-[3.9rem] min-[540px]:text-[6rem] sm:text-[4.4rem] md:text-[9rem] lg:text-[12.2rem] xl:text-[14rem] 2xl:text-[17rem] 3xl:text-[19rem] font-black uppercase leading-none text-white">
-          MAPMATE
-        </span>
-      </div>
 
       <ContainerLayout className="relative z-10">
         <div className="mb-20 2xl:mb-20 3xl:mb-20 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:gap-x-24 lg:gap-y-12 xl:grid-cols-12 xl:gap-8">
           <div className="flex flex-col items-center space-y-6 text-center sm:items-start sm:text-left xl:col-span-4">
             <div className="flex items-center space-x-3">
               <h3 className="text-2xl font-bold tracking-[0.2em] text-white">
-                MAP<span className="gold-gradient-text font-bold italic text-gold">MATE</span>
+                IKI<span className="gold-gradient-text font-bold italic text-gold">SAKI</span>
               </h3>
               <div className="group relative flex h-5 w-7 items-center justify-center overflow-hidden border-[0.5px] border-white/20 bg-black shadow-[0_0_15px_rgba(197,160,89,0.15)] transition-all duration-500 hover:border-gold/80 hover:shadow-[0_0_25px_rgba(197,160,89,0.6)] hover:scale-110">
                 <div className="pointer-events-none absolute inset-0 z-20 -translate-x-full bg-linear-to-r from-transparent via-white/50 to-transparent transition-transform duration-1000 ease-in-out group-hover:translate-x-full" />
@@ -159,10 +152,12 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mb-10 2xl:mb-30 3xl:mb-35 h-px w-full bg-linear-to-r from-transparent via-white/20 to-transparent" />
+        <div className="h-px w-full bg-linear-to-r from-transparent via-white/20 to-transparent" />
+      </ContainerLayout>
 
+      <ContainerLayout className="relative z-10">
         {/* Footer bottom section */}
-        <div className="flex flex-col items-center justify-between gap-8 xl:flex-row">
+        <div className="mt-8 flex flex-col items-center justify-between gap-8 xl:flex-row">
           <p className="flex flex-wrap items-center justify-center lg:justify-start gap-1.5 text-center text-[12px] md:text-[11px] font-medium uppercase tracking-[0.2em] text-slate-300 lg:text-left">
             <span>&copy; {tFooter("copyright")}</span>
             <Heart className="-mt-0.5 h-4 w-4 lg:h-4 lg:w-4 animate-pulse text-gold shrink-0" fill="currentColor" />
@@ -197,9 +192,17 @@ export function Footer() {
             })}
           </div>
         </div>
+      </ContainerLayout>
 
+      <div className="pointer-events-none relative z-0 flex w-full items-center justify-center overflow-hidden opacity-[0.03] py-4 md:-mt-4">
+        <span className="whitespace-nowrap text-[5.3rem] min-[340px]:max-[365px]:text-[3.9rem] min-[540px]:text-[6rem] sm:text-[4.4rem] md:text-[10rem] lg:text-[14.2rem] xl:text-[14rem] 2xl:text-[19rem] 3xl:text-[19rem] font-black uppercase leading-none text-white">
+          IkiSaki
+        </span>
+      </div>
+
+      <ContainerLayout className="relative z-10">
         {/*Powered By" Signature Badge */}
-        <div className="mt-8 flex items-center justify-center">
+        <div className="flex items-center justify-center">
           <Link
             href={BRAND_URL}
             target="_blank"

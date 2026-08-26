@@ -10,7 +10,7 @@ export default function Trademark() {
     <div className="rounded-3xl bg-lanka-black border border-white/5 p-8 md:p-10 text-caption text-slate-500 leading-relaxed text-center space-y-6">
       {/* Top Corporate Branding Line */}
       <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-slate-400 font-medium">
-        <span className="text-white text-body tracking-wide">Map Mate™</span>
+        <span className="text-white text-body tracking-wide">IkiSaki Tours™</span>
         <span className="hidden sm:inline text-gold/40">•</span>
         <span className="text-caption text-slate-400 tracking-wider uppercase">{t("tagline")}</span>
       </div>

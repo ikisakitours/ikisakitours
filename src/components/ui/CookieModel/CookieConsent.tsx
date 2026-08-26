@@ -16,7 +16,7 @@ export function CookieConsent() {
   const [isPreferenceOpen, setIsPreferenceOpen] = useState(false);
   const [isHeaderMenuOpen, setIsHeaderMenuOpen] = useState(false);
   useEffect(() => {
-    const hasConsent = document.cookie.split("; ").find((row) => row.startsWith("mapmate_cookie_consent="));
+    const hasConsent = document.cookie.split("; ").find((row) => row.startsWith("ikisaki_cookie_consent="));
 
     if (hasConsent) return;
 

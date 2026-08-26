@@ -14,7 +14,7 @@ export default {
   Explorer: {
     filterRegions: "Filter Regions",
     searchPlaceholder: "Search destinations...",
-    watermark: "MapMate",
+    watermark: "IkiSaki",
     geoBadge: "Geographical Discovery",
     mapTitle: "Discover Destinations Visually",
     mapDesc:

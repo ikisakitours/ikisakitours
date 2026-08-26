@@ -1,7 +1,7 @@
 export default {
   Metadata: {
     title: "プロフィール設定",
-    description: "MapMateのプロフィールの詳細、アカウントのセキュリティ、プライバシー設定を管理します。",
+    description: "IkiSakiのプロフィールの詳細、アカウントのセキュリティ、プライバシー設定を管理します。",
   },
   Dashboard: {
     titleBase: "アカウント",

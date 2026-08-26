@@ -4,7 +4,7 @@ export default {
   titlePrefix: "クッキーの",
   titleHighlight: "設定",
   description:
-    "MapMateでは、より快適な高級感のあるブラウジング体験を提供するためにクッキーを使用しています。閲覧を続けることにより、クッキーの設定に同意したことになります。",
+    "IkiSakiでは、より快適な高級感のあるブラウジング体験を提供するためにクッキーを使用しています。閲覧を続けることにより、クッキーの設定に同意したことになります。",
   wantToCustomize: "カスタマイズしますか？",
   managePreferences: "設定を管理",
   cookiePolicy: "クッキーポリシー",

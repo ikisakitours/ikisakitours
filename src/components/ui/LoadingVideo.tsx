@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const CACHE_KEY = "mapmate_loaded_videos";
+const CACHE_KEY = "ikisaki_loaded_videos";
 const getInitialCache = () => {
   if (typeof window !== "undefined") {
     try {
@@ -138,7 +138,7 @@ export function LoadingVideo({
                   />
                 </motion.svg>
                 <div className="pointer-events-none absolute bottom-3 right-4 whitespace-nowrap select-none font-bold leading-none tracking-tighter text-white/3 text-2xl sm:text-3xl">
-                  MapMate
+                  IkiSaki
                 </div>
               </div>
             )}

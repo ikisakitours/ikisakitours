@@ -5,6 +5,7 @@ import { vehicles } from "@/data/vehicles";
 import { type ActiveVehicleFilter } from "@/components/services/VehicleSelector";
 import { type ContactData } from "@/components/services/ContactForm";
 import { useSearchParams } from "next/navigation";
+import { transferServiceApi } from "@/services/services/transferService";
 
 export function useTransferBookingForm() {
   const defaultCategory = vehicles[0].category;
@@ -77,7 +78,22 @@ export function useTransferBookingForm() {
 
     try {
       setIsLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      const payload = {
+        serviceType,
+        selectedVehicleId,
+        selectedVehicle,
+        pickupLocation,
+        dropoffLocation,
+        date,
+        time,
+        language,
+        travelerCounts,
+        contact,
+      };
+
+      await transferServiceApi.bookTransfer(payload);
+      // await new Promise((resolve) => setTimeout(resolve, 1500));
       console.log("Transfer Form valid and submitted!", {
         serviceType,
         selectedVehicleId,
@@ -90,6 +106,16 @@ export function useTransferBookingForm() {
         travelerCounts,
         contact,
       });
+
+      // Form  Clear
+      setPickupLocation("");
+      setDropoffLocation("");
+      setDate("");
+      setTime("");
+      setLanguage("");
+      setTravelerCounts({ adult: 0, couple: 0, child: 0, infant: 0 });
+      setContact({ fullName: "", email: "", phone: "", specialRequests: "" });
+      
     } catch (error) {
       console.error("Submission error:", error);
     } finally {

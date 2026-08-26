@@ -2,7 +2,7 @@ export default {
   Metadata: {
     title: "Contact Us - Get in Touch",
     description:
-      "Reach out to MapMate for any inquiries, tour planning assistance, or support regarding your trip to Sri Lanka.",
+      "Reach out to IkiSaki for any inquiries, tour planning assistance, or support regarding your trip to Sri Lanka.",
   },
   Hero: {
     eyebrow: "Start a Conversation",
@@ -58,7 +58,7 @@ export default {
     lineButton: "Chat on LINE",
     onlineStatus: "Online & Ready to Chat",
     info: [
-      { label: "Email", value: "hello@mapmate.lk" },
+      { label: "Email", value: "hello@ikisakitours.com" },
       { label: "Phone", value: "+94 77 123 4567" },
       { label: "Location", value: "Colombo, Sri Lanka" },
       { label: "Working Hours", value: "24/7 Available" },

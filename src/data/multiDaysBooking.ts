@@ -9,7 +9,7 @@ export const bookingTour = {
   rating: "4.8",
   likes: 45,
   reviewCount: 317,
-  provider: "Map Mate",
+  provider: "Iki Saki",
   price: 33,
   discount: "10",
   lead: "Minneriya National Park Safari Experience - Sri Lanka's wild side like never before.",
@@ -99,7 +99,7 @@ export const bookingTour = {
       description: "Check availability to see morning and afternoon starts.",
     },
     {
-      title: "Map Mate driver",
+      title: "Iki Saki driver",
       description: "Expert English-speaking naturalist driver.",
     },
   ],

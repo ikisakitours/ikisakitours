@@ -16,7 +16,7 @@ export default {
     badge: "OUR ORIGIN",
     title: "Crafting Meaningful Journeys",
     description1:
-      "Map Mate was established with a singular vision: to dismantle the cookie-cutter approach to tourism and build deeply personal travel stories. We believe that Sri Lanka is best experienced when it is tailored to your unique interests and pace.",
+      "IkiSaki Tours was established with a singular vision: to dismantle the cookie-cutter approach to tourism and build deeply personal travel stories. We believe that Sri Lanka is best experienced when it is tailored to your unique interests and pace.",
     description2:
       "By bypassing large middlemen networks, we connect you directly to local boutique stays, trusted chauffeur drivers, and local naturalists, giving you the best rates without sacrificing service quality.",
     slides: [
@@ -99,10 +99,10 @@ export default {
     title: "Our Leadership",
     name: "Danuja Perera",
     role: "FOUNDER & CEO",
-    bio: "Directing the custom travel experiences at Map Mate. Danuja is dedicated to integrating technology and local hospitality to deliver seamless, personalized itineraries to guests visiting Sri Lanka.",
+    bio: "Directing the custom travel experiences at IkiSaki Tours. Danuja is dedicated to integrating technology and local hospitality to deliver seamless, personalized itineraries to guests visiting Sri Lanka.",
   },
   CTA: {
-    watermark: "Map Mate",
+    watermark: "IkiSaki",
     badge: "START YOUR ADVENTURE",
     title: "Ready to Experience the Real Sri Lanka?",
     description:
@@ -110,7 +110,7 @@ export default {
     buttonText: "Plan Your Trip",
   },
   Trademark: {
-    company: "Map Mate (Pvt) Ltd",
+    company: "IkiSaki Tours (Pvt) Ltd",
     tagline: "The Premier Bespoke Travel & Chauffeur Experience in Sri Lanka",
     statement:
       "All intellectual property, brand assets, logos, proprietary typography, and customized itineraries featured on this platform are exclusively owned by",
@@ -120,7 +120,7 @@ export default {
     generalTitle: "General & Tour Inquiries",
     generalDesc: "For custom itineraries, travel support, and general assistance.",
     legalTitle: "Legal & Trademark Desk",
-    email: "hello@mapmate.com",
-    legalEmail: "legal@mapmate.com",
+    email: "hello@ikisakitours.com",
+    legalEmail: "legal@ikisakitours.com",
   },
 } as const;

@@ -4,7 +4,7 @@ export default {
   titlePrefix: "Cookie",
   titleHighlight: "Preferences",
   description:
-    "We use cookies to elevate your luxury browsing experience. By continuing to explore MapMate, you agree to our curated cookie settings.",
+    "We use cookies to elevate your luxury browsing experience. By continuing to explore IkiSaki, you agree to our curated cookie settings.",
   wantToCustomize: "Want to customize?",
   managePreferences: "Manage Preferences",
   cookiePolicy: "Cookie Policy",

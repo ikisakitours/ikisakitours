@@ -5,7 +5,7 @@ export default {
   newsletterDescription: "毎週の旅行のヒントや限定の隠れた名所を受け取りましょう。",
   emailPlaceholder: "メールアドレス...",
   buttonText: "購読する",
-  copyright: " 2026 MapMate Luxury. で作成",
+  copyright: " 2026 IkiSaki Tours Luxury. で作成",
   forTravelers: "旅行者のために。",
   brandDescription: "インド洋の魂を発見しましょう。霧の山々から金の海岸まで、私たちは本格的な贅沢な体験を企画します。",
   nav: {
@@ -30,7 +30,7 @@ export default {
   contactInfo: {
     Address: "スリランカ、コロンボ 03、ゴールロード 123",
     Phone: "+94 11 234 5678",
-    Email: "hello@MapMate.com",
+    Email: "hello@ikisakitours.com",
   },
   TimeDiv: {
     title: "アイランドクロニクル",

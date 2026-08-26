@@ -1,7 +1,7 @@
 export default {
   Metadata: {
     title: "Guest Journals",
-    description: "Verified guest stories and luxury travel reviews from MapMate travelers across Sri Lanka.",
+    description: "Verified guest stories and luxury travel reviews from IkiSaki travelers across Sri Lanka.",
   },
   Hero: {
     badge: "Unfiltered Experiences",

@@ -8,11 +8,18 @@ interface CustomDatePickerProps {
   value: string;
   onChange: (date: string) => void;
   isLoading?: boolean;
+  closedDates?: string[];
 }
 
-export default function CustomDatePicker({ value, onChange, isLoading = false }: CustomDatePickerProps) {
+export default function CustomDatePicker({
+  value,
+  onChange,
+  isLoading = false,
+  closedDates = [],
+}: CustomDatePickerProps) {
   const t = useTranslations("SharedForm.DatePicker");
   const [isOpen, setIsOpen] = useState(false);
+  const [activeTooltip, setActiveTooltip] = useState<string | null>(null);
 
   const getTodayFormatted = () => {
     const today = new Date();
@@ -142,17 +149,50 @@ export default function CustomDatePicker({ value, onChange, isLoading = false }:
             {daysArray.map((d) => {
               const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
               const isSelected = value === formattedDate;
+              const isClosedDate = closedDates.includes(formattedDate);
               return (
                 <div
                   key={d}
-                  onClick={() => {
-                    onChange(formattedDate);
-                    setIsOpen(false);
-                  }}
-                  className={`h-8 w-8 flex items-center justify-center rounded-full text-body-sm font-bold cursor-pointer transition-all 
-                    ${isSelected ? "bg-gold text-black" : "text-slate-300 hover:bg-white/[0.07] hover:text-white"}`}
+                  className="relative group flex items-center justify-center"
+                  onMouseLeave={() => setActiveTooltip(null)}
                 >
-                  {d}
+                  <div
+                    onClick={(e) => {
+                      if (isClosedDate) {
+                        e.stopPropagation();
+                        setActiveTooltip(activeTooltip === formattedDate ? null : formattedDate);
+                      } else {
+                        onChange(formattedDate);
+                        setIsOpen(false);
+                      }
+                    }}
+                    className={`relative h-8 w-8 flex items-center justify-center rounded-full text-body-sm font-bold cursor-pointer transition-all duration-300
+                                 ${isSelected && !isClosedDate ? "bg-gold text-[#050505] shadow-[0_0_10px_rgba(197,160,89,0.4)]" : "hover:bg-white/[0.07]"}
+                                 ${isClosedDate ? "text-slate-500 bg-white/2" : "text-slate-300 hover:text-white"}
+                              `}
+                  >
+                    {d}
+
+                    {isClosedDate && (
+                      <div className="absolute inset-0 m-auto w-full h-[1.5px] bg-gold/40 -rotate-45 rounded-full transition-all group-hover:bg-gold/70"></div>
+                    )}
+                  </div>
+
+                  {isClosedDate && (
+                    <div
+                      className={`absolute bottom-[130%] left-1/2 -translate-x-1/2 w-max px-3.5 py-1.5 rounded-xl z-50 text-center transition-all duration-300 pointer-events-none
+                            backdrop-blur-md bg-[#050505]/90 border border-gold/30 text-gold-light text-micro tracking-wide shadow-[0_4px_15px_rgba(197,160,89,0.15)]
+                                 ${activeTooltip === formattedDate ? "opacity-100 visible scale-100 translate-y-0" : "opacity-0 invisible scale-95 translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:scale-100 group-hover:translate-y-0"}
+                           `}
+                    >
+                      <span className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse"></span>
+                        Not Available
+                      </span>
+
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 border-[5px] border-transparent border-t-gold/30"></div>
+                    </div>
+                  )}
                 </div>
               );
             })}

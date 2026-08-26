@@ -16,7 +16,7 @@ export default function MapLoader({ loadingText = "Please wait loading map" }: P
     >
       {/* Background Watermark */}
       <div className="pointer-events-none absolute bottom-8 right-8 select-none whitespace-nowrap text-6xl font-bold leading-none tracking-tighter text-white/5 md:text-8xl">
-        MapMate
+        IkiSaki Tours
       </div>
 
       {/* Animated Compass / Spinner */}

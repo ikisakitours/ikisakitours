@@ -253,7 +253,7 @@ export function SiteHeader() {
       <nav
         id="main-nav"
         ref={navRef}
-        className={`fixed w-full z-100 border-b transition-all duration-500 ${
+        className={`top-0 left-0 fixed w-full z-100 border-b transition-all duration-500 ${
           isScrolled || isMenuOpen
             ? "border-b-[rgba(212,175,55,0.2)] bg-[rgba(5,5,5,0.9)] backdrop-blur-[20px]"
             : "border-white/0"
@@ -273,7 +273,7 @@ export function SiteHeader() {
             >
               <LoadingImage
                 src="/images/bg-remove.png"
-                alt="MapMate Logo"
+                alt="ikisaki-tours-Logo"
                 width={200}
                 height={80}
                 wrapperClassName="w-full h-full"
@@ -284,7 +284,7 @@ export function SiteHeader() {
                 }}
               />
               <div className="text-2xl font-bold uppercase tracking-widest text-white sm:text-3xl">
-                Map<span className="gold-gradient-text">Mate</span>
+                Iki<span className="gold-gradient-text">Saki</span>
               </div>
             </Link>
 

@@ -1,6 +1,11 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
 
 export const authService = {
+
+  socialLogin: (provider: "google" | "apple") => {
+    window.location.href = `${API_URL}/auth/${provider}`;
+  },
+
   login: async (data: Record<string, string>) => {
     const res = await fetch(`${API_URL}/auth/login`, {
       method: "POST",

@@ -4,6 +4,7 @@ import { Link } from "@/lib/i18nNavigation";
 import { AuthFormHeader } from "../AuthFormHeader";
 import { useTranslations } from "next-intl";
 import { AuthLegalFooter } from "../AuthLegalFooter";
+import { useAuthGateway } from "@/hooks/auth/useAuthGateway";
 //Icons
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
@@ -11,7 +12,7 @@ import { Mail } from "lucide-react";
 
 export function AuthGatewayForm() {
   const tAuth = useTranslations("Auth");
-
+  const { handleSocialLogin } = useAuthGateway();
   return (
     <section className="flex max-h-[calc(100dvh-4rem)] w-full max-w-120 flex-col overflow-hidden rounded-[2.5rem] border border-gold/15 bg-[#0a0a0a]/85 p-8 shadow-2xl backdrop-blur-3xl md:p-12">
       <AuthFormHeader introKey="Gateway" />
@@ -20,6 +21,7 @@ export function AuthGatewayForm() {
         {/* Google Login Button */}
         <button
           type="button"
+          onClick={() => handleSocialLogin("google")}
           className="group flex w-full items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/5 py-3 text-body font-bold text-white transition-all hover:border-gold/30 hover:bg-gold/5"
         >
           <FcGoogle className="h-5 w-5 transition-transform group-hover:scale-110" />
@@ -29,6 +31,7 @@ export function AuthGatewayForm() {
         {/* Apple Login Button */}
         <button
           type="button"
+          onClick={() => handleSocialLogin("apple")}
           className="group flex w-full items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/5 py-3 text-body font-bold text-white transition-all hover:border-gold/30 hover:bg-gold/5"
         >
           <FaApple className="h-5.5 w-5.5 text-white transition-transform group-hover:scale-110" />

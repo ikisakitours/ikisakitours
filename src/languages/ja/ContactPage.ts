@@ -2,7 +2,7 @@ export default {
   Metadata: {
     title: "お問い合わせ - ご連絡ください",
     description:
-      "スリランカへの旅行に関するお問い合わせ、ツアー計画のサポート、サポートについては、MapMate までご連絡ください。",
+      "スリランカへの旅行に関するお問い合わせ、ツアー計画のサポート、サポートについては、IkiSaki までご連絡ください。",
   },
   Hero: {
     eyebrow: "会話を始める",
@@ -60,7 +60,7 @@ export default {
     info: [
       {
         label: "電子メール",
-        value: "hello@mapmate.lk",
+        value: "hello@ikisakitours.com",
       },
       {
         label: "電話",

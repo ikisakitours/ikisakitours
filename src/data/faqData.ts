@@ -8,19 +8,19 @@ export const faqData = [
     category: "Ticketing & Visa Services",
     question: "Do I need a visa to visit Sri Lanka?",
     answer:
-      "Yes, almost all international travelers require an Electronic Travel Authorization (ETA) prior to entering Sri Lanka. You can conveniently apply for this online through the official government portal before your departure. However, if you book your custom tour package with Map Mate, our dedicated support team will gladly guide you through or assist you with the entire visa application process to ensure a hassle-free start.",
+      "Yes, almost all international travelers require an Electronic Travel Authorization (ETA) prior to entering Sri Lanka. You can conveniently apply for this online through the official government portal before your departure. However, if you book your custom tour package with Iki Saki, our dedicated support team will gladly guide you through or assist you with the entire visa application process to ensure a hassle-free start.",
   },
   {
     id: "2",
     category: "Ticketing & Visa Services",
-    question: "Can Map Mate handle domestic flight or train ticket bookings?",
+    question: "Can Iki Saki handle domestic flight or train ticket bookings?",
     answer:
       "Yes, absolutely! We specialize in crafting seamless logistics for your journey. Whether you wish to experience the world-famous, scenic train ride from Kandy to Ella through the misty mountains or require domestic air transfers to save travel time, our team handles all reservations and ticket arrangements in advance so you can relax and enjoy the views.",
   },
   {
     id: "3",
     category: "General",
-    question: "How can I contact Map Mate during my trip?",
+    question: "How can I contact Iki Saki during my trip?",
     answer:
       "We believe in constant, reliable communication. We provide every active traveler with a 24/7 dedicated WhatsApp concierge and direct hotline. Whether you need an emergency adjustment to your itinerary, last-minute recommendations for local dining, or instant assistance on the road, our team is always just a quick message away around the clock.",
   },
@@ -71,7 +71,7 @@ export const faqData = [
     category: "Payments",
     question: "Are there any hidden charges in your pricing?",
     answer:
-      "No, absolute transparency is one of our foundational core values at Map Mate. The final price quoted in your confirmed itinerary is fully inclusive of everything specified in your package (such as stays, private transport, specified entries, and guides). There are zero hidden fees, and any optional activities will always be discussed and agreed upon beforehand.",
+      "No, absolute transparency is one of our foundational core values at Iki Saki. The final price quoted in your confirmed itinerary is fully inclusive of everything specified in your package (such as stays, private transport, specified entries, and guides). There are zero hidden fees, and any optional activities will always be discussed and agreed upon beforehand.",
   },
   {
     id: "11",

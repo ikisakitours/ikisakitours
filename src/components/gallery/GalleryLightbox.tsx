@@ -8,7 +8,7 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 import { ThumbnailButton } from "./ThumbnailButton";
 
-const CACHE_KEY = "mapmate_loaded_lightbox";
+const CACHE_KEY = "IkiSaki_loaded_lightbox";
 
 const getInitialCache = () => {
   if (typeof window !== "undefined") {
@@ -278,7 +278,7 @@ export function GalleryLightbox({
                     <div className="absolute h-1.5 w-1.5 rounded-full bg-gold" />
                   </div>
                   <div className="pointer-events-none absolute bottom-3 right-4 whitespace-nowrap font-bold leading-none tracking-tighter text-white/5 text-3xl">
-                    MapMate
+                    IkiSaki
                   </div>
                 </>
               </motion.div>

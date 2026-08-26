@@ -15,7 +15,7 @@ export default {
     badge: "私たちの原点",
     title: "意味のある旅の創造",
     description1:
-      "Map Mateは、画一的な観光アプローチを打破し、深く個人的な旅行ストーリーを構築するという独自のビジョンを持って設立されました。スリランカは、独自の興味やペースに合わせて調整されたときに最もよく体験できると信じています。",
+      "Iki Sakiは、画一的な観光アプローチを打破し、深く個人的な旅行ストーリーを構築するという独自のビジョンを持って設立されました。スリランカは、独自の興味やペースに合わせて調整されたときに最もよく体験できると信じています。",
     description2:
       "大規模な仲介ネットワークを介さず、地元のブティックホテル、信頼できる運転手、現地の自然ガイドと直接つながることで、サービスの質を落とすことなく最高の料金を提供します。",
     slides: [
@@ -89,17 +89,17 @@ export default {
     title: "リーダーシップ",
     name: "Danuja Perera",
     role: "創業者 兼 代表取締役",
-    bio: "Map Mateでのカスタム旅行体験を指揮しています。テクノロジーと地元のおもてなしを統合し、スリランカを訪れるゲストにシームレスでパーソナライズされた旅程を提供することに専念しています。",
+    bio: "IkiSaki Toursでのカスタム旅行体験を指揮しています。テクノロジーと地元のおもてなしを統合し、スリランカを訪れるゲストにシームレスでパーソナライズされた旅程を提供することに専念しています。",
   },
   CTA: {
-    watermark: "Map Mate",
+    watermark: "IkiSaki",
     badge: "冒険を始める",
     title: "本当のスリランカを体験する準備はできましたか？",
     description: "あなただけのために作られたカスタム旅程を作成しましょう。今すぐトラベルデザイナーにご連絡ください。",
     buttonText: "旅行を計画する",
   },
   Trademark: {
-    company: "Map Mate (Pvt) Ltd",
+    company: "IkiSaki Tours (Pvt) Ltd",
     tagline: "スリランカにおける最高峰のオーダーメイド旅行・送迎サービス",
     statement:
       "本プラットフォームに掲載されているすべての知的財産、ブランド資産、ロゴ、独自のデザイン、およびカスタマイズされた旅程は、以下に帰属します：",
@@ -109,7 +109,7 @@ export default {
     generalTitle: "一般・ツアーお問い合わせ",
     generalDesc: "カスタム旅程、旅行サポート、および一般的なお問い合わせについて。",
     legalTitle: "法務・商標デスク",
-    email: "hello@mapmate.com",
-    legalEmail: "legal@mapmate.com",
+    email: "hello@ikisakitours.com",
+    legalEmail: "legal@ikisakitours.com",
   },
 } as const;

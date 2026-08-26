@@ -91,15 +91,18 @@ export function BespokeJourneyFields({
       ageRange: tForm("TravelerOptions.infantAge"),
     },
   ];
+  const apiClosedDates = ["2026-08-28", "2026-09-05", "2026-09-12"];
+
   return (
     <div className="space-y-8">
-     {/* Vehicle Type Filter */}
+      {/* Vehicle Type Filter */}
       <div>
         <span className={fieldLabelClass + " mb-4 block"}>{tForm("Labels.selectVehicle")}</span>
         <VehicleSelector
           activeFilter={activeFilter}
           onFilterChange={onFilterChange}
           onVehicleChange={onVehicleChange}
+          showDriverIncludedNote={true}
           isLoading={isLoading}
         />
       </div>
@@ -148,6 +151,7 @@ export function BespokeJourneyFields({
           <span className={fieldLabelClass}>{tForm("Labels.journeyDate")}</span>
           <CustomDatePicker
             value={date}
+            closedDates={apiClosedDates}
             isLoading={isLoading}
             onChange={(d) => {
               onDateChange(d);
@@ -226,7 +230,7 @@ export function BespokeJourneyFields({
           {tForm("Messages.autoExpand")}
         </span>
 
-        <div className="ml-2 mt-1">
+        <div className=" relative z-10">
           <FormError message={errors.tourRequests} />
         </div>
       </label>

@@ -3,28 +3,28 @@ export default {
     Gateway: {
       title: "サインインまたは登録",
       description:
-        "MapMateアカウントにアクセスするか、限定の旅行コミュニティに参加して、オーダーメイドのスリランカの旅程を手に入れましょう。",
+        "IkiSaki アカウントにアクセスするか、限定の旅行コミュニティに参加して、オーダーメイドのスリランカの旅程を手に入れましょう。",
     },
     Signup: {
       title: "アカウント作成",
       description:
-        "プライベート旅行の計画、限定ツアーの予約、パーソナライズされたスリランカの旅程を作成するためのMapMateメンバーアカウントを作成します。",
+        "プライベート旅行の計画、限定ツアーの予約、パーソナライズされたスリランカの旅程を作成するためのIkiSakiメンバーアカウントを作成します。",
     },
     Login: {
       title: "セキュアゲートウェイ",
-      description: "MapMateのセキュアな旅行ゲートウェイにサインインします。",
+      description: "IkiSakiのセキュアな旅行ゲートウェイにサインインします。",
     },
-    Recovery: { title: "アカウントの復元", description: "MapMateのアカウント復元メールをリクエストします。" },
+    Recovery: { title: "アカウントの復元", description: "IkiSakiのアカウント復元メールをリクエストします。" },
     Reset: {
       title: "パスワードのリセット",
-      description: "メール認証後に新しいMapMateアカウントのパスワードを設定します。",
+      description: "メール認証後に新しいIkiSakiアカウントのパスワードを設定します。",
     },
   },
   Intros: {
     Gateway: {
       image: "/images/sander-traa-bfdshIHD5Y4-unsplash.webp",
       imageAlt: "スリランカの茶園の息をのむような景色",
-      eyebrow: "MapMateへようこそ",
+      eyebrow: "IkiSakiへようこそ",
       title: "あなたの旅は",
       accent: "ここから始まります",
       body: "サインインまたはアカウントを作成して、予約を管理し、限定ツアーを発見し、最高のスリランカの冒険を計画しましょう。",

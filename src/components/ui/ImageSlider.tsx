@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Link } from "@/lib/i18nNavigation";
 
-const CACHE_KEY = "mapmate_loaded_sliders";
+const CACHE_KEY = "ikisaki_loaded_sliders";
 const getInitialCache = () => {
   if (typeof window !== "undefined") {
     try {
@@ -195,7 +195,7 @@ export function ImageSlider({
                 <div className="absolute h-1.5 w-1.5 rounded-full bg-gold" />
               </div>
               <div className="pointer-events-none absolute bottom-3 right-4 whitespace-nowrap font-bold leading-none tracking-tighter text-white/5 text-3xl">
-                MapMate
+                IkiSaki Tours
               </div>
             </>
           </motion.div>

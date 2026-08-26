@@ -13,8 +13,8 @@ export function ReferralPanel() {
 
   const [isCopied, setIsCopied] = useState(false);
 
-  const referralCode = "MAPMATE-ALEX24";
-  const referralLink = `https://mapmate.lk/invite/${referralCode}`;
+  const referralCode = "IKISAKI-ALEX24";
+  const referralLink = `https://www.ikisakitours.com/invite/${referralCode}`;
   const stats = {
     invitesSent: 12,
     friendsJoined: 3,
@@ -192,7 +192,7 @@ export function ReferralPanel() {
                 </button>
 
                 <ShareButton
-                  title="Join me on MapMate!"
+                  title="Join me on ikiSaki Tours!"
                   text="Use my invite code to get 10% off on your first luxury tour in Sri Lanka."
                   url={`/invite/${referralCode}`}
                   className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-300! hover:border-gold hover:text-gold!"

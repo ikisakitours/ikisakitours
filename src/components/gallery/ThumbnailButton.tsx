@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import type { GalleryItem } from "@/data/blog";
 
-const CACHE_KEY = "mapmate_loaded_thumbs";
+const CACHE_KEY = "ikisaki_loaded_thumbs";
 const getInitialCache = () => {
   if (typeof window !== "undefined") {
     try {

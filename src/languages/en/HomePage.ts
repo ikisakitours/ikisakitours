@@ -20,7 +20,7 @@ export default {
       award: "Travel+Leisure 2026",
       titleMain: "Sri Lanka",
       titleAccent: "Beyond the Map",
-      description: "MapMate personalized tours with master guides in ",
+      description: "IkiSaki personalized tours with master guides in ",
       languagesOne: "Japanese, French, Spanish",
       languagesTwo: "English.",
       searchPlaceholder: "Where to explore?",
@@ -51,7 +51,7 @@ export default {
   },
   Experience: {
     content: {
-      badge: "MapMate Travel Partner",
+      badge: "IkiSaki Travel Partner",
       titlePart1: "Curating Memories",
       titleAccent: "Beyond Borders",
       description:
@@ -179,7 +179,7 @@ export default {
   ClientExperiences: {
     badge: "Client Experiences",
     titlePart1: "Voices of",
-    titleAccent: "MapMate",
+    titleAccent: "IkiSaki",
     avgScoreLabel: "Average Score",
     basedOnText: "Based on",
     globalReviewsText: "global reviews",
@@ -189,7 +189,8 @@ export default {
   },
   ContactCta: {
     badge: "Bespoke Experiences",
-    watermark: "MAPMATE",
+    watermark: "IkiSaki",
+    watermarkSub : "Tours",
     titlePart1: "Your Vision,",
     titleAccent: "Impeccably",
     titlePart2: "Executed.",

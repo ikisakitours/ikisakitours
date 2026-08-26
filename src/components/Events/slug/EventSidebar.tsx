@@ -27,7 +27,6 @@ export function EventSidebar({
 }: EventSidebarProps) {
   const t = useTranslations("Events.Slug");
 
-  // 👇 Data array for mapping
   const eventDetails = [
     {
       id: "date",
@@ -48,7 +47,7 @@ export function EventSidebar({
       icon: MapPin,
       label: t("location"),
       value: eventLocation,
-      hasBorder: false, // අන්තිම එකට border එක ඕන නැති නිසා
+      hasBorder: false, 
     },
   ];
 
@@ -136,7 +135,7 @@ export function EventSidebar({
             <div className="group flex cursor-pointer items-center justify-center gap-2.5 sm:gap-3">
               <ShareButton
                 title={eventTitle}
-                text={`Check out ${eventTitle} on MapMate Sri Lanka!`}
+                text={`Check out ${eventTitle} on IkiSaki Tours Sri Lanka!`}
                 url={`/special-events/${eventSlug}`}
                 className="text-body-sm! flex items-center justify-center gap-1.5 text-slate-300 transition-colors group-hover:text-gold"
                 iconClassName="transition-transform group-hover:scale-110 w-4.5 h-4.5 sm:w-5 sm:h-5"

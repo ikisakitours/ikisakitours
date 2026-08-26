@@ -5,7 +5,7 @@ export default {
   newsletterDescription: "Get weekly travel tips and exclusive hidden gems.",
   emailPlaceholder: "Your email...",
   buttonText: "Subscribe",
-  copyright: " 2026 MapMate Luxury. Crafted with",
+  copyright: " 2026 IkiSaki Tours Luxury. Crafted with",
   forTravelers: "for travelers.",
   brandDescription:
     "Discover the soul of the Indian Ocean. From misty mountains to golden shores, we curate authentic luxury experiences.",
@@ -31,7 +31,7 @@ export default {
   contactInfo: {
     Address: "123 Galle Road, Colombo 03",
     Phone: "+94 11 234 5678",
-    Email: "hello@MapMate.com",
+    Email: "hello@ikisakitours.com",
   },
   TimeDiv: {
     title: "Island Chronicle",

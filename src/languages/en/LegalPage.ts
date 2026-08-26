@@ -12,6 +12,6 @@ export default {
   Metadata: {
     title: "Terms of Service, Privacy, Booking, Payment & Cookie Policies",
     description:
-      "Review MapMate's comprehensive legal information, including our terms of service, privacy policy, booking terms, secure payment policies, and cookie usage.",
+      "Review IkiSaki's comprehensive legal information, including our terms of service, privacy policy, booking terms, secure payment policies, and cookie usage.",
   },
 } as const;

@@ -13,7 +13,7 @@ export default {
   },
   Widget: {
     loveTour: "Love this tour?",
-    mapMateRate: "MapMate Rate",
+    Rate: "IkiSaki Rate",
     perPerson: "/ Per Person",
     save: "Save {discount}%",
     groupDiscount: "Group discount applies",
@@ -29,7 +29,7 @@ export default {
     startingFrom: "Starting from",
   },
   Cta: {
-    title: "Lived an MapMate Story?",
+    title: "Lived an IkiSaki Story?",
     description:
       "Your journey inspires others. Share your feedback and photos to help fellow travelers discover the magic.",
     shareBtn: "Share Your Experience",
@@ -38,11 +38,11 @@ export default {
     verified: "Verified",
     vipMember: "VIP Member",
     view: "View",
-    responseFrom: "Response from MapMate Team",
+    responseFrom: "Response from IkiSaki Team",
   },
   ReviewForm: {
     backToReviews: "Back to Reviews",
-    title: "Share Your MapMate Story",
+    title: "Share Your IkiSaki Story",
     subtitle: "How was your journey with us?",
     ratingLabel: "Your Rating",
     experienceLabel: "Your Experience",
@@ -154,12 +154,19 @@ export default {
   Customization: {
     title: "Tour Customization",
     description:
-      "All MapMate tours are fully customizable. The listed package price includes Half Board accommodation (Breakfast & Dinner) and entrance tickets for attractions specifically mentioned in the itinerary. Hotels, meal plans, attractions, transportation, and included services can be adjusted according to your travel style and budget. A revised quotation will be provided for any customization requests.",
+      "All IkiSaki tours are fully customizable. The listed package price includes Half Board accommodation (Breakfast & Dinner) and entrance tickets for attractions specifically mentioned in the itinerary. Hotels, meal plans, attractions, transportation, and included services can be adjusted according to your travel style and budget. A revised quotation will be provided for any customization requests.",
   },
   Gallery: {
     viewGallery: "View Gallery",
   },
   ActivityDetails: {
     title: "About this activity",
+  },
+  StickyBar: {
+    Rate: "Rate",
+    perPerson: "/ Person",
+    checkAvailability: "Check Availability",
+    secureJourney: "Secure Your Journey",
+    closeModal: "Close modal",
   },
 } as const;

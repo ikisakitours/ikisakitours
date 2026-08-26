@@ -22,7 +22,7 @@ export function ChatImageSlider({ images }: ChatImageSliderProps) {
 
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-15">
         <span className="premium-serif text-2xl sm:text-3xl font-bold tracking-[0.3em] uppercase text-white/15 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] select-none">
-          Map<span className="text-gold/25">Mate</span>
+          Iki<span className="text-gold/25">Saki</span>
         </span>
       </div>
     </div>

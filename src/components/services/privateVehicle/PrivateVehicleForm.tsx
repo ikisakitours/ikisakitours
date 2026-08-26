@@ -10,6 +10,7 @@ import { InfoSidebar } from "@/components/services/InfoSidebar";
 import { useTranslations } from "next-intl";
 import { languages } from "@/data/Languages-CurrencyData";
 import { usePrivateVehicleForm } from "@/hooks/services/usePrivateVehicleForm";
+import { CharterRatesSection } from "@/components/services/CharterRatesSection";
 // Icons for Sidebar
 import { Car, UserCheck, Map, Wallet } from "lucide-react";
 
@@ -60,9 +61,9 @@ export function PrivateVehicleForm() {
   } = usePrivateVehicleForm();
   return (
     <ContainerLayout className="relative z-20 pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
-      <div className="grid gap-8 xl:grid-cols-12 xl:items-start">
+      <div className="flex flex-col xl:grid gap-8 xl:grid-cols-12">
         {/* Main Form */}
-        <form onSubmit={handleSubmit} className="space-y-8 xl:col-span-8">
+        <form onSubmit={handleSubmit} className="space-y-8 xl:col-span-8 order-1 xl:order-0">
           <FormPanel className="z-10">
             <StepHeading step="1">{tStep("step1Journey")}</StepHeading>
             <PrivateVehicleJourneyFields
@@ -89,7 +90,6 @@ export function PrivateVehicleForm() {
               isLoading={isLoading}
             />
           </FormPanel>
-
           <FormPanel className="border-t-2 border-gold/30">
             <StepHeading step="2" subtitle={tStep("stepContactSub")}>
               {tStep("stepContact")}
@@ -103,9 +103,13 @@ export function PrivateVehicleForm() {
             />
           </FormPanel>
         </form>
-
+        <div className="xl:col-span-12 order-2 xl:order-last w-full xl:mt-4">
+          <CharterRatesSection />
+        </div>
         {/* Right Side: Info Sidebar */}
-        <InfoSidebar {...privateVehicleSidebarProps} />
+        <div className="xl:col-span-4 order-3 xl:order-0 h-full relative">
+          <InfoSidebar {...privateVehicleSidebarProps} />
+        </div>
       </div>
 
       <div className="xl:col-span-12">

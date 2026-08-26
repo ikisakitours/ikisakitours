@@ -1,7 +1,7 @@
 export default {
   Metadata: {
     title: "ゲストジャーナル",
-    description: "スリランカ全土のMapMate旅行者からの確認済みのゲストストーリーと贅沢な旅行レビュー。",
+    description: "スリランカ全土のIkiSaki旅行者からの確認済みのゲストストーリーと贅沢な旅行レビュー。",
   },
   Hero: {
     badge: "ありのままの体験",

@@ -13,7 +13,7 @@ export default {
   },
   Widget: {
     loveTour: "このツアーが好きですか？",
-    mapMateRate: "MapMate 料金",
+    Rate: "IkiSaki 料金",
     perPerson: "/ 1人あたり",
     save: "{discount}% オフ",
     groupDiscount: "グループ割引適用",
@@ -29,7 +29,7 @@ export default {
     startingFrom: "開始価格",
   },
   Cta: {
-    title: "MapMateの旅を体験しましたか？",
+    title: "IkiSakiの旅を体験しましたか？",
     description: "あなたの旅が他の人のインスピレーションになります。感想や写真をシェアして、旅の魔法を伝えましょう。",
     shareBtn: "体験をシェアする",
   },
@@ -37,7 +37,7 @@ export default {
     verified: "認証済み",
     vipMember: "VIPメンバー",
     view: "見る",
-    responseFrom: "MapMateチームからの返信",
+    responseFrom: "IkiSakiチームからの返信",
   },
   ReviewForm: {
     backToReviews: "レビューに戻る",
@@ -152,12 +152,19 @@ export default {
   Customization: {
     title: "ツアーのカスタマイズ",
     description:
-      "MapMateのツアーはすべてカスタマイズ可能です。記載されているパッケージ料金には、ハーフボードの宿泊と旅程に明記された入場券が含まれます。ホテル、食事、アトラクションなどは予算や旅行スタイルに合わせて調整できます。カスタマイズをご希望の際は再見積もりを提供いたします。",
+      "IkiSakiのツアーはすべてカスタマイズ可能です。記載されているパッケージ料金には、ハーフボードの宿泊と旅程に明記された入場券が含まれます。ホテル、食事、アトラクションなどは予算や旅行スタイルに合わせて調整できます。カスタマイズをご希望の際は再見積もりを提供いたします。",
   },
   Gallery: {
     viewGallery: "ギャラリーを見る",
   },
   ActivityDetails: {
     title: "このアクティビティについて",
+  },
+  StickyBar: {
+    Rate: "料金",
+    perPerson: "/ 1人あたり",
+    checkAvailability: "空き状況を確認",
+    secureJourney: "旅の予約を確定する",
+    closeModal: "閉じる",
   },
 } as const;

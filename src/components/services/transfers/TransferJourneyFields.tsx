@@ -80,6 +80,7 @@ export function TransferJourneyFields({
       ageRange: tForm("TravelerOptions.infantAge"),
     },
   ];
+  const apiClosedDates = ["2026-08-28", "2026-09-05", "2026-09-12"];
 
   return (
     <div className="space-y-8">
@@ -140,6 +141,7 @@ export function TransferJourneyFields({
           <span className={fieldLabelClass}>{tForm("Labels.journeyDate")}</span>
           <CustomDatePicker
             value={date}
+            closedDates={apiClosedDates}
             isLoading={isLoading}
             onChange={(d) => {
               onDateChange(d);

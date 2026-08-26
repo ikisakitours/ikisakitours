@@ -10,8 +10,8 @@ export type CookiePreferences = {
 export const saveCookiePreferences = (prefs: CookiePreferences, status: "accepted" | "declined") => {
   if (typeof document === "undefined") return;
 
-  document.cookie = `mapmate_cookie_preferences=${JSON.stringify(prefs)}; max-age=${COOKIE_MAX_AGE}; path=/; SameSite=Lax`;
-  document.cookie = `mapmate_cookie_consent=${status}; max-age=${COOKIE_MAX_AGE}; path=/; SameSite=Lax`;
+  document.cookie = `ikisaki_cookie_preferences=${JSON.stringify(prefs)}; max-age=${COOKIE_MAX_AGE}; path=/; SameSite=Lax`;
+  document.cookie = `ikisaki_cookie_consent=${status}; max-age=${COOKIE_MAX_AGE}; path=/; SameSite=Lax`;
 
   // ---------------------------------------------------------
   // 🚀 FUTURE DB LOGIC: Save to Database
@@ -39,8 +39,8 @@ export const declineAllCookies = () => {
 
   const minPrefs: CookiePreferences = { performance: false, functional: false, targeting: false };
 
-  document.cookie = `mapmate_cookie_preferences=${JSON.stringify(minPrefs)}; max-age=${COOKIE_MAX_AGE}; path=/; SameSite=Lax`;
-  document.cookie = `mapmate_cookie_consent=declined; max-age=${COOKIE_MAX_AGE}; path=/; SameSite=Lax`;
+  document.cookie = `ikisaki_cookie_preferences=${JSON.stringify(minPrefs)}; max-age=${COOKIE_MAX_AGE}; path=/; SameSite=Lax`;
+  document.cookie = `ikisaki_cookie_consent=declined; max-age=${COOKIE_MAX_AGE}; path=/; SameSite=Lax`;
 
   // ---------------------------------------------------------
   // 🚀 FUTURE DB LOGIC: Save 'Declined' to Database
@@ -59,7 +59,7 @@ export const declineAllCookies = () => {
 
 export const getCookieConsentStatus = () => {
   if (typeof document === "undefined") return null;
-  const consent = document.cookie.split("; ").find((row) => row.startsWith("mapmate_cookie_consent="));
+  const consent = document.cookie.split("; ").find((row) => row.startsWith("ikisaki_cookie_consent="));
   return consent ? consent.split("=")[1] : null;
 };
 

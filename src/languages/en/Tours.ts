@@ -2,7 +2,7 @@ export default {
   MultiDay: {
     Metadata: {
       title: "Heritage Curated Tours",
-      description: "Explore MapMate signature heritage, nature, religious, and coastal tour packages across Sri Lanka.",
+      description: "Explore IkiSaki signature heritage, nature, religious, and coastal tour packages across Sri Lanka.",
     },
     Hero: {
       badge: "Bespoke Itineraries",
@@ -17,7 +17,7 @@ export default {
   OneDay: {
     Metadata: {
       title: "One Day Excursions | Heritage Curated Tours",
-      description: "Explore MapMate signature one-day excursions and quick escapes across Sri Lanka.",
+      description: "Explore IkiSaki signature one-day excursions and quick escapes across Sri Lanka.",
     },
     Hero: {
       badge: "Quick Escapes",

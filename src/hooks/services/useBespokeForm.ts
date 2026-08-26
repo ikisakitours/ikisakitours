@@ -1,9 +1,10 @@
-// src/hooks/auth/useBespokeForm.ts (හෝ සුදුසු තැනක)
+// src/hooks/auth/useBespokeForm.ts
 import { useState, type FormEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { type ActiveVehicleFilter } from "@/components/services/VehicleSelector";
 import { type ContactData } from "@/components/services/ContactForm";
 import { vehicles } from "@/data/vehicles";
+import { bespokeService } from "@/services/services/bespokeService";
 
 export function useBespokeForm() {
   const defaultCategory = vehicles[0].category;
@@ -71,7 +72,22 @@ export function useBespokeForm() {
 
     try {
       setIsLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      const payload = {
+        activeFilter,
+        selectedVehicleId,
+        pickupLocation,
+        tourRequests,
+        date,
+        time,
+        language,
+        tourDays,
+        travelerCounts,
+        contact,
+      };
+
+      // await new Promise((resolve) => setTimeout(resolve, 1500));
+      await bespokeService.submitBespokeTour(payload);
       console.log("Bespoke Form valid and submitted!", {
         activeFilter,
         selectedVehicleId,
@@ -84,6 +100,16 @@ export function useBespokeForm() {
         travelerCounts,
         contact,
       });
+
+      // Form  Clear
+      setPickupLocation("");
+      setTourRequests("");
+      setDate("");
+      setTime("");
+      setLanguage("");
+      setTourDays(0);
+      setTravelerCounts({ adult: 0, couple: 0, child: 0, infant: 0 });
+      setContact({ fullName: "", email: "", phone: "", specialRequests: "" });
     } catch (error) {
       console.error("Submission error:", error);
       setErrors((prev) => ({ ...prev, form: "Submission failed" }));

@@ -189,7 +189,8 @@ export default {
   },
   ContactCta: {
     badge: "オーダーメイドの体験",
-    watermark: "MAPMATE",
+   watermark: "IkiSaki",
+    watermarkSub : "Tours",
     titlePart1: "あなたのビジョンを、",
     titleAccent: "完璧に",
     titlePart2: "実行します。",

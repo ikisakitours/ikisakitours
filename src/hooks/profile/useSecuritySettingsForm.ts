@@ -64,6 +64,11 @@ export function useSecuritySettingsForm(tError: (key: string) => string) {
       await profileService.updateSecurity({ currentPassword, newPassword, confirmPassword });
       // await new Promise((resolve) => setTimeout(resolve, 1500));
       console.log("Security Updated!", { currentPassword, newPassword });
+
+      //From Clear
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
     } catch {
       setErrors((prev) => ({ ...prev, form: "Update failed" }));
     } finally {

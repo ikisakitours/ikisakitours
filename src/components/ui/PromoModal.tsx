@@ -17,7 +17,7 @@ export interface PromoModalProps {
 }
 
 export function PromoModal({
-  storageKey = "mapmate_promo_data",
+  storageKey = "ikisaki_promo_data",
 
   // 1 Second = 1000ms
   //5 minutes *  60 seconds = 300 seconds
@@ -88,7 +88,7 @@ export function PromoModal({
     for (let i = 0; i < 6; i++) {
       code += chars.charAt(Math.floor(Math.random() * chars.length));
     }
-    return `MAPMATE-${code}`;
+    return `IKISAKI Tours-${code}`;
   };
 
   const handleClaim = async () => {

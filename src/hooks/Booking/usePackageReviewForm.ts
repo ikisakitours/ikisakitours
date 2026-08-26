@@ -1,6 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { useTranslations } from "next-intl";
+import { PackageReviewService } from "@/services/Booking/PackageReviewService";
 
 export function useReviewForm() {
   const [fullName, setFullName] = useState("");
@@ -50,7 +51,8 @@ export function useReviewForm() {
 
     try {
       setIsLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // await new Promise((resolve) => setTimeout(resolve, 1500));
+      await PackageReviewService.submitReview({ fullName, email, country, rating, experience, images });
       console.log("Review Form valid and submitted!", {
         fullName,
         country,
@@ -58,6 +60,16 @@ export function useReviewForm() {
         experience,
         images,
       });
+
+      //From Clear
+      setFullName("");
+      setEmail("");
+      setCountry("");
+      setRating(0);
+      setExperience("");
+      setImages([]);
+      setPreviews([]);
+      
     } catch (error) {
       console.error("Submission error:", error);
     } finally {

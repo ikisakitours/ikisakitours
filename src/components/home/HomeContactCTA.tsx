@@ -26,9 +26,12 @@ export default function HomeContactCTA({ hideOnMobile = false }: HomeContactCTAP
       <div className="absolute left-1/2 top-1/2 -z-10 h-150 w-150 -translate-x-1/2 -translate-y-1/2 pointer-events-none rounded-full bg-gold/5 blur-[120px]" />
 
       {/* Background Watermark */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden mt-2">
-        <span className="select-none text-[20vw] lg:text-[18vw] 2xl:text-[20vw] font-black uppercase tracking-tighter text-white/2">
+    <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center overflow-hidden mt-2">
+        <span className="select-none leading-none text-[20vw] lg:text-[18vw] 2xl:text-[20vw] font-black uppercase tracking-tighter text-white/2">
           {t("watermark")}
+        </span>
+        <span className="select-none text-[5vw] lg:text-[4vw] 2xl:text-[4.5vw] font-bold uppercase tracking-[0.5em] text-white/2 -mt-2 sm:-mt-4 lg:-mt-6 ml-[0.5em]">
+         {t("watermarkSub")}
         </span>
       </div>
 

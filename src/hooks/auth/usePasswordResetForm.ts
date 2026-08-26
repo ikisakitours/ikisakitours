@@ -1,6 +1,8 @@
 import { useState, useRef, type FormEvent, type KeyboardEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { usePasswordStrength, type TransientMsgType } from "@/hooks/usePasswordStrength";
+import { useRouter } from "@/lib/i18nNavigation";
+
 import { authService } from "@/services/auth/authService";
 
 const otpLength = 6;
@@ -20,6 +22,8 @@ export function usePasswordResetForm(tError: (key: string) => string) {
   const [transientConfirmSuccess, setTransientConfirmSuccess] = useState<TransientMsgType[]>([]);
   const [localConfirmError, setLocalConfirmError] = useState("");
   const confirmTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const router = useRouter();
 
   const handleOtpChange = (index: number, value: string) => {
     const nextDigit = value.replace(/\D/g, "").slice(-1);
@@ -73,9 +77,15 @@ export function usePasswordResetForm(tError: (key: string) => string) {
 
     try {
       setIsLoading(true);
-     await authService.resetPassword({ otp, password, confirmPassword });
+      await authService.resetPassword({ otp, password, confirmPassword });
       // await new Promise((resolve) => setTimeout(resolve, 1500));
       console.log("Password Reset Valid & Submitted!", { otp, password });
+
+      // Form Clear
+      setOtp(Array.from({ length: otpLength }, () => ""));
+      setPassword("");
+      setConfirmPassword("");
+      router.push("/login");
     } catch {
       setErrors((prev) => ({ ...prev, form: "Password reset failed" }));
     } finally {

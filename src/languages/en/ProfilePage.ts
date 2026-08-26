@@ -1,7 +1,7 @@
 export default {
   Metadata: {
     title: "Profile Settings",
-    description: "Manage MapMate profile details, account security, and privacy settings.",
+    description: "Manage IkiSaki profile details, account security, and privacy settings.",
   },
   Dashboard: {
     titleBase: "Account",

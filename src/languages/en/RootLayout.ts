@@ -1,9 +1,9 @@
 export default {
   Metadata: {
-    titleDefault: "Premium Sri Lanka Private Tours | MapMate",
-    titleTemplate: "%s | MapMate",
+    titleDefault: "Premium Sri Lanka Private Tours | IkiSaki Tours",
+    titleTemplate: "%s | IkiSaki Tours",
     description:
       "Premium private tours, transfers, travel packages, and multilingual concierge experiences across Sri Lanka.",
-    siteName: "MapMate Tours",
+    siteName: "IkiSaki Tours",
   },
 } as const;

@@ -1,7 +1,8 @@
 import { vehicleFilters, vehicles } from "@/data/vehicles";
 import { Link } from "@/lib/i18nNavigation";
-import { CarTaxiFront, Users, Briefcase, Tag, type LucideIcon } from "lucide-react";
+import { Users, Briefcase, Tag, type LucideIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 
 export type ActiveVehicleFilter = (typeof vehicleFilters)[number]["value"];
 
@@ -27,9 +28,10 @@ function VehicleDataPoint({ icon: Icon, label, value }: VehicleDataPointProps) {
         <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
       </div>
 
-      <div className="flex flex-row md:flex-col items-baseline md:items-start justify-between md:justify-start w-full gap-2 md:gap-0">
+      <div className="flex flex-row md:flex-col items-center md:items-start justify-between md:justify-start w-full gap-2 md:gap-1">
+        {" "}
         <span className="block text-tiny font-bold uppercase tracking-widest text-slate-400">{label}</span>
-        <span className="text-body font-bold text-white">{value}</span>
+        <span className="text-body font-bold text-white ">{value}</span>
       </div>
     </div>
   );
@@ -80,6 +82,7 @@ export function VehicleSelector({
   isLoading = false,
 }: VehicleSelectorProps) {
   const tVeh = useTranslations("Services.VehicleSelector");
+  const [serviceType, setServiceType] = useState<"driver" | "guide">("driver");
 
   const handleFilterClick = (filterValue: ActiveVehicleFilter) => {
     if (isLoading) return;
@@ -130,10 +133,20 @@ export function VehicleSelector({
                     icon={Tag}
                     label={tVeh("startingFrom")}
                     value={
-                      <>
-                        <span className="text-gold">{currentVehicle.price}</span>{" "}
+                      <div className="flex items-center gap-1 flex-wrap leading-none">
+                        <span className="text-gold font-bold">{currentVehicle.price}</span>
+
+                        {serviceType === "guide" && (
+                          <span className="flex items-center text-gold font-bold animate-in fade-in zoom-in-95 duration-200">
+                            <span className="flex items-center justify-center mr-2 relative -translate-y-px leading-none">
+                              +
+                            </span>
+                            <span>$20</span>
+                          </span>
+                        )}
+
                         <span className="text-tiny text-slate-400 font-normal">{tVeh("perDay")}</span>
-                      </>
+                      </div>
                     }
                   />
                 )}
@@ -144,10 +157,10 @@ export function VehicleSelector({
                     icon={Users}
                     label={tVeh("capacity")}
                     value={
-                      <>
-                        {currentVehicle.passengers}{" "}
+                      <div className="flex items-baseline gap-1.5 flex-wrap leading-none">
+                        <span className="font-bold">{currentVehicle.passengers}</span>
                         <span className="text-slate-400 font-normal text-tiny">{tVeh("pax")}</span>
-                      </>
+                      </div>
                     }
                   />
                 )}
@@ -158,22 +171,68 @@ export function VehicleSelector({
                     icon={Briefcase}
                     label={tVeh("luggage")}
                     value={
-                      <>
-                        {currentVehicle.luggage} <span className="text-slate-400 font-normal text-tiny"></span>
-                      </>
+                      <div className="flex items-baseline gap-1.5 flex-wrap leading-none">
+                        <span className="font-bold">{currentVehicle.luggage}</span>
+                      </div>
                     }
                   />
                 )}
               </div>
+              {/* --- Service Option Buttons (Driver vs Guide) --- */}
+              <div className="mt-5 flex flex-col md:flex-row md:items-center md:justify-between w-full gap-3">
+                {/* User Instruction Text (Left aligned) */}
+                <div className="text-left">
+                  <span className="text-slate-400 text-body-sm font-medium">{tVeh("customizeTour")}</span>
+                </div>
 
+                {/* Toggle Buttons (Right aligned on MD+) */}
+                <div className="flex w-full md:w-max p-1 rounded-xl bg-black/40 border border-white/10 backdrop-blur-md">
+                  {/* 1. Vehicle with Driver */}
+                  <button
+                    type="button"
+                    onClick={() => setServiceType("driver")}
+                    className={`relative flex-1 md:flex-none flex items-center justify-center py-2.5 px-4 md:px-8 md:min-w-40 rounded-lg text-body-sm font-semibold transition-all duration-300 cursor-pointer whitespace-nowrap ${
+                      serviceType === "driver"
+                        ? "bg-linear-to-r from-gold/20 via-gold/10 to-transparent border border-gold/50 text-gold shadow-[0_0_15px_rgba(197,160,89,0.15)]"
+                        : "text-slate-400 hover:text-white border border-transparent"
+                    }`}
+                  >
+                    <span className="tracking-wide">{tVeh("withDriver")}</span>
+                  </button>
+
+                  {/* 2. Vehicle with Guide */}
+                  <button
+                    type="button"
+                    onClick={() => setServiceType("guide")}
+                    className={`relative flex-1 md:flex-none flex items-center justify-center py-2.5 px-4 md:px-8 md:min-w-40 rounded-lg text-body-sm font-semibold transition-all duration-300 cursor-pointer whitespace-nowrap ${
+                      serviceType === "guide"
+                        ? "bg-linear-to-r from-gold/20 via-gold/10 to-transparent border border-gold/50 text-gold shadow-[0_0_15px_rgba(197,160,89,0.15)]"
+                        : "text-slate-400 hover:text-white border border-transparent"
+                    }`}
+                  >
+                    <span className="tracking-wide">{tVeh("withGuide")}</span>
+                  </button>
+                </div>
+              </div>
               {/* Tourist Note  */}
               {currentVehicle.touristNote && (
                 <div className="mt-5 pt-4 border-t border-gold/15 w-full text-left flex flex-col items-start">
-                  <div className="flex items-center gap-1.5 mb-1.5">
+                  <div className="flex items-center gap-1.5 mb-2.5">
                     <span className="text-[15px]">📌</span>
                     <span className="text-gold font-bold uppercase tracking-widest text-caption">{tVeh("note")}</span>
                   </div>
-                  <p className="text-body-sm text-slate-300 italic leading-relaxed">{currentVehicle.touristNote}</p>
+
+                  <ul className="flex flex-col gap-2 w-full">
+                    {(tVeh.raw(`Notes.${currentVehicle.category}`) as string[]).map((note, index) => (
+                      <li
+                        key={index}
+                        className="flex items-start gap-2.5 text-body-sm text-slate-300 italic leading-relaxed"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-gold/60 mt-1.75 shrink-0"></span>
+                        <span>{note}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               )}
             </div>
@@ -195,14 +254,6 @@ export function VehicleSelector({
                 {tVeh("customize")}
               </>
             }
-          />
-
-          {/* Original Driver Included Card using InfoCard */}
-          <InfoCard
-            icon={<CarTaxiFront className="h-5 w-5" />}
-            title={tVeh("driverIncluded")}
-            description={tVeh("driverDesc")}
-            isPulsing={true}
           />
         </div>
       ) : (

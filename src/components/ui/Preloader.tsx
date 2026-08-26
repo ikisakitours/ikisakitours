@@ -102,7 +102,7 @@ export default function Preloader() {
               transition={{ delay: 0.5, duration: 1 }}
             >
               <p className="text-[14px] sm:text-[16px] md:text-[18px] lg:text-[18px] 3xl:text-[22px] font-bold uppercase tracking-[0.6em] sm:tracking-[0.8em] text-gold">
-                Map Mate
+                Iki Saki
               </p>
               <motion.div
                 className="mt-2 h-px bg-gold/50 mx-auto w-40 sm:w-56 lg:w-64 3xl:w-80 origin-center"

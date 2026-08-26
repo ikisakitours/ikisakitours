@@ -13,7 +13,6 @@ import EssentialsSection from "@/components/booking/BookingDetailSection/Essenti
 import TourCustomization from "@/components/booking/BookingDetailSection/TourCustomization";
 import CoveredDestinations from "@/components/booking/BookingDetailSection/CoveredDestinations";
 import ReviewsSection from "@/components/booking/BookingDetailSection/ReviewsSection";
-import { TourPriceGuideSection } from "@/components/booking/BookingDetailSection/TourPriceGuideSection";
 
 type SharedTourProps = {
   tour: typeof bookingTour;
@@ -29,7 +28,6 @@ export function BookingDetailSections({ tour, tourType }: SharedTourProps) {
       <BookingNavigation />
       <ActivityDetails tour={tour} />
       <DescriptionSection tour={tour} />
-      {/* <TourPriceGuideSection/> */}
       <hr className="my-14 border-white/5" />
       <HighlightsSection tour={tour} />
       <ItinerarySection tour={tour} />

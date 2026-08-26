@@ -32,6 +32,7 @@ type BookingWidgetProps = {
 const bookingAssurancesIcons = [Zap, Banknote, CalendarDays];
 
 export function BookingWidget({ tour, className = "" }: BookingWidgetProps) {
+  const apiClosedDates = ["2026-08-28", "2026-09-05", "2026-09-12"];
   const t = useTranslations("Booking.Widget");
   const tForms = useTranslations("SharedForm");
   const rawAssurances = t.raw("assurances") as string[];
@@ -98,7 +99,7 @@ export function BookingWidget({ tour, className = "" }: BookingWidgetProps) {
             <div className="flex items-center justify-between mb-4">
               <div>
                 <div className="mb-1 text-caption font-bold uppercase tracking-[0.3em] text-gold">
-                  {t("mapMateRate")}
+                  {t("Rate")}
                 </div>
                 <div className="flex items-baseline gap-2">
                   <span className="text-4xl font-bold tracking-tighter text-white">${tour.price}</span>
@@ -142,6 +143,7 @@ export function BookingWidget({ tour, className = "" }: BookingWidgetProps) {
               <CustomDatePicker
                 value={journeyDate}
                 isLoading={isLoading}
+                closedDates={apiClosedDates}
                 onChange={(d) => {
                   setJourneyDate(d);
                   if (errors.date) setErrors((prev) => ({ ...prev, date: "" }));
