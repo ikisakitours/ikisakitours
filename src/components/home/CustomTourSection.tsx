@@ -11,7 +11,7 @@ export function CustomTourSection() {
   return (
     <section
       id="custom-tours"
-      className="relative overflow-hidden bg-lanka-dark/60 py-12 md:py-20 xl:py-20 2xl:py-24 3xl:py-32"
+      className="relative overflow-hidden bg-lanka-black  py-12 md:py-20 xl:py-20 2xl:py-24 3xl:py-32"
     >
       {/* Background Ambient Glow Effects */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 h-72 w-72 rounded-full bg-gold/5 blur-[140px] pointer-events-none" />
@@ -24,7 +24,7 @@ export function CustomTourSection() {
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1, ease: [0.25, 1, 0.5, 1] }}
-          className="group relative overflow-hidden rounded-[2.5rem] border border-gold/20 bg-linear-to-br from-surface/90 via-lanka-black to-black px-6 py-16 shadow-[0_20px_50px_rgba(0,0,0,0.8)] backdrop-blur-2xl md:px-12 md:py-20 lg:p-20 2xl:p-24 3xl:p-32"
+          className="group relative overflow-hidden rounded-[2.5rem] border border-gold/20 bg-linear-to-br from-surface/90 via-lanka-black to-black px-6 py-16 shadow-2xl backdrop-blur-2xl md:px-12 md:py-20 lg:p-20 2xl:p-24 3xl:p-32"
         >
           {/* Subtle Top Border Gradient Highlight */}
           <div className="absolute top-0 left-1/4 right-1/4 h-px bg-linear-to-r from-transparent via-gold/50 to-transparent" />

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import EyeBrow from "@/components/ui/EyeBrow";
+import { SectionLabel } from "@/components/ui/SectionLabel";
 
 interface EventHeaderProps {
   badge: string;
@@ -14,7 +14,7 @@ export function EventHeader({ badge, titlePart1, titleAccent, description }: Eve
     <>
       {/* Header Section */}
       <div className="max-w-4xl mb-12 ">
-        <EyeBrow eyebrow={badge} className="justify-start!" />
+        <SectionLabel>{badge}</SectionLabel>
         <h1 className="premium-serif  text-heading-section leading-tight font-light  text-white l mb-6">
           {titlePart1} <span className="gold-gradient-text italic">{titleAccent}</span>
         </h1>
