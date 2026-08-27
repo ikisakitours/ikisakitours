@@ -37,7 +37,7 @@ export function useLoginForm() {
 
       setTimeout(() => {
         router.push("/");
-      }, 1500);
+      }, 3500);
     } catch (error) {
       toast.error(toastId, "Invalid email or password. Please try again.");
       console.error("Login error:", error);
