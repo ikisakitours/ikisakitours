@@ -39,6 +39,6 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 An interactive travel planning and tour itinerary management platform built with Next.js and Tailwind CSS.
 
-## Project Link
+## Project Links
 
 You can access the repository here: https://github.com/pramodSiriwardhana/map-mate-tours.git
