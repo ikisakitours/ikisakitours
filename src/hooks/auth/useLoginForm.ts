@@ -27,7 +27,6 @@ export function useLoginForm() {
     const toastId = toast.loading("Logging in");
     try {
       setIsLoading(true);
-      // const response = await authService.login({ email, password });
       // await new Promise((resolve) => setTimeout(resolve, 1500));
 
       const [response] = await Promise.all([
@@ -35,19 +34,14 @@ export function useLoginForm() {
         new Promise((resolve) => setTimeout(resolve, 800)),
       ]);
 
-      toast.success(toastId, "Login successful! Welcome back.");
+      toast.success(toastId, "Login successful! Welcome back.", 2000);
 
       console.log("Login valid and submitted!", response);
       console.log("Login valid and submitted!", { email, password });
 
-      // setTimeout(() => {
-      //   router.push("/");
-      // }, 1500);
-
       setTimeout(() => {
         router.push("/");
-      }, 2000);
-      
+      }, 2200);
     } catch (error) {
       toast.error(toastId, "Invalid email or password. Please try again.");
       console.error("Login error:", error);
