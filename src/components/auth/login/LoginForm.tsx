@@ -38,7 +38,7 @@ export function LoginForm() {
       <div className="overflow-y-auto no-scrollbar -mx-5 px-5 pr-2">
         <form className="space-y-6" onSubmit={handleSubmit} noValidate>
           {/* Email Address */}
-          <label className="block space-y-2">
+          <label htmlFor="email" className="block space-y-2">
             <span className="ml-1 block text-caption font-bold uppercase tracking-[0.2em] text-gold">
               {tForm("Labels.email")}
             </span>
@@ -48,6 +48,7 @@ export function LoginForm() {
                 <Mail className="h-4.5 w-4.5 md:h-5 md:w-5 text-slate-600 transition-colors group-focus-within:text-gold" />
               </span>
               <input
+                id="email"
                 type="email"
                 name="email"
                 autoComplete="email"
@@ -67,7 +68,7 @@ export function LoginForm() {
           </label>
 
           {/* Secure Password */}
-          <label className="block space-y-2">
+          <label htmlFor="password" className="block space-y-2">
             <span className="ml-1 block text-caption font-bold uppercase tracking-[0.2em] text-gold">
               {tForm("Labels.password")}
             </span>
@@ -76,6 +77,7 @@ export function LoginForm() {
                 <ShieldCheck className="h-4.5 w-4.5 md:h-5 md:w-5 text-slate-600 transition-colors group-focus-within:text-gold" />
               </span>
               <input
+                id="password"
                 type={showPassword ? "text" : "password"}
                 name="password"
                 autoComplete="current-password"

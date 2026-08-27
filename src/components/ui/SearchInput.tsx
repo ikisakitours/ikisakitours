@@ -1,6 +1,6 @@
 import React from "react";
 //Icon
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 
 type SearchInputProps = {
   value: string;
@@ -35,10 +35,23 @@ export function SearchInput({
           onChange={(e) => onChange(e.target.value)}
           autoComplete="off"
           placeholder={placeholder}
-          className="w-full rounded-xl border border-white/10 bg-white/3 pl-5 pr-28 py-4 text-body-sm text-white backdrop-blur-md transition-all duration-300 placeholder:text-gray-600 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold/30 [&::-webkit-search-cancel-button]:appearance-none"
+          className="w-full rounded-xl border border-white/10 bg-white/3 pl-5 pr-36 py-4 text-body-sm text-white backdrop-blur-md transition-all duration-300 placeholder:text-gray-600 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold/30 [&::-webkit-search-cancel-button]:appearance-none"
         />
 
-        {/* Count Badge එක */}
+        {value && (
+          <button
+            type="button"
+            onClick={() => onChange("")}
+            className={`absolute ${
+              count !== undefined ? "right-28" : "right-4"
+            } top-1/2 -translate-y-1/2 p-1 rounded-full bg-white/5 text-white/60 hover:bg-white/20 hover:text-white transition-all duration-200 shrink-0 border border-transparent hover:border-white/10`}
+            aria-label="Clear search"
+          >
+            <X className="h-3.5 w-3.5" />
+          </button>
+        )}
+
+        {/* Count Badge */}
         {count !== undefined && (
           <span className="absolute right-4 rounded border border-white/10 bg-white/5 px-2 py-1 text-caption font-bold text-gray-400">
             {count} {itemLabel}
