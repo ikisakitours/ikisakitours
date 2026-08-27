@@ -83,7 +83,9 @@ export function CurrencySelector() {
         }`}
       >
         <Globe className="h-3.5 w-3.5 md:h-4 md:w-4 text-gold" />
-        <span className="text-body-sm font-bold text-white transition-colors group-hover:text-gold">{baseCurrency}</span>
+        <span className="text-body-sm font-bold text-white transition-colors group-hover:text-gold">
+          {baseCurrency}
+        </span>
         <span className="text-caption font-bold text-gold/90">({currentSymbol})</span>
         <ChevronDown
           className={`h-4 w-4 text-slate-300 transition-transform duration-300 group-hover:text-gold ${

@@ -2,12 +2,14 @@
 import { useState, type FormEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { newsletterService } from "@/services/Footer/newsletterService";
+import { useTranslations } from "next-intl";
 
 export function useNewsletterForm() {
   const [formData, setFormData] = useState({ email: "" });
   const [isLoading, setIsLoading] = useState(false);
 
   const { errors, validate, setErrors } = useValidationForm();
+  const tErr = useTranslations("ValidationErrors.ServerErrors");
 
   const handleBookingSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -27,7 +29,7 @@ export function useNewsletterForm() {
       setFormData({ email: "" });
     } catch (error) {
       console.error("Newsletter submission error:", error);
-      setErrors((prev) => ({ ...prev, email: "Something went wrong. Try again." }));
+      setErrors((prev) => ({ ...prev, email: tErr("generalError") }));
     } finally {
       setIsLoading(false);
     }

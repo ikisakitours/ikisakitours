@@ -4,6 +4,7 @@ import { type ActiveVehicleFilter } from "@/components/services/VehicleSelector"
 import { type ContactData } from "@/components/services/ContactForm";
 import { vehicles } from "@/data/vehicles";
 import { privateVehicleService } from "@/services/services/privateVehicleService";
+import { useTranslations } from "next-intl";
 
 export function usePrivateVehicleForm() {
   const defaultCategory = vehicles[0].category;
@@ -34,6 +35,8 @@ export function usePrivateVehicleForm() {
     phone: "",
     specialRequests: "",
   });
+
+  const tErr = useTranslations("ValidationErrors.ServerErrors");
 
   const handleTourDaysChange = (delta: number) => {
     setTourDays((prev) => Math.max(0, prev + delta));
@@ -108,9 +111,9 @@ export function usePrivateVehicleForm() {
       setTourDays(0);
       setTravelerCounts({ adult: 0, couple: 0, child: 0, infant: 0 });
       setContact({ fullName: "", email: "", phone: "", specialRequests: "" });
-      
     } catch (error) {
       console.error("Submission error:", error);
+      setErrors((prev) => ({ ...prev, form: tErr("vehicleBookingFailed") }));
     } finally {
       setIsLoading(false);
     }

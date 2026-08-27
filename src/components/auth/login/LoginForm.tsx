@@ -33,6 +33,7 @@ export function LoginForm() {
   return (
     <section className="flex max-h-[calc(100dvh-4rem)] w-full max-w-120 flex-col overflow-hidden rounded-[2.5rem] border border-gold/15 bg-[#0a0a0a]/85 p-8 shadow-2xl backdrop-blur-3xl md:p-12">
       <AuthFormHeader introKey="Login" />
+      {/* no-scrollbar */}
 
       <div className="overflow-y-auto no-scrollbar -mx-5 px-5 pr-2">
         <form className="space-y-6" onSubmit={handleSubmit} noValidate>

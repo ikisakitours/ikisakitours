@@ -15,6 +15,7 @@ export function useReviewForm() {
   const [isLoading, setIsLoading] = useState(false);
   const { errors, validate, setErrors } = useValidationForm();
   const tErr = useTranslations("ValidationErrors");
+
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const filesArray = Array.from(e.target.files);
@@ -69,9 +70,9 @@ export function useReviewForm() {
       setExperience("");
       setImages([]);
       setPreviews([]);
-      
     } catch (error) {
       console.error("Submission error:", error);
+      setErrors((prev) => ({ ...prev, form: tErr("ServerErrors.reviewSubmitFailed") }));
     } finally {
       setIsLoading(false);
     }

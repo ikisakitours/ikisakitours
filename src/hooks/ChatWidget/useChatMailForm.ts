@@ -2,6 +2,7 @@ import { useState, type ChangeEvent, type FormEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { useUserLocation } from "@/hooks/useUserLocation";
 import { chatMailService } from "@/services/ChatWidget/chatMailService";
+import { useTranslations } from "next-intl";
 
 export function useChatMailForm() {
   const [formData, setFormData] = useState({
@@ -20,6 +21,7 @@ export function useChatMailForm() {
   const detectedCode = locationData?.country_code || "";
 
   const { errors, validate, setErrors } = useValidationForm();
+  const tErr = useTranslations("ValidationErrors.ServerErrors");
 
   const handleTextChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -54,6 +56,7 @@ export function useChatMailForm() {
       setFormData({ fullName: "", email: "", phone: "", message: "" });
     } catch (error) {
       console.error("Submission error:", error);
+      setErrors((prev) => ({ ...prev, form: tErr("messageSendFailed") }));
     } finally {
       setIsLoading(false);
     }

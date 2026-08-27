@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { writeReviewService } from "@/services/testimonials/writeReviewService";
+import { useTranslations } from "next-intl";
 
 export function useWriteReviewForm() {
   const [fullName, setFullName] = useState("");
@@ -11,6 +12,7 @@ export function useWriteReviewForm() {
 
   const [isLoading, setIsLoading] = useState(false);
   const { errors, validate, setErrors } = useValidationForm();
+  const tErr = useTranslations("ValidationErrors");
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -49,6 +51,7 @@ export function useWriteReviewForm() {
       setExperience("");
     } catch (error) {
       console.error("Submission error:", error);
+      setErrors((prev) => ({ ...prev, form: tErr("ServerErrors.reviewSubmitFailed") }));
     } finally {
       setIsLoading(false);
     }

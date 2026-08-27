@@ -5,6 +5,7 @@ import { type ActiveVehicleFilter } from "@/components/services/VehicleSelector"
 import { type ContactData } from "@/components/services/ContactForm";
 import { vehicles } from "@/data/vehicles";
 import { bespokeService } from "@/services/services/bespokeService";
+import { useTranslations } from "next-intl";
 
 export function useBespokeForm() {
   const defaultCategory = vehicles[0].category;
@@ -36,6 +37,8 @@ export function useBespokeForm() {
     phone: "",
     specialRequests: "",
   });
+
+  const tErr = useTranslations("ValidationErrors.ServerErrors");
 
   const handleTourDaysChange = (delta: number) => {
     setTourDays((prev) => Math.max(0, prev + delta));
@@ -112,7 +115,7 @@ export function useBespokeForm() {
       setContact({ fullName: "", email: "", phone: "", specialRequests: "" });
     } catch (error) {
       console.error("Submission error:", error);
-      setErrors((prev) => ({ ...prev, form: "Submission failed" }));
+      setErrors((prev) => ({ ...prev, form: tErr("submissionFailed") }));
     } finally {
       setIsLoading(false);
     }
