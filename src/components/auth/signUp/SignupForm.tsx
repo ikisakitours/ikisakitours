@@ -270,9 +270,8 @@ export function SignupForm() {
                 .
               </span>
             </label>
-            <div className="ml-2 mt-2">
-              <FormError message={errors.terms} />
-            </div>
+
+            <FormError message={errors.terms} />
           </div>
 
           <Button type="submit" disabled={isLoading} className="md:w-102.5! text-body-sm!" variant="auth">

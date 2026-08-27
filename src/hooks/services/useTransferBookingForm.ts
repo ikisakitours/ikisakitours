@@ -6,6 +6,7 @@ import { type ActiveVehicleFilter } from "@/components/services/VehicleSelector"
 import { type ContactData } from "@/components/services/ContactForm";
 import { useSearchParams } from "next/navigation";
 import { transferServiceApi } from "@/services/services/transferService";
+import { useTranslations } from "next-intl";
 
 export function useTransferBookingForm() {
   const defaultCategory = vehicles[0].category;
@@ -57,6 +58,8 @@ export function useTransferBookingForm() {
     phone: "",
     specialRequests: "",
   });
+
+  const tErr = useTranslations("ValidationErrors.ServerErrors");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -115,9 +118,9 @@ export function useTransferBookingForm() {
       setLanguage("");
       setTravelerCounts({ adult: 0, couple: 0, child: 0, infant: 0 });
       setContact({ fullName: "", email: "", phone: "", specialRequests: "" });
-      
     } catch (error) {
       console.error("Submission error:", error);
+      setErrors((prev) => ({ ...prev, form: tErr("transferBookingFailed") }));
     } finally {
       setIsLoading(false);
     }

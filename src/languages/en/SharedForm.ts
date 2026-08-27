@@ -142,4 +142,9 @@ export default {
     cookie: "Cookie Statement",
     suffix: ".",
   },
+  ShareButtonToastMessages: {
+    copyingLink: "Copying link",
+    linkCopied: "Link copied to clipboard!",
+    copyFailed: "Failed to copy link.",
+  },
 } as const;

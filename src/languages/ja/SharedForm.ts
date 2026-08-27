@@ -129,4 +129,9 @@ export default {
     cookie: "クッキーに関する声明",
     suffix: "を確認したことになります。",
   },
+  ShareButtonToastMessages: {
+    copyingLink: "リンクをコピー中",
+    linkCopied: "リンクをクリップボードにコピーしました！",
+    copyFailed: "リンクのコピーに失敗しました。",
+  },
 } as const;

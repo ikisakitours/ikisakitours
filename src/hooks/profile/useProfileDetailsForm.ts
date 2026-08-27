@@ -2,6 +2,7 @@ import { useState, type ChangeEvent, type FormEvent } from "react";
 import { profileUser } from "@/data/profile";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { profileService } from "@/services/profile/profileService";
+import { useTranslations } from "next-intl";
 
 export function useProfileDetailsForm(tError: (key: string) => string) {
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
@@ -17,6 +18,7 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
   const [isLoading, setIsLoading] = useState(false);
   const [isProfileLoading, setIsProfileLoading] = useState(false);
   const { errors, validate, setErrors } = useValidationForm();
+  const tErr = useTranslations("ValidationErrors.ServerErrors");
 
   const handleAvatarSelect = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -60,7 +62,7 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
       console.log("Details saved successfully:", { firstName, lastName, email });
     } catch (error) {
       console.error("Update error:", error);
-      setErrors((prev) => ({ ...prev, form: "Update failed" }));
+      setErrors((prev) => ({ ...prev, form: tErr("updateFailed") }));
     } finally {
       setIsLoading(false);
     }
@@ -77,7 +79,7 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
       console.log("Uploading cropped avatar:", avatarPreview);
     } catch (error) {
       console.error("Avatar upload error:", error);
-      setErrors((prev) => ({ ...prev, avatar: "Avatar upload failed" }));
+      setErrors((prev) => ({ ...prev, avatar: tErr("avatarUploadFailed") }));
     } finally {
       setIsProfileLoading(false);
     }

@@ -3,6 +3,8 @@ import { useValidationForm } from "@/hooks/useValidationForm";
 import { usePasswordStrength, type TransientMsgType } from "@/hooks/usePasswordStrength";
 import { useRouter } from "@/lib/i18nNavigation";
 import { authService } from "@/services/auth/authService";
+import { useTranslations } from "next-intl";
+import { useToast } from "@/context/ToastContext";
 
 export function useSignupForm(tError: (key: string) => string) {
   const [firstName, setFirstName] = useState("");
@@ -24,6 +26,9 @@ export function useSignupForm(tError: (key: string) => string) {
   const [localConfirmError, setLocalConfirmError] = useState("");
   const confirmTimerRef = useRef<NodeJS.Timeout | null>(null);
   const router = useRouter();
+
+  const tErr = useTranslations("ValidationErrors.ServerErrors");
+  const toast = useToast();
 
   const handleConfirmChange = (val: string) => {
     setConfirmPassword(val);
@@ -52,7 +57,21 @@ export function useSignupForm(tError: (key: string) => string) {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const payload = {
+
+    const validationPayload = {
+      firstName,
+      lastName,
+      email,
+      password,
+      confirmPassword,
+      countryName,
+      terms,
+    };
+
+    const isValid = validate(validationPayload);
+    if (!isValid) return;
+
+    const apiPayload = {
       firstname: firstName,
       lastname: lastName,
       email: email,
@@ -60,18 +79,26 @@ export function useSignupForm(tError: (key: string) => string) {
       country: countryName,
       terms: terms,
     };
-    const isValid = validate(payload);
-    if (!isValid) return;
 
+    const toastId = toast.loading("Registering account");
     try {
       setIsLoading(true);
-      await authService.signup(payload);
+      await authService.signup(apiPayload);
       // await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      toast.success(toastId, "Registration successful! Redirecting...");
+
       console.log("Signup Valid & Submitted!", { firstName, lastName, email, country: countryName });
-      router.push("/login");
+
+      setTimeout(() => {
+        router.push("/login");
+      }, 1500);
+
     } catch (error) {
-      console.error("Login error:", error);
-      setErrors((prev) => ({ ...prev, form: "Registration failed" }));
+      toast.error(toastId, "Registration failed. Please try again.");
+
+      console.error("Signup error:", error);
+      setErrors((prev) => ({ ...prev, form: tErr("registrationFailed") }));
     } finally {
       setIsLoading(false);
     }

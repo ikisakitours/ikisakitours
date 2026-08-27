@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
-import { Toaster } from "sonner";
 import "../globals.css";
 import Preloader from "@/components/ui/Preloader";
 import { NextIntlClientProvider } from "next-intl";
@@ -12,6 +11,7 @@ import { cookies } from "next/headers";
 import { CookieConsent } from "@/components/ui/CookieModel/CookieConsent";
 import { GlobalCookieModal } from "@/components/ui/CookieModel/GlobalCookieModal";
 import IOSZoomFix from "@/components/ui/IOSZoomFix";
+import { ToastProvider } from "@/context/ToastContext";
 
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
   return {
     // metadataBase: new URL("https://mapmate-sri-lanka.vercel.app"),
-  metadataBase: new URL("https://www.ikisakitours.com"),
+    metadataBase: new URL("https://www.ikisakitours.com"),
     title: {
       default: t("titleDefault"),
       template: t("titleTemplate"),
@@ -95,31 +95,14 @@ export default async function RootLayout({
     >
       <body className="min-h-full bg-lanka-dark text-slate-200">
         <NextIntlClientProvider messages={messages}>
-          {!hasSeenPreloader && <Preloader />}
-          <ProgressBarProvider />
-          <IOSZoomFix />
-          {children}
-          <Toaster
-            position="top-right"
-            offset={30}
-            className="max-md:inset-x-0! max-md:w-full! max-md:flex! max-md:justify-center! max-md:top-6! z-9999"
-            toastOptions={{
-              unstyled: true,
-              classNames: {
-                toast:
-                  "flex items-center gap-3.5 py-3 px-5 !w-fit max-md:!w-fit max-w-[85vw] max-md:!mx-auto bg-lanka-black/95 backdrop-blur-xl rounded-full border border-gold/50 shadow-[0_8px_30px_rgb(0,0,0,0.8),_0_0_15px_rgba(197,160,89,0.2)] transition-all duration-300",
-                title: "text-[14.5px] font-medium text-slate-100 font-sans tracking-wide",
-                description: "text-[13px] text-slate-400 font-sans",
-                icon: "text-gold flex-shrink-0 w-5 h-5 drop-shadow-[0_0_8px_rgba(197,160,89,0.4)]",
-                actionButton:
-                  "bg-gold text-lanka-black text-[12.5px] font-semibold rounded-full px-4 py-1.5 ml-2 hover:bg-gold-light transition-colors",
-                cancelButton:
-                  "bg-surface text-slate-300 text-[12.5px] font-medium rounded-full px-4 py-1.5 ml-2 border border-white/10 hover:bg-white/5 transition-colors",
-              },
-            }}
-          />
-          <CookieConsent />
-          <GlobalCookieModal />
+          <ToastProvider>
+            {!hasSeenPreloader && <Preloader />}
+            <ProgressBarProvider />
+            <IOSZoomFix />
+            {children}
+            <CookieConsent />
+            <GlobalCookieModal />
+          </ToastProvider>
         </NextIntlClientProvider>
       </body>
     </html>

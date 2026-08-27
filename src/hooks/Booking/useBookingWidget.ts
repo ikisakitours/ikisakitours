@@ -2,6 +2,7 @@
 import { useState, type FormEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { bookingWidgetService } from "@/services/Booking/bookingWidgetService";
+import { useTranslations } from "next-intl";
 
 export function useBookingWidget() {
   const [travelerCounts, setTravelerCounts] = useState<Record<string, number>>({
@@ -25,6 +26,7 @@ export function useBookingWidget() {
   };
 
   const { errors, validate, setErrors } = useValidationForm();
+  const tErr = useTranslations("ValidationErrors.ServerErrors");
 
   const handleBookingSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -44,7 +46,7 @@ export function useBookingWidget() {
       setTravelerCounts({ adult: 0, couple: 0, child: 0, infant: 0 });
     } catch (error) {
       console.error("Booking error:", error);
-      setErrors((prev) => ({ ...prev, date: "Booking submission failed" }));
+      setErrors((prev) => ({ ...prev, date: tErr("bookingFailed") }));
     } finally {
       setIsLoading(false);
     }

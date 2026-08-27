@@ -1,6 +1,7 @@
 import { useState, type FormEvent, type ChangeEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { contactApi } from "@/services/Contact/contactService";
+import { useTranslations } from "next-intl";
 
 export function useContactForm(inquiryOptions: string[]) {
   const [formData, setFormData] = useState({
@@ -20,6 +21,7 @@ export function useContactForm(inquiryOptions: string[]) {
   const [isLoading, setIsLoading] = useState(false);
 
   const { errors, validate, setErrors } = useValidationForm();
+  const tErr = useTranslations("ValidationErrors.ServerErrors");
 
   const handleTextChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -74,6 +76,7 @@ export function useContactForm(inquiryOptions: string[]) {
       console.log("Contact Form valid and submitted!", { ...formData, tourType, inquiryType });
     } catch (error) {
       console.error("Submission error:", error);
+      setErrors((prev) => ({ ...prev, form: tErr("contactSubmitFailed") }));
     } finally {
       setIsLoading(false);
     }

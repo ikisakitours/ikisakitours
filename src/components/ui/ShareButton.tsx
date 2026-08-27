@@ -1,7 +1,7 @@
 "use client";
-
-import { toast } from "sonner";
-//Icon
+import { useToast } from "@/context/ToastContext";
+import { useTranslations } from "next-intl";
+//Icons
 import { Share2 } from "lucide-react";
 
 interface ShareButtonProps {
@@ -14,26 +14,35 @@ interface ShareButtonProps {
 }
 
 export function ShareButton({ title, text, url, className, iconClassName, iconSize }: ShareButtonProps) {
+  const toast = useToast();
+  const tToast = useTranslations("SharedForm.ShareButtonToastMessages");
   const handleShare = async () => {
     const absoluteUrl = typeof window !== "undefined" ? `${window.location.origin}${url}` : url;
 
-    // 1. Web Share API
     if (navigator.share) {
       try {
         await navigator.share({ title, text, url: absoluteUrl });
         return;
       } catch (error) {
-        console.error("Error sharing:", error);
+        console.log("Native share cancelled or failed, falling back to copy.", error);
       }
     }
 
-    // 2. Clipboard API
+    // 2. Clipboard API (Copy to Clipboard)
+    const toastId = toast.loading(tToast("copyingLink"));
+
     if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
       try {
         await navigator.clipboard.writeText(absoluteUrl);
-        toast.success("Link copied to clipboard!");
+
+        setTimeout(() => {
+          toast.success(toastId, tToast("linkCopied"));
+        }, 600);
       } catch (err) {
         console.error("Failed to copy:", err);
+        setTimeout(() => {
+          toast.error(toastId, tToast("copyFailed"));
+        }, 600);
       }
     }
     // 3. Fallback: Clipboard API
@@ -42,11 +51,17 @@ export function ShareButton({ title, text, url, className, iconClassName, iconSi
       textArea.value = absoluteUrl;
       document.body.appendChild(textArea);
       textArea.select();
+
       try {
         document.execCommand("copy");
-        toast.success("Link copied to clipboard!");
+        setTimeout(() => {
+          toast.success(toastId, tToast("linkCopied"));
+        }, 600);
       } catch (err) {
         console.error("Fallback copy failed", err);
+        setTimeout(() => {
+          toast.error(toastId, tToast("copyFailed"));
+        }, 600);
       }
       document.body.removeChild(textArea);
     }

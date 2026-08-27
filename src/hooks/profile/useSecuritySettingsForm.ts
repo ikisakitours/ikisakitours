@@ -2,6 +2,7 @@ import { useState, useRef, type FormEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { usePasswordStrength, type TransientMsgType } from "@/hooks/usePasswordStrength";
 import { profileService } from "@/services/profile/profileService";
+import { useTranslations } from "next-intl";
 
 export function useSecuritySettingsForm(tError: (key: string) => string) {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -20,6 +21,7 @@ export function useSecuritySettingsForm(tError: (key: string) => string) {
   const [transientConfirmSuccess, setTransientConfirmSuccess] = useState<TransientMsgType[]>([]);
   const [localConfirmError, setLocalConfirmError] = useState("");
   const confirmTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const tErr = useTranslations("ValidationErrors.ServerErrors");
 
   const handleCurrentChange = (val: string) => {
     setCurrentPassword(val);
@@ -69,8 +71,9 @@ export function useSecuritySettingsForm(tError: (key: string) => string) {
       setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
-    } catch {
-      setErrors((prev) => ({ ...prev, form: "Update failed" }));
+    } catch (error) {
+      setErrors((prev) => ({ ...prev, form: tErr("updateFailed") }));
+      console.error("Security Updated error:", error);
     } finally {
       setIsLoading(false);
     }
