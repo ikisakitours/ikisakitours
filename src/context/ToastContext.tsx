@@ -59,7 +59,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       {children}
 
       {/* Toast Container - Responsive Position */}
-      <div className="fixed z-100 flex flex-col gap-3 pointer-events-none top-4 left-1/2 -translate-x-1/2 md:top-6 md:left-auto md:right-6 md:translate-x-0 items-center md:items-end w-full md:w-auto px-4 md:px-0">
+      <div className="fixed z-9999 flex flex-col gap-3 pointer-events-none top-4 left-1/2 -translate-x-1/2 md:top-6 md:left-auto md:right-6 md:translate-x-0 items-center md:items-end w-full md:w-auto px-4 md:px-0">
         <AnimatePresence>
           {toasts.map((toast) => (
             <motion.div
