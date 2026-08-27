@@ -52,7 +52,14 @@ export function useSignupForm(tError: (key: string) => string) {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const payload = { firstName, lastName, email, password, confirmPassword, country: countryName, terms };
+    const payload = {
+      firstname: firstName,
+      lastname: lastName,
+      email: email,
+      password: password,
+      country: countryName,
+      terms: terms,
+    };
     const isValid = validate(payload);
     if (!isValid) return;
 
