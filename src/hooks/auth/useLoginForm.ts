@@ -35,7 +35,7 @@ export function useLoginForm() {
         new Promise((resolve) => setTimeout(resolve, 800)),
       ]);
 
-      toast.success(toastId, "Login successful! Welcome back.");
+      toast.success(toastId, "Login successful! Welcome back.",2000);
 
       console.log("Login valid and submitted!", response);
       console.log("Login valid and submitted!", { email, password });
@@ -46,7 +46,7 @@ export function useLoginForm() {
 
       setTimeout(() => {
         router.push("/");
-      }, 2000);
+      }, 2200);
       
     } catch (error) {
       toast.error(toastId, "Invalid email or password. Please try again.");
