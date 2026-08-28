@@ -151,7 +151,7 @@ export function SiteHeader() {
       console.log("Login valid and submitted!", response);
 
       setTimeout(() => {
-        router.push("/login");
+      window.location.href = "/login";
       }, 2200);
     } catch (error) {
       toast.error(toastId, "Invalid email or password. Please try again.");
