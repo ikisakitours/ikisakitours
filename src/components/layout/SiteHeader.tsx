@@ -9,6 +9,9 @@ import { primaryNavigation } from "@/data/navigation";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Link, useRouter, usePathname } from "@/lib/i18nNavigation";
+import { authService } from "@/services/auth/authService";
+import { useToast } from "@/context/ToastContext";
+
 //Icons
 import { LogOut, UserRound } from "lucide-react";
 
@@ -70,6 +73,8 @@ export function SiteHeader() {
   const profileDropdownRef = useRef<HTMLDivElement>(null);
 
   const [isMounted, setIsMounted] = useState(false);
+
+  const toast = useToast();
 
   useEffect(() => {
     const timeoutId = setTimeout(() => setIsMounted(true), 0);
@@ -133,6 +138,26 @@ export function SiteHeader() {
       document.documentElement.classList.remove("overflow-hidden");
     };
   }, [isMenuOpen]);
+
+  // Logout Button
+  const handleLogout = async () => {
+    const toastId = toast.loading("Logout");
+
+    try {
+      const [response] = await Promise.all([authService.logout(), new Promise((resolve) => setTimeout(resolve, 800))]);
+
+      toast.success(toastId, "Logout successful! Come Again.", 2000);
+
+      console.log("Login valid and submitted!", response);
+
+      setTimeout(() => {
+        router.push("/login");
+      }, 2200);
+    } catch (error) {
+      toast.error(toastId, "Invalid email or password. Please try again.");
+      console.error("Login error:", error);
+    }
+  };
 
   // ==========================================
   // Framer Motion Animation Variants
@@ -408,6 +433,7 @@ export function SiteHeader() {
                     <div className="mx-4 my-1 border-t border-white/5" />
                     <button
                       type="button"
+                      onClick={handleLogout}
                       className="flex w-full items-center px-6 py-3 text-left text-body-sm text-red-400 transition-colors hover:bg-red-500/10"
                     >
                       <LogOut className="mr-3 h-4 w-4" />
