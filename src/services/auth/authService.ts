@@ -9,7 +9,7 @@ export const authService = {
     const res = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      // credentials: "include",
+      credentials: "include",
       body: JSON.stringify(data),
     });
     if (!res.ok) throw new Error("Login failed");
@@ -20,7 +20,7 @@ export const authService = {
     const res = await fetch(`${API_URL}/auth/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      // credentials: "include",
+      credentials: "include",
       body: JSON.stringify(data),
     });
     if (!res.ok) throw new Error("Signup failed");
@@ -31,7 +31,7 @@ export const authService = {
     const res = await fetch(`${API_URL}/auth/recovery`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      // credentials: "include",
+      credentials: "include",
       body: JSON.stringify({ email }),
     });
     if (!res.ok) throw new Error("Recovery request failed");
@@ -44,7 +44,7 @@ export const authService = {
     const res = await fetch(`${API_URL}/auth/reset-password`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      // credentials: "include",
+      credentials: "include",
       body: JSON.stringify(payload),
     });
     if (!res.ok) throw new Error("Password reset failed");

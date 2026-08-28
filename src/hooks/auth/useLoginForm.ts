@@ -31,7 +31,7 @@ export function useLoginForm() {
       // await new Promise((resolve) => setTimeout(resolve, 1500));
 
       const [response] = await Promise.all([
-        authService.login({ email, password }),
+        authService.login({ email, password ,staySignedIn}),
         new Promise((resolve) => setTimeout(resolve, 800)),
       ]);
 
