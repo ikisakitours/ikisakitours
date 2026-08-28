@@ -197,8 +197,7 @@ export function SignupForm() {
 
               {password === "" && !localError && !errors.password && (
                 <p className="ml-2 mt-2 text-tiny text-slate-500 italic">
-                  * Must be at least 8 characters long and include uppercase, lowercase, numbers, and special
-                  characters.
+                   {tForm("Placeholders.passwordTip")}
                 </p>
               )}
               <div className="ml-2">

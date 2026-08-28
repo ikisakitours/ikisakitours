@@ -21,6 +21,8 @@ export function LoginForm() {
     setPassword,
     showPassword,
     setShowPassword,
+    staySignedIn,
+    setStaySignedIn,
     errors,
     setErrors,
     isLoading,
@@ -107,8 +109,14 @@ export function LoginForm() {
 
           {/* Additional Options */}
           <div className="flex items-center justify-between gap-4">
-            <label className="group flex cursor-pointer items-center gap-2">
-              <input type="checkbox" className="h-4 w-4 rounded border-white/10 bg-white/5 accent-gold" />
+            <label htmlFor="staySignedIn" className="group flex cursor-pointer items-center gap-2">
+              <input
+                id="staySignedIn"
+                type="checkbox"
+                checked={staySignedIn}
+                onChange={(e) => setStaySignedIn(e.target.checked)}
+                className="h-4 w-4 rounded border-white/10 bg-white/5 accent-gold"
+              />
               <span className="text-body-sm text-slate-400 transition-colors group-hover:text-slate-200">
                 {tForm("Labels.staySignedIn")}
               </span>

@@ -52,6 +52,8 @@ export default {
     tourPlanRequests: "Enter your trip details destinations or special requests...",
     pickupLocation: "Airport or hotel name",
     dropoffLocation: "Destination address",
+    passwordTip:
+      "※ Must be at least 8 characters long and include uppercase, lowercase, numbers, and special characters.",
   },
   ResetFormOtp: {
     verificationCode: "Verification Code",
