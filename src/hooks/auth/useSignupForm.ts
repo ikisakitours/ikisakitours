@@ -83,17 +83,21 @@ export function useSignupForm(tError: (key: string) => string) {
     const toastId = toast.loading("Registering account");
     try {
       setIsLoading(true);
-      await authService.signup(apiPayload);
-      // await new Promise((resolve) => setTimeout(resolve, 1500));
 
-      toast.success(toastId, "Registration successful! Redirecting...");
+      const [response] = await Promise.all([
+        authService.signup(apiPayload),
+        new Promise((resolve) => setTimeout(resolve, 800)),
+      ]);
+
+      // await new Promise((resolve) => setTimeout(resolve, 1500));
+      console.log("Login valid and submitted!", response);
+      toast.success(toastId, "Registration successful! Redirecting", 2000);
 
       console.log("Signup Valid & Submitted!", { firstName, lastName, email, country: countryName });
 
       setTimeout(() => {
         router.push("/login");
-      }, 1500);
-
+      }, 2200);
     } catch (error) {
       toast.error(toastId, "Registration failed. Please try again.");
 
