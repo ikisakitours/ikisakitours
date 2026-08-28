@@ -10,6 +10,7 @@ export function useLoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [staySignedIn, setStaySignedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const { errors, validate, setErrors } = useValidationForm();
@@ -30,14 +31,14 @@ export function useLoginForm() {
       // await new Promise((resolve) => setTimeout(resolve, 1500));
 
       const [response] = await Promise.all([
-        authService.login({ email, password }),
+        authService.login({ email, password, staySignedIn }),
         new Promise((resolve) => setTimeout(resolve, 800)),
       ]);
 
       toast.success(toastId, "Login successful! Welcome back.", 2000);
 
       console.log("Login valid and submitted!", response);
-      console.log("Login valid and submitted!", { email, password });
+      console.log("Login valid and submitted!", { email, password, staySignedIn });
 
       setTimeout(() => {
         router.push("/");
@@ -58,6 +59,8 @@ export function useLoginForm() {
     setPassword,
     showPassword,
     setShowPassword,
+    staySignedIn, 
+    setStaySignedIn,
     errors,
     setErrors,
     isLoading,

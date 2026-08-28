@@ -52,6 +52,7 @@ export default {
     tourPlanRequests: "旅行の詳細、目的地、または特別なリクエストを入力してください...",
     pickupLocation: "空港またはホテル名",
     dropoffLocation: "目的地の住所",
+    passwordTip: "※ 8文字以上で、大文字・小文字・数字・記号をそれぞれ1つ以上含めてください。",
   },
   ResetFormOtp: {
     verificationCode: "認証コード",
