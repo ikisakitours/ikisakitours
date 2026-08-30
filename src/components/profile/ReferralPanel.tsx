@@ -85,7 +85,7 @@ export function ReferralPanel() {
   return (
     <section className="animate-fade-in-up space-y-8">
       {/* Main Referral Card */}
-      <div className="glass-card relative overflow-hidden rounded-3xl p-6 md:p-12">
+      <div className="glass-card backdrop-blur-none! relative overflow-hidden rounded-3xl p-6 md:p-12">
         {/* Background Ambient Glow */}
         <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-gold/10 blur-[100px]" />
 

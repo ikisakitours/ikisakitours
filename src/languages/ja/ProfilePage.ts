@@ -34,6 +34,17 @@ export default {
   SecurityPanel: {
     title: "セキュリティアクセス",
     forgotPassword: "パスワードをお忘れですか？",
+    dangerZoneTitle: "危険区域：アカウントの削除",
+    dangerZoneDesc:
+      "アカウントを削除すると、元に戻すことはできません。すべての個人データとツアー履歴が完全に削除されます。",
+    deleteBtn: "アカウントを削除",
+    modalTitle: "本当によろしいですか？",
+    modalDesc:
+      "この操作は元に戻すことができません。アカウントの削除を確認するには、現在のパスワードを入力してください。",
+    passwordPlaceholder: "パスワードを入力",
+    cancelBtn: "キャンセル",
+    deletingBtn: "削除中...",
+    confirmDeleteBtn: "完全に削除する",
   },
   ReferralPanel: {
     title: "友達を招待して特典を獲得",

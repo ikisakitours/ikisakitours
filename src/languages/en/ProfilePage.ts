@@ -34,6 +34,16 @@ export default {
   SecurityPanel: {
     title: "Security Access",
     forgotPassword: "Forgot Password?",
+    dangerZoneTitle: "Danger Zone: Delete Account",
+    dangerZoneDesc:
+      "Once you delete your account, there is no going back. All your personal data and tours history will be permanently removed.",
+    deleteBtn: "Delete Account",
+    modalTitle: "Are you absolutely sure?",
+    modalDesc: "This action cannot be undone. Please enter your current password to confirm account deletion.",
+    passwordPlaceholder: "Enter your password",
+    cancelBtn: "Cancel",
+    deletingBtn: "Deleting...",
+    confirmDeleteBtn: "Permanently Delete",
   },
   ReferralPanel: {
     title: "Invite Friends & Earn",

@@ -30,4 +30,16 @@ export const profileService = {
     if (!res.ok) throw new Error("Security update failed");
     return res.json();
   },
+
+  // Delete Account 
+  deleteAccount: async (password: string) => {
+    const res = await fetch(`${API_URL}/profile/account`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ password }),
+    });
+    if (!res.ok) throw new Error("Failed to delete account");
+    return res.json();
+  },
 };
