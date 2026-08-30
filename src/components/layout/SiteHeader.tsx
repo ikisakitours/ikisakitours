@@ -11,6 +11,7 @@ import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Link, useRouter, usePathname } from "@/lib/i18nNavigation";
 import { authService } from "@/services/auth/authService";
 import { useToast } from "@/context/ToastContext";
+import { useAuth } from "@/context/AuthContext";
 
 //Icons
 import { LogOut, UserRound } from "lucide-react";
@@ -74,6 +75,7 @@ export function SiteHeader() {
 
   const [isMounted, setIsMounted] = useState(false);
 
+  const { user, logoutUser } = useAuth();
   const toast = useToast();
 
   useEffect(() => {
@@ -146,16 +148,17 @@ export function SiteHeader() {
     try {
       const [response] = await Promise.all([authService.logout(), new Promise((resolve) => setTimeout(resolve, 800))]);
 
+      logoutUser();
       toast.success(toastId, "Logout successful! Come Again.", 2000);
-
-      console.log("Login valid and submitted!", response);
+      setIsProfileOpen(false);
+      console.log("Logout valid and submitted!", response);
 
       setTimeout(() => {
-      window.location.href = "/login";
+        window.location.href = "/login";
       }, 2200);
     } catch (error) {
-      toast.error(toastId, "Invalid email or password. Please try again.");
-      console.error("Login error:", error);
+      toast.error(toastId, "Logout failed. Please try again.");
+      console.error("Logout error:", error);
     }
   };
 
@@ -372,76 +375,75 @@ export function SiteHeader() {
                 <CurrencySelector />
               </div>
 
-              {/*  Login Button */}
-              {/* <Link
-                href="/auth-gateway"
-                className="  relative group items-center justify-center px-7 py-1.75 rounded-full overflow-hidden border border-gold/40 bg-gradient-to-r from-gold/15 via-gold/5 to-transparent text-gold text-body-sm font-semibold tracking-wider uppercase backdrop-blur-xl transition-all duration-500 hover:border-gold hover:shadow-[0_0_25px_rgba(197,160,89,0.35)] hover:-translate-y-0.5 active:translate-y-0"
-              >
-                <span className="absolute inset-0 bg-linear-to-r from-gold/0 via-gold/20 to-gold/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-
-                <span className="relative z-10 flex items-center gap-2">Login</span>
-              </Link>  */}
-
-              {/* Profile Dropdown */}
-              <div className="relative flex items-center" id="profile-dropdown-container">
-                <button
-                  id="profile-menu-btn"
-                  ref={profileButtonRef}
-                  type="button"
-                  aria-expanded={isProfileOpen}
-                  aria-label="Open profile menu"
-                  onClick={handleProfileClick}
-                  className="group flex items-center focus:outline-none"
+              {!user ? (
+                <Link
+                  href="/login"
+                  className="relative group items-center justify-center px-7 py-1.75 rounded-full overflow-hidden border border-gold/40 bg-linear-to-r from-gold/15 via-gold/5 to-transparent text-gold text-body-sm font-semibold tracking-wider uppercase backdrop-blur-xl transition-all duration-500 hover:border-gold hover:shadow-[0_0_25px_rgba(197,160,89,0.35)] hover:-translate-y-0.5 active:translate-y-0 md:flex"
                 >
-                  <UserProfileAvatar
-                    src="https://i.pravatar.cc/96?img=12"
-                    initials="AT"
-                    initialsClassName="font-serif text-xs"
-                  />
+                  <span className="absolute inset-0 bg-linear-to-r from-gold/0 via-gold/20 to-gold/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                  <span className="relative z-10 flex items-center gap-2"> {tDropdown("logIn")}</span>
+                </Link>
+              ) : (
+                <div className="relative flex items-center" id="profile-dropdown-container">
+                  <button
+                    id="profile-menu-btn"
+                    ref={profileButtonRef}
+                    type="button"
+                    aria-expanded={isProfileOpen}
+                    aria-label="Open profile menu"
+                    onClick={handleProfileClick}
+                    className="group flex items-center focus:outline-none"
+                  >
+                    <UserProfileAvatar
+                      src={user.photo}
+                      initials={user.firstname.charAt(0) + user.lastname.charAt(0)}
+                      initialsClassName="font-serif text-body-sm! uppercase"
+                    />
 
-                  <span className="pointer-events-none absolute top-full left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap rounded-md bg-[#0a0a0a] border border-gold/30 px-3 py-1.5 text-tiny font-bold uppercase tracking-wider text-gold opacity-0 transition-all duration-200 group-hover:opacity-100 shadow-2xl z-50 hidden md:block">
-                    {tDropdown("tooltip")}
-                  </span>
-                </button>
+                    <span className="pointer-events-none absolute top-full left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap rounded-md bg-[#0a0a0a] border border-gold/30 px-3 py-1.5 text-tiny font-bold uppercase tracking-wider text-gold opacity-0 transition-all duration-200 group-hover:opacity-100 shadow-2xl z-50 hidden md:block">
+                      {tDropdown("tooltip")}
+                    </span>
+                  </button>
 
-                <div
-                  id="profile-dropdown"
-                  ref={profileDropdownRef}
-                  className={`absolute right-0 top-full mt-4 w-56 origin-top-right overflow-hidden rounded-xl border border-white/10 bg-[#0a0a0a]/95 shadow-2xl backdrop-blur-2xl transition-all duration-300 ${
-                    isProfileOpen
-                      ? "pointer-events-auto scale-100 opacity-100"
-                      : "pointer-events-none scale-95 opacity-0"
-                  }`}
-                >
-                  <div className="border-b border-white/5 bg-white/5 px-6 py-4">
-                    <p className="truncate text-body-sm font-bold text-white" id="dropdown-user-name">
-                      Alex Thompson
-                    </p>
-                    <p className="truncate text-caption tracking-widest text-slate-400" id="dropdown-user-email">
-                      pramodpremudu10@gmail.com
-                    </p>
-                  </div>
-                  <div className="py-2">
-                    <Link
-                      href="/profile"
-                      onClick={closeProfileDropdown}
-                      className="flex items-center px-6 py-3 text-body-sm text-slate-200 transition-colors hover:bg-gold/10 hover:text-gold"
-                    >
-                      <UserRound className="mr-3 h-4 w-4" />
-                      {tDropdown("seeProfile")}
-                    </Link>
-                    <div className="mx-4 my-1 border-t border-white/5" />
-                    <button
-                      type="button"
-                      onClick={handleLogout}
-                      className="flex w-full items-center px-6 py-3 text-left text-body-sm text-red-400 transition-colors hover:bg-red-500/10"
-                    >
-                      <LogOut className="mr-3 h-4 w-4" />
-                      {tDropdown("logOut")}
-                    </button>
+                  <div
+                    id="profile-dropdown"
+                    ref={profileDropdownRef}
+                    className={`absolute right-0 top-full mt-4 w-56 origin-top-right overflow-hidden rounded-xl border border-white/10 bg-[#0a0a0a]/95 shadow-2xl backdrop-blur-2xl transition-all duration-300 ${
+                      isProfileOpen
+                        ? "pointer-events-auto scale-100 opacity-100"
+                        : "pointer-events-none scale-95 opacity-0"
+                    }`}
+                  >
+                    <div className="border-b border-white/5 bg-white/5 px-6 py-4">
+                      <p className="truncate text-body-sm font-bold text-white capitalize" id="dropdown-user-name">
+                        {user.firstname} {user.lastname}
+                      </p>
+                      <p className="truncate text-caption tracking-widest text-slate-400" id="dropdown-user-email">
+                        {user.email}
+                      </p>
+                    </div>
+                    <div className="py-2">
+                      <Link
+                        href="/profile"
+                        onClick={closeProfileDropdown}
+                        className="flex items-center px-6 py-3 text-body-sm text-slate-200 transition-colors hover:bg-gold/10 hover:text-gold"
+                      >
+                        <UserRound className="mr-3 h-4 w-4" />
+                        {tDropdown("seeProfile")}
+                      </Link>
+                      <div className="mx-4 my-1 border-t border-white/5" />
+                      <button
+                        type="button"
+                        onClick={handleLogout}
+                        className="flex w-full items-center px-6 py-3 text-left text-body-sm text-red-400 transition-colors hover:bg-red-500/10"
+                      >
+                        <LogOut className="mr-3 h-4 w-4" />
+                        {tDropdown("logOut")}
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
 
               {/* Hamburger Button */}
               <button

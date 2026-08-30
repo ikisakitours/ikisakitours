@@ -20,6 +20,8 @@ interface CountrySelectProps {
   showIcon?: boolean;
   customLabel?: React.ReactNode;
   disabled?: boolean;
+  enableIpDetection?: boolean;
+  dropdownPosition?: "bottom" | "top";
 }
 
 export function CountrySelect({
@@ -31,6 +33,8 @@ export function CountrySelect({
   showIcon = false,
   customLabel,
   disabled = false,
+  enableIpDetection = true,
+  dropdownPosition = "bottom",
 }: CountrySelectProps) {
   const tValidate = useTranslations("ValidationErrors");
   const tForm = useTranslations("SharedForm");
@@ -48,6 +52,19 @@ export function CountrySelect({
   const { data: locationData, isDetecting } = useUserLocation();
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      if (countryName) {
+        const matchedCountry = countriesList.find((c) => c.name.toLowerCase() === countryName.toLowerCase());
+        if (matchedCountry) {
+          setCountryCode(matchedCountry.code);
+        }
+      }
+    }, 0);
+
+    return () => clearTimeout(timer);
+  }, [countryName, countriesList]);
+
+  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsDropdownOpen(false);
@@ -59,6 +76,8 @@ export function CountrySelect({
   }, []);
 
   useEffect(() => {
+    if (!enableIpDetection) return;
+
     if (locationData?.country_code && locationData?.country_name) {
       const timer = setTimeout(() => {
         setCountriesList((prev) => {
@@ -85,7 +104,7 @@ export function CountrySelect({
 
       return () => clearTimeout(timer);
     }
-  }, [locationData, userInteracted, detectedCode, countryCode, countryName, setCountryName]);
+  }, [locationData, userInteracted, detectedCode, countryCode, countryName, setCountryName, enableIpDetection]);
 
   const filteredCountries = countriesList.filter((c) => c.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
@@ -136,7 +155,11 @@ export function CountrySelect({
 
         {isDropdownOpen && !disabled && (
           <div
-            className="absolute left-0 top-full mt-2 w-full max-h-72 overflow-hidden rounded-xl border border-white/10 bg-[#121212] shadow-2xl z-50 flex flex-col"
+            className={`absolute left-0 w-full max-h-72 overflow-hidden rounded-xl border border-white/10 bg-[#121212] shadow-2xl z-50 flex flex-col ${
+              dropdownPosition === "top"
+                ? "bottom-full mb-2 origin-bottom" // උඩට විවෘත වීම
+                : "top-full mt-2 origin-top" // පහළට විවෘත වීම (Default)
+            }`}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="p-3 border-b border-white/5 shrink-0">
@@ -186,20 +209,22 @@ export function CountrySelect({
       </div>
 
       <div className="ml-2 mt-2">
-        <LocationDetectionFeedback
-          isDetecting={isDetecting}
-          userInteracted={userInteracted}
-          detectedCode={detectedCode}
-          selectedCode={countryCode}
-          messages={{
-            detecting: tValidate("LocationDetection.detecting"),
-            autoDetected: tValidate("LocationDetection.autoDetected"),
-            fallback: tValidate("LocationDetection.fallback"),
-            confirmed: tValidate("LocationDetection.confirmed"),
-            mismatch: tValidate("LocationDetection.mismatch"),
-            success: tValidate("LocationDetection.success"),
-          }}
-        />
+        {enableIpDetection && (
+          <LocationDetectionFeedback
+            isDetecting={isDetecting}
+            userInteracted={userInteracted}
+            detectedCode={detectedCode}
+            selectedCode={countryCode}
+            messages={{
+              detecting: tValidate("LocationDetection.detecting"),
+              autoDetected: tValidate("LocationDetection.autoDetected"),
+              fallback: tValidate("LocationDetection.fallback"),
+              confirmed: tValidate("LocationDetection.confirmed"),
+              mismatch: tValidate("LocationDetection.mismatch"),
+              success: tValidate("LocationDetection.success"),
+            }}
+          />
+        )}
         <FormError message={error} />
       </div>
     </div>

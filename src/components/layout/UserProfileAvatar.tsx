@@ -68,7 +68,7 @@ export function UserProfileAvatar({
     >
       {!hasValidSrc || hasError ? (
         <div className="absolute inset-0 flex items-center justify-center bg-[#0a0a0a] z-10 rounded-full">
-          <span className={`relative z-20 font-bold uppercase text-gold ${initialsClassName}`}>{initials}</span>
+          <span className={`relative z-20 tracking-widest font-bold uppercase text-gold ${initialsClassName}`}>{initials}</span>
         </div>
       ) : (
         <>

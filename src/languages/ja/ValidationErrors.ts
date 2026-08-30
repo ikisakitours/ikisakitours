@@ -88,5 +88,6 @@ export default {
     submissionFailed: "送信に失敗しました",
     vehicleBookingFailed: "車両予約の送信に失敗しました。もう一度お試しください。",
     transferBookingFailed: "送迎予約の送信に失敗しました。もう一度お試しください。",
+    deleteFailed: "アカウントの削除に失敗しました。パスワードを確認してください。",
   },
 } as const;

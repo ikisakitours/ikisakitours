@@ -5,6 +5,7 @@ import { useRouter } from "@/lib/i18nNavigation";
 import { authService } from "@/services/auth/authService";
 import { useTranslations } from "next-intl";
 import { useToast } from "@/context/ToastContext";
+import { useAuth } from "@/context/AuthContext";
 
 export function useLoginForm() {
   const [email, setEmail] = useState("");
@@ -18,6 +19,7 @@ export function useLoginForm() {
 
   const tErr = useTranslations("ValidationErrors.ServerErrors");
   const toast = useToast();
+  const { loginUser } = useAuth();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -31,9 +33,11 @@ export function useLoginForm() {
       // await new Promise((resolve) => setTimeout(resolve, 1500));
 
       const [response] = await Promise.all([
-        authService.login({ email, password ,staySignedIn}),
+        authService.login({ email, password, staySignedIn }),
         new Promise((resolve) => setTimeout(resolve, 800)),
       ]);
+
+      loginUser(response.user);
 
       toast.success(toastId, "Login successful! Welcome back.", 2000);
 
@@ -59,7 +63,7 @@ export function useLoginForm() {
     setPassword,
     showPassword,
     setShowPassword,
-    staySignedIn, 
+    staySignedIn,
     setStaySignedIn,
     errors,
     setErrors,

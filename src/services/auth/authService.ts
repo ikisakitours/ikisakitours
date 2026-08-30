@@ -51,11 +51,10 @@ export const authService = {
     return res.json();
   },
 
-
   logout: async () => {
     const res = await fetch(`${API_URL}/auth/logout`, {
       method: "POST",
-      credentials: "include", // Cookie එක යැවීමට සහ ක්ලියර් කිරීමට අත්‍යවශ්‍යයි
+      credentials: "include",
     });
     if (!res.ok) throw new Error("Logout failed");
     return res.json();

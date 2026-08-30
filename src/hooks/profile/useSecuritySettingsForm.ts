@@ -1,4 +1,4 @@
-import { useState, useRef, type FormEvent } from "react";
+import { useState, useEffect, useRef, type FormEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { usePasswordStrength, type TransientMsgType } from "@/hooks/usePasswordStrength";
 import { profileService } from "@/services/profile/profileService";
@@ -22,6 +22,22 @@ export function useSecuritySettingsForm(tError: (key: string) => string) {
   const [localConfirmError, setLocalConfirmError] = useState("");
   const confirmTimerRef = useRef<NodeJS.Timeout | null>(null);
   const tErr = useTranslations("ValidationErrors.ServerErrors");
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [deletePassword, setDeletePassword] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [showDeletePassword, setShowDeletePassword] = useState(false);
+
+  useEffect(() => {
+    if (isDeleteModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isDeleteModalOpen]);
 
   const handleCurrentChange = (val: string) => {
     setCurrentPassword(val);
@@ -79,6 +95,27 @@ export function useSecuritySettingsForm(tError: (key: string) => string) {
     }
   };
 
+  const handleDeleteAccount = async () => {
+    if (!deletePassword) {
+      setErrors((prev) => ({ ...prev, deletePassword: tError("passwordRequired") }));
+      return;
+    }
+
+    try {
+      setIsDeleting(true);
+      setErrors((prev) => ({ ...prev, deletePassword: "", form: "" }));
+
+      await profileService.deleteAccount(deletePassword);
+      localStorage.removeItem("userData");
+      window.location.href = "/signup";
+    } catch (error) {
+      console.error("Delete account error:", error);
+      setErrors((prev) => ({ ...prev, deletePassword: tErr("deleteFailed") }));
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   return {
     currentPassword,
     newPassword,
@@ -103,5 +140,13 @@ export function useSecuritySettingsForm(tError: (key: string) => string) {
     handleConfirmBlur,
     isLoading,
     handleSubmit,
+    isDeleteModalOpen,
+    setIsDeleteModalOpen,
+    deletePassword,
+    setDeletePassword,
+    isDeleting,
+    handleDeleteAccount,
+    showDeletePassword,
+    setShowDeletePassword,
   };
 }

@@ -1,24 +1,40 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
-import { profileUser } from "@/data/profile";
+import { useState, useEffect, type ChangeEvent, type FormEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { profileService } from "@/services/profile/profileService";
 import { useTranslations } from "next-intl";
+import { useAuth } from "@/context/AuthContext";
 
 export function useProfileDetailsForm(tError: (key: string) => string) {
+  const { user, updateUser } = useAuth();
+
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const [isSourceModalOpen, setIsSourceModalOpen] = useState(false);
   const [rawImage, setRawImage] = useState<string | null>(null);
   const [isCropModalOpen, setIsCropModalOpen] = useState(false);
   const [cameraError, setCameraError] = useState<string | null>(null);
 
-  const [firstName, setFirstName] = useState(profileUser.firstName);
-  const [lastName, setLastName] = useState(profileUser.lastName);
-  const [email, setEmail] = useState(profileUser.email);
+  const [firstName, setFirstName] = useState(user?.firstname || "");
+  const [lastName, setLastName] = useState(user?.lastname || "");
+  const [email, setEmail] = useState(user?.email || "");
+  const [country, setCountry] = useState(user?.country || "");
 
   const [isLoading, setIsLoading] = useState(false);
   const [isProfileLoading, setIsProfileLoading] = useState(false);
   const { errors, validate, setErrors } = useValidationForm();
   const tErr = useTranslations("ValidationErrors.ServerErrors");
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (user) {
+        setFirstName(user.firstname);
+        setLastName(user.lastname);
+        setEmail(user.email);
+        setCountry(user.country);
+      }
+    }, 0);
+
+    return () => clearTimeout(timeoutId); // Cleanup function
+  }, [user]);
 
   const handleAvatarSelect = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -53,11 +69,18 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
 
   const handlePersonalUpdate = async (e: FormEvent) => {
     e.preventDefault();
-    if (!validate({ firstName, lastName, email })) return;
+    if (!validate({ firstName, lastName, email, country })) return;
 
     try {
       setIsLoading(true);
-      await profileService.updateDetails({ firstName, lastName, email });
+      await profileService.updateDetails({ firstName, lastName, email, country });
+
+      updateUser({
+        firstname: firstName,
+        lastname: lastName,
+        email: email,
+        country: country,
+      });
       // await new Promise((resolve) => setTimeout(resolve, 1500));
       console.log("Details saved successfully:", { firstName, lastName, email });
     } catch (error) {
@@ -91,6 +114,8 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
     setLastName,
     email,
     setEmail,
+    country,
+    setCountry,
     avatarPreview,
     isSourceModalOpen,
     setIsSourceModalOpen,

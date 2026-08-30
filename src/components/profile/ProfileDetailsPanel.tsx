@@ -6,8 +6,11 @@ import { FormError } from "@/components/ui/FormError";
 import { ImageCropModal } from "@/components/profile/profileDetails/ImageCropModal";
 import { ProfileAvatarSection } from "@/components/profile/profileDetails/ProfileAvatarSection";
 import { ImageSourceModal } from "@/components/profile/profileDetails/ImageSourceModal";
+import { CountrySelect } from "@/components/auth/signUp/CountrySelect";
 import { useTranslations } from "next-intl";
 import { useProfileDetailsForm } from "@/hooks/profile/useProfileDetailsForm";
+import { useAuth } from "@/context/AuthContext";
+
 //Icons
 import { BsPatchCheck } from "react-icons/bs";
 import { Crown } from "lucide-react";
@@ -19,6 +22,7 @@ export function ProfileDetailsPanel() {
   const t = useTranslations("ProfilePage");
   const tForm = useTranslations("SharedForm");
   const tError = useTranslations("ValidationErrors");
+  const { user } = useAuth();
 
   //Hook
   const {
@@ -28,6 +32,8 @@ export function ProfileDetailsPanel() {
     setLastName,
     email,
     setEmail,
+    country,
+    setCountry,
     avatarPreview,
     isSourceModalOpen,
     setIsSourceModalOpen,
@@ -110,7 +116,7 @@ export function ProfileDetailsPanel() {
   return (
     <>
       <section className="animate-fade-in-up space-y-8">
-        <div className="glass-card relative overflow-hidden rounded-3xl p-6 md:p-12">
+        <div className="glass-card backdrop-blur-none! relative overflow-hidden rounded-3xl p-6 md:p-12">
           <div className="relative z-10">
             <div className="mb-8 flex flex-col items-center justify-between gap-4 sm:flex-row">
               <h2 className="premium-serif mb-6 text-heading-sub text-white">{t("DetailsPanel.title")}</h2>
@@ -148,8 +154,8 @@ export function ProfileDetailsPanel() {
             <div className="space-y-8">
               <ProfileAvatarSection
                 avatarPreview={avatarPreview}
-                profilePhoto={profileUser.photo}
-                initials={profileUser.initials}
+                profilePhoto={user?.photo || ""}
+                initials={user ? `${user.firstname.charAt(0)}${user.lastname.charAt(0)}` : ""}
                 avatarError={errors.avatar}
                 isLoading={isProfileLoading}
                 onOpenSourceModal={() => {
@@ -161,7 +167,7 @@ export function ProfileDetailsPanel() {
               />
 
               <form className="space-y-8" onSubmit={handlePersonalUpdate} noValidate>
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 cursor-default">
                   {/* First Name Field */}
                   <label className="space-y-2">
                     <span className="block text-caption font-bold uppercase tracking-[0.2em] text-gold">
@@ -227,6 +233,34 @@ export function ProfileDetailsPanel() {
                       <FormError message={errors.email} />
                     </div>
                   </label>
+
+                  {/* Country Field */}
+                  <div className="space-y-2">
+                    <CountrySelect
+                      countryName={country}
+                      setCountryName={(val) => {
+                        setCountry(val);
+                        setErrors((prev) => ({ ...prev, country: "" }));
+                      }}
+                      enableIpDetection={false}
+                      dropdownPosition="top"
+                      error={errors.country}
+                      disabled={isLoading}
+                      clearError={() => setErrors((prev) => ({ ...prev, country: "" }))}
+                      inputClass={inputClass}
+                      showIcon={false}
+                      customLabel={
+                        <span className="block text-caption font-bold uppercase tracking-[0.2em] text-gold">
+                          {tForm("Labels.country")}
+                        </span>
+                      }
+                    />
+                    {errors.country && (
+                      <div className="ml-2">
+                        <FormError message={errors.country} />
+                      </div>
+                    )}
+                  </div>
 
                   {/* Submit Button */}
                   <div className="space-y-4 pt-4 sm:col-span-2">

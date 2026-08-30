@@ -88,5 +88,6 @@ export default {
     submissionFailed: "Submission failed",
     vehicleBookingFailed: "Failed to submit vehicle booking. Please try again.",
     transferBookingFailed: "Failed to submit transfer booking. Please try again.",
+    deleteFailed :"Failed to delete account. Check your password.",
   },
 } as const;
