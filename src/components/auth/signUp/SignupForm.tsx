@@ -53,10 +53,10 @@ export function SignupForm() {
   } = useSignupForm(tError);
 
   return (
-    <section className="flex max-h-[calc(100dvh-4rem)] w-full max-w-130 flex-col overflow-hidden rounded-[2.5rem] border border-gold/15 bg-[#0a0a0a]/85 p-8 shadow-2xl backdrop-blur-3xl md:p-12">
+    <section className="flex max-h-[calc(100dvh-4rem)] w-full max-w-130 flex-col overflow-hidden rounded-[2.5rem] border border-gold/15 bg-[#0a0a0a]/85 shadow-2xl backdrop-blur-3xl py-8 md:py-12">
       <AuthFormHeader introKey="Signup" />
 
-      <div className="overflow-y-auto no-scrollbar -mx-5 px-5 pr-2">
+      <div className="overflow-y-auto no-scrollbar px-8 md:px-12">
         <form className="space-y-5" onSubmit={handleSubmit} noValidate>
           <div className="space-y-4">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -196,9 +196,7 @@ export function SignupForm() {
               )}
 
               {password === "" && !localError && !errors.password && (
-                <p className="ml-2 mt-2 text-tiny text-slate-500 italic">
-                   {tForm("Placeholders.passwordTip")}
-                </p>
+                <p className="ml-2 mt-2 text-tiny text-slate-500 italic">{tForm("Placeholders.passwordTip")}</p>
               )}
               <div className="ml-2">
                 <FormError message={localError || errors.password} />

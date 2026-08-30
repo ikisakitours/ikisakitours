@@ -22,10 +22,10 @@ function AccountRecoveryFormInner() {
     useRecoveryForm(tAuth);
 
   return (
-    <section className="flex max-h-[calc(100dvh-4rem)] w-full max-w-125 flex-col overflow-hidden rounded-[2.5rem] border border-gold/15 bg-[#0a0a0a]/85 p-8 shadow-2xl backdrop-blur-3xl md:p-12">
+    <section className="flex max-h-[calc(100dvh-4rem)] w-full max-w-125 flex-col overflow-hidden rounded-[2.5rem] border border-gold/15 bg-[#0a0a0a]/85 shadow-2xl backdrop-blur-3xl py-8 md:py-12">
       <AuthFormHeader introKey="Recovery" />
 
-      <div className="overflow-y-auto pr-2 -mx-5 px-5">
+      <div className="overflow-y-auto px-8 md:px-12">
         {/* Email Feild */}
         <form className="space-y-6" onSubmit={handleSubmit} noValidate>
           <label className="block space-y-2">

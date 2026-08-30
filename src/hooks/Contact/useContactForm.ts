@@ -2,11 +2,14 @@ import { useState, type FormEvent, type ChangeEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { contactApi } from "@/services/Contact/contactService";
 import { useTranslations } from "next-intl";
+import { useAuth } from "@/context/AuthContext";
 
 export function useContactForm(inquiryOptions: string[]) {
+  const { user } = useAuth();
+  
   const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
+   fullName: user ? `${user.firstname || ""} ${user.lastname || ""}`.trim() : "",
+    email: user?.email || "",
     phone: "",
     subject: "",
     message: "",

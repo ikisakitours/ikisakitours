@@ -3,11 +3,14 @@ import { useValidationForm } from "@/hooks/useValidationForm";
 import { useUserLocation } from "@/hooks/useUserLocation";
 import { chatMailService } from "@/services/ChatWidget/chatMailService";
 import { useTranslations } from "next-intl";
+import { useAuth } from "@/context/AuthContext";
 
 export function useChatMailForm() {
+  const { user } = useAuth();
+
   const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
+    fullName: user ? `${user.firstname || ""} ${user.lastname || ""}`.trim() : "",
+    email: user?.email || "",
     phone: "",
     message: "",
   });

@@ -2,11 +2,14 @@ import { useState, type FormEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { writeReviewService } from "@/services/testimonials/writeReviewService";
 import { useTranslations } from "next-intl";
+import { useAuth } from "@/context/AuthContext";
 
 export function useWriteReviewForm() {
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [country, setCountry] = useState("");
+  const { user } = useAuth();
+
+  const [fullName, setFullName] = useState(user ? `${user.firstname || ""} ${user.lastname || ""}`.trim() : "");
+  const [email, setEmail] = useState(user?.email || "");
+  const [country] = useState(user?.country || "");
   const [rating, setRating] = useState<number>(0);
   const [experience, setExperience] = useState("");
 
@@ -32,7 +35,6 @@ export function useWriteReviewForm() {
     try {
       setIsLoading(true);
 
-      // await new Promise((resolve) => setTimeout(resolve, 1500));
       await writeReviewService.submitReview(payload);
 
       console.log("Testimonial Form valid and submitted!", {
@@ -46,7 +48,6 @@ export function useWriteReviewForm() {
       // Form Clear
       setFullName("");
       setEmail("");
-      setCountry("");
       setRating(0);
       setExperience("");
     } catch (error) {
@@ -62,8 +63,6 @@ export function useWriteReviewForm() {
     setFullName,
     email,
     setEmail,
-    country,
-    setCountry,
     rating,
     setRating,
     experience,

@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 export function AuthLegalFooter() {
   const t = useTranslations("SharedForm.LegalFooter");
   return (
-    <div className="mt-8 pt-6 text-center px-2 border-t border-gold/10 relative">
+    <div className="mt-8 pt-6 text-center px-8 md:px-12 border-t border-gold/10 relative">
       {/* Top tiny gold accent line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 h-px bg-linear-to-r from-transparent via-gold/40 to-transparent" />
 

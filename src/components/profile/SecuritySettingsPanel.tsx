@@ -210,9 +210,8 @@ export function SecuritySettingsPanel() {
       {/*  Confirmation Modal */}
 
       {isDeleteModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
+        <div className="fixed inset-0 z-9999 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
           <div className="glass-card w-full max-w-md my-auto rounded-3xl p-6 md:p-8 border-red-500/30 bg-[#0a0a0a] shadow-2xl space-y-6">
-            {" "}
             <h3 className="text-heading-card font-bold text-white">{t("SecurityPanel.modalTitle")}</h3>
             <p className="text-body-sm text-slate-300 leading-relaxed">{t("SecurityPanel.modalDesc")}</p>
             <div className="space-y-2">

@@ -4,7 +4,6 @@ import React from "react";
 import { Star } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { FormError } from "@/components/ui/FormError";
-import { CountrySelect } from "@/components/auth/signUp/CountrySelect";
 import { useTranslations } from "next-intl";
 import { useWriteReviewForm } from "@/hooks/testimonials/useWriteReviewForm";
 
@@ -25,8 +24,6 @@ export function WriteReviewForm() {
     setFullName,
     email,
     setEmail,
-    country,
-    setCountry,
     rating,
     setRating,
     experience,
@@ -46,7 +43,7 @@ export function WriteReviewForm() {
       </div>
 
       <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-5xl mx-auto">
-        {/* NEW UNIFIED HEADER DESIGN (Centered) */}
+        {/* HEADER */}
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14 3xl:mb-16 flex flex-col items-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 mb-6 shadow-[0_0_15px_rgba(197,160,89,0.15)]">
             <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
@@ -64,8 +61,8 @@ export function WriteReviewForm() {
           <p className="text-body font-light leading-relaxed text-white/70 max-w-xl">{tForm("description")}</p>
         </div>
 
-        <div className="group relative overflow-hidden bg-transparent md:rounded-4xl md:border border-white/5 md:bg-linear-to-br from-surface/90 to-lanka-black pt-4 pb-10 sm:pt-6 sm:pb-12 md:px-8 md:pt-8 md:pb-16 lg:px-10 lg:pb-20 xl:pb-24 2xl:pb-28 3xl:px-12 3xl:pt-20 3xl:pb-32 -mt-1">
-          <form onSubmit={handleSubmit} className="space-y-8 md:space-y-10 3xl:space-y-12">
+        <div className="w-full group relative overflow-hidden bg-transparent md:rounded-4xl md:border border-white/5 md:bg-linear-to-br from-surface/90 to-lanka-black pt-4 pb-10 sm:pt-6 sm:pb-12 md:px-8 md:pt-8 md:pb-16 lg:px-10 lg:pb-20 xl:pb-24 2xl:pb-28 3xl:px-12 3xl:pt-20 3xl:pb-32 -mt-1">
+          <form onSubmit={handleSubmit} className="w-full space-y-8 md:space-y-10 3xl:space-y-12">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               {/* Full Name */}
               <div className="flex flex-col">
@@ -108,28 +105,9 @@ export function WriteReviewForm() {
                   <FormError message={errors.email} />
                 </div>
               </div>
-
-              {/* Country (Full Width in Grid) */}
-              <CountrySelect
-                countryName={country}
-                setCountryName={(val) => {
-                  setCountry(val);
-                  setErrors((prev) => ({ ...prev, country: "" }));
-                }}
-                error={errors.country}
-                disabled={isLoading}
-                clearError={() => setErrors((prev) => ({ ...prev, country: "" }))}
-                inputClass="disabled:opacity-60 disabled:cursor-not-allowed w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-body-sm! text-white transition-all hover:bg-white/10 group-hover:border-gold/50 focus:border-gold/50 focus:bg-white/10 focus:outline-none 3xl:py-6"
-                showIcon={false}
-                customLabel={
-                  <label className="mb-2 ml-2 block text-caption font-bold uppercase tracking-widest text-gold">
-                    {tLabels("country")}
-                  </label>
-                }
-              />
             </div>
 
-            {/* Rating (Beautifully Centered inside the form) */}
+            {/* Rating */}
             <div className="flex flex-col items-center gap-1 border-y border-white/5 py-10 3xl:py-14 my-4 relative overflow-hidden">
               <div className="absolute inset-0 bg-gold/5 blur-3xl rounded-full w-1/2 mx-auto pointer-events-none" />
               <label className="mb-4 block text-caption font-bold uppercase tracking-[0.4em] text-gold opacity-90 relative z-10">
@@ -173,7 +151,7 @@ export function WriteReviewForm() {
                 placeholder={tForm("experiencePlaceholder")}
                 className="auto-resize-textarea min-h-32 w-full resize-none rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-body-sm italic leading-relaxed text-white transition-all hover:bg-white/10 focus:border-gold/50 focus:bg-white/10 focus:outline-none 3xl:py-6 disabled:opacity-60 disabled:cursor-not-allowed"
               />
-              <span className="block text-caption font-medium text-slate-500 leading-relaxed">
+              <span className="block mt-2 text-caption font-medium text-slate-500 leading-relaxed">
                 {tSharedForm("Messages.autoExpand")}
               </span>
               <div className=" relative z-10">

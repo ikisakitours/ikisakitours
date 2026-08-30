@@ -2,7 +2,6 @@
 import { Button } from "@/components/ui/Button";
 import Image from "next/image";
 import { FormError } from "@/components/ui/FormError";
-import { CountrySelect } from "@/components/auth/signUp/CountrySelect";
 import { UploadCloud, ArrowLeft, Star, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useReviewForm } from "@/hooks/Booking/usePackageReviewForm";
@@ -23,8 +22,6 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
     setFullName,
     email,
     setEmail,
-    country,
-    setCountry,
     rating,
     setRating,
     experience,
@@ -37,6 +34,7 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
     setErrors,
     handleSubmit,
   } = useReviewForm();
+
   return (
     <div className="animate-fade-in-up mx-auto max-w-2xl 3xl:max-w-4xl">
       <div className="mb-8 flex justify-end">
@@ -61,6 +59,7 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
           <p className="text-caption uppercase tracking-widest text-slate-400 3xl:text-sm">{t("subtitle")}</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8 3xl:space-y-12">
+          {/* Grid - Name and Email Only */}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {/* Full Name */}
             <div className="flex flex-col">
@@ -83,7 +82,7 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
               </div>
             </div>
 
-            {/* email */}
+            {/* Email */}
             <div className="flex flex-col">
               <label className="ml-2 mb-1 text-caption font-bold uppercase tracking-widest text-gold">
                 {tForms("Labels.email")}
@@ -103,52 +102,32 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
                 <FormError message={errors.email} />
               </div>
             </div>
-
-            {/* Country */}
-            <div className="flex flex-col">
-              <CountrySelect
-                countryName={country}
-                disabled={isLoading}
-                setCountryName={(val) => {
-                  setCountry(val);
-                  setErrors((prev) => ({ ...prev, country: "" }));
-                }}
-                error={errors.country}
-                clearError={() => setErrors((prev) => ({ ...prev, country: "" }))}
-                inputClass="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-body-sm! text-white transition-colors group-hover:border-gold/50 focus:border-gold/50 focus:outline-none 3xl:py-6"
-                showIcon={false}
-                customLabel={
-                  <label className="mb-1 ml-2 block text-caption font-bold uppercase tracking-widest text-gold 3xl:text-xs">
-                    {tForms("Labels.country")}
-                  </label>
-                }
-              />
-            </div>
           </div>
 
           {/* Rating */}
-          <div className="flex flex-col gap-1">
-            <div className="rounded-2xl border border-white/5 bg-white/5 py-8 text-center shadow-inner 3xl:py-12">
-              <label className="mb-4 block text-caption font-bold uppercase tracking-[0.4em] text-gold opacity-80 3xl:text-xs">
-                {t("ratingLabel")}
-              </label>
-              <div className="flex justify-center gap-2 text-2xl text-slate-600 3xl:text-4xl 3xl:gap-8">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <Star
-                    key={star}
-                    onClick={() => {
-                      if (isLoading) return;
-                      setRating(star);
-                      setErrors((prev) => ({ ...prev, rating: "" }));
-                    }}
-                    className={`h-6 w-6 transition-all duration-300 3xl:h-12 3xl:w-12 ${
-                      isLoading ? "opacity-60 cursor-not-allowed" : "cursor-pointer hover:scale-125 hover:text-gold/50"
-                    } ${rating >= star ? "fill-gold text-gold" : ""}`}
-                  />
-                ))}
-              </div>
+          <div className="flex flex-col items-center gap-1 border-y border-white/5 py-10 3xl:py-14 my-4 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gold/5 blur-3xl rounded-full w-1/2 mx-auto pointer-events-none" />
+            <label className="mb-4 block text-caption font-bold uppercase tracking-[0.4em] text-gold opacity-90 relative z-10">
+              {t("ratingLabel")}
+            </label>
+            <div className="flex justify-center gap-4 text-2xl text-slate-600 3xl:gap-8 relative z-10">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <Star
+                  key={star}
+                  onClick={() => {
+                    if (isLoading) return;
+                    setRating(star);
+                    setErrors((prev) => ({ ...prev, rating: "" }));
+                  }}
+                  className={`h-8 w-8 sm:h-10 sm:w-10 transition-all duration-300 3xl:h-12 3xl:w-12 ${
+                    isLoading
+                      ? "opacity-60 cursor-not-allowed"
+                      : "cursor-pointer hover:scale-125 hover:text-gold/50 hover:drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]"
+                  } ${rating >= star ? "fill-gold text-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.4)]" : ""}`}
+                />
+              ))}
             </div>
-            <div className="ml-2">
+            <div className="mt-2 relative z-10">
               <FormError message={errors.rating} />
             </div>
           </div>
