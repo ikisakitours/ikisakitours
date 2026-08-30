@@ -88,6 +88,12 @@ export default {
     submissionFailed: "Submission failed",
     vehicleBookingFailed: "Failed to submit vehicle booking. Please try again.",
     transferBookingFailed: "Failed to submit transfer booking. Please try again.",
-    deleteFailed :"Failed to delete account. Check your password.",
+    deleteFailed: "Failed to delete account. Check your password.",
+  },
+
+  AuthRequired: {
+    title: "Oops! Sign in required",
+    description: "We're so glad you loved this! Please sign in for a moment to add your heart to the total count.",
+    loginBtn: "Login to Continue",
   },
 } as const;

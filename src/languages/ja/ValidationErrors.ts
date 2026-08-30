@@ -90,4 +90,10 @@ export default {
     transferBookingFailed: "送迎予約の送信に失敗しました。もう一度お試しください。",
     deleteFailed: "アカウントの削除に失敗しました。パスワードを確認してください。",
   },
+  AuthRequired: {
+    title: "ログインが必要です",
+    description:
+      "気に入っていただけてとても嬉しいです！合計カウントにハートを追加するには、一時的にログインしてください。",
+    loginBtn: "ログインして続ける",
+  },
 } as const;
