@@ -1,6 +1,6 @@
-// src/context/AuthContext.tsx
 "use client";
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from "react";
+import { authService } from "@/services/auth/authService";
 
 interface User {
   id: string;
@@ -13,9 +13,10 @@ interface User {
 
 interface AuthContextType {
   user: User | null;
-  loginUser: (userData: User) => void;
+  loginUser: () => Promise<void>;
   logoutUser: () => void;
   updateUser: (updatedFields: Partial<User>) => void;
+  fetchUser: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -23,29 +24,34 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      try {
-        const storedUser = localStorage.getItem("userData");
-        if (storedUser) {
-          setUser(JSON.parse(storedUser));
-        }
-      } catch (error) {
-        console.error("Failed to parse user data from local storage", error);
+  const fetchUser = useCallback(async () => {
+    try {
+      const response = await authService.getCurrentUser();
+      if (response && response.user) {
+        setUser(response.user);
+        //localStorage.setItem("userData", JSON.stringify(response.user));
       }
-    }, 0);
-
-    return () => clearTimeout(timeoutId); // Cleanup function
+    } catch (error) {
+      console.error("No active session", error);
+      setUser(null);
+      // localStorage.removeItem("userData");
+    }
   }, []);
 
-  const loginUser = (userData: User) => {
-    setUser(userData);
-    localStorage.setItem("userData", JSON.stringify(userData));
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      fetchUser();
+    }, 0);
+
+    return () => clearTimeout(timeoutId); // Cleanup
+  }, [fetchUser]);
+
+  const loginUser = async () => {
+    await fetchUser();
   };
 
   const logoutUser = () => {
     setUser(null);
-    localStorage.removeItem("userData");
   };
 
   const updateUser = (updatedFields: Partial<User>) => {
@@ -57,7 +63,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  return <AuthContext.Provider value={{ user, loginUser, logoutUser, updateUser }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, loginUser, logoutUser, updateUser, fetchUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export const useAuth = () => {
