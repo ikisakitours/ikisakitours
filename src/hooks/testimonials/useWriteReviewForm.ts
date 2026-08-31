@@ -3,6 +3,7 @@ import { useValidationForm } from "@/hooks/useValidationForm";
 import { writeReviewService } from "@/services/testimonials/writeReviewService";
 import { useTranslations } from "next-intl";
 import { useAuth } from "@/context/AuthContext";
+import { useToast } from "@/context/ToastContext";
 
 export function useWriteReviewForm() {
   const { user } = useAuth();
@@ -15,6 +16,7 @@ export function useWriteReviewForm() {
   const [isLoading, setIsLoading] = useState(false);
   const { errors, validate, setErrors } = useValidationForm();
   const tErr = useTranslations("ValidationErrors");
+  const toast = useToast();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -36,6 +38,8 @@ export function useWriteReviewForm() {
       isPublic: true,
       rating: rating > 0 ? rating : undefined,
     };
+    const toastId = toast.loading("submitting");
+
     try {
       setIsLoading(true);
       const [response] = await Promise.all([
@@ -43,6 +47,7 @@ export function useWriteReviewForm() {
         new Promise((resolve) => setTimeout(resolve, 800)),
       ]);
       // await writeReviewService.submitReview(apiPayload);
+      toast.success(toastId, "Testimonial submitted!. Thanks For Valuable FeedBack.", 2000);
 
       console.log("Testimonial Form valid and submitted!", apiPayload);
       console.log("Testimonial Form Response!", response);
@@ -52,6 +57,8 @@ export function useWriteReviewForm() {
       setRating(0);
       setExperience("");
     } catch (error) {
+      toast.error(toastId, "Testimonial Not valid and submitted!.");
+
       console.error("Submission error:", error);
       setErrors((prev) => ({ ...prev, form: tErr("ServerErrors.reviewSubmitFailed") }));
     } finally {
