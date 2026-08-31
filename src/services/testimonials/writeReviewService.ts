@@ -1,8 +1,9 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
 
+// testimonials
 export const writeReviewService = {
   submitReview: async (data: Record<string, unknown>) => {
-    const res = await fetch(`${API_URL}/testimonials`, {
+    const res = await fetch(`${API_URL}/comments`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

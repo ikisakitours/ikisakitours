@@ -9,7 +9,6 @@ export function useWriteReviewForm() {
 
   const [fullName, setFullName] = useState(user ? `${user.firstname || ""} ${user.lastname || ""}`.trim() : "");
   const [email, setEmail] = useState(user?.email || "");
-  const [country] = useState(user?.country || "");
   const [rating, setRating] = useState<number>(0);
   const [experience, setExperience] = useState("");
 
@@ -21,30 +20,32 @@ export function useWriteReviewForm() {
     e.preventDefault();
 
     const payload = {
-      // type
-      // publicVisibility
+      fullName,
+      email,
       rating,
       experience,
-
     };
 
     const isValid = validate(payload);
 
     if (!isValid) return;
 
+    const apiPayload = {
+      content: experience,
+      type: "WEBSITE",
+      isPublic: true,
+      rating: rating > 0 ? rating : undefined,
+    };
     try {
       setIsLoading(true);
+      const [response] = await Promise.all([
+        writeReviewService.submitReview(apiPayload),
+        new Promise((resolve) => setTimeout(resolve, 800)),
+      ]);
+      // await writeReviewService.submitReview(apiPayload);
 
-      await writeReviewService.submitReview(payload);
-
-      console.log("Testimonial Form valid and submitted!", {
-        fullName,
-        email,
-        country,
-        rating,
-        experience,
-      });
-
+      console.log("Testimonial Form valid and submitted!", apiPayload);
+      console.log("Testimonial Form Response!", response);
       // Form Clear
       setFullName("");
       setEmail("");
