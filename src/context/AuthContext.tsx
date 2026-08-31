@@ -30,6 +30,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (response && response.user) {
         setUser(response.user);
         //localStorage.setItem("userData", JSON.stringify(response.user));
+        console.log("Fetch Data!", response);
       }
     } catch (error) {
       console.error("No active session", error);

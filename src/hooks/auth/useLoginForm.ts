@@ -41,8 +41,8 @@ export function useLoginForm() {
 
       toast.success(toastId, "Login successful! Welcome back.", 2000);
 
-      console.log("Login valid and submitted!", response);
-      console.log("Login valid and submitted!", { email, password, staySignedIn });
+      // console.log("Login valid and submitted!", response);
+      // console.log("Login valid and submitted!", { email, password, staySignedIn });
 
       setTimeout(() => {
         router.push("/");
