@@ -6,7 +6,7 @@ export const writeReviewService = {
     const res = await fetch(`${API_URL}/comments`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      credentials: "include",
+      // credentials: "include",
       body: JSON.stringify(data),
     });
 
