@@ -24,18 +24,39 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
 
+  // const fetchUser = useCallback(async () => {
+  //   try {
+  //     const response = await authService.getCurrentUser();
+  //     if (response && response.user) {
+  //       setUser(response.user);
+  //       //localStorage.setItem("userData", JSON.stringify(response.user));
+  //       console.log("Fetch Data!", response);
+  //     }
+  //   } catch (error) {
+  //     console.error("No active session", error);
+  //     setUser(null);
+  //     // localStorage.removeItem("userData");
+  //   }
+  // }, []);
+
   const fetchUser = useCallback(async () => {
     try {
       const response = await authService.getCurrentUser();
-      if (response && response.user) {
-        setUser(response.user);
-        //localStorage.setItem("userData", JSON.stringify(response.user));
-        console.log("Fetch Data!", response);
+
+      // මොනවද එන්නේ කියලා හරියටම බලාගන්න මේක දාන්න:
+      console.log("Raw API Response:", response);
+
+      // response.user තිබුණොත් ඒක ගන්නවා, නැත්නම් සම්පූර්ණ response එකම ගන්නවා
+      const userData = response.user ? response.user : response;
+
+      // id එක හෝ email එක තියෙනවද කියලා බලලා set කරනවා
+      if (userData && (userData.id || userData.email)) {
+        setUser(userData);
+        console.log("Fetch Data Success!", userData);
       }
     } catch (error) {
       console.error("No active session", error);
       setUser(null);
-      // localStorage.removeItem("userData");
     }
   }, []);
 
