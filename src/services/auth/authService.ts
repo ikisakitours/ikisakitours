@@ -16,6 +16,16 @@ export const authService = {
     return res.json();
   },
 
+  getCurrentUser: async () => {
+    const res = await fetch(`${API_URL}/auth/me`, { 
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include", 
+    });
+    if (!res.ok) throw new Error("Failed to fetch user");
+    return res.json();
+  },
+
   signup: async (data: Record<string, string | boolean>) => {
     const res = await fetch(`${API_URL}/auth/signup`, {
       method: "POST",

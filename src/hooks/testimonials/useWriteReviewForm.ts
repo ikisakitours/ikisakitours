@@ -21,11 +21,11 @@ export function useWriteReviewForm() {
     e.preventDefault();
 
     const payload = {
-      fullName,
-      email,
-      country,
+      // type
+      // publicVisibility
       rating,
       experience,
+
     };
 
     const isValid = validate(payload);
