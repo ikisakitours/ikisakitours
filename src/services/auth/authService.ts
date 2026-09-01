@@ -4,7 +4,7 @@ export const authService = {
   socialLogin: (provider: "google" | "apple") => {
     window.location.href = `${API_URL}/auth/${provider}`;
   },
-
+  // Login data send to backend
   login: async (data: Record<string, string | boolean>) => {
     const res = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
@@ -16,11 +16,12 @@ export const authService = {
     return res.json();
   },
 
+  // Get one specific user data
   getCurrentUser: async () => {
-    const res = await fetch(`${API_URL}/auth/me`, { 
+    const res = await fetch(`${API_URL}/auth/me`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
-      credentials: "include", 
+      credentials: "include",
     });
     if (!res.ok) throw new Error("Failed to fetch user");
     return res.json();
