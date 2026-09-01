@@ -3,13 +3,17 @@
 import React from "react";
 import { AlertCircle, RefreshCw } from "lucide-react";
 
-interface BrandErrorProps {
+interface ApiCallErrorProps {
   message?: string;
   fullScreen?: boolean;
   onRetry?: () => void;
 }
 
-export function ApiCallError({ message = "Oops! Something went wrong.", fullScreen = true, onRetry }: BrandErrorProps) {
+export function ApiCallError({
+  message = "Oops! Something went wrong.",
+  fullScreen = true,
+  onRetry,
+}: ApiCallErrorProps) {
   return (
     <div
       className={`relative flex flex-col items-center justify-center overflow-hidden bg-lanka-dark px-4 ${
