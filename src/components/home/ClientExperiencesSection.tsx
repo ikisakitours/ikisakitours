@@ -3,19 +3,21 @@
 import { useRef, useState, useEffect } from "react";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
-import { testimonials } from "@/data/testimonials";
 import { WriteReviewForm } from "@/components/ui/WriteReviewForm";
 import { motion, AnimatePresence } from "framer-motion";
 import { RatingStars } from "@/components/ui/RatingStars";
 import SectionBadge from "@/components/home/Events/SectionBadge";
 import { useTranslations } from "next-intl";
-
+import { useReviews } from "@/hooks/testimonials/useFetchReviews";
+import { ApiCallLoader } from "@/components/ui/ApiCallLoader";
+import { ApiCallError } from "@/components/ui/ApiCallError";
 //Icons
 import { ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
 import { TestimonialCard } from "@/components/testimonials/TestimonialCard";
 
 export function ClientExperiencesSection() {
   const t = useTranslations("HomePage.ClientExperiences");
+  const { data, isLoading, error, refetch } = useReviews();
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isWritingReview, setIsWritingReview] = useState(false);
@@ -38,7 +40,7 @@ export function ClientExperiencesSection() {
     return () => {
       window.removeEventListener("resize", checkScrollPosition);
     };
-  }, []);
+  }, [data]);
 
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
@@ -50,22 +52,34 @@ export function ClientExperiencesSection() {
     }
   };
 
+  if (isLoading) {
+    return (
+      <section className="bg-lanka-dark py-12 md:py-20 xl:py-20">
+        <ApiCallLoader text="Loading Experiences..." fullScreen={false} />
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="bg-lanka-dark py-12 md:py-20 xl:py-20">
+        <ApiCallError message={error} fullScreen={false} onRetry={refetch} />
+      </section>
+    );
+  }
+
   //Ratings
-  const totalReviews = testimonials.length;
-
-  const totalRating = testimonials.reduce((acc, curr) => acc + curr.rating, 0);
-
-  const averageScore = testimonials.length > 0 ? (totalRating / testimonials.length).toFixed(1) : "0.0";
+  const totalReviews = data?.totalComments || 0;
+  const averageScore = data?.averageRating ? data.averageRating.toFixed(1) : "0.0";
+  const starCount = Math.round(Number(averageScore));
 
   const reviewCountDisplay =
     totalReviews >= 1000 ? `${(totalReviews / 1000).toFixed(1).replace(".0", "")}k+` : `${totalReviews}+`;
 
-  const starCount = Math.round(Number(averageScore));
-
-  const displayTestimonials = testimonials.filter((t) => (t.rating ?? 3) === 5).slice(0, 3);
+  const displayTestimonials = (data?.comments || []).filter((t) => (t.rating ?? 3) === 5).slice(0, 3);
 
   const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
+  if (!data || displayTestimonials.length === 0) return null;
   return (
     <section
       id="testimonials"
@@ -214,7 +228,7 @@ export function ClientExperiencesSection() {
                     viewport={{ once: true, margin: "0px" }}
                     transition={{ duration: 0.6, ease: smoothEase }}
                     style={{ willChange: "transform, opacity" }}
-                    key={testimonial.name}
+                    key={testimonial.id}
                     className="w-[85%] shrink-0 snap-center sm:w-[60%] md:w-[45%] lg:w-[40%] xl:w-auto xl:min-w-0"
                   >
                     <TestimonialCard testimonial={testimonial} />

@@ -1,17 +1,20 @@
-import { testimonials } from "@/data/testimonials";
 import StatCard from "./StatCard";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import EyeBrow from "@/components/ui/EyeBrow";
 import { useTranslations } from "next-intl";
 
-export function TestimonialHero() {
+type TestimonialHeroProps = {
+  totalComments: number;
+  averageRating: number;
+};
+
+export function TestimonialHero({ totalComments, averageRating }: TestimonialHeroProps) {
   const t = useTranslations("Testimonials.Hero");
 
-  const totalReviews = testimonials.length;
   const reviewCountDisplay =
-    totalReviews >= 1000 ? `${(totalReviews / 1000).toFixed(1).replace(".0", "")}k+` : `${totalReviews}+`;
-  const totalRating = testimonials.reduce((acc, curr) => acc + curr.rating, 0);
-  const averageScore = testimonials.length > 0 ? (totalRating / testimonials.length).toFixed(1) : "0.0";
+    totalComments >= 1000 ? `${(totalComments / 1000).toFixed(1).replace(".0", "")}k+` : `${totalComments}+`;
+
+  const averageScore = averageRating ? averageRating.toFixed(1) : "0.0";
 
   const testimonialStats = [
     { value: "99%", label: t("stats.success"), featured: false },

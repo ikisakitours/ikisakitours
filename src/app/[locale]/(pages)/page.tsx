@@ -12,6 +12,7 @@ import { SpecialEventsSection } from "@/components/home/EventsSection";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { PromoModal } from "@/components/ui/PromoModal";
 
+
 export default function HomePage() {
   return (
     <>
