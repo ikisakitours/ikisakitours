@@ -15,8 +15,9 @@ export function useReviews() {
     setError(null);
     try {
       const response = await writeReviewService.getReviews();
+      console.log("🔥 Full Backend Reviews Response Object:", response);
       setData(response);
-      
+
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
