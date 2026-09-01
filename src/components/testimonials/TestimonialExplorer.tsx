@@ -2,25 +2,27 @@
 
 import { useMemo, useState, useTransition } from "react";
 import { TestimonialCard } from "@/components/testimonials/TestimonialCard";
-import { type Testimonial } from "@/data/testimonials";
 import { FilterSidebar } from "@/components/ui/FilterSidebar";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
-import { ArrowLeft } from "lucide-react";
 import { WriteReviewForm } from "@/components/ui/WriteReviewForm";
 import { motion, AnimatePresence } from "framer-motion";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { useRouter } from "@/lib/i18nNavigation";
-import { Filter } from "lucide-react";
 import { useTranslations } from "next-intl";
+import type { Review } from "@/services/testimonials/types";
+import { getLanguageFromCountry } from "@/utils/languageMapper";
+//Icons
+import { Filter } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 type TestimonialExplorerProps = {
-  testimonials: Testimonial[];
+  comments: Review[];
 };
 
 const INITIAL_COUNT = 3;
 
-export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) {
+export function TestimonialExplorer({ comments }: TestimonialExplorerProps) {
   const router = useRouter();
   const t = useTranslations("Testimonials.Explorer");
 
@@ -30,29 +32,29 @@ export function TestimonialExplorer({ testimonials }: TestimonialExplorerProps) 
   const [, startTransition] = useTransition();
 
   const dynamicLanguages = useMemo(() => {
-    const uniqueLanguages = Array.from(new Set(testimonials.map((t) => t.language)));
+    const uniqueLanguages = Array.from(new Set(comments.map((t) => getLanguageFromCountry(t.country))));
     return ["all", ...uniqueLanguages];
-  }, [testimonials]);
+  }, [comments]);
 
   const languageCounts = useMemo(() => {
     const counts: Record<string, number> = {};
     dynamicLanguages.forEach((lang) => {
       if (lang === "all") {
-        counts[lang] = testimonials.length;
+        counts[lang] = comments.length;
       } else {
-        counts[lang] = testimonials.filter((t) => t.language === lang).length;
+        counts[lang] = comments.filter((t) => getLanguageFromCountry(t.country) === lang).length;
       }
     });
     return counts;
-  }, [testimonials, dynamicLanguages]);
+  }, [comments, dynamicLanguages]);
 
   // FILTERING LOGIC
   const filteredTestimonials = useMemo(() => {
     if (language === "all") {
-      return testimonials;
+      return comments;
     }
-    return testimonials.filter((testimonial) => testimonial.language === language);
-  }, [language, testimonials]);
+    return comments.filter((testimonial) => getLanguageFromCountry(testimonial.country) === language);
+  }, [language, comments]);
 
   const [isWritingReview, setIsWritingReview] = useState(false);
   const visibleTestimonials = filteredTestimonials.slice(0, visibleCount);
