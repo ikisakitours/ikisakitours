@@ -1,7 +1,7 @@
-// src/components/TestimonialsPage.tsx (හෝ අදාළ තැන)
 "use client";
+import { getLanguageFromCountry } from "@/utils/languageMapper";
 
-import { useReviews } from "@/hooks/testimonials/useFetchReviews"; // ඔයාගේ hook එක import කරගන්න
+import { useReviews } from "@/hooks/testimonials/useFetchReviews";
 
 export default function TestimonialsPage() {
   const { data, isLoading, error } = useReviews();
@@ -52,7 +52,6 @@ export default function TestimonialsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {data.comments.map(
           (review) =>
-            // Public ඒවා විතරක් පෙන්නන්න අවශ්‍ය නම් මෙතන condition එකක් දාන්න පුළුවන්
             review.isPubliclyVisible && (
               <div key={review.id} className="bg-white border rounded-xl p-5 shadow-sm hover:shadow-md transition">
                 {/* Header: User Info */}
@@ -84,7 +83,7 @@ export default function TestimonialsPage() {
                         )}
                       </h4>
                       <p className="text-xs text-gray-500">
-                        {review.country} • {review.date}
+                        {getLanguageFromCountry(review.country)} • {review.date}
                       </p>
                     </div>
                   </div>

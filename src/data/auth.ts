@@ -1,3 +1,5 @@
+//Src/Data/Languages-CurrencyData.ts
+
 export const authSocialProviders = ["Google", "Apple"] as const;
 
 export const strengthChecks = [

@@ -1,3 +1,5 @@
+//Src/Data/Languages-CurrencyData.ts
+
 export const allCurrencies = [
   { code: "USD", name: "United States Dollar", symbol: "$" },
   { code: "EUR", name: "Euro", symbol: "€" },

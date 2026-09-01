@@ -1,23 +1,20 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
-import { writeReviewService } from "@/services/testimonials/writeReviewService";
-import type { ReviewsResponse } from "@/services/testimonials/types"; // ඔයාගේ Type එක තියෙන තැනට path එක හදන්න
+import { fetchReviewsServices } from "@/services/testimonials/fetchReviewsServices";
+import type { ReviewsResponse } from "@/services/testimonials/types";
 
 export function useReviews() {
   const [data, setData] = useState<ReviewsResponse | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // 1. දත්ත ගෙනෙන ප්‍රධාන Function එක
   const fetchReviews = useCallback(async () => {
-    // දැන් අපිට ආයෙත් මේක ඇතුළට setIsLoading(true) දාන්න පුළුවන්. 
     setIsLoading(true);
     setError(null);
     try {
-      const response = await writeReviewService.getReviews();
-      console.log("🔥 Full Backend Reviews Response Object:", response);
+      const response = await fetchReviewsServices.getReviews();
+      console.log("Full Backend Reviews Response Object:", response);
       setData(response);
-
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
@@ -30,9 +27,7 @@ export function useReviews() {
     }
   }, []);
 
-  // 2. Component එක Load වෙද්දී දත්ත ගන්න කොටස
   useEffect(() => {
-    // 👇 මේ විදිහට ඇතුළෙන් වෙනම async function එකක් හැදුවම Linter Error එක සම්පූර්ණයෙන්ම නැති වෙනවා.
     const loadData = async () => {
       await fetchReviews();
     };
@@ -44,7 +39,6 @@ export function useReviews() {
     data,
     isLoading,
     error,
-    // වෙනම refetch function එකක් හදන්න ඕනේ නෑ, fetchReviews එකම යවන්න පුළුවන්.
-    refetch: fetchReviews, 
+    refetch: fetchReviews,
   };
 }
