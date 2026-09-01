@@ -5,6 +5,8 @@ export interface Review {
   source: string;
   isPubliclyVisible: boolean;
   authorName: string;
+  firstName?: string;
+  lastName?: string;
   country: string;
   avatarUrl?: string | null;
   isVerified: boolean;
