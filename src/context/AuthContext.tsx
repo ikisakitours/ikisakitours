@@ -8,7 +8,7 @@ interface User {
   lastname: string;
   email: string;
   country: string;
-  photo?: string | null;
+  avatarUrl?: string | null;
 }
 
 interface AuthContextType {

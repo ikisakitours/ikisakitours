@@ -9,7 +9,7 @@ import { Camera } from "lucide-react";
 
 type ProfileAvatarSectionProps = {
   avatarPreview: string | null;
-  profilePhoto: string;
+ profilePhoto?: string | null;
   initials: string;
   avatarError?: string;
   onOpenSourceModal: () => void;
