@@ -154,7 +154,7 @@ export function ProfileDetailsPanel() {
             <div className="space-y-8">
               <ProfileAvatarSection
                 avatarPreview={avatarPreview}
-                profilePhoto={user?.photo || ""}
+                profilePhoto={user?.avatarUrl}
                 initials={user ? `${user.firstname.charAt(0)}${user.lastname.charAt(0)}` : ""}
                 avatarError={errors.avatar}
                 isLoading={isProfileLoading}

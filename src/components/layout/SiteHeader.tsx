@@ -395,7 +395,7 @@ export function SiteHeader() {
                     className="group flex items-center focus:outline-none"
                   >
                     <UserProfileAvatar
-                      src={user.photo}
+                      src={user.avatarUrl}
                       initials={user.firstname.charAt(0) + user.lastname.charAt(0)}
                       initialsClassName="font-serif text-body-sm! uppercase"
                     />

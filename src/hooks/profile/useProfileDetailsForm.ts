@@ -80,6 +80,7 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
         lastname: lastName,
         email: email,
         country: country,
+        avatarUrl: avatarPreview,
       });
       // await new Promise((resolve) => setTimeout(resolve, 1500));
       console.log("Details saved successfully:", { firstName, lastName, email });
@@ -91,19 +92,17 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
     }
   };
 
- const handleImageUpdate = async () => {
+  const handleImageUpdate = async () => {
     if (!avatarPreview) return;
 
     try {
       setIsProfileLoading(true);
-      
-      // 1. Base64 (Data URL) එක Blob/File එකක් බවට පත් කිරීම
+
       const res = await fetch(avatarPreview);
       const blob = await res.blob();
 
-      // 2. Blob එක Service එකට යැවීම
       await profileService.uploadAvatar(blob);
-      
+
       console.log("Uploading cropped avatar success");
     } catch (error) {
       console.error("Avatar upload error:", error);
@@ -112,7 +111,7 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
       setIsProfileLoading(false);
     }
   };
-  
+
   return {
     firstName,
     setFirstName,
