@@ -5,18 +5,27 @@ export const profileService = {
     const res = await fetch(`${API_URL}/profile/details`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
+       credentials: "include",
       body: JSON.stringify(data),
     });
     if (!res.ok) throw new Error("Failed to update details");
     return res.json();
   },
 
-  uploadAvatar: async (imageBase64: string) => {
-    const res = await fetch(`${API_URL}/profile/avatar`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ avatar: imageBase64 }),
+ uploadAvatar: async (avatarBlob: Blob) => {
+    const formData = new FormData();
+    // 'avatar' යන්න Backend එකෙන් බලාපොරොත්තු වන field name එකයි.
+    // 'profile-pic.jpg' ලෙස නමක් ලබා දීම backend එකට ෆයිල් එක හඳුනාගැනීමට පහසු කරයි.
+    formData.append("avatar", avatarBlob, "profile-pic.jpg");
+
+    // ඔබේ අලුත් endpoint එකට අනුව URL එක යාවත්කාලීන කර ඇත
+    const res = await fetch(`${API_URL}/auth/me/avatar`, {
+      method: "PATCH",
+      // ⚠️ වැදගත්: FormData යවද්දී Content-Type header එක manually දාන්න එපා!
+      credentials: "include",
+      body: formData,
     });
+
     if (!res.ok) throw new Error("Avatar upload failed");
     return res.json();
   },
@@ -25,6 +34,7 @@ export const profileService = {
     const res = await fetch(`${API_URL}/profile/security`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
+       credentials: "include",
       body: JSON.stringify(data),
     });
     if (!res.ok) throw new Error("Security update failed");
