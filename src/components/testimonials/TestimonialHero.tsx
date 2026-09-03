@@ -29,7 +29,7 @@ export function TestimonialHero({ totalComments, averageRating }: TestimonialHer
       <div className="absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-gold/30 to-transparent" />
 
       <ContainerLayout className="relative z-10">
-        <div className="flex flex-col items-center justify-between gap-12 md:flex-row md:gap-3 lg:gap-16 xl:gap-24">
+        <div className="flex flex-col items-center justify-between gap-12 lg:flex-row lg:gap-16 xl:gap-24">
           <div className="max-w-2xl text-center xl:text-left">
             <EyeBrow eyebrow={t("badge")} />
 

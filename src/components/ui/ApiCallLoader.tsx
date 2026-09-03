@@ -90,9 +90,9 @@ export function ApiCallLoader({ text = "Loading", fullScreen = true }: ApiCallLo
 
         {/* 3. Loading Text with Pulse Effect & Animated Dots */}
         <div className="flex flex-col items-center gap-3">
-          <div className="flex items-center text-tiny font-bold uppercase tracking-[0.3em] text-gold/80 animate-pulse">
+          <div className="flex items-center text-caption font-bold uppercase tracking-[0.3em] text-gold/80 animate-pulse">
             <span>{baseText}</span>
-            <span className="flex w-6 justify-start tracking-normal">
+            <span className="-mt-1 flex w-6 text-[1.8em] justify-start tracking-normal">
               <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ repeat: Infinity, duration: 1.5, delay: 0 }}>
                 .
               </motion.span>
