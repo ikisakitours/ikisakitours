@@ -128,7 +128,12 @@ export function LoginForm() {
           </div>
 
           {/* Submit Button */}
-          <Button type="submit" disabled={isLoading} className="md:w-92.5! text-body-sm!" variant="auth">
+          <Button
+            type="submit"
+            disabled={isLoading}
+            className="md:w-92.5! text-body-sm! disabled:opacity-60 disabled:cursor-not-allowed"
+            variant="auth"
+          >
             {isLoading ? tForm("ButtonsLoading.authenticating") : tForm("Buttons.enterGateway")}
           </Button>
         </form>

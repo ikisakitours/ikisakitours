@@ -42,7 +42,7 @@ export function WriteReviewForm() {
         {tForm("watermark")}
       </div>
 
-      <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-5xl mx-auto">
+      <div className="relative z-10 flex flex-col items-center justify-center w-full mx-auto max-w-2xl 3xl:max-w-4xl">
         {/* HEADER */}
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14 3xl:mb-16 flex flex-col items-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 mb-6 shadow-[0_0_15px_rgba(197,160,89,0.15)]">
@@ -165,7 +165,7 @@ export function WriteReviewForm() {
                 variant="primary"
                 type="submit"
                 disabled={isLoading}
-                className="w-full sm:w-80 py-5 text-caption! tracking-[0.3em] shadow-[0_0_20px_rgba(197,160,89,0.2)] hover:shadow-[0_0_30px_rgba(197,160,89,0.4)] transition-all duration-300 3xl:py-8"
+                className="disabled:opacity-60 disabled:cursor-not-allowed w-full sm:w-80 py-5 text-caption! tracking-[0.3em] shadow-[0_0_20px_rgba(197,160,89,0.2)] hover:shadow-[0_0_30px_rgba(197,160,89,0.4)] transition-all duration-300 3xl:py-8"
               >
                 {isLoading ? tSharedForm("ButtonsLoading.submitting") : tSharedForm("Buttons.submitBtn")}
               </Button>

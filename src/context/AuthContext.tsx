@@ -8,7 +8,11 @@ interface User {
   lastname: string;
   email: string;
   country: string;
+  hasAccess?: boolean;
+  isVerified?: boolean;
+  isVip?: boolean;
   avatarUrl?: string | null;
+  avatarSignature?: string | null;
 }
 
 interface AuthContextType {
@@ -27,11 +31,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const fetchUser = useCallback(async () => {
     try {
       const response = await authService.getCurrentUser();
-
-      console.log("Raw API Response:", response);
-
       const userData = response.user ? response.user : response;
-
+      console.log("Raw API Response:", response);
+      
       if (userData && (userData.id || userData.email)) {
         setUser(userData);
         console.log("Fetch Data Success!", userData);
