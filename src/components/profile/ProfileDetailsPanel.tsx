@@ -10,6 +10,7 @@ import { CountrySelect } from "@/components/auth/signUp/CountrySelect";
 import { useTranslations } from "next-intl";
 import { useProfileDetailsForm } from "@/hooks/profile/useProfileDetailsForm";
 import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "@/lib/i18nNavigation";
 
 //Icons
 import { BsPatchCheck } from "react-icons/bs";
@@ -23,7 +24,7 @@ export function ProfileDetailsPanel() {
   const tForm = useTranslations("SharedForm");
   const tError = useTranslations("ValidationErrors");
   const { user } = useAuth();
-
+  const router = useRouter();
   //Hook
   const {
     firstName,
@@ -44,6 +45,7 @@ export function ProfileDetailsPanel() {
     setCameraError,
     errors,
     isLoading,
+    isImageChanged,
     isProfileLoading,
     setErrors,
     handleAvatarSelect,
@@ -122,15 +124,39 @@ export function ProfileDetailsPanel() {
               <h2 className="premium-serif mb-6 text-heading-sub text-white">{t("DetailsPanel.title")}</h2>
 
               <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-end sm:gap-3">
-                <StatusBadge tone="green" icon={<BsPatchCheck className="h-4 w-4" />}>
-                  {t("Badge.verified")}
-                </StatusBadge>
-                <StatusBadge tone="gold" icon={<Crown className="h-4 w-4" strokeWidth={2} />}>
-                  {t("Badge.vipMember")}
-                </StatusBadge>
+                {user?.isVerified && (
+                  <StatusBadge tone="green" icon={<BsPatchCheck className="h-4 w-4" />}>
+                    {t("Badge.verified")}
+                  </StatusBadge>
+                )}
+                {user?.isVip && (
+                  <StatusBadge tone="gold" icon={<Crown className="h-4 w-4" strokeWidth={2} />}>
+                    {t("Badge.vipMember")}
+                  </StatusBadge>
+                )}
               </div>
             </div>
 
+            {!user?.isVip && (
+              <div className="mx-auto mb-8 flex max-w-2xl flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border border-gold/20 bg-linear-to-r from-gold/5 via-white/5 to-transparent p-4 sm:px-6 shadow-[0_4px_20px_rgba(0,0,0,0.2)] backdrop-blur-md lg:mx-0">
+                <div className="flex items-center gap-3 text-center sm:text-left">
+                  <div className="flex flex-col">
+                    <span className="mb-1.5 md:mb-0 text-body-sm font-bold uppercase tracking-widest text-gold animate-pulse">
+                      {t("DetailsPanel.vipBanner.title")}
+                    </span>
+                    <span className="text-body-sm text-slate-300 font-medium">{t("DetailsPanel.vipBanner.desc")}</span>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  className="flex items-center justify-center rounded-xl bg-gold px-6 py-2.5 text-caption font-bold uppercase tracking-wider text-black shadow-lg transition-all duration-300 hover:bg-gold-light hover:scale-105 active:scale-95 sm:w-auto"
+                  onClick={() => router.push("/profile?tab=referral")}
+                >
+                  {t("DetailsPanel.vipBanner.btnText")}
+                </button>
+              </div>
+            )}
             <div className="mx-auto mb-10 flex max-w-2xl flex-col items-center gap-5 overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-5 sm:flex-row sm:items-start sm:p-6 lg:mx-0">
               <div className="flex h-20 w-20 shrink-0 flex-col items-center justify-center rounded-2xl bg-linear-to-br from-gold to-gold-dark shadow-[0_10px_30px_rgba(197,160,89,0.3)] sm:h-20 sm:w-20">
                 <span className="text-heading-sub font-black leading-none text-black">
@@ -158,6 +184,7 @@ export function ProfileDetailsPanel() {
                 initials={user ? `${user.firstname.charAt(0)}${user.lastname.charAt(0)}` : ""}
                 avatarError={errors.avatar}
                 isLoading={isProfileLoading}
+                isImageChanged={isImageChanged}
                 onOpenSourceModal={() => {
                   setCameraError(null);
                   setIsSourceModalOpen(true);
@@ -269,7 +296,7 @@ export function ProfileDetailsPanel() {
                         type="submit"
                         variant="explore"
                         disabled={isLoading}
-                        className="[&_span]:text-caption! w-full justify-center sm:w-max"
+                        className="[&_span]:text-caption! w-full justify-center sm:w-max disabled:opacity-60 disabled:cursor-not-allowed"
                       >
                         {isLoading ? tForm("ButtonsLoading.saving") : tForm("Buttons.saveChanges")}
                       </Button>

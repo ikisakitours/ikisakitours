@@ -172,7 +172,7 @@ export function ContactForm({ data, setData, errors, setErrors, isLoading }: Con
         </div>
 
         <div className="mx-auto max-w-xs">
-          <Button type="submit" variant="explore" className="[&_span]:text-caption! w-full justify-center">
+          <Button type="submit" variant="explore"    disabled={isLoading} className="[&_span]:text-caption! w-full justify-center disabled:opacity-60 disabled:cursor-not-allowed">
             {isLoading ? tForm("ButtonsLoading.checkingAvailability") : tForm("Buttons.checkAvailability")}
           </Button>
 

@@ -220,7 +220,7 @@ export default function ContactForm() {
               type="submit"
               variant="inquire"
               disabled={isLoading}
-              className="text-caption! w-full md:justify-center!"
+              className="text-caption! w-full md:justify-center! disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {isLoading ? tForm("ButtonsLoading.sending") : tForm("Buttons.sendMessage")}
             </Button>

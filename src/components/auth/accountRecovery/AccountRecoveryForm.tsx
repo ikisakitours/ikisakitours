@@ -26,8 +26,8 @@ function AccountRecoveryFormInner() {
       <AuthFormHeader introKey="Recovery" />
 
       <div className="overflow-y-auto px-8 md:px-12">
-        {/* Email Feild */}
         <form className="space-y-6" onSubmit={handleSubmit} noValidate>
+          {/* Email Feild */}
           <label className="block space-y-2">
             <span className="ml-1 block text-caption font-bold uppercase tracking-[0.2em] text-gold">
               {tForm("Labels.email")}
@@ -55,7 +55,12 @@ function AccountRecoveryFormInner() {
             </div>
           </label>
 
-          <Button type="submit" disabled={isLoading} className="md:w-97.5! text-body-sm!" variant="auth">
+          <Button
+            type="submit"
+            disabled={isLoading}
+            className="md:w-97.5! text-body-sm! disabled:opacity-60 disabled:cursor-not-allowed"
+            variant="auth"
+          >
             {isLoading ? tForm("ButtonsLoading.sending") : tForm("Buttons.sendResetLink")}
           </Button>
         </form>

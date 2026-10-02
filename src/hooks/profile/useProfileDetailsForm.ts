@@ -2,6 +2,7 @@ import { useState, useEffect, type ChangeEvent, type FormEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { profileService } from "@/services/profile/profileService";
 import { useTranslations } from "next-intl";
+import { useToast } from "@/context/ToastContext";
 import { useAuth } from "@/context/AuthContext";
 
 export function useProfileDetailsForm(tError: (key: string) => string) {
@@ -23,6 +24,11 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
   const { errors, validate, setErrors } = useValidationForm();
   const tErr = useTranslations("ValidationErrors.ServerErrors");
 
+  const [isImageChanged, setIsImageChanged] = useState(false);
+  const [originalImageSize, setOriginalImageSize] = useState<number>(0);
+  const [currentFileSignature, setCurrentFileSignature] = useState<string | null>(null);
+  const toast = useToast();
+
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (user) {
@@ -40,8 +46,27 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
     const file = event.target.files?.[0];
     if (!file) return;
 
+    const fileSignature = `${file.name}-${file.size}-${file.lastModified}`;
+
+    if (fileSignature === user?.avatarSignature) {
+      const isConfirmed = window.confirm(
+        "You already uploaded this exact same image file. Do you want to crop and upload it again?",
+      );
+      if (!isConfirmed) {
+        event.target.value = "";
+        return;
+      }
+    }
+
+    setCurrentFileSignature(fileSignature);
+
+    const sizeInMB = (file.size / (1024 * 1024)).toFixed(2);
+    console.log(`📦 Original Image Size: ${sizeInMB} MB`);
+    setOriginalImageSize(file.size);
+
     if (file.size > 5 * 1024 * 1024) {
       setErrors({ avatar: tError("imageSizeProfile") });
+      event.target.value = "";
       return;
     } else {
       setErrors((prev) => {
@@ -65,15 +90,25 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
   const handleCropComplete = async (croppedImageUrl: string) => {
     setAvatarPreview(croppedImageUrl);
     setIsCropModalOpen(false);
+    setIsImageChanged(true);
+    setErrors((prev) => {
+      const copy = { ...prev };
+      delete copy.avatar;
+      return copy;
+    });
   };
 
   const handlePersonalUpdate = async (e: FormEvent) => {
     e.preventDefault();
     if (!validate({ firstName, lastName, email, country })) return;
-
+    const toastId = toast.loading("Saving profile details...");
     try {
       setIsLoading(true);
-      await profileService.updateDetails({ firstName, lastName, email, country });
+
+      const [response] = await Promise.all([
+        profileService.updateDetails({ firstName, lastName, email, country }),
+        new Promise((resolve) => setTimeout(resolve, 800)),
+      ]);
 
       updateUser({
         firstname: firstName,
@@ -82,9 +117,11 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
         country: country,
         avatarUrl: avatarPreview,
       });
-      // await new Promise((resolve) => setTimeout(resolve, 1500));
+      toast.success(toastId, "Profile details updated successfully!", 2000);
+      console.log("Login valid and submitted!", response);
       console.log("Details saved successfully:", { firstName, lastName, email });
     } catch (error) {
+      toast.error(toastId, "Failed to update details. Please try again.");
       console.error("Update error:", error);
       setErrors((prev) => ({ ...prev, form: tErr("updateFailed") }));
     } finally {
@@ -94,17 +131,66 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
 
   const handleImageUpdate = async () => {
     if (!avatarPreview) return;
+    const toastId = toast.loading("Uploading profile picture");
 
     try {
       setIsProfileLoading(true);
 
-      const res = await fetch(avatarPreview);
-      const blob = await res.blob();
+      const webpBlob = await new Promise<Blob>((resolve, reject) => {
+        const img = new window.Image();
+        img.src = avatarPreview;
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          canvas.width = img.width;
+          canvas.height = img.height;
 
-      await profileService.uploadAvatar(blob);
+          const ctx = canvas.getContext("2d");
+          if (!ctx) return reject(new Error("Canvas context failed"));
 
-      console.log("Uploading cropped avatar success");
+          ctx.drawImage(img, 0, 0);
+
+          canvas.toBlob(
+            (blob) => {
+              if (blob) resolve(blob);
+              else reject(new Error("WebP conversion failed"));
+            },
+            "image/webp",
+            0.8,
+          );
+        };
+        img.onerror = () => reject(new Error("Image loading failed"));
+      });
+
+      const webpSizeMB = (webpBlob.size / (1024 * 1024)).toFixed(2);
+      const originalMB = (originalImageSize / (1024 * 1024)).toFixed(2);
+      const savedSpace = (Number(originalMB) - Number(webpSizeMB)).toFixed(2);
+
+      console.log(`🚀 Converted WebP Size: ${webpSizeMB} MB`);
+      console.log(`🎉 Cloudflare Storage Saved: ${savedSpace} MB!`);
+
+      if (webpBlob.size > 5 * 1024 * 1024) {
+        setErrors((prev) => ({ ...prev, avatar: "Converted image is still too large." }));
+        setIsProfileLoading(false);
+        return;
+      }
+
+      const [response] = await Promise.all([
+        profileService.uploadAvatar(webpBlob, currentFileSignature || ""),
+        new Promise((resolve) => setTimeout(resolve, 800)),
+      ]);
+      setIsImageChanged(false);
+
+      if (response && response.avatarUrl) {
+        updateUser({
+          avatarUrl: response.avatarUrl,
+          avatarSignature: currentFileSignature,
+        });
+      }
+
+      toast.success(toastId, "Profile picture updated successfully!", 2000);
+      console.log("Avatar uploaded successfully!");
     } catch (error) {
+      toast.error(toastId, "Failed to upload avatar. Please try again.");
       console.error("Avatar upload error:", error);
       setErrors((prev) => ({ ...prev, avatar: tErr("avatarUploadFailed") }));
     } finally {
@@ -131,6 +217,7 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
     cameraError,
     setCameraError,
     isLoading,
+    isImageChanged,
     isProfileLoading,
     errors,
     setErrors,

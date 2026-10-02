@@ -5,23 +5,21 @@ export const profileService = {
     const res = await fetch(`${API_URL}/profile/details`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-       credentials: "include",
+      credentials: "include",
       body: JSON.stringify(data),
     });
     if (!res.ok) throw new Error("Failed to update details");
     return res.json();
   },
 
- uploadAvatar: async (avatarBlob: Blob) => {
+  uploadAvatar: async (avatarBlob: Blob, signature: string) => {
     const formData = new FormData();
-    // 'avatar' යන්න Backend එකෙන් බලාපොරොත්තු වන field name එකයි.
-    // 'profile-pic.jpg' ලෙස නමක් ලබා දීම backend එකට ෆයිල් එක හඳුනාගැනීමට පහසු කරයි.
-    formData.append("avatar", avatarBlob, "profile-pic.jpg");
 
-    // ඔබේ අලුත් endpoint එකට අනුව URL එක යාවත්කාලීන කර ඇත
+    formData.append("avatar", avatarBlob, "profile-pic.webp");
+    formData.append("avatarSignature", signature);
+
     const res = await fetch(`${API_URL}/auth/me/avatar`, {
       method: "PATCH",
-      // ⚠️ වැදගත්: FormData යවද්දී Content-Type header එක manually දාන්න එපා!
       credentials: "include",
       body: formData,
     });
@@ -34,14 +32,14 @@ export const profileService = {
     const res = await fetch(`${API_URL}/profile/security`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-       credentials: "include",
+      credentials: "include",
       body: JSON.stringify(data),
     });
     if (!res.ok) throw new Error("Security update failed");
     return res.json();
   },
 
-  // Delete Account 
+  // Delete Account
   deleteAccount: async (password: string) => {
     const res = await fetch(`${API_URL}/profile/account`, {
       method: "DELETE",

@@ -1,11 +1,11 @@
 import { LoadingImage } from "@/components/ui/LoadingImage";
 import { RatingStars } from "@/components/ui/RatingStars";
-import { getLanguageFromCountry } from "@/utils/languageMapper"; 
+import { getLanguageFromCountry } from "@/utils/languageMapper";
 
 import type { Review } from "@/services/testimonials/types";
 
 type TestimonialCardProps = {
-  testimonial: Review; 
+  testimonial: Review;
 };
 //Icons
 import { BsPatchCheck } from "react-icons/bs";
@@ -33,7 +33,7 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
       </p>
 
       <div className="flex w-full items-center gap-4 border-t border-white/5 pt-6">
-        <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border border-gold/30 bg-white/5 shadow-lg sm:h-14 sm:w-14">
+        <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-gold/30 bg-white/5 shadow-lg sm:h-14 sm:w-14">
           <span className="text-xs font-bold uppercase text-gold sm:text-sm">{initials}</span>
           {testimonial.avatarUrl &&
             typeof testimonial.avatarUrl === "string" &&
@@ -43,7 +43,7 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
                 alt={`${testimonial.authorName} profile photo`}
                 fill
                 sizes="(max-width: 640px) 48px, 56px"
-                className="object-cover grayscale"
+                className="object-cover"
                 wrapperClassName="!absolute inset-0 z-10 w-full h-full"
                 isSmall={true}
               />

@@ -166,7 +166,12 @@ export function PasswordResetForm() {
             </label>
           </div>
 
-          <Button type="submit" disabled={isLoading} className="md:w-97.5! text-body-sm!" variant="auth">
+          <Button
+            type="submit"
+            disabled={isLoading}
+            className="md:w-97.5! text-body-sm! disabled:opacity-60 disabled:cursor-not-allowed"
+            variant="auth"
+          >
             {isLoading ? tForm("ButtonsLoading.updating") : tForm("Buttons.updatePassword")}
           </Button>
 

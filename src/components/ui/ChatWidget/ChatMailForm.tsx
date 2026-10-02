@@ -166,7 +166,7 @@ export function ChatMailForm() {
           type="submit"
           variant="inquire"
           disabled={isLoading}
-          className="w-full md:w-full justify-center py-2.5 md:py-4 text-sm rounded-xl"
+          className="w-full md:w-full justify-center py-2.5 md:py-4 text-sm rounded-xl disabled:opacity-60 disabled:cursor-not-allowed"
         >
           <Send size={15} className="mr-2" />
           {isLoading ? tFrom("ButtonsLoading.sending") : tFrom("Buttons.startChat")}

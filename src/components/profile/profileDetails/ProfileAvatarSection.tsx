@@ -9,13 +9,14 @@ import { Camera } from "lucide-react";
 
 type ProfileAvatarSectionProps = {
   avatarPreview: string | null;
- profilePhoto?: string | null;
+  profilePhoto?: string | null;
   initials: string;
   avatarError?: string;
   onOpenSourceModal: () => void;
   onAvatarSelect: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onImageUpdate: () => void;
   isLoading?: boolean;
+  isImageChanged?: boolean;
 };
 
 export function ProfileAvatarSection({
@@ -27,6 +28,7 @@ export function ProfileAvatarSection({
   onAvatarSelect,
   onImageUpdate,
   isLoading,
+  isImageChanged,
 }: ProfileAvatarSectionProps) {
   const t = useTranslations("ProfilePage");
 
@@ -76,9 +78,9 @@ export function ProfileAvatarSection({
           <Button
             type="button"
             variant="details"
-            disabled={isLoading}
+           disabled={isLoading || !isImageChanged}
             onClick={onImageUpdate}
-            className="mt-3 mx-auto sm:mx-0 block [&_span]:text-tiny!"
+            className="mt-3 mx-auto sm:mx-0 block [&_span]:text-tiny! disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {isLoading ? "Saving..." : t("DetailsPanel.savePhotoBtn")}{" "}
           </Button>

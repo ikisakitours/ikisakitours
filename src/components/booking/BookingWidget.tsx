@@ -173,7 +173,7 @@ export function BookingWidget({ tour, className = "" }: BookingWidgetProps) {
             </div>
           </div>
 
-          <Button type="submit" disabled={isLoading} variant="auth" className="w-full">
+          <Button type="submit" disabled={isLoading} variant="auth" className="w-full disabled:opacity-60 disabled:cursor-not-allowed">
             {isLoading ? tForms("ButtonsLoading.checkingAvailability") : tForms("Buttons.checkAvailability")}
           </Button>
 

@@ -271,7 +271,12 @@ export function SignupForm() {
             <FormError message={errors.terms} />
           </div>
 
-          <Button type="submit" disabled={isLoading} className="md:w-102.5! text-body-sm!" variant="auth">
+          <Button
+            type="submit"
+            disabled={isLoading}
+            className="md:w-102.5! text-body-sm! disabled:opacity-60 disabled:cursor-not-allowed"
+            variant="auth"
+          >
             {isLoading ? tForm("ButtonsLoading.registering") : tForm("Buttons.registerMembership")}
           </Button>
 

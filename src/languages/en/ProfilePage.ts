@@ -30,6 +30,11 @@ export default {
     profilePicTitle: "Profile Picture",
     profilePicDesc: "PNG, JPG or GIF. Max 5MB.",
     savePhotoBtn: "Save Photo",
+    vipBanner: {
+      title: "Unlock Exclusive Perks",
+      desc: "Invite friends & earn VIP badges + discounts",
+      btnText: "Invite Friends",
+    },
   },
   SecurityPanel: {
     title: "Security Access",

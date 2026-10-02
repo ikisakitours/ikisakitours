@@ -75,7 +75,7 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
                   setErrors((prev) => ({ ...prev, fullName: "" }));
                 }}
                 placeholder={tForms("Placeholders.fullName")}
-                className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-body-sm text-white transition-colors focus:border-gold/50 focus:outline-none 3xl:py-6"
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-body-sm text-white transition-colors focus:border-gold/50 focus:outline-none 3xl:py-6 disabled:opacity-60 disabled:cursor-not-allowed"
               />
               <div className="ml-2">
                 <FormError message={errors.fullName} />
@@ -146,7 +146,7 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
                 setErrors((prev) => ({ ...prev, experience: "" }));
               }}
               placeholder={t("experiencePlaceholder")}
-              className="auto-resize-textarea min-h-30 w-full resize-none rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-body-sm italic leading-relaxed text-white transition-colors focus:border-gold/50 focus:outline-none 3xl:py-6"
+              className="disabled:opacity-60 disabled:cursor-not-allowed auto-resize-textarea min-h-30 w-full resize-none rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-body-sm italic leading-relaxed text-white transition-colors focus:border-gold/50 focus:outline-none 3xl:py-6"
             ></textarea>
             <span className="mt-1 block text-caption font-medium text-slate-500 leading-relaxed">
               {tForms("Messages.autoExpand")}
@@ -212,7 +212,7 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
             variant="primary"
             type="submit"
             disabled={isLoading}
-            className="block w-full md:w-auto md:ml-auto md:px-16 py-5 text-caption! tracking-[0.3em] shadow-xl shadow-gold/10 3xl:py-8"
+            className="disabled:opacity-60 disabled:cursor-not-allowed block w-full md:w-auto md:ml-auto md:px-16 py-5 text-caption! tracking-[0.3em] shadow-xl shadow-gold/10 3xl:py-8"
           >
             {isLoading ? tForms("ButtonsLoading.submitting") : tForms("Buttons.submitBtn")}
           </Button>
