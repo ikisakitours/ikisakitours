@@ -1,29 +1,38 @@
 "use client";
 import { LoadingImage } from "@/components/ui/LoadingImage";
 import { Link } from "@/lib/i18nNavigation";
-import type { BlogPost } from "@/data/blog";
 import { ShareButton } from "@/components/ui/ShareButton";
 import { LikeButton } from "@/components/ui/LikeButton";
 import { useTranslations } from "next-intl";
+import type { BlogPreview } from "@/services/blogs/types";
+import { useToggleLike } from "@/hooks/blogs/useToggleLike";
 
 type BlogCardProps = {
-  post: BlogPost;
+  post: BlogPreview; 
+  index: number;
 };
-
-export function BlogCard({ post }: BlogCardProps) {
+export function BlogCard({ post, index }: BlogCardProps) {
   const t = useTranslations("Blog.Card");
+  const { handleLikeToggle } = useToggleLike();
+  const displayNumber = (index + 1).toString().padStart(2, "0");
+
+  const formattedDate = new Date(post.createdAt).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
 
   return (
     <article className="group relative flex min-h-90 flex-col justify-between overflow-hidden rounded-4xl border border-white/5 bg-white/5 p-8 transition-all duration-500 hover:-translate-y-1 hover:border-gold/20">
       <div className="premium-serif absolute right-8 top-8 text-6xl font-black text-gold opacity-10 transition-opacity group-hover:opacity-20">
-        {post.number}
+        {displayNumber}
       </div>
 
       <div className="relative z-10">
         <div className="mb-6 h-20 w-20 overflow-hidden rounded-2xl border border-gold/20">
           <LoadingImage
-            src={post.image}
-            alt={post.altText}
+            src={post.previewImage || "/images/default-blog.jpg"}
+            alt={post.title} 
             width={160}
             height={160}
             watermarkClassName="text-[15px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
@@ -31,13 +40,20 @@ export function BlogCard({ post }: BlogCardProps) {
             className="h-full w-full object-cover grayscale  group-hover:scale-105 group-hover:grayscale-0"
           />
         </div>
-        <div className="mb-4 text-tiny uppercase tracking-widest text-gold opacity-60">
-          {post.category} &bull; {post.readTime}
+
+        <div className="mb-5 flex items-center justify-between text-[10px] sm:text-tiny uppercase tracking-widest text-gold">
+          <span className="text-tiny uppercase tracking-widest text-gold opacity-60">{post.category}</span>
+
+          <div className="flex items-center gap-2 opacity-60">
+            <span>{formattedDate}</span>
+            <span className="text-white/30 text-xs">&bull;</span>
+            <span>{post.readTime}</span>
+          </div>
         </div>
         <h3 className="premium-serif mb-4 text-heading-sub leading-tight text-white transition-colors group-hover:text-gold">
           {post.title}
         </h3>
-        <p className="line-clamp-3 font-normal text-body leading-relaxed text-foreground/80 ">{post.excerpt}</p>
+        <p className="line-clamp-3 font-normal text-body leading-relaxed text-foreground/80 ">{post.summary}</p>
       </div>
 
       <div className="relative z-10 mt-8 flex items-center justify-between border-t border-white/10 pt-6">
@@ -54,8 +70,9 @@ export function BlogCard({ post }: BlogCardProps) {
             className="flex items-center gap-2 text-gold"
             countClassName="text-body-sm!"
             iconSize={21}
+            onToggle={(isLiked) => handleLikeToggle(post.id, isLiked)}
           />
-          <ShareButton iconSize={21} title={post.title} text={post.excerpt} url={`/blog/${post.slug}`} />
+          <ShareButton iconSize={21} title={post.title} text={post.summary} url={`/blog/${post.slug}`} />
         </div>
       </div>
     </article>

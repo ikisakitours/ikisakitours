@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { blogPosts } from "@/data/blog";
-import { Hero } from "@/components/ui/Hero";
-import { BlogArticle } from "@/components/blog/BlogArticle";
+import { fetchBlogServices } from "@/services/blogs/fetchBlogServices";
+import { SingleBlogClientWrapper } from "@/components/blog/SingleBlogClientWrapper";
 
 type BlogDetailPageProps = {
   params: Promise<{
@@ -12,58 +10,50 @@ type BlogDetailPageProps = {
 
 export async function generateMetadata({ params }: BlogDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = blogPosts.find((item) => item.slug === slug);
 
-  if (!post) {
+  try {
+    const post = await fetchBlogServices.getBlogPostBySlug(slug);
+    const heroImage = post.gallery?.[0] || "/images/default-blog.jpg";
+
+    return {
+      title: post.title,
+      description: post.summary,
+      openGraph: {
+        title: post.title,
+        description: post.summary,
+        url: `/blog/${post.slug}`,
+        type: "article",
+        images: [
+          {
+            url: heroImage,
+            width: 1200,
+            height: 630,
+            alt: post.title,
+          },
+        ],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: post.title,
+        description: post.summary,
+        images: [heroImage],
+      },
+    };
+  } catch (error) {
+    console.error(`Failed to fetch metadata for blog slug: ${slug}`, error);
     return {
       title: "Story not found",
     };
   }
-
-  return {
-    title: post.title,
-    description: post.excerpt,
-    openGraph: {
-      title: post.title,
-      description: post.excerpt,
-      url: `/blog/${post.slug}`,
-      type: "article",
-      images: [
-        {
-          url: post.image,
-          width: 1200,
-          height: 630,
-          alt: post.altText || post.title,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: post.title,
-      description: post.excerpt,
-      images: [post.image],
-    },
-  };
 }
 
+// Main Page එක
 export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   const { slug } = await params;
-  const post = blogPosts.find((item) => item.slug === slug);
-  if (!post) {
-    notFound();
-  }
 
   return (
     <main className="min-h-screen bg-lanka-dark">
-      <Hero
-        image={post.image}
-        altText={post.altText}
-        eyebrow={post.category}
-        title={post.title}
-        accent={post.accent}
-        strapline={post.excerpt}
-      />
-      <BlogArticle post={post} />
+      <SingleBlogClientWrapper slug={slug} />
     </main>
   );
 }

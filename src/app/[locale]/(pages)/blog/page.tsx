@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { BlogExplorer } from "@/components/blog/BlogExplorer";
-import { blogPosts, blogHero } from "@/data/blog";
+import { blogHero } from "@/data/blog";
 import { Hero } from "@/components/ui/Hero";
-
+import { BlogClientWrapper } from "@/components/blog/BlogClientWrapper";
 export const metadata: Metadata = {
   title: "Journal",
   description: "Curated Sri Lanka travel stories, guides, and cultural notes from LankaElite.",
@@ -39,7 +38,7 @@ export default function BlogPage() {
         accent={blogHero.accent}
         strapline={blogHero.strapline}
       />
-      <BlogExplorer posts={blogPosts} />
+      <BlogClientWrapper />
     </main>
   );
 }

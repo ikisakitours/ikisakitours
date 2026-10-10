@@ -23,6 +23,13 @@ export default {
     Sidebar: {
       all: "すべて",
       clearFilter: "フィルターをクリア",
+      categories: "カテゴリー",
+      sortByDate: "日付順",
+      newestFirst: "新しい順",
+      oldestFirst: "古い順",
+      readTime: "読む時間",
+      allReadTimes: "すべての時間",
+      showResults: "結果を表示",
     },
     EmptyState: {
       backgroundText: "ジャーナル",

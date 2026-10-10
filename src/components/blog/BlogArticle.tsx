@@ -8,21 +8,27 @@ import { useTranslations } from "next-intl";
 //Icons
 import { ArrowRight, Images } from "lucide-react";
 import BlogBackButton from "@/components/blog/BlogBackButton";
-
+import type { BlogPost } from "@/services/blogs/types";
 interface BlogArticleProps {
-  post: {
-    title: string;
-    slug: string;
-    published: string;
-    readTime: string;
-    likes: number;
-    gallery: { id: string; src: string; alt: string }[];
-    content?: string[];
-  };
+  post: BlogPost;
 }
 
 function BlogArticleInner({ post }: BlogArticleProps) {
   const t = useTranslations("Blog.Article");
+  const formattedDate = new Date(post.createdAt).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+  const contentParagraphs = post.content ? post.content.split("\n\n") : [];
+
+  const galleryImages = post.gallery
+    ? post.gallery.map((url, index) => ({
+        id: index.toString(),
+        src: url,
+        alt: `${post.title} image ${index + 1}`,
+      }))
+    : [];
   return (
     <article className="relative z-20 mx-auto max-w-4xl px-4 pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
       {/* Main Glass Card */}
@@ -38,7 +44,7 @@ function BlogArticleInner({ post }: BlogArticleProps) {
             {/* Left: Published */}
             <div className="flex flex-col gap-2">
               <span className="text-tiny font-bold uppercase tracking-[0.3em] text-gold/70">{t("published")}</span>
-              <span className="text-body-sm font-extrabold uppercase tracking-wide text-white">{post.published}</span>
+              <span className="text-body-sm font-extrabold uppercase tracking-wide text-white">{formattedDate}</span>
             </div>
 
             {/* Right: Reading Time */}
@@ -54,8 +60,8 @@ function BlogArticleInner({ post }: BlogArticleProps) {
         {/* --- 2. ARTICLE CONTENT AREA --- */}
         <div className="px-6 py-10 md:px-12 md:py-14">
           <div className="prose prose-invert prose-lg max-w-none space-y-6 font-light leading-relaxed text-slate-300 text-body text-left md:text-justify hyphens-auto">
-            {post.content && post.content.length > 0 ? (
-              post.content.map((paragraph, index) => <p key={index}>{paragraph}</p>)
+            {contentParagraphs.length > 0 ? (
+              contentParagraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)
             ) : (
               <EmptyState
                 backgroundText="Pending"
@@ -68,7 +74,7 @@ function BlogArticleInner({ post }: BlogArticleProps) {
             )}
           </div>
 
-          {post.gallery && post.gallery.length > 0 && (
+          {galleryImages.length > 0 && (
             <div className="mt-16">
               <div className="mb-10 flex items-center gap-4">
                 <div className="h-px flex-1 bg-linear-to-r from-transparent via-gold/30 to-transparent"></div>
@@ -79,8 +85,8 @@ function BlogArticleInner({ post }: BlogArticleProps) {
               </div>
 
               <div className="flex flex-wrap justify-center gap-4">
-                {post.gallery.slice(0, 4).map((image, index) => {
-                  const isGalleryLink = index === 3;
+                {galleryImages.slice(0, 4).map((image, index, array) => {
+                  const isGalleryLink = index === array.length - 1;
                   const className = `group relative h-32 w-[calc(50%-0.5rem)] overflow-hidden rounded-2xl border border-gold/30 shadow-lg md:h-40 md:w-40 ${
                     index % 2 === 0 ? "md:mt-4" : "md:-mt-4"
                   }`;
@@ -120,12 +126,21 @@ function BlogArticleInner({ post }: BlogArticleProps) {
               </div>
             </div>
           )}
-
+          {post.author && (
+            <div className="mt-12 flex justify-end">
+              <div className="flex items-center gap-3">
+                <div className="h-px w-8 bg-gold/40" />
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gold/70 sm:text-tiny">
+                  Words by <span className="text-white/90">{post.author}</span>
+                </span>
+              </div>
+            </div>
+          )}
           {/* --- 4. BOTTOM ACTION AREA (Single Line & Clean) --- */}
-          <div className="mt-16 flex flex-row items-center justify-between gap-4 border-t border-white/10 pt-10">
+          <div className="mt-8 flex flex-row items-center justify-between gap-4 border-t border-white/10 pt-10">
             {/* Left: Like & Share Buttons Only */}
             <div className="flex items-center">
-              <ArticleActions initialLikes={post.likes} postTitle={post.title} postSlug={post.slug} />
+              <ArticleActions initialLikes={post.likes} postTitle={post.title} postSlug={post.slug} postId={post.id}/>
             </div>
 
             {/* Right: Minimal More Articles Link */}

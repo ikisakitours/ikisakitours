@@ -39,6 +39,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       NotFoundPage: (await import(`../languages/${locale}/NotFoundPage`)).default,
       Gallery: (await import(`../languages/${locale}/Gallery`)).default,
       cookie: (await import(`../languages/${locale}/cookie`)).default,
+      Common: (await import(`../languages/${locale}/Common`)).default,
     },
   };
 });

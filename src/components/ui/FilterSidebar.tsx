@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
-import { X, FilterX } from "lucide-react";
+import { X, FilterX, Star } from "lucide-react";
 
 type CategoryFilterSidebarProps = {
   isOpen: boolean;
@@ -16,6 +16,26 @@ type CategoryFilterSidebarProps = {
   clearFilterText?: string;
   showClearButton?: boolean;
   showCounts?: boolean;
+  selectedRating?: string | number;
+  onSelectRating?: (rating: string | number) => void;
+  selectedSort?: "newest" | "oldest";
+  onSelectSort?: (sort: "newest" | "oldest") => void;
+  totalResults?: number;
+  selectedReadTime?: string;
+  onSelectReadTime?: (time: string) => void;
+  readTimeOptions?: string[];
+  labels?: {
+    categories: string;
+    rating: string;
+    allRatings: string;
+    stars: string;
+    sortByDate: string;
+    newestFirst: string;
+    oldestFirst: string;
+    showResults: string;
+    readTime?: string;
+    allReadTimes?: string;
+  };
 };
 
 const customEase: [number, number, number, number] = [0.76, 0, 0.24, 1];
@@ -62,29 +82,6 @@ const filterMenuVariants: Variants = {
   exit: { x: "calc(100% + 100px)", transition: { duration: 0.8, ease: customEase } },
 };
 
-// Animations (Ultra-Smooth, Zero-Lag Settings)
-const filterStagger: Variants = {
-  initial: {},
-  enter: { transition: { staggerChildren: 0.05, delayChildren: 0.1 } },
-  exit: { transition: { staggerChildren: 0.03, staggerDirection: -1 } },
-};
-
-const filterItemVariants: Variants = {
-  initial: { opacity: 0, y: 20, scale: 0.98 },
-  enter: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
-  },
-  exit: {
-    opacity: 0,
-    y: 10,
-    scale: 0.98,
-    transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-
 export function FilterSidebar({
   isOpen,
   onClose,
@@ -97,6 +94,15 @@ export function FilterSidebar({
   clearFilterText = "Clear Filter",
   showClearButton = true,
   showCounts = true,
+  selectedRating,
+  onSelectRating,
+  selectedSort,
+  onSelectSort,
+  totalResults,
+  selectedReadTime,
+  onSelectReadTime,
+  readTimeOptions,
+  labels,
 }: CategoryFilterSidebarProps) {
   useEffect(() => {
     if (isOpen) {
@@ -136,7 +142,7 @@ export function FilterSidebar({
           >
             <Curve />
 
-            {/* Sidebar Header */}
+            {/* --- 1. HEADER --- */}
             <div className="relative z-10 flex items-center justify-between border-b border-white/10 px-8 py-6">
               <span className="text-body font-bold uppercase tracking-[0.2em] text-gold">{title}</span>
               <button
@@ -148,80 +154,219 @@ export function FilterSidebar({
               </button>
             </div>
 
-            {/* Categories List (Scrollable Area) */}
-            <div className={`relative z-10 flex-1 overflow-y-auto px-6 pb-8 sm:px-8 ${!showClearButton ? "pt-6" : ""}`}>
-              {/* Sticky Clear Filter Button (Fixed) */}
-              {showClearButton && (
-                <div className="sticky top-0 z-20 -mx-6 mb-6 border-b border-white/5 bg-[#0a0a0a] px-6 pb-4 pt-6 sm:-mx-8 sm:px-8">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      onSelectCategory("all");
-                      onClose();
-                    }}
-                    disabled={selectedCategory === "all"}
-                    className={`flex w-full items-center justify-center gap-2 rounded-xl border py-3.5 text-caption font-bold uppercase tracking-[0.2em] transition-all duration-300 ${
-                      selectedCategory !== "all"
-                        ? "border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white"
-                        : "cursor-not-allowed border-white/5 bg-white/5 text-white/20"
-                    }`}
-                  >
-                    <FilterX className="h-4 w-4" />
-                    {clearFilterText}
-                  </button>
-                </div>
-              )}
-              <motion.div
-                variants={filterStagger}
-                initial="initial"
-                animate="enter"
-                exit="exit"
-                className="flex flex-col space-y-3"
-              >
-                {categories.map((item) => {
-                  const isActive = item === selectedCategory;
-                  const count = categoryCounts[item] || 0;
-                  const displayLabel = categoryLabels?.[item] || item;
-                  return (
-                    <motion.button
-                      key={item}
-                      variants={filterItemVariants}
-                      style={{ willChange: "transform, opacity" }}
-                      onClick={() => {
-                        onSelectCategory(item);
-                        onClose();
-                      }}
-                      className={`group relative flex w-full items-center justify-between overflow-hidden rounded-2xl border px-6 py-4 text-left transition-all duration-300 ${
-                        isActive
-                          ? "scale-[1.02] border-gold bg-gold text-black shadow-[0_0_20px_rgba(197,160,89,0.2)]"
-                          : "border-white/5 bg-white/5 text-slate-300 hover:scale-[1.02] hover:border-gold/50 hover:bg-white/10"
-                      }`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <span
-                          className={`text-caption  font-bold uppercase tracking-[0.2em] ${
-                            isActive ? "text-black" : "text-white transition-colors group-hover:text-gold"
-                          }`}
-                        >
+            {/* --- 2. SCROLLABLE CONTENT AREA --- */}
+            <div className="relative z-10 flex-1 overflow-y-auto px-8 py-6 space-y-8 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:bg-gold [&::-webkit-scrollbar-track]:bg-transparent">
+              {/* Category Filter */}
+              <div className="space-y-4">
+                <h3 className="text-caption font-bold uppercase tracking-widest text-white/50">
+                  {labels?.categories || "Categories"}
+                </h3>
+
+                <button
+                  onClick={() => onSelectCategory("all")}
+                  className={`flex w-full items-center justify-between text-body-sm transition-colors hover:text-gold ${
+                    selectedCategory === "all" ? "text-gold" : "text-slate-300"
+                  }`}
+                >
+                  <span className="flex items-center gap-3">
+                    <input type="radio" checked={selectedCategory === "all"} readOnly className="accent-gold h-4 w-4" />
+                    All
+                  </span>
+                  {showCounts && <span className="text-white/30">{categoryCounts["all"] || 0}</span>}
+                </button>
+
+                {categories
+                  .filter((c) => c !== "all")
+                  .map((item) => {
+                    const isActive = item === selectedCategory;
+                    const displayLabel = categoryLabels?.[item] || item;
+
+                    return (
+                      <button
+                        key={item}
+                        onClick={() => onSelectCategory(item)}
+                        className={`flex w-full items-center justify-between text-body-sm transition-colors hover:text-gold ${
+                          isActive ? "text-gold" : "text-slate-300"
+                        }`}
+                      >
+                        <span className="flex items-center gap-3">
+                          <input type="radio" checked={isActive} readOnly className="accent-gold h-4 w-4" />
                           {displayLabel}
                         </span>
-                        {showCounts && (
-                          <span
-                            className={`text-caption font-bold ${
-                              isActive ? "text-black/60" : "text-white/30 group-hover:text-gold/50"
-                            }`}
-                          >
-                            ({count})
-                          </span>
-                        )}
-                      </div>
+                        {showCounts && <span className="text-white/30">{categoryCounts[item] || 0}</span>}
+                      </button>
+                    );
+                  })}
+              </div>
 
-                      {/* Active Indicator */}
-                      {isActive && <span className="h-2 w-2 rounded-full bg-black shadow-sm" />}
-                    </motion.button>
-                  );
-                })}
-              </motion.div>
+              {/* Rating Filter Section */}
+              {onSelectRating && (
+                <div className="space-y-4">
+                  <h3 className="text-caption font-bold uppercase tracking-widest text-white/50">
+                    {labels?.rating || "Rating"}
+                  </h3>
+
+                  <button
+                    onClick={() => onSelectRating("all")}
+                    className={`flex w-full items-center justify-between text-body-sm transition-colors hover:text-gold ${
+                      selectedRating === "all" ? "text-gold" : "text-slate-300"
+                    }`}
+                  >
+                    <span className="flex items-center gap-3">
+                      <input type="radio" checked={selectedRating === "all"} readOnly className="accent-gold h-4 w-4" />
+                      {labels?.allRatings || "All Ratings"}
+                    </span>
+                  </button>
+
+                  {[5, 4, 3, 2, 1].map((rate) => {
+                    const isActive = selectedRating === rate;
+                    return (
+                      <button
+                        key={rate}
+                        onClick={() => onSelectRating(rate)}
+                        className={`flex w-full items-center justify-between text-body-sm transition-colors hover:text-gold ${
+                          isActive ? "text-gold" : "text-slate-300"
+                        }`}
+                      >
+                        <span className="flex items-center gap-3">
+                          <input type="radio" checked={isActive} readOnly className="accent-gold h-4 w-4" />
+                          {rate} {labels?.stars || "Stars"}
+                        </span>
+
+                        <div className="flex gap-1">
+                          {[...Array(5)].map((_, index) => (
+                            <Star
+                              key={index}
+                              className={`h-3.5 w-3.5 ${
+                                index < rate
+                                  ? isActive
+                                    ? "fill-gold text-gold"
+                                    : "fill-white/40 text-white/40"
+                                  : "fill-transparent text-white/10"
+                              }`}
+                            />
+                          ))}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Date Sort Section */}
+              {onSelectSort && (
+                <div className="space-y-4">
+                  <h3 className="text-caption font-bold uppercase tracking-widest text-white/50">
+                    {labels?.sortByDate || "Sort by Date"}
+                  </h3>
+
+                  {[
+                    { id: "newest", label: labels?.newestFirst || "Newest First" },
+                    { id: "oldest", label: labels?.oldestFirst || "Oldest First" },
+                  ].map((sortType) => {
+                    const isActive = selectedSort === sortType.id;
+                    return (
+                      <button
+                        key={sortType.id}
+                        onClick={() => onSelectSort(sortType.id as "newest" | "oldest")}
+                        className={`flex w-full items-center justify-between text-body-sm transition-colors hover:text-gold ${
+                          isActive ? "text-gold" : "text-slate-300"
+                        }`}
+                      >
+                        <span className="flex items-center gap-3">
+                          <input type="radio" checked={isActive} readOnly className="accent-gold h-4 w-4" />
+                          {sortType.label}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+
+              {onSelectReadTime && readTimeOptions && (
+                <div className="space-y-4">
+                  <h3 className="text-caption font-bold uppercase tracking-widest text-white/50">
+                    {labels?.readTime || "Reading Time"}
+                  </h3>
+
+                  <button
+                    onClick={() => onSelectReadTime("all")}
+                    className={`flex w-full items-center justify-between text-body-sm transition-colors hover:text-gold ${
+                      selectedReadTime === "all" ? "text-gold" : "text-slate-300"
+                    }`}
+                  >
+                    <span className="flex items-center gap-3">
+                      <input
+                        type="radio"
+                        checked={selectedReadTime === "all"}
+                        readOnly
+                        className="accent-gold h-4 w-4"
+                      />
+                      {labels?.allReadTimes || "All Times"}
+                    </span>
+                  </button>
+
+                  {readTimeOptions.map((time) => {
+                    const isActive = selectedReadTime === time;
+                    return (
+                      <button
+                        key={time}
+                        onClick={() => onSelectReadTime(time)}
+                        className={`flex w-full items-center justify-between text-body-sm transition-colors hover:text-gold ${
+                          isActive ? "text-gold" : "text-slate-300"
+                        }`}
+                      >
+                        <span className="flex items-center gap-3">
+                          <input type="radio" checked={isActive} readOnly className="accent-gold h-4 w-4" />
+                          {time}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* --- 3. BOTTOM BAR (Matching Reference) --- */}
+            <div className="relative z-20 flex gap-4 border-t border-white/10 bg-[#0a0a0a] p-8">
+              {showClearButton && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onSelectCategory("all");
+                    if (onSelectRating) onSelectRating("all");
+                    if (onSelectSort) onSelectSort("newest");
+                    if (onSelectReadTime) onSelectReadTime("all");
+                  }}
+                  className={`flex flex-1 items-center justify-center gap-2 rounded-full border py-4 text-caption font-bold uppercase transition-all duration-300 ${
+                    selectedCategory !== "all" ||
+                    (selectedRating && selectedRating !== "all") ||
+                    (selectedSort && selectedSort !== "newest") ||
+                    (selectedReadTime && selectedReadTime !== "all")
+                      ? "border-red-500/40 bg-red-950/30 text-red-400 hover:border-red-500/60 hover:bg-red-900/50"
+                      : "border-white/10 text-white hover:bg-white/5"
+                  }`}
+                >
+                  {(selectedCategory !== "all" ||
+                    (selectedRating && selectedRating !== "all") ||
+                    (selectedSort && selectedSort !== "newest") ||
+                    (selectedReadTime && selectedReadTime !== "all")) && <FilterX className="h-3.5 w-3.5" />}
+                  {selectedCategory !== "all" ||
+                  (selectedRating && selectedRating !== "all") ||
+                  (selectedSort && selectedSort !== "newest") ||
+                  (selectedReadTime && selectedReadTime !== "all")
+                    ? "CLEAR FILTER"
+                    : clearFilterText}
+                </button>
+              )}
+
+              <button
+                type="button"
+                onClick={onClose}
+                className="flex-[1.2] rounded-full bg-gold py-4 text-caption font-black uppercase tracking-[0.2em] text-black shadow-md transition-colors hover:bg-yellow-500"
+              >
+                {labels?.showResults || "Show Results"} {totalResults !== undefined ? `(${totalResults})` : ""}{" "}
+              </button>
             </div>
           </motion.div>
         </>

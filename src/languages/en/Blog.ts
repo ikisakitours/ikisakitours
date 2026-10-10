@@ -23,6 +23,13 @@ export default {
     Sidebar: {
       all: "All",
       clearFilter: "Clear Filter",
+      categories: "Categories",
+      sortByDate: "Sort by Date",
+      newestFirst: "Newest First",
+      oldestFirst: "Oldest First",
+      readTime: "Reading Time",
+      allReadTimes: "All Times",
+      showResults: "Show Results",
     },
     EmptyState: {
       backgroundText: "Journal",

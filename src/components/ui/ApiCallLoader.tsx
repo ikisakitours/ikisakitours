@@ -22,7 +22,12 @@ export function ApiCallLoader({ text = "Loading", fullScreen = true }: ApiCallLo
     >
       {/* 1. Background Watermark Effect */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center select-none opacity-[0.03]">
-        <span className="premium-serif whitespace-nowrap text-[12vw] font-black text-gold">IKISAKI</span>
+        <div className="flex flex-col items-end">
+          <span className="premium-serif whitespace-nowrap text-[12vw] font-black leading-none text-gold">IKISAKI</span>
+          <span className="text-[4.2vw] md:text-[2.2vw] font-bold uppercase tracking-[0.6em] text-gold mt-[-1.5vw] mr-[1vw]">
+            TOURS
+          </span>
+        </div>
       </div>
 
       {/* 2. Foreground Content */}
