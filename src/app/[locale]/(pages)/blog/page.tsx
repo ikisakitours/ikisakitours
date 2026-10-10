@@ -13,8 +13,15 @@ export const metadata: Metadata = {
     images: [
       {
         url: blogHero.image,
-        width: 1200,
-        height: 630,
+        width: 600,
+        height: 315,
+        alt: "IkiSaki Tours Journal",
+      },
+
+      {
+        url: blogHero.image,
+        width: 400,
+        height: 400,
         alt: "IkiSaki Tours Journal",
       },
     ],
