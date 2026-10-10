@@ -17,6 +17,7 @@ import { TestimonialCard } from "@/components/testimonials/TestimonialCard";
 
 export function ClientExperiencesSection() {
   const t = useTranslations("HomePage.ClientExperiences");
+  const tApi = useTranslations("Common.Api");
   const { data, isLoading, error, refetch } = useReviews();
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -55,7 +56,7 @@ export function ClientExperiencesSection() {
   if (isLoading) {
     return (
       <section className="bg-lanka-dark py-12 md:py-20 xl:py-20">
-        <ApiCallLoader text="Loading Experiences..." fullScreen={false} />
+        <ApiCallLoader text={tApi("loadingReviews")} fullScreen={false} />
       </section>
     );
   }
@@ -63,7 +64,14 @@ export function ClientExperiencesSection() {
   if (error) {
     return (
       <section className="bg-lanka-dark py-12 md:py-20 xl:py-20">
-        <ApiCallError message={error} fullScreen={false} onRetry={refetch} />
+        <ApiCallError
+          message={tApi("contentLoadError")}
+          fullScreen={false}
+          onRetry={refetch}
+          title={tApi("failedToLoad")}
+          watermark={tApi("errorWatermark")}
+          buttonText={tApi("tryAgain")}
+        />
       </section>
     );
   }
@@ -221,7 +229,7 @@ export function ClientExperiencesSection() {
                 onScroll={checkScrollPosition}
                 className="flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto scrollbar-none [-ms-overflow-style:none] sm:gap-6 md:gap-8 xl:grid xl:grid-cols-3 xl:overflow-visible xl:pb-0 [&::-webkit-scrollbar]:hidden"
               >
-                {displayTestimonials.map((testimonial) => (
+                {displayTestimonials.slice(0, 4).map((testimonial) => (
                   <motion.div
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}

@@ -29,6 +29,14 @@ export default {
     Sidebar: {
       all: "All",
       clearFilter: "Clear Filter",
+      categories: "Categories",
+      rating: "Rating",
+      allRatings: "All Ratings",
+      stars: "Stars",
+      sortByDate: "Sort by Date",
+      newestFirst: "Newest First",
+      oldestFirst: "Oldest First",
+      showResults: "Show Results",
     },
     EmptyState: {
       backgroundText: "Testimonials",

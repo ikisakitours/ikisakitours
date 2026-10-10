@@ -7,12 +7,18 @@ interface ApiCallErrorProps {
   message?: string;
   fullScreen?: boolean;
   onRetry?: () => void;
+  title?: string;
+  watermark?: string;
+  buttonText?: string;
 }
 
 export function ApiCallError({
   message = "Oops! Something went wrong.",
   fullScreen = true,
   onRetry,
+  title = "Failed to Load",
+  watermark = "ERROR",
+  buttonText = "Try Again",
 }: ApiCallErrorProps) {
   return (
     <div
@@ -23,7 +29,7 @@ export function ApiCallError({
     >
       {/* 1. Background Watermark Effect */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center select-none opacity-[0.02]">
-        <span className="premium-serif whitespace-nowrap text-[12vw] font-black text-red-900/30">ERROR</span>
+        <span className="premium-serif whitespace-nowrap text-[12vw] font-black text-red-900/30">{watermark}</span>
       </div>
 
       {/* 2. Foreground Content */}
@@ -35,7 +41,7 @@ export function ApiCallError({
 
         {/* Error Text */}
         <div className="flex flex-col items-center gap-2">
-          <h3 className="text-body font-bold uppercase tracking-[0.2em] text-red-400">Failed to Load</h3>
+          <h3 className="text-body font-bold uppercase tracking-[0.2em] text-red-400">{title}</h3>
           <p className="max-w-md text-sm text-slate-400">{message}</p>
         </div>
 
@@ -45,7 +51,7 @@ export function ApiCallError({
             className="group mt-4 flex items-center gap-2 rounded-full border border-gold/30 bg-[#0a0a0a] px-6 py-2.5 text-tiny font-bold uppercase tracking-[0.2em] text-gold transition-all duration-300 hover:border-gold hover:bg-gold/10"
           >
             <RefreshCw className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-180" />
-            Try Again
+            {buttonText}
           </button>
         )}
       </div>

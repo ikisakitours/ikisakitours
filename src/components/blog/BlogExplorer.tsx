@@ -2,7 +2,6 @@
 
 import { useMemo, useState, useTransition } from "react";
 import { BlogCard } from "@/components/blog/BlogCard";
-import { type BlogPost } from "@/data/blog";
 import { Button } from "@/components/ui/Button";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { FilterSidebar } from "@/components/ui/FilterSidebar";
@@ -11,9 +10,10 @@ import { SearchInput } from "@/components/ui/SearchInput";
 import { Filter } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { PromoModal } from "@/components/ui/PromoModal";
+import type { BlogPreview } from "@/services/blogs/types";
 
 type BlogExplorerProps = {
-  posts: BlogPost[];
+  posts: BlogPreview[];
 };
 
 const INITIAL_COUNT = 6;
@@ -24,6 +24,8 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<string>("all");
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
+  const [readTime, setReadTime] = useState<string>("all");
+  const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
   const [, startTransition] = useTransition();
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -45,18 +47,33 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
     return counts;
   }, [posts, dynamicCategories]);
 
-  // FILTERING LOGIC
+  const dynamicReadTimes = useMemo(() => {
+    const uniqueTimes = Array.from(new Set(posts.map((post) => post.readTime)));
+    return uniqueTimes.sort();
+  }, [posts]);
+
+  // FILTERING AND SORTING LOGIC
   const filteredPosts = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
-    return posts.filter((post) => {
+
+    const filtered = posts.filter((post) => {
       const matchesCategory = category === "all" || post.category === category;
+      const matchesReadTime = readTime === "all" || post.readTime === readTime;
       const matchesQuery =
         normalizedQuery.length === 0 ||
-        `${post.title} ${post.excerpt} ${post.category}`.toLowerCase().includes(normalizedQuery);
+        `${post.title} ${post.summary} ${post.category}`.toLowerCase().includes(normalizedQuery);
 
-      return matchesCategory && matchesQuery;
+      return matchesCategory && matchesReadTime && matchesQuery;
     });
-  }, [category, posts, query]);
+
+    filtered.sort((a, b) => {
+      const dateA = new Date(a.createdAt).getTime();
+      const dateB = new Date(b.createdAt).getTime();
+      return sortOrder === "newest" ? dateB - dateA : dateA - dateB;
+    });
+
+    return filtered;
+  }, [category, readTime, sortOrder, posts, query]);
 
   const visiblePosts = filteredPosts.slice(0, visibleCount);
   const hasMore = visiblePosts.length < filteredPosts.length;
@@ -132,13 +149,41 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
           categoryCounts={categoryCounts}
           clearFilterText={t("Sidebar.clearFilter")}
           categoryLabels={{ all: t("Sidebar.all") }}
+          selectedReadTime={readTime}
+          onSelectReadTime={(time) => {
+            startTransition(() => {
+              setReadTime(time);
+              setVisibleCount(INITIAL_COUNT);
+            });
+          }}
+          readTimeOptions={dynamicReadTimes}
+          selectedSort={sortOrder}
+          onSelectSort={(sort) => {
+            startTransition(() => {
+              setSortOrder(sort);
+            });
+          }}
+          totalResults={filteredPosts.length}
+          // Labels
+          labels={{
+            categories: t("Sidebar.categories"),
+            sortByDate: t("Sidebar.sortByDate"),
+            newestFirst: t("Sidebar.newestFirst"),
+            oldestFirst: t("Sidebar.oldestFirst"),
+            readTime: t("Sidebar.readTime"),
+            allReadTimes: t("Sidebar.allReadTimes"),
+            showResults: t("Sidebar.showResults"),
+            rating: "",
+            allRatings: "",
+            stars: "", 
+          }}
         />
 
         {/* Blog Posts Grid */}
         {visiblePosts.length > 0 ? (
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
-            {visiblePosts.map((post) => (
-              <BlogCard key={post.slug} post={post} />
+            {visiblePosts.map((post, index) => (
+              <BlogCard key={post.slug} post={post} index={index} />
             ))}
           </div>
         ) : (
@@ -156,6 +201,8 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
             onAction={() => {
               setQuery("");
               selectCategory("all");
+              setReadTime("all");
+              setSortOrder("newest");
             }}
           />
         )}

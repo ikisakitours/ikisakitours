@@ -29,6 +29,14 @@ export default {
     Sidebar: {
       all: "すべて",
       clearFilter: "フィルターをクリア",
+      categories: "カテゴリー",
+      rating: "評価",
+      allRatings: "すべての評価",
+      stars: "星",
+      sortByDate: "日付順",
+      newestFirst: "新しい順",
+      oldestFirst: "古い順",
+      showResults: "結果を表示",
     },
     EmptyState: {
       backgroundText: "レビュー",

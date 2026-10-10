@@ -8,7 +8,8 @@ import { GalleryCollection } from "@/components/gallery/GalleryCollection";
 import { GalleryHero } from "@/components/gallery/GalleryHero";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-
+import { fetchBlogServices } from "@/services/blogs/fetchBlogServices";
+import type { BlogPost } from "@/services/blogs/types";
 type GalleryDetailPageProps = {
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -27,12 +28,20 @@ export async function generateMetadata({ params, searchParams }: GalleryDetailPa
 
   const activeFilter = filterOneDay || filterMultiDay || filter;
 
+  let dynamicBlog: BlogPost | null = null;
+  try {
+    dynamicBlog = await fetchBlogServices.getBlogPostBySlug(slug);
+  } catch (error) {
+    console.error(`Metadata fetch failed for ${slug}`, error);
+  }
+
   let post:
     | (typeof blogPosts)[0]
     | typeof multiDayTour
     | typeof oneDayTour
     | (typeof allSpecialEventsList)[0]
-    | undefined = blogPosts.find((p) => p.slug === slug);
+    | BlogPost
+    | undefined = dynamicBlog || blogPosts.find((p) => p.slug === slug);
 
   let isBookingTour = false;
   let isEventGallery = false;
@@ -105,12 +114,20 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
 
   const activeFilter = filterOneDay || filterMultiDay || filter;
 
+  let dynamicBlog: BlogPost | null = null;
+  try {
+    dynamicBlog = await fetchBlogServices.getBlogPostBySlug(slug);
+  } catch (error) {
+    console.error(`Failed to fetch dynamic blog for gallery slug: ${slug}`, error);
+  }
+
   let post:
     | (typeof blogPosts)[0]
     | typeof multiDayTour
     | typeof oneDayTour
     | (typeof allSpecialEventsList)[0]
-    | undefined = blogPosts.find((p) => p.slug === slug);
+    | BlogPost
+    | undefined = dynamicBlog || blogPosts.find((p) => p.slug === slug);
 
   let isBookingTour = false;
   let isEventGallery = false;
@@ -164,8 +181,15 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
   let itemsToShow: GalleryItem[] = [];
   let heroTitle = post.title;
   let heroSubtitle = t("storyGallery");
-
-  if (isEventGallery) {
+  if (dynamicBlog) {
+    itemsToShow = (dynamicBlog.gallery || []).map((imgUrl: string, index: number) => ({
+      id: `dynamic-blog-img-${index}`,
+      src: imgUrl,
+      alt: `${dynamicBlog.title} - Image ${index + 1}`,
+      title: dynamicBlog.title,
+      category: dynamicBlog.category || t("storyGallery"),
+    }));
+  } else if (isEventGallery) {
     const event = post as (typeof allSpecialEventsList)[0];
     heroSubtitle = t("eventHighlightsGallery");
 

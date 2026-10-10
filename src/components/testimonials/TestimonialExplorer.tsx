@@ -27,6 +27,8 @@ export function TestimonialExplorer({ comments }: TestimonialExplorerProps) {
   const t = useTranslations("Testimonials.Explorer");
 
   const [language, setLanguage] = useState<string>("all");
+  const [rating, setRating] = useState<string | number>("all");
+  const [sortDate, setSortDate] = useState<"newest" | "oldest">("newest");
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [, startTransition] = useTransition();
@@ -50,12 +52,32 @@ export function TestimonialExplorer({ comments }: TestimonialExplorerProps) {
 
   // FILTERING LOGIC
   const filteredTestimonials = useMemo(() => {
-    if (language === "all") {
-      return comments;
-    }
-    return comments.filter((testimonial) => getLanguageFromCountry(testimonial.country) === language);
-  }, [language, comments]);
+    let result = [...comments];
 
+    // 2. Language Filter
+    if (language !== "all") {
+      result = result.filter((t) => getLanguageFromCountry(t.country) === language);
+    }
+
+    // 3. Rating Filter
+    if (rating !== "all") {
+      result = result.filter((t) => t.rating === Number(rating));
+    }
+
+    // 4. Date Sorting
+    result.sort((a, b) => {
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
+
+      if (sortDate === "newest") {
+        return dateB - dateA; 
+      } else {
+        return dateA - dateB; 
+      }
+    });
+
+    return result;
+  }, [language, rating, sortDate, comments]);
   const [isWritingReview, setIsWritingReview] = useState(false);
   const visibleTestimonials = filteredTestimonials.slice(0, visibleCount);
   const hasMore = visibleTestimonials.length < filteredTestimonials.length;
@@ -206,6 +228,31 @@ export function TestimonialExplorer({ comments }: TestimonialExplorerProps) {
         categoryCounts={languageCounts}
         clearFilterText={t("Sidebar.clearFilter")}
         categoryLabels={{ all: t("Sidebar.all") }}
+        selectedRating={rating}
+        onSelectRating={(val) => {
+          startTransition(() => {
+            setRating(val);
+            setVisibleCount(INITIAL_COUNT);
+          });
+        }}
+        selectedSort={sortDate}
+        onSelectSort={(val) => {
+          startTransition(() => {
+            setSortDate(val);
+            setVisibleCount(INITIAL_COUNT);
+          });
+        }}
+        totalResults={filteredTestimonials.length}
+        labels={{
+          categories: t("Sidebar.categories"),
+          rating: t("Sidebar.rating"),
+          allRatings: t("Sidebar.allRatings"),
+          stars: t("Sidebar.stars"),
+          sortByDate: t("Sidebar.sortByDate"),
+          newestFirst: t("Sidebar.newestFirst"),
+          oldestFirst: t("Sidebar.oldestFirst"),
+          showResults: t("Sidebar.showResults"),
+        }}
       />
     </section>
   );

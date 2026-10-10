@@ -12,8 +12,9 @@ type HeroProps = {
 };
 
 export function Hero({ image, altText, eyebrow, title, accent, strapline }: HeroProps) {
-  const titleParts = title.split(accent);
-
+  // const titleParts = title.split(accent);
+const hasAccent = accent && title.includes(accent);
+  const titleParts = hasAccent ? title.split(accent) : [title, ""];
   return (
     <header className="relative flex flex-col justify-center text-center bg-lanka-dark min-h-[53vh] md:min-h-[45vh] lg:min-h-[58vh] xl:min-h-[63vh] 2xl:min-h-[60vh] pt-20 pb-12 sm:py-24 md:py-26 lg:py-28 2xl:py-30 3xl:py-32">
       <div className="absolute inset-0 z-0 overflow-hidden">

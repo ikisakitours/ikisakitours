@@ -15,6 +15,7 @@ interface LikeButtonProps {
   countClassName?: string;
   labelClassName?: string;
   iconSize?: number;
+  onToggle?: (isLiked: boolean) => Promise<void>;
 }
 
 export function LikeButton({
@@ -26,23 +27,32 @@ export function LikeButton({
   countClassName,
   labelClassName,
   iconSize,
+  onToggle,
 }: LikeButtonProps) {
   const [isLiked, setIsLiked] = useState(false);
   const totalLikes = initialLikes + (isLiked ? 1 : 0);
   const { user } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
 
-  const handleLikeClick = (e: React.MouseEvent) => {
+  const handleLikeClick = async (e: React.MouseEvent) => {
     e.preventDefault();
 
     if (!user) {
       setShowAuthModal(true);
       return;
     }
+    const newLikedState = !isLiked;
+    setIsLiked(newLikedState);
 
-    setIsLiked((prev) => !prev);
+    if (onToggle) {
+      try {
+        await onToggle(newLikedState);
+      } catch (error) {
+      console.error("Failed to toggle like status:", error);
+        setIsLiked(!newLikedState);
+      }
+    }
   };
-
   return (
     <>
       <button type="button" aria-pressed={isLiked} onClick={handleLikeClick} className={className}>
