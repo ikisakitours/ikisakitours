@@ -26,10 +26,12 @@ export async function generateMetadata({ params }: BlogDetailPageProps): Promise
         images: [
           {
             url: heroImage,
-            width: 1200,
-            height: 630,
+            width: 600,
+            height: 315,
             alt: post.title,
           },
+
+          { url: heroImage, width: 400, height: 400, alt: post.title },
         ],
       },
       twitter: {
