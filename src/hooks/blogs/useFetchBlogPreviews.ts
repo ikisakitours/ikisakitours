@@ -15,6 +15,7 @@ export function useFetchBlogPreviews() {
     setError(null);
     try {
       const response = await fetchBlogServices.getBlogPreviews();
+     console.log("📚 [ALL BLOGS LOADED]:", response);
       setData(response);
     } catch (err: unknown) {
       if (err instanceof Error) {

@@ -4,19 +4,20 @@ import { LikeButton } from "@/components/ui/LikeButton";
 import { ShareButton } from "@/components/ui/ShareButton";
 import { useTranslations } from "next-intl";
 import { useToggleLike } from "@/hooks/blogs/useToggleLike";
+import { useAuth } from "@/context/AuthContext";
 
 type ArticleActionsProps = {
   postId: string;
   initialLikes: number;
+  isLiked?: boolean;
   postTitle: string;
   postSlug: string;
 };
 
-export function ArticleActions({ postId, initialLikes, postTitle, postSlug }: ArticleActionsProps) {
+export function ArticleActions({ postId, initialLikes, isLiked, postTitle, postSlug }: ArticleActionsProps) {
   const t = useTranslations("Blog.Article");
   const { handleLikeToggle } = useToggleLike();
-
-
+  const { user } = useAuth();
 
   return (
     <div className="flex items-center gap-3 sm:gap-6">
@@ -24,9 +25,14 @@ export function ArticleActions({ postId, initialLikes, postTitle, postSlug }: Ar
         {/* Desktop */}
         <LikeButton
           initialLikes={initialLikes}
+          initialIsLiked={isLiked}
           showLabel={true}
           lovedLabel={t("lovedThis")}
-          onToggle={(isLiked) => handleLikeToggle(postId, isLiked)}
+          onToggle={async () => {
+            if (user?.id) {
+              await handleLikeToggle(postId, user.id);
+            }
+          }}
           className="group inline-flex w-full items-center justify-center gap-4 rounded-full border border-white/10 bg-white/5 px-6 py-3 transition-all duration-300 hover:scale-105 hover:border-gold/50 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(197,160,89,0.15)] active:scale-95"
           iconClassName="w-5 h-5 lg:w-5 lg:h-5"
           countClassName="text-body-sm!"
@@ -39,9 +45,14 @@ export function ArticleActions({ postId, initialLikes, postTitle, postSlug }: Ar
         {/* Mobile */}
         <LikeButton
           initialLikes={initialLikes}
+          initialIsLiked={isLiked}
           showLabel={false}
           lovedLabel={t("lovedThis")}
-         onToggle={(isLiked) => handleLikeToggle(postId, isLiked)}
+          onToggle={async () => {
+            if (user?.id) {
+              await handleLikeToggle(postId, user.id);
+            }
+          }}
           className="group inline-flex items-center justify-center gap-2 p-2 transition-all duration-300 hover:scale-110 active:scale-95"
           iconClassName="w-5.5 h-5.5 sm:w-5.5 sm:h-5.5"
           countClassName="text-body-sm!"
