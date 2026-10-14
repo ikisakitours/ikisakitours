@@ -1,12 +1,14 @@
+// src/hooks/blogs/useToggleLike.ts
 import { fetchBlogServices } from "@/services/blogs/fetchBlogServices";
 
 export function useToggleLike() {
-  const handleLikeToggle = async (postId: string, isLiked: boolean) => {
+  const handleLikeToggle = async (postId: string, userId: string) => {
     try {
-      const action = isLiked ? "like" : "unlike";
-      await fetchBlogServices.toggleLike(postId, action);
+      const response = await fetchBlogServices.toggleLike(postId, userId);
+      console.log("❤️ [LIKE TOGGLED]:", response);
+      return response;
     } catch (error) {
-      console.error("Like update failed:", error);
+      console.error("❌ [LIKE ERROR]:", error);
       throw error;
     }
   };

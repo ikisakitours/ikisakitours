@@ -8,6 +8,7 @@ import { Heart } from "lucide-react";
 
 interface LikeButtonProps {
   initialLikes: number;
+  initialIsLiked?: boolean;
   className?: string;
   showLabel?: boolean;
   lovedLabel?: string;
@@ -20,6 +21,7 @@ interface LikeButtonProps {
 
 export function LikeButton({
   initialLikes,
+  initialIsLiked = false,
   className,
   showLabel = false,
   lovedLabel = "Loved this",
@@ -29,30 +31,46 @@ export function LikeButton({
   iconSize,
   onToggle,
 }: LikeButtonProps) {
-  const [isLiked, setIsLiked] = useState(false);
-  const totalLikes = initialLikes + (isLiked ? 1 : 0);
   const { user } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
 
+  const [isLiked, setIsLiked] = useState(initialIsLiked);
+  const [likesCount, setLikesCount] = useState(initialLikes);
+
+  const [prevIsLikedProp, setPrevIsLikedProp] = useState(initialIsLiked);
+  const [prevLikesProp, setPrevLikesProp] = useState(initialLikes);
+
+  if (initialIsLiked !== prevIsLikedProp || initialLikes !== prevLikesProp) {
+    setIsLiked(initialIsLiked);
+    setLikesCount(initialLikes);
+    setPrevIsLikedProp(initialIsLiked);
+    setPrevLikesProp(initialLikes);
+  }
+
   const handleLikeClick = async (e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation();
 
     if (!user) {
+      // console.log("User not logged in, opening modal...");
       setShowAuthModal(true);
       return;
     }
     const newLikedState = !isLiked;
     setIsLiked(newLikedState);
+    setLikesCount((prev) => (newLikedState ? prev + 1 : Math.max(prev - 1, 0)));
 
     if (onToggle) {
       try {
         await onToggle(newLikedState);
       } catch (error) {
-      console.error("Failed to toggle like status:", error);
+        console.error("Failed to toggle like status:", error);
         setIsLiked(!newLikedState);
+        setLikesCount((prev) => (!newLikedState ? prev + 1 : Math.max(prev - 1, 0)));
       }
     }
   };
+
   return (
     <>
       <button type="button" aria-pressed={isLiked} onClick={handleLikeClick} className={className}>
@@ -66,7 +84,7 @@ export function LikeButton({
         <span
           className={`${showLabel ? "text-sm font-bold text-slate-400" : "text-[10px] font-bold text-slate-400"} ${countClassName || ""}`}
         >
-          {totalLikes.toLocaleString()}
+          {likesCount.toLocaleString()}
         </span>
         {showLabel && (
           <span

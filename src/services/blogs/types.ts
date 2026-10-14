@@ -10,7 +10,7 @@ export interface BlogPreview {
   author: string;
   previewImage: string | null;
   likes: number;
-  createdAt: string; 
+  createdAt: string;
 }
 
 export interface BlogPost {
@@ -26,4 +26,5 @@ export interface BlogPost {
   likes: number;
   createdAt: string;
   updatedAt: string;
+  isLiked?: boolean;
 }

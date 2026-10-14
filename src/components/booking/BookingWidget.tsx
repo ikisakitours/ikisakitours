@@ -8,6 +8,7 @@ import { FormError } from "@/components/ui/FormError";
 import { Check, Info, Zap, Banknote, CalendarDays } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useBookingWidget } from "@/hooks/Booking/useBookingWidget";
+import { useAuth } from "@/context/AuthContext";
 
 type TourType = {
   title: string;
@@ -36,6 +37,7 @@ export function BookingWidget({ tour, className = "" }: BookingWidgetProps) {
   const t = useTranslations("Booking.Widget");
   const tForms = useTranslations("SharedForm");
   const rawAssurances = t.raw("assurances") as string[];
+  const { user } = useAuth();
 
   const travelerOptions = [
     {
@@ -83,7 +85,12 @@ export function BookingWidget({ tour, className = "" }: BookingWidgetProps) {
           <span className="text-caption font-bold uppercase tracking-[0.2em] text-slate-400">{t("loveTour")}</span>
           <div className="flex items-center gap-3">
             <LikeButton
+              showLabel={false}
               initialLikes={tour.likes}
+              onToggle={async () => {
+                if (user?.id) {
+                }
+              }}
               countClassName="text-caption!"
               iconClassName="w-5 h-5 sm:w-5.5 sm:h-5.5"
               className="group glass-card flex h-10 w-auto items-center justify-center gap-2.5 rounded-full border border-white/5 px-4 transition-all hover:border-gold/30"
@@ -98,9 +105,7 @@ export function BookingWidget({ tour, className = "" }: BookingWidgetProps) {
           <div className="mb-6 border-b border-white/10 pb-5">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <div className="mb-1 text-caption font-bold uppercase tracking-[0.3em] text-gold">
-                  {t("Rate")}
-                </div>
+                <div className="mb-1 text-caption font-bold uppercase tracking-[0.3em] text-gold">{t("Rate")}</div>
                 <div className="flex items-baseline gap-2">
                   <span className="text-4xl font-bold tracking-tighter text-white">${tour.price}</span>
                   <span className="text-caption font-bold uppercase tracking-widest text-slate-400">
@@ -173,7 +178,12 @@ export function BookingWidget({ tour, className = "" }: BookingWidgetProps) {
             </div>
           </div>
 
-          <Button type="submit" disabled={isLoading} variant="auth" className="w-full disabled:opacity-60 disabled:cursor-not-allowed">
+          <Button
+            type="submit"
+            disabled={isLoading}
+            variant="auth"
+            className="w-full disabled:opacity-60 disabled:cursor-not-allowed"
+          >
             {isLoading ? tForms("ButtonsLoading.checkingAvailability") : tForms("Buttons.checkAvailability")}
           </Button>
 

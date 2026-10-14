@@ -140,7 +140,7 @@ function BlogArticleInner({ post }: BlogArticleProps) {
           <div className="mt-8 flex flex-row items-center justify-between gap-4 border-t border-white/10 pt-10">
             {/* Left: Like & Share Buttons Only */}
             <div className="flex items-center">
-              <ArticleActions initialLikes={post.likes} postTitle={post.title} postSlug={post.slug} postId={post.id}/>
+              <ArticleActions initialLikes={post.likes} isLiked={post.isLiked} postTitle={post.title} postSlug={post.slug} postId={post.id}/>
             </div>
 
             {/* Right: Minimal More Articles Link */}
