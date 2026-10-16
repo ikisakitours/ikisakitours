@@ -1,11 +1,11 @@
-import React from "react";
-import { notFound } from "next/navigation";
-import { Hero } from "@/components/ui/Hero";
-import DestinationsBody from "@/components/Destinations/DestinationSlug/DestinationsBody";
-import { destinationsData } from "@/data/destinationData";
+// src/app/[locale]/(pages)/destination/[slug]/page.tsx
+
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { PromoModal } from "@/components/ui/PromoModal";
+import { DestinationSlugClientWrapper } from "@/components/Destinations/DestinationSlugClientWrapper";
+import { fetchDestinationServices } from "@/services/destinations/fetchDestinationServices";
 
 type DestinationPageProps = {
   params: Promise<{ slug: string }>;
@@ -13,42 +13,29 @@ type DestinationPageProps = {
 
 export async function generateMetadata({ params }: DestinationPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const dest = destinationsData.find((d) => d.slug === slug);
-
-  if (!dest) {
+  try {
+    const dest = await fetchDestinationServices.getDestinationBySlug(slug);
     return {
-      title: "Destination Not Found ",
+      title: `${dest.title} Travel Guide & Attractions`,
+      description: dest.summary,
+    };
+  } catch {
+    return {
+      title: "Destination Not Found",
       description: "The requested destination could not be found.",
     };
   }
-
-  return {
-    title: `${dest.name} - Travel Guide & Attractions `,
-    description: dest.hero.strapline,
-  };
 }
 
 export default async function DestinationPage({ params }: DestinationPageProps) {
   const { slug } = await params;
 
-  const dest = destinationsData.find((d) => d.slug === slug);
-
-  if (!dest) {
-    notFound();
-  }
-
   return (
     <main className="min-h-screen bg-lanka-dark">
-      <Hero
-        image={dest.hero.image}
-        altText={dest.name}
-        eyebrow={dest.hero.eyebrow}
-        title={dest.hero.title}
-        accent={dest.hero.accent}
-        strapline={dest.hero.strapline}
-      />
-
-      <DestinationsBody dest={dest} />
+      <Suspense fallback={<div className="text-white">Loading...</div>}>
+        <DestinationSlugClientWrapper slug={slug} />
+      </Suspense>
+      
       <ContainerLayout>
         <PromoModal />
       </ContainerLayout>

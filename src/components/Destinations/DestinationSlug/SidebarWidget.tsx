@@ -1,13 +1,14 @@
 import React from "react";
 import { Compass, Info } from "lucide-react";
-import { Destination } from "@/data/destinationData";
 import { useTranslations } from "next-intl";
+import type { DestinationFull } from "@/services/destinations/types";
+
 type Props = {
   name: string;
-  guide: Destination["guide"];
+  dest: DestinationFull;
 };
 
-export default function SidebarWidget({ name, guide }: Props) {
+export default function SidebarWidget({ name, dest }: Props) {
   const t = useTranslations("Destinations.Slug");
   return (
     <aside className="flex w-full flex-col gap-6 lg:mx-auto lg:max-w-2xl xl:mx-0 xl:max-w-none xl:col-span-4 xl:sticky xl:top-32">
@@ -23,19 +24,19 @@ export default function SidebarWidget({ name, guide }: Props) {
         <div className="flex flex-col">
           <div className="flex items-center justify-between border-b border-white/5 py-4">
             <span className="text-body-sm font-medium text-slate-400">Best Time to Visit</span>
-            <span className="text-right text-body-sm font-bold text-white">{guide.bestTime}</span>
+            <span className="text-right text-body-sm font-bold text-white">{dest.bestTimeToVisit}</span>
           </div>
           <div className="flex items-center justify-between border-b border-white/5 py-4">
             <span className="text-body-sm font-medium text-slate-400">Climate</span>
-            <span className="text-right text-body-sm font-bold text-white">{guide.climate}</span>
+            <span className="text-right text-body-sm font-bold text-white">{dest.climate}</span>
           </div>
           <div className="flex items-center justify-between border-b border-white/5 py-4">
             <span className="text-body-sm font-medium text-slate-400">Primary Languages</span>
-            <span className="text-right text-body-sm font-bold text-white">{guide.languages}</span>
+            <span className="text-right text-body-sm font-bold text-white">{dest.primaryLanguage}</span>
           </div>
           <div className="flex items-center justify-between py-4">
             <span className="text-body-sm font-medium text-slate-400">Local Currency</span>
-            <span className="text-right text-body-sm font-bold text-white">{guide.currency}</span>
+            <span className="text-right text-body-sm font-bold text-white">{dest.localCurrency}</span>
           </div>
         </div>
       </div>

@@ -6,33 +6,33 @@ import MapHeader from "./MapHeader";
 import MapContent from "./MapContent";
 import { useTranslations } from "next-intl";
 import MapLoader from "./MapLoader";
+import type { DestinationMapData } from "@/services/destinations/types";
+import { useFetchDestinationMapData } from "@/hooks/destinations/useFetchDestinationMapData";
 //Icons
 import { X } from "lucide-react";
-
-// Mock Data Import
-import { destinationsData, type Destination } from "@/data/destinationData";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type LeafletModules = any;
 
 type DestinationsMapProps = {
   onClose?: () => void;
-  routeDestinations?: Destination[];
+  routeDestinations?: DestinationMapData[];
   isRouteMode?: boolean;
 };
 
 export default function DestinationsMap({ onClose, routeDestinations, isRouteMode }: DestinationsMapProps) {
+  const { data: fetchedMapData, isLoading, error } = useFetchDestinationMapData();
   const tMap = useTranslations("Destinations.Map");
+  const tApi = useTranslations("Common.Api");
   const [MapComponents, setMapComponents] = useState<LeafletModules | null>(null);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
   const [mapConfig, setMapConfig] = useState({ zoom: 7, center: [7.8731, 80.7718] as [number, number] });
 
   const [query, setQuery] = useState("");
 
-  const baseDestinations = routeDestinations || destinationsData;
+  const baseDestinations = routeDestinations || fetchedMapData || [];
 
-  // Filter Data
-  const filteredDestinations = baseDestinations.filter((d) => d.name.toLowerCase().includes(query.toLowerCase()));
+  const filteredDestinations = baseDestinations.filter((d) => d.title.toLowerCase().includes(query.toLowerCase()));
 
   useEffect(() => {
     Promise.all([import("react-leaflet"), import("leaflet")]).then(([mod, L]) => {
@@ -71,7 +71,16 @@ export default function DestinationsMap({ onClose, routeDestinations, isRouteMod
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  if (!MapComponents) {
+  if (error) {
+    return (
+      <div className="flex h-96 w-full flex-col items-center justify-center rounded-4xl bg-lanka-dark text-center p-6">
+        <p className="text-body font-bold text-red-400 mb-2">{tApi("contentLoadError")}</p>
+        <p className="text-tiny text-slate-400">{tApi("failedToLoad")}</p>
+      </div>
+    );
+  }
+
+  if (isLoading || !MapComponents) {
     return <MapLoader loadingText={tMap("loading")} />;
   }
 

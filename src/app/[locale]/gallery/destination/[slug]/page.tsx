@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
-import { destinationsData } from "@/data/destinationData";
 import { GalleryCollection } from "@/components/gallery/GalleryCollection";
 import { GalleryHero } from "@/components/gallery/GalleryHero";
 import type { GalleryItem } from "@/data/blog";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { fetchDestinationServices } from "@/services/destinations/fetchDestinationServices";
 
 type DestinationGalleryPageProps = {
   params: Promise<{ slug: string }>;
@@ -14,40 +14,44 @@ type DestinationGalleryPageProps = {
 export async function generateMetadata({ params }: DestinationGalleryPageProps): Promise<Metadata> {
   const t = await getTranslations("Gallery.Metadata");
   const { slug } = await params;
-  const dest = destinationsData.find((d) => d.slug === slug);
 
-  if (!dest) {
+  try {
+    const dest = await fetchDestinationServices.getDestinationBySlug(slug);
     return {
-     title: t("notFoundTitle"),
+      title: t("destTitle", { name: dest.title }),
+      description: t("destDesc", { name: dest.title }),
+    };
+  } catch {
+    return {
+      title: t("notFoundTitle"),
       description: t("notFoundDestDesc"),
     };
   }
-
-  return {
-    title: t("destTitle", { name: dest.name }),
-    description: t("destDesc", { name: dest.name }),
-  };
 }
 
 export default async function DestinationGalleryPage({ params }: DestinationGalleryPageProps) {
   const t = await getTranslations("Gallery.Labels");
   const { slug } = await params;
 
-  const dest = destinationsData.find((d) => d.slug === slug);
+  let dest;
+  try {
+    dest = await fetchDestinationServices.getDestinationBySlug(slug);
+  } catch {
+    notFound();
+  }
 
   if (!dest) {
     notFound();
   }
-
   const dynamicBackLink = `/destination/${slug}`;
   const dynamicBackLabel = t("backToDestination");
 
-  const itemsToShow: GalleryItem[] = dest.photos.map((photoSrc, index) => ({
+  const itemsToShow: GalleryItem[] = (dest.images || []).map((photoSrc, index) => ({
     id: `${dest.slug}-${index}`,
     src: photoSrc,
-    alt: `${dest.name} Image ${index + 1}`,
-   title: t("destHighlights", { name: dest.name }),
-    category: dest.name,
+    alt: `${dest.title} Image ${index + 1}`,
+    title: t("destHighlights", { name: dest.title }),
+    category: dest.title,
   }));
 
   return (
@@ -55,9 +59,9 @@ export default async function DestinationGalleryPage({ params }: DestinationGall
       <GalleryHero
         backLink={dynamicBackLink}
         backLabel={dynamicBackLabel}
-       title={t("explore")}
-        accent={dest.name}
-       subtitle={t("visualJourneyThrough", { name: dest.name })}
+        title={t("explore")}
+        accent={dest.title}
+        subtitle={t("visualJourneyThrough", { name: dest.title })}
       />
       <GalleryCollection items={itemsToShow} />
     </main>

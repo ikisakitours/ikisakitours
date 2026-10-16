@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "@/lib/i18nNavigation";
 import { LoadingImage } from "@/components/ui/LoadingImage";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { type Destination } from "@/data/destinationData";
+import { type DestinationMapData } from "@/services/destinations/types";
 import { type LeafletMouseEvent } from "leaflet";
 import { useTranslations } from "next-intl";
 //Icons
@@ -19,7 +19,7 @@ type MapContentProps = {
   isDarkMode: boolean;
   query: string;
   setQuery: (val: string) => void;
-  destinations: Destination[];
+  destinations: DestinationMapData[];
   isRouteMode?: boolean;
 };
 
@@ -55,8 +55,7 @@ export default function MapContent({
 
     const fetchRoute = async () => {
       try {
-        const coordinatesString = destinations.map((d) => `${d.lng},${d.lat}`).join(";");
-
+        const coordinatesString = destinations.map((d) => `${d.coordinates.lng},${d.coordinates.lat}`).join(";");
         const response = await fetch(
           `https://router.project-osrm.org/route/v1/driving/${coordinatesString}?overview=full&geometries=geojson`,
         );
@@ -111,12 +110,11 @@ export default function MapContent({
         });
       }, 100);
     } else {
-      const matchedDest = destinations.find((d) => d.name.toLowerCase() === query.toLowerCase());
-
+      const matchedDest = destinations.find((d) => d.title.toLowerCase() === query.toLowerCase());
       if (matchedDest) {
         blurKeyboard();
 
-        map.flyTo([matchedDest.lat, matchedDest.lng], 13, {
+        map.flyTo([matchedDest.coordinates.lat, matchedDest.coordinates.lng], 13, {
           animate: true,
           duration: 1.5,
           easeLinearity: 0.25,
@@ -201,7 +199,9 @@ export default function MapContent({
 
           {isRouteMode && destinations.length > 1 && (
             <Polyline
-              positions={routePath.length > 0 ? routePath : destinations.map((d) => [d.lat, d.lng])}
+              positions={
+                routePath.length > 0 ? routePath : destinations.map((d) => [d.coordinates.lat, d.coordinates.lng])
+              }
               pathOptions={{
                 color: isDarkMode ? "#C5A059" : "#4285F4",
                 weight: lineWidth,
@@ -219,9 +219,9 @@ export default function MapContent({
                 <div class="pointer-events-auto relative flex scale-90 flex-col items-center sm:scale-100">
                   <div class="group relative mb-1 flex w-max cursor-pointer items-center gap-1.5 rounded-full border border-gold/40 ${isDarkMode ? "bg-lanka-black/90" : "bg-white/90 shadow-sm"} px-1 py-0.5 shadow-xl backdrop-blur-md transition-transform hover:scale-105 sm:gap-2 sm:px-1.5 sm:py-1">
                     <div class="relative h-5 w-5 shrink-0 overflow-hidden rounded-full border border-gold/60 sm:h-6 sm:w-6">
-                      <img src="${dest.hero.image}" alt="${dest.name}" class="h-full w-full object-cover" />
+                      <img src="${dest.heroImage}" alt="${dest.title}" class="h-full w-full object-cover" />
                     </div>
-                    <span class="whitespace-nowrap pr-1.5 text-tiny font-bold uppercase tracking-wider ${isDarkMode ? "text-white" : "text-lanka-black"} sm:pr-2 ">${dest.name}</span>
+                    <span class="whitespace-nowrap pr-1.5 text-tiny font-bold uppercase tracking-wider ${isDarkMode ? "text-white" : "text-lanka-black"} sm:pr-2 ">${dest.title}</span>
                   </div>
                 <div class="relative h-3.5 w-3.5 rounded-full border shadow-[0_0_10px_rgba(197,160,89,0.9)] sm:h-4 sm:w-4 ${isDarkMode ? "border-white bg-gold" : "border-gold bg-lanka-black"}">
                     <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-1 w-1 rounded-full sm:h-1.2 sm:w-1.2 ${isDarkMode ? "bg-lanka-black" : "bg-gold"}"></div>
@@ -240,7 +240,7 @@ export default function MapContent({
                 ref={(r: any) => {
                   if (r) markerRefs.current[dest.slug] = r;
                 }}
-                position={[dest.lat, dest.lng]}
+                position={[dest.coordinates.lat, dest.coordinates.lng]}
                 icon={customHtmlIcon}
                 eventHandlers={{
                   click: (e: LeafletMouseEvent) => {
@@ -312,8 +312,8 @@ export default function MapContent({
 
                     <div className="relative h-28 w-full overflow-hidden">
                       <LoadingImage
-                        src={dest.hero.image}
-                        alt={dest.name}
+                        src={dest.heroImage || "/images/default-destination.jpg"}
+                        alt={dest.title}
                         fill
                         sizes="220px"
                         wrapperClassName="w-full h-full"
@@ -326,12 +326,12 @@ export default function MapContent({
                       <h3
                         className={`mb-1 text-body-sm font-bold tracking-wide ${isDarkMode ? "text-white" : "text-lanka-black"}`}
                       >
-                        {dest.name}
+                        {dest.title}
                       </h3>
                       <p
                         className={`mb-3 line-clamp-2 text-caption font-light leading-relaxed ${isDarkMode ? "text-slate-300" : "text-slate-600"}`}
                       >
-                        {dest.hero.strapline}
+                        {dest.summary}
                       </p>
                       <Link
                         href={`/destination/${dest.slug}?from=${isRouteMode ? "routeMap" : "map"}`}

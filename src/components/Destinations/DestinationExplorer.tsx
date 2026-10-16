@@ -3,7 +3,6 @@
 import { useMemo, useState, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/lib/i18nNavigation";
-import { type Destination } from "@/data/destinationData";
 import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
@@ -15,10 +14,11 @@ import DestinationsCard from "@/components/Destinations/DestinationsCard";
 import FilterButtonSearchInput from "@/components/Destinations/FilterButtonSearchInput";
 import DestinationsMap from "@/components/Destinations/DestinationsMap/DestinationsMap";
 
-type DestinationExplorerProps = {
-  destinations: Destination[];
-};
+import { type DestinationPreview } from "@/services/destinations/types";
 
+type DestinationExplorerProps = {
+  destinations: DestinationPreview[];
+};
 const INITIAL_COUNT = 3;
 
 export function DestinationExplorer({ destinations }: DestinationExplorerProps) {
@@ -45,8 +45,21 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
     router.replace(`?${params.toString()}`, { scroll: false });
   };
 
+  const [bestTime, setBestTime] = useState<string>("all");
+  const [climate, setClimate] = useState<string>("all");
+
+  const dynamicBestTimes = useMemo(() => {
+    if (!destinations) return [];
+    return Array.from(new Set(destinations.map((dest) => dest.bestTimeToVisit).filter(Boolean)));
+  }, [destinations]);
+
+  const dynamicClimates = useMemo(() => {
+    if (!destinations) return [];
+    return Array.from(new Set(destinations.map((dest) => dest.climate).filter(Boolean)));
+  }, [destinations]);
+
   const dynamicCategories = useMemo(() => {
-    const uniqueRegions = Array.from(new Set(destinations.map((dest) => dest.region)));
+    const uniqueRegions = Array.from(new Set(destinations.map((dest) => dest.province)));
     return ["all", ...uniqueRegions];
   }, [destinations]);
 
@@ -54,7 +67,7 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
     const counts: Record<string, number> = { all: destinations.length };
 
     destinations.forEach((dest) => {
-      const reg = dest.region;
+      const reg = dest.province;
       if (counts[reg] !== undefined) {
         counts[reg] += 1;
       } else {
@@ -70,17 +83,20 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
   }, [destinations, dynamicCategories]);
 
   const filteredDestinations = useMemo(() => {
+    if (!destinations) return [];
     const normalizedQuery = query.trim().toLowerCase();
 
     return destinations.filter((item) => {
-      const matchesCategory = category === "all" || item.region === category;
-      const matchesSearch =
-        normalizedQuery.length === 0 ||
-        `${item.name} ${item.about} ${item.hero.strapline}`.toLowerCase().includes(normalizedQuery);
+      const matchesCategory = category === "all" || item.province === category;
+      const matchesBestTime = bestTime === "all" || item.bestTimeToVisit === bestTime;
+      const matchesClimate = climate === "all" || item.climate === climate;
 
-      return matchesCategory && matchesSearch;
+      const matchesSearch =
+        normalizedQuery.length === 0 || `${item.title} ${item.summary}`.toLowerCase().includes(normalizedQuery);
+
+      return matchesCategory && matchesBestTime && matchesClimate && matchesSearch;
     });
-  }, [category, destinations, query]);
+  }, [category, bestTime, climate, destinations, query]);
 
   const visibleDestinations = filteredDestinations.slice(0, visibleCount);
   const hasMore = visibleDestinations.length < filteredDestinations.length;
@@ -213,8 +229,33 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
         }}
         title={t("filterRegions")}
         categoryCounts={categoryCounts}
+        totalResults={filteredDestinations.length}
+        bestTimes={dynamicBestTimes}
+        selectedBestTime={bestTime}
+        onSelectBestTime={(val) => {
+          startTransition(() => {
+            setBestTime(val);
+            setVisibleCount(INITIAL_COUNT);
+          });
+        }}
+        climates={dynamicClimates}
+        selectedClimate={climate}
+        onSelectClimate={(val) => {
+          startTransition(() => {
+            setClimate(val);
+            setVisibleCount(INITIAL_COUNT);
+          });
+        }}
+        // Labels
         clearFilterText={t("Sidebar.clearFilter")}
-        categoryLabels={{ all: t("Sidebar.all") }}
+        categoryLabels={{ all: t("Sidebar.allProvinces") }}
+        labels={{
+          categories: t("Sidebar.regions"),
+          bestTime: t("Sidebar.bestTime"),
+          allBestTimes: t("Sidebar.allBestTimes"),
+          climate: t("Sidebar.climate"),
+          allClimates: t("Sidebar.allClimates"),
+        }}
       />
     </section>
   );
