@@ -23,7 +23,7 @@ export default {
     loadMore: "さらに目的地を読み込む",
     showing: "表示中",
     of: "/",
-    destinations: "目的地",
+    destinations: "場所",
     destinationSingular: "目的地",
     EmptyState: {
       backgroundText: "島",
@@ -36,6 +36,12 @@ export default {
     Sidebar: {
       all: "すべて",
       clearFilter: "フィルターをクリア",
+      regions: "地域",
+      allProvinces: "すべての州",
+      bestTime: "ベストシーズン",
+      allBestTimes: "すべての時期",
+      climate: "気候",
+      allClimates: "すべての気候",
     },
   },
   Card: {

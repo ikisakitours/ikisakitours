@@ -43,7 +43,7 @@ export function SearchInput({
             type="button"
             onClick={() => onChange("")}
             className={`absolute ${
-              count !== undefined ? "right-28" : "right-4"
+              count !== undefined ? "right-24" : "right-4"
             } top-1/2 -translate-y-1/2 p-1 rounded-full bg-white/5 text-white/60 hover:bg-white/20 hover:text-white transition-all duration-200 shrink-0 border border-transparent hover:border-white/10`}
             aria-label="Clear search"
           >

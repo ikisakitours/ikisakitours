@@ -45,8 +45,9 @@ export default function PhotosSection({ name, slug, photos }: Props) {
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {photos.slice(0, 3).map((photoSrc, index) => {
-          const isLast = index === 2;
+        {photos.slice(0, 3).map((photoSrc, index, arr) => {
+          // වෙනස් කළ තැන 👇 (අවසාන photo එක නම් හෝ photos 3 කට වඩා අඩු වී එහි අන්තිම එක නම්)
+          const isLast = index === arr.length - 1;
 
           return (
             <Link

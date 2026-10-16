@@ -23,7 +23,7 @@ export default {
     loadMore: "Load More Destinations",
     showing: "Showing",
     of: "of",
-    destinations: "Destinations",
+    destinations: "Places",
     destinationSingular: "Destination",
     EmptyState: {
       backgroundText: "Island",
@@ -35,7 +35,13 @@ export default {
     },
     Sidebar: {
       all: "All",
+      regions: "Regions",
       clearFilter: "Clear Filter",
+      allProvinces: "All Provinces",
+      bestTime: "Best Time to Visit",
+      allBestTimes: "All Times",
+      climate: "Climate",
+      allClimates: "All Climates",
     },
   },
   Card: {

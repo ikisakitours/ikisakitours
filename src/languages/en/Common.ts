@@ -2,6 +2,8 @@ export default {
   Api: {
     loadingReviews: "Loading Reviews...",
     loadingJournals: "Loading Journals...",
+    loadingDestinations: "Loading Destinations...",
+    loadingDestination: "Loading Destination...",
     errorWatermark: "ERROR",
     failedToLoad: "Oops! Something went wrong.",
     tryAgain: "Try Again",

@@ -24,17 +24,27 @@ type CategoryFilterSidebarProps = {
   selectedReadTime?: string;
   onSelectReadTime?: (time: string) => void;
   readTimeOptions?: string[];
+  selectedBestTime?: string;
+  onSelectBestTime?: (time: string) => void;
+  bestTimes?: string[];
+  selectedClimate?: string;
+  onSelectClimate?: (climate: string) => void;
+  climates?: string[];
   labels?: {
-    categories: string;
-    rating: string;
-    allRatings: string;
-    stars: string;
-    sortByDate: string;
-    newestFirst: string;
-    oldestFirst: string;
-    showResults: string;
+    categories?: string;
+    rating?: string;
+    allRatings?: string;
+    stars?: string;
+    sortByDate?: string;
+    newestFirst?: string;
+    oldestFirst?: string;
+    showResults?: string;
     readTime?: string;
     allReadTimes?: string;
+    bestTime?: string;
+    allBestTimes?: string;
+    climate?: string;
+    allClimates?: string;
   };
 };
 
@@ -102,6 +112,12 @@ export function FilterSidebar({
   selectedReadTime,
   onSelectReadTime,
   readTimeOptions,
+  selectedBestTime,
+  onSelectBestTime,
+  bestTimes,
+  selectedClimate,
+  onSelectClimate,
+  climates,
   labels,
 }: CategoryFilterSidebarProps) {
   useEffect(() => {
@@ -325,6 +341,82 @@ export function FilterSidebar({
                   })}
                 </div>
               )}
+
+              {/* Best Time Filter Section */}
+              {onSelectBestTime && bestTimes && (
+                <div className="space-y-4">
+                  <h3 className="text-caption font-bold uppercase tracking-widest text-white/50">
+                    {labels?.bestTime || "Best Time to Visit"}
+                  </h3>
+                  <button
+                    onClick={() => onSelectBestTime("all")}
+                    className={`flex w-full items-center justify-between text-body-sm transition-colors hover:text-gold ${selectedBestTime === "all" ? "text-gold" : "text-slate-300"}`}
+                  >
+                    <span className="flex items-center gap-3">
+                      <input
+                        type="radio"
+                        checked={selectedBestTime === "all"}
+                        readOnly
+                        className="accent-gold h-4 w-4"
+                      />
+                      {labels?.allBestTimes || "All Times"}
+                    </span>
+                  </button>
+                  {bestTimes.map((time) => {
+                    const isActive = selectedBestTime === time;
+                    return (
+                      <button
+                        key={time}
+                        onClick={() => onSelectBestTime(time)}
+                        className={`flex w-full items-center justify-between text-body-sm transition-colors hover:text-gold ${isActive ? "text-gold" : "text-slate-300"}`}
+                      >
+                        <span className="flex items-center gap-3">
+                          <input type="radio" checked={isActive} readOnly className="accent-gold h-4 w-4" />
+                          {time}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Climate Filter Section */}
+              {onSelectClimate && climates && (
+                <div className="space-y-4">
+                  <h3 className="text-caption font-bold uppercase tracking-widest text-white/50">
+                    {labels?.climate || "Climate"}
+                  </h3>
+                  <button
+                    onClick={() => onSelectClimate("all")}
+                    className={`flex w-full items-center justify-between text-body-sm transition-colors hover:text-gold ${selectedClimate === "all" ? "text-gold" : "text-slate-300"}`}
+                  >
+                    <span className="flex items-center gap-3">
+                      <input
+                        type="radio"
+                        checked={selectedClimate === "all"}
+                        readOnly
+                        className="accent-gold h-4 w-4"
+                      />
+                      {labels?.allClimates || "All Climates"}
+                    </span>
+                  </button>
+                  {climates.map((climateItem) => {
+                    const isActive = selectedClimate === climateItem;
+                    return (
+                      <button
+                        key={climateItem}
+                        onClick={() => onSelectClimate(climateItem)}
+                        className={`flex w-full items-center justify-between text-body-sm transition-colors hover:text-gold ${isActive ? "text-gold" : "text-slate-300"}`}
+                      >
+                        <span className="flex items-center gap-3">
+                          <input type="radio" checked={isActive} readOnly className="accent-gold h-4 w-4" />
+                          {climateItem}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
             {/* --- 3. BOTTOM BAR (Matching Reference) --- */}
@@ -337,12 +429,16 @@ export function FilterSidebar({
                     if (onSelectRating) onSelectRating("all");
                     if (onSelectSort) onSelectSort("newest");
                     if (onSelectReadTime) onSelectReadTime("all");
+                    if (onSelectBestTime) onSelectBestTime("all");
+                    if (onSelectClimate) onSelectClimate("all");
                   }}
                   className={`flex flex-1 items-center justify-center gap-2 rounded-full border py-4 text-caption font-bold uppercase transition-all duration-300 ${
                     selectedCategory !== "all" ||
                     (selectedRating && selectedRating !== "all") ||
                     (selectedSort && selectedSort !== "newest") ||
-                    (selectedReadTime && selectedReadTime !== "all")
+                    (selectedReadTime && selectedReadTime !== "all") ||
+                    (selectedBestTime && selectedBestTime !== "all") ||
+                    (selectedClimate && selectedClimate !== "all")
                       ? "border-red-500/40 bg-red-950/30 text-red-400 hover:border-red-500/60 hover:bg-red-900/50"
                       : "border-white/10 text-white hover:bg-white/5"
                   }`}
