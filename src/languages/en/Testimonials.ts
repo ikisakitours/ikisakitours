@@ -1,14 +1,14 @@
 export default {
   Metadata: {
     title: "Guest Journals",
-    description: "Verified guest stories and luxury travel reviews from IkiSaki travelers across Sri Lanka.",
+    description: "Discover reviews and travelogues from those who have visited Sri Lanka. We share authentic accounts covering World Heritage sites, breathtaking scenery, cultural experiences, and luxury travel.",
   },
   Hero: {
     badge: "Unfiltered Experiences",
     titleStart: "Guest",
     titleHighlight: "Journals",
     description:
-      "Real stories from real travelers. Discover why the world's most discerning explorers choose LankaElite for their Sri Lankan odyssey.",
+      "Real stories from real travelers. Discover why the world's most discerning explorers choose ikisaki for their Sri Lankan odyssey.",
     stats: {
       success: "Success",
       support: "Support",
@@ -17,9 +17,9 @@ export default {
     },
   },
   Explorer: {
-    leaveMark: "Leave Your Mark",
+    leaveMark: "WRITE A  REVIEW",
     backReviews: "BACK TO REVIEWS",
-    filterLanguages: "Filter Languages",
+    filterLanguages: "Filter",
     filter: "Filter",
     loadMore: "Load More Experiences",
     showing: "Showing",
@@ -29,6 +29,7 @@ export default {
     Sidebar: {
       all: "All",
       clearFilter: "Clear Filter",
+      languages: "Languages",
       categories: "Categories",
       rating: "Rating",
       allRatings: "All Ratings",
@@ -55,7 +56,7 @@ export default {
       "Your feedback is the compass that guides our future journeys. Tell us about the moments that took your breath away.",
     ratingLabel: "Your Rating",
     experienceLabel: "Your Experience",
-    experiencePlaceholder: "Tell other travelers about your safari...",
+    experiencePlaceholder: "Tell other travelers about your journey...",
     submitBtn: "Submit Review",
   },
 } as const;

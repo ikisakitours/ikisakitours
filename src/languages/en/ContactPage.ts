@@ -2,22 +2,22 @@ export default {
   Metadata: {
     title: "Contact Us - Get in Touch",
     description:
-      "Reach out to IkiSaki for any inquiries, tour planning assistance, or support regarding your trip to Sri Lanka.",
+      "Please feel free to contact IkiSaki Tours for any inquiries regarding travel to Sri Lanka, including private charter services, taxi services, airport transfers, or the arrangement of bespoke, tailor-made tours. We are here to help you plan a comfortable journey perfectly suited to your preferences.",
   },
   Hero: {
     eyebrow: "Start a Conversation",
-    title: "A better trip starts with a clear first message",
-    accent: "first message",
-    strapline: "Send your travel dates, group size, interests, and questions.",
+    title: "A journey begins with the very first word",
+    accent: "first word",
+    strapline: "Please feel free to consult us about anything.",
     image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
     altText: "Sri Lankan sunset",
   },
   IntroCard: {
     badge: "Start a conversation",
-    titleMain: "A better trip starts with a",
-    titleBreak: "clear first message",
+    titleMain: "Talk to Our Team",
+    titleBreak: "",
     description:
-      "Send your travel dates, group size, interests, and questions. We can help with custom itineraries, transport, day tours, accommodation ideas, ticketing, and visa support.",
+      "Please feel free to reach out to us regarding any aspect of your trip to Sri Lanka—whether it’s travel planning, private charters, airport transfers, or bespoke tours. We will help you design the perfect journey tailored to your needs.",
     slides: [
       {
         image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",

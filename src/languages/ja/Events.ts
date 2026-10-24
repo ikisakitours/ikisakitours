@@ -1,7 +1,7 @@
 export default {
   Metadata: {
     title: "文化祭と特別イベント",
-    description: "スリランカの最も壮大な文化的なページェントや生放送に浸ってください。",
+    description: "スリランカの最も壮大な文化的なページェントや生放送に浸ってください.",
   },
   Hero: {
     eyebrow: "文化の祭典とライブ",
@@ -33,16 +33,16 @@ export default {
     EmptyState: {
       backgroundText: "イベント",
       title: "一致するお祝いは見つかりませんでした",
-      searchNoResult: "「{query}」に一致するイベントは見つかりませんでした。",
-      filterNoResult: "「{category}」カテゴリにイベントは見つかりませんでした。",
-      searchAndFilterNoResult: "「{category}」カテゴリ内で「{query}」に一致するイベントは見つかりませんでした。",
-      redefine: "もっと探索するにはフィルターをリセットしてみてください。",
+      searchNoResult: "「{query}」に一致するイベントは見つかりませんでした.",
+      filterNoResult: "「{category}」カテゴリにイベントは見つかりませんでした.",
+      searchAndFilterNoResult: "「{category}」カテゴリ内で「{query}」に一致するイベントは見つかりませんでした.",
+      redefine: "もっと探索するにはフィルターをリセットしてみてください.",
       resetBtn: "フィルターをリセット",
     },
     ComingSoon: {
       backgroundText: "近日公開",
       title: "現在利用できるイベントはありません",
-      description: "エキサイティングな新しいイベントやお祝いの準備をしています。後でもう一度チェックしてください！",
+      description: "エキサイティングな新しいイベントやお祝いの準備をしています.後でもう一度チェックしてください！",
     },
   },
   Slug: {

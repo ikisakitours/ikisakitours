@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Link from "next/link";
+import { Link } from "@/lib/i18nNavigation";
 import { useTranslations } from "next-intl";
 
 export default function AboutCTA() {

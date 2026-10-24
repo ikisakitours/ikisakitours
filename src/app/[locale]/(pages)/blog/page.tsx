@@ -1,50 +1,73 @@
 import type { Metadata } from "next";
-import { blogHero } from "@/data/blog";
 import { Hero } from "@/components/ui/Hero";
 import { BlogClientWrapper } from "@/components/blog/BlogClientWrapper";
-export const metadata: Metadata = {
-  title: "Journal",
-  description: "Curated Sri Lanka travel stories, guides, and cultural notes from LankaElite.",
-  openGraph: {
-    title: "Journal | IkiSaki Tours",
-    description: "Curated Sri Lanka travel stories, guides, and cultural notes from LankaElite.",
-    url: "/blog",
-    type: "website",
-    images: [
-      {
-        url: blogHero.image,
-        width: 600,
-        height: 315,
-        alt: "IkiSaki Tours Journal",
-      },
+import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 
-      {
-        url: blogHero.image,
-        width: 400,
-        height: 400,
-        alt: "IkiSaki Tours Journal",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Journal | IkiSaki Tours",
-    description: "Curated Sri Lanka travel stories, guides, and cultural notes from LankaElite.",
-    images: [blogHero.image],
-  },
+type BlogPageProps = {
+  params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: BlogPageProps): Promise<Metadata> {
+  const { locale } = await params;
+  
+  const t = await getTranslations({ locale, namespace: "Blog.Metadata" });
+  const tHero = await getTranslations({ locale, namespace: "Blog.Hero" });
+
+  const title = t("title");
+  const description = t("description");
+  const heroImage = tHero("image");
+
+  return {
+    title: title,
+    description: description,
+    openGraph: {
+      title: `${title} | IkiSaki Tours`,
+      description: description,
+      url: "/blog",
+      type: "website",
+      images: [
+        {
+          url: heroImage,
+          width: 600,
+          height: 315,
+          alt: tHero("alt"),
+        },
+        {
+          url: heroImage,
+          width: 400,
+          height: 400,
+          alt: tHero("alt"),
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | IkiSaki Tours`,
+      description: description,
+      images: [heroImage],
+    },
+  };
+}
+
+function TranslatedHero() {
+  const t = useTranslations("Blog.Hero");
+  return (
+    <Hero
+      image={t("image")}
+      altText={t("alt")}
+      eyebrow={t("eyebrow")}
+      title={t("title")}
+      accent={t("accent")}
+      strapline={t("strapline")}
+    />
+  );
+}
 
 export default function BlogPage() {
   return (
-    <main className="min-h-screen bg-lanka-dark ">
-      <Hero
-        image={blogHero.image}
-        altText={blogHero.eyebrow}
-        eyebrow={blogHero.eyebrow}
-        title={blogHero.title}
-        accent={blogHero.accent}
-        strapline={blogHero.strapline}
-      />
+    <main className="min-h-screen bg-lanka-dark">
+      <TranslatedHero />
       <BlogClientWrapper />
     </main>
   );

@@ -32,6 +32,8 @@ type BespokeJourneyFieldsProps = {
   setErrors: React.Dispatch<React.SetStateAction<Record<string, string>>>;
   languagesList: LanguageOption[];
   isLoading?: boolean;
+  tourPackageType?: "driver" | "guide"; 
+  onTourPackageTypeChange?: (type: "driver" | "guide") => void;
 };
 
 const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
@@ -62,6 +64,8 @@ export function BespokeJourneyFields({
   setErrors,
   languagesList,
   isLoading = false,
+  tourPackageType = "driver", 
+  onTourPackageTypeChange,
 }: BespokeJourneyFieldsProps) {
   const tForm = useTranslations("SharedForm");
 
@@ -104,6 +108,8 @@ export function BespokeJourneyFields({
           onVehicleChange={onVehicleChange}
           showDriverIncludedNote={true}
           isLoading={isLoading}
+          serviceType={tourPackageType} 
+          onServiceTypeChange={onTourPackageTypeChange}
         />
       </div>
 

@@ -14,6 +14,8 @@ type PrivateVehicleJourneyFieldsProps = {
   activeFilter: ActiveVehicleFilter;
   onFilterChange: (filter: ActiveVehicleFilter) => void;
   onVehicleChange: (vehicleId: string) => void;
+  tourPackageType?: "driver" | "guide";
+  onTourPackageTypeChange?: (type: "driver" | "guide") => void;
   date: string;
   onDateChange: (date: string) => void;
   time: string;
@@ -44,6 +46,8 @@ export function PrivateVehicleJourneyFields({
   activeFilter,
   onFilterChange,
   onVehicleChange,
+  tourPackageType = "driver", 
+  onTourPackageTypeChange,
   date,
   onDateChange,
   time,
@@ -104,6 +108,8 @@ export function PrivateVehicleJourneyFields({
           onVehicleChange={onVehicleChange}
           showDriverIncludedNote={true}
           isLoading={isLoading}
+          serviceType={tourPackageType} 
+          onServiceTypeChange={onTourPackageTypeChange}
         />
       </div>
 

@@ -8,13 +8,13 @@ export default {
   copyright: " 2026 IkiSaki Tours Luxury. Crafted with",
   forTravelers: "for travelers.",
   brandDescription:
-    "Discover the soul of the Indian Ocean. From misty mountains to golden shores, we curate authentic luxury experiences.",
-  nav: {
+    "Experience an extraordinary journey in Sri Lanka, the Pearl of the Indian Ocean where nature, culture, and luxury intertwine.",
+ nav: {
     Home: "Home",
-    "The Experience": "The Experience",
-    "Tour Packages": "Tour Packages",
-    "Hidden Havens": "Hidden Havens",
-    "Cultural Pageants": "Cultural Pageants",
+    "Experience": "Experience",
+    "Multi Days Tours": "Multi Days Tours",
+    "One Day Tours": "One Day Tours",
+    "Recommended Spots": "Recommended Spots",
     Journal: "Journal",
     FAQ: "FAQ",
     Contact: "Contact",

@@ -2,7 +2,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
 
 export const privateVehicleService = {
   bookVehicle: async (data: Record<string, unknown>) => {
-    const res = await fetch(`${API_URL}/vehicles/private`, {
+    const res = await fetch(`${API_URL}/services/chauffeur`, { 
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

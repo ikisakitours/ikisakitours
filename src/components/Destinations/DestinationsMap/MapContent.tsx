@@ -168,8 +168,9 @@ export default function MapContent({
         </span>
       </div>
       {destinations.length === 0 && (
-        <div className="absolute inset-0 z-50 flex items-center justify-center bg-lanka-black backdrop-blur-md">
+      <div className="absolute inset-0 z-50 flex items-center justify-center bg-lanka-black backdrop-blur-md">
           <EmptyState
+            className="-mt-10 sm:-mt-20"
             backgroundText={t("explore")}
             title={t("noDestinationsTitle")}
             description={t("noDestinationsDesc")}
@@ -177,6 +178,7 @@ export default function MapContent({
             onAction={() => {
               setQuery("");
             }}
+            isMap={true}
           />
         </div>
       )}

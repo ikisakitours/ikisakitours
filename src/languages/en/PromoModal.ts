@@ -4,7 +4,7 @@ export default {
   bottomText: "Instant Luxury Credit",
   floatingTag: "★ Exclusive Reward",
   specialOffer: "Special Offer",
-  title: "Savvy planners like you deserve a little credit.",
+  title: "For those who plan their trips wisely, we offer special benefits.",
   description:
     "Use it on any of our luxury multi-day tours before the end of the month. Discount will appear at checkout automatically when you activate it now. Valid on orders over $200.",
   activateButton: "Activate Discount Now",

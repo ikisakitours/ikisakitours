@@ -10,12 +10,12 @@ export default {
     "Private Chauffeur Service": "Private Chauffeur Service",
     "Airport & City Transfers": "Airport & City Transfers",
     More: "More",
-    "Hidden Havens": "Hidden Havens",
-    "Cultural Pageants": "Cultural Pageants",
+    "Hidden Havens": "Recommended Spots",
+    "Cultural Pageants": "Cultural Events",
     Journal: "Journal",
     Reviews: "Reviews",
     FAQs: "FAQs",
-    Contact: "Contact",
+    Contact: "Inquiry",
   },
   Dropdown: {
     tooltip: "Click for profile options",
@@ -43,7 +43,7 @@ export default {
   Currency: {
     tooltip: "Click for currency options",
     select: "Select Currency",
-    searchPlaceholder: "Search currency (e.g. LKR, Euro)...",
+    searchPlaceholder: "Search currency...",
     noResults: "No currency found",
   },
 } as const;

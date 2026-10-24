@@ -8,4 +8,5 @@ export default {
     backButton: "Go Back",
     homeButton: "Return Home",
   },
+  
 } as const;

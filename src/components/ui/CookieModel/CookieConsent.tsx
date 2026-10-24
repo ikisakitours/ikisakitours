@@ -1,87 +1,33 @@
 "use client";
-
-import { useState, useEffect } from "react";
-import { Link, usePathname } from "@/lib/i18nNavigation";
+import { useState } from "react";
+import { Link } from "@/lib/i18nNavigation";
 import { CookiePreferenceModal } from "./CookiePreferenceModal";
-import { saveCookiePreferences, declineAllCookies } from "@/utils/cookiesHandle";
 import { useTranslations } from "next-intl";
+import { useCookieConsent } from "@/hooks/cookies/useCookieConsent";
 //Icons
 import { Cookie, X } from "lucide-react";
 
 export function CookieConsent() {
   const t = useTranslations("cookie");
-  const [isVisible, setIsVisible] = useState(false);
-  const pathname = usePathname();
-  const isLegalPage = pathname.includes("/legal/cookie");
-  const [isPreferenceOpen, setIsPreferenceOpen] = useState(false);
-  const [isHeaderMenuOpen, setIsHeaderMenuOpen] = useState(false);
-  useEffect(() => {
-    const hasConsent = document.cookie.split("; ").find((row) => row.startsWith("ikisaki_cookie_consent="));
 
-    if (hasConsent) return;
+  const {
+    isVisible,
+    isLegalPage,
+    isHeaderMenuOpen,
+    isPreferenceOpen,
+    setIsPreferenceOpen,
+    handleAccept,
+    handleDecline,
+  } = useCookieConsent();
+  const [isPending, setIsPending] = useState(false);
 
-    const showCookieModal = () => {
-      setTimeout(() => setIsVisible(true), 1500);
-    };
-
-    if (typeof window !== "undefined") {
-      const isPreloaderAlreadyDone =
-        document.cookie.includes("preloader_seen=true") ||
-        (window as Window & { __preloaderDone?: boolean }).__preloaderDone;
-
-      if (isPreloaderAlreadyDone) {
-        showCookieModal();
-      } else {
-        window.addEventListener("preloaderFinished", showCookieModal);
-      }
+  const handleAcceptClick = async () => {
+    setIsPending(true);
+    try {
+      await handleAccept();
+    } finally {
+      setIsPending(false);
     }
-
-    return () => {
-      if (typeof window !== "undefined") {
-        window.removeEventListener("preloaderFinished", showCookieModal);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-
-    const handleMenuState = (e: Event) => {
-      const customEvent = e as CustomEvent<{ isOpen: boolean }>;
-
-      if (customEvent.detail.isOpen) {
-        clearTimeout(timeoutId);
-        setIsHeaderMenuOpen(true);
-      } else {
-        timeoutId = setTimeout(() => {
-          setIsHeaderMenuOpen(false);
-        }, 800);
-      }
-    };
-    window.addEventListener("mobileMenuStateChange", handleMenuState);
-
-    const handleCookieUpdate = () => {
-      setIsVisible(false);
-    };
-    window.addEventListener("cookieConsentUpdated", handleCookieUpdate);
-
-    return () => {
-      window.removeEventListener("mobileMenuStateChange", handleMenuState);
-      window.removeEventListener("cookieConsentUpdated", handleCookieUpdate);
-      clearTimeout(timeoutId);
-    };
-  }, []);
-
-  const handleAccept = () => {
-    saveCookiePreferences({ performance: true, functional: true, targeting: true }, "accepted");
-    window.dispatchEvent(new Event("cookieConsentUpdated"));
-    setIsVisible(false);
-  };
-
-  const handleDecline = () => {
-    declineAllCookies();
-    window.dispatchEvent(new Event("cookieConsentUpdated"));
-    setIsVisible(false);
   };
 
   if (!isVisible || isLegalPage || isHeaderMenuOpen) return null;
@@ -136,8 +82,13 @@ export function CookieConsent() {
                 {t("cookiePolicy")}
               </Link>
               <button
-                onClick={handleAccept}
-                className="rounded-xl bg-gold hover:bg-gold-light text-lanka-black font-bold text-caption! uppercase tracking-widest shadow-[0_0_20px_rgba(197,160,89,0.2)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] px-6 py-2.5"
+                onClick={handleAcceptClick}
+                disabled={isPending}
+                className={`rounded-xl px-6 py-2.5 text-caption! font-bold uppercase tracking-widest transition-all duration-300 ${
+                  isPending
+                    ? "bg-gold/60 text-lanka-black/60 cursor-wait opacity-80"
+                    : "bg-gold hover:bg-gold-light text-lanka-black shadow-[0_0_20px_rgba(197,160,89,0.2)] hover:scale-[1.02] active:scale-[0.98]"
+                }`}
               >
                 {t("acceptAll")}
               </button>

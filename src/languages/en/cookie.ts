@@ -50,4 +50,5 @@ export default {
         "These cookies may be set through our site by our advertising partners to build a profile of your interests.",
     },
   },
+  
 } as const;

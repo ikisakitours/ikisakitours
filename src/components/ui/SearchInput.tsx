@@ -9,6 +9,7 @@ type SearchInputProps = {
   count?: number;
   itemLabel?: string;
   className?: string;
+  clearPositionClass?: string;
 };
 
 export function SearchInput({
@@ -18,6 +19,7 @@ export function SearchInput({
   count,
   itemLabel = "Result",
   className = "",
+  clearPositionClass = "right-24",
 }: SearchInputProps) {
   return (
     <label className={`group relative w-full ${className}`}>
@@ -27,7 +29,7 @@ export function SearchInput({
       <span className="absolute inset-0 bg-gold/20 opacity-0 blur-xl transition-opacity duration-500 group-focus-within:opacity-100" />
 
       <span className="relative flex items-center">
-        <Search className="absolute left-5 top-1/2 h-4 w-4 -translate-y-1/2 text-gold/40 transition-colors group-focus-within:text-gold" />
+        {/* <Search className="absolute left-5 top-1/2 h-4 w-4 -translate-y-1/2 text-gold/40 transition-colors group-focus-within:text-gold" /> */}
 
         <input
           type="search"
@@ -43,7 +45,7 @@ export function SearchInput({
             type="button"
             onClick={() => onChange("")}
             className={`absolute ${
-              count !== undefined ? "right-24" : "right-4"
+             count !== undefined ? clearPositionClass : "right-4"
             } top-1/2 -translate-y-1/2 p-1 rounded-full bg-white/5 text-white/60 hover:bg-white/20 hover:text-white transition-all duration-200 shrink-0 border border-transparent hover:border-white/10`}
             aria-label="Clear search"
           >

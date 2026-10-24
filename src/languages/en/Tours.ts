@@ -1,23 +1,23 @@
 export default {
   MultiDay: {
     Metadata: {
-      title: "Heritage Curated Tours",
-      description: "Explore IkiSaki signature heritage, nature, religious, and coastal tour packages across Sri Lanka.",
+      title: "Sightseeing Tours",
+      description: "Discover a selection of exclusive tour packages across Sri Lanka, curated by IkiSaki. Enjoy a premium travel experience as you explore historical heritage sites, lush natural landscapes, religious and cultural landmarks, and stunning coastal regions.",
     },
     Hero: {
-      badge: "Bespoke Itineraries",
+      badge: "Sightseeing - Tours",
       startTitle: "Signature",
       HighlightTitle: "Heritage",
       EndTitle: "Collection",
-      description: "Exclusive access to Sri Lanka's hidden wonders with elite multi-lingual guidance.",
+      description: "Exclusive access to Sri Lanka's hidden wonders with ikisaki multi-lingual guidance.",
       image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=2400",
       alt: "Scenic mountain train journey through Sri Lankan tea country",
     },
   },
   OneDay: {
     Metadata: {
-      title: "One Day Excursions | Heritage Curated Tours",
-      description: "Explore IkiSaki signature one-day excursions and quick escapes across Sri Lanka.",
+      title: "One Day Tours",
+      description: "Experience the best of Sri Lanka—from World Heritage sites and breathtaking scenery to historic townscapes—all in a single day. Even with limited time, you can enjoy a special, memorable experience.",
     },
     Hero: {
       badge: "Quick Escapes",
@@ -25,14 +25,14 @@ export default {
       HighlightTitle: "One Day",
       EndTitle: "Excursions",
       description:
-        "Experience the magic of Sri Lanka in a single day. Perfect for short stays, spontaneous adventures, and quick getaways.",
+        "All in a single day. Even with limited time, you can enjoy the unique charm and special experiences that only Sri Lanka has to offer.",
       image: "https://images.unsplash.com/photo-1588614959060-4d144f28b207?auto=format&fit=crop&q=80&w=2400",
       alt: "Scenic mountain train journey through Sri Lankan tea country",
     },
   },
   Explorer: {
     filterPackages: "Filter Packages",
-    searchPlaceholder: "Search by destination...",
+    searchPlaceholder: "Search by Keywords...",
     loadMore: "Load More Packages",
     showing: "Showing",
     of: "of",
@@ -44,17 +44,17 @@ export default {
       over300: "Over $300",
     },
     ratingFilters: {
-      any: "Any rating",
+      any: "All rating",
       up45: "4.5 & up",
       up48: "4.8 & up",
     },
     EmptyState: {
-      backgroundText: "Journeys",
-      title: "no matching journeys",
-      searchNoResult: 'Your search for "{query}" returned no destinations.',
-      filterNoResult: "Your selected filters returned no destinations.",
-      redefine: "Please redefine your travel criteria or reset filters.",
-      resetBtn: "Reset Exploration",
+      backgroundText: "Packages",
+      title: "no matching Packages",
+      searchNoResult: 'Your search for "{query}" returned no Packages.',
+      filterNoResult: "No packages match the selected filters.",
+      redefine: "Please adjust your trip criteria or reset your filters.",
+      resetBtn: "Reset",
     },
     Sidebar: {
       categories: "Categories",

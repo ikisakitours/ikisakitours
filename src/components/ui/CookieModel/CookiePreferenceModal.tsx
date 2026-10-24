@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { saveCookiePreferences, declineAllCookies } from "@/utils/cookiesHandle";
 import { useTranslations } from "next-intl";
+import { useAuth } from "@/context/AuthContext";
+import { cookieService } from "@/services/cookies/cookieService";
 //Icons
 import { X, Plus, Minus, Sliders } from "lucide-react";
 
@@ -101,6 +103,7 @@ const CookieAccordionItem = ({
 // --- Main Modal Component ---
 export function CookiePreferenceModal({ isOpen, onClose }: CookiePreferenceModalProps) {
   const t = useTranslations("cookie");
+  const { user } = useAuth();
   const [preferences, setPreferences] = useState({
     performance: true,
     functional: true,
@@ -108,10 +111,37 @@ export function CookiePreferenceModal({ isOpen, onClose }: CookiePreferenceModal
   });
 
   const [expandedSection, setExpandedSection] = useState<string | null>("necessary");
-
+  const [isPending, setIsPending] = useState(false);
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+
+      const timer = setTimeout(() => {
+        try {
+          const rawPreferences = document.cookie
+            .split("; ")
+            .find((row) => row.startsWith("ikisaki_cookie_preferences="));
+
+          if (rawPreferences) {
+            const value = decodeURIComponent(rawPreferences.split("=")[1]);
+            if (value.startsWith("{")) {
+              const parsed = JSON.parse(value);
+              setPreferences({
+                performance: parsed.performance ?? true,
+                functional: parsed.functional ?? true,
+                targeting: parsed.targeting ?? false,
+              });
+            }
+          }
+        } catch (error) {
+          console.error("Failed to load existing cookie preferences:", error);
+        }
+      }, 0);
+
+      return () => {
+        clearTimeout(timer); // Cleanup function
+        document.body.style.overflow = "unset";
+      };
     } else {
       document.body.style.overflow = "unset";
     }
@@ -123,14 +153,33 @@ export function CookiePreferenceModal({ isOpen, onClose }: CookiePreferenceModal
 
   if (!isOpen) return null;
 
-  const handleSave = () => {
-    saveCookiePreferences(preferences, "accepted");
-    window.dispatchEvent(new Event("cookieConsentUpdated"));
-    onClose();
+  const handleSave = async () => {
+    setIsPending(true);
+    try {
+      saveCookiePreferences(preferences, "accepted");
+
+      if (user?.id) {
+        await cookieService.saveConsent(user.id, preferences);
+      }
+
+      window.dispatchEvent(new Event("cookieConsentUpdated"));
+      onClose();
+    } catch (error) {
+      console.error("Failed to save:", error);
+    } finally {
+      setIsPending(false);
+    }
   };
 
   const handleRejectAll = () => {
     declineAllCookies();
+
+    if (user?.id) {
+      cookieService
+        .saveConsent(user.id, { performance: false, functional: false, targeting: false })
+        .catch(console.error);
+    }
+
     window.dispatchEvent(new Event("cookieConsentUpdated"));
     onClose();
   };
@@ -230,7 +279,9 @@ export function CookiePreferenceModal({ isOpen, onClose }: CookiePreferenceModal
           <button
             onClick={handleRejectAll}
             // w-full on mobile, sm:w-auto on desktop
-            className="w-full sm:w-auto rounded-xl border border-white/20 bg-white/5 px-6 py-3.5 sm:py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-widest text-slate-300 transition-all hover:bg-white/10 hover:text-white"
+            className={`w-full sm:w-auto rounded-xl border border-white/20 bg-white/5 px-6 py-3.5 sm:py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-widest text-slate-300 transition-all hover:bg-white/10 hover:text-white ${
+              isPending ? "opacity-50 cursor-wait" : "hover:bg-white/10 hover:text-white"
+            }`}
           >
             {t("rejectAll")}
           </button>
@@ -238,7 +289,9 @@ export function CookiePreferenceModal({ isOpen, onClose }: CookiePreferenceModal
           <button
             onClick={handleSave}
             // w-full on mobile, sm:w-auto on desktop
-            className="w-full sm:w-auto rounded-xl bg-gold px-7 py-3.5 sm:py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-widest text-lanka-black transition-all hover:bg-gold-light shadow-[0_0_15px_rgba(197,160,89,0.3)]"
+            className={`w-fullsm:w-auto rounded-xl bg-gold px-7 py-3.5 sm:py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-widest text-lanka-black transition-all hover:bg-gold-light shadow-[0_0_15px_rgba(197,160,89,0.3)]${
+              isPending ? "bg-gold/60 text-lanka-black/60 cursor-wait opacity-80" : "hover:bg-gold-light"
+            }`}
           >
             {t("confirmChoices")}
           </button>

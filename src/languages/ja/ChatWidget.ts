@@ -7,10 +7,10 @@ export default {
   },
   Home: {
     greeting: "こんにちは！ 👋",
-    description: "サポートが必要ですか？新しい会話を始めていただければ、旅行アシスタントがご案内します。",
+    description: "サポートが必要ですか？新しい会話を始めていただければ、旅行アシスタントがご案内します.",
     badges: {
-      quickReplies: "迅速な返信",
-      safeSecure: "安心・安全",
+      quickReplies: "クイック返信",
+      safeSecure: "安全とセキュリティ",
       service: "24時間対応",
       tailoredTours: "オーダーメイドツアー",
     },
@@ -23,7 +23,7 @@ export default {
     whatsappSubtitle: "最も早い返信",
     lineTitle: "LINEでチャット",
     lineSubtitle: "LINEアプリで接続",
-    emailTitle: "メールを送信",
+    emailTitle: "メールを送信する",
     emailSubtitle: "詳細な問い合わせ",
     recentTitle: "最近のチャット",
     customerSupport: "カスタマーサポート",
@@ -38,7 +38,7 @@ export default {
     phoneLabel: "電話番号 *",
     messageLabel: "メッセージ *",
     messagePlaceholder: "メッセージを入力してEnterを押してください...",
-    messageNote: "* 入力に合わせてボックスが自動的に拡大します。",
+    messageNote: "* 入力に合わせてボックスが自動的に拡大します.",
     submitButton: "チャットを開始",
   },
   Tooltips: {
@@ -46,14 +46,14 @@ export default {
     bottomHeading: "こんにちは！",
     bottomBadge: "新着メッセージ",
     bottomBody:
-      "スリランカの息を呑むような美しさを探求する準備はできましたか？あなたにぴったりの完璧な旅行プランを作成するお手伝いをさせてください。",
+      "こんにちは！スリランカ旅行について、お気軽にご相談ください.お客様のご希望に合わせて、特別な旅づくりをお手伝いいたします.",
     actionHighlight: "オーダーメイド体験",
     actionText1: "カスタマイズされた",
     actionText2: "プライベートツアー",
   },
   Widget: {
     documentTitle: "💬 1件の新着メッセージ！",
-    whatsappDefaultText: "こんにちは！スリランカへの旅行を計画したいのですが。",
+    whatsappDefaultText: "こんにちは！スリランカへの旅行を計画したいのですが.",
     closeTooltipAria: "ツールチップを閉じる",
     closeChatAria: "チャットを閉じる",
     toggleAria: "チャットを切り替える",

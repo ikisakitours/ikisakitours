@@ -1,13 +1,13 @@
 export default {
   Metadata: {
     title: "Journal",
-    description: "Curated Sri Lanka travel stories, guides, and cultural notes from LankaElite.",
+    description: "IkiSaki Tours brings you a curated selection of information for your trip to Sri Lanka. Through travel guides, insights into local culture, World Heritage sites, and breathtaking scenic spots, discover the charm of Sri Lanka and plan your own unique and unforgettable journey.",
   },
   Hero: {
     eyebrow: "The Journal",
-    title: "Curated ",
-    accent: "Experiences",
-    strapline: "Travel stories, cultural notes, and guides from the heart of Sri Lanka.",
+    title: "The Art of ",
+    accent: "Discovering Us",
+    strapline: "Discover the culture, history, and hidden charms of Sri Lanka. Find tips to help you plan an extraordinary trip.",
     image: "https://images.unsplash.com/photo-1546708973-b339540b5162?auto=format&fit=crop&q=80&w=2400",
     alt: "Vintage map of Sri Lanka with a classic compass",
   },
@@ -15,7 +15,7 @@ export default {
     filterCategories: "Filter Categories",
     filter: "Filter",
     searchPlaceholder: "Search articles...",
-    loadMore: "Load More Experiences",
+    loadMore: "See more articles",
     showing: "Showing",
     of: "of",
     stories: "Stories",
@@ -37,8 +37,8 @@ export default {
       searchNoResult: 'Your search for "{query}" returned no articles.',
       filterNoResult: "Your selected category ({category}) returned no articles.",
       searchAndFilterNoResult: 'Your search for "{query}" in category "{category}" returned no articles.',
-      redefine: "Please redefine your search or reset filters.",
-      resetBtn: "Reset Exploration",
+      redefine: "Please change your search criteria or reset the filters.",
+      resetBtn: "Reset",
     },
   },
   Card: {
@@ -50,7 +50,7 @@ export default {
     backToJournal: "Back To Journal",
     published: "Published",
     readingTime: "Reading Time",
-    visualGlimpse: "Visual Glimpse",
+    visualGlimpse: "Image Collection",
     viewGallery: "View Gallery",
     moreArticles: "More Articles",
     shareStory: "Share Story",
@@ -59,7 +59,7 @@ export default {
       backgroundText: "Pending",
       title: "Content Coming Soon",
       description:
-        "We are currently crafting this article's story. Please check back shortly to explore the complete experience.",
+        "This article is currently in preparation. Please wait a little longer until it is published.",
     },
   },
 } as const;

@@ -90,7 +90,7 @@ export function HeroSection() {
               className="mb-6 max-w-lg border-l-2 border-gold/40 pl-4 text-body-lead font-light leading-relaxed text-foreground/90 md:mb-8 md:pl-6 3xl:mb-12 3xl:max-w-4xl 3xl:pl-8"
             >
               {t("content.description")}
-              <span className="font-semibold text-foreground"> {t("content.languagesOne")}</span> and
+              <span className="font-semibold text-foreground"> {t("content.languagesOne")}</span> 
               <span className="font-semibold text-foreground"> {t("content.languagesTwo")}</span>
             </motion.p>
 

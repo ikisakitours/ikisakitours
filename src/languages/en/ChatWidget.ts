@@ -46,7 +46,7 @@ export default {
     bottomHeading: "Hello there!",
     bottomBadge: "New Message",
     bottomBody:
-      "Ready to explore the breathtaking beauty of Sri Lanka? Let us help you craft the perfect itinerary tailored just for you.",
+      "Hello! Please feel free to reach out to us regarding your trip to Sri Lanka. We would be happy to help you craft a unique travel experience tailored to your specific wishes.",
     actionHighlight: "Bespoke Experience",
     actionText1: "Customize ",
     actionText2: "Private Tour",

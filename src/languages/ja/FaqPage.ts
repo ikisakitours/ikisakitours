@@ -1,7 +1,7 @@
 export default {
   Metadata: {
     title: "よくある質問",
-    description: "オーダーメイドのスリランカ旅行に関するよくある質問の回答をすばやく見つけることができます。",
+    description: "オーダーメイドのスリランカ旅行に関するよくある質問の回答をすばやく見つけることができます.",
   },
   Hero: {
     backGroundImage: "https://images.unsplash.com/photo-1512632578888-169bbbc64f33?q=95&w=1600&auto=format&fit=crop",
@@ -9,7 +9,7 @@ export default {
     eyebrow: "サポートとよくある質問",
     title: "どのようなご用件でしょうか？",
     accent: "ご用件でしょうか？",
-    strapline: "オーダーメイドのスリランカ旅行に関するよくある質問の回答をすばやく見つけることができます。",
+    strapline: "オーダーメイドのスリランカ旅行に関するよくある質問の回答をすばやく見つけることができます.",
   },
   UI: {
     filterButton: "カテゴリーを絞り込む",
@@ -36,10 +36,10 @@ export default {
     title: "質問が見つかりません",
     buttonText: "フィルターをリセット",
     descSearchAndCategory:
-      "「{category}」カテゴリーに「{query}」に一致する質問は見つかりませんでした。フィルターをクリアするか、別のキーワードをお試しください。",
+      "「{category}」カテゴリーに「{query}」に一致する質問は見つかりませんでした.フィルターをクリアするか、別のキーワードをお試しください.",
     descSearchOnly:
-      "「{query}」に一致する質問は見つかりませんでした。フィルターをクリアするか、別のキーワードをお試しください。",
-    descCategoryOnly: "「{category}」カテゴリーには質問がありません。",
-    descDefault: "条件に一致する質問は見つかりませんでした。",
+      "「{query}」に一致する質問は見つかりませんでした.フィルターをクリアするか、別のキーワードをお試しください.",
+    descCategoryOnly: "「{category}」カテゴリーには質問がありません.",
+    descDefault: "条件に一致する質問は見つかりませんでした.",
   },
 } as const;
