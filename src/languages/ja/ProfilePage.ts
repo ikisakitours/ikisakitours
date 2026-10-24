@@ -50,6 +50,10 @@ export default {
     cancelBtn: "キャンセル",
     deletingBtn: "削除中...",
     confirmDeleteBtn: "完全に削除する",
+    usePasswordBtn: "パスワードを使用",
+    typeDeleteBtn: "\"DELETE\"と入力",
+    typeDeleteDesc: "確認のために<strong>DELETE</strong>と入力してください.",
+    typeDeletePlaceholder: "ここにDELETEと入力",
   },
   ReferralPanel: {
     title: "友達を招待して特典を獲得",

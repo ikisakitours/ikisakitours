@@ -50,6 +50,10 @@ export default {
     cancelBtn: "Cancel",
     deletingBtn: "Deleting...",
     confirmDeleteBtn: "Permanently Delete",
+    usePasswordBtn: "Use Password",
+    typeDeleteBtn: "Type \"DELETE\"",
+    typeDeleteDesc: "Please type <strong>DELETE</strong> to confirm.",
+    typeDeletePlaceholder: "Type DELETE here",
   },
   ReferralPanel: {
     title: "Invite Friends & Earn",

@@ -97,7 +97,10 @@ export default {
     loginBtn: "Login to Continue",
   },
 
+  
 // new translate need
+deleteConfirmationMatch: "Type DELETE to confirm",
+deleteGeneralFailed: "Failed to delete account. Please try again.",
   ToastMessages: {
     Login: {
       loading: "Logging in",
