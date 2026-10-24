@@ -1,9 +1,10 @@
+// src/hooks/profile/useSecuritySettingsForm.ts
+
 import { useState, useEffect, useRef, type FormEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { usePasswordStrength, type TransientMsgType } from "@/hooks/usePasswordStrength";
-import { profileService } from "@/services/profile/profileService";
 import { useTranslations } from "next-intl";
-
+import { profileService, type DeleteAccountPayload } from "@/services/profile/profileService";
 export function useSecuritySettingsForm(tError: (key: string) => string) {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -22,9 +23,13 @@ export function useSecuritySettingsForm(tError: (key: string) => string) {
   const [localConfirmError, setLocalConfirmError] = useState("");
   const confirmTimerRef = useRef<NodeJS.Timeout | null>(null);
   const tErr = useTranslations("ValidationErrors.ServerErrors");
-
+  const tEr = useTranslations("ValidationErrors");
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deletePassword, setDeletePassword] = useState("");
+
+  const [deleteMethod, setDeleteMethod] = useState<"password" | "text">("password");
+  const [confirmText, setConfirmText] = useState("");
+
   const [isDeleting, setIsDeleting] = useState(false);
   const [showDeletePassword, setShowDeletePassword] = useState(false);
 
@@ -80,10 +85,8 @@ export function useSecuritySettingsForm(tError: (key: string) => string) {
     try {
       setIsLoading(true);
       await profileService.updateSecurity({ currentPassword, newPassword, confirmPassword });
-      // await new Promise((resolve) => setTimeout(resolve, 1500));
       console.log("Security Updated!", { currentPassword, newPassword });
 
-      //From Clear
       setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
@@ -95,9 +98,15 @@ export function useSecuritySettingsForm(tError: (key: string) => string) {
     }
   };
 
+  // 🌟 Updated handleDeleteAccount to support both methods
   const handleDeleteAccount = async () => {
-    if (!deletePassword) {
+    if (deleteMethod === "password" && !deletePassword) {
       setErrors((prev) => ({ ...prev, deletePassword: tError("passwordRequired") }));
+      return;
+    }
+
+    if (deleteMethod === "text" && confirmText !== "DELETE") {
+      setErrors((prev) => ({ ...prev, deletePassword: tEr("deleteConfirmationMatch") }));
       return;
     }
 
@@ -105,12 +114,22 @@ export function useSecuritySettingsForm(tError: (key: string) => string) {
       setIsDeleting(true);
       setErrors((prev) => ({ ...prev, deletePassword: "", form: "" }));
 
-      await profileService.deleteAccount(deletePassword);
+      const payload: DeleteAccountPayload = {
+        deleteMethod,
+        value: deleteMethod === "password" ? deletePassword : confirmText,
+      };
+
+      await profileService.deleteAccount(payload);
       localStorage.removeItem("userData");
       window.location.href = "/signup";
     } catch (error) {
       console.error("Delete account error:", error);
-      setErrors((prev) => ({ ...prev, deletePassword: tErr("deleteFailed") }));
+      const errorMessage =
+        deleteMethod === "password"
+          ? tErr("deleteFailed") 
+          : tEr("deleteGeneralFailed");
+
+      setErrors((prev) => ({ ...prev, deletePassword: errorMessage }));
     } finally {
       setIsDeleting(false);
     }
@@ -144,6 +163,10 @@ export function useSecuritySettingsForm(tError: (key: string) => string) {
     setIsDeleteModalOpen,
     deletePassword,
     setDeletePassword,
+    deleteMethod, // 🌟 Return to Component
+    setDeleteMethod, // 🌟 Return to Component
+    confirmText, // 🌟 Return to Component
+    setConfirmText, // 🌟 Return to Component
     isDeleting,
     handleDeleteAccount,
     showDeletePassword,

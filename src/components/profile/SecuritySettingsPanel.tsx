@@ -16,7 +16,6 @@ export function SecuritySettingsPanel() {
   const t = useTranslations("ProfilePage");
   const tForm = useTranslations("SharedForm");
   const tError = useTranslations("ValidationErrors");
-
   //Hook
   const {
     currentPassword,
@@ -46,6 +45,10 @@ export function SecuritySettingsPanel() {
     setIsDeleteModalOpen,
     deletePassword,
     setDeletePassword,
+    deleteMethod,
+    setDeleteMethod,
+    confirmText,
+    setConfirmText,
     isDeleting,
     handleDeleteAccount,
     showDeletePassword,
@@ -214,32 +217,88 @@ export function SecuritySettingsPanel() {
           <div className="glass-card w-full max-w-md my-auto rounded-3xl p-6 md:p-8 border-red-500/30 bg-[#0a0a0a] shadow-2xl space-y-6">
             <h3 className="text-heading-card font-bold text-white">{t("SecurityPanel.modalTitle")}</h3>
             <p className="text-body-sm text-slate-300 leading-relaxed">{t("SecurityPanel.modalDesc")}</p>
+
+            {/* Option Toggle (Password vs DELETE text) */}
+            <div className="flex rounded-xl bg-white/5 p-1 border border-white/10 text-body-sm font-bold">
+              <button
+                type="button"
+                onClick={() => {
+                  setDeleteMethod("password");
+                  setConfirmText("");
+                  setErrors((prev) => ({ ...prev, deletePassword: "" }));
+                }}
+                className={`flex-1 py-2 rounded-lg transition-all outline-none focus:outline-none focus:ring-0 ${
+                  deleteMethod === "password"
+                    ? "bg-red-500/20 text-red-400 border border-red-500/30"
+                    : "text-slate-400 hover:text-white border border-transparent"
+                }`}
+              >
+                {t("SecurityPanel.usePasswordBtn")}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setDeleteMethod("text");
+                  setDeletePassword("");
+                  setErrors((prev) => ({ ...prev, deletePassword: "" }));
+                }}
+                className={`flex-1 py-2 rounded-lg transition-all outline-none focus:outline-none focus:ring-0 ${
+                  deleteMethod === "text"
+                    ? "bg-red-500/20 text-red-400 border border-red-500/30"
+                    : "text-slate-400 hover:text-white border border-transparent"
+                }`}
+              >
+                {t("SecurityPanel.typeDeleteBtn")}
+              </button>
+            </div>
+
             <div className="space-y-2">
-              <span className="relative block">
-                <input
-                  type={showDeletePassword ? "text" : "password"}
-                  placeholder={tForm("Placeholders.password")}
-                  value={deletePassword}
-                  onChange={(e) => {
-                    setDeletePassword(e.target.value);
-                    setErrors((prev) => ({ ...prev, deletePassword: "" }));
-                  }}
-                  className={inputClass}
-                />
-                <button
-                  type="button"
-                  aria-label={showDeletePassword ? "Hide password" : "Show password"}
-                  onClick={() => setShowDeletePassword((prev) => !prev)}
-                  className="outline-none focus:outline-none absolute active:scale-95 right-3.5 p-2 top-1/2 -translate-y-1/2 text-slate-500 transition-colors hover:text-gold"
-                >
-                  {showDeletePassword ? <EyeOff className="h-6 w-6" /> : <Eye className="h-6 w-6" />}
-                </button>
-              </span>
+              {deleteMethod === "password" ? (
+                /* 1. Password Method */
+                <span className="relative block">
+                  <input
+                    type={showDeletePassword ? "text" : "password"}
+                    placeholder={tForm("Placeholders.password")}
+                    value={deletePassword}
+                    onChange={(e) => {
+                      setDeletePassword(e.target.value);
+                      setErrors((prev) => ({ ...prev, deletePassword: "" }));
+                    }}
+                    className={inputClass}
+                  />
+                  <button
+                    type="button"
+                    aria-label={showDeletePassword ? "Hide password" : "Show password"}
+                    onClick={() => setShowDeletePassword((prev) => !prev)}
+                    className="outline-none focus:outline-none absolute active:scale-95 right-3.5 p-2 top-1/2 -translate-y-1/2 text-slate-500 transition-colors hover:text-gold"
+                  >
+                    {showDeletePassword ? <EyeOff className="h-6 w-6" /> : <Eye className="h-6 w-6" />}
+                  </button>
+                </span>
+              ) : (
+                /* 2. GitHub Style Text Confirmation Method */
+                <div>
+                  {t.rich("SecurityPanel.typeDeleteDesc", {
+                    strong: (chunks) => <strong className="text-red-400 select-all">{chunks}</strong>,
+                  })}
+                  <input
+                    type="text"
+                    placeholder={t("SecurityPanel.typeDeletePlaceholder")}
+                    value={confirmText}
+                    onChange={(e) => {
+                      setConfirmText(e.target.value);
+                      setErrors((prev) => ({ ...prev, deletePassword: "" }));
+                    }}
+                    className={inputClass}
+                  />
+                </div>
+              )}
 
               <div className="ml-1">
                 <FormError message={errors.deletePassword} />
               </div>
             </div>
+
             <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 pt-2">
               <button
                 type="button"
@@ -247,6 +306,7 @@ export function SecuritySettingsPanel() {
                 onClick={() => {
                   setIsDeleteModalOpen(false);
                   setDeletePassword("");
+                  setConfirmText("");
                 }}
                 className="w-full sm:w-auto px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 text-slate-300 text-caption font-bold uppercase tracking-widest hover:bg-white/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-center"
               >
@@ -255,7 +315,7 @@ export function SecuritySettingsPanel() {
 
               <button
                 type="button"
-                disabled={isDeleting}
+                disabled={isDeleting || (deleteMethod === "text" && confirmText !== "DELETE")}
                 onClick={handleDeleteAccount}
                 className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-red-600 text-white text-caption font-bold uppercase tracking-widest hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-center"
               >

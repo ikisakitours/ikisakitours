@@ -98,6 +98,8 @@ export default {
   },
 
   // new translate need
+  deleteConfirmationMatch: "確認のためにDELETEと入力してください",
+  deleteGeneralFailed: "アカウントの削除に失敗しました。もう一度お試しください.",
   ToastMessages: {
     Login: {
       loading: "ログイン中",

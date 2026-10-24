@@ -124,6 +124,8 @@ function ProfileDashboardInner() {
         categoryLabels={tabLabels}
         showClearButton={false}
         showCounts={false}
+        showAllCategory={false}
+        labels={{ categories: t("Dashboard.titleAccent") }}
       />
     </ContainerLayout>
   );

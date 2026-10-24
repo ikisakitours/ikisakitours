@@ -46,6 +46,7 @@ type CategoryFilterSidebarProps = {
     climate?: string;
     allClimates?: string;
   };
+  showAllCategory?: boolean;
 };
 
 const customEase: [number, number, number, number] = [0.76, 0, 0.24, 1];
@@ -119,6 +120,7 @@ export function FilterSidebar({
   onSelectClimate,
   climates,
   labels,
+  showAllCategory = true,
 }: CategoryFilterSidebarProps) {
   useEffect(() => {
     if (isOpen) {
@@ -177,20 +179,25 @@ export function FilterSidebar({
                 <h3 className="text-caption font-bold uppercase tracking-widest text-white/50">
                   {labels?.categories || "Categories"}
                 </h3>
-
-                <button
-                  onClick={() => onSelectCategory("all")}
-                  className={`flex w-full items-center justify-between text-body-sm transition-colors hover:text-gold ${
-                    selectedCategory === "all" ? "text-gold" : "text-slate-300"
-                  }`}
-                >
-                  <span className="flex items-center gap-3">
-                    <input type="radio" checked={selectedCategory === "all"} readOnly className="accent-gold h-4 w-4" />
-                    All
-                  </span>
-                  {showCounts && <span className="text-white/30">{categoryCounts["all"] || 0}</span>}
-                </button>
-
+                {showAllCategory && (
+                  <button
+                    onClick={() => onSelectCategory("all")}
+                    className={`flex w-full items-center justify-between text-body-sm transition-colors hover:text-gold ${
+                      selectedCategory === "all" ? "text-gold" : "text-slate-300"
+                    }`}
+                  >
+                    <span className="flex items-center gap-3">
+                      <input
+                        type="radio"
+                        checked={selectedCategory === "all"}
+                        readOnly
+                        className="accent-gold h-4 w-4"
+                      />
+                      All
+                    </span>
+                    {showCounts && <span className="text-white/30">{categoryCounts["all"] || 0}</span>}
+                  </button>
+                )}
                 {categories
                   .filter((c) => c !== "all")
                   .map((item) => {
