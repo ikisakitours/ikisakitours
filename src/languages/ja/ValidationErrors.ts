@@ -100,57 +100,57 @@ export default {
   // new translate need
   ToastMessages: {
     Login: {
-      loading: "ログイン中...",
+      loading: "ログイン中",
       success: "おかえりなさいませ！",
       error: "無効な認証情報です。",
     },
     Signup: {
-      loading: "アカウント作成中...",
+      loading: "アカウント作成中",
       success: "登録が完了しました！",
       error: "登録に失敗しました。",
     },
     Logout: {
-      loading: "ログアウト中...",
+      loading: "ログアウト中",
       success: "またのご利用をお待ちしております！",
       error: "ログアウトに失敗しました。",
     },
     PasswordReset: {
-      loading: "リセット中...",
+      loading: "リセット中",
       success: "パスワードをリセットしました！",
       error: "リセットに失敗しました。もう一度お試しください。",
     },
     Recovery: {
-      loading: "メール送信中...",
+      loading: "メール送信中",
       success: "再設定メールを送信しました！",
       error: "メールアドレスが見つかりません。",
     },
     ProfileUpdate: {
-      loading: "保存中...",
+      loading: "保存中",
       success: "プロフィールを更新しました！",
       error: "更新に失敗しました。",
     },
     AvatarUpload: {
-      loading: "アップロード中...",
+      loading: "アップロード中",
       success: "画像を更新しました！",
       error: "アップロードに失敗しました。",
     },
     BespokeTour: {
-      loading: "送信中...",
+      loading: "送信中",
       success: "ツアーリクエストを送信しました！",
       error: "送信に失敗しました。",
     },
     VehicleBooking: {
-      loading: "予約中...",
+      loading: "予約中",
       success: "予約が確定しました！",
       error: "予約に失敗しました。",
     },
     TransferBooking: {
-      loading: "処理中...",
+      loading: "処理中",
       success: "送迎の予約が完了しました！",
       error: "処理に失敗しました。",
     },
     Review: {
-      loading: "送信中...",
+      loading: "送信中",
       success: "レビューを投稿しました！",
       error: "送信に失敗しました。",
     },

@@ -8,7 +8,7 @@ import { PrivateVehicle } from "@/components/home/PrivateVehicle";
 import { TransfersSection } from "@/components/home/TransfersSection";
 import { CustomTourSection } from "@/components/home/CustomTourSection";
 import HomeContactCTA from "@/components/home/HomeContactCTA";
-import { SpecialEventsSection } from "@/components/home/EventsSection";
+// import { SpecialEventsSection } from "@/components/home/EventsSection";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { PromoModal } from "@/components/ui/PromoModal";
 
@@ -28,7 +28,7 @@ export default function HomePage() {
       <TransfersSection />
 
       {/* 3. entertainment & Content Phase */}
-      <SpecialEventsSection />
+      {/* <SpecialEventsSection /> */}
       {/* 4. Trust & Content Phase*/}
 
       <ClientExperiencesSection />
