@@ -27,6 +27,7 @@ export function useLoginForm() {
   const router = useRouter();
 
   const tErr = useTranslations("ValidationErrors.ServerErrors");
+  const tToast = useTranslations("ValidationErrors.ToastMessages.Login");
   const toast = useToast();
   const { loginUser } = useAuth();
 
@@ -36,7 +37,7 @@ export function useLoginForm() {
 
     if (!isValid) return;
 
-    const toastId = toast.loading("Logging in");
+    const toastId = toast.loading(tToast("loading"));
     try {
       setIsLoading(true);
 
@@ -66,16 +67,15 @@ export function useLoginForm() {
       } catch (cookieError) {
         console.error("⚠️ Failed to sync cookie preferences on login:", cookieError);
       }
-      toast.success(toastId, "Login successful! Welcome back.", 2000);
+      toast.success(toastId, tToast("success"), 2000);
 
       console.log("Login valid and submitted!", response);
-      console.log("Login valid and submitted!", { email, password, staySignedIn });
 
       setTimeout(() => {
         router.push("/");
       }, 2200);
     } catch (error) {
-      toast.error(toastId, "Invalid email or password. Please try again.");
+      toast.error(toastId, tToast("error"));
       console.error("Login error:", error);
       setErrors((prev) => ({ ...prev, form: tErr("registrationFailed") }));
     } finally {

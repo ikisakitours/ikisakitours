@@ -30,6 +30,7 @@ export default {
     profilePicTitle: "プロフィール写真",
     profilePicDesc: "PNG、JPG、またはGIF.最大5MB.",
     savePhotoBtn: "写真を保存",
+    savingPhoto: "保存中...",
     vipBanner: {
       title: "限定特典をアンロック",
       desc: "友達を招待してVIPバッジと割引を獲得しよう",

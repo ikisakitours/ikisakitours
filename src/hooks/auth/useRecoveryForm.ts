@@ -17,6 +17,8 @@ export function useRecoveryForm(tAuth: (key: string) => string) {
   const fromWhere = searchParams?.get("from");
   const backLabel = fromWhere === "profile?tab=security" ? tAuth("Links.backToProfile") : tAuth("Links.backToSignIn");
   const tErr = useTranslations("ValidationErrors.ServerErrors");
+  const tToast = useTranslations("ValidationErrors.ToastMessages.Recovery");
+
   const toast = useToast();
 
   const handleBackClick = () => {
@@ -31,20 +33,20 @@ export function useRecoveryForm(tAuth: (key: string) => string) {
     e.preventDefault();
     if (!validate({ email })) return;
 
-    const toastId = toast.loading("Sending recovery instructions");
+    const toastId = toast.loading(tToast("loading"));
     try {
       setIsLoading(true);
       await authService.recoverPassword(email);
       // await new Promise((resolve) => setTimeout(resolve, 1500));
 
-      toast.success(toastId, "Recovery email sent successfully!");
+      toast.success(toastId, tToast("success"), 2000);
 
       console.log("Valid Email for recovery:", email);
       router.push("/password-change");
     } catch (error) {
       console.error("Recovery error:", error);
 
-      toast.error(toastId, "Recovery failed. Email not found.");
+      toast.error(toastId, tToast("error"));
 
       setErrors((prev) => ({ ...prev, form: tErr("recoveryFailed") }));
     } finally {

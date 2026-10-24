@@ -40,6 +40,7 @@ export function useBespokeForm() {
   });
 
   const tErr = useTranslations("ValidationErrors.ServerErrors");
+  const tToast = useTranslations("ValidationErrors.ToastMessages.BespokeTour");
   const toast = useToast();
   const handleTourDaysChange = (delta: number) => {
     setTourDays((prev) => Math.max(0, prev + delta));
@@ -73,7 +74,7 @@ export function useBespokeForm() {
     });
 
     if (!isValid) return;
-    const toastId = toast.loading("Submitting your bespoke tour request...");
+    const toastId = toast.loading(tToast("loading"));
     try {
       setIsLoading(true);
 
@@ -103,7 +104,7 @@ export function useBespokeForm() {
         new Promise((resolve) => setTimeout(resolve, 800)),
       ]);
 
-      toast.success(toastId, "Tour request submitted successfully! We will get in touch.", 2000);
+      toast.success(toastId, tToast("success"), 2000);
       console.log("Bespoke Form valid and submitted", response);
 
       // Form  Clear
@@ -116,7 +117,7 @@ export function useBespokeForm() {
       setContact({ fullName: "", email: "", phone: "", specialRequests: "" });
     } catch (error) {
       console.error("Submission error:", error);
-      toast.error(toastId, "Failed to submit request. Please try again.");
+      toast.error(toastId, tToast("error"));
       setErrors((prev) => ({ ...prev, form: tErr("submissionFailed") }));
     } finally {
       setIsLoading(false);

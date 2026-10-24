@@ -61,6 +61,7 @@ const Curve = () => {
 export function SiteHeader() {
   const tNav = useTranslations("SiteHeader.navigation");
   const tDropdown = useTranslations("SiteHeader.Dropdown");
+  const tToast = useTranslations("ValidationErrors.ToastMessages.Logout");
   const router = useRouter();
   const pathname = usePathname();
   const isHome = pathname === "/";
@@ -143,13 +144,13 @@ export function SiteHeader() {
 
   // Logout Button
   const handleLogout = async () => {
-    const toastId = toast.loading("Logout");
+    const toastId = toast.loading(tToast("loading"));
 
     try {
       const [response] = await Promise.all([authService.logout(), new Promise((resolve) => setTimeout(resolve, 800))]);
 
       logoutUser();
-      toast.success(toastId, "Logout successful! Come Again.", 2000);
+      toast.success(toastId, tToast("success"), 2000);
       setIsProfileOpen(false);
       console.log("Logout valid and submitted!", response);
 
@@ -157,7 +158,7 @@ export function SiteHeader() {
         window.location.href = "/login";
       }, 2200);
     } catch (error) {
-      toast.error(toastId, "Logout failed. Please try again.");
+      toast.error(toastId, tToast("error"));
       console.error("Logout error:", error);
     }
   };

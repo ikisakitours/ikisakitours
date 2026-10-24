@@ -26,6 +26,7 @@ export function usePasswordResetForm(tError: (key: string) => string) {
 
   const router = useRouter();
   const tErr = useTranslations("ValidationErrors.ServerErrors");
+  const tToast = useTranslations("ValidationErrors.ToastMessages.PasswordReset");
   const toast = useToast();
   const handleOtpChange = (index: number, value: string) => {
     const nextDigit = value.replace(/\D/g, "").slice(-1);
@@ -77,16 +78,13 @@ export function usePasswordResetForm(tError: (key: string) => string) {
     e.preventDefault();
     if (!validate({ otp, password, confirmPassword })) return;
 
-    const toastId = toast.loading("Resetting password");
+    const toastId = toast.loading(tToast("loading"));
 
     try {
       setIsLoading(true);
       await authService.resetPassword({ otp, password, confirmPassword });
-      // await new Promise((resolve) => setTimeout(resolve, 1500));
 
-      toast.success(toastId, "Password reset successful! Redirecting...");
-
-      console.log("Password Reset Valid & Submitted!", { otp, password });
+      toast.success(toastId, tToast("success"), 2000);
 
       // Form Clear
       setOtp(Array.from({ length: otpLength }, () => ""));
@@ -96,7 +94,7 @@ export function usePasswordResetForm(tError: (key: string) => string) {
     } catch (error) {
       console.error("Password reset error:", error);
 
-      toast.error(toastId, "Password reset failed. Invalid OTP or expired.");
+      toast.error(toastId, tToast("error"));
 
       setErrors((prev) => ({ ...prev, form: tErr("resetFailed") }));
     } finally {
