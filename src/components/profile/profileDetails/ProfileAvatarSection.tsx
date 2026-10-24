@@ -78,11 +78,11 @@ export function ProfileAvatarSection({
           <Button
             type="button"
             variant="details"
-           disabled={isLoading || !isImageChanged}
+            disabled={isLoading || !isImageChanged}
             onClick={onImageUpdate}
             className="mt-3 mx-auto sm:mx-0 block [&_span]:text-tiny! disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            {isLoading ? "Saving..." : t("DetailsPanel.savePhotoBtn")}{" "}
+            {isLoading ? t("DetailsPanel.savingPhoto") : t("DetailsPanel.savePhotoBtn")}{" "}
           </Button>
         )}
       </div>

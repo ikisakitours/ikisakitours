@@ -16,6 +16,7 @@ export function useWriteReviewForm() {
   const [isLoading, setIsLoading] = useState(false);
   const { errors, validate, setErrors } = useValidationForm();
   const tErr = useTranslations("ValidationErrors");
+  const tToast = useTranslations("ValidationErrors.ToastMessages.Review");
   const toast = useToast();
 
   const handleSubmit = async (e: FormEvent) => {
@@ -38,8 +39,7 @@ export function useWriteReviewForm() {
       isPublic: true,
       rating: rating > 0 ? rating : undefined,
     };
-    const toastId = toast.loading("submitting");
-
+    const toastId = toast.loading(tToast("loading"));
     try {
       setIsLoading(true);
       const [response] = await Promise.all([
@@ -47,7 +47,7 @@ export function useWriteReviewForm() {
         new Promise((resolve) => setTimeout(resolve, 800)),
       ]);
       // await writeReviewService.submitReview(apiPayload);
-      toast.success(toastId, "Testimonial submitted!. Thanks For Valuable FeedBack.", 2000);
+      toast.success(toastId, tToast("success"), 2000);
 
       console.log("Testimonial Form valid and submitted!", apiPayload);
       console.log("Testimonial Form Response!", response);
@@ -57,7 +57,7 @@ export function useWriteReviewForm() {
       setRating(0);
       setExperience("");
     } catch (error) {
-      toast.error(toastId, "Testimonial Not valid and submitted!.");
+      toast.error(toastId, tToast("error"));
 
       console.error("Submission error:", error);
       setErrors((prev) => ({ ...prev, form: tErr("ServerErrors.reviewSubmitFailed") }));

@@ -38,6 +38,7 @@ export function usePrivateVehicleForm() {
   });
 
   const tErr = useTranslations("ValidationErrors.ServerErrors");
+  const tToast = useTranslations("ValidationErrors.ToastMessages.VehicleBooking");
   const toast = useToast();
 
   const handleTourDaysChange = (delta: number) => {
@@ -72,7 +73,7 @@ export function usePrivateVehicleForm() {
     });
 
     if (!isValid) return;
-    const toastId = toast.loading("Submitting your booking request...");
+    const toastId = toast.loading(tToast("loading"));
     try {
       setIsLoading(true);
 
@@ -85,7 +86,7 @@ export function usePrivateVehicleForm() {
         pickupTime: time,
         travelers: {
           adults: travelerCounts.adult,
-          couples: travelerCounts.couple/2,
+          couples: travelerCounts.couple / 2,
           children: travelerCounts.child,
           infants: travelerCounts.infant,
         },
@@ -102,7 +103,7 @@ export function usePrivateVehicleForm() {
         new Promise((resolve) => setTimeout(resolve, 800)),
       ]);
 
-      toast.success(toastId, "Booking submitted successfully! We will contact you soon.", 2000);
+      toast.success(toastId, tToast("success"), 2000);
       console.log("Private Vehicle Form valid and submitted!", response);
 
       // Form  Clear
@@ -115,7 +116,7 @@ export function usePrivateVehicleForm() {
       setContact({ fullName: "", email: "", phone: "", specialRequests: "" });
     } catch (error) {
       console.error("Submission error:", error);
-      toast.error(toastId, "Failed to submit booking. Please try again.");
+      toast.error(toastId, tToast("error"));
       setErrors((prev) => ({ ...prev, form: tErr("vehicleBookingFailed") }));
     } finally {
       setIsLoading(false);

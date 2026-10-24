@@ -61,6 +61,7 @@ export function useTransferBookingForm() {
   });
 
   const tErr = useTranslations("ValidationErrors.ServerErrors");
+  const tToast = useTranslations("ValidationErrors.ToastMessages.TransferBooking");
   const toast = useToast();
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -79,7 +80,7 @@ export function useTransferBookingForm() {
     });
 
     if (!isValid) return;
-    const toastId = toast.loading("Submitting transfer booking...");
+    const toastId = toast.loading(tToast("loading"));
     try {
       setIsLoading(true);
       let mappedServiceType = "hotel and city";
@@ -111,7 +112,7 @@ export function useTransferBookingForm() {
         new Promise((resolve) => setTimeout(resolve, 800)),
       ]);
 
-      toast.success(toastId, "Transfer booked successfully! We will confirm shortly.", 2000);
+      toast.success(toastId, tToast("success"), 2000);
       console.log("Transfer Form valid and submitted", response);
 
       // Form  Clear
@@ -123,7 +124,7 @@ export function useTransferBookingForm() {
       setContact({ fullName: "", email: "", phone: "", specialRequests: "" });
     } catch (error) {
       console.error("Submission error:", error);
-      toast.error(toastId, "Failed to book transfer. Please try again.");
+      toast.error(toastId, tToast("error"));
       setErrors((prev) => ({ ...prev, form: tErr("transferBookingFailed") }));
     } finally {
       setIsLoading(false);

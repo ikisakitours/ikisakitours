@@ -28,6 +28,8 @@ export function useSignupForm(tError: (key: string) => string) {
   const router = useRouter();
 
   const tErr = useTranslations("ValidationErrors.ServerErrors");
+  const tToast = useTranslations("ValidationErrors.ToastMessages.Signup");
+
   const toast = useToast();
 
   const handleConfirmChange = (val: string) => {
@@ -80,7 +82,7 @@ export function useSignupForm(tError: (key: string) => string) {
       terms: terms,
     };
 
-    const toastId = toast.loading("Registering account");
+    const toastId = toast.loading(tToast("loading"));
     try {
       setIsLoading(true);
 
@@ -89,17 +91,14 @@ export function useSignupForm(tError: (key: string) => string) {
         new Promise((resolve) => setTimeout(resolve, 800)),
       ]);
 
-      // await new Promise((resolve) => setTimeout(resolve, 1500));
       console.log("Login valid and submitted!", response);
-      toast.success(toastId, "Registration successful! Redirecting", 2000);
-
-      console.log("Signup Valid & Submitted!", { firstName, lastName, email, country: countryName });
+      toast.success(toastId, tToast("success"), 2000);
 
       setTimeout(() => {
         router.push("/login");
       }, 2200);
     } catch (error) {
-      toast.error(toastId, "Registration failed. Please try again.");
+      toast.error(toastId, tToast("error"));
 
       console.error("Signup error:", error);
       setErrors((prev) => ({ ...prev, form: tErr("registrationFailed") }));

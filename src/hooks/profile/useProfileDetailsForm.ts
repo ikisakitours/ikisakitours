@@ -23,6 +23,8 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
   const [isProfileLoading, setIsProfileLoading] = useState(false);
   const { errors, validate, setErrors } = useValidationForm();
   const tErr = useTranslations("ValidationErrors.ServerErrors");
+  const tToastProfile = useTranslations("ValidationErrors.ToastMessages.ProfileUpdate");
+  const tToastAvatar = useTranslations("ValidationErrors.ToastMessages.AvatarUpload");
 
   const [isImageChanged, setIsImageChanged] = useState(false);
   const [originalImageSize, setOriginalImageSize] = useState<number>(0);
@@ -98,10 +100,10 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
     });
   };
 
-  const handlePersonalUpdate = async (e: FormEvent) => {
+const handlePersonalUpdate = async (e: FormEvent) => {
     e.preventDefault();
     if (!validate({ firstName, lastName, email, country })) return;
-    const toastId = toast.loading("Saving profile details...");
+    const toastId = toast.loading(tToastProfile("loading"));
     try {
       setIsLoading(true);
 
@@ -109,7 +111,7 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
         firstname: firstName,
         lastname: lastName,
         email,
-        country
+        country,
       };
 
       const [response] = await Promise.all([
@@ -117,18 +119,19 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
         new Promise((resolve) => setTimeout(resolve, 800)),
       ]);
 
+      // 🌟 මෙතැනින් avatarUrl එක අයින් කළා. 
+      // මොකද details update කරද්දී avatar එක වෙනස් වෙන්න ඕනේ image upload එක හරහා පමණයි.
       updateUser({
         firstname: firstName,
         lastname: lastName,
         email: email,
         country: country,
-        avatarUrl: avatarPreview,
       });
-      
-      toast.success(toastId, "Profile details updated successfully!", 2000);
+
+      toast.success(toastId, tToastProfile("success"), 2000);
       console.log("Login valid and submitted!", response);
     } catch (error) {
-      toast.error(toastId, "Failed to update details. Please try again.");
+      toast.error(toastId, tToastProfile("error"));
       console.error("Update error:", error);
       setErrors((prev) => ({ ...prev, form: tErr("updateFailed") }));
     } finally {
@@ -138,7 +141,7 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
 
   const handleImageUpdate = async () => {
     if (!avatarPreview) return;
-    const toastId = toast.loading("Uploading profile picture");
+    const toastId = toast.loading(tToastAvatar("loading"));
 
     try {
       setIsProfileLoading(true);
@@ -194,10 +197,10 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
         });
       }
 
-      toast.success(toastId, "Profile picture updated successfully!", 2000);
+      toast.success(toastId, tToastAvatar("success"), 2000);
       console.log("Avatar uploaded successfully!");
     } catch (error) {
-      toast.error(toastId, "Failed to upload avatar. Please try again.");
+      toast.error(toastId, tToastAvatar("error"));
       console.error("Avatar upload error:", error);
       setErrors((prev) => ({ ...prev, avatar: tErr("avatarUploadFailed") }));
     } finally {

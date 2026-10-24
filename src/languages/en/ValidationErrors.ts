@@ -89,13 +89,70 @@ export default {
     vehicleBookingFailed: "Failed to submit vehicle booking. Please try again.",
     transferBookingFailed: "Failed to submit transfer booking. Please try again.",
     deleteFailed: "Failed to delete account. Check your password.",
-
-    // new 
   },
 
   AuthRequired: {
     title: "Oops! Sign in required",
     description: "We’d love to hear that you enjoyed this journal! Please sign in to leave a like.",
     loginBtn: "Login to Continue",
+  },
+
+// new translate need
+  ToastMessages: {
+    Login: {
+      loading: "Logging in...",
+      success: "Welcome back!",
+      error: "Invalid credentials.",
+    },
+    Signup: {
+      loading: "Creating account...",
+      success: "Registration successful!",
+      error: "Registration failed.",
+    },
+    Logout: {
+      loading: "Logging out...",
+      success: "Come back soon!",
+      error: "Logout failed.",
+    },
+    PasswordReset: {
+      loading: "Resetting...",
+      success: "Password reset!",
+      error: "Reset failed. Try again.",
+    },
+    Recovery: {
+      loading: "Sending email...",
+      success: "Recovery email sent!",
+      error: "Email not found.",
+    },
+    ProfileUpdate: {
+      loading: "Saving...",
+      success: "Profile updated!",
+      error: "Update failed.",
+    },
+    AvatarUpload: {
+      loading: "Uploading...",
+      success: "Picture updated!",
+      error: "Upload failed.",
+    },
+    BespokeTour: {
+      loading: "Submitting...",
+      success: "Tour request sent!",
+      error: "Submission failed.",
+    },
+    VehicleBooking: {
+      loading: "Booking...",
+      success: "Booking confirmed!",
+      error: "Booking failed.",
+    },
+    TransferBooking: {
+      loading: "Processing...",
+      success: "Transfer booked!",
+      error: "Transfer failed.",
+    },
+    Review: {
+      loading: "Submitting...",
+      success: "Review submitted!",
+      error: "Submission failed.",
+    },
   },
 } as const;
