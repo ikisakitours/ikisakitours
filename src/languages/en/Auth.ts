@@ -3,14 +3,14 @@ export default {
     Gateway: {
       title: "Sign In or Register",
       description:
-        "Access your IkiSaki account or join our exclusive travel community to unlock bespoke Sri Lankan itineraries.",
+        "By registering for an IkiSaki account or joining our exclusive travel community, you can get sri lanka charter service, srilanka taxi service,srilanka tours,srilanka world heritage informations.",
     },
     Signup: {
       title: "Create Account",
       description:
-        "Create a IkiSaki member account for private travel planning, exclusive tour bookings, and personalized Sri Lankan itineraries.",
+        "Create an IkiSaki member account to plan private trips, book exclusive tours, and develop personalized itineraries for Sri Lanka. you can get sri lanka charter service,srilanka taxi service,srilanka tours,srilanka world heritage informations.",
     },
-    Login: { title: "Secure Gateway", description: "Sign in to the IkiSaki secure travel gateway." },
+    Login: { title: "Login", description: "Sign in to your ikisaki account.when you Sign in you can get sri lanka charter service,srilanka taxi service,srilanka tours,srilanka world heritage informations." },
     Recovery: { title: "Account Recovery", description: "Request a IkiSaki account recovery email." },
     Reset: {
       title: "Reset Password",
@@ -30,9 +30,9 @@ export default {
       image: "/images/sander-traa-bfdshIHD5Y4-unsplash.webp",
       imageAlt: "A breathtaking view of a Sri Lankan tea estate",
       eyebrow: "Member Privileges",
-      title: "Begin Your",
-      accent: "Elite Experience",
-      body: "Join our exclusive circle of travelers and unlock a world of bespoke luxury across Sri Lanka.",
+      title: "Your Journey",
+      accent: "Begins",
+      body: "Join an exclusive community for travel enthusiasts and experience a bespoke, high-end journey across Sri Lanka—crafted just for you.",
     },
     Login: {
       image: "/images/sander-traa-bfdshIHD5Y4-unsplash.webp",
@@ -40,23 +40,23 @@ export default {
       eyebrow: "Premium Travel",
       title: "Journey to the",
       accent: "Heart of Paradise",
-      body: "Curated experiences in the teardrop of India. Secure your gateway today.",
+      body: "Journey to the heart of paradise—experience a unique, one-of-a-kind trip in Sri Lanka, the pearl of the Indian Ocean.",
     },
     Recovery: {
       image: "/images/sander-traa-bfdshIHD5Y4-unsplash.webp",
       imageAlt: "Calm and peaceful beach waves in Mirissa",
       eyebrow: "Security First",
-      title: "Protect Your",
-      accent: "Island Access",
-      body: "Don't worry, it happens to the best of us. We'll help you get back to your journey in no time.",
+      title: "Protect",
+      accent: "your access",
+      body: "Don't worry, we immediately help you to recover your account.",
     },
     Reset: {
       image: "/images/sander-traa-bfdshIHD5Y4-unsplash.webp",
       imageAlt: "Beautiful sunrise over the mountains in Ella",
       eyebrow: "New Beginning",
       title: "Secure Your",
-      accent: "Paradise Vault",
-      body: "Update your password to keep your travel itineraries and profile safe and sound.",
+      accent: "Account",
+      body: "Please update your password to keep your travel itinerary and profile secure.",
     },
   },
   FormHeaders: {
@@ -74,13 +74,13 @@ export default {
   },
   Links: {
     alreadyHaveAccount: "Already a member?",
-    signInHere: "Enter Gateway",
+    signInHere: "Enter Login",
     firstTime: "New to IkiSaki?",
     createAccount: "Join the Circle",
     forgotPassword: "Lost your key?",
     rememberIt: "Found my key!",
     backToProfile: "Back to Profile",
     backToLogin: "Back to Login",
-    backToSignIn: "Back to Gateway",
+    backToSignIn: "Back to Login",
   },
 } as const;

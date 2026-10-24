@@ -17,8 +17,8 @@ export default {
     perPerson: "/ 1人あたり",
     save: "{discount}% オフ",
     groupDiscount: "グループ割引適用",
-    priceDecreases: "大人数になるほど1人あたりの料金が安くなります。",
-    priceMayVary: "料金はカスタマイズ内容により異なる場合があります。",
+    priceDecreases: "大人数になるほど1人あたりの料金が安くなります.",
+    priceMayVary: "料金はカスタマイズ内容により異なる場合があります.",
     assurances: ["即時空き状況確認", "手数料無料", "柔軟な日付変更"],
   },
   Related: {
@@ -30,7 +30,7 @@ export default {
   },
   Cta: {
     title: "IkiSakiの旅を体験しましたか？",
-    description: "あなたの旅が他の人のインスピレーションになります。感想や写真をシェアして、旅の魔法を伝えましょう。",
+    description: "あなたの旅が他の人のインスピレーションになります.感想や写真をシェアして、旅の魔法を伝えましょう.",
     shareBtn: "体験をシェアする",
   },
   ReviewCard: {
@@ -53,7 +53,7 @@ export default {
   ReviewsBody: {
     title: "旅行者のストーリー",
     filterLanguage: "言語で絞り込む",
-    noReviews: "選択した条件に一致するレビューが見つかりませんでした。",
+    noReviews: "選択した条件に一致するレビューが見つかりませんでした.",
     loadMore: "さらにレビューを読み込む",
     showing: "表示中",
     of: "/",
@@ -68,7 +68,7 @@ export default {
     EmptyState: {
       backgroundText: "ストーリー",
       title: "レビューが見つかりません",
-      description: "選択した条件に一致するレビューが見つかりませんでした。",
+      description: "選択した条件に一致するレビューが見つかりませんでした.",
       clearBtn: "フィルターをクリア",
     },
   },
@@ -90,7 +90,7 @@ export default {
   },
   CoveredDestinations: {
     title: "対象目的地",
-    description: "このオーダーメイドの旅で訪れる場所を探索してください。目的地をクリックすると詳細が表示されます。",
+    description: "このオーダーメイドの旅で訪れる場所を探索してください.目的地をクリックすると詳細が表示されます.",
   },
   Description: {
     title: "詳細説明",
@@ -152,7 +152,7 @@ export default {
   Customization: {
     title: "ツアーのカスタマイズ",
     description:
-      "IkiSakiのツアーはすべてカスタマイズ可能です。記載されているパッケージ料金には、ハーフボードの宿泊と旅程に明記された入場券が含まれます。ホテル、食事、アトラクションなどは予算や旅行スタイルに合わせて調整できます。カスタマイズをご希望の際は再見積もりを提供いたします。",
+      "IkiSakiのツアーはすべてカスタマイズ可能です.記載されているパッケージ料金には、ハーフボードの宿泊と旅程に明記された入場券が含まれます.ホテル、食事、アトラクションなどは予算や旅行スタイルに合わせて調整できます.カスタマイズをご希望の際は再見積もりを提供いたします.",
   },
   Gallery: {
     viewGallery: "ギャラリーを見る",

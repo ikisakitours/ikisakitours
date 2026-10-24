@@ -244,7 +244,7 @@ export function TestimonialExplorer({ comments }: TestimonialExplorerProps) {
         }}
         totalResults={filteredTestimonials.length}
         labels={{
-          categories: t("Sidebar.categories"),
+         categories: t("Sidebar.languages"),
           rating: t("Sidebar.rating"),
           allRatings: t("Sidebar.allRatings"),
           stars: t("Sidebar.stars"),

@@ -2,8 +2,8 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
 
 export const profileService = {
   updateDetails: async (data: Record<string, string>) => {
-    const res = await fetch(`${API_URL}/profile/details`, {
-      method: "PUT",
+    const res = await fetch(`${API_URL}/auth/me`, {
+      method: "PATCH",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
       body: JSON.stringify(data),

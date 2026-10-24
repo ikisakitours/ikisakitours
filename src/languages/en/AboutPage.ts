@@ -2,15 +2,15 @@ export default {
   Metadata: {
     title: "About Us - Discover Our Story & Vision",
     description:
-      "Crafting bespoke, meaningful travel experiences tailored exclusively to your unique pace and passions.",
+      "IkiSaki Tours offers a range of services across Sri Lanka, including reliable private driver services, vehicle charters, guided tours, airport transfers, and bespoke travel experiences tailored to your individual preferences. With your own dedicated driver, you can explore beautiful beaches, cultural landmarks, UNESCO World Heritage sites, and even lesser-known hidden gems—all in complete comfort. Whether you need a short trip or a multi-day journey, we provide flexible transportation solutions designed to fit your specific travel plans. Enjoy a Sri Lanka experience that is uniquely yours with IkiSaki Tours.",
   },
   Hero: {
     image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
     altText: "Sri Lankan sunset",
     eyebrow: "DISCOVER OUR STORY",
-    title: "Unveiling the true essence of Sri Lanka",
+    title: "Discover the true essence of Sri Lanka",
     accent: "true essence",
-    strapline: "Crafting bespoke, meaningful travel experiences tailored exclusively to your unique pace and passions.",
+    strapline: "We offer private charters, airport transfers, and unique travel experiences throughout Sri Lanka.",
   },
   Origin: {
     badge: "OUR ORIGIN",
@@ -56,26 +56,25 @@ export default {
     headerBadge: "Overview",
     headerTitle: "Key Statistics",
     items: [
-      { label: "Happy Travelers", value: "2,500+" },
-      { label: "Years of Luxury Hosting", value: "15+" },
-      { label: "Custom Itineraries", value: "1,200+" },
-      { label: "24/7 Concierge Support", value: "100%" },
-      { label: "Local Expert Guides", value: "50+" },
+      { label: "Happy Travelers", value: "1200+" },
+      { label: "Years of Luxury Hosting", value: "10+" },
+      { label: "Custom Itineraries", value: "20+" },
+      { label: "24/7 Support", value: "100%" },
       { label: "Customer Satisfaction", value: "99%" },
-      { label: "Island-wide Tours Executed", value: "3,000+" },
-      { label: "Destinations Covered", value: "30+" },
+      { label: "Island-wide Tours Executed", value: "600+" },
+      { label: "Destinations Covered", value: "100+" },
     ],
   },
   MissionVision: {
     missionTitle: "Our Mission",
     missionDesc:
-      "To design authentic, sustainable, and custom-tailored itineraries that foster connection between travelers and local Sri Lankan culture, whilst prioritizing responsible tourism that directly supports local communities.",
+      "IkiSaki Tours ensures a worry-free and comfortable journey through Sri Lanka by providing reliable private charter services and flexible, personalized travel planning tailored to each individual.With deep local knowledge and heartfelt hospitality, we transform the very act of traveling into an enjoyable part of your trip, creating memorable experiences that will stay with you.",
     visionTitle: "Our Vision",
     visionDesc:
-      "To build a modern, boutique travel brand recognized for integrity, bespoke personalization, and dynamic guest relations, making the exploration of Sri Lanka simple and exceptional.",
+      "Beyond Borders IkiSaki Tours aims to be a leading private tour provider in Sri Lanka, offering safe, comfortable, and personalized travel experiences for guests from around the world. We believe that every traveler deserves a journey that matches their interests and expectations, supported by local expertise, reliable service, and genuine Sri Lankan hospitality.",
   },
   CoreValues: {
-    title: "Our Core Values",
+    title: "The IkiSaki Promise",
     items: [
       {
         title: "Authenticity",
@@ -97,7 +96,7 @@ export default {
   },
   Leadership: {
     title: "Our Leadership",
-    name: "Danuja Perera",
+    name: "Dhanuja Chathumal",
     role: "FOUNDER & CEO",
     bio: "Directing the custom travel experiences at IkiSaki Tours. Danuja is dedicated to integrating technology and local hospitality to deliver seamless, personalized itineraries to guests visiting Sri Lanka.",
   },
@@ -117,7 +116,7 @@ export default {
     rights:
       "All rights reserved. Unauthorized reproduction, distribution, or commercial exploitation of any content is strictly prohibited by international copyright laws.",
     inquiry: "For official trademark licensing or corporate legal inquiries, please contact our legal desk at",
-    generalTitle: "General & Tour Inquiries",
+    generalTitle: "Inquiries & Tour Consultations",
     generalDesc: "For custom itineraries, travel support, and general assistance.",
     legalTitle: "Legal & Trademark Desk",
     email: "hello@ikisakitours.com",

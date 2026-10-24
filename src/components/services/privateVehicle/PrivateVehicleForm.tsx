@@ -38,6 +38,8 @@ export function PrivateVehicleForm() {
     setActiveFilter,
     // selectedVehicleId,
     setSelectedVehicleId,
+    tourPackageType,
+    setTourPackageType,
     pickupLocation,
     setPickupLocation,
     tourRequests,
@@ -70,6 +72,8 @@ export function PrivateVehicleForm() {
               activeFilter={activeFilter}
               onFilterChange={setActiveFilter}
               onVehicleChange={setSelectedVehicleId}
+              tourPackageType={tourPackageType} 
+              onTourPackageTypeChange={setTourPackageType}
               date={date}
               onDateChange={setDate}
               time={time}

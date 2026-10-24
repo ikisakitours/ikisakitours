@@ -8,12 +8,13 @@ import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { useTranslations } from "next-intl";
 import { CookiePageActions } from "@/components/ui/CookieModel/CookiePageActions";
 import { CookiePreferenceModal } from "@/components/ui/CookieModel/CookiePreferenceModal";
-import { saveCookiePreferences } from "@/utils/cookiesHandle";
+import { useCookieConsent } from "@/hooks/cookies/useCookieConsent";
 //Icons
 import { FilterSidebar } from "@/components/ui/FilterSidebar";
 import { Filter } from "lucide-react";
 
 export default function LegalBody() {
+  const { handleAccept } = useCookieConsent();
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations("LegalPage.Tabs");
@@ -30,11 +31,6 @@ export default function LegalBody() {
 
   const handleTabChange = (id: LegalDocumentId) => {
     router.push(`/legal/${id}`, { scroll: false });
-  };
-
-  const handleAcceptAll = () => {
-    saveCookiePreferences({ performance: true, functional: true, targeting: true }, "accepted");
-    window.dispatchEvent(new Event("cookieConsentUpdated"));
   };
 
   const categoryLabels = validIds.reduce(
@@ -72,7 +68,7 @@ export default function LegalBody() {
               <div key={doc.id}>
                 <LegalDocumentSection document={doc} />
                 {activeId === "cookie" && (
-                  <CookiePageActions onManageCookies={() => setIsModalOpen(true)} onAcceptAll={handleAcceptAll} />
+                  <CookiePageActions onManageCookies={() => setIsModalOpen(true)} onAcceptAll={handleAccept} />
                 )}
               </div>
             ))}

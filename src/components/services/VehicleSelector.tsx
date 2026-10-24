@@ -2,7 +2,7 @@ import { vehicleFilters, vehicles } from "@/data/vehicles";
 import { Link } from "@/lib/i18nNavigation";
 import { Users, Briefcase, Tag, type LucideIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+//import { useState } from "react";
 
 export type ActiveVehicleFilter = (typeof vehicleFilters)[number]["value"];
 
@@ -12,6 +12,8 @@ type VehicleSelectorProps = {
   onVehicleChange: (vehicleId: string) => void;
   showDriverIncludedNote?: boolean;
   isLoading?: boolean;
+  serviceType?: "driver" | "guide"; 
+  onServiceTypeChange?: (type: "driver" | "guide") => void;
 };
 
 // 1. Reusable Component for Data Point Items (Price, Passengers, Luggage)
@@ -80,9 +82,11 @@ export function VehicleSelector({
   onVehicleChange,
   showDriverIncludedNote = false,
   isLoading = false,
+  serviceType = "driver",       // 🌟 Default අගය
+  onServiceTypeChange = () => {}, // 🌟 Default function එක
 }: VehicleSelectorProps) {
   const tVeh = useTranslations("Services.VehicleSelector");
-  const [serviceType, setServiceType] = useState<"driver" | "guide">("driver");
+ // const [serviceType, setServiceType] = useState<"driver" | "guide">("driver");
 
   const handleFilterClick = (filterValue: ActiveVehicleFilter) => {
     if (isLoading) return;
@@ -190,7 +194,7 @@ export function VehicleSelector({
                   {/* 1. Vehicle with Driver */}
                   <button
                     type="button"
-                    onClick={() => setServiceType("driver")}
+                  onClick={() => onServiceTypeChange("driver")}
                     className={`relative flex-1 md:flex-none flex items-center justify-center py-2.5 px-4 md:px-8 md:min-w-40 rounded-lg text-body-sm font-semibold transition-all duration-300 cursor-pointer whitespace-nowrap ${
                       serviceType === "driver"
                         ? "bg-linear-to-r from-gold/20 via-gold/10 to-transparent border border-gold/50 text-gold shadow-[0_0_15px_rgba(197,160,89,0.15)]"
@@ -203,7 +207,7 @@ export function VehicleSelector({
                   {/* 2. Vehicle with Guide */}
                   <button
                     type="button"
-                    onClick={() => setServiceType("guide")}
+                    onClick={() => onServiceTypeChange("guide")}
                     className={`relative flex-1 md:flex-none flex items-center justify-center py-2.5 px-4 md:px-8 md:min-w-40 rounded-lg text-body-sm font-semibold transition-all duration-300 cursor-pointer whitespace-nowrap ${
                       serviceType === "guide"
                         ? "bg-linear-to-r from-gold/20 via-gold/10 to-transparent border border-gold/50 text-gold shadow-[0_0_15px_rgba(197,160,89,0.15)]"

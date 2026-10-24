@@ -30,20 +30,22 @@ export default function MapHeader({ query, setQuery, filteredCount, isDarkMode, 
       </div>
 
       {/* Controls Section WITH SEARCH */}
-      <div className="flex w-full flex-col xl:flex-row justify-between items-start xl:items-end gap-5 xl:gap-4 mt-2 sm:mt-0 z-20">
+      <div className="flex w-full flex-col md:flex-row justify-between items-start md:items-center gap-5 md:gap-4 mt-2 sm:mt-0 z-20">
         {/* Search Field */}
-        <div className="w-full xl:w-auto relative z-30">
+        <div className="w-full md:w-auto relative z-30">
           <SearchInput
             value={query}
             onChange={(val: string) => setQuery(val)}
             placeholder={t("searchPlaceholder")}
             count={filteredCount}
             itemLabel={t("itemLabel")}
-            className="w-full xl:w-96"
+            className="w-full md:w-96 lg:w-105"
+            clearPositionClass="right-23"
           />
         </div>
 
-        <div className="flex w-full xl:w-auto items-center justify-end gap-3 sm:gap-4 shrink-0 pt-1 xl:pt-0">
+        {/* Theme Toggle Button */}
+        <div className="flex w-full md:w-auto items-center justify-end gap-3 sm:gap-4 shrink-0 pt-1 md:pt-0">
           <div className="relative flex items-center shrink-0">
             <button
               onClick={() => setIsDarkMode(!isDarkMode)}
@@ -60,7 +62,7 @@ export default function MapHeader({ query, setQuery, filteredCount, isDarkMode, 
             </button>
 
             <span className="absolute -bottom-5 right-1 sm:right-2 whitespace-nowrap text-micro uppercase tracking-[0.2em] text-slate-400">
-             {t("mapMood")}
+              {t("mapMood")}
             </span>
           </div>
         </div>

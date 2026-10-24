@@ -64,10 +64,9 @@ function BlogArticleInner({ post }: BlogArticleProps) {
               contentParagraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)
             ) : (
               <EmptyState
-                backgroundText="Pending"
-                title="Content Coming Soon"
-                description="We are currently crafting this article's story. Please check back shortly to explore the complete experience."
-                onAction={() => {
+                backgroundText={t("Pending.backgroundText")}
+                title={t("Pending.title")}
+                description={t("Pending.description")} onAction={() => {
                   window.location.reload();
                 }}
               />

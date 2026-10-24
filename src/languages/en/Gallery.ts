@@ -1,6 +1,6 @@
 export default {
   Collection: {
-    loadMore: "Load More Experiences",
+    loadMore: "See More Images",
     showing: "Showing",
     of: "of",
     images: "Images",
@@ -18,7 +18,7 @@ export default {
     eventTitle: "{title} - Event Highlights",
     eventDesc: "Discover visual highlights and exclusive images from {title}.",
     guestMomentsTitle: "Guest Moments - {title}",
-    guestMomentsDesc: "Captured memories and guest moments from {title}.",
+    guestMomentsDesc: "Where the Experience Begins {title}.",
     reviewTitle: "Review Gallery by {name} | {title}",
     reviewDesc: "Photo gallery and shared experiences by {name} for {title}.",
     tourTitle: "{title} - Tour Gallery",
@@ -42,7 +42,7 @@ export default {
     galleryMoments: "{name}'s Gallery Moments",
     eventHighlightCat: "Event Highlight",
     explore: "Explore",
-    visualJourneyThrough: "Visual Journey Through {name}",
+    visualJourneyThrough: "{name} Through the Lens",
     destHighlights: "{name} Highlights",
   },
 } as const;

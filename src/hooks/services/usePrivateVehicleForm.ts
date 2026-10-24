@@ -5,6 +5,7 @@ import { type ContactData } from "@/components/services/ContactForm";
 import { vehicles } from "@/data/vehicles";
 import { privateVehicleService } from "@/services/services/privateVehicleService";
 import { useTranslations } from "next-intl";
+import { useToast } from "@/context/ToastContext";
 
 export function usePrivateVehicleForm() {
   const defaultCategory = vehicles[0].category;
@@ -12,7 +13,7 @@ export function usePrivateVehicleForm() {
 
   const [pickupLocation, setPickupLocation] = useState("");
   const [tourRequests, setTourRequests] = useState("");
-
+  const [tourPackageType, setTourPackageType] = useState<"driver" | "guide">("driver");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [language, setLanguage] = useState<string>("");
@@ -37,6 +38,7 @@ export function usePrivateVehicleForm() {
   });
 
   const tErr = useTranslations("ValidationErrors.ServerErrors");
+  const toast = useToast();
 
   const handleTourDaysChange = (delta: number) => {
     setTourDays((prev) => Math.max(0, prev + delta));
@@ -70,42 +72,42 @@ export function usePrivateVehicleForm() {
     });
 
     if (!isValid) return;
-
+    const toastId = toast.loading("Submitting your booking request...");
     try {
       setIsLoading(true);
 
       const payload = {
-        activeFilter,
-        selectedVehicleId,
-        pickupLocation,
-        tourRequests,
-        date,
-        time,
-        language,
-        tourDays,
-        travelerCounts,
-        contact,
+        vehicleType: activeFilter.toLowerCase(),
+        tourPackageType: `with ${tourPackageType}`,
+        pickupLocation: pickupLocation,
+        language: language,
+        journeyDate: date,
+        pickupTime: time,
+        travelers: {
+          adults: travelerCounts.adult,
+          couples: travelerCounts.couple/2,
+          children: travelerCounts.child,
+          infants: travelerCounts.infant,
+        },
+        tourDuration: `${tourDays}day`,
+        description: tourRequests,
+        fullName: contact.fullName,
+        email: contact.email,
+        phoneNumber: contact.phone,
+        specialRequests: contact.specialRequests,
       };
 
-      await privateVehicleService.bookVehicle(payload);
-      // await new Promise((resolve) => setTimeout(resolve, 1500));
-      console.log("Private Vehicle Form valid and submitted!", {
-        activeFilter,
-        selectedVehicleId,
-        pickupLocation,
-        tourRequests,
-        date,
-        time,
-        language,
-        tourDays,
-        travelerCounts,
-        contact,
-      });
+      const [response] = await Promise.all([
+        privateVehicleService.bookVehicle(payload),
+        new Promise((resolve) => setTimeout(resolve, 800)),
+      ]);
+
+      toast.success(toastId, "Booking submitted successfully! We will contact you soon.", 2000);
+      console.log("Private Vehicle Form valid and submitted!", response);
 
       // Form  Clear
       setPickupLocation("");
       setTourRequests("");
-      setDate("");
       setTime("");
       setLanguage("");
       setTourDays(0);
@@ -113,6 +115,7 @@ export function usePrivateVehicleForm() {
       setContact({ fullName: "", email: "", phone: "", specialRequests: "" });
     } catch (error) {
       console.error("Submission error:", error);
+      toast.error(toastId, "Failed to submit booking. Please try again.");
       setErrors((prev) => ({ ...prev, form: tErr("vehicleBookingFailed") }));
     } finally {
       setIsLoading(false);
@@ -120,6 +123,8 @@ export function usePrivateVehicleForm() {
   };
 
   return {
+    tourPackageType,
+    setTourPackageType,
     activeFilter,
     setActiveFilter,
     selectedVehicleId,

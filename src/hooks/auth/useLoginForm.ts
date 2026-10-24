@@ -6,7 +6,16 @@ import { authService } from "@/services/auth/authService";
 import { useTranslations } from "next-intl";
 import { useToast } from "@/context/ToastContext";
 import { useAuth } from "@/context/AuthContext";
-
+import { getCookieConsentStatus } from "@/utils/cookiesHandle";
+import { cookieService } from "@/services/cookies/cookieService";
+interface LoginResponse {
+  id?: string;
+  user?: {
+    id: string;
+    [key: string]: unknown;
+  };
+  [key: string]: unknown;
+}
 export function useLoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,15 +39,33 @@ export function useLoginForm() {
     const toastId = toast.loading("Logging in");
     try {
       setIsLoading(true);
-      // await new Promise((resolve) => setTimeout(resolve, 1500));
 
       const [response] = await Promise.all([
-        authService.login({ email, password, staySignedIn }),
+        authService.login({ email, password, staySignedIn }) as Promise<LoginResponse>,
         new Promise((resolve) => setTimeout(resolve, 800)),
       ]);
-
       await loginUser();
 
+      try {
+        const consentStatus = getCookieConsentStatus();
+        if (consentStatus && response) {
+          const isAccepted = consentStatus === "accepted";
+          const guestPreferences = {
+            performance: isAccepted,
+            functional: isAccepted,
+            targeting: isAccepted,
+          };
+
+          const userId = response.id || response.user?.id;
+
+          if (userId) {
+            await cookieService.saveConsent(userId, guestPreferences);
+            console.log("✅ Guest cookie preferences successfully synced on login!");
+          }
+        }
+      } catch (cookieError) {
+        console.error("⚠️ Failed to sync cookie preferences on login:", cookieError);
+      }
       toast.success(toastId, "Login successful! Welcome back.", 2000);
 
       console.log("Login valid and submitted!", response);

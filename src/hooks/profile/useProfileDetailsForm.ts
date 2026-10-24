@@ -105,8 +105,15 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
     try {
       setIsLoading(true);
 
+      const payload = {
+        firstname: firstName,
+        lastname: lastName,
+        email,
+        country
+      };
+
       const [response] = await Promise.all([
-        profileService.updateDetails({ firstName, lastName, email, country }),
+        profileService.updateDetails(payload),
         new Promise((resolve) => setTimeout(resolve, 800)),
       ]);
 
@@ -117,9 +124,9 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
         country: country,
         avatarUrl: avatarPreview,
       });
+      
       toast.success(toastId, "Profile details updated successfully!", 2000);
       console.log("Login valid and submitted!", response);
-      console.log("Details saved successfully:", { firstName, lastName, email });
     } catch (error) {
       toast.error(toastId, "Failed to update details. Please try again.");
       console.error("Update error:", error);

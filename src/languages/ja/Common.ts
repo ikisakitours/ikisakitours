@@ -5,8 +5,8 @@ export default {
     loadingDestinations: "目的地を読み込んでいます...",
     loadingDestination: "目的地を読み込んでいます...",
     errorWatermark: "エラー",
-    failedToLoad: "申し訳ありません。問題が発生しました。",
+    failedToLoad: "申し訳ありません.問題が発生しました.",
     tryAgain: "再試行",
-    contentLoadError: "現在コンテンツを読み込めません。もう一度お試しください。",
+    contentLoadError: "現在コンテンツを読み込めません.もう一度お試しください.",
   },
 } as const;

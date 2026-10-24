@@ -8,7 +8,7 @@ export default {
     popularTags: {
       GalleFort: "#GalleFort",
       YalaSafari: "#YalaSafari",
-      TeaCountry: "#TeaCountry",
+      TeaCountry: "#TeaTrain",
     },
     popularServices: {
       Taxi: "Chartering a Taxi",
@@ -20,9 +20,9 @@ export default {
       award: "Travel+Leisure 2026",
       titleMain: "Sri Lanka",
       titleAccent: "Beyond the Map",
-      description: "IkiSaki personalized tours with master guides in ",
-      languagesOne: "Japanese, French, Spanish",
-      languagesTwo: "English.",
+      description: " Explore Sri Lanka comfortably with a licensed local guide and multilingual support in",
+      languagesOne: "Japanese, English, French and",
+      languagesTwo: " Spanish..",
       searchPlaceholder: "Where to explore?",
       startJourneyText: "Start Journey",
       popularLabel: "Popular:",

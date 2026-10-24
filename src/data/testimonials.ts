@@ -18,7 +18,7 @@ export const testimonialHeroData = {
   titleStart: "Guest",
   titleHighlight: "Journals",
   description:
-    "Real stories from real travelers. Discover why the world's most discerning explorers choose LankaElite for their Sri Lankan odyssey.",
+    "Real stories from real travelers. Discover why the world's most discerning explorers choose ikisaki for their Sri Lankan odyssey.",
 } as const;
 
 export const testimonials: Testimonial[] = [
@@ -50,7 +50,7 @@ export const testimonials: Testimonial[] = [
     id: "yuki-tanaka",
     language: "Japanese",
     quote:
-      "非常によかった。Everything was handled with true 'Omotenashi' spirit. The guide was respectful and punctual.",
+      "非常によかった.Everything was handled with true 'Omotenashi' spirit. The guide was respectful and punctual.",
     name: "Yuki Tanaka",
     initials: "YT",
     date: "January 15, 2026",

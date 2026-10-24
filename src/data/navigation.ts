@@ -47,12 +47,12 @@ export const primaryNavigation: NavItem[] = [
 export const footerLinks = [
   // 1. Core Navigation
   { label: "Home", href: "/" },
-  { label: "The Experience", href: "/about", sectionId: "" },
+  { label: "Experience", href: "/about", sectionId: "" }, 
 
   // 2. Core Products
-  { label: "Tour Packages", href: "/tours/multi-days", sectionId: "" },
-  { label: "Hidden Havens", href: "/destination", sectionId: "" },
-  { label: "Cultural Pageants", href: "/events", sectionId: "" },
+  { label: "Multi Days Tours", href: "/tours/multi-days", sectionId: "" }, 
+  { label: "One Day Tours", href: "/tours/one-day", sectionId: "" },     
+  { label: "Recommended Spots", href: "/destination", sectionId: "" },    
 
   // 3. Trust, Stories & Support
   { label: "Journal", href: "/blog", sectionId: "" },

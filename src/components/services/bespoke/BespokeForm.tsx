@@ -40,6 +40,8 @@ export function BespokeForm() {
     setActiveFilter,
     // selectedVehicleId,
     setSelectedVehicleId,
+    tourPackageType,
+    setTourPackageType,
     pickupLocation,
     setPickupLocation,
     tourRequests,
@@ -90,6 +92,8 @@ export function BespokeForm() {
               setErrors={setErrors}
               languagesList={languages}
               isLoading={isLoading}
+              tourPackageType={tourPackageType} 
+              onTourPackageTypeChange={setTourPackageType}
             />
           </FormPanel>
 

@@ -7,6 +7,7 @@ import { type ContactData } from "@/components/services/ContactForm";
 import { useSearchParams } from "next/navigation";
 import { transferServiceApi } from "@/services/services/transferService";
 import { useTranslations } from "next-intl";
+import { useToast } from "@/context/ToastContext";
 
 export function useTransferBookingForm() {
   const defaultCategory = vehicles[0].category;
@@ -60,7 +61,7 @@ export function useTransferBookingForm() {
   });
 
   const tErr = useTranslations("ValidationErrors.ServerErrors");
-
+  const toast = useToast();
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -78,48 +79,51 @@ export function useTransferBookingForm() {
     });
 
     if (!isValid) return;
-
+    const toastId = toast.loading("Submitting transfer booking...");
     try {
       setIsLoading(true);
+      let mappedServiceType = "hotel and city";
+      if (serviceType === "pickup") mappedServiceType = "airport pickup";
+      if (serviceType === "dropoff") mappedServiceType = "airport drop off";
 
       const payload = {
-        serviceType,
-        selectedVehicleId,
-        selectedVehicle,
-        pickupLocation,
-        dropoffLocation,
-        date,
-        time,
-        language,
-        travelerCounts,
-        contact,
+        serviceType: mappedServiceType,
+        vehicleType: activeFilter.toLowerCase(),
+        pickupLocation: pickupLocation,
+        dropOffLocation: dropoffLocation,
+        journeyDate: date,
+        pickupTime: time,
+        language: language,
+        travelers: {
+          adults: travelerCounts.adult,
+          couples: travelerCounts.couple / 2,
+          children: travelerCounts.child,
+          infants: travelerCounts.infant,
+        },
+        fullName: contact.fullName,
+        email: contact.email,
+        phoneNumber: contact.phone,
+        specialRequests: contact.specialRequests,
       };
 
-      await transferServiceApi.bookTransfer(payload);
-      // await new Promise((resolve) => setTimeout(resolve, 1500));
-      console.log("Transfer Form valid and submitted!", {
-        serviceType,
-        selectedVehicleId,
-        selectedVehicle,
-        pickupLocation,
-        dropoffLocation,
-        date,
-        time,
-        language,
-        travelerCounts,
-        contact,
-      });
+      const [response] = await Promise.all([
+        transferServiceApi.bookTransfer(payload),
+        new Promise((resolve) => setTimeout(resolve, 800)),
+      ]);
+
+      toast.success(toastId, "Transfer booked successfully! We will confirm shortly.", 2000);
+      console.log("Transfer Form valid and submitted", response);
 
       // Form  Clear
       setPickupLocation("");
       setDropoffLocation("");
-      setDate("");
       setTime("");
       setLanguage("");
       setTravelerCounts({ adult: 0, couple: 0, child: 0, infant: 0 });
       setContact({ fullName: "", email: "", phone: "", specialRequests: "" });
     } catch (error) {
       console.error("Submission error:", error);
+      toast.error(toastId, "Failed to book transfer. Please try again.");
       setErrors((prev) => ({ ...prev, form: tErr("transferBookingFailed") }));
     } finally {
       setIsLoading(false);

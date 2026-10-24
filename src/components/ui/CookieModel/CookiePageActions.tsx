@@ -1,12 +1,12 @@
 "use client";
-import { useSyncExternalStore } from "react";
+import { useSyncExternalStore, useState, useEffect } from "react";
 import { getCookieConsentStatus } from "@/utils/cookiesHandle";
 import { useTranslations } from "next-intl";
 import { Sliders } from "lucide-react";
 
 interface CookiePageActionsProps {
   onManageCookies: () => void;
-  onAcceptAll: () => void;
+  onAcceptAll: () => void | Promise<void>; 
 }
 
 const subscribe = (callback: () => void) => {
@@ -18,16 +18,61 @@ const subscribe = (callback: () => void) => {
 };
 
 const getSnapshot = () => getCookieConsentStatus();
-
 const getServerSnapshot = () => null;
 
 export function CookiePageActions({ onManageCookies, onAcceptAll }: CookiePageActionsProps) {
   const t = useTranslations("cookie");
-
   const status = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
-  const isAccepted = status === "accepted";
+  const [isAllAccepted, setIsAllAccepted] = useState(false);
+  
+  const [isPending, setIsPending] = useState(false);
+
+  useEffect(() => {
+    const checkPreferences = () => {
+      if (status === "declined") {
+        setIsAllAccepted(false);
+        return;
+      }
+
+      try {
+        const rawPreferences = document.cookie.split("; ").find((row) => row.startsWith("ikisaki_cookie_preferences="));
+
+        if (rawPreferences) {
+          const value = decodeURIComponent(rawPreferences.split("=")[1]);
+          const parsed = JSON.parse(value);
+          if (parsed.performance && parsed.functional && parsed.targeting) {
+            setIsAllAccepted(true);
+          } else {
+            setIsAllAccepted(false);
+          }
+        } else {
+          setIsAllAccepted(false);
+        }
+      } catch (error) {
+        console.error("Cookie parsing failed:", error);
+        setIsAllAccepted(false);
+      }
+    };
+
+    checkPreferences();
+    window.addEventListener("cookieConsentUpdated", checkPreferences);
+
+    return () => {
+      window.removeEventListener("cookieConsentUpdated", checkPreferences);
+    };
+  }, [status]);
+
   const isDeclined = status === "declined";
+
+  const handleAcceptClick = async () => {
+    setIsPending(true); 
+    try {
+      await onAcceptAll(); 
+    } finally {
+      setIsPending(false); 
+    }
+  };
 
   return (
     <div className="relative mt-8 pt-6 border-t border-white/10">
@@ -50,17 +95,19 @@ export function CookiePageActions({ onManageCookies, onAcceptAll }: CookiePageAc
           </button>
 
           <button
-            onClick={onAcceptAll}
-            disabled={isAccepted || isDeclined}
+            onClick={handleAcceptClick}
+            disabled={isAllAccepted || isDeclined || isPending} 
             className={`rounded-xl px-4 sm:px-6 py-2.5 text-caption! font-bold uppercase tracking-widest transition-all duration-300 whitespace-nowrap ${
-              isAccepted
+              isAllAccepted
                 ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 cursor-not-allowed opacity-80"
                 : isDeclined
                   ? "bg-rose-500/10 text-rose-400 border border-rose-500/20 cursor-not-allowed opacity-80"
-                  : "bg-gold hover:bg-gold-light text-lanka-black! shadow-[0_0_15px_rgba(197,160,89,0.3)]"
+                  : isPending
+                    ? "bg-gold/60 text-lanka-black/60 cursor-wait opacity-80" 
+                    : "bg-gold hover:bg-gold-light text-lanka-black! shadow-[0_0_15px_rgba(197,160,89,0.3)]"
             }`}
           >
-            {isAccepted ? t("allAccepted") : isDeclined ? t("allRejected") : t("acceptAll")}
+            {isAllAccepted ? t("allAccepted") : isDeclined ? t("allRejected") : t("acceptAll")}
           </button>
         </div>
       </div>
