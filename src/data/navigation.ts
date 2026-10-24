@@ -33,7 +33,7 @@ export const primaryNavigation: NavItem[] = [
     subItems: [
       // 1. Discovery & Stories
       { key: "Hidden Havens", href: "/destination", sectionId: "" },
-      { key: "Cultural Pageants", href: "/events", sectionId: "" },
+      // { key: "Cultural Pageants", href: "/events", sectionId: "" },
       { key: "Journal", href: "/blog", sectionId: "" },
 
       // 2. Trust & Support

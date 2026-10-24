@@ -100,57 +100,57 @@ export default {
 // new translate need
   ToastMessages: {
     Login: {
-      loading: "Logging in...",
+      loading: "Logging in",
       success: "Welcome back!",
       error: "Invalid credentials.",
     },
     Signup: {
-      loading: "Creating account...",
+      loading: "Creating account",
       success: "Registration successful!",
       error: "Registration failed.",
     },
     Logout: {
-      loading: "Logging out...",
+      loading: "Logging out",
       success: "Come back soon!",
       error: "Logout failed.",
     },
     PasswordReset: {
-      loading: "Resetting...",
+      loading: "Resetting",
       success: "Password reset!",
       error: "Reset failed. Try again.",
     },
     Recovery: {
-      loading: "Sending email...",
+      loading: "Sending email",
       success: "Recovery email sent!",
       error: "Email not found.",
     },
     ProfileUpdate: {
-      loading: "Saving...",
+      loading: "Saving",
       success: "Profile updated!",
       error: "Update failed.",
     },
     AvatarUpload: {
-      loading: "Uploading...",
+      loading: "Uploading",
       success: "Picture updated!",
       error: "Upload failed.",
     },
     BespokeTour: {
-      loading: "Submitting...",
+      loading: "Submitting",
       success: "Tour request sent!",
       error: "Submission failed.",
     },
     VehicleBooking: {
-      loading: "Booking...",
+      loading: "Booking",
       success: "Booking confirmed!",
       error: "Booking failed.",
     },
     TransferBooking: {
-      loading: "Processing...",
+      loading: "Processing",
       success: "Transfer booked!",
       error: "Transfer failed.",
     },
     Review: {
-      loading: "Submitting...",
+      loading: "Submitting",
       success: "Review submitted!",
       error: "Submission failed.",
     },
