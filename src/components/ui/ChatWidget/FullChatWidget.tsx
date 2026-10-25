@@ -10,6 +10,7 @@ import { ChatTooltips } from "@/components/ui/ChatWidget/ChatTooltips";
 import { ChatToggleButton } from "@/components/ui/ChatWidget/ChatToggleButton";
 import { useDocumentTitleNotification } from "@/hooks/useDocumentTitleNotification";
 import { useTranslations } from "next-intl";
+import { BotChatInterface } from "@/components/ui/ChatWidget/BotChatInterface";
 
 export function FullChatWidget() {
   const tWidget = useTranslations("ChatWidget.Widget");
@@ -27,7 +28,7 @@ export function FullChatWidget() {
   const [hasInteracted, setHasInteracted] = useState(false);
   const [hasShownBottomTooltip, setHasShownBottomTooltip] = useState(false);
 
-  const [activeTab, setActiveTab] = useState<"home" | "messages">("home");
+  const [activeTab, setActiveTab] = useState<"home" | "messages" | "bot">("home");
   const [showMailForm, setShowMailForm] = useState(false);
 
   const isOpenRef = useRef(isOpen);
@@ -272,19 +273,33 @@ export function FullChatWidget() {
             : "opacity-0 scale-90 translate-y-10 pointer-events-none"
         }`}
       >
-        <ChatHeader showMailForm={showMailForm} setShowMailForm={setShowMailForm} toggleChat={toggleChat} />
-
+        <ChatHeader
+          showMailForm={showMailForm}
+          setShowMailForm={setShowMailForm}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          toggleChat={toggleChat}
+        />
         <div className="p-5 bg-surface/95 backdrop-blur-xl overflow-y-auto no-scrollbar max-h-[55vh]">
           {showMailForm ? (
             <ChatMailForm />
           ) : activeTab === "home" ? (
             <ChatHome onNewChat={() => setActiveTab("messages")} />
+          ) : activeTab === "bot" ? (
+            <div className="p-0 max-h-none overflow-hidden">
+              <BotChatInterface />
+            </div>
           ) : (
-            <ChatMessages onEmailClick={() => setShowMailForm(true)} waLink={waLink} lineLink={lineLink} />
+            <ChatMessages
+              onEmailClick={() => setShowMailForm(true)}
+              onBotClick={() => setActiveTab("bot")}
+              waLink={waLink}
+              lineLink={lineLink}
+            />
           )}
         </div>
 
-        {!showMailForm && (
+        {!showMailForm && activeTab !== "bot" && (
           <div className="flex border-t border-white/10 bg-lanka-black/95 shrink-0">
             <button
               onClick={() => setActiveTab("home")}

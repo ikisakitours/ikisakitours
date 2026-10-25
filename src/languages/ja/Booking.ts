@@ -1,4 +1,10 @@
 export default {
+  MetadataReviews: {
+    reviewNotFound: "レビューが見つかりません",
+    reviewTitle: "ゲストレビュー | {tourName}",
+    reviewDescription: "私たちの {tourName} に参加されたお客様のリアルな体験談やエピソードをお読みください.",
+  },
+
   Navigation: {
     about: "概要",
     highlights: "ハイライト",

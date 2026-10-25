@@ -156,5 +156,11 @@ export default {
       success: "レビューを投稿しました！",
       error: "送信に失敗しました。",
     },
+    Newsletter: {
+      loading: "登録中",
+      success: "登録が完了しました！",
+      error: "登録に失敗しました。",
+      alreadyExists: "既に登録されています！",
+    },
   },
 } as const;

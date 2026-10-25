@@ -124,12 +124,6 @@ export function SecuritySettingsPanel() {
                   <TransientMessage messages={transientSuccessMsgs} />
                 )}
 
-                {newPassword === "" && !localError && !errors.password && (
-                  <p className="ml-2 mt-2 text-tiny text-slate-500 italic">
-                    * Must be at least 8 characters long and include uppercase, lowercase, numbers, and special
-                    characters.
-                  </p>
-                )}
                 <div className="ml-1">
                   <FormError message={localError || errors.password} />
                 </div>
@@ -169,7 +163,9 @@ export function SecuritySettingsPanel() {
                 </div>
               </label>
             </div>
-
+            {newPassword === "" && !localError && !errors.password && (
+              <p className="-mt-4 text-tiny text-slate-500 italic [word-break:auto-phrase]">{tForm("Placeholders.passwordTip")}</p>
+            )}
             <div className="flex flex-col items-center justify-between gap-6 pt-6 sm:flex-row">
               <Link
                 href="/confirm-email?from=profile?tab=security"

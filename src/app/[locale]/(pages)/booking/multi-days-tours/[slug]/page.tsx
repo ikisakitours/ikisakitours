@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: BookingPageProps): Promise<Me
     openGraph: {
       title: tour.fullTitle,
       description: tour.lead,
-      url: `/booking/one-day-tours/${tour.slug}`,
+      url: `/booking/multi-days-tours/${tour.slug}`,
       type: "website",
       images: [
         {

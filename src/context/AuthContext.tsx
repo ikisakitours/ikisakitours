@@ -26,21 +26,29 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("userData");
+      return saved ? JSON.parse(saved) : null;
+    }
+    return null;
+  });
 
   const fetchUser = useCallback(async () => {
     try {
       const response = await authService.getCurrentUser();
       const userData = response.user ? response.user : response;
       console.log("Raw API Response:", response);
-      
+
       if (userData && (userData.id || userData.email)) {
         setUser(userData);
+        localStorage.setItem("userData", JSON.stringify(userData));
         console.log("Fetch Data Success!", userData);
       }
     } catch (error) {
       console.error("No active session", error);
       setUser(null);
+      localStorage.removeItem("userData");
     }
   }, []);
 
@@ -58,6 +66,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logoutUser = () => {
     setUser(null);
+    localStorage.removeItem("userData");
   };
 
   const updateUser = (updatedFields: Partial<User>) => {

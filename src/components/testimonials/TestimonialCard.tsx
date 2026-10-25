@@ -28,11 +28,13 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
 
       <RatingStars rating={testimonial.rating ?? 5} className="mb-6 flex gap-1" starClassName="h-3.5 w-3.5 text-gold" />
 
-      <p className="mb-8 grow text-body font-normal italic leading-relaxed text-white sm:mb-10">
-        &quot;{testimonial.content}&quot;
-      </p>
+      <div className="relative mb-8 grow">
+        <div className="max-h-35 overflow-y-auto overscroll-contain pr-2 space-y-2 no-scrollbar mask-gradient">
+          <p className="text-body font-normal italic leading-relaxed text-white">&quot;{testimonial.content}&quot;</p>
+        </div>
+      </div>
 
-      <div className="flex w-full items-center gap-4 border-t border-white/5 pt-6">
+      <div className="flex w-full items-center gap-4 border-t border-white/5 pt-6 mt-auto">
         <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-gold/30 bg-white/5 shadow-lg sm:h-14 sm:w-14">
           <span className="text-xs font-bold uppercase text-gold sm:text-sm">{initials}</span>
           {testimonial.avatarUrl &&

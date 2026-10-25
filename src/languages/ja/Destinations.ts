@@ -1,7 +1,12 @@
 export default {
   Metadata: {
     title: "目的地",
-    description: "スリランカ旅行で訪れたいおすすめの観光スポットをご紹介。世界遺産や美しいビーチ、歴史ある寺院、緑豊かな山々など、スリランカならではの魅力あふれる名所を厳選しました。次の旅の計画にぜひお役立てください.",
+    description:
+      "スリランカ旅行で訪れたいおすすめの観光スポットをご紹介。世界遺産や美しいビーチ、歴史ある寺院、緑豊かな山々など、スリランカならではの魅力あふれる名所を厳選しました。次の旅の計画にぜひお役立てください.",
+    //new
+    slugTitle: "{destinationName} トラベルガイド＆観光スポット",
+    slugNotFoundTitle: "目的地が見つかりません",
+    slugNotFoundDesc: "リクエストされた目的地が見つかりませんでした.",
   },
   Hero: {
     eyebrow: "島を探索する",
@@ -17,8 +22,7 @@ export default {
     watermark: "IkiSaki",
     geoBadge: "地理的発見",
     mapTitle: "視覚的に目的地を発見する",
-    mapDesc:
-      "インタラクティブな地図を使って、訪れたいスポットの場所を簡単にご確認いただけます.",
+    mapDesc: "インタラクティブな地図を使って、訪れたいスポットの場所を簡単にご確認いただけます.",
     viewMapBtn: "ルートマップを見る",
     loadMore: "もっと見る",
     showing: "Showing",

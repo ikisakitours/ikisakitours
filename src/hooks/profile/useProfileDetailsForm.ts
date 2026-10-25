@@ -100,7 +100,7 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
     });
   };
 
-const handlePersonalUpdate = async (e: FormEvent) => {
+  const handlePersonalUpdate = async (e: FormEvent) => {
     e.preventDefault();
     if (!validate({ firstName, lastName, email, country })) return;
     const toastId = toast.loading(tToastProfile("loading"));
@@ -119,8 +119,6 @@ const handlePersonalUpdate = async (e: FormEvent) => {
         new Promise((resolve) => setTimeout(resolve, 800)),
       ]);
 
-      // 🌟 මෙතැනින් avatarUrl එක අයින් කළා. 
-      // මොකද details update කරද්දී avatar එක වෙනස් වෙන්න ඕනේ image upload එක හරහා පමණයි.
       updateUser({
         firstname: firstName,
         lastname: lastName,

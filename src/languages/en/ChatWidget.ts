@@ -4,7 +4,21 @@ export default {
     titleEmail: "Send an Email",
     onlineStatus: "Online Now",
     logoAlt: "IkiSaki Logo",
+    //new
+    titleBot: "AI Assistant",
   },
+  // new
+  BotChat: {
+    guideBadge: "Your Sri Lanka travel guide",
+    initialGreeting: "Hello! I am your IkiSaki AI travel guide. How can I curate your dream Sri Lankan journey today?",
+    simulatedReply: "That sounds like an incredible experience! Let me check the best routes and availability for you.",
+    inputPlaceholder: "Ask about tours, hotels, wildlife...",
+    poweredBy: "Powered by IkiSaki Tours Intelligence • Encrypted & Secure",
+    typingLabel: "The guide is typing",
+    HeaderTitle: "AI Assistant",
+    suggestionsButton: "Suggestions",
+  },
+
   Home: {
     greeting: "Hello there! 👋",
     description: "Need help? Start a new conversation and our travel assistants will guide you.",
@@ -29,6 +43,9 @@ export default {
     customerSupport: "Customer Support",
     recentMessage: "👋 Hi! How can we help?",
     timeNow: "now",
+    //new
+    botTitle: "Chat with AI Assistant",
+    botSubtitle: "Get instant automated answers",
   },
   MailForm: {
     fullNameLabel: "Full Name *",

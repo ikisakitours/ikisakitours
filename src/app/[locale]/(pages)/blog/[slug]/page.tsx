@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { fetchBlogServices } from "@/services/blogs/fetchBlogServices";
 import { SingleBlogClientWrapper } from "@/components/blog/SingleBlogClientWrapper";
+import { getTranslations } from "next-intl/server";
 
 type BlogDetailPageProps = {
   params: Promise<{
@@ -10,7 +11,7 @@ type BlogDetailPageProps = {
 
 export async function generateMetadata({ params }: BlogDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
-
+  const t = await getTranslations("Journal.Metadata");
   try {
     const post = await fetchBlogServices.getBlogPostBySlug(slug);
     const heroImage = post.gallery?.[0] || "/images/default-blog.jpg";
@@ -44,7 +45,7 @@ export async function generateMetadata({ params }: BlogDetailPageProps): Promise
   } catch (error) {
     console.error(`Failed to fetch metadata for blog slug: ${slug}`, error);
     return {
-      title: "Story not found",
+      title: t("notFoundTitle"),
     };
   }
 }

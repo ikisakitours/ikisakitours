@@ -6,23 +6,25 @@ import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { PromoModal } from "@/components/ui/PromoModal";
 import { DestinationSlugClientWrapper } from "@/components/Destinations/DestinationSlugClientWrapper";
 import { fetchDestinationServices } from "@/services/destinations/fetchDestinationServices";
+import { getTranslations } from "next-intl/server";
 
 type DestinationPageProps = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 };
 
 export async function generateMetadata({ params }: DestinationPageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Destinations.Metadata" });
   try {
     const dest = await fetchDestinationServices.getDestinationBySlug(slug);
     return {
-      title: `${dest.title} Travel Guide & Attractions`,
+      title: t("slugTitle", { destinationName: dest.title }),
       description: dest.summary,
     };
   } catch {
     return {
-      title: "Destination Not Found",
-      description: "The requested destination could not be found.",
+      title: t("slugNotFoundTitle"),
+      description: t("slugNotFoundDesc"),
     };
   }
 }
@@ -35,7 +37,7 @@ export default async function DestinationPage({ params }: DestinationPageProps) 
       <Suspense fallback={<div className="text-white">Loading...</div>}>
         <DestinationSlugClientWrapper slug={slug} />
       </Suspense>
-      
+
       <ContainerLayout>
         <PromoModal />
       </ContainerLayout>
