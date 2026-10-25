@@ -97,10 +97,9 @@ export default {
     loginBtn: "Login to Continue",
   },
 
-  
-// new translate need
-deleteConfirmationMatch: "Type DELETE to confirm",
-deleteGeneralFailed: "Failed to delete account. Please try again.",
+  // new translate need
+  deleteConfirmationMatch: "Type DELETE to confirm",
+  deleteGeneralFailed: "Failed to delete account. Please try again.",
   ToastMessages: {
     Login: {
       loading: "Logging in",
@@ -156,6 +155,12 @@ deleteGeneralFailed: "Failed to delete account. Please try again.",
       loading: "Submitting",
       success: "Review submitted!",
       error: "Submission failed.",
+    },
+    Newsletter: {
+      loading: "Subscribing",
+      success: "Successfully subscribed!",
+      error: "Subscription failed.",
+      alreadyExists: "Already subscribed!",
     },
   },
 } as const;

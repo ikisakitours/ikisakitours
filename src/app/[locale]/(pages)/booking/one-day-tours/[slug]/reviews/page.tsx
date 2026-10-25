@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { bookingTour } from "@/data/oneDayBooking";
 import ReviewsBody from "@/components/booking/bookingReviews/ReviewsBody";
 
@@ -11,18 +12,18 @@ type BookingReviewsPageProps = {
 
 export async function generateMetadata({ params }: BookingReviewsPageProps): Promise<Metadata> {
   const { slug } = await params;
-
+  const t = await getTranslations("Booking.Metadata");
   const tour = bookingTour.slug === slug ? bookingTour : null;
 
   if (!tour) {
     return {
-      title: "Review Not Found",
+      title: t("reviewNotFound"),
     };
   }
 
   return {
-    title: `Guest Reviews | ${tour.fullTitle}`,
-    description: `Read authentic stories and experiences from travelers who joined our ${tour.fullTitle}.`,
+    title: t("reviewTitle", { tourName: tour.fullTitle }),
+    description: t("reviewDescription", { tourName: tour.fullTitle }),
   };
 }
 

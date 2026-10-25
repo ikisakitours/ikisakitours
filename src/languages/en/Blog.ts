@@ -1,13 +1,17 @@
 export default {
   Metadata: {
     title: "Journal",
-    description: "IkiSaki Tours brings you a curated selection of information for your trip to Sri Lanka. Through travel guides, insights into local culture, World Heritage sites, and breathtaking scenic spots, discover the charm of Sri Lanka and plan your own unique and unforgettable journey.",
+    description:
+      "IkiSaki Tours brings you a curated selection of information for your trip to Sri Lanka. Through travel guides, insights into local culture, World Heritage sites, and breathtaking scenic spots, discover the charm of Sri Lanka and plan your own unique and unforgettable journey.",
+   //new
+      notFoundTitle: "Story not found",
   },
   Hero: {
     eyebrow: "The Journal",
     title: "The Art of ",
     accent: "Discovering Us",
-    strapline: "Discover the culture, history, and hidden charms of Sri Lanka. Find tips to help you plan an extraordinary trip.",
+    strapline:
+      "Discover the culture, history, and hidden charms of Sri Lanka. Find tips to help you plan an extraordinary trip.",
     image: "https://images.unsplash.com/photo-1546708973-b339540b5162?auto=format&fit=crop&q=80&w=2400",
     alt: "Vintage map of Sri Lanka with a classic compass",
   },
@@ -58,8 +62,7 @@ export default {
     Pending: {
       backgroundText: "Pending",
       title: "Content Coming Soon",
-      description:
-        "This article is currently in preparation. Please wait a little longer until it is published.",
+      description: "This article is currently in preparation. Please wait a little longer until it is published.",
     },
   },
 } as const;

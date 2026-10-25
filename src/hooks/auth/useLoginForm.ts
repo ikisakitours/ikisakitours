@@ -8,6 +8,8 @@ import { useToast } from "@/context/ToastContext";
 import { useAuth } from "@/context/AuthContext";
 import { getCookieConsentStatus } from "@/utils/cookiesHandle";
 import { cookieService } from "@/services/cookies/cookieService";
+import { getSafeRedirect } from "@/utils/redirect";
+
 interface LoginResponse {
   id?: string;
   user?: {
@@ -71,9 +73,9 @@ export function useLoginForm() {
 
       console.log("Login valid and submitted!", response);
 
-      setTimeout(() => {
-        router.push("/");
-      }, 2200);
+    setTimeout(() => {
+  router.push(getSafeRedirect("/"));
+}, 2200);
     } catch (error) {
       toast.error(toastId, tToast("error"));
       console.error("Login error:", error);

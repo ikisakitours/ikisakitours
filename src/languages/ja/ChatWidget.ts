@@ -4,7 +4,22 @@ export default {
     titleEmail: "メールを送信",
     onlineStatus: "オンライン",
     logoAlt: "IkiSaki ロゴ",
+    // new
+    titleBot: "AIアシスタント",
   },
+
+  //new
+  BotChat: {
+    guideBadge: "スリランカ旅行ガイド",
+    initialGreeting: "こんにちは！私はIkiSaki AI旅行ガイドです。今日はどのようなスリランカの旅をお手伝いしましょうか？",
+    simulatedReply: "それは素晴らしい体験ですね！最適なルートと空き状況を確認いたします。",
+    inputPlaceholder: "ツアー、ホテル、野生動物について質問する...",
+    poweredBy: "IkiSaki Tours インテリジェンス提供 • 暗号化され安全",
+    typingLabel: "ガイドが入力中...",
+    HeaderTitle: "AIアシスタント",
+    suggestionsButton: "おすすめ",
+  },
+
   Home: {
     greeting: "こんにちは！ 👋",
     description: "サポートが必要ですか？新しい会話を始めていただければ、旅行アシスタントがご案内します.",
@@ -29,6 +44,9 @@ export default {
     customerSupport: "カスタマーサポート",
     recentMessage: "👋 こんにちは！どのようにお手伝いしましょうか？",
     timeNow: "たった今",
+    //new
+    botTitle: "AIアシスタントとチャット",
+    botSubtitle: "即座に自動回答を取得",
   },
   MailForm: {
     fullNameLabel: "氏名 *",

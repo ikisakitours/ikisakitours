@@ -2,6 +2,10 @@ export default {
   Metadata: {
     title: "Destinations",
     description: "Discover the best places to visit in Sri Lanka, from UNESCO World Heritage Sites and beautiful beaches to historic temples and lush green mountains. Explore our carefully selected destinations and find inspiration for your next journey.",
+  //new
+  slugTitle: "{destinationName} Travel Guide & Attractions",
+    slugNotFoundTitle: "Destination Not Found",
+    slugNotFoundDesc: "The requested destination could not be found.",
   },
   Hero: {
     eyebrow: "EXPLORE ISLAND",

@@ -139,11 +139,11 @@ export function Footer() {
               />
               <button
                 type="submit"
+                disabled={isLoading}
                 aria-label={tFooter("buttonText")}
                 className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-gold text-black transition-all hover:scale-105 hover:bg-white"
               >
                 <Send className={`h-4 w-4 ${isLoading ? "animate-pulse" : ""}`} strokeWidth={2} />
-                {/* <Send className="h-4 w-4" strokeWidth={2} /> */}
               </button>
             </form>
             <div className="-ml-30 md:ml-5 lg:ml-5 xl:ml-5">

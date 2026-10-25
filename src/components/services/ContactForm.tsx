@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { floatingLabelClass, inputClass, fieldLabelClass } from "./formStyles";
 import { Button } from "@/components/ui/Button";
 import { FormError } from "@/components/ui/FormError";
@@ -10,6 +10,7 @@ import PhoneInput, { Country } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { useTranslations } from "next-intl";
 import { useUserLocation } from "@/hooks/useUserLocation";
+import { useAuth } from "@/context/AuthContext";
 //Icons
 import { UserRound, ShieldCheck, CreditCard, Headset } from "lucide-react";
 
@@ -34,7 +35,7 @@ export function ContactForm({ data, setData, errors, setErrors, isLoading }: Con
   const tForm = useTranslations("SharedForm");
   const tErr = useTranslations("ValidationErrors");
   const tServices = useTranslations("Services");
-
+  const { user } = useAuth();
   const assuranceBadges = tServices.raw("AssuranceBadges") as string[];
 
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -56,6 +57,16 @@ export function ContactForm({ data, setData, errors, setErrors, isLoading }: Con
       setErrors((prev) => ({ ...prev, [field]: "" }));
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      setData((prev) => ({
+        ...prev,
+        fullName: prev.fullName || `${user.firstname || ""} ${user.lastname || ""}`.trim(),
+        email: prev.email || user.email || "",
+      }));
+    }
+  }, [user, setData]);
 
   return (
     <div className="relative">
@@ -172,7 +183,12 @@ export function ContactForm({ data, setData, errors, setErrors, isLoading }: Con
         </div>
 
         <div className="mx-auto max-w-xs">
-          <Button type="submit" variant="explore"    disabled={isLoading} className="[&_span]:text-caption! w-full justify-center disabled:opacity-60 disabled:cursor-not-allowed">
+          <Button
+            type="submit"
+            variant="explore"
+            disabled={isLoading}
+            className="[&_span]:text-caption! w-full justify-center disabled:opacity-60 disabled:cursor-not-allowed"
+          >
             {isLoading ? tForm("ButtonsLoading.checkingAvailability") : tForm("Buttons.checkAvailability")}
           </Button>
 
