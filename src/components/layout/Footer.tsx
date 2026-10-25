@@ -146,7 +146,7 @@ export function Footer() {
                 <Send className={`h-4 w-4 ${isLoading ? "animate-pulse" : ""}`} strokeWidth={2} />
               </button>
             </form>
-            <div className="-ml-30 md:ml-5 lg:ml-5 xl:ml-5">
+            <div className=" ml-4">
               <FormError message={errors.email} />
             </div>
           </div>
