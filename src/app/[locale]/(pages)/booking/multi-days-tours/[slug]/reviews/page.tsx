@@ -12,7 +12,7 @@ type BookingReviewsPageProps = {
 
 export async function generateMetadata({ params }: BookingReviewsPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const t = await getTranslations("Booking.Metadata");
+  const t = await getTranslations("Booking.MetadataReviews");
   const tour = bookingTour.slug === slug ? bookingTour : null;
 
   if (!tour) {

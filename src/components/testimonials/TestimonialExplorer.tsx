@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useMemo, useState, useTransition, useEffect, useRef } from "react";
+import { loadReviewDraft } from "@/utils/reviewDraft";
 import { TestimonialCard } from "@/components/testimonials/TestimonialCard";
 import { FilterSidebar } from "@/components/ui/FilterSidebar";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
@@ -12,6 +13,7 @@ import { useRouter } from "@/lib/i18nNavigation";
 import { useTranslations } from "next-intl";
 import type { Review } from "@/services/testimonials/types";
 import { getLanguageFromCountry } from "@/utils/languageMapper";
+
 //Icons
 import { Filter } from "lucide-react";
 import { ArrowLeft } from "lucide-react";
@@ -70,15 +72,17 @@ export function TestimonialExplorer({ comments }: TestimonialExplorerProps) {
       const dateB = new Date(b.date).getTime();
 
       if (sortDate === "newest") {
-        return dateB - dateA; 
+        return dateB - dateA;
       } else {
-        return dateA - dateB; 
+        return dateA - dateB;
       }
     });
 
     return result;
   }, [language, rating, sortDate, comments]);
   const [isWritingReview, setIsWritingReview] = useState(false);
+  const [restoredDraft, setRestoredDraft] = useState(false);
+  const hasScrolledRef = useRef(false);
   const visibleTestimonials = filteredTestimonials.slice(0, visibleCount);
   const hasMore = visibleTestimonials.length < filteredTestimonials.length;
   const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -88,6 +92,49 @@ export function TestimonialExplorer({ comments }: TestimonialExplorerProps) {
       setVisibleCount(INITIAL_COUNT);
     });
   }
+  useEffect(() => {
+    const id = setTimeout(() => {
+      if (loadReviewDraft()) {
+        setIsWritingReview(true);
+        setRestoredDraft(true);
+      }
+    }, 0);
+    return () => clearTimeout(id);
+  }, []);
+
+  useEffect(() => {
+    if (!restoredDraft || hasScrolledRef.current) return;
+    hasScrolledRef.current = true;
+
+    const id = setTimeout(() => {
+      const target = document.getElementById("write-review-anchor");
+
+      if (target) {
+        const headerOffset = 130;
+
+        const elementPosition = target.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
+    }, 600);
+
+    return () => clearTimeout(id);
+  }, [restoredDraft]);
+  useEffect(() => {
+    if (!restoredDraft || hasScrolledRef.current) return;
+    hasScrolledRef.current = true;
+
+    const id = setTimeout(() => {
+      const target = document.getElementById("write-review-anchor");
+      target?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 500);
+
+    return () => clearTimeout(id);
+  }, [restoredDraft]);
 
   return (
     <section className="py-12 md:py-16 xl:py-16 2xl:py-20 3xl:py-24 ">
@@ -155,12 +202,13 @@ export function TestimonialExplorer({ comments }: TestimonialExplorerProps) {
           {isWritingReview ? (
             <motion.div
               key="review-form"
+              id="write-review-anchor"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.5, ease: smoothEase }}
               style={{ willChange: "transform, opacity" }}
-              className="mt-12"
+              className="mt-12 scroll-mt-28"
             >
               <WriteReviewForm />
             </motion.div>
@@ -244,7 +292,7 @@ export function TestimonialExplorer({ comments }: TestimonialExplorerProps) {
         }}
         totalResults={filteredTestimonials.length}
         labels={{
-         categories: t("Sidebar.languages"),
+          categories: t("Sidebar.languages"),
           rating: t("Sidebar.rating"),
           allRatings: t("Sidebar.allRatings"),
           stars: t("Sidebar.stars"),

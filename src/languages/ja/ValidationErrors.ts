@@ -90,77 +90,104 @@ export default {
     transferBookingFailed: "送迎予約の送信に失敗しました.もう一度お試しください.",
     deleteFailed: "アカウントの削除に失敗しました.パスワードを確認してください.",
   },
-  AuthRequired: {
+  // NEW
+ AuthRequired: {
+  Review: {
     title: "ログインが必要です",
-    description:
-      "このジャーナルを気に入っていただけたら、とてもうれしいです！ぜひログインして「いいね！」をお願いします.",
+    description: "レビューを投稿し、体験を共有するにはログインしてください。",
     loginBtn: "ログインして続ける",
   },
+  Contact: {
+    title: "ログインが必要です",
+    description: "お問い合わせを送信するにはログインしてください。",
+    loginBtn: "ログインして続ける",
+  },
+  Journal: {
+    title: "ログインが必要です",
+    description: "このジャーナルを気に入っていただけたら、とてもうれしいです！ぜひログインして「いいね！」をお願いします。",
+    loginBtn: "ログインして続ける",
+  },
+},
 
   // new translate need
   deleteConfirmationMatch: "確認のためにDELETEと入力してください",
-  deleteGeneralFailed: "アカウントの削除に失敗しました。もう一度お試しください.",
+  deleteGeneralFailed: "アカウントの削除に失敗しました.もう一度お試しください.",
   ToastMessages: {
     Login: {
       loading: "ログイン中",
       success: "おかえりなさいませ！",
-      error: "無効な認証情報です。",
+      error: "無効な認証情報です.",
     },
     Signup: {
       loading: "アカウント作成中",
       success: "登録が完了しました！",
-      error: "登録に失敗しました。",
+      error: "登録に失敗しました.",
     },
     Logout: {
       loading: "ログアウト中",
       success: "またのご利用をお待ちしております！",
-      error: "ログアウトに失敗しました。",
+      error: "ログアウトに失敗しました.",
     },
     PasswordReset: {
       loading: "リセット中",
       success: "パスワードをリセットしました！",
-      error: "リセットに失敗しました。もう一度お試しください。",
+      error: "リセットに失敗しました.もう一度お試しください.",
     },
     Recovery: {
       loading: "メール送信中",
       success: "再設定メールを送信しました！",
-      error: "メールアドレスが見つかりません。",
+      error: "メールアドレスが見つかりません.",
     },
     ProfileUpdate: {
       loading: "保存中",
       success: "プロフィールを更新しました！",
-      error: "更新に失敗しました。",
+      error: "更新に失敗しました.",
     },
     AvatarUpload: {
       loading: "アップロード中",
       success: "画像を更新しました！",
-      error: "アップロードに失敗しました。",
+      error: "アップロードに失敗しました.",
     },
     BespokeTour: {
       loading: "送信中",
       success: "ツアーリクエストを送信しました！",
-      error: "送信に失敗しました。",
+      error: "送信に失敗しました.",
     },
     VehicleBooking: {
       loading: "予約中",
       success: "予約が確定しました！",
-      error: "予約に失敗しました。",
+      error: "予約に失敗しました.",
     },
     TransferBooking: {
       loading: "処理中",
       success: "送迎の予約が完了しました！",
-      error: "処理に失敗しました。",
+      error: "処理に失敗しました.",
     },
     Review: {
       loading: "送信中",
       success: "レビューを投稿しました！",
-      error: "送信に失敗しました。",
+      error: "送信に失敗しました.",
     },
     Newsletter: {
       loading: "登録中",
       success: "登録が完了しました！",
-      error: "登録に失敗しました。",
+      error: "登録に失敗しました.",
       alreadyExists: "既に登録されています！",
+    },
+    DeleteAccount: {
+      loading: "アカウントを削除中", 
+      success: "アカウントが削除されました！", 
+      error: "アカウントの削除に失敗しました.",
+    },
+    ContactForm: {
+      loading: "メッセージ送信中",
+      success: "メッセージが正常に送信されました！",
+      error: "メッセージの送信に失敗しました.もう一度お試しください.",
+    },
+    SocialLogin: {
+      googleLoading: "Googleに接続中...",
+      appleLoading: "Appleに接続中...",
+      error: "ソーシャルログインに失敗しました。もう一度お試しください。",
     },
   },
 } as const;

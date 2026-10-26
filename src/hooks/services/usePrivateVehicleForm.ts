@@ -113,7 +113,11 @@ export function usePrivateVehicleForm() {
       setLanguage("");
       setTourDays(0);
       setTravelerCounts({ adult: 0, couple: 0, child: 0, infant: 0 });
-      setContact({ fullName: "", email: "", phone: "", specialRequests: "" });
+      setContact((prev) => ({
+        ...prev,
+        phone: "",
+        specialRequests: "",
+      }));
     } catch (error) {
       console.error("Submission error:", error);
       toast.error(toastId, tToast("error"));

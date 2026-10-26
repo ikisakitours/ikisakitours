@@ -130,7 +130,7 @@ function BlogArticleInner({ post }: BlogArticleProps) {
               <div className="flex items-center gap-3">
                 <div className="h-px w-8 bg-gold/40" />
                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gold/70 sm:text-tiny">
-                  Words by <span className="text-white/90">{post.author}</span>
+                 {t("wordsBy")} <span className="text-white/90">{post.author}</span>
                 </span>
               </div>
             </div>

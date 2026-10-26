@@ -5,6 +5,8 @@ import { useValidationForm } from "@/hooks/useValidationForm";
 import { usePasswordStrength, type TransientMsgType } from "@/hooks/usePasswordStrength";
 import { useTranslations } from "next-intl";
 import { profileService, type DeleteAccountPayload } from "@/services/profile/profileService";
+import { useToast } from "@/context/ToastContext";
+
 export function useSecuritySettingsForm(tError: (key: string) => string) {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -22,8 +24,12 @@ export function useSecuritySettingsForm(tError: (key: string) => string) {
   const [transientConfirmSuccess, setTransientConfirmSuccess] = useState<TransientMsgType[]>([]);
   const [localConfirmError, setLocalConfirmError] = useState("");
   const confirmTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const toast = useToast();
+  const tToastDelete = useTranslations("ValidationErrors.ToastMessages.DeleteAccount");
   const tErr = useTranslations("ValidationErrors.ServerErrors");
   const tEr = useTranslations("ValidationErrors");
+
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deletePassword, setDeletePassword] = useState("");
 
@@ -110,6 +116,7 @@ export function useSecuritySettingsForm(tError: (key: string) => string) {
       return;
     }
 
+    const toastId = toast.loading(tToastDelete("loading"));
     try {
       setIsDeleting(true);
       setErrors((prev) => ({ ...prev, deletePassword: "", form: "" }));
@@ -120,14 +127,13 @@ export function useSecuritySettingsForm(tError: (key: string) => string) {
       };
 
       await profileService.deleteAccount(payload);
+      toast.success(toastId, tToastDelete("success"), 2000);
       localStorage.removeItem("userData");
       window.location.href = "/signup";
     } catch (error) {
+      toast.error(toastId, tToastDelete("error"));
       console.error("Delete account error:", error);
-      const errorMessage =
-        deleteMethod === "password"
-          ? tErr("deleteFailed") 
-          : tEr("deleteGeneralFailed");
+      const errorMessage = deleteMethod === "password" ? tErr("deleteFailed") : tEr("deleteGeneralFailed");
 
       setErrors((prev) => ({ ...prev, deletePassword: errorMessage }));
     } finally {

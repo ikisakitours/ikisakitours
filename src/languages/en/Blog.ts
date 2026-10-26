@@ -59,6 +59,8 @@ export default {
     moreArticles: "More Articles",
     shareStory: "Share Story",
     lovedThis: "Loved this",
+     //new 
+    wordsBy: "Words by",
     Pending: {
       backgroundText: "Pending",
       title: "Content Coming Soon",

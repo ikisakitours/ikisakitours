@@ -5,6 +5,7 @@ import { FormError } from "@/components/ui/FormError";
 import { UploadCloud, ArrowLeft, Star, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useReviewForm } from "@/hooks/Booking/usePackageReviewForm";
+import { AuthRequiredModal } from "@/components/ui/AuthRequiredModal";
 
 const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
   const target = e.currentTarget;
@@ -12,7 +13,9 @@ const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
   target.style.height = `${target.scrollHeight}px`;
 };
 
-export function ReviewForm({ onBack }: { onBack: () => void }) {
+type ReviewFormProps = { onBack: () => void; slug: string };
+
+export function ReviewForm({ onBack, slug }: ReviewFormProps) {
   const t = useTranslations("Booking.ReviewForm");
   const tForms = useTranslations("SharedForm");
 
@@ -33,7 +36,9 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
     errors,
     setErrors,
     handleSubmit,
-  } = useReviewForm();
+    showAuthModal,
+    closeAuthModal,
+  } = useReviewForm(slug);
 
   return (
     <div className="animate-fade-in-up mx-auto max-w-2xl 3xl:max-w-4xl">
@@ -218,6 +223,11 @@ export function ReviewForm({ onBack }: { onBack: () => void }) {
           </Button>
         </form>
       </div>
+       <AuthRequiredModal
+        isOpen={showAuthModal}
+        onClose={closeAuthModal}
+        translationPath="ValidationErrors.AuthRequired.Review"
+      />
     </div>
   );
 }

@@ -95,7 +95,11 @@ export function LikeButton({
         )}
       </button>
 
-      <AuthRequiredModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
+      <AuthRequiredModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        translationPath="ValidationErrors.AuthRequired.Journal"
+      />
     </>
   );
 }

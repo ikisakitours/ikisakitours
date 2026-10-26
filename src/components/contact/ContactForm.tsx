@@ -10,6 +10,7 @@ import { useTranslations } from "next-intl";
 import { useUserLocation } from "@/hooks/useUserLocation";
 import { LocationDetectionFeedback } from "@/components/ui/LocationDetectionFeedback";
 import { useContactForm } from "@/hooks/Contact/useContactForm";
+import { AuthRequiredModal } from "@/components/ui/AuthRequiredModal";
 export default function ContactForm() {
   const tPage = useTranslations("ContactPage.Form");
   const tForm = useTranslations("SharedForm");
@@ -44,9 +45,11 @@ export default function ContactForm() {
     handleInquiryChange,
     handleTourChange,
     handleSubmit,
+    showAuthModal,
+    closeAuthModal,
   } = useContactForm(INQUIRY_OPTIONS);
   return (
-    <div className="lg:col-span-2">
+    <div id="contact-form-anchor"  className="lg:col-span-2 scroll-mt-28">
       <div className="glass-card rounded-3xl p-8 md:p-10">
         <h2 className="premium-serif mb-8 text-2xl text-white">{tPage("title")}</h2>
 
@@ -227,6 +230,11 @@ export default function ContactForm() {
           </div>
         </form>
       </div>
+      <AuthRequiredModal
+        isOpen={showAuthModal}
+        onClose={closeAuthModal}
+        translationPath="ValidationErrors.AuthRequired.Contact"
+      />
     </div>
   );
 }

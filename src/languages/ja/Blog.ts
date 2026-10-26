@@ -59,6 +59,8 @@ export default {
     moreArticles: "その他の記事",
     shareStory: "ストーリーを共有する",
     lovedThis: "お気に入り",
+    //new 
+    wordsBy: "執筆：",
     Pending: {
       backgroundText: "準備中",
       title: "コンテンツは近日公開",

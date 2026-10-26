@@ -4,7 +4,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const contactApi = {
   submitForm: async (data: Record<string, string>) => {
-    const response = await fetch(`${API_URL}/contact`, {
+    const response = await fetch(`${API_URL}/contacts`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

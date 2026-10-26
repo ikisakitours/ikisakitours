@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { FormError } from "@/components/ui/FormError";
 import { useTranslations } from "next-intl";
 import { useWriteReviewForm } from "@/hooks/testimonials/useWriteReviewForm";
+import { AuthRequiredModal } from "@/components/ui/AuthRequiredModal";
 
 export function WriteReviewForm() {
   const tForm = useTranslations("Testimonials.FormHero");
@@ -19,7 +20,7 @@ export function WriteReviewForm() {
     target.style.height = `${target.scrollHeight}px`;
   };
 
-  const {
+   const {
     fullName,
     setFullName,
     email,
@@ -32,6 +33,8 @@ export function WriteReviewForm() {
     errors,
     setErrors,
     handleSubmit,
+    showAuthModal,
+    closeAuthModal,
   } = useWriteReviewForm();
 
   return (
@@ -173,6 +176,11 @@ export function WriteReviewForm() {
           </form>
         </div>
       </div>
+       <AuthRequiredModal
+        isOpen={showAuthModal}
+        onClose={closeAuthModal}
+        translationPath="ValidationErrors.AuthRequired.Review"
+      />
     </div>
   );
 }
