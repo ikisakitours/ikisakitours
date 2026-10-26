@@ -24,12 +24,6 @@ export default {
   },
   Categories: {
     all: "すべて",
-    "Ticketing & Visa Services": "チケット・ビザサービス",
-    General: "一般",
-    Booking: "予約",
-    Refunds: "返金",
-    Tours: "ツアー",
-    Payments: "お支払い",
   },
   EmptyState: {
     backgroundText: "FAQ",

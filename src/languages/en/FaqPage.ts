@@ -24,12 +24,6 @@ export default {
   },
   Categories: {
     all: "All",
-    "Ticketing & Visa Services": "Ticketing & Visa Services",
-    General: "General",
-    Booking: "Booking",
-    Refunds: "Refunds",
-    Tours: "Tours",
-    Payments: "Payments",
   },
   EmptyState: {
     backgroundText: "FAQ",

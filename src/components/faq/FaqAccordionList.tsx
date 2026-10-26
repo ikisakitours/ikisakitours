@@ -22,6 +22,7 @@ interface FaqAccordionListProps {
   activeCategory: string;
   setSearchQuery: (query: string) => void;
   setActiveCategory: (category: string) => void;
+  categoryLabels: Record<string, string>;
 }
 
 const perfStyle: React.CSSProperties = {
@@ -74,6 +75,7 @@ export default function FaqAccordionList({
   activeCategory,
   setSearchQuery,
   setActiveCategory,
+  categoryLabels,
 }: FaqAccordionListProps) {
   const t = useTranslations("FaqPage");
 
@@ -125,7 +127,7 @@ export default function FaqAccordionList({
                 >
                   <div className="flex flex-col gap-1 pr-6">
                     <span className="text-body-sm font-bold uppercase tracking-widest text-gold">
-                      {t(`Categories.${faq.category}`)}
+                      {categoryLabels[faq.category] || faq.category}
                     </span>
                     <h3
                       className={`text-body font-medium transition-colors ${isOpen ? "text-white" : "text-slate-200"}`}
