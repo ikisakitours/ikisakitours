@@ -6,6 +6,18 @@ import { useAuth } from "@/context/AuthContext";
 import { clearBookingReviewDraft, loadBookingReviewDraft, saveBookingReviewDraft } from "@/utils/bookingReviewDraft";
 import { useToast } from "@/context/ToastContext";
 
+// if  this true when from auto submit
+const AUTO_SUBMIT_AFTER_LOGIN = false;
+
+type ReviewValues = {
+  fullName: string;
+  email: string;
+  country: string;
+  rating: number;
+  experience: string;
+  images: File[];
+};
+
 export function useReviewForm(slug: string) {
   const { user } = useAuth();
 
@@ -28,42 +40,6 @@ export function useReviewForm(slug: string) {
 
   const tToast = useTranslations("ValidationErrors.ToastMessages.Review");
   const toast = useToast();
-
-  useEffect(() => {
-    if (!user) return;
-    const id = setTimeout(() => {
-      setFullName((prev) => prev || `${user.firstname || ""} ${user.lastname || ""}`.trim());
-      setEmail((prev) => prev || user.email || "");
-      setCountry((prev) => prev || user.country || "");
-    }, 0);
-    return () => clearTimeout(id);
-  }, [user]);
-
-  useEffect(() => {
-    const id = setTimeout(() => {
-      const draft = loadBookingReviewDraft(slug);
-      if (!draft) return;
-
-      const accountName = user ? `${user.firstname || ""} ${user.lastname || ""}`.trim() : "";
-      const accountEmail = user?.email || "";
-      const accountCountry = user?.country || "";
-
-      if (!fieldsRestoredRef.current) {
-        fieldsRestoredRef.current = true;
-        setFullName(accountName || draft.fullName);
-        setEmail(accountEmail || draft.email);
-        setCountry(accountCountry || draft.country);
-        setRating(draft.rating);
-        setExperience(draft.experience);
-      }
-
-      if (user && !autoHandledRef.current) {
-        autoHandledRef.current = true;
-        clearBookingReviewDraft(slug);
-      }
-    }, 0);
-    return () => clearTimeout(id);
-  }, [user, slug]);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -91,13 +67,13 @@ export function useReviewForm(slug: string) {
     if (newImages.length <= 5) setErrors((prev) => ({ ...prev, images: "" }));
   };
 
-  const submitReview = async () => {
+  const submitReview = async (values: ReviewValues) => {
     const toastId = toast.loading(tToast("loading"));
     try {
       setIsLoading(true);
 
       await Promise.all([
-        PackageReviewService.submitReview({ fullName, email, country, rating, experience, images }),
+        PackageReviewService.submitReview(values),
         new Promise((resolve) => setTimeout(resolve, 800)),
       ]);
 
@@ -107,10 +83,8 @@ export function useReviewForm(slug: string) {
       setExperience("");
       setImages([]);
       setPreviews([]);
-      if (user) {
-        setFullName(`${user.firstname || ""} ${user.lastname || ""}`.trim());
-        setEmail(user.email || "");
-      }
+      setFullName(user ? `${user.firstname || ""} ${user.lastname || ""}`.trim() : "");
+      setEmail(user?.email || "");
     } catch (error) {
       toast.error(toastId, tToast("error"));
       console.error("Submission error:", error);
@@ -119,6 +93,58 @@ export function useReviewForm(slug: string) {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!user) return;
+    const id = setTimeout(() => {
+      setFullName((prev) => prev || `${user.firstname || ""} ${user.lastname || ""}`.trim());
+      setEmail((prev) => prev || user.email || "");
+      setCountry((prev) => prev || user.country || "");
+    }, 0);
+    return () => clearTimeout(id);
+  }, [user]);
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      const draft = loadBookingReviewDraft(slug);
+      if (!draft) return;
+
+      const accountName = user ? `${user.firstname || ""} ${user.lastname || ""}`.trim() : "";
+      const accountEmail = user?.email || "";
+      const accountCountry = user?.country || "";
+
+      const restored: ReviewValues = {
+        fullName: accountName || draft.fullName,
+        email: accountEmail || draft.email,
+        country: accountCountry || draft.country,
+        rating: draft.rating,
+        experience: draft.experience,
+        images: [],
+      };
+
+      if (!fieldsRestoredRef.current) {
+        fieldsRestoredRef.current = true;
+        setFullName(restored.fullName);
+        setEmail(restored.email);
+        setCountry(restored.country);
+        setRating(restored.rating);
+        setExperience(restored.experience);
+      }
+
+      if (user && !autoHandledRef.current) {
+        autoHandledRef.current = true;
+        clearBookingReviewDraft(slug);
+
+        const canAutoSubmit = AUTO_SUBMIT_AFTER_LOGIN && draft.autoSubmit && !draft.hadImages;
+
+        if (canAutoSubmit && validate(restored)) {
+          void submitReview(restored);
+        }
+      }
+    }, 0);
+    return () => clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, slug]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -134,12 +160,20 @@ export function useReviewForm(slug: string) {
     if (!isValid) return;
 
     if (!user) {
-      saveBookingReviewDraft(slug, { fullName, email, country, rating, experience });
+      saveBookingReviewDraft(slug, {
+        fullName,
+        email,
+        country,
+        rating,
+        experience,
+        autoSubmit: AUTO_SUBMIT_AFTER_LOGIN,
+        hadImages: images.length > 0,
+      });
       setShowAuthModal(true);
       return;
     }
 
-    await submitReview();
+    await submitReview({ fullName, email, country, rating, experience, images });
   };
 
   return {

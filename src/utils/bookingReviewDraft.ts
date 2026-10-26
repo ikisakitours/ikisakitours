@@ -1,5 +1,4 @@
-// utils/bookingReviewDraft.ts
-const KEY_PREFIX = "ikisaki_booking_review_draft";
+const keyFor = (slug: string) => `ikisaki_booking_review_draft_${slug}`;
 const TTL_MS = 30 * 60 * 1000; // 30 minutes
 
 export type BookingReviewDraft = {
@@ -8,10 +7,10 @@ export type BookingReviewDraft = {
   country: string;
   rating: number;
   experience: string;
+  autoSubmit?: boolean;
+  hadImages?: boolean;
   savedAt: number;
 };
-
-const keyFor = (slug: string) => `${KEY_PREFIX}:${slug}`;
 
 export function saveBookingReviewDraft(slug: string, draft: Omit<BookingReviewDraft, "savedAt">) {
   try {

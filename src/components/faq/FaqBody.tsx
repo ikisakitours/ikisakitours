@@ -1,55 +1,68 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { faqData, faqCategories } from "@/data/faqData";
 import FaqAccordionList from "@/components/faq/FaqAccordionList";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { FilterSidebar } from "@/components/ui/FilterSidebar";
 import { SearchInput } from "@/components/ui/SearchInput";
 import { useTranslations } from "next-intl";
+import type { Faq } from "@/services/faqs/types";
+
+interface FaqBodyProps {
+  faqs: Faq[];
+}
 //icons
 import { Filter } from "lucide-react";
 
-export default function FaqBody() {
+export default function FaqBody({ faqs }: FaqBodyProps) {
   const t = useTranslations("FaqPage");
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
   const [openFaqId, setOpenFaqId] = useState<string | null>(null);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
+  const dynamicCategories = useMemo(() => {
+    return Array.from(new Set(faqs.map((f) => f.category)));
+  }, [faqs]);
+
   // Filter FAQs based on Search and Category
   const filteredFaqs = useMemo(() => {
-    return faqData.filter((faq) => {
+    return faqs.filter((faq) => {
+      const searchLower = searchQuery.toLowerCase();
+
       const matchesSearch =
-        faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        faq.answer.toLowerCase().includes(searchQuery.toLowerCase());
+        faq.question.toLowerCase().includes(searchLower) ||
+        faq.answer.toLowerCase().includes(searchLower) ||
+        faq.category.toLowerCase().includes(searchLower);
+
       const matchesCategory = activeCategory.toLowerCase() === "all" || faq.category === activeCategory;
+
       return matchesSearch && matchesCategory;
     });
-  }, [searchQuery, activeCategory]);
+  }, [faqs, searchQuery, activeCategory]);
 
   const categoryCounts = useMemo(() => {
-    const counts: Record<string, number> = { all: faqData.length };
-    faqData.forEach((faq) => {
+    const counts: Record<string, number> = { all: faqs.length };
+    faqs.forEach((faq) => {
       counts[faq.category] = (counts[faq.category] || 0) + 1;
     });
-    faqCategories.forEach((cat) => {
+    dynamicCategories.forEach((cat) => {
       if (counts[cat] === undefined) counts[cat] = 0;
     });
     return counts;
-  }, []);
+  }, [faqs, dynamicCategories]);
+
+  const categoryTranslatedLabels = useMemo(() => {
+    const labels: Record<string, string> = {};
+    dynamicCategories.forEach((cat) => {
+      labels[cat] = cat;
+    });
+    return labels;
+  }, [dynamicCategories]);
 
   const toggleFaq = (id: string) => {
     setOpenFaqId((prev) => (prev === id ? null : id));
   };
-
-  const categoryTranslatedLabels = useMemo(() => {
-    const labels: Record<string, string> = {};
-    faqCategories.forEach((cat) => {
-      labels[cat] = t(`Categories.${cat}`);
-    });
-    return labels;
-  }, [t]);
 
   return (
     <section className="w-full flex flex-col pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
@@ -86,6 +99,7 @@ export default function FaqBody() {
               count={filteredFaqs.length}
               itemLabel={t("UI.searchItemLabel")}
               className="md:w-72 lg:w-96"
+              clearPositionClass="right-26"
             />
           </div>
 
@@ -101,6 +115,7 @@ export default function FaqBody() {
           activeCategory={activeCategory}
           setSearchQuery={setSearchQuery}
           setActiveCategory={setActiveCategory}
+          categoryLabels={categoryTranslatedLabels}
         />
       </ContainerLayout>
 
@@ -108,7 +123,7 @@ export default function FaqBody() {
       <FilterSidebar
         isOpen={isFilterOpen}
         onClose={() => setIsFilterOpen(false)}
-        categories={faqCategories}
+        categories={dynamicCategories}
         selectedCategory={activeCategory}
         onSelectCategory={(cat) => {
           setActiveCategory(cat);
@@ -118,6 +133,7 @@ export default function FaqBody() {
         categoryCounts={categoryCounts}
         categoryLabels={categoryTranslatedLabels}
         clearFilterText={t("UI.clearFilter")}
+        totalResults={filteredFaqs.length}
       />
     </section>
   );

@@ -4,6 +4,8 @@ export default {
     loadingJournals: "ジャーナルを読み込み中...",
     loadingDestinations: "目的地を読み込んでいます...",
     loadingDestination: "目的地を読み込んでいます...",
+    //new
+    loadingFaqs: "よくある質問を読み込んでいます...",
     errorWatermark: "エラー",
     failedToLoad: "申し訳ありません.問題が発生しました.",
     tryAgain: "再試行",
