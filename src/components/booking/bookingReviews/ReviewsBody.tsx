@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
 import { ReviewsHeader } from "@/components/booking/bookingReviews/ReviewsHeader";
@@ -12,6 +12,7 @@ import { bookingTour } from "@/data/multiDaysBooking";
 import { useTranslations } from "next-intl";
 import { ListFilter, ArrowUpDown } from "lucide-react";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { loadBookingReviewDraft } from "@/utils/bookingReviewDraft";
 
 type ReviewsBodyProps = { tour: typeof bookingTour; tourType?: "multi" | "one" };
 const INITIAL_COUNT = 4;
@@ -69,6 +70,35 @@ export default function ReviewsBody({ tour, tourType }: ReviewsBodyProps) {
     setSelectedCategory(category);
     setVisibleCount(INITIAL_COUNT);
   };
+
+  const [restoredDraft, setRestoredDraft] = useState(false);
+const hasScrolledRef = useRef(false);
+
+useEffect(() => {
+  const id = setTimeout(() => {
+    if (loadBookingReviewDraft(tour.slug)) {
+      setShowForm(true);
+      setRestoredDraft(true);
+    }
+  }, 0);
+  return () => clearTimeout(id);
+}, [tour.slug]);
+
+useEffect(() => {
+  if (!restoredDraft || hasScrolledRef.current) return;
+  hasScrolledRef.current = true;
+
+  const id = setTimeout(() => {
+    const target = document.getElementById("write-review-anchor");
+    if (target) {
+      const headerOffset = 130;
+      const top = target.getBoundingClientRect().top + window.scrollY - headerOffset;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
+  }, 600);
+  return () => clearTimeout(id);
+}, [restoredDraft]);
+
 
   return (
     <>
@@ -175,7 +205,7 @@ export default function ReviewsBody({ tour, tourType }: ReviewsBodyProps) {
           )}
         </div>
 
-        {showForm && <ReviewForm onBack={() => setShowForm(false)} />}
+        {showForm &&  <ReviewForm slug={tour.slug} onBack={() => setShowForm(false)} />}
 
         <FilterSidebar
           isOpen={isFilterOpen}

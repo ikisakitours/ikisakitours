@@ -46,13 +46,16 @@ export const profileService = {
 
   // Delete Account
   deleteAccount: async (payload: DeleteAccountPayload) => {
-    const res = await fetch(`${API_URL}/profile/account`, {
+    const res = await fetch(`${API_URL}/auth/me`, { 
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
       body: JSON.stringify(payload),
     });
-    if (!res.ok) throw new Error("Failed to delete account");
+    if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.message || "Failed to delete account");
+    }
     return res.json();
   },
 };

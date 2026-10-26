@@ -53,7 +53,7 @@ export default function TimeDiv() {
       </div>
 
       {/* Top Right Floating Live Clock Badge */}
-      <div className="absolute top-1 right-1 z-10 grid h-10 w-10 sm:h-12 sm:w-12 place-items-center rounded-2xl border border-gold/40 bg-linear-to-br from-gold/20 via-gold/5 to-black/60 text-gold shadow-[0_0_15px_rgba(212,175,55,0.2)] backdrop-blur-md transition-all duration-300 hover:scale-105 hover:border-gold/60">
+      <div className="absolute top-1 right-1 z-10 grid h-10 w-10 sm:h-12 sm:w-12 place-items-center rounded-2xl border border-gold/40 bg-linear-to-br from-gold/20 via-gold/5 to-black/80 text-gold shadow-[0_0_15px_rgba(212,175,55,0.2)] transition-all duration-300 hover:scale-105 hover:border-gold/60">
         <LiveClockIcon className="h-7 w-7 sm:h-7.5 sm:w-7.5 drop-shadow-[0_0_8px_rgba(212,175,55,0.5)]" />
       </div>
 

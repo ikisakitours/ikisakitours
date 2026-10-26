@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import { loadReviewDraft } from "@/utils/reviewDraft";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
 import { WriteReviewForm } from "@/components/ui/WriteReviewForm";
@@ -22,9 +23,32 @@ export function ClientExperiencesSection() {
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isWritingReview, setIsWritingReview] = useState(false);
-
+  const [restoredDraft, setRestoredDraft] = useState(false);
+  const hasScrolledRef = useRef(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      if (loadReviewDraft()) {
+        setIsWritingReview(true);
+        setRestoredDraft(true);
+      }
+    }, 0);
+    return () => clearTimeout(id);
+  }, []);
+
+  useEffect(() => {
+    if (!restoredDraft || isLoading || !data || hasScrolledRef.current) return;
+    hasScrolledRef.current = true;
+
+    const id = setTimeout(() => {
+      const target = document.getElementById("write-review-anchor") ?? document.getElementById("testimonials");
+      target?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 500);
+
+    return () => clearTimeout(id);
+  }, [restoredDraft, isLoading, data]);
 
   const checkScrollPosition = () => {
     if (scrollContainerRef.current) {
@@ -205,11 +229,13 @@ export function ClientExperiencesSection() {
           {isWritingReview ? (
             <motion.div
               key="review-form"
+              id="write-review-anchor"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.5, ease: smoothEase }}
               style={{ willChange: "transform, opacity" }}
+              className="scroll-mt-28"
             >
               <WriteReviewForm />
             </motion.div>

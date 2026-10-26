@@ -3,6 +3,8 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { allCurrencies } from "@/data/Languages-CurrencyData";
 import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
+import { languages } from "@/data/Languages-CurrencyData";
 //Icons
 import { ChevronDown, Search, Globe } from "lucide-react";
 
@@ -16,18 +18,35 @@ export function CurrencySelector() {
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const selectedItemRef = useRef<HTMLButtonElement>(null);
+  const currentLocale = useLocale();
 
-  useEffect(() => {
+ useEffect(() => {
     const timer = setTimeout(() => {
+      const currentLangObj = languages.find((l) => l.code.toLowerCase() === currentLocale.toLowerCase());
+      const defaultCurrencyForLocale = currentLangObj?.currency || "USD";
+
       const savedCurrency = localStorage.getItem("ikisaki_currency");
-      if (savedCurrency) {
+      const savedLocale = localStorage.getItem("ikisaki_last_locale");
+
+      if (savedLocale !== currentLocale) {
+        setBaseCurrency(defaultCurrencyForLocale);
+        localStorage.setItem("ikisaki_currency", defaultCurrencyForLocale);
+        localStorage.setItem("ikisaki_last_locale", currentLocale); 
+      } 
+      else if (savedCurrency) {
         setBaseCurrency(savedCurrency);
+      } 
+      else {
+        setBaseCurrency(defaultCurrencyForLocale);
+        localStorage.setItem("ikisaki_currency", defaultCurrencyForLocale);
+        localStorage.setItem("ikisaki_last_locale", currentLocale);
       }
+
       setIsMounted(true);
     }, 0);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [currentLocale]);
 
   // Click Outside Logic
   useEffect(() => {

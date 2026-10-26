@@ -90,12 +90,24 @@ export default {
     transferBookingFailed: "Failed to submit transfer booking. Please try again.",
     deleteFailed: "Failed to delete account. Check your password.",
   },
-
-  AuthRequired: {
+ // NEW
+ AuthRequired: {
+  Review: {
+    title: "Oops! Sign in required",
+    description: "Please sign in to submit your review and share your experience.",
+    loginBtn: "Login to Continue",
+  },
+  Contact: {
+    title: "Oops! Sign in required",
+    description: "Please sign in to submit your inquiry message to our team.",
+    loginBtn: "Login to Continue",
+  },
+  Journal: {
     title: "Oops! Sign in required",
     description: "We’d love to hear that you enjoyed this journal! Please sign in to leave a like.",
     loginBtn: "Login to Continue",
   },
+},
 
   // new translate need
   deleteConfirmationMatch: "Type DELETE to confirm",
@@ -161,6 +173,21 @@ export default {
       success: "Successfully subscribed!",
       error: "Subscription failed.",
       alreadyExists: "Already subscribed!",
+    },
+    DeleteAccount: {
+      loading: "Deleting account",
+      success: "Account deleted successfully!",
+      error: "Failed to delete account.",
+    },
+    ContactForm: {
+      loading: "Sending message",
+      success: "Message sent successfully!",
+      error: "Failed to send message. Please try again.",
+    },
+    SocialLogin: {
+      googleLoading: "Connecting to Google...",
+      appleLoading: "Connecting to Apple...",
+      error: "Social login failed. Please try again.",
     },
   },
 } as const;
