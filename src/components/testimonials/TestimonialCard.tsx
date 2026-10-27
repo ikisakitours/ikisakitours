@@ -18,7 +18,7 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
       : testimonial.authorName.charAt(0).toUpperCase();
 
   return (
-    <article className="group flex h-full flex-col rounded-3xl border border-white/5 bg-[#0a0a0a] p-6 transition-all duration-500 hover:-translate-y-2 hover:border-gold/50 hover:bg-[#141414] hover:shadow-2xl sm:p-10">
+    <article className="group flex h-full min-h-100 flex-col rounded-3xl border border-white/5 bg-[#0a0a0a] p-6 transition-all duration-500 hover:-translate-y-2 hover:border-gold/50 hover:bg-[#141414] hover:shadow-2xl sm:p-10">
       <div className="mb-6 flex items-start justify-between sm:mb-8">
         <Quote className="h-7 w-7 text-gold/30 sm:h-8 sm:w-8" fill="currentColor" />
         <span className="rounded border border-white/10 px-3 py-1 text-micro font-bold uppercase tracking-widest text-slate-500">
@@ -29,8 +29,8 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
       <RatingStars rating={testimonial.rating ?? 5} className="mb-6 flex gap-1" starClassName="h-3.5 w-3.5 text-gold" />
 
       <div className="relative mb-8 grow">
-        <div className="max-h-35 overflow-y-auto overscroll-contain pr-2 space-y-2 no-scrollbar mask-gradient">
-          <p className="text-body font-normal italic leading-relaxed text-white">&quot;{testimonial.content}&quot;</p>
+        <div className="max-h-40 overflow-y-auto overscroll-contain pr-2 space-y-2 no-scrollbar mask-gradient">
+          <p className="text-body font-normal italic leading-relaxed text-white wrap-break-word">&quot;{testimonial.content}&quot;</p>
         </div>
       </div>
 
