@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { FiChevronDown, FiCalendar } from "react-icons/fi";
+import { FiChevronDown, FiCalendar,FiSlash } from "react-icons/fi";
 import { useTranslations } from "next-intl";
 
 interface CustomDatePickerProps {
@@ -141,7 +141,7 @@ export default function CustomDatePicker({
             ))}
           </div>
 
-          {/* Days Grid */}
+                   {/* Days Grid */}
           <div className="grid grid-cols-7 gap-1 text-center">
             {blanks.map((_, i) => (
               <div key={`blank-${i}`} />
@@ -150,47 +150,78 @@ export default function CustomDatePicker({
               const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
               const isSelected = value === formattedDate;
               const isClosedDate = closedDates.includes(formattedDate);
+
+              // Which column (0 = Sun ... 6 = Sat) this day sits in
+              const col = (firstDayOfMonth + d - 1) % 7;
+              const tooltipPos =
+                col <= 1
+                  ? "left-0"
+                  : col >= 5
+                    ? "right-0"
+                    : "left-1/2 -translate-x-1/2";
+              const arrowPos =
+                col <= 1 ? "left-3" : col >= 5 ? "right-3" : "left-1/2 -translate-x-1/2";
+              const isTooltipVisible = activeTooltip === formattedDate;
+
               return (
                 <div
                   key={d}
-                  className="relative group flex items-center justify-center"
+                  className="group relative flex items-center justify-center"
                   onMouseLeave={() => setActiveTooltip(null)}
                 >
-                  <div
+                  <button
+                    type="button"
+                    aria-disabled={isClosedDate}
                     onClick={(e) => {
                       if (isClosedDate) {
                         e.stopPropagation();
-                        setActiveTooltip(activeTooltip === formattedDate ? null : formattedDate);
+                        setActiveTooltip(isTooltipVisible ? null : formattedDate);
                       } else {
                         onChange(formattedDate);
                         setIsOpen(false);
                       }
                     }}
-                    className={`relative h-8 w-8 flex items-center justify-center rounded-full text-body-sm font-bold cursor-pointer transition-all duration-300
-                                 ${isSelected && !isClosedDate ? "bg-gold text-[#050505] shadow-[0_0_10px_rgba(197,160,89,0.4)]" : "hover:bg-white/[0.07]"}
-                                 ${isClosedDate ? "text-slate-500 bg-white/2" : "text-slate-300 hover:text-white"}
-                              `}
+                    className={`relative flex h-8 w-8 items-center justify-center rounded-full text-body-sm font-bold outline-none transition-all duration-300 ${
+                      isClosedDate
+                        ? "cursor-not-allowed text-slate-600 ring-1 ring-inset ring-white/5 hover:ring-gold/30"
+                        : isSelected
+                          ? "cursor-pointer bg-gold text-[#050505] shadow-[0_0_10px_rgba(197,160,89,0.4)]"
+                          : "cursor-pointer text-slate-300 hover:bg-white/[0.07] hover:text-white"
+                    }`}
+                    style={
+                      isClosedDate
+                        ? {
+                            backgroundImage:
+                              "repeating-linear-gradient(135deg, rgba(197,160,89,0.16) 0 1.5px, transparent 1.5px 5px)",
+                          }
+                        : undefined
+                    }
                   >
                     {d}
-
-                    {isClosedDate && (
-                      <div className="absolute inset-0 m-auto w-full h-[1.5px] bg-gold/40 -rotate-45 rounded-full transition-all group-hover:bg-gold/70"></div>
-                    )}
-                  </div>
+                  </button>
 
                   {isClosedDate && (
                     <div
-                      className={`absolute bottom-[130%] left-1/2 -translate-x-1/2 w-max px-3.5 py-1.5 rounded-xl z-50 text-center transition-all duration-300 pointer-events-none
-                            backdrop-blur-md bg-[#050505]/90 border border-gold/30 text-gold-light text-micro tracking-wide shadow-[0_4px_15px_rgba(197,160,89,0.15)]
-                                 ${activeTooltip === formattedDate ? "opacity-100 visible scale-100 translate-y-0" : "opacity-0 invisible scale-95 translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:scale-100 group-hover:translate-y-0"}
-                           `}
+                      role="tooltip"
+                      className={`pointer-events-none absolute bottom-[125%] z-50 ${tooltipPos} transition-all duration-200 ${
+                        isTooltipVisible
+                          ? "visible translate-y-0 opacity-100"
+                          : "invisible translate-y-1 opacity-0 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100"
+                      }`}
                     >
-                      <span className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse"></span>
-                      {t("notAvailable")}
-                      </span>
+                      <div className="flex w-max items-center gap-2 rounded-full border border-gold/30 bg-[#0a0a0a]/95 py-1.5 pl-2 pr-3.5 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.9)] backdrop-blur-md">
+                        <span className="flex h-4.5 w-4.5 items-center justify-center rounded-full bg-gold/15 text-gold">
+                          <FiSlash className="h-2.5 w-2.5" />
+                        </span>
+                        <span className="text-micro font-semibold uppercase tracking-[0.14em] text-gold-light whitespace-nowrap">
+                          {t("notAvailable")}
+                        </span>
+                      </div>
 
-                      <div className="absolute top-full left-1/2 -translate-x-1/2 border-[5px] border-transparent border-t-gold/30"></div>
+                      {/* Arrow */}
+                      <span
+                        className={`absolute top-full -mt-px h-2 w-2 -translate-y-1/2 rotate-45 border-b border-r border-gold/30 bg-[#0a0a0a] ${arrowPos}`}
+                      />
                     </div>
                   )}
                 </div>
