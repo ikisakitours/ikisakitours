@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { useSecuritySettingsForm } from "@/hooks/profile/useSecuritySettingsForm";
 
 //Icons
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, X } from "lucide-react";
 
 const inputClass =
   "disabled:opacity-60 disabled:cursor-not-allowed w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 pr-12 text-body-sm! text-white outline-none transition-all placeholder:text-slate-500 focus:border-gold/50";
@@ -215,7 +215,20 @@ export function SecuritySettingsPanel() {
       {/*  Confirmation Modal */}
       {isDeleteModalOpen && (
         <div className="fixed inset-0 z-9999 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
-          <div className="glass-card w-full max-w-md my-auto rounded-3xl p-6 md:p-8 border-red-500/30 bg-[#0a0a0a] shadow-2xl space-y-6">
+          <div className="relative  glass-card w-full max-w-md my-auto rounded-3xl p-6 md:p-8 border-red-500/30 bg-[#0a0a0a] shadow-2xl space-y-6">
+            <button
+              type="button"
+              aria-label="Close"
+              disabled={isDeleting}
+              onClick={() => {
+                setIsDeleteModalOpen(false);
+                setDeletePassword("");
+                setConfirmText("");
+              }}
+              className="absolute top-4 right-4 group flex h-8 w-8 items-center justify-center rounded-full bg-white/5 border border-white/10 transition-all duration-300 hover:bg-red-500/20 hover:border-red-500/30 z-10"
+            >
+              <X className="h-3.5 w-3.5 text-slate-400 transition-colors group-hover:text-red-400" />
+            </button>
             <h3 className="text-heading-card font-bold text-white">{t("SecurityPanel.modalTitle")}</h3>
             <p className="text-body-sm text-slate-300 leading-relaxed">{t("SecurityPanel.modalDesc")}</p>
 
@@ -304,7 +317,7 @@ export function SecuritySettingsPanel() {
             </div>
 
             <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 pt-2">
-              <button
+              {/* <button
                 type="button"
                 disabled={isDeleting}
                 onClick={() => {
@@ -315,7 +328,7 @@ export function SecuritySettingsPanel() {
                 className="w-full sm:w-auto px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 text-slate-300 text-caption font-bold uppercase tracking-widest hover:bg-white/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-center"
               >
                 {t("SecurityPanel.cancelBtn")}
-              </button>
+              </button> */}
 
               <button
                 type="button"
