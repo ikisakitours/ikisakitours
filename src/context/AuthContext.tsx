@@ -13,6 +13,8 @@ interface User {
   isVip?: boolean;
   avatarUrl?: string | null;
   avatarSignature?: string | null;
+  provider?: string | null;
+  providerId?: string | null;
 }
 
 interface AuthContextType {

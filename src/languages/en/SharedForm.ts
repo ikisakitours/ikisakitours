@@ -129,6 +129,9 @@ export default {
       "November",
       "December",
     ],
+
+    //new
+    notAvailable: "Not Available"
   },
   DurationPicker: {
     selectDuration: "Select duration",

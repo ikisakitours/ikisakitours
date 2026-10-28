@@ -8,6 +8,7 @@ import { useTranslations } from "next-intl";
 import { AuthLegalFooter } from "../AuthLegalFooter";
 import { TransientMessage } from "@/components/ui/TransientMessage";
 import { useSignupForm } from "@/hooks/auth/useSignupForm";
+import { SocialLogin } from "../SocialLogin";
 //Icons
 import { User, UserCheck, Mail, Lock, ShieldCheck, Eye, EyeOff } from "lucide-react";
 
@@ -57,6 +58,7 @@ export function SignupForm() {
       <AuthFormHeader introKey="Signup" />
 
       <div className="overflow-y-auto no-scrollbar px-8 md:px-12">
+        <SocialLogin disabled={isLoading} />
         <form className="space-y-5" onSubmit={handleSubmit} noValidate>
           <div className="space-y-4">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

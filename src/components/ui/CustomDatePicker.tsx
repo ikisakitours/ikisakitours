@@ -187,7 +187,7 @@ export default function CustomDatePicker({
                     >
                       <span className="flex items-center gap-2">
                         <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse"></span>
-                        Not Available
+                      {t("notAvailable")}
                       </span>
 
                       <div className="absolute top-full left-1/2 -translate-x-1/2 border-[5px] border-transparent border-t-gold/30"></div>

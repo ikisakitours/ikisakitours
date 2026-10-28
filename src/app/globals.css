@@ -737,3 +737,20 @@ textarea {
 .leaflet-container .moving-route-line {
   filter: drop-shadow(0 0 3px rgba(197, 160, 89, 0.5));
 }
+
+/* Toast auto-dismiss progress bar */
+@keyframes toast-progress {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
+.animate-toast-progress {
+  transform-origin: left;
+  animation-name: toast-progress;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
