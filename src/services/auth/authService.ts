@@ -2,7 +2,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
 
 export const authService = {
   
-  socialLogin: (provider: "google" | "apple") => {
+ socialLogin: (provider: "google" | "facebook" | "instagram") => {
     window.location.href = `${API_URL}/social-auth/${provider}`;
   },
 

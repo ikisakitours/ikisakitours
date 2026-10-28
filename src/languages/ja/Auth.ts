@@ -12,7 +12,8 @@ export default {
     },
     Login: {
       title: "ログイン",
-      description: "ikisakiアカウントにログインしてください。ログインすると、スリランカでのチャーターサービスやスリランカタクシーサービス、スリランカツアーの利用、スリランカ世界遺産に関する情報の確認が可能になります.",
+      description:
+        "ikisakiアカウントにログインしてください。ログインすると、スリランカでのチャーターサービスやスリランカタクシーサービス、スリランカツアーの利用、スリランカ世界遺産に関する情報の確認が可能になります.",
     },
     Recovery: { title: "アカウントの復元", description: "IkiSakiアカウント復旧用メールをリクエストする." },
     Reset: {
@@ -71,7 +72,9 @@ export default {
   },
   Social: {
     continueGoogle: "Googleで続ける",
-    continueApple: "Appleで続ける",
+    //new
+    continueFacebook: "Facebookで続ける",
+    continueInstagram: "Instagramで続ける",
     continueEmail: "メールアドレスで続ける",
     orContinueWith: "または、以下で続行",
   },
