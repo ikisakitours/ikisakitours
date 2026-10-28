@@ -10,7 +10,11 @@ export default {
       description:
         "Create an IkiSaki member account to plan private trips, book exclusive tours, and develop personalized itineraries for Sri Lanka. you can get sri lanka charter service,srilanka taxi service,srilanka tours,srilanka world heritage informations.",
     },
-    Login: { title: "Login", description: "Sign in to your ikisaki account.when you Sign in you can get sri lanka charter service,srilanka taxi service,srilanka tours,srilanka world heritage informations." },
+    Login: {
+      title: "Login",
+      description:
+        "Sign in to your ikisaki account.when you Sign in you can get sri lanka charter service,srilanka taxi service,srilanka tours,srilanka world heritage informations.",
+    },
     Recovery: { title: "Account Recovery", description: "Request a IkiSaki account recovery email." },
     Reset: {
       title: "Reset Password",
@@ -68,7 +72,8 @@ export default {
   },
   Social: {
     continueGoogle: "Continue with Google",
-    continueApple: "Continue with Apple",
+    continueFacebook: "Continue with Facebook",
+    continueInstagram: "Continue with Instagram",
     continueEmail: "Continue with Email",
     orContinueWith: "Or continue with",
   },

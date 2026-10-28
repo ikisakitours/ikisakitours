@@ -1,12 +1,11 @@
-// src/hooks/auth/useAuthGateway.ts
 import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation"; // 🌟 අලුතින් එකතු කළා
+import { useSearchParams } from "next/navigation"; 
 import { authService } from "@/services/auth/authService";
 import { useTranslations } from "next-intl";
 import { useToast } from "@/context/ToastContext";
 
 export function useAuthGateway() {
-  const [loadingProvider, setLoadingProvider] = useState<"google" | "apple" | null>(null);
+  const [loadingProvider, setLoadingProvider] = useState<"google" | "facebook" | "instagram" | null>(null);
   const toast = useToast();
   const tToast = useTranslations("ValidationErrors.ToastMessages.SocialLogin");
   const searchParams = useSearchParams();
@@ -21,13 +20,18 @@ export function useAuthGateway() {
     }
   }, [searchParams, toast, tToast]);
 
-  const handleSocialLogin = async (provider: "google" | "apple") => {
-    const toastId = toast.loading(provider === "google" ? tToast("googleLoading") : tToast("appleLoading"));
+  const handleSocialLogin = async (provider: "google" | "facebook" | "instagram") => {
+    const loadingMsg =
+      provider === "google"
+        ? tToast("googleLoading")
+        : provider === "facebook"
+          ? tToast("facebookLoading")
+          : tToast("instagramLoading"); 
 
+    const toastId = toast.loading(loadingMsg);
     try {
       setLoadingProvider(provider);
       console.log(`Redirecting to ${provider} authentication...`);
-
       authService.socialLogin(provider);
     } catch (error) {
       toast.error(toastId, tToast("error"));

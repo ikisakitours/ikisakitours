@@ -1,4 +1,3 @@
-// src/components/auth/AuthGatewayForm.tsx
 "use client";
 
 import { Link } from "@/lib/i18nNavigation";
@@ -8,7 +7,7 @@ import { AuthLegalFooter } from "../AuthLegalFooter";
 import { useAuthGateway } from "@/hooks/auth/useAuthGateway";
 // Icons & Loader
 import { FcGoogle } from "react-icons/fc";
-import { FaApple } from "react-icons/fa";
+import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { Mail, Loader2 } from "lucide-react";
 
 export function AuthGatewayForm() {
@@ -16,7 +15,8 @@ export function AuthGatewayForm() {
   const { handleSocialLogin, loadingProvider } = useAuthGateway();
 
   const isGoogleLoading = loadingProvider === "google";
-  const isAppleLoading = loadingProvider === "apple";
+  const isFacebookLoading = loadingProvider === "facebook";
+  const isInstagramLoading = loadingProvider === "instagram";
   const isAnyLoading = loadingProvider !== null;
 
   return (
@@ -39,19 +39,34 @@ export function AuthGatewayForm() {
           {tAuth("Social.continueGoogle")}
         </button>
 
-        {/* Apple Login Button */}
+        {/* Facebook Login Button */}
         <button
           type="button"
           disabled={isAnyLoading}
-          onClick={() => handleSocialLogin("apple")}
-          className="group flex w-full items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/5 py-3 text-body font-bold text-white transition-all hover:border-gold/30 hover:bg-gold/5 disabled:opacity-60 disabled:cursor-not-allowed"
+          onClick={() => handleSocialLogin("facebook")}
+          className="group flex w-full items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/5 py-3 text-body font-bold text-white transition-all hover:border-[#1877F2]/30 hover:bg-[#1877F2]/10 disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          {isAppleLoading ? (
-            <Loader2 className="h-5 w-5 animate-spin text-white" />
+          {isFacebookLoading ? (
+            <Loader2 className="h-5 w-5 animate-spin text-[#1877F2]" />
           ) : (
-            <FaApple className="h-5.5 w-5.5 text-white transition-transform group-hover:scale-110" />
+            <FaFacebook className="h-5.5 w-5.5 text-[#1877F2] transition-transform group-hover:scale-110" />
           )}
-          {tAuth("Social.continueApple")}
+          {tAuth("Social.continueFacebook")}
+        </button>
+
+        {/* Instagram Login Button */}
+        <button
+          type="button"
+          disabled={isAnyLoading}
+          onClick={() => handleSocialLogin("instagram")}
+          className="group flex w-full items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/5 py-3 text-body font-bold text-white transition-all hover:border-pink-500/30 hover:bg-pink-500/5 disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          {isInstagramLoading ? (
+            <Loader2 className="h-5 w-5 animate-spin text-pink-500" />
+          ) : (
+            <FaInstagram className="h-5 w-5 text-pink-500 transition-transform group-hover:scale-110" />
+          )}
+          {tAuth("Social.continueInstagram")}
         </button>
 
         {/* OR Divider */}

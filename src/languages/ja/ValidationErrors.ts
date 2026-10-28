@@ -91,23 +91,24 @@ export default {
     deleteFailed: "アカウントの削除に失敗しました.パスワードを確認してください.",
   },
   // NEW
- AuthRequired: {
-  Review: {
-    title: "ログインが必要です",
-    description: "レビューを投稿し、体験を共有するにはログインしてください。",
-    loginBtn: "ログインして続ける",
+  AuthRequired: {
+    Review: {
+      title: "ログインが必要です",
+      description: "レビューを投稿し、体験を共有するにはログインしてください。",
+      loginBtn: "ログインして続ける",
+    },
+    Contact: {
+      title: "ログインが必要です",
+      description: "お問い合わせを送信するにはログインしてください。",
+      loginBtn: "ログインして続ける",
+    },
+    Journal: {
+      title: "ログインが必要です",
+      description:
+        "このジャーナルを気に入っていただけたら、とてもうれしいです！ぜひログインして「いいね！」をお願いします。",
+      loginBtn: "ログインして続ける",
+    },
   },
-  Contact: {
-    title: "ログインが必要です",
-    description: "お問い合わせを送信するにはログインしてください。",
-    loginBtn: "ログインして続ける",
-  },
-  Journal: {
-    title: "ログインが必要です",
-    description: "このジャーナルを気に入っていただけたら、とてもうれしいです！ぜひログインして「いいね！」をお願いします。",
-    loginBtn: "ログインして続ける",
-  },
-},
 
   // new translate need
   deleteConfirmationMatch: "確認のためにDELETEと入力してください",
@@ -175,8 +176,8 @@ export default {
       alreadyExists: "既に登録されています！",
     },
     DeleteAccount: {
-      loading: "アカウントを削除中", 
-      success: "アカウントが削除されました！", 
+      loading: "アカウントを削除中",
+      success: "アカウントが削除されました！",
       error: "アカウントの削除に失敗しました.",
     },
     ContactForm: {
@@ -186,7 +187,8 @@ export default {
     },
     SocialLogin: {
       googleLoading: "Googleに接続中...",
-      appleLoading: "Appleに接続中...",
+      facebookLoading: "Facebookに接続しています...",
+      instagramLoading: "Instagramに接続中...",
       error: "ソーシャルログインに失敗しました。もう一度お試しください。",
     },
   },
