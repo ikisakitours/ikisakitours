@@ -70,10 +70,16 @@ export default {
     Recovery: { eyebrow: "Account Recovery", title: "Forgot Password?" },
     Reset: { eyebrow: "Final Step", title: "Reset Password" },
   },
+  //new
   Social: {
     continueGoogle: "Continue with Google",
     continueFacebook: "Continue with Facebook",
     continueInstagram: "Continue with Instagram",
+    continueTiktok: "Continue with TikTok",
+    continueX: "Continue with X",
+    continueApple: "Continue with Apple",
+    continueLinkedin: "Continue with LinkedIn",
+    continueSnapchat: "Continue with Snapchat",
     continueEmail: "Continue with Email",
     orContinueWith: "Or continue with",
   },

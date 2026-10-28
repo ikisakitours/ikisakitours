@@ -9,6 +9,7 @@ import { Check, Info, Zap, Banknote, CalendarDays } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useBookingWidget } from "@/hooks/Booking/useBookingWidget";
 import { useAuth } from "@/context/AuthContext";
+import { useAvailability } from "@/hooks/date-availability/useAvailability";
 
 type TourType = {
   title: string;
@@ -33,12 +34,11 @@ type BookingWidgetProps = {
 const bookingAssurancesIcons = [Zap, Banknote, CalendarDays];
 
 export function BookingWidget({ tour, className = "" }: BookingWidgetProps) {
-  const apiClosedDates = ["2026-08-28", "2026-09-05", "2026-09-12"];
   const t = useTranslations("Booking.Widget");
   const tForms = useTranslations("SharedForm");
   const rawAssurances = t.raw("assurances") as string[];
   const { user } = useAuth();
-
+  const { closedDates, isLoadingDates } = useAvailability();
   const travelerOptions = [
     {
       type: "adult",
@@ -147,8 +147,8 @@ export function BookingWidget({ tour, className = "" }: BookingWidgetProps) {
               </label>
               <CustomDatePicker
                 value={journeyDate}
-                isLoading={isLoading}
-                closedDates={apiClosedDates}
+                closedDates={closedDates} 
+                isLoading={isLoadingDates}
                 onChange={(d) => {
                   setJourneyDate(d);
                   if (errors.date) setErrors((prev) => ({ ...prev, date: "" }));

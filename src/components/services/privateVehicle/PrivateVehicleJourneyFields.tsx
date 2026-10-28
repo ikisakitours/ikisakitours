@@ -6,6 +6,8 @@ import { TravelerPicker } from "@/components/ui/TravelerPicker";
 import { TourDurationPicker } from "@/components/ui/TourDurationPicker";
 import { FormError } from "@/components/ui/FormError";
 import LanguageSelect, { type LanguageOption } from "@/components/services/LanguageSelect";
+import { useAvailability } from "@/hooks/date-availability/useAvailability";
+
 //Icons
 import { Globe, MapPin } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -95,7 +97,7 @@ export function PrivateVehicleJourneyFields({
       ageRange: tForm("TravelerOptions.infantAge"),
     },
   ];
-  const apiClosedDates = ["2026-08-28", "2026-09-05", "2026-09-12"];
+  const { closedDates, isLoadingDates } = useAvailability();
 
   return (
     <div className="space-y-8">
@@ -157,8 +159,8 @@ export function PrivateVehicleJourneyFields({
           <span className={fieldLabelClass}>{tForm("Labels.journeyDate")}</span>
           <CustomDatePicker
             value={date}
-            closedDates={apiClosedDates}
-            isLoading={isLoading}
+                 closedDates={closedDates} 
+                isLoading={isLoadingDates}
             onChange={(d) => {
               onDateChange(d);
               setErrors((prev) => ({ ...prev, date: "" }));

@@ -18,6 +18,7 @@ export function SecuritySettingsPanel() {
   const tError = useTranslations("ValidationErrors");
   //Hook
   const {
+    isSocialAuth,
     currentPassword,
     newPassword,
     setNewPassword,
@@ -76,6 +77,7 @@ export function SecuritySettingsPanel() {
                     disabled={isLoading}
                     onChange={(e) => handleCurrentChange(e.target.value)}
                     className={inputClass}
+                    autoComplete="current-password"
                   />
                   <button
                     type="button"
@@ -109,6 +111,7 @@ export function SecuritySettingsPanel() {
                     }
                     onBlur={() => handlePasswordBlur(newPassword)}
                     className={inputClass}
+                    autoComplete="new-password"
                   />
                   <button
                     type="button"
@@ -143,6 +146,7 @@ export function SecuritySettingsPanel() {
                     onChange={(e) => handleConfirmChange(e.target.value)}
                     onBlur={handleConfirmBlur}
                     className={inputClass}
+                    autoComplete="new-password"
                   />
                   <button
                     type="button"
@@ -164,7 +168,9 @@ export function SecuritySettingsPanel() {
               </label>
             </div>
             {newPassword === "" && !localError && !errors.password && (
-              <p className="-mt-4 text-tiny text-slate-500 italic [word-break:auto-phrase]">{tForm("Placeholders.passwordTip")}</p>
+              <p className="-mt-4 text-tiny text-slate-500 italic [word-break:auto-phrase]">
+                {tForm("Placeholders.passwordTip")}
+              </p>
             )}
             <div className="flex flex-col items-center justify-between gap-6 pt-6 sm:flex-row">
               <Link
@@ -207,46 +213,46 @@ export function SecuritySettingsPanel() {
         </div>
       </section>
       {/*  Confirmation Modal */}
-
       {isDeleteModalOpen && (
         <div className="fixed inset-0 z-9999 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
           <div className="glass-card w-full max-w-md my-auto rounded-3xl p-6 md:p-8 border-red-500/30 bg-[#0a0a0a] shadow-2xl space-y-6">
             <h3 className="text-heading-card font-bold text-white">{t("SecurityPanel.modalTitle")}</h3>
             <p className="text-body-sm text-slate-300 leading-relaxed">{t("SecurityPanel.modalDesc")}</p>
 
-            {/* Option Toggle (Password vs DELETE text) */}
-            <div className="flex rounded-xl bg-white/5 p-1 border border-white/10 text-body-sm font-bold">
-              <button
-                type="button"
-                onClick={() => {
-                  setDeleteMethod("password");
-                  setConfirmText("");
-                  setErrors((prev) => ({ ...prev, deletePassword: "" }));
-                }}
-                className={`flex-1 py-2 rounded-lg transition-all outline-none focus:outline-none focus:ring-0 ${
-                  deleteMethod === "password"
-                    ? "bg-red-500/20 text-red-400 border border-red-500/30"
-                    : "text-slate-400 hover:text-white border border-transparent"
-                }`}
-              >
-                {t("SecurityPanel.usePasswordBtn")}
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setDeleteMethod("text");
-                  setDeletePassword("");
-                  setErrors((prev) => ({ ...prev, deletePassword: "" }));
-                }}
-                className={`flex-1 py-2 rounded-lg transition-all outline-none focus:outline-none focus:ring-0 ${
-                  deleteMethod === "text"
-                    ? "bg-red-500/20 text-red-400 border border-red-500/30"
-                    : "text-slate-400 hover:text-white border border-transparent"
-                }`}
-              >
-                {t("SecurityPanel.typeDeleteBtn")}
-              </button>
-            </div>
+            {!isSocialAuth && (
+              <div className="flex rounded-xl bg-white/5 p-1 border border-white/10 text-body-sm font-bold">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setDeleteMethod("password");
+                    setConfirmText("");
+                    setErrors((prev) => ({ ...prev, deletePassword: "" }));
+                  }}
+                  className={`flex-1 py-2 rounded-lg transition-all outline-none focus:outline-none focus:ring-0 ${
+                    deleteMethod === "password"
+                      ? "bg-red-500/20 text-red-400 border border-red-500/30"
+                      : "text-slate-400 hover:text-white border border-transparent"
+                  }`}
+                >
+                  {t("SecurityPanel.usePasswordBtn")}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setDeleteMethod("text");
+                    setDeletePassword("");
+                    setErrors((prev) => ({ ...prev, deletePassword: "" }));
+                  }}
+                  className={`flex-1 py-2 rounded-lg transition-all outline-none focus:outline-none focus:ring-0 ${
+                    deleteMethod === "text"
+                      ? "bg-red-500/20 text-red-400 border border-red-500/30"
+                      : "text-slate-400 hover:text-white border border-transparent"
+                  }`}
+                >
+                  {t("SecurityPanel.typeDeleteBtn")}
+                </button>
+              </div>
+            )}
 
             <div className="space-y-2">
               {deleteMethod === "password" ? (
@@ -261,6 +267,7 @@ export function SecuritySettingsPanel() {
                       setErrors((prev) => ({ ...prev, deletePassword: "" }));
                     }}
                     className={inputClass}
+                    autoComplete="current-password"
                   />
                   <button
                     type="button"
@@ -286,6 +293,7 @@ export function SecuritySettingsPanel() {
                       setErrors((prev) => ({ ...prev, deletePassword: "" }));
                     }}
                     className={inputClass}
+                    autoComplete="off"
                   />
                 </div>
               )}

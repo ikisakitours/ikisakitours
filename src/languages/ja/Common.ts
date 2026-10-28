@@ -11,4 +11,9 @@ export default {
     tryAgain: "再試行",
     contentLoadError: "現在コンテンツを読み込めません.もう一度お試しください.",
   },
+  //new
+  underDevelopment: {
+    comingSoon: "のログインはまもなく利用可能になります",
+    pleaseContinueEmail: "当分はGoogleまたはメールアドレスで続けてください。",
+  },
 } as const;

@@ -70,13 +70,18 @@ export default {
     Recovery: { eyebrow: "アカウントの復元", title: "パスワードをお忘れの方" },
     Reset: { eyebrow: "最終ステップ", title: "パスワードのリセット" },
   },
+  //new
   Social: {
     continueGoogle: "Googleで続ける",
-    //new
     continueFacebook: "Facebookで続ける",
     continueInstagram: "Instagramで続ける",
+    continueTiktok: "TikTokで続ける",
+    continueX: "Xで続ける",
+    continueApple: "Appleで続ける",
+    continueLinkedin: "LinkedInで続ける",
+    continueSnapchat: "Snapchatで続ける",
     continueEmail: "メールアドレスで続ける",
-    orContinueWith: "または、以下で続行",
+    orContinueWith: "または",
   },
   Links: {
     alreadyHaveAccount: "メンバーの方ですか？",

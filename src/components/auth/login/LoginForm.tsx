@@ -6,6 +6,7 @@ import { FormError } from "@/components/ui/FormError";
 import { useTranslations } from "next-intl";
 import { AuthLegalFooter } from "../AuthLegalFooter";
 import { useLoginForm } from "@/hooks/auth/useLoginForm";
+import { SocialLogin } from "../SocialLogin";
 //Icons
 import { Eye, EyeOff, Mail, ShieldCheck } from "lucide-react";
 
@@ -38,6 +39,7 @@ export function LoginForm() {
       {/* no-scrollbar */}
 
       <div className="overflow-y-auto no-scrollbar px-8 md:px-12">
+        <SocialLogin disabled={isLoading} />
         <form className="space-y-6" onSubmit={handleSubmit} noValidate>
           {/* Email Address */}
           <label htmlFor="email" className="block space-y-2">

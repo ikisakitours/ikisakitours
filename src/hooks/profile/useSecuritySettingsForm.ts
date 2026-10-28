@@ -6,6 +6,7 @@ import { usePasswordStrength, type TransientMsgType } from "@/hooks/usePasswordS
 import { useTranslations } from "next-intl";
 import { profileService, type DeleteAccountPayload } from "@/services/profile/profileService";
 import { useToast } from "@/context/ToastContext";
+import { useAuth } from "@/context/AuthContext";
 
 export function useSecuritySettingsForm(tError: (key: string) => string) {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -33,12 +34,16 @@ export function useSecuritySettingsForm(tError: (key: string) => string) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deletePassword, setDeletePassword] = useState("");
 
-  const [deleteMethod, setDeleteMethod] = useState<"password" | "text">("password");
   const [confirmText, setConfirmText] = useState("");
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [showDeletePassword, setShowDeletePassword] = useState(false);
 
+  const { user } = useAuth();
+  const isSocialAuth = Boolean(user?.provider && user.provider !== "local");
+  const [deleteMethod, setDeleteMethod] = useState<"password" | "text">(
+    isSocialAuth ? "text" : "password" 
+  );
   useEffect(() => {
     if (isDeleteModalOpen) {
       document.body.style.overflow = "hidden";
@@ -142,6 +147,7 @@ export function useSecuritySettingsForm(tError: (key: string) => string) {
   };
 
   return {
+    isSocialAuth, 
     currentPassword,
     newPassword,
     setNewPassword,
