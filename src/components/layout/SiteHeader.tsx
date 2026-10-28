@@ -131,20 +131,44 @@ export function SiteHeader() {
     }
   };
 
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.classList.add("overflow-hidden");
-      document.documentElement.classList.add("overflow-hidden");
-    } else {
-      document.body.classList.remove("overflow-hidden");
-      document.documentElement.classList.remove("overflow-hidden");
-    }
+  // useEffect(() => {
+  //   if (isMenuOpen) {
+  //     document.body.classList.add("overflow-hidden");
+  //     document.documentElement.classList.add("overflow-hidden");
+  //   } else {
+  //     document.body.classList.remove("overflow-hidden");
+  //     document.documentElement.classList.remove("overflow-hidden");
+  //   }
 
-    return () => {
-      document.body.classList.remove("overflow-hidden");
-      document.documentElement.classList.remove("overflow-hidden");
-    };
-  }, [isMenuOpen]);
+  //   return () => {
+  //     document.body.classList.remove("overflow-hidden");
+  //     document.documentElement.classList.remove("overflow-hidden");
+  //   };
+  // }, [isMenuOpen]);
+
+  useEffect(() => {
+  if (isMenuOpen) {
+    // Standard lock
+    document.body.classList.add("overflow-hidden");
+    document.documentElement.classList.add("overflow-hidden");
+    
+    document.body.style.position = "fixed";
+    document.body.style.width = "100%";
+  } else {
+    document.body.classList.remove("overflow-hidden");
+    document.documentElement.classList.remove("overflow-hidden");
+    
+    document.body.style.position = "";
+    document.body.style.width = "";
+  }
+
+  return () => {
+    document.body.classList.remove("overflow-hidden");
+    document.documentElement.classList.remove("overflow-hidden");
+    document.body.style.position = "";
+    document.body.style.width = "";
+  };
+}, [isMenuOpen]);
 
   // Logout Button
   const handleLogout = async () => {
