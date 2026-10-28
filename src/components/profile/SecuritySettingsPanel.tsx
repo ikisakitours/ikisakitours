@@ -280,7 +280,7 @@ export function SecuritySettingsPanel() {
                 </span>
               ) : (
                 /* 2. GitHub Style Text Confirmation Method */
-                <div>
+                <div className="text-body-sm">
                   {t.rich("SecurityPanel.typeDeleteDesc", {
                     strong: (chunks) => <strong className="text-red-400 select-all">{chunks}</strong>,
                   })}
