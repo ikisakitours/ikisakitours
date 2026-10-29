@@ -11,9 +11,10 @@ type MobileBookingBarProps = {
   tour: typeof bookingTour;
   options: typeof travelerOptions;
   assurances: readonly string[];
+  tourType: "multiday" | "oneday";
 };
 
-export function StickyBookingBar({ tour, options, assurances }: MobileBookingBarProps) {
+export function StickyBookingBar({ tour, options, assurances,tourType = "multiday"  }: MobileBookingBarProps) {
   const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
   const [showStickyBar, setShowStickyBar] = useState(false);
   const t = useTranslations("Booking.StickyBar");
@@ -184,7 +185,7 @@ export function StickyBookingBar({ tour, options, assurances }: MobileBookingBar
               </div>
 
               <div className="relative z-10">
-                <BookingWidget tour={tour} options={options} assurances={assurances} />
+                <BookingWidget tour={tour} options={options} assurances={assurances} tourType={tourType}/>
               </div>
             </motion.div>
           </motion.div>

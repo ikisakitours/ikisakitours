@@ -1,10 +1,10 @@
-// src/hooks/useBookingWidget.ts
 import { useState, type FormEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { bookingWidgetService } from "@/services/Booking/bookingWidgetService";
 import { useTranslations } from "next-intl";
+import { useAuth } from "@/context/AuthContext";
 
-export function useBookingWidget() {
+export function useBookingWidget(tour: { id?: string; title: string }, tourType: "oneday" | "multiday" = "multiday") {
   const [travelerCounts, setTravelerCounts] = useState<Record<string, number>>({
     adult: 0,
     couple: 0,
@@ -13,6 +13,8 @@ export function useBookingWidget() {
   });
   const [journeyDate, setJourneyDate] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const { user } = useAuth();
 
   const handleTravelerChange = (type: string, delta: number) => {
     setTravelerCounts((prev) => {
@@ -36,12 +38,30 @@ export function useBookingWidget() {
 
     try {
       setIsLoading(true);
-      // Simulated API request
-      // await new Promise((resolve) => setTimeout(resolve, 1500));
-      await bookingWidgetService.createBooking({ journeyDate, travelerCounts });
-      console.log("Booking form is valid, proceed to API call", { journeyDate, travelerCounts });
 
-      //From clear
+      const currentTourType = tourType === "oneday" ? "oneday" : "multiday";
+      const bookingPayload = {
+        packageId: tour.id || "default-id-02",
+        packageName: tour.title,
+        packageType: currentTourType, 
+        journeyDate: journeyDate,
+        travelers: {
+          adults: travelerCounts.adult,
+          couples: travelerCounts.couple / 2,
+          children: travelerCounts.child,
+          infants: travelerCounts.infant,
+        },
+        firstname: user?.firstname || "Guest",
+        lastname: user?.lastname || "User",
+        email: user?.email || "guest@example.com",
+        country: user?.country || "Sri Lanka",
+        type: currentTourType,
+      };
+
+      console.log("Sending Payload with User Data:", bookingPayload);
+      await bookingWidgetService.createBooking(bookingPayload);
+      console.log("Booking successfully created!", bookingPayload);
+
       setJourneyDate("");
       setTravelerCounts({ adult: 0, couple: 0, child: 0, infant: 0 });
     } catch (error) {

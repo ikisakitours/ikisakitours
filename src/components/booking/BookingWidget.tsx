@@ -12,6 +12,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useAvailability } from "@/hooks/date-availability/useAvailability";
 
 type TourType = {
+  id?: string;
   title: string;
   price: number;
   discount?: number | string;
@@ -29,11 +30,12 @@ type BookingWidgetProps = {
   options?: TravelerOptionType[];
   assurances?: readonly string[];
   className?: string;
+  tourType?: "multiday" | "oneday";
 };
 
 const bookingAssurancesIcons = [Zap, Banknote, CalendarDays];
 
-export function BookingWidget({ tour, className = "" }: BookingWidgetProps) {
+export function BookingWidget({ tour, className = "", tourType = "multiday" }: BookingWidgetProps) {
   const t = useTranslations("Booking.Widget");
   const tForms = useTranslations("SharedForm");
   const rawAssurances = t.raw("assurances") as string[];
@@ -76,8 +78,7 @@ export function BookingWidget({ tour, className = "" }: BookingWidgetProps) {
     setErrors,
     isLoading,
     handleBookingSubmit,
-  } = useBookingWidget();
-
+  } = useBookingWidget(tour, tourType);
   return (
     <aside className={`mt-12 w-full md:mx-auto md:max-w-105 xl:mx-0 xl:mt-0 xl:w-1/3 xl:max-w-none ${className}`}>
       <div className="sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto no-scrollbar space-y-4 pb-4">
@@ -147,7 +148,7 @@ export function BookingWidget({ tour, className = "" }: BookingWidgetProps) {
               </label>
               <CustomDatePicker
                 value={journeyDate}
-                closedDates={closedDates} 
+                closedDates={closedDates}
                 isLoading={isLoadingDates}
                 onChange={(d) => {
                   setJourneyDate(d);
