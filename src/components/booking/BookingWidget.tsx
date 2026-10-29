@@ -7,35 +7,28 @@ import { Button } from "@/components/ui/Button";
 import { FormError } from "@/components/ui/FormError";
 import { Check, Info, Zap, Banknote, CalendarDays } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useBookingWidget } from "@/hooks/Booking/useBookingWidget";
+import type { useBookingWidget } from "@/hooks/Booking/useBookingWidget";
 import { useAuth } from "@/context/AuthContext";
 import { useAvailability } from "@/hooks/date-availability/useAvailability";
 
 type TourType = {
   id?: string;
+  slug?: string;
   title: string;
   price: number;
   discount?: number | string;
   likes: number;
 };
 
-type TravelerOptionType = {
-  type: string;
-  label: string;
-  ageRange: string;
-};
-
 type BookingWidgetProps = {
   tour: TourType;
-  options?: TravelerOptionType[];
-  assurances?: readonly string[];
+  booking: ReturnType<typeof useBookingWidget>;
   className?: string;
-  tourType?: "multiday" | "oneday";
 };
 
 const bookingAssurancesIcons = [Zap, Banknote, CalendarDays];
 
-export function BookingWidget({ tour, className = "", tourType = "multiday" }: BookingWidgetProps) {
+export function BookingWidget({ tour, booking, className = "" }: BookingWidgetProps) {
   const t = useTranslations("Booking.Widget");
   const tForms = useTranslations("SharedForm");
   const rawAssurances = t.raw("assurances") as string[];
@@ -69,7 +62,7 @@ export function BookingWidget({ tour, className = "", tourType = "multiday" }: B
   ];
 
   //Hook
-  const {
+   const {
     travelerCounts,
     journeyDate,
     setJourneyDate,
@@ -78,7 +71,7 @@ export function BookingWidget({ tour, className = "", tourType = "multiday" }: B
     setErrors,
     isLoading,
     handleBookingSubmit,
-  } = useBookingWidget(tour, tourType);
+  } = booking;
   return (
     <aside className={`mt-12 w-full md:mx-auto md:max-w-105 xl:mx-0 xl:mt-0 xl:w-1/3 xl:max-w-none ${className}`}>
       <div className="sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto no-scrollbar space-y-4 pb-4">
@@ -211,6 +204,8 @@ export function BookingWidget({ tour, className = "", tourType = "multiday" }: B
           </div>
         </form>
       </div>
+
+      
     </aside>
   );
 }

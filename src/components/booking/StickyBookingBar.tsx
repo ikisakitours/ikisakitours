@@ -4,20 +4,36 @@ import React, { useState, useEffect } from "react";
 import { X, Sparkles, CalendarCheck } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BookingWidget } from "@/components/booking/BookingWidget";
-import type { bookingTour, travelerOptions } from "@/data/multiDaysBooking";
+import type { bookingTour } from "@/data/multiDaysBooking";
+import type { useBookingWidget } from "@/hooks/Booking/useBookingWidget";
 import { useTranslations } from "next-intl";
 
 type MobileBookingBarProps = {
   tour: typeof bookingTour;
-  options: typeof travelerOptions;
-  assurances: readonly string[];
-  tourType: "multiday" | "oneday";
+  booking: ReturnType<typeof useBookingWidget>;
 };
 
-export function StickyBookingBar({ tour, options, assurances,tourType = "multiday"  }: MobileBookingBarProps) {
+export function StickyBookingBar({ tour, booking }: MobileBookingBarProps) {
   const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
   const [showStickyBar, setShowStickyBar] = useState(false);
   const t = useTranslations("Booking.StickyBar");
+
+  const { draftRestored, clearDraftRestored } = booking;
+
+  // After returning from login: reopen the modal with the restored data
+  useEffect(() => {
+    if (!draftRestored) return;
+
+    const timer = setTimeout(() => {
+      if (window.innerWidth < 1280) {
+        setIsMobileModalOpen(true);
+      }
+      clearDraftRestored();
+    }, 0);
+
+    return () => clearTimeout(timer);
+  }, [draftRestored, clearDraftRestored]);
+
   useEffect(() => {
     window.dispatchEvent(new CustomEvent("bookingModalStateChange", { detail: { isOpen: isMobileModalOpen } }));
   }, [isMobileModalOpen]);
@@ -185,7 +201,7 @@ export function StickyBookingBar({ tour, options, assurances,tourType = "multida
               </div>
 
               <div className="relative z-10">
-                <BookingWidget tour={tour} options={options} assurances={assurances} tourType={tourType}/>
+                <BookingWidget tour={tour} booking={booking} />
               </div>
             </motion.div>
           </motion.div>

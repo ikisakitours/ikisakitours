@@ -108,6 +108,11 @@ export default {
         "このジャーナルを気に入っていただけたら、とてもうれしいです！ぜひログインして「いいね！」をお願いします。",
       loginBtn: "ログインして続ける",
     },
+    Booking: {
+      title: "ログインが必要です",
+      description: "空き状況を確認するにはログインしてください。選択した日付と人数は保存されています。",
+      loginBtn: "ログインして続ける",
+    },
   },
 
   // new translate need
@@ -190,6 +195,11 @@ export default {
       facebookLoading: "Facebookに接続しています...",
       instagramLoading: "Instagramに接続中...",
       error: "ソーシャルログインに失敗しました。もう一度お試しください。",
+    },
+    Booking: {
+      loading: "空き状況を確認中",
+      success: "予約リクエストを送信しました！",
+      error: "予約に失敗しました.",
     },
   },
 } as const;

@@ -107,6 +107,11 @@ export default {
       description: "We’d love to hear that you enjoyed this journal! Please sign in to leave a like.",
       loginBtn: "Login to Continue",
     },
+     Booking: {
+      title: "Oops! Sign in required",
+      description: "Please sign in to check availability. Your selected date and travelers are saved.",
+      loginBtn: "Login to Continue",
+    },
   },
 
   // new translate need
@@ -189,6 +194,11 @@ export default {
       facebookLoading: "Connecting to Facebook...",
       instagramLoading: "Connecting to Instagram...",
       error: "Social login failed. Please try again.",
+    },
+      Booking: {
+      loading: "Checking availability",
+      success: "Booking request sent!",
+      error: "Booking failed.",
     },
   },
 } as const;

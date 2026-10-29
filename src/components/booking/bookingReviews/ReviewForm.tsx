@@ -13,9 +13,13 @@ const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
   target.style.height = `${target.scrollHeight}px`;
 };
 
-type ReviewFormProps = { onBack: () => void; slug: string };
+type ReviewFormProps = {
+  onBack: () => void;
+  slug: string;
+  tour: { id?: string; title: string };
+};
 
-export function ReviewForm({ onBack, slug }: ReviewFormProps) {
+export function ReviewForm({ onBack, slug, tour }: ReviewFormProps) {
   const t = useTranslations("Booking.ReviewForm");
   const tForms = useTranslations("SharedForm");
 
@@ -38,8 +42,7 @@ export function ReviewForm({ onBack, slug }: ReviewFormProps) {
     handleSubmit,
     showAuthModal,
     closeAuthModal,
-  } = useReviewForm(slug);
-
+  } = useReviewForm(slug, tour);
   return (
     <div className="animate-fade-in-up mx-auto max-w-2xl 3xl:max-w-4xl">
       <div className="mb-8 flex justify-end">
@@ -223,7 +226,7 @@ export function ReviewForm({ onBack, slug }: ReviewFormProps) {
           </Button>
         </form>
       </div>
-       <AuthRequiredModal
+      <AuthRequiredModal
         isOpen={showAuthModal}
         onClose={closeAuthModal}
         translationPath="ValidationErrors.AuthRequired.Review"
