@@ -8,8 +8,10 @@ import { useToast } from "@/context/ToastContext";
 
 // if  this true when from auto submit
 const AUTO_SUBMIT_AFTER_LOGIN = false;
-
+type PackageInfo = { id?: string; title: string };
 type ReviewValues = {
+  packageId: string;
+  packageName: string;
   fullName: string;
   email: string;
   country: string;
@@ -18,7 +20,7 @@ type ReviewValues = {
   images: File[];
 };
 
-export function useReviewForm(slug: string) {
+export function useReviewForm(slug: string, pkg: PackageInfo) {
   const { user } = useAuth();
 
   const [fullName, setFullName] = useState(user ? `${user.firstname || ""} ${user.lastname || ""}`.trim() : "");
@@ -114,6 +116,8 @@ export function useReviewForm(slug: string) {
       const accountCountry = user?.country || "";
 
       const restored: ReviewValues = {
+        packageId: pkg.id || slug,
+        packageName: pkg.title,
         fullName: accountName || draft.fullName,
         email: accountEmail || draft.email,
         country: accountCountry || draft.country,
@@ -173,7 +177,16 @@ export function useReviewForm(slug: string) {
       return;
     }
 
-    await submitReview({ fullName, email, country, rating, experience, images });
+    await submitReview({
+      packageId: pkg.id || slug,
+      packageName: pkg.title,
+      fullName,
+      email,
+      country,
+      rating,
+      experience,
+      images,
+    });
   };
 
   return {

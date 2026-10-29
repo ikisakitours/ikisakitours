@@ -205,7 +205,7 @@ useEffect(() => {
           )}
         </div>
 
-        {showForm &&  <ReviewForm slug={tour.slug} onBack={() => setShowForm(false)} />}
+        {showForm &&  <ReviewForm slug={tour.slug} tour={tour} onBack={() => setShowForm(false)} />}
 
         <FilterSidebar
           isOpen={isFilterOpen}
