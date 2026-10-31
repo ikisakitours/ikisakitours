@@ -5,8 +5,10 @@ import { Link } from "@/lib/i18nNavigation";
 import { LoadingImage } from "@/components/ui/LoadingImage";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { type DestinationMapData } from "@/services/destinations/types";
-import { type LeafletMouseEvent } from "leaflet";
+// 💡 කලින් තිබුණු import එක වෙනුවට මෙය දාන්න
+import { type LeafletMouseEvent, type Polyline as LeafletPolyline } from "leaflet";
 import { useTranslations } from "next-intl";
+
 //Icons
 import { X } from "lucide-react";
 
@@ -42,6 +44,32 @@ export default function MapContent({
 
   const [routePath, setRoutePath] = useState<[number, number][]>([]);
   const [lineWidth, setLineWidth] = useState(4);
+
+const polylineRef = useRef<LeafletPolyline | null>(null);
+useEffect(() => {
+    if (!polylineRef.current) return;
+
+    // 💡 as HTMLElement යන්න එකතු කරන්න, එවිට .style දෝෂයක් නොපෙන්වයි
+    const pathElement = polylineRef.current.getElement() as HTMLElement;
+    if (!pathElement) return;
+
+    pathElement.style.strokeDasharray = "6px, 6px";
+    
+    let offset = 12;
+    let animationFrameId: number;
+
+    const animateLine = () => {
+      offset -= 0.5; 
+      if (offset <= 0) offset = 12;
+      
+      pathElement.style.strokeDashoffset = `${offset}px`;
+      animationFrameId = requestAnimationFrame(animateLine);
+    };
+
+    animateLine();
+
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [routePath, isRouteMode, lineWidth]);
 
   useEffect(() => {
     let isMounted = true;
@@ -153,19 +181,6 @@ export default function MapContent({
   const t = useTranslations("Destinations.Map");
   return (
     <div className="relative mx-auto h-112.5 w-full max-w-full overflow-hidden rounded-3xl border border-white/10 shadow-2xl z-10 sm:h-137.5 md:h-187.5 lg:h-205">
-     <style dangerouslySetInnerHTML={{__html: `
-        path.moving-route-line {
-          stroke-dasharray: 6px 6px !important;
-          animation: moveRouteFlow 1.5s linear infinite !important;
-        }
-        @keyframes moveRouteFlow {
-          from { stroke-dashoffset: 12px; }
-          to { stroke-dashoffset: 0px; }
-        }
-        .leaflet-container .moving-route-line {
-          filter: drop-shadow(0 0 3px rgba(197, 160, 89, 0.5));
-        }
-      `}} />
       <div
         className={`pointer-events-none absolute right-2 top-2 sm:right-4 sm:top-4 z-1000 flex items-center gap-1.5 rounded-full border px-3 py-1.5 shadow-lg backdrop-blur-md ${
           isDarkMode ? "border-white/10 bg-black/70" : "border-black/10 bg-white/80"
@@ -181,7 +196,7 @@ export default function MapContent({
         </span>
       </div>
       {destinations.length === 0 && (
-      <div className="absolute inset-0 z-50 flex items-center justify-center bg-lanka-black backdrop-blur-md">
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-lanka-black backdrop-blur-md">
           <EmptyState
             className="-mt-10 sm:-mt-20"
             backgroundText={t("explore")}
@@ -214,13 +229,14 @@ export default function MapContent({
 
           {isRouteMode && destinations.length > 1 && (
             <Polyline
+              ref={polylineRef}
               positions={
                 routePath.length > 0 ? routePath : destinations.map((d) => [d.coordinates.lat, d.coordinates.lng])
               }
               pathOptions={{
                 color: isDarkMode ? "#C5A059" : "#4285F4",
                 weight: lineWidth,
-                className: "moving-route-line",
+                className: "drop-shadow-[0_0_3px_rgba(197,160,89,0.5)]",
                 lineCap: "round",
               }}
             />
