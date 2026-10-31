@@ -719,25 +719,8 @@ textarea {
   display: none !important;
 }
 
-/* Animated Route Line for Map */
-/* Animated Route Line for Map - FIXED FOR PRODUCTION */
-path.moving-route-line {
-  stroke-dasharray: 6px 6px !important; /* 💡 අනිවාර්යයෙන් px දාන්න */
-  animation: moveRouteFlow 1.5s linear infinite !important;
-}
 
-@keyframes moveRouteFlow {
-  from {
-    stroke-dashoffset: 12px; /* 💡 අනිවාර්යයෙන් px දාන්න (6+6) */
-  }
-  to {
-    stroke-dashoffset: 0px; /* 💡 අනිවාර්යයෙන් px දාන්න */
-  }
-}
 
-.leaflet-container .moving-route-line {
-  filter: drop-shadow(0 0 3px rgba(197, 160, 89, 0.5));
-}
 
 /* Toast auto-dismiss progress bar */
 @keyframes toast-progress {
