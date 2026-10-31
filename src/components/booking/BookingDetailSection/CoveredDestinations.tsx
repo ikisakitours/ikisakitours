@@ -54,15 +54,17 @@ export default function CoveredDestinations({ destinations, tourSlug, tourType }
               className="group flex cursor-pointer items-center gap-4 rounded-2xl border border-white/5 bg-white/5 p-4 transition-all duration-300 hover:border-gold/30 hover:bg-white/10 hover:shadow-lg"
             >
               <div className="relative h-21 w-21 shrink-0 overflow-hidden rounded-xl">
-                <LoadingImage
-                  src={heroImage}
-                  alt={title}
-                  fill
-                  sizes="84px"
-                  watermarkClassName="text-[15px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                  wrapperClassName="w-full h-full"
-                  className="object-cover group-hover:scale-110"
-                />
+                {heroImage && (
+                  <LoadingImage
+                    src={heroImage}
+                    alt={title}
+                    fill
+                    sizes="84px"
+                    watermarkClassName="text-[15px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                    wrapperClassName="w-full h-full"
+                    className="object-cover group-hover:scale-110"
+                  />
+                )}
                 <div className="absolute left-1.5 top-1.5 flex h-5.5 w-5.5 items-center justify-center rounded-full bg-gold text-caption font-black text-lanka-black z-10 shadow-sm">
                   {index + 1}
                 </div>

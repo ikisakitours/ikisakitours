@@ -719,9 +719,6 @@ textarea {
   display: none !important;
 }
 
-
-
-
 /* Toast auto-dismiss progress bar */
 @keyframes toast-progress {
   from {
