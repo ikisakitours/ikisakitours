@@ -122,7 +122,7 @@ export function BespokeForm() {
       </div>
 
       <div className="xl:col-span-12">
-        <CrossPromotionSection />
+       <CrossPromotionSection tourType="one" />
       </div>
     </ContainerLayout>
   );

@@ -1,4 +1,3 @@
-import { bookingTour } from "@/data/multiDaysBooking";
 import { BookingNavigation } from "@/components/booking/BookingNavigation";
 import BookingHeader from "@/components/booking/BookingDetailSection/BookingHeader";
 import BookingGallery from "@/components/booking/BookingDetailSection/BookingGallery";
@@ -13,9 +12,10 @@ import EssentialsSection from "@/components/booking/BookingDetailSection/Essenti
 import TourCustomization from "@/components/booking/BookingDetailSection/TourCustomization";
 import CoveredDestinations from "@/components/booking/BookingDetailSection/CoveredDestinations";
 import ReviewsSection from "@/components/booking/BookingDetailSection/ReviewsSection";
+import { PackageDetails } from "@/services/Booking/packageDetails/types";
 
 type SharedTourProps = {
-  tour: typeof bookingTour;
+  tour: PackageDetails;
   tourType?: "multi" | "one";
 };
 
@@ -31,12 +31,12 @@ export function BookingDetailSections({ tour, tourType }: SharedTourProps) {
       <hr className="my-14 border-white/5" />
       <HighlightsSection tour={tour} />
       <ItinerarySection tour={tour} />
-      <CoveredCitiesRoute destinations={tour.coveredDestinations} />
+      <CoveredCitiesRoute destinations={tour.destinations} />
       <hr className="my-14 border-white/5" />
       <IncludesSection tour={tour} />
       <EssentialsSection />
       <TourCustomization />
-      <CoveredDestinations destinations={tour.coveredDestinations} tourSlug={tour.slug} tourType={tourType} />
+      <CoveredDestinations destinations={tour.destinations} tourSlug={tour.slug} tourType={tourType} />
       <ReviewsSection tour={tour} tourType={tourType} />
     </>
   );

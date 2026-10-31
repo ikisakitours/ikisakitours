@@ -55,6 +55,14 @@ export default {
     uploadTitle: "写真をアップロード",
     uploadSubtitle: "PNG, JPG, WEBP (最大5枚)",
     submitBtn: "レビューを送信",
+    //new
+    emptyTitle: "あなたの体験を最初にシェアしませんか",
+    emptyDescription: "この体験にはまだレビューがありません.あなたのレビューが次の旅行者の参考になります.",
+    writeReview: "レビューを書く",
+    hintRate: "旅行を評価",
+    hintStory: "体験を共有",
+    hintPhotos: "写真を追加",
+    noMoments: "このパッケージのゲストの思い出はまだ共有されていません.",
   },
   ReviewsBody: {
     title: "旅行者のストーリー",

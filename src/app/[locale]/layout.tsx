@@ -13,6 +13,7 @@ import { GlobalCookieModal } from "@/components/ui/CookieModel/GlobalCookieModal
 import IOSZoomFix from "@/components/ui/IOSZoomFix";
 import { ToastProvider } from "@/context/ToastContext";
 import { AuthProvider } from "@/context/AuthContext";
+import { CurrencyProvider } from "@/context/CurrencyContext";
 
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -98,12 +99,14 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <ToastProvider>
             <AuthProvider>
-              {!hasSeenPreloader && <Preloader />}
-              <ProgressBarProvider />
-              <IOSZoomFix />
-              {children}
-              <CookieConsent />
-              <GlobalCookieModal />
+              <CurrencyProvider>
+                {!hasSeenPreloader && <Preloader />}
+                <ProgressBarProvider />
+                <IOSZoomFix />
+                {children}
+                <CookieConsent />
+                <GlobalCookieModal />
+              </CurrencyProvider>
             </AuthProvider>
           </ToastProvider>
         </NextIntlClientProvider>

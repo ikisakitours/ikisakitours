@@ -14,7 +14,7 @@ import { CalendarCheck, Crown, Quote } from "lucide-react";
 export function TestimonialCard({ testimonial }: TestimonialCardProps) {
   const initials =
     testimonial.firstName && testimonial.lastName
-      ? `${testimonial.firstName.charAt(0)}${testimonial.lastName.charAt(0)}`.toUpperCase()
+      ? `${testimonial.firstName.charAt(0)}\u2009${testimonial.lastName.charAt(0)}`.toUpperCase()
       : testimonial.authorName.charAt(0).toUpperCase();
 
   return (

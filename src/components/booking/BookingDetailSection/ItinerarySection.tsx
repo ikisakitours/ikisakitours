@@ -2,26 +2,12 @@
 import React, { useState } from "react";
 import SectionHeading from "./SectionHeading";
 import { useTranslations } from "next-intl";
+import { PackageDetails } from "@/services/Booking/packageDetails/types";
 //Icons
 import { ChevronDown, Clock, MapPin, Leaf, Zap, Utensils, Bed, ArrowRight } from "lucide-react";
 
-type ItineraryDay = {
-  day: number;
-  title: string;
-  travelTime: string;
-  locations: string[];
-  route: string[];
-  details: string[];
-  scenicStops?: string[];
-  activities?: string[];
-  meals: string;
-  accommodation: string;
-};
-
 type ItinerarySectionProps = {
-  tour: {
-    itinerary: ItineraryDay[];
-  };
+  tour: PackageDetails;
 };
 
 export default function ItinerarySection({ tour }: ItinerarySectionProps) {
@@ -31,26 +17,15 @@ export default function ItinerarySection({ tour }: ItinerarySectionProps) {
   const toggleDay = (dayNum: number) => {
     setOpenDay(openDay === dayNum ? null : dayNum);
   };
-  type ItineraryDay = {
-    day: number;
-    title: string;
-    travelTime: string;
-    locations: string[];
-    route: string[];
-    details: string[];
-    scenicStops?: string[];
-    activities?: string[];
-    meals: string;
-    accommodation: string;
-  };
+  if (!tour.itinerary || tour.itinerary.length === 0) return null;
+
   return (
     <section id="itinerary" className="mb-10 md:mb-14 px-1">
       <SectionHeading>{t("title")}</SectionHeading>
 
       <div className="mb-8 flex flex-col gap-4">
-        {tour.itinerary.map((day: ItineraryDay) => {
+        {tour.itinerary.map((day) => {
           const isOpen = openDay === day.day;
-
           return (
             <div
               key={day.day}
@@ -132,10 +107,7 @@ export default function ItinerarySection({ tour }: ItinerarySectionProps) {
                         </h4>
                         <div className="flex flex-col md:flex-row md:flex-wrap md:items-center gap-1.5 md:gap-3">
                           {day.locations.map((loc: string, idx: number) => (
-                            <span
-                              key={idx}
-                              className="flex items-center gap-2 text-body-sm font-medium text-slate-300"
-                            >
+                            <span key={idx} className="flex items-center gap-2 text-body-sm font-medium text-slate-300">
                               <MapPin className="h-3.5 w-3.5 text-gold/70 shrink-0" />
                               {loc}
                               {idx < day.locations.length - 1 && (
@@ -199,24 +171,31 @@ export default function ItinerarySection({ tour }: ItinerarySectionProps) {
                     </div>
 
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 pt-6 border-t border-white/5 mt-6">
-                      <div className="rounded-xl border border-white/5 bg-white/5 p-4 md:p-5">
-                        <span className="mb-1 block text-tiny font-bold uppercase tracking-widest text-slate-500">
-                          {t("mealsIncluded")}
-                        </span>
-                        <div className="flex items-center gap-2 text-body-sm font-bold text-white">
-                          <Utensils className="h-4 w-4 text-gold" />
-                          {day.meals}
+                      {/* 4. Meals Section*/}
+                      {day.meals && day.meals.length > 0 && (
+                        <div className="rounded-xl border border-white/5 bg-white/5 p-4 md:p-5">
+                          <span className="mb-1 block text-tiny font-bold uppercase tracking-widest text-slate-500">
+                            {t("mealsIncluded")}
+                          </span>
+                          <div className="flex items-center gap-2 text-body-sm font-bold text-white">
+                            <Utensils className="h-4 w-4 text-gold shrink-0" />
+                            <span>{day.meals.join(", ")}</span>
+                          </div>
                         </div>
-                      </div>
-                      <div className="rounded-xl border border-white/5 bg-white/5 p-4 md:p-5">
-                        <span className="mb-1 block text-tiny font-bold uppercase tracking-widest text-slate-500">
-                          {t("accommodation")}
-                        </span>
-                        <div className="flex items-center gap-2 text-body-sm font-bold text-white">
-                          <Bed className="h-4 w-4 text-gold" />
-                          {day.accommodation}
+                      )}
+
+                      {/*  Accommodation Section */}
+                      {day.accommodation && day.accommodation.length > 0 && (
+                        <div className="rounded-xl border border-white/5 bg-white/5 p-4 md:p-5">
+                          <span className="mb-1 block text-tiny font-bold uppercase tracking-widest text-slate-500">
+                            {t("accommodation")}
+                          </span>
+                          <div className="flex items-center gap-2 text-body-sm font-bold text-white">
+                            <Bed className="h-4 w-4 text-gold shrink-0" />
+                            <span>{day.accommodation.join(", ")}</span>
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   </div>
                 </div>

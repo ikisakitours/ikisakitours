@@ -5,10 +5,10 @@ import { motion, AnimatePresence, Variants } from "framer-motion";
 import CheckBullet from "./CheckBullet";
 import ExpandButton from "./ExpandButton";
 import { useTranslations } from "next-intl";
+import { PackageDetails } from "@/services/Booking/packageDetails/types"; 
+
 type HighlightsSectionProps = {
-  tour: {
-    highlights: string[];
-  };
+  tour: PackageDetails; 
 };
 
 const perfStyle: React.CSSProperties = {
@@ -42,11 +42,15 @@ export default function HighlightsSection({ tour }: HighlightsSectionProps) {
   const t = useTranslations("Booking.Highlights");
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const DEFAULT_COUNT = 6;
-  const hasMore = tour.highlights.length > DEFAULT_COUNT;
+  const highlights = tour.highlights || [];
 
-  const defaultHighlights = tour.highlights.slice(0, DEFAULT_COUNT);
-  const extraHighlights = tour.highlights.slice(DEFAULT_COUNT);
+  if (highlights.length === 0) return null;
+
+  const DEFAULT_COUNT = 6;
+  const hasMore = highlights.length > DEFAULT_COUNT;
+
+  const defaultHighlights = highlights.slice(0, DEFAULT_COUNT);
+  const extraHighlights = highlights.slice(DEFAULT_COUNT);
 
   return (
     <section id="highlights" className="mb-10 md:mb-14 px-1">

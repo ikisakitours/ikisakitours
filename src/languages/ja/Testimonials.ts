@@ -30,6 +30,8 @@ export default {
     Sidebar: {
       all: "すべて",
       languages: "言語",
+      //new
+      filterCountries: "国",
       clearFilter: "フィルターをクリア",
       categories: "カテゴリー",
       rating: "評価",

@@ -1,44 +1,29 @@
-import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { bookingTour } from "@/data/oneDayBooking";
 import ReviewsBody from "@/components/booking/bookingReviews/ReviewsBody";
 
 type BookingReviewsPageProps = {
-  params: Promise<{
-    slug: string;
-  }>;
+  params: Promise<{ slug: string }>;
 };
+
+const slugToName = (slug: string) =>
+  slug
+    .split("-")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
 
 export async function generateMetadata({ params }: BookingReviewsPageProps): Promise<Metadata> {
   const { slug } = await params;
   const t = await getTranslations("Booking.MetadataReviews");
-  const tour = bookingTour.slug === slug ? bookingTour : null;
-
-  if (!tour) {
-    return {
-      title: t("reviewNotFound"),
-    };
-  }
+  const tourName = slugToName(slug);
 
   return {
-    title: t("reviewTitle", { tourName: tour.fullTitle }),
-    description: t("reviewDescription", { tourName: tour.fullTitle }),
+    title: t("reviewTitle", { tourName }),
+    description: t("reviewDescription", { tourName }),
   };
 }
 
 export default async function BookingReviewsPage({ params }: BookingReviewsPageProps) {
   const { slug } = await params;
-
-  const tour = bookingTour.slug === slug ? bookingTour : null;
-
-  if (!tour) {
-    notFound();
-  }
-
-  return (
-    <>
-      <ReviewsBody tour={tour} tourType="one" />
-    </>
-  );
+  return <ReviewsBody slug={slug} tourType="one" />;
 }

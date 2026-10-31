@@ -1,9 +1,8 @@
 export default {
-
   MetadataReviews: {
     reviewNotFound: "Review Not Found",
     reviewTitle: "Guest Reviews | {tourName}",
-    reviewDescription: "Read authentic stories and experiences from travelers who joined our {tourName}."
+    reviewDescription: "Read authentic stories and experiences from travelers who joined our {tourName}.",
   },
 
   Navigation: {
@@ -154,6 +153,15 @@ export default {
     viewAll: "View all",
     viewGallery: "View Gallery",
     showMore: "Show More Reviews",
+
+    //new
+    emptyTitle: "Be the first to share your story",
+    emptyDescription: "No one has reviewed this experience yet. Yours could help the next traveler decide.",
+    writeReview: "Write a Review",
+    hintRate: "Rate your trip",
+    hintStory: "Share your story",
+    hintPhotos: "Add photos",
+    noMoments: "No guest moments shared yet for this package.",
   },
   StoryBanner: {
     title: "Journey into the Heart of Wildlife Magic",

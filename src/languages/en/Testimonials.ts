@@ -1,7 +1,8 @@
 export default {
   Metadata: {
     title: "Guest Journals",
-    description: "Discover reviews and travelogues from those who have visited Sri Lanka. We share authentic accounts covering World Heritage sites, breathtaking scenery, cultural experiences, and luxury travel.",
+    description:
+      "Discover reviews and travelogues from those who have visited Sri Lanka. We share authentic accounts covering World Heritage sites, breathtaking scenery, cultural experiences, and luxury travel.",
   },
   Hero: {
     badge: "Unfiltered Experiences",
@@ -30,6 +31,8 @@ export default {
       all: "All",
       clearFilter: "Clear Filter",
       languages: "Languages",
+      //new
+      filterCountries: "Countries",
       categories: "Categories",
       rating: "Rating",
       allRatings: "All Ratings",

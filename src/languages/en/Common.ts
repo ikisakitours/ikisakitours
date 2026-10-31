@@ -6,6 +6,10 @@ export default {
     loadingDestination: "Loading Destination...",
     //new
     loadingFaqs: "Loading FAQs...",
+    loadingTours: "Loading Tours...",
+    loadingTourDetails: "Loading Tour Details...",
+    loadingRelatedTours: "Loading Similar Tours...",
+    loadingInsights: "Loading Travel Insights...",
 
     errorWatermark: "ERROR",
     failedToLoad: "Oops! Something went wrong.",

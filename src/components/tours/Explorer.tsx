@@ -1,8 +1,8 @@
+// src/components/tours/Explorer.tsx
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
 import { Card } from "@/components/tours/Card";
-import { type TourPackage } from "@/data/multiDaysTours";
 import { FilterSidebar } from "./FilterSidebar";
 import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -11,16 +11,26 @@ import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Filter } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+// New Hook and Loader/Error Components
+import { usePackageSummaries } from "@/hooks/tours/usePackageSummaries";
+import { ApiCallLoader } from "@/components/ui/ApiCallLoader";
+import { ApiCallError } from "@/components/ui/ApiCallError";
+
 type PackageExplorerProps = {
-  packages: TourPackage[];
+  // packages: TourPackage[]; // This is no longer needed as we fetch internally
   tourType?: "multi" | "one";
 };
 
 const INITIAL_COUNT = 4;
 
-export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps) {
+export function Explorer({ tourType = "multi" }: PackageExplorerProps) {
   const t = useTranslations("Tours.Explorer");
 
+  // Fetch data directly within the component
+  const mappedType = tourType === "multi" ? "multiday" : "oneday";
+  const { packages, isLoading, error, refetch } = usePackageSummaries(mappedType, 50); // Fetch a larger limit for client-side filtering
+
+  // ... (keep dynamicPriceFilters and dynamicRatingFilters)
   const dynamicPriceFilters = useMemo(
     () => [
       { value: "any", label: t("priceFilters.any") },
@@ -50,8 +60,9 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
   const [, startTransition] = useTransition();
 
+  // Update dynamic lists to use API fields
   const dynamicCategories = useMemo(() => {
-    const uniqueCategories = Array.from(new Set(packages.map((pkg) => pkg.categoryLabel)));
+    const uniqueCategories = Array.from(new Set(packages.map((pkg) => pkg.category))); // Changed to item.category
     return ["all", ...uniqueCategories];
   }, [packages]);
 
@@ -61,7 +72,7 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
       if (cat === "all") {
         counts[cat] = packages.length;
       } else {
-        counts[cat] = packages.filter((p) => p.categoryLabel === cat).length;
+        counts[cat] = packages.filter((p) => p.category === cat).length; // Changed to p.category
       }
     });
     return counts;
@@ -88,7 +99,7 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
     const counts: Record<string, number> = {};
     dynamicPriceFilters.forEach((pf) => {
       counts[pf.label] = packages.filter((pkg) => {
-        const priceVal = parseFloat(pkg.price.replace(/[^0-9.]/g, ""));
+        const priceVal = pkg.price; // Use the numeric price directly
         if (pf.value === "under-200") return priceVal < 200;
         if (pf.value === "200-300") return priceVal >= 200 && priceVal <= 300;
         if (pf.value === "over-300") return priceVal > 300;
@@ -103,7 +114,7 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
     dynamicRatingFilters.forEach((rf) => {
       counts[rf.label] = packages.filter((pkg) => {
         if (rf.value === "any") return true;
-        const r = parseFloat(pkg.rating);
+        const r = pkg.averageRating; // Use averageRating
         const threshold = parseFloat(rf.value);
         return r >= threshold;
       }).length;
@@ -111,19 +122,20 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
     return counts;
   }, [packages, dynamicRatingFilters]);
 
+  // Update filtering logic to use API fields
   const filteredPackages = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
 
     return packages.filter((item) => {
-      const matchesCategory = category === "all" || item.categoryLabel === category;
+      const matchesCategory = category === "all" || item.category === category; // Changed to item.category
       const matchesDuration = duration === "all" || item.duration === duration;
       const matchesSearch =
         normalizedQuery.length === 0 ||
-        `${item.title} ${item.description} ${item.categoryLabel}`.toLowerCase().includes(normalizedQuery);
+        `${item.title} ${item.description} ${item.category}`.toLowerCase().includes(normalizedQuery); // Updated search fields
 
       let matchesPrice = true;
       if (priceRange !== dynamicPriceFilters[0].label) {
-        const priceVal = parseFloat(item.price.replace(/[^0-9.]/g, ""));
+        const priceVal = item.price; // Use numeric price
         if (priceRange === dynamicPriceFilters[1].label) matchesPrice = priceVal < 200;
         else if (priceRange === dynamicPriceFilters[2].label) matchesPrice = priceVal >= 200 && priceVal <= 300;
         else if (priceRange === dynamicPriceFilters[3].label) matchesPrice = priceVal > 300;
@@ -133,7 +145,7 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
       if (rating !== dynamicRatingFilters[0].label) {
         const activeRatingFilter = dynamicRatingFilters.find((r) => r.label === rating);
         if (activeRatingFilter && activeRatingFilter.value !== "any") {
-          const ratingVal = parseFloat(item.rating);
+          const ratingVal = item.averageRating; // Use averageRating
           const threshold = parseFloat(activeRatingFilter.value);
           matchesRating = ratingVal >= threshold;
         }
@@ -145,6 +157,29 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
 
   const visiblePackages = filteredPackages.slice(0, visibleCount);
   const hasMore = visiblePackages.length < filteredPackages.length;
+  const tApi = useTranslations("Common.Api");
+  if (isLoading) {
+    return (
+      <section className="bg-lanka-dark min-h-screen">
+        <ApiCallLoader fullScreen={true} text={tApi("loadingTours")} />
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="bg-lanka-dark min-h-screen">
+        <ApiCallError
+          message={tApi("contentLoadError")}
+          title={tApi("failedToLoad")}
+          watermark={tApi("errorWatermark")}
+          buttonText={tApi("tryAgain")}
+          fullScreen={true}
+          onRetry={refetch}
+        />
+      </section>
+    );
+  }
 
   return (
     <section id="packages" className="bg-lanka-dark">
@@ -194,7 +229,7 @@ export function Explorer({ packages, tourType = "multi" }: PackageExplorerProps)
           <>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 3xl:gap-10">
               {visiblePackages.map((item) => (
-                <Card key={item.title} item={item} tourType={tourType} />
+                <Card key={item.id} item={item} tourType={tourType} /> // Use item.id as key
               ))}
             </div>
 

@@ -5,48 +5,19 @@ import { allCurrencies } from "@/data/Languages-CurrencyData";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
 import { languages } from "@/data/Languages-CurrencyData";
+import { useCurrency } from "@/context/CurrencyContext";
 //Icons
 import { ChevronDown, Search, Globe } from "lucide-react";
 
 export function CurrencySelector() {
   const t = useTranslations("SiteHeader.Currency");
-  const [isOpen, setIsOpen] = useState(false);
+  const { currency: baseCurrency, setCurrency, isReady } = useCurrency();
 
-  const [baseCurrency, setBaseCurrency] = useState("USD");
+  const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
-  const [isMounted, setIsMounted] = useState(false);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const selectedItemRef = useRef<HTMLButtonElement>(null);
-  const currentLocale = useLocale();
-
- useEffect(() => {
-    const timer = setTimeout(() => {
-      const currentLangObj = languages.find((l) => l.code.toLowerCase() === currentLocale.toLowerCase());
-      const defaultCurrencyForLocale = currentLangObj?.currency || "USD";
-
-      const savedCurrency = localStorage.getItem("ikisaki_currency");
-      const savedLocale = localStorage.getItem("ikisaki_last_locale");
-
-      if (savedLocale !== currentLocale) {
-        setBaseCurrency(defaultCurrencyForLocale);
-        localStorage.setItem("ikisaki_currency", defaultCurrencyForLocale);
-        localStorage.setItem("ikisaki_last_locale", currentLocale); 
-      } 
-      else if (savedCurrency) {
-        setBaseCurrency(savedCurrency);
-      } 
-      else {
-        setBaseCurrency(defaultCurrencyForLocale);
-        localStorage.setItem("ikisaki_currency", defaultCurrencyForLocale);
-        localStorage.setItem("ikisaki_last_locale", currentLocale);
-      }
-
-      setIsMounted(true);
-    }, 0);
-
-    return () => clearTimeout(timer);
-  }, [currentLocale]);
 
   // Click Outside Logic
   useEffect(() => {
@@ -68,19 +39,6 @@ export function CurrencySelector() {
     }
   }, [isOpen]);
 
-  useEffect(() => {
-    const handleLanguageChange = (e: Event) => {
-      const customEvent = e as CustomEvent;
-      if (customEvent.detail) {
-        const newCurrency = customEvent.detail;
-        setBaseCurrency(newCurrency);
-        localStorage.setItem("ikisaki_currency", newCurrency);
-      }
-    };
-    window.addEventListener("languageChanged", handleLanguageChange);
-    return () => window.removeEventListener("languageChanged", handleLanguageChange);
-  }, []);
-
   // Search Filter
   const filteredCurrencies = useMemo(() => {
     const q = search.toLowerCase();
@@ -89,7 +47,7 @@ export function CurrencySelector() {
 
   const currentSymbol = allCurrencies.find((c) => c.code === baseCurrency)?.symbol || "$";
 
-  if (!isMounted) return null;
+  if (!isReady) return null;
 
   return (
     <div className="relative flex items-center z-70" ref={dropdownRef}>
@@ -147,12 +105,11 @@ export function CurrencySelector() {
                 <button
                   key={currency.code}
                   ref={isSelected ? selectedItemRef : null}
-                  onClick={() => {
-                    setBaseCurrency(currency.code);
-                    localStorage.setItem("ikisaki_currency", currency.code);
-                    setIsOpen(false);
-                    setSearch("");
-                  }}
+                 onClick={() => {
+  setCurrency(currency.code);
+  setIsOpen(false);
+  setSearch("");
+}}
                   className={`flex w-full items-center justify-between px-4 py-3 text-left transition-colors hover:bg-gold/10 ${
                     isSelected ? "bg-white/5 border-l-2 border-gold" : "border-l-2 border-transparent"
                   }`}

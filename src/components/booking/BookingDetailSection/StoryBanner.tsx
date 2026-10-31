@@ -1,13 +1,12 @@
 import React from "react";
-import { useTranslations } from "next-intl";
+// import { useTranslations } from "next-intl";
+import { PackageDetails } from "@/services/Booking/packageDetails/types"; // අලුත් Type එක import කරන්න
 
 type StoryBannerProps = {
-  tour: {
-    lead: string;
-  };
+  tour: PackageDetails; // පරණ { lead: string } වෙනුවට අලුත් Type එක ලබාදීම
 };
 export default function StoryBanner({ tour }: StoryBannerProps) {
-  const t = useTranslations("Booking.StoryBanner");
+  // const t = useTranslations("Booking.StoryBanner");
   return (
     <section className="relative my-10 flex flex-col items-center gap-6 text-center md:my-16 md:flex-row md:items-start md:gap-10 md:text-left">
       <div className="relative max-w-3xl pt-2">
@@ -18,12 +17,14 @@ export default function StoryBanner({ tour }: StoryBannerProps) {
         <div className="relative z-10">
           <h2 className="premium-serif mb-4 text-2xl tracking-wide text-white md:text-4xl leading-tight">
             <span className="bg-linear-to-r from-gold-light via-gold to-gold-dark bg-clip-text text-transparent drop-shadow-sm">
-              {t("title")}
+              {/* {t("title")} */}
+              {tour.leadTitle}
+
             </span>
           </h2>
 
           <p className="text-body-sm font-light leading-[1.8] tracking-widest text-slate-300/90 md:text-[15px]">
-            {tour.lead}
+{tour.leadDescription}
           </p>
         </div>
       </div>

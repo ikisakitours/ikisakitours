@@ -8,12 +8,10 @@ import ExpandButton from "./ExpandButton";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { RiCloseCircleLine } from "react-icons/ri";
 import { useTranslations } from "next-intl";
+import { PackageDetails } from "@/services/Booking/packageDetails/types"; 
 
 type IncludesSectionProps = {
-  tour: {
-    includes: string[];
-    excludes: string[];
-  };
+  tour: PackageDetails; 
 };
 
 const perfStyle: React.CSSProperties = {
@@ -51,16 +49,25 @@ export default function IncludesSection({ tour }: IncludesSectionProps) {
   const [isIncludesExpanded, setIsIncludesExpanded] = useState(false);
   const [isExcludesExpanded, setIsExcludesExpanded] = useState(false);
 
-  const DEFAULT_COUNT = 8;
+const DEFAULT_COUNT = 8;
 
-  const extraIncludes = tour.includes.slice(DEFAULT_COUNT);
-  const extraExcludes = tour.excludes.slice(DEFAULT_COUNT);
+  // Provide fallbacks in case the API doesn't return includes/excludes
+  const includes = tour.includes || [];
+  const excludes = tour.excludes || [];
+
+  // Don't render the section if both are empty
+  if (includes.length === 0 && excludes.length === 0) {
+    return null;
+  }
+
+  const extraIncludes = includes.slice(DEFAULT_COUNT);
+  const extraExcludes = excludes.slice(DEFAULT_COUNT);
 
   const hasMoreIncludes = extraIncludes.length > 0;
   const hasMoreExcludes = extraExcludes.length > 0;
 
-  const displayIncludes = tour.includes.slice(0, DEFAULT_COUNT);
-  const displayExcludes = tour.excludes.slice(0, DEFAULT_COUNT);
+  const displayIncludes = includes.slice(0, DEFAULT_COUNT);
+  const displayExcludes = excludes.slice(0, DEFAULT_COUNT);
 
   return (
     <section id="includes" className="glass-card mb-10 rounded-4xl border border-white/5 p-6 md:mb-14 md:p-10">

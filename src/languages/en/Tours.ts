@@ -69,5 +69,6 @@ export default {
   Card: {
     startingFrom: "Starting from",
     details: "Details",
+    newBadge: "New",
   },
 } as const;

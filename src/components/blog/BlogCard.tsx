@@ -76,7 +76,9 @@ export function BlogCard({ post, index }: BlogCardProps) {
               {post.likes.toLocaleString()}
             </span>
           </div>
-          <ShareButton iconSize={21} title={post.title} text={post.summary} url={`/blog/${post.slug}`} />
+          <div className="flex items-center justify-center text-slate-400 transition-all duration-300 hover:scale-110 hover:text-gold active:scale-95 cursor-pointer">
+            <ShareButton iconSize={21} title={post.title} text={post.summary} url={`/blog/${post.slug}`} />
+          </div>
         </div>
       </div>
     </article>

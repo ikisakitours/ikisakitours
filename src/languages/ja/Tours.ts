@@ -72,5 +72,6 @@ export default {
   Card: {
     startingFrom: "〜から始める",
     details: "詳細",
+    newBadge: "新着",
   },
 } as const;

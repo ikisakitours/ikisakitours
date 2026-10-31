@@ -28,40 +28,54 @@ export function InfoSidebar({
   return (
     <aside className="xl:sticky xl:top-32 xl:col-span-4">
       <div className="glass-card overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#0a0a0a]/85 p-6 shadow-2xl backdrop-blur-3xl md:p-8">
-        {/* Header Section */}
-        <div className="mb-6">
+        {/* Header */}
+        <div className="mb-7">
           <h3 className="premium-serif text-heading-sub text-white">
             {titleBase} <span className="italic text-gold">{titleAccent}</span>
           </h3>
-          <p className="mt-2 text-body-sm leading-relaxed text-slate-400">{subtitle}</p>
+          <div className="mt-3 h-px w-12 bg-linear-to-r from-gold/70 to-transparent" />
+          <p className="mt-4 text-body-sm leading-relaxed text-slate-400">{subtitle}</p>
         </div>
 
-        {/* Features List */}
-        <div className="space-y-4">
+        {/* Features */}
+        <ul>
           {features.map((feature, idx) => {
             const Icon = feature.icon;
             return (
-              <div
+              <li
                 key={idx}
-                className="flex gap-4 rounded-2xl border border-white/5 bg-white/2 p-4 transition-colors hover:bg-white/4"
+                className="group relative border-t border-white/10 py-6 first:border-t-0 first:pt-0 last:pb-0"
               >
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold/10">
-                  <Icon className="h-5 w-5 text-gold" />
+                <div className="mb-3 flex items-center justify-between">
+                  <span className="premium-serif text-body italic text-gold/80">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+                  <Icon
+                    className="h-5 w-5 text-slate-500 transition-colors duration-300 group-hover:text-gold"
+                    strokeWidth={1.5}
+                  />
                 </div>
-                <div>
-                  <h4 className="text-caption font-bold uppercase tracking-[0.2em] text-white">{feature.title}</h4>
-                  <p className="mt-1 text-body-sm leading-relaxed text-slate-400">{feature.description}</p>
-                </div>
-              </div>
+
+                <h4 className="text-caption font-bold uppercase tracking-[0.25em] text-white">{feature.title}</h4>
+                <p className="mt-2 text-body-sm leading-relaxed text-slate-400">{feature.description}</p>
+
+                {/* hover accent line */}
+                <span className="pointer-events-none absolute left-0 top-0 h-px w-0 bg-linear-to-r from-gold to-transparent transition-all duration-500 group-hover:w-full group-first:hidden" />
+              </li>
             );
           })}
-        </div>
+        </ul>
 
-        {/* Footer Info Box */}
-        <div className="mt-8 rounded-xl border border-gold/20 bg-gold/5 p-4 text-center">
-          <FooterIcon className="mx-auto mb-2 h-5 w-5 text-gold" />
-          <p className="text-caption font-bold uppercase tracking-[0.2em] text-gold">{footerTitle}</p>
-          <p className="mt-2 text-body-sm  leading-relaxed text-slate-400">{footerDescription}</p>
+        {/* Footer */}
+        <div className="relative mt-8 border-t border-gold/30 pt-6">
+          {/* gold accent on the divider */}
+          <span className="pointer-events-none absolute -top-px left-0 h-px w-12 bg-gold" />
+
+          <div className="flex items-center gap-3">
+            <FooterIcon className="h-5 w-5 shrink-0 text-gold" strokeWidth={1.5} />
+            <p className="text-caption font-bold uppercase tracking-[0.25em] text-gold">{footerTitle}</p>
+          </div>
+          <p className="mt-3 text-body-sm leading-relaxed text-slate-400">{footerDescription}</p>
         </div>
       </div>
     </aside>

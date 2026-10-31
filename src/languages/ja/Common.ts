@@ -6,6 +6,10 @@ export default {
     loadingDestination: "目的地を読み込んでいます...",
     //new
     loadingFaqs: "よくある質問を読み込んでいます...",
+    loadingTours: "ツアーを読み込み中...",
+    loadingTourDetails: "ツアー詳細を読み込み中...",
+    loadingRelatedTours: "おすすめのツアーを読み込み中...",
+    loadingInsights: "旅のヒントを読み込み中...",
     errorWatermark: "エラー",
     failedToLoad: "申し訳ありません.問題が発生しました.",
     tryAgain: "再試行",

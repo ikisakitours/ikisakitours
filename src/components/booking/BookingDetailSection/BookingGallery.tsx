@@ -2,19 +2,12 @@ import React from "react";
 import { LoadingImage } from "@/components/ui/LoadingImage";
 import { Link } from "@/lib/i18nNavigation";
 import { useTranslations } from "next-intl";
+import { PackageDetails } from "@/services/Booking/packageDetails/types";
 //Icons
 import { Images } from "lucide-react";
 
-type GalleryItem = {
-  src: string;
-  alt: string;
-};
-
 type BookingGalleryProps = {
-  tour: {
-    slug: string;
-    gallery: GalleryItem[];
-  };
+  tour: PackageDetails;
   tourType?: "multi" | "one";
 };
 export default function BookingGallery({ tour, tourType }: BookingGalleryProps) {
@@ -25,12 +18,18 @@ export default function BookingGallery({ tour, tourType }: BookingGalleryProps) 
       ? `/gallery/${tour.slug}?filter-one-day-tours=gallery`
       : `/gallery/${tour.slug}?filter-multi-days-tours=gallery`;
 
+  const img1 = tour.gallery?.[0] || "";
+  const img2 = tour.gallery?.[1] || img1;
+  const img3 = tour.gallery?.[2] || img1;
+
+  if (!img1) return null;
+
   return (
     <section id="gallery" className="mb-10 grid grid-cols-1 gap-3 md:mb-14 md:grid-cols-3 md:gap-4">
       <div className="group relative h-62.5 overflow-hidden rounded-3xl border border-white/5 sm:h-75 md:col-span-2 md:h-87.5 md:rounded-4xl">
         <LoadingImage
-          src={tour.gallery[0].src}
-          alt={tour.gallery[0].alt}
+          src={img1}
+          alt={`${tour.title} Gallery Image 1`}
           fill
           loading="eager"
           fetchPriority="high"
@@ -43,8 +42,8 @@ export default function BookingGallery({ tour, tourType }: BookingGalleryProps) 
       <div className="grid h-auto grid-cols-2 gap-3 md:h-87.5 md:grid-cols-1 md:grid-rows-2 md:gap-4">
         <div className="group relative h-37.5 overflow-hidden rounded-[1.2rem] border border-white/5 md:h-full md:rounded-3xl">
           <LoadingImage
-            src={tour.gallery[1].src}
-            alt={tour.gallery[1].alt}
+            src={img2}
+            alt={`${tour.title} Gallery Image 2`}
             fill
             sizes="(min-width: 1024px) 360px, 50vw"
             watermarkClassName="text-[28px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
@@ -58,8 +57,8 @@ export default function BookingGallery({ tour, tourType }: BookingGalleryProps) 
           className="group relative block h-37.5 overflow-hidden rounded-[1.2rem] border border-white/5 md:h-full md:rounded-3xl"
         >
           <LoadingImage
-            src={tour.gallery[2].src}
-            alt={tour.gallery[2].alt}
+            src={img3}
+            alt={`${tour.title} Gallery Image 3`}
             fill
             sizes="(min-width: 1024px) 360px, 50vw"
             watermarkClassName="text-[28px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"

@@ -1,4 +1,5 @@
 "use client";
+import { useCurrency } from "@/context/CurrencyContext";
 import { LikeButton } from "@/components/ui/LikeButton";
 import { ShareButton } from "@/components/ui/ShareButton";
 import CustomDatePicker from "@/components/ui/CustomDatePicker";
@@ -10,6 +11,8 @@ import { useTranslations } from "next-intl";
 import type { useBookingWidget } from "@/hooks/Booking/useBookingWidget";
 import { useAuth } from "@/context/AuthContext";
 import { useAvailability } from "@/hooks/date-availability/useAvailability";
+import { useTogglePackageLike } from "@/hooks/Booking/packageLike/useTogglePackageLike";
+import { useCheckPackageLike } from "@/hooks/Booking/packageLike/useCheckPackageLike";
 
 type TourType = {
   id?: string;
@@ -29,11 +32,14 @@ type BookingWidgetProps = {
 const bookingAssurancesIcons = [Zap, Banknote, CalendarDays];
 
 export function BookingWidget({ tour, booking, className = "" }: BookingWidgetProps) {
+  const { formatPrice } = useCurrency();
   const t = useTranslations("Booking.Widget");
   const tForms = useTranslations("SharedForm");
   const rawAssurances = t.raw("assurances") as string[];
   const { user } = useAuth();
   const { closedDates, isLoadingDates } = useAvailability();
+  const { handlePackageLikeToggle } = useTogglePackageLike();
+  const { isLiked } = useCheckPackageLike(tour.id, user?.id);
   const travelerOptions = [
     {
       type: "adult",
@@ -62,7 +68,7 @@ export function BookingWidget({ tour, booking, className = "" }: BookingWidgetPr
   ];
 
   //Hook
-   const {
+  const {
     travelerCounts,
     journeyDate,
     setJourneyDate,
@@ -80,17 +86,28 @@ export function BookingWidget({ tour, booking, className = "" }: BookingWidgetPr
           <div className="flex items-center gap-3">
             <LikeButton
               showLabel={false}
-              initialLikes={tour.likes}
+              initialLikes={tour.likes || 0}
+              initialIsLiked={isLiked}
               onToggle={async () => {
-                if (user?.id) {
+                if (!user?.id) {
+                  alert("Please log in to like this tour.");
+                  return;
                 }
+                if (!tour.id) return;
+                await handlePackageLikeToggle(tour.id, user.id);
               }}
               countClassName="text-caption!"
               iconClassName="w-5 h-5 sm:w-5.5 sm:h-5.5"
-              className="group glass-card flex h-10 w-auto items-center justify-center gap-2.5 rounded-full border border-white/5 px-4 transition-all hover:border-gold/30"
+              className="group glass-card flex h-10 w-auto items-center justify-center gap-2.5 rounded-full border border-white/5 px-4 transition-all duration-300 hover:border-gold/30 hover:scale-105 hover:bg-white/5 active:scale-95 shadow-[0_0_15px_rgba(197,160,89,0.1)] hover:shadow-[0_0_20px_rgba(197,160,89,0.2)]"
             />
-            <div className="glass-card flex h-10 w-10 items-center justify-center rounded-full border border-white/5 transition-all hover:border-gold/30">
-              <ShareButton title={tour.title} text="Check out this tour" url="/booking-page" />
+
+            <div className="group flex h-10 w-10 items-center justify-center rounded-full border border-white/5 bg-white/5 text-slate-400 transition-all duration-300 hover:scale-100 active:scale-95 hover:border-gold hover:text-gold shadow-[0_0_15px_rgba(197,160,89,0.1)] hover:shadow-[0_0_20px_rgba(197,160,89,0.2)]">
+              <ShareButton
+                iconSize={20}
+                title={tour.title}
+                text={`Check out this tour: ${tour.title}`}
+                url={`/booking/multi-days-tours/${tour.slug}`}
+              />
             </div>
           </div>
         </div>
@@ -101,7 +118,7 @@ export function BookingWidget({ tour, booking, className = "" }: BookingWidgetPr
               <div>
                 <div className="mb-1 text-caption font-bold uppercase tracking-[0.3em] text-gold">{t("Rate")}</div>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-bold tracking-tighter text-white">${tour.price}</span>
+                  <span className="text-[26px] font-bold tracking-tighter text-white"> {formatPrice(tour.price)}</span>
                   <span className="text-caption font-bold uppercase tracking-widest text-slate-400">
                     {t("perPerson")}
                   </span>
@@ -204,8 +221,6 @@ export function BookingWidget({ tour, booking, className = "" }: BookingWidgetPr
           </div>
         </form>
       </div>
-
-      
     </aside>
   );
 }
