@@ -207,7 +207,6 @@ export default function MapContent({
               pathOptions={{
                 color: isDarkMode ? "#C5A059" : "#4285F4",
                 weight: lineWidth,
-                dashArray: "12, 12",
                 className: "moving-route-line",
                 lineCap: "round",
               }}

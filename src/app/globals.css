@@ -720,17 +720,18 @@ textarea {
 }
 
 /* Animated Route Line for Map */
-.moving-route-line {
-  stroke-dasharray: 6 6 !important;
+/* Animated Route Line for Map - FIXED FOR PRODUCTION */
+path.moving-route-line {
+  stroke-dasharray: 6px 6px !important; /* 💡 අනිවාර්යයෙන් px දාන්න */
   animation: moveRouteFlow 1.5s linear infinite !important;
 }
 
 @keyframes moveRouteFlow {
   from {
-    stroke-dashoffset: 12;
+    stroke-dashoffset: 12px; /* 💡 අනිවාර්යයෙන් px දාන්න (6+6) */
   }
   to {
-    stroke-dashoffset: 0;
+    stroke-dashoffset: 0px; /* 💡 අනිවාර්යයෙන් px දාන්න */
   }
 }
 
