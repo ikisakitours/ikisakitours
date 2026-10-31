@@ -37,9 +37,9 @@ export default function CoveredDestinations({ destinations, tourSlug, tourType }
         {destinations.map((dest, index) => {
           const fullDestData = allMapDestinations?.find((item) => item.slug === dest.slug || item.id === dest.id);
 
-          const title = dest.title || fullDestData?.title || "";
-          const summary = dest.summary || fullDestData?.summary || "";
-          const heroImage = dest.heroImage || fullDestData?.heroImage || "";
+          const title = fullDestData?.title || dest.slug || "";
+          const summary = fullDestData?.summary || "";
+          const heroImage = fullDestData?.heroImage || "";
           const destSlug = dest.slug || fullDestData?.slug || "";
 
           const destinationsHref =

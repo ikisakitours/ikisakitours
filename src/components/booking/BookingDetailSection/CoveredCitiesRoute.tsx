@@ -77,19 +77,19 @@ export default function CoveredCitiesRoute({ destinations }: CoveredCitiesRouteP
 
   if (!destinations || destinations.length === 0) return null;
 
-  const mappedDestinations = destinations.map((dest, index) => {
+const mappedDestinations = destinations.map((dest, index) => {
     const fullMapData = allMapDestinations?.find((item) => item.slug === dest.slug || item.id === dest.id);
 
     return {
       id: dest.id || String(index + 1),
       slug: dest.slug || "",
-      title: dest.title || "",
+      title: fullMapData?.title || dest.slug.replace(/-/g, ' ') || "",
       coordinates: {
         lat: fullMapData?.coordinates?.lat || 0,
         lng: fullMapData?.coordinates?.lng || 0,
       },
-      heroImage: dest.heroImage || fullMapData?.heroImage || "",
-      summary: dest.summary || fullMapData?.summary || "",
+      heroImage: fullMapData?.heroImage || "",
+      summary: fullMapData?.summary || "",
     };
   });
 
@@ -122,8 +122,10 @@ export default function CoveredCitiesRoute({ destinations }: CoveredCitiesRouteP
               onScroll={checkScrollPosition}
               className="no-scrollbar flex items-center gap-2 overflow-x-auto pb-2 scroll-smooth"
             >
-              {destinations.map((dest, idx) => {
-                const safeTitle = dest.title || "";
+             {destinations.map((dest, idx) => {
+                const fullMapData = allMapDestinations?.find((item) => item.slug === dest.slug || item.id === dest.id);
+                const safeTitle = fullMapData?.title || dest.slug || ""; 
+
                 return (
                   <React.Fragment key={dest.id || idx}>
                     <div className="group flex shrink-0 items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:bg-white/10">
