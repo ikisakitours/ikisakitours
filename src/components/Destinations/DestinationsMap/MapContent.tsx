@@ -153,6 +153,19 @@ export default function MapContent({
   const t = useTranslations("Destinations.Map");
   return (
     <div className="relative mx-auto h-112.5 w-full max-w-full overflow-hidden rounded-3xl border border-white/10 shadow-2xl z-10 sm:h-137.5 md:h-187.5 lg:h-205">
+     <style dangerouslySetInnerHTML={{__html: `
+        path.moving-route-line {
+          stroke-dasharray: 6px 6px !important;
+          animation: moveRouteFlow 1.5s linear infinite !important;
+        }
+        @keyframes moveRouteFlow {
+          from { stroke-dashoffset: 12px; }
+          to { stroke-dashoffset: 0px; }
+        }
+        .leaflet-container .moving-route-line {
+          filter: drop-shadow(0 0 3px rgba(197, 160, 89, 0.5));
+        }
+      `}} />
       <div
         className={`pointer-events-none absolute right-2 top-2 sm:right-4 sm:top-4 z-1000 flex items-center gap-1.5 rounded-full border px-3 py-1.5 shadow-lg backdrop-blur-md ${
           isDarkMode ? "border-white/10 bg-black/70" : "border-black/10 bg-white/80"
