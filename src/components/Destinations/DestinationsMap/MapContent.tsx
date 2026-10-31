@@ -45,23 +45,23 @@ export default function MapContent({
   const [routePath, setRoutePath] = useState<[number, number][]>([]);
   const [lineWidth, setLineWidth] = useState(4);
 
-const polylineRef = useRef<LeafletPolyline | null>(null);
-useEffect(() => {
+  const polylineRef = useRef<LeafletPolyline | null>(null);
+
+  useEffect(() => {
     if (!polylineRef.current) return;
 
-    // 💡 as HTMLElement යන්න එකතු කරන්න, එවිට .style දෝෂයක් නොපෙන්වයි
     const pathElement = polylineRef.current.getElement() as HTMLElement;
     if (!pathElement) return;
 
     pathElement.style.strokeDasharray = "6px, 6px";
-    
+
     let offset = 12;
     let animationFrameId: number;
 
     const animateLine = () => {
-      offset -= 0.5; 
+      offset -= 0.3;
       if (offset <= 0) offset = 12;
-      
+
       pathElement.style.strokeDashoffset = `${offset}px`;
       animationFrameId = requestAnimationFrame(animateLine);
     };
