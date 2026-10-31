@@ -6,15 +6,15 @@ import { useAuth } from "@/context/AuthContext";
 import { clearBookingReviewDraft, loadBookingReviewDraft, saveBookingReviewDraft } from "@/utils/bookingReviewDraft";
 import { useToast } from "@/context/ToastContext";
 
-// if  this true when from auto submit
 const AUTO_SUBMIT_AFTER_LOGIN = false;
+
 type PackageInfo = { id?: string; title: string };
+
 type ReviewValues = {
+  userId: string;
   packageId: string;
   packageName: string;
-  fullName: string;
   email: string;
-  country: string;
   rating: number;
   experience: string;
   images: File[];
@@ -22,10 +22,24 @@ type ReviewValues = {
 
 export function useReviewForm(slug: string, pkg: PackageInfo) {
   const { user } = useAuth();
+  const isLoggedIn = !!user;
 
-  const [fullName, setFullName] = useState(user ? `${user.firstname || ""} ${user.lastname || ""}`.trim() : "");
-  const [email, setEmail] = useState(user?.email || "");
-  const [country, setCountry] = useState(user?.country || "");
+  const accountName = user ? `${user.firstname || ""} ${user.lastname || ""}`.trim() : "";
+  const accountEmail = user?.email || "";
+
+  const [guestName, setGuestName] = useState("");
+  const [guestEmail, setGuestEmail] = useState("");
+
+  const fullName = isLoggedIn ? accountName : guestName;
+  const email = isLoggedIn ? accountEmail : guestEmail;
+
+  const setFullName = (value: string) => {
+    if (!isLoggedIn) setGuestName(value);
+  };
+  const setEmail = (value: string) => {
+    if (!isLoggedIn) setGuestEmail(value);
+  };
+
   const [rating, setRating] = useState<number>(0);
   const [experience, setExperience] = useState("");
   const [images, setImages] = useState<File[]>([]);
@@ -85,8 +99,6 @@ export function useReviewForm(slug: string, pkg: PackageInfo) {
       setExperience("");
       setImages([]);
       setPreviews([]);
-      setFullName(user ? `${user.firstname || ""} ${user.lastname || ""}`.trim() : "");
-      setEmail(user?.email || "");
     } catch (error) {
       toast.error(toastId, tToast("error"));
       console.error("Submission error:", error);
@@ -97,42 +109,16 @@ export function useReviewForm(slug: string, pkg: PackageInfo) {
   };
 
   useEffect(() => {
-    if (!user) return;
-    const id = setTimeout(() => {
-      setFullName((prev) => prev || `${user.firstname || ""} ${user.lastname || ""}`.trim());
-      setEmail((prev) => prev || user.email || "");
-      setCountry((prev) => prev || user.country || "");
-    }, 0);
-    return () => clearTimeout(id);
-  }, [user]);
-
-  useEffect(() => {
     const id = setTimeout(() => {
       const draft = loadBookingReviewDraft(slug);
       if (!draft) return;
 
-      const accountName = user ? `${user.firstname || ""} ${user.lastname || ""}`.trim() : "";
-      const accountEmail = user?.email || "";
-      const accountCountry = user?.country || "";
-
-      const restored: ReviewValues = {
-        packageId: pkg.id || slug,
-        packageName: pkg.title,
-        fullName: accountName || draft.fullName,
-        email: accountEmail || draft.email,
-        country: accountCountry || draft.country,
-        rating: draft.rating,
-        experience: draft.experience,
-        images: [],
-      };
-
       if (!fieldsRestoredRef.current) {
         fieldsRestoredRef.current = true;
-        setFullName(restored.fullName);
-        setEmail(restored.email);
-        setCountry(restored.country);
-        setRating(restored.rating);
-        setExperience(restored.experience);
+        setGuestName(draft.fullName);
+        setGuestEmail(draft.email);
+        setRating(draft.rating);
+        setExperience(draft.experience);
       }
 
       if (user && !autoHandledRef.current) {
@@ -141,7 +127,26 @@ export function useReviewForm(slug: string, pkg: PackageInfo) {
 
         const canAutoSubmit = AUTO_SUBMIT_AFTER_LOGIN && draft.autoSubmit && !draft.hadImages;
 
-        if (canAutoSubmit && validate(restored)) {
+        const restored: ReviewValues = {
+          userId: String(user.id),
+          packageId: pkg.id || slug,
+          packageName: pkg.title,
+          email: user.email || draft.email,
+          rating: draft.rating,
+          experience: draft.experience,
+          images: [],
+        };
+
+        if (
+          canAutoSubmit &&
+          validate({
+            fullName: accountName,
+            email: restored.email,
+            rating: restored.rating,
+            experience: restored.experience,
+            images: [],
+          })
+        ) {
           void submitReview(restored);
         }
       }
@@ -156,7 +161,6 @@ export function useReviewForm(slug: string, pkg: PackageInfo) {
     const isValid = validate({
       fullName,
       email,
-      country: user ? country : country || "pending-login",
       rating,
       experience,
       images,
@@ -167,7 +171,6 @@ export function useReviewForm(slug: string, pkg: PackageInfo) {
       saveBookingReviewDraft(slug, {
         fullName,
         email,
-        country,
         rating,
         experience,
         autoSubmit: AUTO_SUBMIT_AFTER_LOGIN,
@@ -178,11 +181,10 @@ export function useReviewForm(slug: string, pkg: PackageInfo) {
     }
 
     await submitReview({
+      userId: String(user.id),
       packageId: pkg.id || slug,
       packageName: pkg.title,
-      fullName,
-      email,
-      country,
+      email: user.email || email,
       rating,
       experience,
       images,
@@ -194,8 +196,7 @@ export function useReviewForm(slug: string, pkg: PackageInfo) {
     setFullName,
     email,
     setEmail,
-    country,
-    setCountry,
+    isLoggedIn,
     rating,
     setRating,
     experience,

@@ -1,253 +1,269 @@
+import { cache } from "react";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { blogPosts, type GalleryItem } from "@/data/blog";
-import { bookingTour as multiDayTour } from "@/data/multiDaysBooking";
-import { bookingTour as oneDayTour } from "@/data/oneDayBooking";
-import { reviewMoments } from "@/data/GuestMomentsImages";
 import { allSpecialEventsList } from "@/data/specialEvents";
 import { GalleryCollection } from "@/components/gallery/GalleryCollection";
 import { GalleryHero } from "@/components/gallery/GalleryHero";
-import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
 import { fetchBlogServices } from "@/services/blogs/fetchBlogServices";
 import type { BlogPost } from "@/services/blogs/types";
+import { packageDetailsService } from "@/services/Booking/packageDetails/packageDetailsService";
+import type { PackageDetails } from "@/services/Booking/packageDetails/types";
+import { reviewService } from "@/services/Booking/packageAllReview/FetchReviewService";
+import type { ReviewType } from "@/services/Booking/packageAllReview/types";
+
 type GalleryDetailPageProps = {
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
+const getBlog = cache(async (slug: string): Promise<BlogPost | null> => {
+  try {
+    return await fetchBlogServices.getBlogPostBySlug(slug);
+  } catch {
+    return null;
+  }
+});
+
+const getTour = cache(async (slug: string): Promise<PackageDetails | null> => {
+  try {
+    return await packageDetailsService.getPackageBySlug(slug);
+  } catch (error) {
+    if (!(error instanceof Error && error.message === "NOT_FOUND")) {
+      console.error(`Failed to fetch package for gallery slug: ${slug}`, error);
+    }
+    return null;
+  }
+});
+
+const getReviews = cache(async (packageId: string): Promise<ReviewType[]> => {
+  try {
+    return await reviewService.getReviewsByPackageId(packageId);
+  } catch (error) {
+    console.error("Failed to fetch reviews for gallery", error);
+    return [];
+  }
+});
+
+/* ---------- helpers ---------- */
+
+type Resolved =
+  | { kind: "blog"; post: BlogPost }
+  | { kind: "staticBlog"; post: (typeof blogPosts)[0] }
+  | { kind: "event"; post: (typeof allSpecialEventsList)[0] }
+  | { kind: "tour"; post: PackageDetails }
+  | null;
+
+async function resolvePost(slug: string, hasTourFilter: boolean, fromEvent: boolean): Promise<Resolved> {
+  if (hasTourFilter) {
+    const tour = await getTour(slug);
+    if (tour) return { kind: "tour", post: tour };
+  }
+
+  const blog = await getBlog(slug);
+  if (blog) return { kind: "blog", post: blog };
+
+  const staticBlog = blogPosts.find((p) => p.slug === slug);
+  if (staticBlog) return { kind: "staticBlog", post: staticBlog };
+
+  if (fromEvent || allSpecialEventsList.some((e) => e.slug === slug)) {
+    const event = allSpecialEventsList.find((e) => e.slug === slug);
+    if (event) return { kind: "event", post: event };
+  }
+
+  if (!hasTourFilter) {
+    const tour = await getTour(slug);
+    if (tour) return { kind: "tour", post: tour };
+  }
+
+  return null;
+}
+const getFullTitle = (tour: PackageDetails) => `${tour.title} ${tour.titleEmphasis ?? ""}`.trim();
+const getFilterKey = (key: string) => decodeURIComponent(key.replace("review-", "")).trim();
+
+function findReview(reviews: ReviewType[], key: string) {
+  const byId = reviews.find((r) => r.id === key);
+  if (byId) return byId;
+
+  const normalize = (s?: string) => (s ?? "").toLowerCase().replace(/\s+/g, " ").trim();
+  const k = normalize(key);
+  const sameName = reviews.filter((r) => normalize(r.fullName) === k);
+
+  return sameName.find((r) => r.imageUrls?.length > 0) ?? sameName[0];
+}
+function toItems(
+  urls: string[] | undefined,
+  prefix: string,
+  alt: string,
+  title: string,
+  category: string,
+): GalleryItem[] {
+  return (urls || [])
+    .filter(Boolean)
+    .map((src, i) => ({ id: `${prefix}-${i}`, src, alt: `${alt} ${i + 1}`, title, category }));
+}
+
+function readParams(sp: { [key: string]: string | string[] | undefined }) {
+  const filter = sp?.filter as string | undefined;
+  const filterOneDay = sp?.["filter-one-day-tours"] as string | undefined;
+  const filterMultiDay = sp?.["filter-multi-days-tours"] as string | undefined;
+  const from = sp?.from as string | undefined;
+  return {
+    from,
+    hasTourFilter: !!(filterOneDay || filterMultiDay),
+    activeFilter: filterOneDay || filterMultiDay || filter,
+  };
+}
+
+/* ---------- metadata ---------- */
+
 export async function generateMetadata({ params, searchParams }: GalleryDetailPageProps): Promise<Metadata> {
   const t = await getTranslations("Gallery.Metadata");
   const { slug } = await params;
-  const resolvedSearchParams = await searchParams;
+  const { from, hasTourFilter, activeFilter } = readParams(await searchParams);
 
-  const filter = resolvedSearchParams?.filter as string | undefined;
-  const filterOneDay = resolvedSearchParams?.["filter-one-day-tours"] as string | undefined;
-  const filterMultiDay = resolvedSearchParams?.["filter-multi-days-tours"] as string | undefined;
+  const resolved = await resolvePost(slug, hasTourFilter, from === "events");
 
-  const fromEvent = resolvedSearchParams?.from === "events";
-
-  const activeFilter = filterOneDay || filterMultiDay || filter;
-
-  let dynamicBlog: BlogPost | null = null;
-  try {
-    dynamicBlog = await fetchBlogServices.getBlogPostBySlug(slug);
-  } catch (error) {
-    console.error(`Metadata fetch failed for ${slug}`, error);
+  if (!resolved) {
+    return { title: t("notFoundTitle"), description: t("notFoundDesc") };
   }
 
-  let post:
-    | (typeof blogPosts)[0]
-    | typeof multiDayTour
-    | typeof oneDayTour
-    | (typeof allSpecialEventsList)[0]
-    | BlogPost
-    | undefined = dynamicBlog || blogPosts.find((p) => p.slug === slug);
-
-  let isBookingTour = false;
-  let isEventGallery = false;
-
-  if (!post) {
-    if (filterOneDay && oneDayTour.slug === slug) {
-      post = oneDayTour;
-      isBookingTour = true;
-    } else if (filterMultiDay && multiDayTour.slug === slug) {
-      post = multiDayTour;
-      isBookingTour = true;
-    } else if (fromEvent || allSpecialEventsList.some((e) => e.slug === slug)) {
-      post = allSpecialEventsList.find((e) => e.slug === slug);
-      isEventGallery = true;
-    } else if (multiDayTour.slug === slug) {
-      post = multiDayTour;
-      isBookingTour = true;
-    } else if (oneDayTour.slug === slug) {
-      post = oneDayTour;
-      isBookingTour = true;
-    }
-  }
-
-  if (!post) {
+  if (resolved.kind === "event") {
     return {
-      title: t("notFoundTitle"),
-      description: t("notFoundDesc"),
+      title: t("eventTitle", { title: resolved.post.title }),
+      description: `Discover visual highlights and exclusive images from ${resolved.post.title}.`,
     };
   }
 
-  let title = post.title;
-  let description = t("blogDesc", { title: post.title });
-
-  if (isEventGallery) {
-    title = t("eventTitle", { title: post.title });
-    description = `Discover visual highlights and exclusive images from ${post.title}.`;
-  } else if (isBookingTour) {
-    const tour = post as typeof multiDayTour;
+  if (resolved.kind === "tour") {
+    const tour = resolved.post;
+    const fullTitle = getFullTitle(tour);
     if (activeFilter === "moments" || activeFilter === "all-moments") {
-      title = t("guestMomentsTitle", { title: tour.fullTitle });
-      description = t("guestMomentsDesc", { title: tour.fullTitle });
-    } else if (activeFilter && activeFilter.startsWith("review-")) {
-      const encodedUserName = activeFilter.replace("review-", "");
-      const userName = decodeURIComponent(encodedUserName).trim();
-      title = t("reviewTitle", { name: userName, title: tour.fullTitle });
-      description = t("reviewDesc", { name: userName, title: tour.fullTitle });
-    } else {
-      title = t("tourTitle", { title: tour.fullTitle });
-      description = t("tourDesc", { title: tour.fullTitle });
+      return {
+        title: t("guestMomentsTitle", { title: fullTitle }),
+        description: t("guestMomentsDesc", { title: fullTitle }),
+      };
     }
-  } else {
-    title = t("storyTitle", { title: post.title });
+    if (activeFilter?.startsWith("review-")) {
+      const reviews = await getReviews(tour.id);
+      const review = findReview(reviews, getFilterKey(activeFilter));
+      const name = review?.fullName ?? "Guest";
+      return {
+        title: t("reviewTitle", { name, title: fullTitle }),
+        description: t("reviewDesc", { name, title: fullTitle }),
+      };
+    }
+    return {
+      title: t("tourTitle", { title: fullTitle }),
+      description: t("tourDesc", { title: fullTitle }),
+    };
   }
 
+  // blog / staticBlog
   return {
-    title,
-    description,
+    title: t("storyTitle", { title: resolved.post.title }),
+    description: t("blogDesc", { title: resolved.post.title }),
   };
 }
+
+/* ---------- page ---------- */
 
 export default async function GalleryDetailPage({ params, searchParams }: GalleryDetailPageProps) {
   const t = await getTranslations("Gallery.Labels");
   const { slug } = await params;
-  const resolvedSearchParams = await searchParams;
+  const { from, hasTourFilter, activeFilter } = readParams(await searchParams);
 
-  const filter = resolvedSearchParams?.filter as string | undefined;
-  const filterOneDay = resolvedSearchParams?.["filter-one-day-tours"] as string | undefined;
-  const filterMultiDay = resolvedSearchParams?.["filter-multi-days-tours"] as string | undefined;
-  const from = resolvedSearchParams?.from as string | undefined;
+  const resolved = await resolvePost(slug, hasTourFilter, from === "events");
+  if (!resolved) notFound();
 
-  const activeFilter = filterOneDay || filterMultiDay || filter;
-
-  let dynamicBlog: BlogPost | null = null;
-  try {
-    dynamicBlog = await fetchBlogServices.getBlogPostBySlug(slug);
-  } catch (error) {
-    console.error(`Failed to fetch dynamic blog for gallery slug: ${slug}`, error);
-  }
-
-  let post:
-    | (typeof blogPosts)[0]
-    | typeof multiDayTour
-    | typeof oneDayTour
-    | (typeof allSpecialEventsList)[0]
-    | BlogPost
-    | undefined = dynamicBlog || blogPosts.find((p) => p.slug === slug);
-
-  let isBookingTour = false;
-  let isEventGallery = false;
-  let tourType: "one" | "multi" | undefined = undefined;
-
-  if (!post) {
-    if (filterOneDay && oneDayTour.slug === slug) {
-      post = oneDayTour;
-      isBookingTour = true;
-      tourType = "one";
-    } else if (filterMultiDay && multiDayTour.slug === slug) {
-      post = multiDayTour;
-      isBookingTour = true;
-      tourType = "multi";
-    } else if (from === "events" || allSpecialEventsList.some((e) => e.slug === slug)) {
-      post = allSpecialEventsList.find((e) => e.slug === slug);
-      isEventGallery = true;
-    } else if (multiDayTour.slug === slug) {
-      // Fallback
-      post = multiDayTour;
-      isBookingTour = true;
-      tourType = "multi";
-    } else if (oneDayTour.slug === slug) {
-      post = oneDayTour;
-      isBookingTour = true;
-      tourType = "one";
-    }
-  }
-
-  if (!post) {
-    notFound();
-  }
-
-  let dynamicBackLink = `/blog/${slug}`;
-  let dynamicBackLabel = t("backToStory");
-
-  if (isEventGallery) {
-    dynamicBackLink = `/events/${slug}`;
-    dynamicBackLabel = t("backToEvent");
-  } else if (isBookingTour) {
-    dynamicBackLink = tourType === "one" ? `/booking/one-day-tours/${slug}` : `/booking/multi-days-tours/${slug}`;
-    dynamicBackLabel = t("backToTour");
-
-    if (from === "reviews") {
-      dynamicBackLink =
-        tourType === "one" ? `/booking/one-day-tours/${slug}/reviews` : `/booking/multi-days-tours/${slug}/reviews`;
-      dynamicBackLabel = t("backToReviews");
-    }
-  }
-
-  let itemsToShow: GalleryItem[] = [];
-  let heroTitle = post.title;
+  let backLink = `/blog/${slug}`;
+  let backLabel = t("backToStory");
+  let heroTitle = resolved.post.title;
   let heroSubtitle = t("storyGallery");
-  if (dynamicBlog) {
-    itemsToShow = (dynamicBlog.gallery || []).map((imgUrl: string, index: number) => ({
-      id: `dynamic-blog-img-${index}`,
-      src: imgUrl,
-      alt: `${dynamicBlog.title} - Image ${index + 1}`,
-      title: dynamicBlog.title,
-      category: dynamicBlog.category || t("storyGallery"),
-    }));
-  } else if (isEventGallery) {
-    const event = post as (typeof allSpecialEventsList)[0];
-    heroSubtitle = t("eventHighlightsGallery");
+  let items: GalleryItem[] = [];
 
-    if (event.images && event.images.length > 0) {
-      itemsToShow = event.images.map((imgStr, index) => ({
-        id: `event-img-${index}`,
-        src: imgStr,
-        alt: `${event.title} Highlight ${index + 1}`,
-        title: event.title,
-        category: t("eventHighlightCat"),
-      }));
+  switch (resolved.kind) {
+    case "blog": {
+      const blog = resolved.post;
+      items = toItems(
+        blog.gallery,
+        "dynamic-blog-img",
+        `${blog.title} - Image`,
+        blog.title,
+        blog.category || t("storyGallery"),
+      );
+      break;
     }
-  } else if (isBookingTour) {
-    const tour = post as typeof multiDayTour;
-    heroSubtitle = t("tourGallery");
 
-    if (activeFilter === "gallery") {
-      itemsToShow = tour.gallery as GalleryItem[];
-    } else if (activeFilter === "moments" || activeFilter === "all-moments") {
-      itemsToShow = (tour.reviewMoments || reviewMoments).map((moment, index) => ({
-        id: `moment-${index}`,
-        src: moment.src,
-        alt: moment.alt,
-        title: t("guestMoments"),
-        category: t("guestMoments"),
-      }));
-      heroTitle = t("guestMoments");
-      heroSubtitle = t("capturedMemories", { title: tour.title });
-    } else if (activeFilter && activeFilter.startsWith("review-")) {
-      const encodedUserName = activeFilter.replace("review-", "");
-      const userName = decodeURIComponent(encodedUserName).trim();
+    case "staticBlog": {
+      items = (resolved.post.gallery || []) as GalleryItem[];
+      break;
+    }
 
-      const specificReview = tour.reviews.find((r) => r.name.toLowerCase().trim() === userName);
+    case "event": {
+      const event = resolved.post;
+      backLink = `/events/${slug}`;
+      backLabel = t("backToEvent");
+      heroSubtitle = t("eventHighlightsGallery");
+      items = toItems(event.images, "event-img", `${event.title} Highlight`, event.title, t("eventHighlightCat"));
+      break;
+    }
 
-      if (specificReview && specificReview.photos && specificReview.photos.length > 0) {
-        itemsToShow = specificReview.photos.map((photo) => ({
-          id: photo.id,
-          src: photo.src,
-          alt: photo.alt,
-          title: photo.title,
-          category: t("reviewBy", { name: specificReview.name }),
-        }));
-        heroTitle = t("reviewBy", { name: specificReview.name });
-        heroSubtitle = t("galleryMoments", { name: specificReview.name });
+    case "tour": {
+      const tour = resolved.post;
+      const base = tour.type === "oneday" ? "one-day-tours" : "multi-days-tours";
+      const fullTitle = getFullTitle(tour);
+      backLink = `/booking/${base}/${slug}`;
+      backLabel = t("backToTour");
+      heroSubtitle = t("tourGallery");
+
+      if (activeFilter === "moments" || activeFilter === "all-moments") {
+        const reviews = await getReviews(tour.id);
+        const urls = reviews.flatMap((r) => r.imageUrls || []);
+        items = toItems(urls, "moment", `${fullTitle} moment`, t("guestMoments"), t("guestMoments"));
+        heroTitle = t("guestMoments");
+        heroSubtitle = t("capturedMemories", { title: fullTitle });
+      } else if (activeFilter?.startsWith("review-")) {
+        const reviews = await getReviews(tour.id);
+        // console.log("FILTER KEY:", JSON.stringify(getFilterKey(activeFilter)));
+        // console.log("IS ARRAY:", Array.isArray(reviews), "COUNT:", reviews.length);
+        // console.log(
+        //   "REVIEWS:",
+        //   reviews.map((r) => ({ id: r.id, name: JSON.stringify(r.fullName), imgs: r.imageUrls?.length })),
+        // );
+        const review = findReview(reviews, getFilterKey(activeFilter));
+        console.log("FOUND:", review?.id, review?.imageUrls);
+
+        if (review && review.imageUrls?.length > 0) {
+          items = toItems(
+            review.imageUrls,
+            `review-${review.id}`,
+            `${review.fullName} photo`,
+            review.fullName,
+            t("reviewBy", { name: review.fullName }),
+          );
+          heroTitle = t("reviewBy", { name: review.fullName });
+          heroSubtitle = t("galleryMoments", { name: review.fullName });
+        } else {
+          items = toItems(tour.gallery, "tour-img", `${fullTitle} Gallery Image`, fullTitle, t("tourGallery"));
+        }
+
+        if (from === "reviews") {
+          backLink = `/booking/${base}/${slug}/reviews`;
+          backLabel = t("backToReviews");
+        }
       } else {
-        itemsToShow = tour.gallery as GalleryItem[];
+        items = toItems(tour.gallery, "tour-img", `${fullTitle} Gallery Image`, fullTitle, t("tourGallery"));
       }
-    } else {
-      itemsToShow = tour.gallery as GalleryItem[];
+      break;
     }
-  } else {
-    itemsToShow = (post as (typeof blogPosts)[0]).gallery as GalleryItem[];
   }
 
   return (
     <main className="min-h-screen bg-lanka-black ">
-      <GalleryHero backLink={dynamicBackLink} backLabel={dynamicBackLabel} title={heroTitle} subtitle={heroSubtitle} />
-      <GalleryCollection items={itemsToShow} />
+      <GalleryHero backLink={backLink} backLabel={backLabel} title={heroTitle} subtitle={heroSubtitle} />
+      <GalleryCollection items={items} />
     </main>
   );
 }

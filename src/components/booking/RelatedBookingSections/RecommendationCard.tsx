@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "@/lib/i18nNavigation";
 import { LoadingImage } from "@/components/ui/LoadingImage";
 import { useTranslations } from "next-intl";
+import { useCurrency } from "@/context/CurrencyContext";
 
 //Icons
 import { Clock, ArrowRight, Star } from "lucide-react";
@@ -10,20 +11,21 @@ export type RecommendationType = {
   categoryLabel: string;
   origin: string;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   duration: string;
   rating: string;
-  price: string;
+  price: number;
   image: string;
   slug: string;
+  href: string;
 };
 
 export default function RecommendationCard({ item }: { item: RecommendationType }) {
   const t = useTranslations("Booking.Related");
-
+  const { formatPrice } = useCurrency();
   return (
     <Link
-      href={`/booking/${item.slug}`}
+      href={item.href}
       className="glass-card group block min-w-[85vw] snap-center overflow-hidden rounded-4xl border border-white/5 transition-all duration-700 hover:border-gold/40 sm:min-w-[45vw] xl:min-w-0"
     >
       <div className="relative h-44 overflow-hidden">
@@ -34,7 +36,7 @@ export default function RecommendationCard({ item }: { item: RecommendationType 
         </div>
         <LoadingImage
           src={item.image}
-          alt={`${item.title} ${item.subtitle}`}
+          alt={item.subtitle ? `${item.title} ${item.subtitle}` : item.title}
           fill
           sizes="(min-width: 1280px) 380px, 85vw"
           wrapperClassName="w-full h-full"
@@ -44,8 +46,13 @@ export default function RecommendationCard({ item }: { item: RecommendationType 
       <div className="p-6">
         <div className="mb-2 text-tiny font-bold uppercase tracking-[0.3em] text-gold">{item.origin}</div>
         <h3 className="premium-serif mb-3 text-heading-card font-bold leading-tight text-white">
-          {item.title} <br />
-          <span className=" text-heading-card font-light italic">{item.subtitle}</span>
+          {item.title}
+          {item.subtitle && (
+            <>
+              <br />
+              <span className=" text-heading-card font-light italic">{item.subtitle}</span>
+            </>
+          )}
         </h3>
 
         <div className="mb-6 flex items-center justify-between gap-6 text-caption font-bold uppercase tracking-widest text-slate-400">
@@ -75,7 +82,9 @@ export default function RecommendationCard({ item }: { item: RecommendationType 
             <span className="-mb-0.5 text-tiny font-bold uppercase tracking-widest text-slate-500">
               {t("startingFrom")}
             </span>
-            <span className="text-heading-card font-bold tracking-tighter text-gold leading-none">{item.price}</span>
+            <span className="text-heading-card font-bold tracking-tighter text-gold leading-none">
+              {formatPrice(item.price)}
+            </span>
           </div>
         </div>
       </div>

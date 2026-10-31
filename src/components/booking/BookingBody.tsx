@@ -1,25 +1,51 @@
 "use client";
-
 import React from "react";
+import { useTranslations } from "next-intl";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { BookingDetailSections } from "@/components/booking/BookingDetailSections";
-import RelatedBookingSections from "./RelatedBookingSections";
 import { BookingWidget } from "@/components/booking/BookingWidget";
-import type { bookingTour } from "@/data/multiDaysBooking";
 import { StickyBookingBar } from "@/components/booking/StickyBookingBar";
 import { useBookingWidget } from "@/hooks/Booking/useBookingWidget";
 import { AuthRequiredModal } from "@/components/ui/AuthRequiredModal";
+import { PackageDetails } from "@/services/Booking/packageDetails/types";
+import { notFound } from "next/navigation";
+import { usePackageDetails } from "@/hooks/Booking/packageDetails/usePackageDetails";
+import { ApiCallLoader } from "@/components/ui/ApiCallLoader";
+import { ApiCallError } from "@/components/ui/ApiCallError";
+import RelatedBookingSections from "@/components/booking/RelatedBookingSections";
 
 type BookingBodyProps = {
-  tour: typeof bookingTour;
+  slug: string;
   tourType: "multi" | "one";
 };
 
-export default function BookingBody({ tour, tourType }: BookingBodyProps) {
+export default function BookingBody({ slug, tourType }: BookingBodyProps) {
+  const tApi = useTranslations("Common.Api");
   const mappedTourType = tourType === "one" ? "oneday" : "multiday";
 
-  // The ONE and only hook instance. Shared by the desktop widget and the mobile modal.
-  const booking = useBookingWidget(tour, mappedTourType);
+  const { tour, isLoading, error, isNotFound, refetch } = usePackageDetails(slug);
+
+  const booking = useBookingWidget((tour || {}) as PackageDetails, mappedTourType);
+  if (isLoading) {
+    return <ApiCallLoader fullScreen={true} text={tApi("loadingTourDetails")} />;
+  }
+
+  if (isNotFound) {
+    notFound();
+  }
+
+  if (error || !tour) {
+    return (
+      <ApiCallError
+        message={tApi("contentLoadError")}
+        title={tApi("failedToLoad")}
+        watermark={tApi("errorWatermark")}
+        buttonText={tApi("tryAgain")}
+        fullScreen={false}
+        onRetry={refetch}
+      />
+    );
+  }
 
   return (
     <ContainerLayout className="min-h-screen pt-27 sm:pt-25 md:pt-30 lg:pt-32 2xl:pt-34 3xl:pt-36 pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
@@ -30,12 +56,14 @@ export default function BookingBody({ tour, tourType }: BookingBodyProps) {
 
         <BookingWidget tour={tour} booking={booking} className="hidden xl:block" />
       </div>
-
-      <RelatedBookingSections recommendations={tour.recommendations} insights={tour.insights} />
-
+      <RelatedBookingSections
+        currentSlug={tour.slug}
+        tourType={tourType}
+        category={tour.category}
+        origin={tour.origin}
+        price={tour.price}
+      />{" "}
       <StickyBookingBar tour={tour} booking={booking} />
-
-      {/* Rendered once, for both desktop and mobile */}
       <AuthRequiredModal
         isOpen={booking.showAuthModal}
         onClose={booking.closeAuthModal}

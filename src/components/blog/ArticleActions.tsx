@@ -66,7 +66,7 @@ export function ArticleActions({ postId, initialLikes, isLiked, postTitle, postS
           {t("shareStory")}
         </span>
 
-        <div className="group flex h-8 w-10 items-center justify-center rounded-full border border-transparent text-slate-400 transition-all hover:scale-110 hover:text-gold sm:h-10 sm:w-10 xl:border-white/10 xl:hover:border-gold">
+        <div className="group flex h-8 w-10 items-center justify-center rounded-full border border-transparent text-slate-400 active:scale-95 transition-all hover:scale-110 hover:text-gold sm:h-10 sm:w-10 xl:border-white/10 xl:hover:border-gold">
           <ShareButton
             iconSize={21}
             title={postTitle}

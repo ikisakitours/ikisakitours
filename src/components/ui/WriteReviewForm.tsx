@@ -20,11 +20,12 @@ export function WriteReviewForm() {
     target.style.height = `${target.scrollHeight}px`;
   };
 
-   const {
+  const {
     fullName,
     setFullName,
     email,
     setEmail,
+    isLoggedIn,
     rating,
     setRating,
     experience,
@@ -36,6 +37,8 @@ export function WriteReviewForm() {
     showAuthModal,
     closeAuthModal,
   } = useWriteReviewForm();
+
+  const readOnlyClass = isLoggedIn ? "cursor-not-allowed opacity-70 focus:border-white/10 hover:bg-white/5" : "";
 
   return (
     <div className="group relative overflow-hidden rounded-4xl border border-white/5 bg-linear-to-br from-surface/90 to-lanka-black px-4 pt-8 pb-10 sm:px-6 sm:pt-12 sm:pb-12 md:px-8 md:pt-16 md:pb-16 lg:px-10 lg:pb-20 xl:pb-24 2xl:pb-28 3xl:px-12 3xl:pt-20 3xl:pb-32 -mt-1">
@@ -75,13 +78,14 @@ export function WriteReviewForm() {
                 <input
                   type="text"
                   value={fullName}
+                  readOnly={isLoggedIn}
                   disabled={isLoading}
                   onChange={(e) => {
                     setFullName(e.target.value);
                     setErrors((prev) => ({ ...prev, fullName: "" }));
                   }}
                   placeholder={tPlaceholders("fullName")}
-                  className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-body-sm text-white transition-all hover:bg-white/10 focus:border-gold/50 focus:bg-white/10 focus:outline-none 3xl:py-6 disabled:opacity-60 disabled:cursor-not-allowed"
+                  className={`w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-body-sm text-white transition-all hover:bg-white/10 focus:border-gold/50 focus:bg-white/10 focus:outline-none 3xl:py-6 disabled:opacity-60 disabled:cursor-not-allowed ${readOnlyClass}`}
                 />
                 <div className="ml-2">
                   <FormError message={errors.fullName} />
@@ -96,13 +100,14 @@ export function WriteReviewForm() {
                 <input
                   type="email"
                   value={email}
+                  readOnly={isLoggedIn}
                   disabled={isLoading}
                   onChange={(e) => {
                     setEmail(e.target.value);
                     setErrors((prev) => ({ ...prev, email: "" }));
                   }}
                   placeholder={tPlaceholders("email")}
-                  className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-body-sm text-white transition-all hover:bg-white/10 focus:border-gold/50 focus:bg-white/10 focus:outline-none 3xl:py-6 disabled:opacity-60 disabled:cursor-not-allowed"
+                  className={`w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-body-sm text-white transition-all hover:bg-white/10 focus:border-gold/50 focus:bg-white/10 focus:outline-none 3xl:py-6 disabled:opacity-60 disabled:cursor-not-allowed ${readOnlyClass}`}
                 />
                 <div className="ml-2">
                   <FormError message={errors.email} />
@@ -176,7 +181,7 @@ export function WriteReviewForm() {
           </form>
         </div>
       </div>
-       <AuthRequiredModal
+      <AuthRequiredModal
         isOpen={showAuthModal}
         onClose={closeAuthModal}
         translationPath="ValidationErrors.AuthRequired.Review"

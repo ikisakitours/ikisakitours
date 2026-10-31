@@ -6,7 +6,6 @@ import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/context/ToastContext";
 import { clearReviewDraft, loadReviewDraft, saveReviewDraft } from "@/utils/reviewDraft";
 
-// if  this true when from auto submit
 const AUTO_SUBMIT_AFTER_LOGIN = false;
 
 type ReviewValues = {
@@ -18,9 +17,24 @@ type ReviewValues = {
 
 export function useWriteReviewForm() {
   const { user } = useAuth();
+  const isLoggedIn = !!user;
 
-  const [fullName, setFullName] = useState(user ? `${user.firstname || ""} ${user.lastname || ""}`.trim() : "");
-  const [email, setEmail] = useState(user?.email || "");
+  const accountName = user ? `${user.firstname || ""} ${user.lastname || ""}`.trim() : "";
+  const accountEmail = user?.email || "";
+
+  const [guestName, setGuestName] = useState("");
+  const [guestEmail, setGuestEmail] = useState("");
+
+  const fullName = isLoggedIn ? accountName : guestName;
+  const email = isLoggedIn ? accountEmail : guestEmail;
+
+  const setFullName = (value: string) => {
+    if (!isLoggedIn) setGuestName(value);
+  };
+  const setEmail = (value: string) => {
+    if (!isLoggedIn) setGuestEmail(value);
+  };
+
   const [rating, setRating] = useState<number>(0);
   const [experience, setExperience] = useState("");
 
@@ -36,8 +50,6 @@ export function useWriteReviewForm() {
   const toast = useToast();
 
   const submitReview = async (values: ReviewValues) => {
-    if (!validate(values)) return;
-
     const apiPayload = {
       content: values.experience,
       type: "WEBSITE",
@@ -58,8 +70,6 @@ export function useWriteReviewForm() {
       console.log("Testimonial Form Response!", response);
 
       clearReviewDraft();
-      setFullName(user ? `${user.firstname || ""} ${user.lastname || ""}`.trim() : "");
-      setEmail(user?.email || "");
       setRating(0);
       setExperience("");
     } catch (error) {
@@ -72,26 +82,14 @@ export function useWriteReviewForm() {
   };
 
   useEffect(() => {
-    if (!user) return;
-    const id = setTimeout(() => {
-      setFullName((prev) => prev || `${user.firstname || ""} ${user.lastname || ""}`.trim());
-      setEmail((prev) => prev || user.email || "");
-    }, 0);
-    return () => clearTimeout(id);
-  }, [user]);
-
-  useEffect(() => {
     const id = setTimeout(() => {
       const draft = loadReviewDraft();
       if (!draft) return;
 
-      const accountName = user ? `${user.firstname || ""} ${user.lastname || ""}`.trim() : "";
-      const accountEmail = user?.email || "";
-
       if (!fieldsRestoredRef.current) {
         fieldsRestoredRef.current = true;
-        setFullName(accountName || draft.fullName);
-        setEmail(accountEmail || draft.email);
+        setGuestName(draft.fullName);
+        setGuestEmail(draft.email);
         setRating(draft.rating);
         setExperience(draft.experience);
       }
@@ -101,12 +99,15 @@ export function useWriteReviewForm() {
         clearReviewDraft();
 
         if (draft.autoSubmit && AUTO_SUBMIT_AFTER_LOGIN) {
-          void submitReview({
+          const restored: ReviewValues = {
             fullName: accountName || draft.fullName,
             email: accountEmail || draft.email,
             rating: draft.rating,
             experience: draft.experience,
-          });
+          };
+          if (validate(restored)) {
+            void submitReview(restored);
+          }
         }
       }
     }, 0);
@@ -134,6 +135,7 @@ export function useWriteReviewForm() {
     setFullName,
     email,
     setEmail,
+    isLoggedIn,
     rating,
     setRating,
     experience,

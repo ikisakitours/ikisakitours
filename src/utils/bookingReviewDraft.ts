@@ -4,7 +4,6 @@ const TTL_MS = 30 * 60 * 1000; // 30 minutes
 export type BookingReviewDraft = {
   fullName: string;
   email: string;
-  country: string;
   rating: number;
   experience: string;
   autoSubmit?: boolean;

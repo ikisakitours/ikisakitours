@@ -4,25 +4,20 @@ import React, { useState, useEffect, useRef } from "react";
 import DestinationsMap from "@/components/Destinations/DestinationsMap/DestinationsMap";
 import { Button } from "@/components/ui/Button";
 import { useTranslations } from "next-intl";
+import { DestinationSummary } from "@/services/Booking/packageDetails/types";
+import { useFetchDestinationMapData } from "@/hooks/destinations/useFetchDestinationMapData";
 //Icons
 import { MapPin, Map, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-type CoveredDestination = {
-  id: number;
-  slug: string;
-  lat: number;
-  lng: number;
-  name: string;
-  image: string;
-  description: string;
-};
 
 type CoveredCitiesRouteProps = {
-  destinations: CoveredDestination[];
+  destinations: DestinationSummary[];
 };
 
 export default function CoveredCitiesRoute({ destinations }: CoveredCitiesRouteProps) {
   const t = useTranslations("Booking.CoveredCities");
   const [showMap, setShowMap] = useState(false);
+
+  const { data: allMapDestinations } = useFetchDestinationMapData();
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -82,16 +77,21 @@ export default function CoveredCitiesRoute({ destinations }: CoveredCitiesRouteP
 
   if (!destinations || destinations.length === 0) return null;
 
-  const mappedDestinations = destinations.map((dest) => ({
-    slug: dest.slug,
-    name: dest.name,
-    lat: dest.lat,
-    lng: dest.lng,
-    hero: {
-      image: dest.image,
-      strapline: dest.description,
-    },
-  }));
+  const mappedDestinations = destinations.map((dest, index) => {
+    const fullMapData = allMapDestinations?.find((item) => item.slug === dest.slug || item.id === dest.id);
+
+    return {
+      id: dest.id || String(index + 1),
+      slug: dest.slug || "",
+      title: dest.title || "",
+      coordinates: {
+        lat: fullMapData?.coordinates?.lat || 0,
+        lng: fullMapData?.coordinates?.lng || 0,
+      },
+      heroImage: dest.heroImage || fullMapData?.heroImage || "",
+      summary: dest.summary || fullMapData?.summary || "",
+    };
+  });
 
   return (
     <>
@@ -116,34 +116,32 @@ export default function CoveredCitiesRoute({ destinations }: CoveredCitiesRouteP
             </div>
           </div>
 
-          {/* Advanced Connected Route Layout */}
           <div className="relative">
-            {/* 1. Scrollable City List එක */}
             <div
               ref={scrollContainerRef}
               onScroll={checkScrollPosition}
               className="no-scrollbar flex items-center gap-2 overflow-x-auto pb-2 scroll-smooth"
             >
-              {destinations.map((dest, idx) => (
-                <React.Fragment key={dest.id || idx}>
-                  {/* Clean City Pill */}
-                  <div className="group flex shrink-0 items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:bg-white/10">
-                    {/* Simple Number Badge */}
-                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-gold text-tiny font-bold text-lanka-black">
-                      {dest.id || idx + 1}
-                    </span>
+              {destinations.map((dest, idx) => {
+                const safeTitle = dest.title || "";
+                return (
+                  <React.Fragment key={dest.id || idx}>
+                    <div className="group flex shrink-0 items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:bg-white/10">
+                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-gold text-tiny font-bold text-lanka-black">
+                        {idx + 1}
+                      </span>
 
-                    {/* City Name */}
-                    <span className="text-body-sm font-semibold tracking-wide text-white transition-colors group-hover:text-gold">
-                      {dest.name}
-                    </span>
-                  </div>
-                  {/* Clean Connector */}
-                  {idx < destinations.length - 1 && (
-                    <ArrowRight className="h-3 w-3 shrink-0 text-gold/60 mx-1" strokeWidth={4} />
-                  )}
-                </React.Fragment>
-              ))}
+                      <span className="text-body-sm font-semibold tracking-wide text-white capitalize transition-colors group-hover:text-gold">
+                        {safeTitle.replace(/-/g, " ")}
+                      </span>
+                    </div>
+
+                    {idx < destinations.length - 1 && (
+                      <ArrowRight className="h-3 w-3 shrink-0 text-gold/60 mx-1" strokeWidth={4} />
+                    )}
+                  </React.Fragment>
+                );
+              })}
             </div>
 
             <div className="mt-4 flex items-center justify-between">
@@ -174,7 +172,7 @@ export default function CoveredCitiesRoute({ destinations }: CoveredCitiesRouteP
                  ${!canScrollRight ? "cursor-not-allowed opacity-30" : "cursor-pointer hover:border-gold hover:bg-gold hover:text-black"}`}
                   aria-label="Scroll right"
                 >
-                  <ChevronRight className="h-4 w-4" strokeWidth={2}/>
+                  <ChevronRight className="h-4 w-4" strokeWidth={2} />
                 </button>
               </div>
             </div>
@@ -197,7 +195,6 @@ export default function CoveredCitiesRoute({ destinations }: CoveredCitiesRouteP
         <div className="animate-fade-in-up">
           <DestinationsMap
             onClose={() => handleMapToggle(false)}
-            // @ts-expect-error: dynamically mapped object properties match required structure
             routeDestinations={mappedDestinations}
             isRouteMode={true}
           />

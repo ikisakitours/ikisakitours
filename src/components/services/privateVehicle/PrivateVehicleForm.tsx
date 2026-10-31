@@ -117,7 +117,7 @@ export function PrivateVehicleForm() {
       </div>
 
       <div className="xl:col-span-12">
-        <CrossPromotionSection />
+       <CrossPromotionSection tourType="multi" />
       </div>
     </ContainerLayout>
   );

@@ -1,5 +1,7 @@
 "use client";
-import React, { useState, useMemo, useEffect, useRef } from "react";
+import React, { useState, useMemo, useEffect, useRef, useTransition } from "react";
+import { notFound } from "next/navigation";
+import { useTranslations } from "next-intl";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
 import { ReviewsHeader } from "@/components/booking/bookingReviews/ReviewsHeader";
@@ -7,98 +9,135 @@ import { Cta } from "@/components/booking/bookingReviews/Cta";
 import { ReviewCard } from "@/components/booking/bookingReviews/ReviewCard";
 import { ReviewForm } from "@/components/booking/bookingReviews/ReviewForm";
 import { FilterSidebar } from "@/components/ui/FilterSidebar";
-import CustomSelect from "@/components/ui/CustomSelect";
-import { bookingTour } from "@/data/multiDaysBooking";
-import { useTranslations } from "next-intl";
-import { ListFilter, ArrowUpDown } from "lucide-react";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { ApiCallLoader } from "@/components/ui/ApiCallLoader";
+import { ApiCallError } from "@/components/ui/ApiCallError";
+import { usePackageDetails } from "@/hooks/Booking/packageDetails/usePackageDetails";
+import { usePackageReviews } from "@/hooks/Booking/packageAllReview/useFetchAllPackageReviews";
 import { loadBookingReviewDraft } from "@/utils/bookingReviewDraft";
+//Icons
+import { Filter } from "lucide-react";
 
-type ReviewsBodyProps = { tour: typeof bookingTour; tourType?: "multi" | "one" };
+type ReviewsBodyProps = { slug: string; tourType?: "multi" | "one" };
 const INITIAL_COUNT = 4;
+const DEFAULT_COUNTRY = "No country send"; // fallback until the API sends `country`
 
-export default function ReviewsBody({ tour, tourType }: ReviewsBodyProps) {
+export default function ReviewsBody({ slug, tourType }: ReviewsBodyProps) {
   const t = useTranslations("Booking.ReviewsBody");
-  const sortAll = t("sortAll");
-  const sortHighest = t("sortHighest");
-  const sortLowest = t("sortLowest");
-  const SORT_OPTIONS = [sortAll, sortHighest, sortLowest];
+  const tSidebar = useTranslations("Testimonials.Explorer");
+  const tApi = useTranslations("Common.Api");
+
+  const { tour, isLoading: tourLoading, error: tourError, isNotFound, refetch: refetchTour } = usePackageDetails(slug);
+  const {
+    reviews,
+    isLoading: reviewsLoading,
+    error: reviewsError,
+    refetch: refetchReviews,
+  } = usePackageReviews(tour?.id);
+
+  const isLoading = tourLoading || (!!tour && reviewsLoading);
+  const error = tourError || reviewsError;
+  const refetch = () => {
+    if (tourError || !tour) refetchTour();
+    else refetchReviews();
+  };
 
   const [showForm, setShowForm] = useState(false);
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [sortOrder, setSortOrder] = useState<string>(sortAll);
-
-  const { categories, categoryCounts } = useMemo(() => {
-    const counts: Record<string, number> = {};
-    const uniqueCats = new Set<string>();
-
-    tour.reviews.forEach((review) => {
-      const cat = review.language;
-      if (cat) {
-        uniqueCats.add(cat);
-        counts[cat] = (counts[cat] || 0) + 1;
-      }
-    });
-
-    counts["all"] = tour.reviews.length;
-
-    return {
-      categories: ["all", ...Array.from(uniqueCats)],
-      categoryCounts: counts,
-    };
-  }, [tour.reviews]);
-
-  const filteredAndSortedReviews = useMemo(() => {
-    let result = tour.reviews;
-    if (selectedCategory !== "all") result = result.filter((r) => r.language === selectedCategory);
-    result = [...result].sort((a, b) => {
-      if (sortOrder === sortAll) return 0;
-      const ratingA = a.rating ?? 5;
-      const ratingB = b.rating ?? 5;
-      if (sortOrder === sortHighest) return ratingB - ratingA;
-      else if (sortOrder === sortLowest) return ratingA - ratingB;
-      return 0;
-    });
-    return result;
-  }, [tour.reviews, selectedCategory, sortOrder, sortAll, sortHighest, sortLowest]);
-
-  const visibleReviews = filteredAndSortedReviews.slice(0, visibleCount);
-  const hasMore = visibleCount < filteredAndSortedReviews.length;
-  const handleSelectCategory = (category: string) => {
-    setSelectedCategory(category);
-    setVisibleCount(INITIAL_COUNT);
-  };
-
+  const [rating, setRating] = useState<string | number>("all");
+  const [sortDate, setSortDate] = useState<"newest" | "oldest">("newest");
   const [restoredDraft, setRestoredDraft] = useState(false);
-const hasScrolledRef = useRef(false);
+  const [, startTransition] = useTransition();
+  const hasScrolledRef = useRef(false);
+  const [countryFilter, setCountryFilter] = useState<string>("all");
 
-useEffect(() => {
-  const id = setTimeout(() => {
-    if (loadBookingReviewDraft(tour.slug)) {
-      setShowForm(true);
-      setRestoredDraft(true);
+  const dynamicCountries = useMemo(() => {
+    const unique = Array.from(new Set(reviews.map((r) => r.userSnapshot?.country || DEFAULT_COUNTRY)));
+    return ["all", ...unique];
+  }, [reviews]);
+
+  // 💡 Count reviews per country
+  const countryCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    dynamicCountries.forEach((c) => {
+      counts[c] =
+        c === "all" ? reviews.length : reviews.filter((r) => (r.userSnapshot?.country || DEFAULT_COUNTRY) === c).length;
+    });
+    return counts;
+  }, [reviews, dynamicCountries]);
+
+  // 💡 Filter by country and rating
+  const filteredReviews = useMemo(() => {
+    let result = [...reviews];
+
+    if (countryFilter !== "all") {
+      result = result.filter((r) => (r.userSnapshot?.country || DEFAULT_COUNTRY) === countryFilter);
     }
-  }, 0);
-  return () => clearTimeout(id);
-}, [tour.slug]);
-
-useEffect(() => {
-  if (!restoredDraft || hasScrolledRef.current) return;
-  hasScrolledRef.current = true;
-
-  const id = setTimeout(() => {
-    const target = document.getElementById("write-review-anchor");
-    if (target) {
-      const headerOffset = 130;
-      const top = target.getBoundingClientRect().top + window.scrollY - headerOffset;
-      window.scrollTo({ top, behavior: "smooth" });
+    if (rating !== "all") {
+      result = result.filter((r) => r.rating === Number(rating));
     }
-  }, 600);
-  return () => clearTimeout(id);
-}, [restoredDraft]);
 
+    result.sort((a, b) => {
+      const dateA = new Date(a.createdAt).getTime();
+      const dateB = new Date(b.createdAt).getTime();
+      return sortDate === "newest" ? dateB - dateA : dateA - dateB;
+    });
+
+    return result;
+  }, [reviews, countryFilter, rating, sortDate]);
+
+  const visibleReviews = filteredReviews.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredReviews.length;
+
+  const activeFilterCount = (countryFilter !== "all" ? 1 : 0) + (rating !== "all" ? 1 : 0);
+
+  // Restore the review form after returning from login
+  useEffect(() => {
+    const id = setTimeout(() => {
+      if (loadBookingReviewDraft(slug)) {
+        setShowForm(true);
+        setRestoredDraft(true);
+      }
+    }, 0);
+    return () => clearTimeout(id);
+  }, [slug]);
+
+  useEffect(() => {
+    if (!restoredDraft || hasScrolledRef.current) return;
+    hasScrolledRef.current = true;
+
+    const id = setTimeout(() => {
+      const target = document.getElementById("write-review-anchor");
+      if (target) {
+        const headerOffset = 130;
+        const top = target.getBoundingClientRect().top + window.scrollY - headerOffset;
+        window.scrollTo({ top, behavior: "smooth" });
+      }
+    }, 600);
+    return () => clearTimeout(id);
+  }, [restoredDraft]);
+
+  if (isLoading) {
+    return <ApiCallLoader fullScreen={true} text={tApi("loadingReviews")} />;
+  }
+
+  if (isNotFound) {
+    notFound();
+  }
+
+  if (error || !tour) {
+    return (
+      <ApiCallError
+        message={tApi("contentLoadError")}
+        title={tApi("failedToLoad")}
+        watermark={tApi("errorWatermark")}
+        buttonText={tApi("tryAgain")}
+        fullScreen={true}
+        onRetry={refetch}
+      />
+    );
+  }
 
   return (
     <>
@@ -108,60 +147,57 @@ useEffect(() => {
           {!showForm && (
             <>
               <Cta onShareClick={() => setShowForm(true)} />
-              <div className="mb-8 mt-16 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+
+              <div className="mb-8 mt-16 flex items-center justify-between gap-4">
                 <h2 className="premium-serif text-[26px] italic text-white md:text-[30px]">{t("title")}</h2>
-                <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
-                  <div
-                    className={`w-full sm:w-52 rounded-xl transition-all duration-300 ${
-                      sortOrder !== sortAll
-                        ? "shadow-[0_10px_30px_rgba(197,160,89,0.1)] [&>div>div:first-child]:border-gold/30! [&>div>div:first-child]:bg-[#0a0a0a]! [&>div>div:first-child_span]:text-gold!"
-                        : ""
-                    }`}
-                  >
-                    <CustomSelect
-                      value={sortOrder}
-                      onChange={(val) => {
-                        setSortOrder(val);
-                        setVisibleCount(INITIAL_COUNT);
-                      }}
-                      options={SORT_OPTIONS}
-                      icon={
-                        <ArrowUpDown
-                          className="h-4 w-4 text-gold transition-all duration-300 shrink-0"
-                          strokeWidth={3}
-                        />
-                      }
-                    />
-                  </div>
-                  <button
-                    onClick={() => setIsFilterOpen(true)}
-                    className={`group flex w-full sm:w-52 items-center justify-between rounded-xl border px-4 py-3 transition-all duration-300 ${selectedCategory !== "all" ? "border-gold/30 bg-[#0a0a0a] shadow-[0_10px_30px_rgba(197,160,89,0.1)] hover:border-gold hover:bg-gold" : "border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/[0.07]"}`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <ListFilter
-                        className={`h-4 w-4 transition-all duration-300 group-hover:scale-110 ${selectedCategory !== "all" ? "text-gold group-hover:text-black!" : "text-gold"}`}
-                        strokeWidth={3}
-                      />
-                      <span
-                        className={`text-body-sm transition-colors duration-300 ${selectedCategory !== "all" ? "text-gold group-hover:text-black!" : "text-white group-hover:text-gold"}`}
-                      >
-                        {t("filterLanguage")}
-                      </span>
-                    </div>
-                    {selectedCategory !== "all" && (
-                      <div className="flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-micro font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a] group-hover:text-gold!">
-                        1
-                      </div>
-                    )}
-                  </button>
-                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setIsFilterOpen(true)}
+                  className="group flex items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-6 py-3 text-caption! font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:px-8 sm:py-3.5"
+                >
+                  <Filter className="h-4 w-4 transition-all duration-300 group-hover:scale-110 group-hover:text-black" />
+                  <span className="transition-colors duration-300 group-hover:text-black sm:hidden">
+                    {tSidebar("filter")}
+                  </span>
+                  <span className="hidden transition-colors duration-300 group-hover:text-black sm:block">
+                    {tSidebar("filterLanguages")}
+                  </span>
+                  {activeFilterCount > 0 && (
+                    <span className="ml-1 flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-micro font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a]">
+                      {activeFilterCount}
+                    </span>
+                  )}
+                </button>
               </div>
 
               <div className="space-y-8 md:space-y-12 3xl:space-y-16">
                 {visibleReviews.length > 0 ? (
-                  visibleReviews.map((review, index) => (
-                    <ReviewCard key={index} review={review} slug={tour.slug} tourType={tourType} />
-                  ))
+                  visibleReviews.map((review) => {
+                    const formattedReview = {
+                      id: review.id,
+                      name: review.fullName,
+                      firstName: review.userSnapshot?.firstName, // 💡 අලුතින් යවනවා
+                      lastName: review.userSnapshot?.lastName,
+                      country: review.userSnapshot?.country || DEFAULT_COUNTRY,
+                      isVerified: review.userSnapshot?.isVerified, // 💡 Added
+                      isVip: review.userSnapshot?.isVip, // 💡 Added
+                      avatar: review.userSnapshot?.avatarUrl,
+                      date: new Date(review.createdAt).toLocaleDateString(),
+                      text: review.experience,
+                      rating: review.rating,
+                      photos: review.imageUrls?.map((url) => ({ src: url, alt: review.fullName, title: "" })) || [],
+                      response: review.adminReply || undefined,
+                    };
+                    return (
+                      <ReviewCard
+                        key={review.id}
+                        review={formattedReview as unknown as React.ComponentProps<typeof ReviewCard>["review"]}
+                        slug={tour.slug}
+                        tourType={tourType}
+                      />
+                    );
+                  })
                 ) : (
                   <div className="py-10">
                     <EmptyState
@@ -170,8 +206,9 @@ useEffect(() => {
                       description={t("EmptyState.description")}
                       buttonText={t("EmptyState.clearBtn")}
                       onAction={() => {
-                        setSelectedCategory("all");
-                        setSortOrder(sortAll);
+                        setCountryFilter("all");
+                        setRating("all");
+                        setSortDate("newest");
                         setVisibleCount(INITIAL_COUNT);
                       }}
                     />
@@ -195,7 +232,7 @@ useEffect(() => {
                     <div className="h-px w-8 bg-gold/20" />
                     <p className="whitespace-nowrap text-tiny font-medium uppercase tracking-[0.2em] text-slate-500">
                       {t("showing")} <span className="text-gold">{visibleReviews.length}</span> {t("of")}{" "}
-                      <span className="text-white">{filteredAndSortedReviews.length}</span> {t("stories")}
+                      <span className="text-white">{filteredReviews.length}</span> {t("stories")}
                     </p>
                     <div className="h-px w-8 bg-gold/20" />
                   </div>
@@ -205,18 +242,48 @@ useEffect(() => {
           )}
         </div>
 
-        {showForm &&  <ReviewForm slug={tour.slug} tour={tour} onBack={() => setShowForm(false)} />}
+        {showForm && <ReviewForm slug={tour.slug} tour={tour} onBack={() => setShowForm(false)} />}
 
         <FilterSidebar
           isOpen={isFilterOpen}
           onClose={() => setIsFilterOpen(false)}
-          title={t("filterLanguage")}
-          categories={categories}
-          categoryCounts={categoryCounts}
-          selectedCategory={selectedCategory}
-          onSelectCategory={handleSelectCategory}
-          clearFilterText={t("Sidebar.clearFilter")}
-          categoryLabels={{ all: t("Sidebar.all") }}
+          categories={dynamicCountries}
+          selectedCategory={countryFilter}
+          onSelectCategory={(country) =>
+            startTransition(() => {
+              setCountryFilter(country);
+              setVisibleCount(INITIAL_COUNT);
+            })
+          }
+          title={tSidebar("filterLanguages")}
+          categoryCounts={countryCounts}
+          clearFilterText={tSidebar("Sidebar.clearFilter")}
+          categoryLabels={{ all: tSidebar("Sidebar.all") }}
+          selectedRating={rating}
+          onSelectRating={(val) =>
+            startTransition(() => {
+              setRating(val);
+              setVisibleCount(INITIAL_COUNT);
+            })
+          }
+          selectedSort={sortDate}
+          onSelectSort={(val) =>
+            startTransition(() => {
+              setSortDate(val);
+              setVisibleCount(INITIAL_COUNT);
+            })
+          }
+          totalResults={filteredReviews.length}
+          labels={{
+            categories: tSidebar("Sidebar.filterCountries"),
+            rating: tSidebar("Sidebar.rating"),
+            allRatings: tSidebar("Sidebar.allRatings"),
+            stars: tSidebar("Sidebar.stars"),
+            sortByDate: tSidebar("Sidebar.sortByDate"),
+            newestFirst: tSidebar("Sidebar.newestFirst"),
+            oldestFirst: tSidebar("Sidebar.oldestFirst"),
+            showResults: tSidebar("Sidebar.showResults"),
+          }}
         />
       </ContainerLayout>
     </>

@@ -1,12 +1,11 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
 
 export type PackageReviewPayload = {
+  userId: string;
   packageId: string;
   packageName: string;
-  fullName: string;
   email: string;
-  country?: string;
-  rating: number;
+  rating: number; // 1–5
   experience: string;
   images: File[];
 };
@@ -14,11 +13,10 @@ export type PackageReviewPayload = {
 export const PackageReviewService = {
   submitReview: async (data: PackageReviewPayload) => {
     const formData = new FormData();
+    formData.append("userId", data.userId);
     formData.append("packageId", data.packageId);
     formData.append("packageName", data.packageName);
-    formData.append("fullName", data.fullName);
     formData.append("email", data.email);
-    if (data.country) formData.append("country", data.country);
     formData.append("rating", String(data.rating));
     formData.append("experience", data.experience);
 
@@ -26,7 +24,7 @@ export const PackageReviewService = {
       formData.append("images", image);
     });
 
-    // Do NOT set Content-Type manually, the browser adds the multipart boundary
+    // Content-Type manually දාන්න එපා, browser එක multipart boundary එක දානවා
     const res = await fetch(`${API_URL}/comments/package-review`, {
       method: "POST",
       body: formData,

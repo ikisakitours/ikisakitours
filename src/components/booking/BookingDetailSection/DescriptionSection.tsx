@@ -5,11 +5,10 @@ import { motion, AnimatePresence, Variants } from "framer-motion";
 import SectionHeading from "./SectionHeading";
 import ExpandButton from "./ExpandButton";
 import { useTranslations } from "next-intl";
+import { PackageDetails } from "@/services/Booking/packageDetails/types";
 
 type DescriptionSectionProps = {
-  tour: {
-    description: string[];
-  };
+  tour: PackageDetails;
 };
 
 const perfStyle: React.CSSProperties = {
@@ -42,13 +41,11 @@ const butterySmoothVariants: Variants = {
 export default function DescriptionSection({ tour }: DescriptionSectionProps) {
   const t = useTranslations("Booking.Description");
   const [isExpanded, setIsExpanded] = useState(false);
-
+  const descriptionArray = tour.description ? tour.description.split(/\r\n|\n/).filter((p) => p.trim() !== "") : [];
   const initialParagraphsCount = 3;
-  const hasMultipleParagraphs = tour.description.length > initialParagraphsCount;
-
-  const defaultParagraphs = tour.description.slice(0, initialParagraphsCount);
-  const extraParagraphs = tour.description.slice(initialParagraphsCount);
-
+  const hasMultipleParagraphs = descriptionArray.length > initialParagraphsCount;
+  const defaultParagraphs = descriptionArray.slice(0, initialParagraphsCount);
+  const extraParagraphs = descriptionArray.slice(initialParagraphsCount);
   return (
     <section id="description" className="mb-10 md:mb-14 px-1 border-t border-white/5 pt-10 lg:pt-16">
       {/* Spacing & Border added */}

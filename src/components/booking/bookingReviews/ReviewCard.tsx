@@ -1,15 +1,29 @@
 import { LoadingImage } from "@/components/ui/LoadingImage";
-import { bookingTour } from "@/data/multiDaysBooking";
 import { Link } from "@/lib/i18nNavigation";
 import { RatingStars } from "@/components/ui/RatingStars";
 import { useTranslations } from "next-intl";
 //Icons
 import { BsPatchCheck } from "react-icons/bs";
 
-import { Crown, CalendarDays, Images } from "lucide-react";
+import { Crown, CalendarDays, Images, CornerDownRight } from "lucide-react";
+type FormattedReviewType = {
+  id?: string;
+  name: string;
+  firstName?: string; // 💡 අලුතින් එකතු කරන්න
+  lastName?: string;
+  country?: string;
+  avatar?: string;
+  isVerified?: boolean;
+  isVip?: boolean;
+  date: string;
+  text: string;
+  rating: number;
+  photos: { src: string; alt: string; title: string; id?: string }[];
+  response?: string;
+};
 
 type ReviewCardProps = {
-  review: (typeof bookingTour.reviews)[0];
+  review: FormattedReviewType;
   slug: string;
   tourType?: "multi" | "one";
 };
@@ -18,19 +32,25 @@ export function ReviewCard({ review, slug, tourType }: ReviewCardProps) {
   const t = useTranslations("Booking.ReviewCard");
   const rating = review.rating ?? 5;
 
-  const encodedName = encodeURIComponent(review.name.toLowerCase().trim());
+  const initials =
+    review.firstName && review.lastName
+      ? `${review.firstName.charAt(0)}\u2009${review.lastName.charAt(0)}`.toUpperCase()
+      : review.name
+        ? review.name.charAt(0).toUpperCase()
+        : "U";
+
+  const reviewKey = review.id ? review.id : encodeURIComponent(review.name.toLowerCase().trim());
 
   const oneSpecificReviewsGalleryHref =
     tourType === "one"
-      ? `/gallery/${slug}?filter-one-day-tours=review-${encodedName}&from=reviews`
-      : `/gallery/${slug}?filter-multi-days-tours=review-${encodedName}&from=reviews`;
-
+      ? `/gallery/${slug}?filter-one-day-tours=review-${reviewKey}&from=reviews`
+      : `/gallery/${slug}?filter-multi-days-tours=review-${reviewKey}&from=reviews`;
   return (
     <article className="glass-card rounded-3xl border border-white/5 p-6 md:rounded-[2.5rem] md:p-10 3xl:p-14">
       <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row md:mb-8">
         <div className="flex w-full max-w-full items-center gap-3 sm:gap-4 md:gap-6">
           <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border border-gold/30 bg-white/5 shadow-lg sm:h-14 sm:w-14 md:h-16 md:w-16 3xl:h-20 3xl:w-20">
-            <span className="text-xs font-bold text-gold 3xl:text-base">{review.initials}</span>
+            <span className="text-xs font-bold text-gold 3xl:text-base">{initials}</span>
 
             {review.avatar && typeof review.avatar === "string" && review.avatar.trim() !== "" && (
               <LoadingImage
@@ -50,8 +70,8 @@ export function ReviewCard({ review, slug, tourType }: ReviewCardProps) {
               <h3 className="wrap-break-word text-body-sm font-bold leading-tight tracking-wide text-white">
                 {review.name} - {review.country}
               </h3>
-              <BsPatchCheck className="h-4 w-4 shrink-0 text-emerald-400" />
-              <Crown className="h-4 w-4 shrink-0 text-gold" strokeWidth={2} />
+              {review.isVerified && <BsPatchCheck className="h-4 w-4 shrink-0 text-emerald-400" />}
+              {review.isVip && <Crown className="h-4 w-4 shrink-0 text-gold" strokeWidth={2} />}
             </div>
             <p className="mt-2 flex items-center gap-2 text-tiny font-bold uppercase tracking-[0.18em] text-gold opacity-90">
               <CalendarDays className="h-3 w-3 opacity-70 3xl:h-4 3xl:w-4" />
@@ -114,12 +134,12 @@ export function ReviewCard({ review, slug, tourType }: ReviewCardProps) {
 
       {review.response && (
         <div className="w-full max-w-full rounded-2xl border-l border-gold/40 bg-white/5 p-4 md:w-fit md:p-5 3xl:p-8">
-          <span className="block  text-tiny font-bold uppercase tracking-widest text-gold">
-            {t("responseFrom")}
-          </span>
-          <p className="mt-2 wrap-break-word text-body-sm leading-relaxed text-slate-400">
-            {review.response}
-          </p>
+          {" "}
+          <div className="mb-2 flex items-center gap-2">
+            <CornerDownRight className="h-3.5 w-3.5 text-gold" strokeWidth={2.25} />
+            <span className="text-tiny font-bold uppercase tracking-widest text-gold">{t("responseFrom")}</span>
+          </div>
+          <p className="wrap-break-word text-body-sm leading-relaxed text-slate-300">{review.response}</p>
         </div>
       )}
     </article>

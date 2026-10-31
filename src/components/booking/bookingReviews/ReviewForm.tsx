@@ -23,12 +23,12 @@ export function ReviewForm({ onBack, slug, tour }: ReviewFormProps) {
   const t = useTranslations("Booking.ReviewForm");
   const tForms = useTranslations("SharedForm");
 
-  //  Hook
   const {
     fullName,
     setFullName,
     email,
     setEmail,
+    isLoggedIn,
     rating,
     setRating,
     experience,
@@ -43,6 +43,9 @@ export function ReviewForm({ onBack, slug, tour }: ReviewFormProps) {
     showAuthModal,
     closeAuthModal,
   } = useReviewForm(slug, tour);
+
+  const readOnlyClass = isLoggedIn ? "cursor-not-allowed opacity-70 focus:border-white/10" : "";
+
   return (
     <div className="animate-fade-in-up mx-auto max-w-2xl 3xl:max-w-4xl">
       <div className="mb-8 flex justify-end">
@@ -77,13 +80,14 @@ export function ReviewForm({ onBack, slug, tour }: ReviewFormProps) {
               <input
                 type="text"
                 value={fullName}
+                readOnly={isLoggedIn}
                 disabled={isLoading}
                 onChange={(e) => {
                   setFullName(e.target.value);
                   setErrors((prev) => ({ ...prev, fullName: "" }));
                 }}
                 placeholder={tForms("Placeholders.fullName")}
-                className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-body-sm text-white transition-colors focus:border-gold/50 focus:outline-none 3xl:py-6 disabled:opacity-60 disabled:cursor-not-allowed"
+                className={`w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-body-sm text-white transition-colors focus:border-gold/50 focus:outline-none 3xl:py-6 disabled:opacity-60 disabled:cursor-not-allowed ${readOnlyClass}`}
               />
               <div className="ml-2">
                 <FormError message={errors.fullName} />
@@ -98,13 +102,14 @@ export function ReviewForm({ onBack, slug, tour }: ReviewFormProps) {
               <input
                 type="email"
                 value={email}
+                readOnly={isLoggedIn}
                 disabled={isLoading}
                 onChange={(e) => {
                   setEmail(e.target.value);
                   setErrors((prev) => ({ ...prev, email: "" }));
                 }}
                 placeholder={tForms("Placeholders.email")}
-                className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-body-sm text-white transition-colors focus:border-gold/50 focus:outline-none 3xl:py-6 disabled:opacity-60 disabled:cursor-not-allowed"
+                className={`w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-body-sm text-white transition-colors focus:border-gold/50 focus:outline-none 3xl:py-6 disabled:opacity-60 disabled:cursor-not-allowed ${readOnlyClass}`}
               />
               <div className="ml-2">
                 <FormError message={errors.email} />

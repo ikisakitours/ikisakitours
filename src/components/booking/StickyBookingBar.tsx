@@ -4,12 +4,12 @@ import React, { useState, useEffect } from "react";
 import { X, Sparkles, CalendarCheck } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BookingWidget } from "@/components/booking/BookingWidget";
-import type { bookingTour } from "@/data/multiDaysBooking";
 import type { useBookingWidget } from "@/hooks/Booking/useBookingWidget";
 import { useTranslations } from "next-intl";
+import { PackageDetails } from "@/services/Booking/packageDetails/types";
 
 type MobileBookingBarProps = {
-  tour: typeof bookingTour;
+  tour: PackageDetails; 
   booking: ReturnType<typeof useBookingWidget>;
 };
 
