@@ -12,13 +12,16 @@ import { useTranslations } from "next-intl";
 import { useReviews } from "@/hooks/testimonials/useFetchReviews";
 import { ApiCallLoader } from "@/components/ui/ApiCallLoader";
 import { ApiCallError } from "@/components/ui/ApiCallError";
+import { EmptyState } from "@/components/ui/EmptyState";
+import { TestimonialCard } from "@/components/testimonials/TestimonialCard";
+
 //Icons
 import { ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
-import { TestimonialCard } from "@/components/testimonials/TestimonialCard";
 
 export function ClientExperiencesSection() {
   const t = useTranslations("HomePage.ClientExperiences");
   const tApi = useTranslations("Common.Api");
+
   const { data, isLoading, error, refetch } = useReviews();
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -111,16 +114,19 @@ export function ClientExperiencesSection() {
   const displayTestimonials = (data?.comments || []).filter((t) => (t.rating ?? 3) === 5).slice(0, 3);
 
   const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
-  if (!data || displayTestimonials.length === 0) return null;
+  const hasReviews = !!data && displayTestimonials.length > 0;
+
   return (
     <section
       id="testimonials"
-      className="relative overflow-hidden bg-lanka-dark py-12 md:py-20 xl:py-20 2xl:py-24 3xl:py-32"
+      className={`relative overflow-hidden bg-lanka-dark ${
+        hasReviews || isWritingReview ? "py-12 md:py-20 xl:py-20 2xl:py-24 3xl:py-32" : "pt-8 pb-4 md:pt-12 md:pb-6"
+      }`}
     >
       <div className="absolute right-0 top-0 -z-10 h-75 w-75 rounded-full bg-gold/5 blur-[120px] md:h-125 md:w-125" />
 
       <ContainerLayout>
-        {/*Header Area*/}
+        {/*Header Area (always visible)*/}
         <div className="mb-10 flex flex-col items-center justify-between gap-8 md:mb-16 md:flex-row md:items-end">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -136,7 +142,8 @@ export function ClientExperiencesSection() {
             </h2>
           </motion.div>
 
-          {!isWritingReview && (
+          {/* Rating card: only when reviews exist */}
+          {!isWritingReview && hasReviews && (
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -162,7 +169,7 @@ export function ClientExperiencesSection() {
           )}
         </div>
 
-        {/*Action Buttons & Controls*/}
+        {/*Action Buttons & Controls (always visible)*/}
         <div className="mb-6 md:mb-8 lg:mb-10 2xl:mb-12 flex w-full items-center justify-between gap-3">
           <div className="relative h-15 flex items-center">
             <AnimatePresence mode="wait">
@@ -195,7 +202,8 @@ export function ClientExperiencesSection() {
             </AnimatePresence>
           </div>
 
-          {!isWritingReview && (
+          {/* Scroll arrows: only when reviews exist */}
+          {!isWritingReview && hasReviews && (
             <motion.div
               initial={{ opacity: 0, y: 15, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -250,37 +258,51 @@ export function ClientExperiencesSection() {
               className="relative"
               onAnimationComplete={() => checkScrollPosition()}
             >
-              <div
-                ref={scrollContainerRef}
-                onScroll={checkScrollPosition}
-                className="flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto scrollbar-none [-ms-overflow-style:none] sm:gap-6 md:gap-8 xl:grid xl:grid-cols-3 xl:overflow-visible xl:pb-0 [&::-webkit-scrollbar]:hidden"
-              >
-                {displayTestimonials.slice(0, 4).map((testimonial) => (
-                  <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "0px" }}
-                    transition={{ duration: 0.6, ease: smoothEase }}
-                    style={{ willChange: "transform, opacity" }}
-                    key={testimonial.id}
-                    className="w-[85%] shrink-0 snap-center sm:w-[60%] md:w-[45%] lg:w-[40%] xl:w-auto xl:min-w-0"
+              {hasReviews ? (
+                <>
+                  <div
+                    ref={scrollContainerRef}
+                    onScroll={checkScrollPosition}
+                    className="flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto scrollbar-none [-ms-overflow-style:none] sm:gap-6 md:gap-8 xl:grid xl:grid-cols-3 xl:overflow-visible xl:pb-0 [&::-webkit-scrollbar]:hidden"
                   >
-                    <TestimonialCard testimonial={testimonial} />
+                    {displayTestimonials.slice(0, 4).map((testimonial) => (
+                      <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, margin: "0px" }}
+                        transition={{ duration: 0.6, ease: smoothEase }}
+                        style={{ willChange: "transform, opacity" }}
+                        key={testimonial.id}
+                        className="w-[85%] shrink-0 snap-center sm:w-[60%] md:w-[45%] lg:w-[40%] xl:w-auto xl:min-w-0"
+                      >
+                        <TestimonialCard testimonial={testimonial} />
+                      </motion.div>
+                    ))}
+                  </div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.1, ease: smoothEase }}
+                    style={{ willChange: "transform, opacity" }}
+                    className="mt-16 flex justify-center md:mt-20 3xl:mt-32"
+                  >
+                    <Button variant="explore" className="[&_span]:text-caption!" href="/testimonials">
+                      {t("exploreMoreTestimonialsBtn")}
+                    </Button>
                   </motion.div>
-                ))}
-              </div>
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1, ease: smoothEase }}
-                style={{ willChange: "transform, opacity" }}
-                className="mt-16 flex justify-center md:mt-20 3xl:mt-32"
-              >
-                <Button variant="explore" className="[&_span]:text-caption!" href="/testimonials">
-                  {t("exploreMoreTestimonialsBtn")}
-                </Button>
-              </motion.div>
+                </>
+              ) : (
+                <EmptyState
+                  compact
+                  backgroundText={t("emptyBackground")}
+                  title={t("emptyTitle")}
+                  description={t("emptyDescription")}
+                  buttonText={t("leaveMarkBtn")}
+                  // onAction={() => setIsWritingReview(true)}
+                  className="-mt-10 md:-mt-15"
+                />
+              )}
             </motion.div>
           )}
         </AnimatePresence>

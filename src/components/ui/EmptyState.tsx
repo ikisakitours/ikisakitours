@@ -10,6 +10,7 @@ type EmptyStateProps = {
   onAction?: () => void;
   className?: string;
   isMap?: boolean;
+  compact?: boolean;
 };
 
 export function EmptyState({
@@ -20,9 +21,15 @@ export function EmptyState({
   onAction,
   className = "-mt-60 md:-mt-48",
   isMap = false,
+  compact = false,
 }: EmptyStateProps) {
   const content = (
-    <div className="flex min-h-125 flex-col items-center justify-center text-center animate-fade-in-up pb-16 md:pb-24 lg:pb-32 px-4 sm:px-6">
+    <div
+      className={`flex flex-col items-center justify-center text-center animate-fade-in-up px-4 sm:px-6 ${
+        compact ? "min-h-64 pb-4 md:min-h-72 md:pb-6" : "min-h-125 pb-16 md:pb-24 lg:pb-32"
+      }`}
+    >
+      {" "}
       <div className={`relative flex w-full items-center justify-center ${className}`}>
         {/* Background Text */}
         <span className="premium-serif absolute select-none whitespace-nowrap text-[90px] font-bold tracking-tighter text-white/2 sm:text-[120px] md:text-[140px] lg:text-[170px] xl:text-[200px]">

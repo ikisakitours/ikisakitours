@@ -3,14 +3,13 @@
 import { useCurrency } from "@/context/CurrencyContext";
 import { LoadingImage } from "@/components/ui/LoadingImage";
 import { Button } from "@/components/ui/Button";
-import { Star } from "lucide-react";
+import { Star, MapPin } from "lucide-react";
 import { FaClock } from "react-icons/fa6";
 import { useTranslations } from "next-intl";
-// Update the import to use the new type
 import { PackageSummary } from "@/services/tours/types";
 
 type PackageCardProps = {
-  item: PackageSummary; // Use the new API type
+  item: PackageSummary;
   tourType?: "multi" | "one";
 };
 
@@ -68,13 +67,24 @@ export function Card({ item, tourType }: PackageCardProps) {
         <div className="absolute inset-0 bg-linear-to-t from-[#111] via-transparent to-black/40" />
         <div className="absolute bottom-4 left-4 right-4 z-20 flex items-end justify-between">
           <div className="flex flex-col">
-            <span className="mb-1 text-tiny uppercase tracking-[0.2em] font-bold text-gold">{item.category}</span>{" "}
-            {/* Mapped to API field */}
-            <div className="flex items-center space-x-2 text-white">
-              <FaClock className="h-3.5 w-3.5 3xl:h-4 3xl:w-4 text-gold" />
-              <span className="text-body-sm font-bold">{item.duration}</span> {/* Mapped to API field */}
+            <span className="mb-1 text-tiny uppercase tracking-[0.2em] font-bold text-gold">{item.category}</span>
+            <div className="flex items-center gap-3 text-white">
+              <span className="flex items-center gap-1.5">
+                <FaClock className="h-3.5 w-3.5 3xl:h-4 3xl:w-4 text-gold" />
+                <span className="text-body-sm font-bold">{item.duration}</span>
+              </span>
+              {item.origin && (
+                <>
+                  <span className="h-3 w-px bg-white/30" />
+                  <span className="flex min-w-0 items-center gap-1.5">
+                    <MapPin className="h-3.5 w-3.5 shrink-0 text-gold 3xl:h-4 3xl:w-4" />
+                    <span className="truncate text-body-sm font-bold">{item.origin}</span>
+                  </span>
+                </>
+              )}
             </div>
           </div>
+
           <div className="flex items-center space-x-1 rounded border border-white/10 bg-black/80 px-2 py-1 3xl:px-3 3xl:py-1.5 backdrop-blur-md">
             <Star className="h-3.5 w-3.5 3xl:h-4 3xl:w-4 text-gold" fill="currentColor" />
             <span className="text-body-sm font-bold text-white">
@@ -93,7 +103,8 @@ export function Card({ item, tourType }: PackageCardProps) {
         <div className="mt-auto flex items-center justify-between border-t border-white/5 pt-4">
           <div>
             <p className="text-tiny uppercase leading-none tracking-widest text-slate-300">{t("startingFrom")}</p>
-            <p className="mt-1 text-heading-card font-bold text-gold">{formatPrice(item.price)}</p> {/* Mapped to API field */}
+            <p className="mt-1 text-heading-card font-bold text-gold">{formatPrice(item.price)}</p>{" "}
+            {/* Mapped to API field */}
           </div>
           <Button variant="details" className="[&_span]:text-tiny!" href={bookingHref}>
             {t("details")}

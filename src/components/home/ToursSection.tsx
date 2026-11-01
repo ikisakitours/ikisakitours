@@ -11,6 +11,7 @@ import { useTranslations } from "next-intl";
 import { usePackageSummaries } from "@/hooks/tours/usePackageSummaries";
 import { ApiCallLoader } from "@/components/ui/ApiCallLoader";
 import { ApiCallError } from "@/components/ui/ApiCallError";
+import { EmptyState } from "@/components/ui/EmptyState";
 //Icons
 import { FaClock } from "react-icons/fa6";
 import { Star } from "lucide-react";
@@ -33,7 +34,7 @@ const getBadgeStyles = (type: string) => {
 export function ToursSection() {
   const t = useTranslations("HomePage.Tours");
   const tCard = useTranslations("Tours.Card");
-const { formatPrice } = useCurrency();
+  const { formatPrice } = useCurrency();
 
   const pathname = usePathname();
 
@@ -65,8 +66,16 @@ const { formatPrice } = useCurrency();
     return () => window.removeEventListener("tourTabChange", handleTabSwitch);
   }, []);
 
+  const FORCE_EMPTY = false;
+  const hasPackages = !FORCE_EMPTY && fetchedPackages.length > 0;
   return (
-    <section id="tours" className="bg-background py-12 md:py-20 xl:py-20 2xl:py-24 3xl:py-28">
+    <section
+      id="tours"
+      className={`bg-background ${
+        !isLoading && !error && !hasPackages ? "pt-8 pb-0 md:pt-12" : "py-12 md:py-20 xl:py-20 2xl:py-24 3xl:py-28"
+      }`}
+    >
+      {" "}
       <ContainerLayout>
         {/* Header */}
         <motion.div
@@ -84,42 +93,51 @@ const { formatPrice } = useCurrency();
         </motion.div>
 
         {/* Toggle Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-16 flex flex-row flex-nowrap items-center justify-center gap-2 sm:gap-4 md:mb-20 3xl:mb-28 px-2"
-        >
-          <Button
-            variant="shine"
-            onClick={() => setActiveTab("multi")}
-            className={`whitespace-nowrap px-3! py-2.5! sm:px-5! sm:py-3! lg:px-7! lg:py-3.5! transition-all duration-300 [&_span]:text-tiny! ${
-              activeTab === "multi"
-                ? "bg-gold! border-gold! shadow-[0_0_20px_rgba(197,160,89,0.4)] [&_span]:text-black!"
-                : "border-white/20 hover:border-gold/50 hover:bg-gold/10 [&_span]:text-white/70! hover:[&_span]:text-white!"
-            }`}
+        {hasPackages && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-16 flex flex-row flex-nowrap items-center justify-center gap-2 sm:gap-4 md:mb-20 3xl:mb-28 px-2"
           >
-            {t("multiDayBtn")}
-          </Button>
-          <Button
-            variant="shine"
-            onClick={() => setActiveTab("one")}
-            className={`whitespace-nowrap px-3! py-2.5! sm:px-5! sm:py-3! lg:px-7! lg:py-3.5! transition-all duration-300 [&_span]:text-tiny! ${
-              activeTab === "one"
-                ? "bg-gold! border-gold! shadow-[0_0_20px_rgba(197,160,89,0.4)] [&_span]:text-black!"
-                : "border-white/20 hover:border-gold/50 hover:bg-gold/10 [&_span]:text-white/70! hover:[&_span]:text-white!"
-            }`}
-          >
-            {t("oneDayBtn")}
-          </Button>
-        </motion.div>
-
+            <Button
+              variant="shine"
+              onClick={() => setActiveTab("multi")}
+              className={`whitespace-nowrap px-3! py-2.5! sm:px-5! sm:py-3! lg:px-7! lg:py-3.5! transition-all duration-300 [&_span]:text-tiny! ${
+                activeTab === "multi"
+                  ? "bg-gold! border-gold! shadow-[0_0_20px_rgba(197,160,89,0.4)] [&_span]:text-black!"
+                  : "border-white/20 hover:border-gold/50 hover:bg-gold/10 [&_span]:text-white/70! hover:[&_span]:text-white!"
+              }`}
+            >
+              {t("multiDayBtn")}
+            </Button>
+            <Button
+              variant="shine"
+              onClick={() => setActiveTab("one")}
+              className={`whitespace-nowrap px-3! py-2.5! sm:px-5! sm:py-3! lg:px-7! lg:py-3.5! transition-all duration-300 [&_span]:text-tiny! ${
+                activeTab === "one"
+                  ? "bg-gold! border-gold! shadow-[0_0_20px_rgba(197,160,89,0.4)] [&_span]:text-black!"
+                  : "border-white/20 hover:border-gold/50 hover:bg-gold/10 [&_span]:text-white/70! hover:[&_span]:text-white!"
+              }`}
+            >
+              {t("oneDayBtn")}
+            </Button>
+          </motion.div>
+        )}
         {/* Grid Layout with AnimatePresence for smooth transitions */}
-        <div className="min-h-100">
+        <div className={isLoading || error || hasPackages ? "min-h-100" : ""}>
           {isLoading ? (
             <ApiCallLoader fullScreen={false} text="Loading Packages" />
           ) : error ? (
             <ApiCallError fullScreen={false} message={error} onRetry={refetch} />
+          ) : !hasPackages ? (
+            <EmptyState
+              compact
+              backgroundText={t("emptyBackground")}
+              title={t("emptyTitle")}
+              description={t("emptyDescription")}
+              className="-mt-10 md:-mt-15"
+            />
           ) : (
             <AnimatePresence mode="wait">
               <motion.div
@@ -220,21 +238,23 @@ const { formatPrice } = useCurrency();
           )}
         </div>
         {/* CTA Footer */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
-          className="mt-16 flex w-full items-center justify-center md:mt-20 3xl:mt-32"
-        >
-          <Button
-            variant="explore"
-            className="[&_span]:text-caption!"
-            href={activeTab === "multi" ? "/tours/multi-days" : "/tours/one-day"}
+        {hasPackages && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
+            className="mt-16 flex w-full items-center justify-center md:mt-20 3xl:mt-32"
           >
-            {activeTab === "multi" ? t("visitAllMultiText") : t("viewAllOneText")}
-          </Button>
-        </motion.div>
+            <Button
+              variant="explore"
+              className="[&_span]:text-caption!"
+              href={activeTab === "multi" ? "/tours/multi-days" : "/tours/one-day"}
+            >
+              {activeTab === "multi" ? t("visitAllMultiText") : t("viewAllOneText")}
+            </Button>
+          </motion.div>
+        )}
       </ContainerLayout>
     </section>
   );

@@ -94,6 +94,8 @@ export default {
   Header: {
     reviews: "レビュー",
     provider: "提供元:",
+    labelOneDay: "日帰りツアー",
+    labelMultiDay: "複数日ツアー",
   },
   CoveredCities: {
     title: "対象都市ルート",

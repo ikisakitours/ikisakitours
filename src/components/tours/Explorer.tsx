@@ -219,6 +219,7 @@ export function Explorer({ tourType = "multi" }: PackageExplorerProps) {
               count={filteredPackages.length}
               itemLabel={t("packages")}
               className="w-full md:w-72 lg:flex-none lg:w-96"
+              clearPositionClass ="right-27"
             />
           </div>
 

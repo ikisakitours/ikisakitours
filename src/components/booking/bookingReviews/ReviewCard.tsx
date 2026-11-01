@@ -2,6 +2,7 @@ import { LoadingImage } from "@/components/ui/LoadingImage";
 import { Link } from "@/lib/i18nNavigation";
 import { RatingStars } from "@/components/ui/RatingStars";
 import { useTranslations } from "next-intl";
+import { ScrollFadeText } from "@/components/ui/ScrollFadeText";
 //Icons
 import { BsPatchCheck } from "react-icons/bs";
 
@@ -9,7 +10,7 @@ import { Crown, CalendarDays, Images, CornerDownRight } from "lucide-react";
 type FormattedReviewType = {
   id?: string;
   name: string;
-  firstName?: string; // 💡 අලුතින් එකතු කරන්න
+  firstName?: string;
   lastName?: string;
   country?: string;
   avatar?: string;
@@ -83,9 +84,11 @@ export function ReviewCard({ review, slug, tourType }: ReviewCardProps) {
         <RatingStars rating={rating} starClassName="h-3.5 w-3.5 md:h-4.5 md:w-4.5 3xl:h-5 3xl:w-5 text-gold" />
       </div>
 
-      <p className="mb-6 wrap-break-word text-body font-normal italic leading-relaxed text-slate-300 3xl:leading-relaxed">
-        &quot;{review.text}&quot;
-      </p>
+      <ScrollFadeText className="mb-6" maxHeightClass="max-h-48">
+        <p className="wrap-break-word text-body font-normal italic leading-relaxed text-slate-300 3xl:leading-relaxed">
+          &quot;{review.text}&quot;
+        </p>
+      </ScrollFadeText>
 
       {review.photos && review.photos.length > 0 && (
         <div className="no-scrollbar mb-8 flex max-w-full gap-3 overflow-x-auto pb-4">
@@ -134,12 +137,13 @@ export function ReviewCard({ review, slug, tourType }: ReviewCardProps) {
 
       {review.response && (
         <div className="w-full max-w-full rounded-2xl border-l border-gold/40 bg-white/5 p-4 md:w-fit md:p-5 3xl:p-8">
-          {" "}
           <div className="mb-2 flex items-center gap-2">
             <CornerDownRight className="h-3.5 w-3.5 text-gold" strokeWidth={2.25} />
             <span className="text-tiny font-bold uppercase tracking-widest text-gold">{t("responseFrom")}</span>
           </div>
-          <p className="wrap-break-word text-body-sm leading-relaxed text-slate-300">{review.response}</p>
+          <ScrollFadeText maxHeightClass="max-h-32">
+            <p className="wrap-break-word text-body-sm leading-relaxed text-slate-300">{review.response}</p>
+          </ScrollFadeText>
         </div>
       )}
     </article>

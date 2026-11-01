@@ -66,9 +66,9 @@ export function SiteHeader() {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const loginHref =
-  pathname === "/" || pathname.startsWith("/login") || pathname.startsWith("/register")
-    ? "/login"
-    : `/login?redirect=${encodeURIComponent(pathname).replace(/%2F/g, "/")}`;
+    pathname === "/" || pathname.startsWith("/login") || pathname.startsWith("/register")
+      ? "/login"
+      : `/login?redirect=${encodeURIComponent(pathname).replace(/%2F/g, "/")}`;
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -80,7 +80,7 @@ export function SiteHeader() {
 
   const [isMounted, setIsMounted] = useState(false);
 
-  const { user, logoutUser } = useAuth();
+  const { user, isHydrated, logoutUser } = useAuth();
   const toast = useToast();
 
   useEffect(() => {
@@ -380,7 +380,9 @@ export function SiteHeader() {
                 <CurrencySelector />
               </div>
 
-              {!user ? (
+              {!isHydrated ? (
+                <div className="h-10 w-28 md:w-32" aria-hidden />
+              ) : !user ? (
                 <Link
                   href={loginHref}
                   className="relative group items-center justify-center px-7 py-1.75 rounded-full overflow-hidden border border-gold/40 bg-linear-to-r from-gold/15 via-gold/5 to-transparent text-gold text-body-sm font-semibold tracking-wider uppercase backdrop-blur-xl transition-all duration-500 hover:border-gold hover:shadow-[0_0_25px_rgba(197,160,89,0.35)] hover:-translate-y-0.5 active:translate-y-0 md:flex"

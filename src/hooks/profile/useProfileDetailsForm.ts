@@ -148,19 +148,24 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
         const img = new window.Image();
         img.src = avatarPreview;
         img.onload = () => {
+          // 1) Resize: උපරිම 512px
+          const MAX_SIZE = 512;
+          const scale = Math.min(1, MAX_SIZE / Math.max(img.width, img.height));
+
           const canvas = document.createElement("canvas");
-          canvas.width = img.width;
-          canvas.height = img.height;
+          canvas.width = Math.round(img.width * scale);
+          canvas.height = Math.round(img.height * scale);
 
           const ctx = canvas.getContext("2d");
           if (!ctx) return reject(new Error("Canvas context failed"));
 
-          ctx.drawImage(img, 0, 0);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
+          // 2) WebP check
           canvas.toBlob(
             (blob) => {
-              if (blob) resolve(blob);
-              else reject(new Error("WebP conversion failed"));
+              if (blob && blob.type === "image/webp") resolve(blob);
+              else reject(new Error("WebP not supported"));
             },
             "image/webp",
             0.8,
@@ -193,6 +198,7 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
           avatarUrl: response.avatarUrl,
           avatarSignature: currentFileSignature,
         });
+        setAvatarPreview(null);
       }
 
       toast.success(toastId, tToastAvatar("success"), 2000);

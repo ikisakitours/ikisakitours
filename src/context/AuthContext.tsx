@@ -23,18 +23,14 @@ interface AuthContextType {
   logoutUser: () => void;
   updateUser: (updatedFields: Partial<User>) => void;
   fetchUser: () => Promise<void>;
+  isHydrated: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("userData");
-      return saved ? JSON.parse(saved) : null;
-    }
-    return null;
-  });
+  const [user, setUser] = useState<User | null>(null);
+  const [isHydrated, setIsHydrated] = useState(false);
 
   const fetchUser = useCallback(async () => {
     try {
@@ -54,11 +50,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  // 1) localStorage restore
+  useEffect(() => {
+    const id = setTimeout(() => {
+      try {
+        const saved = localStorage.getItem("userData");
+        if (saved) setUser(JSON.parse(saved));
+      } catch {
+        localStorage.removeItem("userData");
+      }
+      setIsHydrated(true);
+    }, 0);
+    return () => clearTimeout(id);
+  }, []);
+
+  // 2) API එකෙන් අලුත්ම data (දැනට තියෙන එක)
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       fetchUser();
     }, 0);
-
     return () => clearTimeout(timeoutId);
   }, [fetchUser]);
 
@@ -81,7 +91,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loginUser, logoutUser, updateUser, fetchUser }}>
+    <AuthContext.Provider value={{ user, isHydrated,loginUser, logoutUser, updateUser, fetchUser }}>
       {children}
     </AuthContext.Provider>
   );

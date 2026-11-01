@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/Button";
 import { WriteReviewForm } from "@/components/ui/WriteReviewForm";
 import { motion, AnimatePresence } from "framer-motion";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { useRouter } from "@/lib/i18nNavigation";
 import { useTranslations } from "next-intl";
 import type { Review } from "@/services/testimonials/types";
 import { getLanguageFromCountry } from "@/utils/languageMapper";
@@ -25,7 +24,6 @@ type TestimonialExplorerProps = {
 const INITIAL_COUNT = 3;
 
 export function TestimonialExplorer({ comments }: TestimonialExplorerProps) {
-  const router = useRouter();
   const t = useTranslations("Testimonials.Explorer");
 
   const [language, setLanguage] = useState<string>("all");
@@ -136,6 +134,16 @@ export function TestimonialExplorer({ comments }: TestimonialExplorerProps) {
     return () => clearTimeout(id);
   }, [restoredDraft]);
 
+  function clearFilters() {
+    startTransition(() => {
+      setLanguage("all");
+      setRating("all");
+      setSortDate("newest");
+      setVisibleCount(INITIAL_COUNT);
+    });
+  }
+  const hasNoReviews = comments.length === 0;
+
   return (
     <section className="py-12 md:py-16 xl:py-16 2xl:py-20 3xl:py-24 ">
       <ContainerLayout>
@@ -173,7 +181,7 @@ export function TestimonialExplorer({ comments }: TestimonialExplorerProps) {
               )}
             </AnimatePresence>
           </div>
-          {!isWritingReview && (
+          {!isWritingReview && comments.length > 0 && (
             <div className="relative flex justify-end">
               <button
                 type="button"
@@ -233,10 +241,10 @@ export function TestimonialExplorer({ comments }: TestimonialExplorerProps) {
               ) : (
                 <EmptyState
                   backgroundText={t("EmptyState.backgroundText")}
-                  title={t("EmptyState.title")}
-                  description={t("EmptyState.description")}
-                  buttonText={t("EmptyState.goBack")}
-                  onAction={() => router.push("/")}
+                  title={hasNoReviews ? t("EmptyState.noReviewsTitle") : t("EmptyState.title")}
+                  description={hasNoReviews ? t("EmptyState.noReviewsDescription") : t("EmptyState.description")}
+                  buttonText={hasNoReviews ? t("EmptyState.writeReview") : t("EmptyState.clearFilter")}
+                  onAction={hasNoReviews ? () => setIsWritingReview(true) : clearFilters}
                 />
               )}
 
