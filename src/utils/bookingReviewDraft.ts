@@ -13,7 +13,7 @@ export type BookingReviewDraft = {
 
 export function saveBookingReviewDraft(slug: string, draft: Omit<BookingReviewDraft, "savedAt">) {
   try {
-    sessionStorage.setItem(keyFor(slug), JSON.stringify({ ...draft, savedAt: Date.now() }));
+    localStorage.setItem(keyFor(slug), JSON.stringify({ ...draft, savedAt: Date.now() }));
   } catch {
     /* storage unavailable: ignore */
   }
@@ -21,11 +21,11 @@ export function saveBookingReviewDraft(slug: string, draft: Omit<BookingReviewDr
 
 export function loadBookingReviewDraft(slug: string): BookingReviewDraft | null {
   try {
-    const raw = sessionStorage.getItem(keyFor(slug));
+    const raw = localStorage.getItem(keyFor(slug));
     if (!raw) return null;
     const draft = JSON.parse(raw) as BookingReviewDraft;
     if (Date.now() - draft.savedAt > TTL_MS) {
-      sessionStorage.removeItem(keyFor(slug));
+      localStorage.removeItem(keyFor(slug));
       return null;
     }
     return draft;
@@ -36,7 +36,7 @@ export function loadBookingReviewDraft(slug: string): BookingReviewDraft | null 
 
 export function clearBookingReviewDraft(slug: string) {
   try {
-    sessionStorage.removeItem(keyFor(slug));
+    localStorage.removeItem(keyFor(slug));
   } catch {
     /* ignore */
   }

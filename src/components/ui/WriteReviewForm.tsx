@@ -7,18 +7,13 @@ import { FormError } from "@/components/ui/FormError";
 import { useTranslations } from "next-intl";
 import { useWriteReviewForm } from "@/hooks/testimonials/useWriteReviewForm";
 import { AuthRequiredModal } from "@/components/ui/AuthRequiredModal";
+import { useAutoResizeTextarea } from "@/hooks/useAutoResizeTextarea";
 
 export function WriteReviewForm() {
   const tForm = useTranslations("Testimonials.FormHero");
   const tLabels = useTranslations("SharedForm.Labels");
   const tPlaceholders = useTranslations("SharedForm.Placeholders");
   const tSharedForm = useTranslations("SharedForm");
-
-  const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
-    const target = e.currentTarget;
-    target.style.height = "auto";
-    target.style.height = `${target.scrollHeight}px`;
-  };
 
   const {
     fullName,
@@ -39,6 +34,7 @@ export function WriteReviewForm() {
   } = useWriteReviewForm();
 
   const readOnlyClass = isLoggedIn ? "cursor-not-allowed opacity-70 focus:border-white/10 hover:bg-white/5" : "";
+  const { textareaRef, handleInput } = useAutoResizeTextarea(experience);
 
   return (
     <div className="group relative overflow-hidden rounded-4xl border border-white/5 bg-linear-to-br from-surface/90 to-lanka-black px-4 pt-8 pb-10 sm:px-6 sm:pt-12 sm:pb-12 md:px-8 md:pt-16 md:pb-16 lg:px-10 lg:pb-20 xl:pb-24 2xl:pb-28 3xl:px-12 3xl:pt-20 3xl:pb-32 -mt-1">
@@ -68,7 +64,7 @@ export function WriteReviewForm() {
         </div>
 
         <div className="w-full group relative overflow-hidden bg-transparent md:rounded-4xl md:border border-white/5 md:bg-linear-to-br from-surface/90 to-lanka-black pt-4 pb-10 sm:pt-6 sm:pb-12 md:px-8 md:pt-8 md:pb-16 lg:px-10 lg:pb-20 xl:pb-24 2xl:pb-28 3xl:px-12 3xl:pt-20 3xl:pb-32 -mt-1">
-          <form onSubmit={handleSubmit} className="w-full space-y-8 md:space-y-10 3xl:space-y-12">
+          <form onSubmit={handleSubmit} className="w-full space-y-8 md:space-y-10 3xl:space-y-12" noValidate>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               {/* Full Name */}
               <div className="flex flex-col">
@@ -149,6 +145,7 @@ export function WriteReviewForm() {
                 {tForm("experienceLabel")}
               </label>
               <textarea
+                ref={textareaRef}
                 value={experience}
                 disabled={isLoading}
                 onInput={handleInput}

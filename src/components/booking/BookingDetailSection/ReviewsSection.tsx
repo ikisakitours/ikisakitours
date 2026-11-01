@@ -132,31 +132,32 @@ export default function ReviewsSection({ tour, tourType }: ReviewsSectionProps) 
   const topReviews = summary.topReviews || [];
   const DEFAULT_COUNTRY = "No country send";
 
-  return (
-    <section id="reviews" className="border-t border-white/5 pt-10 lg:pt-16">
+return (
+    <section id="reviews" className="border-t border-white/5 pt-10 lg:pt-16 overflow-hidden">
       <div className="mb-10 lg:mb-14 lg:grid lg:grid-cols-3 lg:gap-14">
-        <div>
+        <div className="min-w-0">
           <h2 className="premium-serif mb-4 text-[30px] italic text-white md:text-[36px]">
             {t("title1")} <br className="hidden lg:block" />
             {t("title2")}
           </h2>
           <div className="mb-8 flex flex-wrap items-center gap-3">
-            <RatingStars rating={averageRating} className="text-body" />
-            <span className="text-body-lead font-bold text-white">{averageRating.toFixed(1)}/5</span>
+            <RatingStars rating={averageRating} className="text-body shrink-0" />
+            <span className="text-body-lead font-bold text-white shrink-0">{averageRating.toFixed(1)}/5</span>
             <span className="whitespace-nowrap text-caption font-bold uppercase tracking-widest text-slate-500">
               ({totalReviews} {t("reviews")})
             </span>
           </div>
         </div>
 
-        <div className="mt-8 lg:col-span-2 lg:mt-0">
-          <div className="mb-6 flex items-end justify-between">
-            <h3 className="text-body-sm font-bold uppercase tracking-widest text-white">{t("guestMoments")}</h3>
+        {/* Guest Moments Grid */}
+        <div className="mt-8 lg:col-span-2 lg:mt-0 min-w-0 w-full overflow-hidden">
+          <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+            <h3 className="text-body-sm font-bold uppercase tracking-widest text-white shrink-0">{t("guestMoments")}</h3>
 
             {totalMomentsCount > 0 && (
               <Link
                 href={galleryAllMomentHref}
-                className="inline-flex items-center gap-1.5 text-gold transition-colors hover:text-white"
+                className="inline-flex items-center gap-1.5 text-gold transition-colors hover:text-white shrink-0"
               >
                 <span className="text-caption font-bold uppercase tracking-[0.2em] sm:tracking-[0.2em]">
                   {t("viewAll")}
@@ -171,7 +172,7 @@ export default function ReviewsSection({ tour, tourType }: ReviewsSectionProps) 
           </div>
 
           {moments.length > 0 ? (
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 sm:grid-cols-4 w-full">
               {moments.map((moment, index) => {
                 const isLast = index === moments.length - 1;
                 const content = (
@@ -225,16 +226,17 @@ export default function ReviewsSection({ tour, tourType }: ReviewsSectionProps) 
       </div>
 
       {topReviews.length > 0 && (
-        <div className="space-y-12">
+        <div className="space-y-12 w-full">
           {topReviews.slice(0, 2).map((review) => {
             const formattedReview = {
               id: review.id,
               name: review.fullName,
-              firstName: review.userSnapshot?.firstName, // 💡 අලුතින් යවනවා
+              firstName: review.userSnapshot?.firstName, 
               lastName: review.userSnapshot?.lastName,
               country: review.userSnapshot?.country || DEFAULT_COUNTRY,
-              isVerified: review.userSnapshot?.isVerified, // 💡 Added
+              isVerified: review.userSnapshot?.isVerified, 
               isVip: review.userSnapshot?.isVip,
+              initials: review.fullName ? review.fullName.charAt(0).toUpperCase() : "U",
               avatar: review.userSnapshot?.avatarUrl,
               date: new Date(review.createdAt).toLocaleDateString(),
               text: review.experience,

@@ -6,12 +6,7 @@ import { UploadCloud, ArrowLeft, Star, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useReviewForm } from "@/hooks/Booking/usePackageReviewForm";
 import { AuthRequiredModal } from "@/components/ui/AuthRequiredModal";
-
-const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
-  const target = e.currentTarget;
-  target.style.height = "auto";
-  target.style.height = `${target.scrollHeight}px`;
-};
+import { useAutoResizeTextarea } from "@/hooks/useAutoResizeTextarea";
 
 type ReviewFormProps = {
   onBack: () => void;
@@ -22,7 +17,6 @@ type ReviewFormProps = {
 export function ReviewForm({ onBack, slug, tour }: ReviewFormProps) {
   const t = useTranslations("Booking.ReviewForm");
   const tForms = useTranslations("SharedForm");
-
   const {
     fullName,
     setFullName,
@@ -45,6 +39,7 @@ export function ReviewForm({ onBack, slug, tour }: ReviewFormProps) {
   } = useReviewForm(slug, tour);
 
   const readOnlyClass = isLoggedIn ? "cursor-not-allowed opacity-70 focus:border-white/10" : "";
+  const { textareaRef, handleInput } = useAutoResizeTextarea(experience);
 
   return (
     <div className="animate-fade-in-up mx-auto max-w-2xl 3xl:max-w-4xl">
@@ -69,7 +64,7 @@ export function ReviewForm({ onBack, slug, tour }: ReviewFormProps) {
           <h3 className="premium-serif mb-2 text-[25px] italic text-white md:text-[29px]">{t("title")}</h3>
           <p className="text-caption uppercase tracking-widest text-slate-400 3xl:text-sm">{t("subtitle")}</p>
         </div>
-        <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8 3xl:space-y-12">
+        <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8 3xl:space-y-12" noValidate>
           {/* Grid - Name and Email Only */}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {/* Full Name */}
@@ -151,6 +146,7 @@ export function ReviewForm({ onBack, slug, tour }: ReviewFormProps) {
               {t("experienceLabel")}
             </label>
             <textarea
+              ref={textareaRef}
               value={experience}
               disabled={isLoading}
               onInput={handleInput}

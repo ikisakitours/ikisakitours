@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { floatingLabelClass, inputClass, fieldLabelClass } from "./formStyles";
 import { Button } from "@/components/ui/Button";
 import { FormError } from "@/components/ui/FormError";
@@ -11,6 +11,8 @@ import "react-phone-number-input/style.css";
 import { useTranslations } from "next-intl";
 import { useUserLocation } from "@/hooks/useUserLocation";
 import { useAuth } from "@/context/AuthContext";
+import { useAutoResizeTextarea } from "@/hooks/useAutoResizeTextarea";
+
 //Icons
 import { UserRound, ShieldCheck, CreditCard, Headset } from "lucide-react";
 
@@ -45,11 +47,8 @@ export function ContactForm({ data, setData, errors, setErrors, isLoading }: Con
   const detectedCode = locationData?.country_code || "";
   const [hideMessage, setHideMessage] = useState(false);
 
-  const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
-    const target = e.currentTarget;
-    target.style.height = "auto";
-    target.style.height = `${target.scrollHeight}px`;
-  };
+  
+  const { textareaRef, handleInput } = useAutoResizeTextarea(data.specialRequests);
 
   const updateField = (field: keyof ContactData, value: string) => {
     setData((prev) => ({ ...prev, [field]: value }));
@@ -166,6 +165,7 @@ export function ContactForm({ data, setData, errors, setErrors, isLoading }: Con
           <label className="block group">
             <span className={fieldLabelClass}>{tForm("Labels.specialRequests")}</span>
             <textarea
+              ref={textareaRef}
               className={`${inputClass} auto-resize-textarea min-h-30 w-full resize-none p-4 transition-all duration-300 focus:border-gold/60 focus:bg-white/[0.07] focus:outline-none`}
               placeholder={tForm("Placeholders.specialRequests")}
               onInput={handleInput}

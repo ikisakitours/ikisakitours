@@ -177,11 +177,11 @@ export default function ReviewsBody({ slug, tourType }: ReviewsBodyProps) {
                     const formattedReview = {
                       id: review.id,
                       name: review.fullName,
-                      firstName: review.userSnapshot?.firstName, // 💡 අලුතින් යවනවා
+                      firstName: review.userSnapshot?.firstName, 
                       lastName: review.userSnapshot?.lastName,
                       country: review.userSnapshot?.country || DEFAULT_COUNTRY,
-                      isVerified: review.userSnapshot?.isVerified, // 💡 Added
-                      isVip: review.userSnapshot?.isVip, // 💡 Added
+                      isVerified: review.userSnapshot?.isVerified, 
+                      isVip: review.userSnapshot?.isVip, 
                       avatar: review.userSnapshot?.avatarUrl,
                       date: new Date(review.createdAt).toLocaleDateString(),
                       text: review.experience,

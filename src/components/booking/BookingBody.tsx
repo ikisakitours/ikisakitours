@@ -62,7 +62,7 @@ export default function BookingBody({ slug, tourType }: BookingBodyProps) {
         category={tour.category}
         origin={tour.origin}
         price={tour.price}
-      />{" "}
+      />
       <StickyBookingBar tour={tour} booking={booking} />
       <AuthRequiredModal
         isOpen={booking.showAuthModal}
