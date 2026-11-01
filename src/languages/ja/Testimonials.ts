@@ -46,7 +46,11 @@ export default {
       backgroundText: "レビュー",
       title: "レビューが見つかりません",
       description: "現在、表示するレビューはありません.",
-      goBack: "戻る",
+      //NEW
+      clearFilter: "フィルターをクリア",
+      noReviewsTitle: "まだレビューがありません",
+      noReviewsDescription: "最初にIkiSakiでの体験をシェアして、他の旅行者にインスピレーションを与えましょう.",
+      writeReview: "レビューを書く",
     },
   },
   FormHero: {

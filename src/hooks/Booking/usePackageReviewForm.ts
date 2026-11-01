@@ -5,6 +5,7 @@ import { PackageReviewService } from "@/services/Booking/PackageReviewService";
 import { useAuth } from "@/context/AuthContext";
 import { clearBookingReviewDraft, loadBookingReviewDraft, saveBookingReviewDraft } from "@/utils/bookingReviewDraft";
 import { useToast } from "@/context/ToastContext";
+import { convertToWebp } from "@/utils/convertToWebp";
 
 const AUTO_SUBMIT_AFTER_LOGIN = false;
 
@@ -87,8 +88,10 @@ export function useReviewForm(slug: string, pkg: PackageInfo) {
     try {
       setIsLoading(true);
 
+      const webpImages = await Promise.all(values.images.map((file) => convertToWebp(file)));
+
       await Promise.all([
-        PackageReviewService.submitReview(values),
+        PackageReviewService.submitReview({ ...values, images: webpImages }),
         new Promise((resolve) => setTimeout(resolve, 800)),
       ]);
 
@@ -108,21 +111,20 @@ export function useReviewForm(slug: string, pkg: PackageInfo) {
   };
 
   useEffect(() => {
-  const id = setTimeout(() => {
-    const draft = loadBookingReviewDraft(slug);
-    if (!draft) return;
+    const id = setTimeout(() => {
+      const draft = loadBookingReviewDraft(slug);
+      if (!draft) return;
 
-    if (!fieldsRestoredRef.current) {
-      fieldsRestoredRef.current = true;
-      setGuestName(draft.fullName);
-      setGuestEmail(draft.email);
-      setRating(draft.rating);
-      setExperience(draft.experience);
-    }
-
-  }, 0);
-  return () => clearTimeout(id);
-}, [slug]);
+      if (!fieldsRestoredRef.current) {
+        fieldsRestoredRef.current = true;
+        setGuestName(draft.fullName);
+        setGuestEmail(draft.email);
+        setRating(draft.rating);
+        setExperience(draft.experience);
+      }
+    }, 0);
+    return () => clearTimeout(id);
+  }, [slug]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

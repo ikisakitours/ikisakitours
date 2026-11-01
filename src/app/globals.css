@@ -735,3 +735,16 @@ textarea {
   animation-timing-function: linear;
   animation-fill-mode: forwards;
 }
+
+/* Scrollable text: fade bottom edge only when more content is below */
+.scroll-fade {
+  --fade-size: 2.5rem;
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - var(--fade-size)), transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - var(--fade-size)), transparent 100%);
+}
+
+.scroll-fade[data-at-end="true"],
+.scroll-fade[data-scrollable="false"] {
+  -webkit-mask-image: none;
+  mask-image: none;
+}

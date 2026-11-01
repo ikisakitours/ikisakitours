@@ -23,7 +23,7 @@ export function ProfileDetailsPanel() {
   const t = useTranslations("ProfilePage");
   const tForm = useTranslations("SharedForm");
   const tError = useTranslations("ValidationErrors");
-  const { user } = useAuth();
+  const { user ,isHydrated } = useAuth();
   const router = useRouter();
   //Hook
   const {
@@ -137,7 +137,7 @@ export function ProfileDetailsPanel() {
               </div>
             </div>
 
-            {!user?.isVip && (
+            {isHydrated && user && !user.isVip && (
               <div className="mx-auto mb-8 flex max-w-2xl flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border border-gold/20 bg-linear-to-r from-gold/5 via-white/5 to-transparent p-4 sm:px-6 shadow-[0_4px_20px_rgba(0,0,0,0.2)] backdrop-blur-md lg:mx-0">
                 <div className="flex items-center gap-3 text-center sm:text-left">
                   <div className="flex flex-col">

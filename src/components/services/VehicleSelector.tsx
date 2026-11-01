@@ -2,7 +2,7 @@ import { vehicleFilters, vehicles } from "@/data/vehicles";
 import { Link } from "@/lib/i18nNavigation";
 import { Users, Briefcase, Tag, type LucideIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
-//import { useState } from "react";
+import { useCurrency } from "@/context/CurrencyContext";
 
 export type ActiveVehicleFilter = (typeof vehicleFilters)[number]["value"];
 
@@ -12,7 +12,7 @@ type VehicleSelectorProps = {
   onVehicleChange: (vehicleId: string) => void;
   showDriverIncludedNote?: boolean;
   isLoading?: boolean;
-  serviceType?: "driver" | "guide"; 
+  serviceType?: "driver" | "guide";
   onServiceTypeChange?: (type: "driver" | "guide") => void;
 };
 
@@ -82,12 +82,13 @@ export function VehicleSelector({
   onVehicleChange,
   showDriverIncludedNote = false,
   isLoading = false,
-  serviceType = "driver",       // 🌟 Default අගය
-  onServiceTypeChange = () => {}, // 🌟 Default function එක
+  serviceType = "driver",
+  onServiceTypeChange = () => {},
 }: VehicleSelectorProps) {
   const tVeh = useTranslations("Services.VehicleSelector");
- // const [serviceType, setServiceType] = useState<"driver" | "guide">("driver");
-
+  const { formatPrice } = useCurrency();
+  const GUIDE_EXTRA_USD = 20;
+  
   const handleFilterClick = (filterValue: ActiveVehicleFilter) => {
     if (isLoading) return;
     onFilterChange(filterValue);
@@ -138,14 +139,14 @@ export function VehicleSelector({
                     label={tVeh("startingFrom")}
                     value={
                       <div className="flex items-center gap-1 flex-wrap leading-none">
-                        <span className="text-gold font-bold">{currentVehicle.price}</span>
+                        <span className="text-gold font-bold">{formatPrice(currentVehicle.rate)}</span>
 
                         {serviceType === "guide" && (
                           <span className="flex items-center text-gold font-bold animate-in fade-in zoom-in-95 duration-200">
                             <span className="flex items-center justify-center mr-2 relative -translate-y-px leading-none">
                               +
                             </span>
-                            <span>$20</span>
+                            <span>{formatPrice(GUIDE_EXTRA_USD)}</span>
                           </span>
                         )}
 
@@ -194,7 +195,7 @@ export function VehicleSelector({
                   {/* 1. Vehicle with Driver */}
                   <button
                     type="button"
-                  onClick={() => onServiceTypeChange("driver")}
+                    onClick={() => onServiceTypeChange("driver")}
                     className={`relative flex-1 md:flex-none flex items-center justify-center py-2.5 px-4 md:px-8 md:min-w-40 rounded-lg text-body-sm font-semibold transition-all duration-300 cursor-pointer whitespace-nowrap ${
                       serviceType === "driver"
                         ? "bg-linear-to-r from-gold/20 via-gold/10 to-transparent border border-gold/50 text-gold shadow-[0_0_15px_rgba(197,160,89,0.15)]"

@@ -167,6 +167,10 @@ export default {
     detailsBtnText: "詳細",
     visitAllMultiText: "すべての複数日ツアーを見る",
     viewAllOneText: "すべての日帰りツアーを見る",
+    //NEW
+    emptyBackground: "ツアー",
+    emptyTitle: "ツアーがありません",
+    emptyDescription: "現在ご案内できるツアーはありません.後ほどもう一度ご確認ください.",
   },
   JournalPreview: {
     badge: "インサイト",
@@ -186,6 +190,10 @@ export default {
     leaveMarkBtn: "あなたの足跡を残す",
     backReviewsBtn: "レビューに戻る",
     exploreMoreTestimonialsBtn: "さらに体験談を見る",
+    //new
+    emptyBackground: "レビュー",
+    emptyTitle: "まだレビューがありません",
+    emptyDescription: "最初にIkiSakiでの体験をシェアして、他の旅行者にインスピレーションを与えましょう.",
   },
   ContactCta: {
     badge: "オーダーメイドの体験",

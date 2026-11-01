@@ -1,7 +1,7 @@
 import { LoadingImage } from "@/components/ui/LoadingImage";
 import { RatingStars } from "@/components/ui/RatingStars";
 import { getLanguageFromCountry } from "@/utils/languageMapper";
-
+import { ScrollFadeText } from "@/components/ui/ScrollFadeText";
 import type { Review } from "@/services/testimonials/types";
 
 type TestimonialCardProps = {
@@ -28,11 +28,11 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
 
       <RatingStars rating={testimonial.rating ?? 5} className="mb-6 flex gap-1" starClassName="h-3.5 w-3.5 text-gold" />
 
-      <div className="relative mb-8 grow">
-        <div className="max-h-40 overflow-y-auto overscroll-contain pr-2 space-y-2 no-scrollbar mask-gradient">
-          <p className="text-body font-normal italic leading-relaxed text-white wrap-break-word">&quot;{testimonial.content}&quot;</p>
-        </div>
-      </div>
+   <ScrollFadeText maxHeightClass="max-h-40">
+  <p className="text-body font-normal italic leading-relaxed text-white wrap-break-word">
+    &quot;{testimonial.content}&quot;
+  </p>
+</ScrollFadeText>
 
       <div className="flex w-full items-center gap-4 border-t border-white/5 pt-6 mt-auto">
         <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-gold/30 bg-white/5 shadow-lg sm:h-14 sm:w-14">

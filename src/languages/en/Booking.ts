@@ -87,6 +87,9 @@ export default {
   Header: {
     reviews: "reviews",
     provider: "Provider:",
+    //new
+    labelOneDay: "One Day Tour",
+    labelMultiDay: "Multi Day Tour",
   },
   CoveredCities: {
     title: "Covered Cities Route",

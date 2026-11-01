@@ -167,6 +167,10 @@ export default {
     detailsBtnText: "Details",
     visitAllMultiText: "Visit All Multi Day Tours",
     viewAllOneText: "View All One Day Tours",
+    //NEW
+    emptyBackground: "Tours",
+    emptyTitle: "No Tours Available",
+    emptyDescription: "We don't have any tours available right now. Please check back soon.",
   },
   JournalPreview: {
     badge: "Insights",
@@ -186,11 +190,16 @@ export default {
     leaveMarkBtn: "Leave Your Mark",
     backReviewsBtn: "BACK TO REVIEWS",
     exploreMoreTestimonialsBtn: "Explore More Testimonials",
+
+    //new
+    emptyBackground: "Testimonials",
+    emptyTitle: "No Reviews Yet",
+    emptyDescription: "Be the first to share your IkiSaki experience and inspire fellow travelers.",
   },
   ContactCta: {
     badge: "Bespoke Experiences",
     watermark: "IkiSaki",
-    watermarkSub : "Tours",
+    watermarkSub: "Tours",
     titlePart1: "Your Vision,",
     titleAccent: "Impeccably",
     titlePart2: "Executed.",

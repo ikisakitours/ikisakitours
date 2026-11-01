@@ -10,6 +10,7 @@ import { mapPackageToRecommendation } from "@/hooks/Booking/related/relatedMappe
 import RecommendationCard from "@/components/booking/RelatedBookingSections/RecommendationCard";
 import { ApiCallLoader } from "@/components/ui/ApiCallLoader";
 import { ApiCallError } from "@/components/ui/ApiCallError";
+import { ScrollFadeText } from "@/components/ui/ScrollFadeText";
 
 //Icons
 import { BsPatchCheck } from "react-icons/bs";
@@ -160,11 +161,11 @@ export function CrossPromotionSection({ tourType = "multi" }: CrossPromotionSect
                   </div>
 
                   <div className="relative mb-8 grow">
-                    <div className="max-h-40 overflow-y-auto overscroll-contain pr-2 space-y-2 no-scrollbar mask-gradient">
+                    <ScrollFadeText maxHeightClass="max-h-40">
                       <p className="text-body font-normal italic leading-relaxed text-white wrap-break-word">
                         &quot;{review.content}&quot;
                       </p>
-                    </div>
+                    </ScrollFadeText>
                   </div>
                   <div className="flex w-full items-center gap-4 border-t border-white/5 pt-6">
                     <div className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-gold/30 bg-white/5 shadow-lg sm:h-14 sm:w-14">
