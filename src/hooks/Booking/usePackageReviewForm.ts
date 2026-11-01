@@ -49,7 +49,6 @@ export function useReviewForm(slug: string, pkg: PackageInfo) {
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   const fieldsRestoredRef = useRef(false);
-  const autoHandledRef = useRef(false);
 
   const { errors, validate, setErrors } = useValidationForm();
   const tErr = useTranslations("ValidationErrors");
@@ -109,51 +108,21 @@ export function useReviewForm(slug: string, pkg: PackageInfo) {
   };
 
   useEffect(() => {
-    const id = setTimeout(() => {
-      const draft = loadBookingReviewDraft(slug);
-      if (!draft) return;
+  const id = setTimeout(() => {
+    const draft = loadBookingReviewDraft(slug);
+    if (!draft) return;
 
-      if (!fieldsRestoredRef.current) {
-        fieldsRestoredRef.current = true;
-        setGuestName(draft.fullName);
-        setGuestEmail(draft.email);
-        setRating(draft.rating);
-        setExperience(draft.experience);
-      }
+    if (!fieldsRestoredRef.current) {
+      fieldsRestoredRef.current = true;
+      setGuestName(draft.fullName);
+      setGuestEmail(draft.email);
+      setRating(draft.rating);
+      setExperience(draft.experience);
+    }
 
-      if (user && !autoHandledRef.current) {
-        autoHandledRef.current = true;
-        clearBookingReviewDraft(slug);
-
-        const canAutoSubmit = AUTO_SUBMIT_AFTER_LOGIN && draft.autoSubmit && !draft.hadImages;
-
-        const restored: ReviewValues = {
-          userId: String(user.id),
-          packageId: pkg.id || slug,
-          packageName: pkg.title,
-          email: user.email || draft.email,
-          rating: draft.rating,
-          experience: draft.experience,
-          images: [],
-        };
-
-        if (
-          canAutoSubmit &&
-          validate({
-            fullName: accountName,
-            email: restored.email,
-            rating: restored.rating,
-            experience: restored.experience,
-            images: [],
-          })
-        ) {
-          void submitReview(restored);
-        }
-      }
-    }, 0);
-    return () => clearTimeout(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, slug]);
+  }, 0);
+  return () => clearTimeout(id);
+}, [slug]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -46,12 +46,12 @@ export function ReviewCard({ review, slug, tourType }: ReviewCardProps) {
       ? `/gallery/${slug}?filter-one-day-tours=review-${reviewKey}&from=reviews`
       : `/gallery/${slug}?filter-multi-days-tours=review-${reviewKey}&from=reviews`;
   return (
-    <article className="glass-card rounded-3xl border border-white/5 p-6 md:rounded-[2.5rem] md:p-10 3xl:p-14">
+    <article className="glass-card overflow-hidden w-full rounded-3xl border border-white/5 p-6 md:rounded-[2.5rem] md:p-10 3xl:p-14">
       <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row md:mb-8">
-        <div className="flex w-full max-w-full items-center gap-3 sm:gap-4 md:gap-6">
+        {/* 💡 2. min-w-0 යොදා ඇත */}
+        <div className="flex w-full min-w-0 flex-1 items-center gap-3 sm:gap-4 md:gap-6">
           <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border border-gold/30 bg-white/5 shadow-lg sm:h-14 sm:w-14 md:h-16 md:w-16 3xl:h-20 3xl:w-20">
             <span className="text-xs font-bold text-gold 3xl:text-base">{initials}</span>
-
             {review.avatar && typeof review.avatar === "string" && review.avatar.trim() !== "" && (
               <LoadingImage
                 src={review.avatar}
@@ -83,7 +83,7 @@ export function ReviewCard({ review, slug, tourType }: ReviewCardProps) {
         <RatingStars rating={rating} starClassName="h-3.5 w-3.5 md:h-4.5 md:w-4.5 3xl:h-5 3xl:w-5 text-gold" />
       </div>
 
-      <p className="mb-6 text-body font-normal italic leading-relaxed text-slate-300 3xl:leading-relaxed">
+      <p className="mb-6 wrap-break-word text-body font-normal italic leading-relaxed text-slate-300 3xl:leading-relaxed">
         &quot;{review.text}&quot;
       </p>
 

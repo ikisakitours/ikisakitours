@@ -7,6 +7,7 @@ import { TourDurationPicker } from "@/components/ui/TourDurationPicker";
 import { FormError } from "@/components/ui/FormError";
 import LanguageSelect, { type LanguageOption } from "@/components/services/LanguageSelect";
 import { useAvailability } from "@/hooks/date-availability/useAvailability";
+import { useAutoResizeTextarea } from "@/hooks/useAutoResizeTextarea";
 
 //Icons
 import { Globe, MapPin } from "lucide-react";
@@ -38,17 +39,13 @@ type PrivateVehicleJourneyFieldsProps = {
   isLoading?: boolean;
 };
 
-const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
-  const target = e.currentTarget;
-  target.style.height = "auto";
-  target.style.height = `${target.scrollHeight}px`;
-};
+
 
 export function PrivateVehicleJourneyFields({
   activeFilter,
   onFilterChange,
   onVehicleChange,
-  tourPackageType = "driver", 
+  tourPackageType = "driver",
   onTourPackageTypeChange,
   date,
   onDateChange,
@@ -70,7 +67,7 @@ export function PrivateVehicleJourneyFields({
   isLoading = false,
 }: PrivateVehicleJourneyFieldsProps) {
   const tForm = useTranslations("SharedForm");
-
+const { textareaRef, handleInput } = useAutoResizeTextarea(tourRequests);
   const travelerOptions = [
     {
       type: "adult",
@@ -110,7 +107,7 @@ export function PrivateVehicleJourneyFields({
           onVehicleChange={onVehicleChange}
           showDriverIncludedNote={true}
           isLoading={isLoading}
-          serviceType={tourPackageType} 
+          serviceType={tourPackageType}
           onServiceTypeChange={onTourPackageTypeChange}
         />
       </div>
@@ -159,8 +156,8 @@ export function PrivateVehicleJourneyFields({
           <span className={fieldLabelClass}>{tForm("Labels.journeyDate")}</span>
           <CustomDatePicker
             value={date}
-                 closedDates={closedDates} 
-                isLoading={isLoadingDates}
+            closedDates={closedDates}
+            isLoading={isLoadingDates}
             onChange={(d) => {
               onDateChange(d);
               setErrors((prev) => ({ ...prev, date: "" }));
@@ -221,6 +218,7 @@ export function PrivateVehicleJourneyFields({
       <label className="mb-8 flex flex-col gap-1 group">
         <span className={fieldLabelClass}>{tForm("Labels.tourPlanRequests")}</span>
         <textarea
+          ref={textareaRef}
           className={`${inputClass} auto-resize-textarea min-h-30 w-full resize-none p-4 transition-all duration-300 focus:border-gold/60 focus:bg-white/[0.07] focus:outline-none`}
           placeholder={tForm("Placeholders.tourPlanRequests")}
           onInput={handleInput}

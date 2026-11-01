@@ -11,6 +11,8 @@ import { useUserLocation } from "@/hooks/useUserLocation";
 import { LocationDetectionFeedback } from "@/components/ui/LocationDetectionFeedback";
 import { useContactForm } from "@/hooks/Contact/useContactForm";
 import { AuthRequiredModal } from "@/components/ui/AuthRequiredModal";
+import { useAutoResizeTextarea } from "@/hooks/useAutoResizeTextarea";
+
 export default function ContactForm() {
   const tPage = useTranslations("ContactPage.Form");
   const tForm = useTranslations("SharedForm");
@@ -20,12 +22,6 @@ export default function ContactForm() {
   const tourOptions = tPage.raw("tourOptions") as string[];
   const { data: locationData, isDetecting } = useUserLocation();
   const detectedCode = locationData?.country_code || "";
-
-  const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
-    const target = e.currentTarget;
-    target.style.height = "auto";
-    target.style.height = `${target.scrollHeight}px`;
-  };
 
   //  Hook
   const {
@@ -48,8 +44,9 @@ export default function ContactForm() {
     showAuthModal,
     closeAuthModal,
   } = useContactForm(INQUIRY_OPTIONS);
+  const { textareaRef, handleInput } = useAutoResizeTextarea(formData.message);
   return (
-    <div id="contact-form-anchor"  className="lg:col-span-2 scroll-mt-28">
+    <div id="contact-form-anchor" className="lg:col-span-2 scroll-mt-28">
       <div className="glass-card rounded-3xl p-8 md:p-10">
         <h2 className="premium-serif mb-8 text-2xl text-white">{tPage("title")}</h2>
 
@@ -198,6 +195,7 @@ export default function ContactForm() {
             <label className="relative block">
               <span className={fieldLabelClass}>{tForm("Labels.message")}</span>
               <textarea
+                ref={textareaRef}
                 name="message"
                 value={formData.message}
                 disabled={isLoading}

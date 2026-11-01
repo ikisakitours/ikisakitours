@@ -24,9 +24,9 @@ export default function RecommendationCard({ item }: { item: RecommendationType 
   const t = useTranslations("Booking.Related");
   const { formatPrice } = useCurrency();
   return (
-    <Link
+<Link
       href={item.href}
-      className="glass-card group block min-w-[85vw] snap-center overflow-hidden rounded-4xl border border-white/5 transition-all duration-700 hover:border-gold/40 sm:min-w-[45vw] xl:min-w-0"
+      className="glass-card group block w-full overflow-hidden rounded-4xl border border-white/5 transition-all duration-700 hover:border-gold/40"
     >
       <div className="relative h-44 overflow-hidden">
         <div className="absolute left-4 top-4 z-10">

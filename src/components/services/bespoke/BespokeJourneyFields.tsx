@@ -7,7 +7,7 @@ import { TourDurationPicker } from "@/components/ui/TourDurationPicker";
 import { FormError } from "@/components/ui/FormError";
 import LanguageSelect, { type LanguageOption } from "@/components/services/LanguageSelect";
 import { useAvailability } from "@/hooks/date-availability/useAvailability";
-
+import { useAutoResizeTextarea } from "@/hooks/useAutoResizeTextarea";
 //Icons
 import { Globe, MapPin } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -38,12 +38,6 @@ type BespokeJourneyFieldsProps = {
   onTourPackageTypeChange?: (type: "driver" | "guide") => void;
 };
 
-const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
-  const target = e.currentTarget;
-  target.style.height = "auto";
-  target.style.height = `${target.scrollHeight}px`;
-};
-
 export function BespokeJourneyFields({
   activeFilter,
   onFilterChange,
@@ -70,7 +64,6 @@ export function BespokeJourneyFields({
   onTourPackageTypeChange,
 }: BespokeJourneyFieldsProps) {
   const tForm = useTranslations("SharedForm");
-
   const travelerOptions = [
     {
       type: "adult",
@@ -98,7 +91,7 @@ export function BespokeJourneyFields({
     },
   ];
   const { closedDates, isLoadingDates } = useAvailability();
-
+  const { textareaRef, handleInput } = useAutoResizeTextarea(tourRequests);
   return (
     <div className="space-y-8">
       {/* Vehicle Type Filter */}
@@ -221,6 +214,7 @@ export function BespokeJourneyFields({
       <label className="mb-8 flex flex-col gap-1">
         <span className={fieldLabelClass}>{tForm("Labels.tourPlanRequests")}</span>
         <textarea
+          ref={textareaRef}
           className={`${inputClass} auto-resize-textarea min-h-30 w-full resize-none p-4 transition-all duration-300 focus:border-gold/60 focus:bg-white/[0.07] focus:outline-none`}
           placeholder={tForm("Placeholders.tourPlanRequests")}
           onInput={handleInput}

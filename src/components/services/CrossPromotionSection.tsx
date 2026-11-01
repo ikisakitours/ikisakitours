@@ -55,8 +55,9 @@ export function CrossPromotionSection({ tourType = "multi" }: CrossPromotionSect
         .slice(0, 4),
     [reviewData],
   );
+
   return (
-    <section className="mt-16 border-t border-white/5 pt-16">
+    <section className="mt-16 overflow-hidden border-t border-white/5 pt-16">
       {/* ================= Packages ================= */}
       {pkgLoading && (
         <div className="relative mb-16 flex min-h-75 items-center justify-center">
@@ -79,13 +80,13 @@ export function CrossPromotionSection({ tourType = "multi" }: CrossPromotionSect
 
       {!pkgLoading && !pkgError && displayPackages.length > 0 && (
         <div className="mb-16">
-          <div className="relative mb-8 flex items-center justify-between overflow-hidden py-2">
-            <h2 className="premium-serif z-10 -mt-2 flex items-center bg-[#080808] pr-4 text-3xl text-white">
+          <div className="relative mb-8 flex flex-wrap items-center justify-between gap-4 overflow-hidden py-2 sm:flex-nowrap">
+            <h2 className="premium-serif z-10 -mt-2 flex items-center bg-[#080808] pr-4 text-2xl text-white sm:text-3xl">
               {tCross("discoverMore")}
             </h2>
             <Link
               href={toursHref}
-              className="z-10 flex items-center gap-2 bg-[#080808] pl-4 text-body-sm font-bold uppercase tracking-widest text-gold transition-colors hover:text-white"
+              className="z-10 flex shrink-0 items-center gap-2 bg-[#080808] pl-2 text-body-sm font-bold uppercase tracking-widest text-gold transition-colors hover:text-white sm:pl-4"
             >
               <span> {tCross("viewAll")} </span>
               <span className="flex items-center justify-center bg-[#080808] pl-1">
@@ -124,13 +125,13 @@ export function CrossPromotionSection({ tourType = "multi" }: CrossPromotionSect
 
       {!revLoading && !revError && displayTestimonials.length > 0 && (
         <div>
-          <div className="relative mb-8 flex items-center justify-between overflow-hidden py-2">
-            <h2 className="premium-serif z-10 -mt-2 flex items-center bg-[#080808] pr-4 text-3xl text-white">
+          <div className="relative mb-8 flex flex-wrap items-center justify-between gap-4 overflow-hidden py-2 sm:flex-nowrap">
+            <h2 className="premium-serif z-10 -mt-2 flex items-center bg-[#080808] pr-4 text-2xl text-white sm:text-3xl">
               {tCross("discoverMore")}
             </h2>
             <Link
               href="/testimonials"
-              className="z-10 flex items-center gap-2 bg-[#080808] pl-4 text-body-sm font-bold uppercase tracking-widest text-gold transition-colors hover:text-white"
+              className="z-10 flex shrink-0 items-center gap-2 bg-[#080808] pl-2 text-body-sm font-bold uppercase tracking-widest text-gold transition-colors hover:text-white sm:pl-4"
             >
               <span> {tCross("readMore")} </span>
               <span className="flex items-center justify-center bg-[#080808] pl-1">
@@ -149,19 +150,22 @@ export function CrossPromotionSection({ tourType = "multi" }: CrossPromotionSect
               return (
                 <div
                   key={review.id}
-                  className={`group flex-col justify-between rounded-2xl border border-white/5 bg-[#0a0a0a]/50 p-6 shadow-lg transition-all duration-500 hover:border-gold/30 hover:bg-white/2 hover:shadow-gold/5 ${
+                  className={`group flex w-full flex-col justify-between overflow-hidden rounded-2xl border border-white/5 bg-[#0a0a0a]/50 p-6 shadow-lg transition-all duration-500 hover:border-gold/30 hover:bg-white/2 hover:shadow-gold/5 ${
                     index === 3 ? "hidden md:flex xl:hidden" : "flex"
                   }`}
                 >
                   <div className="mb-5 flex items-start justify-between">
-                    <MessageCircleHeart className="h-6 w-6 text-gold/70 transition-colors duration-300 group-hover:text-gold" />
-                    <RatingStars rating={review.rating ?? 5} starClassName="h-3.5 w-3.5 text-gold" />
+                    <MessageCircleHeart className="h-6 w-6 shrink-0 text-gold/70 transition-colors duration-300 group-hover:text-gold" />
+                    <RatingStars rating={review.rating ?? 5} starClassName="h-3.5 w-3.5 shrink-0 text-gold" />
                   </div>
 
-                  <p className="mb-6 line-clamp-4 grow text-body italic leading-relaxed text-slate-300">
-                    &quot;{review.content}&quot;
-                  </p>
-
+                  <div className="relative mb-8 grow">
+                    <div className="max-h-40 overflow-y-auto overscroll-contain pr-2 space-y-2 no-scrollbar mask-gradient">
+                      <p className="text-body font-normal italic leading-relaxed text-white wrap-break-word">
+                        &quot;{review.content}&quot;
+                      </p>
+                    </div>
+                  </div>
                   <div className="flex w-full items-center gap-4 border-t border-white/5 pt-6">
                     <div className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-gold/30 bg-white/5 shadow-lg sm:h-14 sm:w-14">
                       <span className="text-xs font-bold uppercase text-gold sm:text-sm">{initials}</span>
@@ -178,9 +182,9 @@ export function CrossPromotionSection({ tourType = "multi" }: CrossPromotionSect
                       )}
                     </div>
 
-                    <div className="min-w-0 flex-1">
+                    <div className="min-w-0 flex-1 overflow-hidden">
                       <div className="flex flex-col gap-1">
-                        <div className="flex items-center gap-1.5">
+                        <div className="flex items-center gap-1.5 overflow-hidden">
                           <h3 className="truncate text-caption font-bold uppercase tracking-widest text-white">
                             {review.authorName}
                           </h3>
@@ -189,8 +193,8 @@ export function CrossPromotionSection({ tourType = "multi" }: CrossPromotionSect
                         </div>
 
                         <div className="flex items-center gap-2 text-tiny font-medium uppercase tracking-[0.2em] text-gold/60">
-                          <CalendarCheck className="h-3 w-3 opacity-80" />
-                          <span>{new Date(review.date).toLocaleDateString()}</span>
+                          <CalendarCheck className="h-3 w-3 shrink-0 opacity-80" />
+                          <span className="truncate">{new Date(review.date).toLocaleDateString()}</span>
                         </div>
                       </div>
                     </div>

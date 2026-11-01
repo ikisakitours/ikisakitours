@@ -65,7 +65,7 @@ export function PrivateVehicleForm() {
     <ContainerLayout className="relative z-20 pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
       <div className="flex flex-col xl:grid gap-8 xl:grid-cols-12">
         {/* Main Form */}
-        <form onSubmit={handleSubmit} className="space-y-8 xl:col-span-8 order-1 xl:order-0">
+        <form onSubmit={handleSubmit} className="space-y-8 xl:col-span-8 order-1 xl:order-0" noValidate>
           <FormPanel className="z-10">
             <StepHeading step="1">{tStep("step1Journey")}</StepHeading>
             <PrivateVehicleJourneyFields
