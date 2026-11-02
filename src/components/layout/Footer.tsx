@@ -194,13 +194,15 @@ export function Footer() {
         </div>
       </ContainerLayout>
 
-      <div className="pointer-events-none relative z-0 flex w-full flex-col items-center justify-center overflow-hidden opacity-[0.03] py-4 md:-mt-4">
-        <span className="whitespace-nowrap text-[5.3rem] min-[340px]:max-[365px]:text-[3.9rem] min-[540px]:text-[6rem] sm:text-[4.4rem] md:text-[10rem] lg:text-[14.2rem] xl:text-[14rem] 2xl:text-[19rem] 3xl:text-[19rem] font-black uppercase leading-none text-white">
-          IkiSaki
-        </span>
-        <span className="-mt-1 whitespace-nowrap text-[1.1rem] min-[340px]:max-[365px]:text-[0.9rem] min-[540px]:text-[1.4rem] sm:text-[1rem] md:text-[2.2rem] lg:text-[3.2rem] xl:text-[3.2rem] 2xl:text-[4.2rem] 3xl:text-[4.2rem] font-bold uppercase leading-none tracking-[0.6em] text-white md:-mt-2 2xl:-mt-4">
-          Tours
-        </span>
+      <div className="pointer-events-none relative z-0 flex w-full items-center justify-center overflow-hidden opacity-[0.03] py-4 md:-mt-4">
+        <div className="flex flex-col items-end">
+          <span className="whitespace-nowrap text-[5.3rem] min-[340px]:max-[365px]:text-[3.9rem] min-[540px]:text-[6rem] sm:text-[4.4rem] md:text-[10rem] lg:text-[14.2rem] xl:text-[14rem] 2xl:text-[19rem] 3xl:text-[19rem] font-black uppercase leading-none text-white">
+            IkiSaki
+          </span>
+          <span className="-mt-1 whitespace-nowrap text-[1.1rem] min-[340px]:max-[365px]:text-[0.9rem] min-[540px]:text-[1.4rem] sm:text-[1rem] md:text-[2.2rem] lg:text-[3.2rem] xl:text-[3.2rem] 2xl:text-[4.2rem] 3xl:text-[4.2rem] font-bold uppercase leading-none tracking-[0.6em] text-white md:-mt-2 2xl:-mt-4">
+            Tours
+          </span>
+        </div>
       </div>
 
       <ContainerLayout className="relative z-10">

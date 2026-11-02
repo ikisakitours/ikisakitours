@@ -56,6 +56,11 @@ export function useBespokeForm() {
     });
   };
 
+    const getTodayFormatted = () => {
+    const today = new Date();
+    return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+  };
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -113,6 +118,7 @@ export function useBespokeForm() {
       setTime("");
       setLanguage("");
       setTourDays(0);
+      setDate(getTodayFormatted());
       setTravelerCounts({ adult: 0, couple: 0, child: 0, infant: 0 });
       setContact((prev) => ({
         ...prev,

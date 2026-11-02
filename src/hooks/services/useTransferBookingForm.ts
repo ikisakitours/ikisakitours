@@ -63,6 +63,12 @@ export function useTransferBookingForm() {
   const tErr = useTranslations("ValidationErrors.ServerErrors");
   const tToast = useTranslations("ValidationErrors.ToastMessages.TransferBooking");
   const toast = useToast();
+
+  const getTodayFormatted = () => {
+    const today = new Date();
+    return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+  };
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -119,6 +125,7 @@ export function useTransferBookingForm() {
       setPickupLocation("");
       setDropoffLocation("");
       setTime("");
+      setDate(getTodayFormatted());
       setLanguage("");
       setTravelerCounts({ adult: 0, couple: 0, child: 0, infant: 0 });
       setContact((prev) => ({
