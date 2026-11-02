@@ -289,7 +289,7 @@ export function CookiePreferenceModal({ isOpen, onClose }: CookiePreferenceModal
           <button
             onClick={handleSave}
             // w-full on mobile, sm:w-auto on desktop
-            className={`w-fullsm:w-auto rounded-xl bg-gold px-7 py-3.5 sm:py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-widest text-lanka-black transition-all hover:bg-gold-light shadow-[0_0_15px_rgba(197,160,89,0.3)]${
+            className={`w-full sm:w-auto rounded-xl bg-gold px-7 py-3.5 sm:py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-widest text-lanka-black transition-all hover:bg-gold-light shadow-[0_0_15px_rgba(197,160,89,0.3)]${
               isPending ? "bg-gold/60 text-lanka-black/60 cursor-wait opacity-80" : "hover:bg-gold-light"
             }`}
           >

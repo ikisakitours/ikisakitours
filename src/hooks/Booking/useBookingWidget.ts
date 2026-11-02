@@ -35,6 +35,11 @@ export function useBookingWidget(tour: TourInfo, tourType: "oneday" | "multiday"
   const restoredRef = useRef(false);
   const autoHandledRef = useRef(false);
 
+  const getTodayFormatted = () => {
+    const today = new Date();
+    return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+  };
+
   const submitBooking = async (values: BookingValues) => {
     if (!user) return;
 
@@ -67,7 +72,7 @@ export function useBookingWidget(tour: TourInfo, tourType: "oneday" | "multiday"
 
       toast.success(toastId, tToast("success"), 2000);
       clearBookingDraft(draftKey);
-      setJourneyDate("");
+      setJourneyDate(getTodayFormatted());
       setTravelerCounts(EMPTY_COUNTS);
     } catch (error) {
       toast.error(toastId, tToast("error"));
@@ -88,7 +93,7 @@ export function useBookingWidget(tour: TourInfo, tourType: "oneday" | "multiday"
         restoredRef.current = true;
         setJourneyDate(draft.journeyDate);
         setTravelerCounts({ ...EMPTY_COUNTS, ...draft.travelerCounts });
-         setDraftRestored(true); 
+        setDraftRestored(true);
         return;
       }
 
@@ -154,7 +159,7 @@ export function useBookingWidget(tour: TourInfo, tourType: "oneday" | "multiday"
     handleBookingSubmit,
     showAuthModal,
     closeAuthModal: () => setShowAuthModal(false),
-     draftRestored,
+    draftRestored,
     clearDraftRestored: () => setDraftRestored(false),
   };
 }
