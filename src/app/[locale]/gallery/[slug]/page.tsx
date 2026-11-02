@@ -1,8 +1,8 @@
 import { cache } from "react";
+import { getLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-// import { blogPosts, type GalleryItem } from "@/data/blog";
 import type { GalleryItem } from "@/data/blog";
 import { allSpecialEventsList } from "@/data/specialEvents";
 import { GalleryCollection } from "@/components/gallery/GalleryCollection";
@@ -19,9 +19,9 @@ type GalleryDetailPageProps = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-const getBlog = cache(async (slug: string): Promise<BlogPost | null> => {
+const getBlog = cache(async (slug: string, locale: string): Promise<BlogPost | null> => {
   try {
-    return await fetchBlogServices.getBlogPostBySlug(slug);
+    return await fetchBlogServices.getBlogPostBySlug(slug, locale); 
   } catch {
     return null;
   }
@@ -51,22 +51,23 @@ const getReviews = cache(async (packageId: string): Promise<ReviewType[]> => {
 
 type Resolved =
   | { kind: "blog"; post: BlogPost }
-  //| { kind: "staticBlog"; post: (typeof blogPosts)[0] }
   | { kind: "event"; post: (typeof allSpecialEventsList)[0] }
   | { kind: "tour"; post: PackageDetails }
   | null;
 
-async function resolvePost(slug: string, hasTourFilter: boolean, fromEvent: boolean): Promise<Resolved> {
+async function resolvePost(
+  slug: string,
+  hasTourFilter: boolean,
+  fromEvent: boolean,
+  locale: string,
+): Promise<Resolved> {
   if (hasTourFilter) {
     const tour = await getTour(slug);
     if (tour) return { kind: "tour", post: tour };
   }
 
-  const blog = await getBlog(slug);
+  const blog = await getBlog(slug, locale); 
   if (blog) return { kind: "blog", post: blog };
-
-  // const staticBlog = blogPosts.find((p) => p.slug === slug);
-  // if (staticBlog) return { kind: "staticBlog", post: staticBlog };
 
   if (fromEvent || allSpecialEventsList.some((e) => e.slug === slug)) {
     const event = allSpecialEventsList.find((e) => e.slug === slug);
@@ -121,10 +122,11 @@ function readParams(sp: { [key: string]: string | string[] | undefined }) {
 
 export async function generateMetadata({ params, searchParams }: GalleryDetailPageProps): Promise<Metadata> {
   const t = await getTranslations("Gallery.Metadata");
+  const locale = await getLocale();
   const { slug } = await params;
   const { from, hasTourFilter, activeFilter } = readParams(await searchParams);
 
-  const resolved = await resolvePost(slug, hasTourFilter, from === "events");
+  const resolved = await resolvePost(slug, hasTourFilter, from === "events",locale);
 
   if (!resolved) {
     return { title: t("notFoundTitle"), description: t("notFoundDesc") };
@@ -172,10 +174,11 @@ export async function generateMetadata({ params, searchParams }: GalleryDetailPa
 
 export default async function GalleryDetailPage({ params, searchParams }: GalleryDetailPageProps) {
   const t = await getTranslations("Gallery.Labels");
+  const locale = await getLocale();
   const { slug } = await params;
   const { from, hasTourFilter, activeFilter } = readParams(await searchParams);
 
-  const resolved = await resolvePost(slug, hasTourFilter, from === "events");
+  const resolved = await resolvePost(slug, hasTourFilter, from === "events",locale);
   if (!resolved) notFound();
 
   let backLink = `/blog/${slug}`;
@@ -197,10 +200,7 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
       break;
     }
 
-    // case "staticBlog": {
-    //   items = (resolved.post.gallery || []) as GalleryItem[];
-    //   break;
-    // }
+   
 
     case "event": {
       const event = resolved.post;

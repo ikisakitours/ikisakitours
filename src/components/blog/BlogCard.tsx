@@ -12,6 +12,7 @@ type BlogCardProps = {
 };
 export function BlogCard({ post, index }: BlogCardProps) {
   const t = useTranslations("Blog.Card");
+  const tArticle = useTranslations("Blog.Article");
   const displayNumber = (index + 1).toString().padStart(2, "0");
 
   const formattedDate = new Date(post.createdAt).toLocaleDateString("en-US", {
@@ -19,6 +20,9 @@ export function BlogCard({ post, index }: BlogCardProps) {
     month: "short",
     day: "numeric",
   });
+
+  const match = post.readTime.match(/\d+/);
+  const readTimeNumber = match ? match[0] : "";
 
   return (
     <article className="group relative flex min-h-90 flex-col justify-between overflow-hidden rounded-4xl border border-white/5 bg-white/5 p-8 transition-all duration-500 hover:-translate-y-1 hover:border-gold/20">
@@ -54,8 +58,10 @@ export function BlogCard({ post, index }: BlogCardProps) {
         <p className="line-clamp-2 font-normal text-body leading-relaxed text-foreground/80 mb-8">{post.summary}</p>
 
         <div className="flex items-center justify-between text-caption font-bold uppercase tracking-widest text-slate-400/70 transition-colors group-hover:text-slate-400">
-          <span>{post.readTime}</span>
-          <span className="text-gold/70">By {post.author}</span>
+          <span>{readTimeNumber ? `${readTimeNumber} ${tArticle("min")}` : post.readTime}</span>{" "}
+          <span className="text-gold/70">
+            {tArticle("by")} {post.author}
+          </span>
         </div>
       </div>
 

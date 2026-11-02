@@ -2,45 +2,53 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useLocale } from "next-intl";
 import { fetchBlogServices } from "@/services/blogs/fetchBlogServices";
 import type { BlogPreview } from "@/services/blogs/types";
 
-export function useFetchBlogPreviews() {
-  const [data, setData] = useState<BlogPreview[] | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+interface PreviewsState {
+  key: string; 
+  data: BlogPreview[] | null;
+  error: string | null;
+}
 
-  const fetchPreviews = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await fetchBlogServices.getBlogPreviews();
-     console.log("📚 [ALL BLOGS LOADED]:", response);
-      setData(response);
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("Failed to load blog previews");
-      }
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+export function useFetchBlogPreviews() {
+  const locale = useLocale(); 
+
+  const [state, setState] = useState<PreviewsState | null>(null);
+  const [reloadCount, setReloadCount] = useState(0);
+
+  const requestKey = `${locale}:${reloadCount}`;
 
   useEffect(() => {
-    const loadPreviewData = async () => {
-      await fetchPreviews();
-    };
+    const controller = new AbortController();
 
-    loadPreviewData();
-  }, [fetchPreviews]);
+    fetchBlogServices
+      .getBlogPreviews(locale, controller.signal)
+      .then((response) => {
+        console.log(`📚 [ALL BLOGS LOADED - ${locale}]:`, response);
+        setState({ key: requestKey, data: response, error: null });
+      })
+      .catch((err: unknown) => {
+        if (err instanceof DOMException && err.name === "AbortError") return;
 
-  return {
-    data,
-    isLoading,
-    error,
-    refetch: fetchPreviews,
-  };
+        console.error(err);
+        setState({
+          key: requestKey,
+          data: null,
+          error: err instanceof Error ? err.message : "Failed to load blog previews",
+        });
+      });
+
+    return () => controller.abort();
+  }, [locale, requestKey]);
+
+  const refetch = useCallback(() => setReloadCount((c) => c + 1), []);
+
+  const isCurrent = state?.key === requestKey;
+  const isLoading = !isCurrent;
+  const data = state?.data ?? null;
+  const error = isCurrent ? state.error : null;
+
+  return { data, isLoading, error, refetch };
 }

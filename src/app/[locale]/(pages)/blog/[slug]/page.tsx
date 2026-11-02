@@ -1,3 +1,4 @@
+import { getLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { fetchBlogServices } from "@/services/blogs/fetchBlogServices";
 import { SingleBlogClientWrapper } from "@/components/blog/SingleBlogClientWrapper";
@@ -11,9 +12,10 @@ type BlogDetailPageProps = {
 
 export async function generateMetadata({ params }: BlogDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
+  const locale = await getLocale();
   const t = await getTranslations("Journal.Metadata");
   try {
-    const post = await fetchBlogServices.getBlogPostBySlug(slug);
+    const post = await fetchBlogServices.getBlogPostBySlug(slug, locale);
     const heroImage = post.gallery?.[0] || "/images/default-blog.jpg";
 
     return {

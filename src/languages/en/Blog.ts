@@ -63,6 +63,8 @@ export default {
     shareStory: "Share Story",
     lovedThis: "Loved this",
     //new
+    min: "min",
+    by: "By",
     wordsBy: "Words by",
     Pending: {
       backgroundText: "Pending",
