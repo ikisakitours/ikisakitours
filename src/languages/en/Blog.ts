@@ -3,8 +3,8 @@ export default {
     title: "Journal",
     description:
       "IkiSaki Tours brings you a curated selection of information for your trip to Sri Lanka. Through travel guides, insights into local culture, World Heritage sites, and breathtaking scenic spots, discover the charm of Sri Lanka and plan your own unique and unforgettable journey.",
-   //new
-      notFoundTitle: "Story not found",
+    //new
+    notFoundTitle: "Story not found",
   },
   Hero: {
     eyebrow: "The Journal",
@@ -43,6 +43,9 @@ export default {
       searchAndFilterNoResult: 'Your search for "{query}" in category "{category}" returned no articles.',
       redefine: "Please change your search criteria or reset the filters.",
       resetBtn: "Reset",
+      //new
+      noDataTitle: "No Stories Yet",
+      noDataDescription: "We are writing new travel stories. Please check back soon.",
     },
   },
   Card: {
@@ -59,7 +62,7 @@ export default {
     moreArticles: "More Articles",
     shareStory: "Share Story",
     lovedThis: "Loved this",
-     //new 
+    //new
     wordsBy: "Words by",
     Pending: {
       backgroundText: "Pending",

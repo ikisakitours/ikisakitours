@@ -17,6 +17,7 @@ type BlogExplorerProps = {
 };
 
 const INITIAL_COUNT = 6;
+const FORCE_EMPTY = false;
 
 export function BlogExplorer({ posts }: BlogExplorerProps) {
   const t = useTranslations("Blog.Explorer");
@@ -54,6 +55,7 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
 
   // FILTERING AND SORTING LOGIC
   const filteredPosts = useMemo(() => {
+    if (FORCE_EMPTY) return [];
     const normalizedQuery = query.trim().toLowerCase();
 
     const filtered = posts.filter((post) => {
@@ -77,6 +79,9 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
 
   const visiblePosts = filteredPosts.slice(0, visibleCount);
   const hasMore = visiblePosts.length < filteredPosts.length;
+  const hasNoData = FORCE_EMPTY || posts.length === 0;
+  const activeFilterCount =
+    (category !== "all" ? 1 : 0) + (readTime !== "all" ? 1 : 0) + (sortOrder !== "newest" ? 1 : 0);
 
   function selectCategory(nextCategory: string) {
     startTransition(() => {
@@ -99,45 +104,46 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
     <section id="blog" className="bg-lanka-dark">
       <ContainerLayout className="pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
         {/* Search Bar & Categories Trigger Button Section */}
-        <div className="mb-12 md:mb-16 xl:mb-16 2xl:mb-20 3xl:mb-24 space-y-8">
-          <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
-            <div className="relative flex shrink-0 justify-start">
-              <button
-                type="button"
-                onClick={() => setIsFilterOpen(true)}
-                className="group flex w-full items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-8 py-3.5 text-caption font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:w-auto"
-              >
-                <Filter className="h-4 w-4 transition-all duration-300 group-hover:scale-110 group-hover:text-black" />
-                <span className="transition-colors duration-300 group-hover:text-black sm:hidden">{t("filter")}</span>
-                <span className="hidden transition-colors duration-300 group-hover:text-black sm:block">
-                  {t("filterCategories")}
-                </span>
-
-                {category !== "all" && (
-                  <span className="ml-2 flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-micro font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a] group-hover:text-gold">
-                    1
+        {!hasNoData && (
+          <div className="mb-12 md:mb-16 xl:mb-16 2xl:mb-20 3xl:mb-24 space-y-8">
+            <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
+              <div className="relative flex shrink-0 justify-start">
+                <button
+                  type="button"
+                  onClick={() => setIsFilterOpen(true)}
+                  className="group flex w-full items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-8 py-3.5 text-caption font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:w-auto"
+                >
+                  <Filter className="h-4 w-4 transition-all duration-300 group-hover:scale-110 group-hover:text-black" />
+                  <span className="transition-colors duration-300 group-hover:text-black sm:hidden">{t("filter")}</span>
+                  <span className="hidden transition-colors duration-300 group-hover:text-black sm:block">
+                    {t("filterCategories")}
                   </span>
-                )}
-              </button>
+
+                  {activeFilterCount > 0 && (
+                    <span className="ml-2 flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-micro font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a] group-hover:text-gold">
+                      {activeFilterCount}
+                    </span>
+                  )}
+                </button>
+              </div>
+
+              {/* Search Input */}
+              <SearchInput
+                value={query}
+                onChange={(val) => {
+                  setQuery(val);
+                  setVisibleCount(INITIAL_COUNT);
+                }}
+                placeholder={t("searchPlaceholder")}
+                count={filteredPosts.length}
+                itemLabel={t("articleSingular")}
+                className="md:w-72 lg:w-96"
+              />
             </div>
 
-            {/* Search Input */}
-            <SearchInput
-              value={query}
-              onChange={(val) => {
-                setQuery(val);
-                setVisibleCount(INITIAL_COUNT);
-              }}
-              placeholder={t("searchPlaceholder")}
-              count={filteredPosts.length}
-              itemLabel={t("articleSingular")}
-              className="md:w-72 lg:w-96"
-            />
+            <div className="h-px w-full bg-linear-to-r from-transparent via-white/10 to-transparent" />
           </div>
-
-          <div className="h-px w-full bg-linear-to-r from-transparent via-white/10 to-transparent" />
-        </div>
-
+        )}
         {/* Reusable Category Filter Sidebar */}
         <FilterSidebar
           isOpen={isFilterOpen}
@@ -175,7 +181,7 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
             showResults: t("Sidebar.showResults"),
             rating: "",
             allRatings: "",
-            stars: "", 
+            stars: "",
           }}
         />
 
@@ -186,8 +192,18 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
               <BlogCard key={post.slug} post={post} index={index} />
             ))}
           </div>
+        ) : hasNoData ? (
+          <EmptyState
+            compact
+            className=""
+            backgroundText={t("EmptyState.backgroundText")}
+            title={t("EmptyState.noDataTitle")}
+            description={t("EmptyState.noDataDescription")}
+          />
         ) : (
           <EmptyState
+            compact
+            className=""
             backgroundText={t("EmptyState.backgroundText")}
             title={t("EmptyState.title")}
             description={
@@ -206,30 +222,30 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
             }}
           />
         )}
-
         {/* Footer/Load More */}
-        <div className="mt-8 flex flex-col items-center md:mt-14">
-          {hasMore ? (
-            <Button
-              type="button"
-              variant="explore"
-              onClick={() => setVisibleCount((count) => count + INITIAL_COUNT)}
-              className="w-full max-w-75 justify-center sm:w-auto [&_span]:text-caption!"
-            >
-              {t("loadMore")}
-            </Button>
-          ) : null}
+        {!hasNoData && filteredPosts.length > 0 && (
+          <div className="mt-8 flex flex-col items-center md:mt-14">
+            {hasMore ? (
+              <Button
+                type="button"
+                variant="explore"
+                onClick={() => setVisibleCount((count) => count + INITIAL_COUNT)}
+                className="w-full max-w-75 justify-center sm:w-auto [&_span]:text-caption!"
+              >
+                {t("loadMore")}
+              </Button>
+            ) : null}
 
-          <div className="mt-8 flex items-center gap-3">
-            <div className="h-px w-8 bg-gold/20" />
-            <p className="whitespace-nowrap text-tiny font-medium uppercase tracking-[0.2em] text-slate-500">
-              {t("showing")} <span className="text-gold">{visiblePosts.length}</span> {t("of")}{" "}
-              <span className="text-white">{filteredPosts.length}</span> {t("stories")}
-            </p>
-            <div className="h-px w-8 bg-gold/20" />
+            <div className="mt-8 flex items-center gap-3">
+              <div className="h-px w-8 bg-gold/20" />
+              <p className="whitespace-nowrap text-tiny font-medium uppercase tracking-[0.2em] text-slate-500">
+                {t("showing")} <span className="text-gold">{visiblePosts.length}</span> {t("of")}{" "}
+                <span className="text-white">{filteredPosts.length}</span> {t("stories")}
+              </p>
+              <div className="h-px w-8 bg-gold/20" />
+            </div>
           </div>
-        </div>
-
+        )}
         <PromoModal />
       </ContainerLayout>
     </section>

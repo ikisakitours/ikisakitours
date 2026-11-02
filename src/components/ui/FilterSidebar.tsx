@@ -47,6 +47,7 @@ type CategoryFilterSidebarProps = {
     allClimates?: string;
   };
   showAllCategory?: boolean;
+  showBottomBar?: boolean;
 };
 
 const customEase: [number, number, number, number] = [0.76, 0, 0.24, 1];
@@ -121,6 +122,7 @@ export function FilterSidebar({
   climates,
   labels,
   showAllCategory = true,
+  showBottomBar = true,
 }: CategoryFilterSidebarProps) {
   useEffect(() => {
     if (isOpen) {
@@ -276,36 +278,6 @@ export function FilterSidebar({
                 </div>
               )}
 
-              {/* Date Sort Section */}
-              {onSelectSort && (
-                <div className="space-y-4">
-                  <h3 className="text-caption font-bold uppercase tracking-widest text-white/50">
-                    {labels?.sortByDate || "Sort by Date"}
-                  </h3>
-
-                  {[
-                    { id: "newest", label: labels?.newestFirst || "Newest First" },
-                    { id: "oldest", label: labels?.oldestFirst || "Oldest First" },
-                  ].map((sortType) => {
-                    const isActive = selectedSort === sortType.id;
-                    return (
-                      <button
-                        key={sortType.id}
-                        onClick={() => onSelectSort(sortType.id as "newest" | "oldest")}
-                        className={`flex w-full items-center justify-between text-body-sm transition-colors hover:text-gold ${
-                          isActive ? "text-gold" : "text-slate-300"
-                        }`}
-                      >
-                        <span className="flex items-center gap-3">
-                          <input type="radio" checked={isActive} readOnly className="accent-gold h-4 w-4" />
-                          {sortType.label}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-
               {onSelectReadTime && readTimeOptions && (
                 <div className="space-y-4">
                   <h3 className="text-caption font-bold uppercase tracking-widest text-white/50">
@@ -424,53 +396,85 @@ export function FilterSidebar({
                   })}
                 </div>
               )}
+
+              {/* Date Sort Section */}
+              {onSelectSort && (
+                <div className="space-y-4">
+                  <h3 className="text-caption font-bold uppercase tracking-widest text-white/50">
+                    {labels?.sortByDate || "Sort by Date"}
+                  </h3>
+
+                  {[
+                    { id: "newest", label: labels?.newestFirst || "Newest First" },
+                    { id: "oldest", label: labels?.oldestFirst || "Oldest First" },
+                  ].map((sortType) => {
+                    const isActive = selectedSort === sortType.id;
+                    return (
+                      <button
+                        key={sortType.id}
+                        onClick={() => onSelectSort(sortType.id as "newest" | "oldest")}
+                        className={`flex w-full items-center justify-between text-body-sm transition-colors hover:text-gold ${
+                          isActive ? "text-gold" : "text-slate-300"
+                        }`}
+                      >
+                        <span className="flex items-center gap-3">
+                          <input type="radio" checked={isActive} readOnly className="accent-gold h-4 w-4" />
+                          {sortType.label}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
             {/* --- 3. BOTTOM BAR (Matching Reference) --- */}
-            <div className="relative z-20 flex gap-4 border-t border-white/10 bg-[#0a0a0a] p-8">
-              {showClearButton && (
+            {showBottomBar && (
+              <div className="relative z-20 flex gap-4 border-t border-white/10 bg-[#0a0a0a] p-8">
+                {showClearButton && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onSelectCategory("all");
+                      if (onSelectRating) onSelectRating("all");
+                      if (onSelectSort) onSelectSort("newest");
+                      if (onSelectReadTime) onSelectReadTime("all");
+                      if (onSelectBestTime) onSelectBestTime("all");
+                      if (onSelectClimate) onSelectClimate("all");
+                    }}
+                    className={`flex flex-1 items-center justify-center gap-2 rounded-full border py-4 text-caption font-bold uppercase transition-all duration-300 ${
+                      selectedCategory !== "all" ||
+                      (selectedRating && selectedRating !== "all") ||
+                      (selectedSort && selectedSort !== "newest") ||
+                      (selectedReadTime && selectedReadTime !== "all") ||
+                      (selectedBestTime && selectedBestTime !== "all") ||
+                      (selectedClimate && selectedClimate !== "all")
+                        ? "border-red-500/40 bg-red-950/30 text-red-400 hover:border-red-500/60 hover:bg-red-900/50"
+                        : "border-white/10 text-white hover:bg-white/5"
+                    }`}
+                  >
+                    {(selectedCategory !== "all" ||
+                      (selectedRating && selectedRating !== "all") ||
+                      (selectedSort && selectedSort !== "newest") ||
+                      (selectedReadTime && selectedReadTime !== "all")) && <FilterX className="h-3.5 w-3.5" />}
+                    {selectedCategory !== "all" ||
+                    (selectedRating && selectedRating !== "all") ||
+                    (selectedSort && selectedSort !== "newest") ||
+                    (selectedReadTime && selectedReadTime !== "all")
+                      ? "CLEAR FILTER"
+                      : clearFilterText}
+                  </button>
+                )}
+
                 <button
                   type="button"
-                  onClick={() => {
-                    onSelectCategory("all");
-                    if (onSelectRating) onSelectRating("all");
-                    if (onSelectSort) onSelectSort("newest");
-                    if (onSelectReadTime) onSelectReadTime("all");
-                    if (onSelectBestTime) onSelectBestTime("all");
-                    if (onSelectClimate) onSelectClimate("all");
-                  }}
-                  className={`flex flex-1 items-center justify-center gap-2 rounded-full border py-4 text-caption font-bold uppercase transition-all duration-300 ${
-                    selectedCategory !== "all" ||
-                    (selectedRating && selectedRating !== "all") ||
-                    (selectedSort && selectedSort !== "newest") ||
-                    (selectedReadTime && selectedReadTime !== "all") ||
-                    (selectedBestTime && selectedBestTime !== "all") ||
-                    (selectedClimate && selectedClimate !== "all")
-                      ? "border-red-500/40 bg-red-950/30 text-red-400 hover:border-red-500/60 hover:bg-red-900/50"
-                      : "border-white/10 text-white hover:bg-white/5"
-                  }`}
+                  onClick={onClose}
+                  className="flex-[1.2] rounded-full bg-gold py-4 text-caption font-black uppercase tracking-[0.2em] text-black shadow-md transition-colors hover:bg-yellow-500"
                 >
-                  {(selectedCategory !== "all" ||
-                    (selectedRating && selectedRating !== "all") ||
-                    (selectedSort && selectedSort !== "newest") ||
-                    (selectedReadTime && selectedReadTime !== "all")) && <FilterX className="h-3.5 w-3.5" />}
-                  {selectedCategory !== "all" ||
-                  (selectedRating && selectedRating !== "all") ||
-                  (selectedSort && selectedSort !== "newest") ||
-                  (selectedReadTime && selectedReadTime !== "all")
-                    ? "CLEAR FILTER"
-                    : clearFilterText}
+                  {labels?.showResults || "Show Results"} {totalResults !== undefined ? `(${totalResults})` : ""}{" "}
                 </button>
-              )}
-
-              <button
-                type="button"
-                onClick={onClose}
-                className="flex-[1.2] rounded-full bg-gold py-4 text-caption font-black uppercase tracking-[0.2em] text-black shadow-md transition-colors hover:bg-yellow-500"
-              >
-                {labels?.showResults || "Show Results"} {totalResults !== undefined ? `(${totalResults})` : ""}{" "}
-              </button>
-            </div>
+              </div>
+            )}
           </motion.div>
         </>
       )}

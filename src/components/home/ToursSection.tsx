@@ -93,7 +93,7 @@ export function ToursSection() {
         </motion.div>
 
         {/* Toggle Buttons */}
-        {hasPackages && (
+        {/* {hasPackages && ( */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -123,7 +123,7 @@ export function ToursSection() {
               {t("oneDayBtn")}
             </Button>
           </motion.div>
-        )}
+        {/* )} */}
         {/* Grid Layout with AnimatePresence for smooth transitions */}
         <div className={isLoading || error || hasPackages ? "min-h-100" : ""}>
           {isLoading ? (

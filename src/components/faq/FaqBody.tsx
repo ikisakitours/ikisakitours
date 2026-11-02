@@ -7,13 +7,14 @@ import { FilterSidebar } from "@/components/ui/FilterSidebar";
 import { SearchInput } from "@/components/ui/SearchInput";
 import { useTranslations } from "next-intl";
 import type { Faq } from "@/services/faqs/types";
+import { EmptyState } from "@/components/ui/EmptyState";
 
 interface FaqBodyProps {
   faqs: Faq[];
 }
 //icons
 import { Filter } from "lucide-react";
-
+const FORCE_EMPTY = false;
 export default function FaqBody({ faqs }: FaqBodyProps) {
   const t = useTranslations("FaqPage");
   const [searchQuery, setSearchQuery] = useState("");
@@ -27,6 +28,7 @@ export default function FaqBody({ faqs }: FaqBodyProps) {
 
   // Filter FAQs based on Search and Category
   const filteredFaqs = useMemo(() => {
+    if (FORCE_EMPTY) return [];
     return faqs.filter((faq) => {
       const searchLower = searchQuery.toLowerCase();
 
@@ -63,60 +65,71 @@ export default function FaqBody({ faqs }: FaqBodyProps) {
   const toggleFaq = (id: string) => {
     setOpenFaqId((prev) => (prev === id ? null : id));
   };
-
+  const hasNoData = FORCE_EMPTY || faqs.length === 0;
   return (
     <section className="w-full flex flex-col pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
       {/* Content wrapper using reusable ContainerLayout */}
       <ContainerLayout>
-        <div className="mb-12 md:mb-16 xl:mb-16 2xl:mb-20 3xl:mb-24 space-y-8">
-          <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
-            <div className="relative flex shrink-0 justify-start">
-              <button
-                type="button"
-                onClick={() => setIsFilterOpen(true)}
-                className="group flex w-full items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-8 py-3.5 text-caption font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:w-auto"
-              >
-                <Filter className="h-4 w-4 transition-all duration-300 group-hover:scale-110 group-hover:text-black" />
-                <span className="transition-colors duration-300 group-hover:text-black sm:hidden">
-                  {t("UI.filterButton")}
-                </span>
-                <span className="hidden transition-colors duration-300 group-hover:text-black sm:block">
-                  {t("UI.filterButton")}
-                </span>
-                {activeCategory.toLowerCase() !== "all" && (
-                  <span className="ml-2 flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-micro font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a] group-hover:text-gold">
-                    1
+        {!hasNoData && (
+          <div className="mb-12 md:mb-16 xl:mb-16 2xl:mb-20 3xl:mb-24 space-y-8">
+            <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
+              <div className="relative flex shrink-0 justify-start">
+                <button
+                  type="button"
+                  onClick={() => setIsFilterOpen(true)}
+                  className="group flex w-full items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-8 py-3.5 text-caption font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:w-auto"
+                >
+                  <Filter className="h-4 w-4 transition-all duration-300 group-hover:scale-110 group-hover:text-black" />
+                  <span className="transition-colors duration-300 group-hover:text-black sm:hidden">
+                    {t("UI.filterButton")}
                   </span>
-                )}
-              </button>
+                  <span className="hidden transition-colors duration-300 group-hover:text-black sm:block">
+                    {t("UI.filterButton")}
+                  </span>
+                  {activeCategory.toLowerCase() !== "all" && (
+                    <span className="ml-2 flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-micro font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a] group-hover:text-gold">
+                      1
+                    </span>
+                  )}
+                </button>
+              </div>
+
+              {/* Reusable Search Input */}
+              <SearchInput
+                value={searchQuery}
+                onChange={setSearchQuery}
+                placeholder={t("UI.searchPlaceholder")}
+                count={filteredFaqs.length}
+                itemLabel={t("UI.searchItemLabel")}
+                className="md:w-72 lg:w-96"
+                clearPositionClass="right-26"
+              />
             </div>
 
-            {/* Reusable Search Input */}
-            <SearchInput
-              value={searchQuery}
-              onChange={setSearchQuery}
-              placeholder={t("UI.searchPlaceholder")}
-              count={filteredFaqs.length}
-              itemLabel={t("UI.searchItemLabel")}
-              className="md:w-72 lg:w-96"
-              clearPositionClass="right-26"
-            />
+            <div className="h-px w-full bg-linear-to-r from-transparent via-white/10 to-transparent" />
           </div>
-
-          <div className="h-px w-full bg-linear-to-r from-transparent via-white/10 to-transparent" />
-        </div>
-
-        {/* FAQ Accordion List */}
-        <FaqAccordionList
-          filteredFaqs={filteredFaqs}
-          openFaqId={openFaqId}
-          toggleFaq={toggleFaq}
-          searchQuery={searchQuery}
-          activeCategory={activeCategory}
-          setSearchQuery={setSearchQuery}
-          setActiveCategory={setActiveCategory}
-          categoryLabels={categoryTranslatedLabels}
-        />
+        )}
+        {/* Empty State And FAQ Accordion List */}
+        {hasNoData ? (
+          <EmptyState
+            compact
+            className=""
+            backgroundText={t("EmptyState.backgroundText")}
+            title={t("EmptyState.noDataTitle")}
+            description={t("EmptyState.noDataDescription")}
+          />
+        ) : (
+          <FaqAccordionList
+            filteredFaqs={filteredFaqs}
+            openFaqId={openFaqId}
+            toggleFaq={toggleFaq}
+            searchQuery={searchQuery}
+            activeCategory={activeCategory}
+            setSearchQuery={setSearchQuery}
+            setActiveCategory={setActiveCategory}
+            categoryLabels={categoryTranslatedLabels}
+          />
+        )}
       </ContainerLayout>
 
       {/* Reusable Filter Sidebar */}

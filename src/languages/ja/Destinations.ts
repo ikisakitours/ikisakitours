@@ -36,6 +36,9 @@ export default {
       filterNoResult: "選択した条件に一致するスポットが見つかりませんでした.",
       redefine: "フィルターをリセットしてみてください.",
       resetBtn: "リセットする",
+      //new
+      noDataTitle: "目的地はまだありません",
+      noDataDescription: "新しい目的地を近日追加予定です.後ほどもう一度ご確認ください.",
     },
     Sidebar: {
       all: "すべて",
