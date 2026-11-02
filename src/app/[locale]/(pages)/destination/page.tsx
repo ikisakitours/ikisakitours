@@ -3,8 +3,8 @@ import { getTranslations } from "next-intl/server";
 import { Hero } from "@/components/ui/Hero";
 import { Suspense } from "react";
 import { useTranslations } from "next-intl";
-import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { PromoModal } from "@/components/ui/PromoModal";
+// import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
+// import { PromoModal } from "@/components/ui/PromoModal";
 import { DestinationsClientWrapper } from "@/components/Destinations/DestinationsClientWrapper";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -38,9 +38,9 @@ export default function DestinationsPage() {
       <Suspense fallback={<div className="text-white">Loading...</div>}>
         <DestinationsClientWrapper />
       </Suspense>
-      <ContainerLayout>
+      {/* <ContainerLayout>
         <PromoModal />
-      </ContainerLayout>
+      </ContainerLayout> */}
     </main>
   );
 }

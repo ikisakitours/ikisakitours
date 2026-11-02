@@ -3,8 +3,8 @@ import { getTranslations } from "next-intl/server";
 import { useTranslations } from "next-intl";
 import { BespokeForm } from "@/components/services/bespoke/BespokeForm";
 import { Hero } from "@/components/ui/Hero";
-import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { PromoModal } from "@/components/ui/PromoModal";
+// import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
+// import { PromoModal } from "@/components/ui/PromoModal";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -31,9 +31,9 @@ export default function BespokePage() {
       />
       <BespokeForm />
 
-      <ContainerLayout>
+      {/* <ContainerLayout>
         <PromoModal />
-      </ContainerLayout>
+      </ContainerLayout> */}
     </main>
   );
 }

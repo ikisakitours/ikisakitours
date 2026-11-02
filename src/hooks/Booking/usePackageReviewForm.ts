@@ -3,7 +3,11 @@ import { useValidationForm } from "@/hooks/useValidationForm";
 import { useTranslations } from "next-intl";
 import { PackageReviewService } from "@/services/Booking/PackageReviewService";
 import { useAuth } from "@/context/AuthContext";
-import { clearBookingReviewDraft, loadBookingReviewDraft, saveBookingReviewDraft } from "@/utils/bookingReviewDraft";
+import {
+  clearBookingReviewDraft,
+  loadBookingReviewDraft,
+  saveBookingReviewDraft,
+} from "@/utils/draft/bookingReviewDraft";
 import { useToast } from "@/context/ToastContext";
 import { convertToWebp } from "@/utils/convertToWebp";
 

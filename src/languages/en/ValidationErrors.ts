@@ -112,6 +112,21 @@ export default {
       description: "Please sign in to check availability. Your selected date and travelers are saved.",
       loginBtn: "Login to Continue",
     },
+    Bespoke: {
+      title: "Oops! Sign in required",
+      description: "Please sign in to submit your bespoke tour request. Your selected tour plan is saved.",
+      loginBtn: "Login to Continue",
+    },
+    VehicleBooking: {
+      title: "Oops! Sign in required",
+      description: "Please sign in to confirm your vehicle booking. Your vehicle and travel details are saved.",
+      loginBtn: "Login to Continue",
+    },
+    TransferBooking: {
+      title: "Oops! Sign in required",
+      description: "Please sign in to confirm your transfer booking. Your transfer route and details are saved.",
+      loginBtn: "Login to Continue",
+    },
   },
 
   // new translate need

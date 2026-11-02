@@ -4,7 +4,7 @@ import { writeReviewService } from "@/services/testimonials/writeReviewService";
 import { useTranslations } from "next-intl";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/context/ToastContext";
-import { clearReviewDraft, loadReviewDraft, saveReviewDraft } from "@/utils/reviewDraft";
+import { clearReviewDraft, loadReviewDraft, saveReviewDraft } from "@/utils/draft/reviewDraft";
 
 const AUTO_SUBMIT_AFTER_LOGIN = false;
 

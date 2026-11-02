@@ -2,8 +2,8 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { allSpecialEventsList } from "@/data/specialEvents";
 import { EventBody } from "@/components/Events/slug/EventBody";
-import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { PromoModal } from "@/components/ui/PromoModal";
+// import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
+// import { PromoModal } from "@/components/ui/PromoModal";
 interface PageProps {
   params: Promise<{
     slug: string;
@@ -53,9 +53,9 @@ export default async function SpecialEventDetailsPage({ params }: PageProps) {
   return (
     <main className="min-h-screen bg-lanka-dark">
       <EventBody listItem={listItem} />
-      <ContainerLayout>
+      {/* <ContainerLayout>
         <PromoModal />
-      </ContainerLayout>
+      </ContainerLayout> */}
     </main>
   );
 }

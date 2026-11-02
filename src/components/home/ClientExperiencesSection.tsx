@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { loadReviewDraft } from "@/utils/reviewDraft";
+import { loadReviewDraft } from "@/utils/draft/reviewDraft";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
 import { WriteReviewForm } from "@/components/ui/WriteReviewForm";

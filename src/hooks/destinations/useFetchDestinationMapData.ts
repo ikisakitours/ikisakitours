@@ -1,44 +1,53 @@
-// src/hooks/destinations/useFetchDestinationMapData.ts
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useLocale } from "next-intl";
 import { fetchDestinationServices } from "@/services/destinations/fetchDestinationServices";
 import type { DestinationMapData } from "@/services/destinations/types";
 
-export function useFetchDestinationMapData() {
-  const [data, setData] = useState<DestinationMapData[] | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+interface MapDataState {
+  key: string;
+  data: DestinationMapData[] | null;
+  error: string | null;
+}
 
-  const fetchMapData = useCallback(async () => {
-    try {
-      const response = await fetchDestinationServices.getDestinationMapData();
-      console.log("🌍 [ALL MAP DATA LOADED]:", response);
-      setData(response);
-      setError(null);
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("Failed to load map data");
-      }
-      console.error("❌ [MAP DATA ERROR]:", err);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+export function useFetchDestinationMapData() {
+  const locale = useLocale();
+
+  const [state, setState] = useState<MapDataState | null>(null);
+  const [reloadCount, setReloadCount] = useState(0);
+
+  const requestKey = `${locale}:${reloadCount}`;
 
   useEffect(() => {
-    const loadData = async () => {
-      await fetchMapData();
-    };
-    loadData();
-  }, [fetchMapData]);
+    const controller = new AbortController();
 
-  return {
-    data,
-    isLoading,
-    error,
-    refetch: fetchMapData,
-  };
+    fetchDestinationServices
+      .getDestinationMapData(locale, controller.signal)
+      .then((response) => {
+        console.log(`🌍 [ALL MAP DATA LOADED - ${locale}]:`, response);
+        setState({ key: requestKey, data: response, error: null });
+      })
+      .catch((err: unknown) => {
+        if (err instanceof DOMException && err.name === "AbortError") return;
+
+        console.error("❌ [MAP DATA ERROR]:", err);
+        setState({
+          key: requestKey,
+          data: null,
+          error: err instanceof Error ? err.message : "Failed to load map data",
+        });
+      });
+
+    return () => controller.abort();
+  }, [locale, requestKey]);
+
+  const refetch = useCallback(() => setReloadCount((c) => c + 1), []);
+
+  const isCurrent = state?.key === requestKey;
+  const isLoading = !isCurrent;
+  const data = state?.data ?? null;
+  const error = isCurrent ? state.error : null;
+
+  return { data, isLoading, error, refetch };
 }

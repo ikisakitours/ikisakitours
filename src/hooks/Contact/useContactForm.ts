@@ -4,7 +4,7 @@ import { contactApi } from "@/services/Contact/contactService";
 import { useTranslations } from "next-intl";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/context/ToastContext";
-import { clearContactDraft, loadContactDraft, saveContactDraft } from "@/utils/contactDraft";
+import { clearContactDraft, loadContactDraft, saveContactDraft } from "@/utils/draft/contactDraft";
 
 // if  this true when from auto submit
 const AUTO_SUBMIT_AFTER_LOGIN = false;

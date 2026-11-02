@@ -18,19 +18,17 @@ export function AuthRequiredModal({
 }: AuthRequiredModalProps) {
   const t = useTranslations(translationPath);
 
+  const locale = useLocale();
+  const pathname = usePathname();
+  const isAuthPage = pathname === "/" || pathname.startsWith("/login") || pathname.startsWith("/register");
+  const loginHref = isAuthPage ? "/login" : `/login?redirect=${encodeURIComponent(pathname).replace(/%2F/g, "/")}`;
 
-const locale = useLocale();
-const pathname = usePathname();
-const isAuthPage = pathname === "/" || pathname.startsWith("/login") || pathname.startsWith("/register");
-const loginHref = isAuthPage ? "/login" : `/login?redirect=${encodeURIComponent(pathname).replace(/%2F/g, "/")}`;
-
-const handleLoginClick = (e: React.MouseEvent) => {
-  e.preventDefault();
-  e.stopPropagation();
-  console.log("Login clicked →", `/${locale}${loginHref}`);
-  window.location.assign(`/${locale}${loginHref}`);
-};
-
+  const handleLoginClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log("Login clicked →", `/${locale}${loginHref}`);
+    window.location.assign(`/${locale}${loginHref}`);
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -49,11 +47,12 @@ const handleLoginClick = (e: React.MouseEvent) => {
   if (typeof document === "undefined") return null;
 
   return createPortal(
-    <div 
-     onClick={(e) => e.stopPropagation()}
-  onMouseDown={(e) => e.stopPropagation()}
-  onPointerDown={(e) => e.stopPropagation()}
-    className="fixed inset-0 z-9999 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 animate-in fade-in duration-200">
+    <div
+      onClick={(e) => e.stopPropagation()}
+      onMouseDown={(e) => e.stopPropagation()}
+      onPointerDown={(e) => e.stopPropagation()}
+      className="fixed inset-0 z-9999 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 animate-in fade-in duration-200"
+    >
       <div className="glass-card relative w-full max-w-md overflow-hidden rounded-3xl border border-white/10 bg-[#0a0a0a] p-8 text-center shadow-2xl">
         <button
           onClick={onClose}
@@ -70,13 +69,13 @@ const handleLoginClick = (e: React.MouseEvent) => {
         <p className="mb-8 text-body-sm text-slate-400">{t("description")}</p>
 
         <div className="flex flex-col gap-3">
-         <button
-  type="button"
-  onClick={handleLoginClick}
-  className="w-full rounded-xl bg-gold px-4 py-3.5 text-caption font-bold uppercase tracking-widest text-lanka-black transition-transform hover:scale-[1.02] active:scale-[0.98]"
->
-  {t("loginBtn")}
-</button>
+          <button
+            type="button"
+            onClick={handleLoginClick}
+            className="w-full rounded-xl bg-gold px-4 py-3.5 text-caption font-bold uppercase tracking-widest text-lanka-black transition-transform hover:scale-[1.02] active:scale-[0.98]"
+          >
+            {t("loginBtn")}
+          </button>
         </div>
       </div>
     </div>,

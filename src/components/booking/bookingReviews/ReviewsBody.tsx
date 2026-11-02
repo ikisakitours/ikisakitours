@@ -14,7 +14,7 @@ import { ApiCallLoader } from "@/components/ui/ApiCallLoader";
 import { ApiCallError } from "@/components/ui/ApiCallError";
 import { usePackageDetails } from "@/hooks/Booking/packageDetails/usePackageDetails";
 import { usePackageReviews } from "@/hooks/Booking/packageAllReview/useFetchAllPackageReviews";
-import { loadBookingReviewDraft } from "@/utils/bookingReviewDraft";
+import { loadBookingReviewDraft } from "@/utils/draft/bookingReviewDraft";
 //Icons
 import { Filter } from "lucide-react";
 
@@ -177,11 +177,11 @@ export default function ReviewsBody({ slug, tourType }: ReviewsBodyProps) {
                     const formattedReview = {
                       id: review.id,
                       name: review.fullName,
-                      firstName: review.userSnapshot?.firstName, 
+                      firstName: review.userSnapshot?.firstName,
                       lastName: review.userSnapshot?.lastName,
                       country: review.userSnapshot?.country || DEFAULT_COUNTRY,
-                      isVerified: review.userSnapshot?.isVerified, 
-                      isVip: review.userSnapshot?.isVip, 
+                      isVerified: review.userSnapshot?.isVerified,
+                      isVip: review.userSnapshot?.isVip,
                       avatar: review.userSnapshot?.avatarUrl,
                       date: new Date(review.createdAt).toLocaleDateString(),
                       text: review.experience,

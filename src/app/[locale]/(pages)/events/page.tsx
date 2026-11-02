@@ -4,8 +4,8 @@ import { Hero } from "@/components/ui/Hero";
 import { EventsBody } from "@/components/Events/EventsBody";
 import { allSpecialEventsList, categories } from "@/data/specialEvents";
 import { useTranslations } from "next-intl";
-import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { PromoModal } from "@/components/ui/PromoModal";
+// import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
+// import { PromoModal } from "@/components/ui/PromoModal";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -35,9 +35,9 @@ export default function SpecialEventsPage() {
     <main className="min-h-screen bg-background">
       <TranslatedHero />
       <EventsBody events={allSpecialEventsList} categories={categories} />
-      <ContainerLayout>
+      {/* <ContainerLayout>
         <PromoModal />
-      </ContainerLayout>
+      </ContainerLayout> */}
     </main>
   );
 }

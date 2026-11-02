@@ -4,7 +4,7 @@ import { bookingWidgetService } from "@/services/Booking/bookingWidgetService";
 import { useTranslations } from "next-intl";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/context/ToastContext";
-import { claimBookingDraft, clearBookingDraft, loadBookingDraft, saveBookingDraft } from "@/utils/bookingDraft";
+import { claimBookingDraft, clearBookingDraft, loadBookingDraft, saveBookingDraft } from "@/utils/draft/bookingDraft";
 
 // true: after login, the saved draft is submitted automatically
 const AUTO_SUBMIT_AFTER_LOGIN = false;

@@ -113,6 +113,21 @@ export default {
       description: "空き状況を確認するにはログインしてください。選択した日付と人数は保存されています。",
       loginBtn: "ログインして続ける",
     },
+    Bespoke: {
+      title: "ログインが必要です",
+      description: "オーダーメイドツアーのリクエストを送信するにはログインしてください。選択したツアープランは保存されています。",
+      loginBtn: "ログインして続行",
+    },
+    VehicleBooking: {
+      title: "ログインが必要です",
+      description: "配車予約を確定するにはログインしてください。車両と旅行の詳細は保存されています。",
+      loginBtn: "ログインして続行",
+    },
+    TransferBooking: {
+      title: "ログインが必要です",
+      description: "送迎予約を確定するにはログインしてください。送迎ルートと詳細は保存されています。",
+      loginBtn: "ログインして続行",
+    },
   },
 
   // new translate need

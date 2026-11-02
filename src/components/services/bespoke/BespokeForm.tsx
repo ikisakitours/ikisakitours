@@ -10,7 +10,7 @@ import { InfoSidebar } from "@/components/services/InfoSidebar";
 import { useTranslations } from "next-intl";
 import { useBespokeForm } from "@/hooks/services/useBespokeForm";
 import { CharterRatesSection } from "@/components/services/CharterRatesSection";
-
+import { AuthRequiredModal } from "@/components/ui/AuthRequiredModal";
 // Icons for Sidebar
 import { ShieldCheck, Clock, Headset, Sparkles } from "lucide-react";
 
@@ -62,6 +62,8 @@ export function BespokeForm() {
     setErrors,
     isLoading,
     handleSubmit,
+    showAuthModal,  
+    closeAuthModal,  
   } = useBespokeForm();
 
   return (
@@ -124,6 +126,12 @@ export function BespokeForm() {
       <div className="xl:col-span-12">
        <CrossPromotionSection tourType="one" />
       </div>
+
+      <AuthRequiredModal
+        isOpen={showAuthModal}
+        onClose={closeAuthModal}
+        translationPath="ValidationErrors.AuthRequired.Bespoke" 
+      />
     </ContainerLayout>
   );
 }
