@@ -2,7 +2,8 @@ import { cache } from "react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { blogPosts, type GalleryItem } from "@/data/blog";
+// import { blogPosts, type GalleryItem } from "@/data/blog";
+import type { GalleryItem } from "@/data/blog";
 import { allSpecialEventsList } from "@/data/specialEvents";
 import { GalleryCollection } from "@/components/gallery/GalleryCollection";
 import { GalleryHero } from "@/components/gallery/GalleryHero";
@@ -50,7 +51,7 @@ const getReviews = cache(async (packageId: string): Promise<ReviewType[]> => {
 
 type Resolved =
   | { kind: "blog"; post: BlogPost }
-  | { kind: "staticBlog"; post: (typeof blogPosts)[0] }
+  //| { kind: "staticBlog"; post: (typeof blogPosts)[0] }
   | { kind: "event"; post: (typeof allSpecialEventsList)[0] }
   | { kind: "tour"; post: PackageDetails }
   | null;
@@ -64,8 +65,8 @@ async function resolvePost(slug: string, hasTourFilter: boolean, fromEvent: bool
   const blog = await getBlog(slug);
   if (blog) return { kind: "blog", post: blog };
 
-  const staticBlog = blogPosts.find((p) => p.slug === slug);
-  if (staticBlog) return { kind: "staticBlog", post: staticBlog };
+  // const staticBlog = blogPosts.find((p) => p.slug === slug);
+  // if (staticBlog) return { kind: "staticBlog", post: staticBlog };
 
   if (fromEvent || allSpecialEventsList.some((e) => e.slug === slug)) {
     const event = allSpecialEventsList.find((e) => e.slug === slug);
@@ -196,10 +197,10 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
       break;
     }
 
-    case "staticBlog": {
-      items = (resolved.post.gallery || []) as GalleryItem[];
-      break;
-    }
+    // case "staticBlog": {
+    //   items = (resolved.post.gallery || []) as GalleryItem[];
+    //   break;
+    // }
 
     case "event": {
       const event = resolved.post;
