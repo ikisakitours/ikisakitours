@@ -50,9 +50,15 @@ function BlogArticleInner({ post }: BlogArticleProps) {
             {/* Right: Reading Time */}
             <div className="flex flex-col items-end gap-2 text-right">
               <span className="text-tiny font-bold uppercase tracking-[0.3em] text-gold/70">{t("readingTime")}</span>
-              <span className="text-body-sm font-extrabold uppercase tracking-wide text-white">
-                {post.readTime.replace(/read/i, "").trim()}
-              </span>
+              {(() => {
+                const match = post.readTime.match(/\d+/);
+                const number = match ? match[0] : "";
+                return (
+                  <span className="text-body-sm font-extrabold uppercase tracking-wide text-white">
+                  {number} {t("min")}
+                  </span>
+                );
+              })()}
             </div>
           </div>
         </div>
@@ -66,7 +72,8 @@ function BlogArticleInner({ post }: BlogArticleProps) {
               <EmptyState
                 backgroundText={t("Pending.backgroundText")}
                 title={t("Pending.title")}
-                description={t("Pending.description")} onAction={() => {
+                description={t("Pending.description")}
+                onAction={() => {
                   window.location.reload();
                 }}
               />
@@ -130,7 +137,7 @@ function BlogArticleInner({ post }: BlogArticleProps) {
               <div className="flex items-center gap-3">
                 <div className="h-px w-8 bg-gold/40" />
                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gold/70 sm:text-tiny">
-                 {t("wordsBy")} <span className="text-white/90">{post.author}</span>
+                  {t("wordsBy")} <span className="text-white/90">{post.author}</span>
                 </span>
               </div>
             </div>
@@ -139,7 +146,13 @@ function BlogArticleInner({ post }: BlogArticleProps) {
           <div className="mt-8 flex flex-row items-center justify-between gap-4 border-t border-white/10 pt-10">
             {/* Left: Like & Share Buttons Only */}
             <div className="flex items-center">
-              <ArticleActions initialLikes={post.likes} isLiked={post.isLiked} postTitle={post.title} postSlug={post.slug} postId={post.id}/>
+              <ArticleActions
+                initialLikes={post.likes}
+                isLiked={post.isLiked}
+                postTitle={post.title}
+                postSlug={post.slug}
+                postId={post.id}
+              />
             </div>
 
             {/* Right: Minimal More Articles Link */}

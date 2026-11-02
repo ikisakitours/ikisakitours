@@ -2,7 +2,7 @@ export default {
   Metadata: {
     title: "ジャーナル",
     description:
-      "IkiSaki Toursが厳選したスリランカ旅行の情報をお届けします。旅行ガイドや現地の文化、世界遺産、息をのむような絶景スポットを通して、スリランカの魅力を発見し、あなただけの特別な旅を計画しましょう.",
+      "IkiSaki Toursが厳選したスリランカ旅行の情報をお届けします.旅行ガイドや現地の文化、世界遺産、息をのむような絶景スポットを通して、スリランカの魅力を発見し、あなただけの特別な旅を計画しましょう.",
     //new
     notFoundTitle: "ストーリーが見つかりません",
   },
@@ -11,7 +11,7 @@ export default {
     title: "IkiSaki",
     accent: "と発見する旅",
     strapline:
-      "スリランカの旅、文化、歴史、そして隠れた魅力をご紹介します。特別な旅を計画するためのヒントを見つけましょう.",
+      "スリランカの旅、文化、歴史、そして隠れた魅力をご紹介します.特別な旅を計画するためのヒントを見つけましょう.",
     image: "https://images.unsplash.com/photo-1546708973-b339540b5162?auto=format&fit=crop&q=80&w=2400",
     alt: "クラシックなコンパスとスリランカのビンテージ地図",
   },
@@ -63,11 +63,13 @@ export default {
     shareStory: "ストーリーを共有する",
     lovedThis: "お気に入り",
     //new
+    min: "分",
+    by: "執筆:",
     wordsBy: "執筆：",
     Pending: {
       backgroundText: "準備中",
       title: "コンテンツは近日公開",
-      description: "現在、この記事を制作しております。公開まで今しばらくお待ちください.",
+      description: "現在、この記事を制作しております.公開まで今しばらくお待ちください.",
     },
   },
 } as const;
