@@ -243,7 +243,7 @@ export function TestimonialExplorer({ comments }: TestimonialExplorerProps) {
               ) : (
                 <EmptyState
                   compact
-                  className=""
+                  className="w-full overflow-hidden"
                   backgroundText={t("EmptyState.backgroundText")}
                   title={hasNoReviews ? t("EmptyState.noReviewsTitle") : t("EmptyState.title")}
                   description={hasNoReviews ? t("EmptyState.noReviewsDescription") : t("EmptyState.description")}
