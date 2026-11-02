@@ -77,19 +77,20 @@ export default function CoveredCitiesRoute({ destinations }: CoveredCitiesRouteP
 
   if (!destinations || destinations.length === 0) return null;
 
-const mappedDestinations = destinations.map((dest, index) => {
+  const mappedDestinations = destinations.map((dest, index) => {
     const fullMapData = allMapDestinations?.find((item) => item.slug === dest.slug || item.id === dest.id);
 
     return {
       id: dest.id || String(index + 1),
       slug: dest.slug || "",
-      title: fullMapData?.title || dest.slug.replace(/-/g, ' ') || "",
+      title: fullMapData?.title || dest.slug.replace(/-/g, " ") || "",
       coordinates: {
         lat: fullMapData?.coordinates?.lat || 0,
         lng: fullMapData?.coordinates?.lng || 0,
       },
       heroImage: fullMapData?.heroImage || "",
       summary: fullMapData?.summary || "",
+      language: fullMapData?.language || "en",
     };
   });
 
@@ -122,9 +123,9 @@ const mappedDestinations = destinations.map((dest, index) => {
               onScroll={checkScrollPosition}
               className="no-scrollbar flex items-center gap-2 overflow-x-auto pb-2 scroll-smooth"
             >
-             {destinations.map((dest, idx) => {
+              {destinations.map((dest, idx) => {
                 const fullMapData = allMapDestinations?.find((item) => item.slug === dest.slug || item.id === dest.id);
-                const safeTitle = fullMapData?.title || dest.slug || ""; 
+                const safeTitle = fullMapData?.title || dest.slug || "";
 
                 return (
                   <React.Fragment key={dest.id || idx}>
