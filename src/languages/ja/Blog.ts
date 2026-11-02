@@ -4,7 +4,7 @@ export default {
     description:
       "IkiSaki Toursが厳選したスリランカ旅行の情報をお届けします。旅行ガイドや現地の文化、世界遺産、息をのむような絶景スポットを通して、スリランカの魅力を発見し、あなただけの特別な旅を計画しましょう.",
     //new
-      notFoundTitle: "ストーリーが見つかりません",
+    notFoundTitle: "ストーリーが見つかりません",
   },
   Hero: {
     eyebrow: "ジャーナル",
@@ -43,6 +43,9 @@ export default {
       searchAndFilterNoResult: "「{category}」カテゴリ内で「{query}」に一致する記事は見つかりませんでした.",
       redefine: "検索条件を変更するか、フィルターをリセットしてください.",
       resetBtn: "探索をリセット",
+      //new
+      noDataTitle: "記事はまだありません",
+      noDataDescription: "新しい旅のストーリーを準備中です.後ほどもう一度ご確認ください.",
     },
   },
   Card: {
@@ -59,7 +62,7 @@ export default {
     moreArticles: "その他の記事",
     shareStory: "ストーリーを共有する",
     lovedThis: "お気に入り",
-    //new 
+    //new
     wordsBy: "執筆：",
     Pending: {
       backgroundText: "準備中",

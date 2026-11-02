@@ -2,7 +2,8 @@ export default {
   MultiDay: {
     Metadata: {
       title: "Sightseeing Tours",
-      description: "Discover a selection of exclusive tour packages across Sri Lanka, curated by IkiSaki. Enjoy a premium travel experience as you explore historical heritage sites, lush natural landscapes, religious and cultural landmarks, and stunning coastal regions.",
+      description:
+        "Discover a selection of exclusive tour packages across Sri Lanka, curated by IkiSaki. Enjoy a premium travel experience as you explore historical heritage sites, lush natural landscapes, religious and cultural landmarks, and stunning coastal regions.",
     },
     Hero: {
       badge: "Sightseeing - Tours",
@@ -17,7 +18,8 @@ export default {
   OneDay: {
     Metadata: {
       title: "One Day Tours",
-      description: "Experience the best of Sri Lanka—from World Heritage sites and breathtaking scenery to historic townscapes—all in a single day. Even with limited time, you can enjoy a special, memorable experience.",
+      description:
+        "Experience the best of Sri Lanka—from World Heritage sites and breathtaking scenery to historic townscapes—all in a single day. Even with limited time, you can enjoy a special, memorable experience.",
     },
     Hero: {
       badge: "Quick Escapes",
@@ -55,6 +57,9 @@ export default {
       filterNoResult: "No packages match the selected filters.",
       redefine: "Please adjust your trip criteria or reset your filters.",
       resetBtn: "Reset",
+      //new
+      noDataTitle: "No Tours Yet",
+      noDataDescription: "We are preparing new tour packages. Please check back soon.",
     },
     Sidebar: {
       categories: "Categories",

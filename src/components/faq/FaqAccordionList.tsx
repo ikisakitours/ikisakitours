@@ -102,6 +102,8 @@ export default function FaqAccordionList({
     <div className="space-y-4">
       {filteredFaqs.length === 0 ? (
         <EmptyState
+          compact
+          className=""
           backgroundText={t("EmptyState.backgroundText")}
           title={t("EmptyState.title")}
           description={getEmptyDescription()}

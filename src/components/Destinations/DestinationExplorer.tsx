@@ -20,6 +20,7 @@ type DestinationExplorerProps = {
   destinations: DestinationPreview[];
 };
 const INITIAL_COUNT = 3;
+const FORCE_EMPTY = false;
 
 export function DestinationExplorer({ destinations }: DestinationExplorerProps) {
   const searchParams = useSearchParams();
@@ -83,7 +84,7 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
   }, [destinations, dynamicCategories]);
 
   const filteredDestinations = useMemo(() => {
-    if (!destinations) return [];
+    if (!destinations || FORCE_EMPTY) return [];
     const normalizedQuery = query.trim().toLowerCase();
 
     return destinations.filter((item) => {
@@ -101,12 +102,14 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
   const visibleDestinations = filteredDestinations.slice(0, visibleCount);
   const hasMore = visibleDestinations.length < filteredDestinations.length;
 
+  const hasNoData = FORCE_EMPTY || destinations.length === 0;
+  const activeFilterCount = (category !== "all" ? 1 : 0) + (bestTime !== "all" ? 1 : 0) + (climate !== "all" ? 1 : 0);
   return (
     <section id="destinations" className="bg-lanka-dark">
       <ContainerLayout className="pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
         <div className=" flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="w-full flex-1">
-            {!showMap && (
+            {!showMap && !hasNoData && (
               <FilterButtonSearchInput
                 query={query}
                 setQuery={setQuery}
@@ -115,6 +118,7 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
                 setVisibleCount={setVisibleCount}
                 initialCount={INITIAL_COUNT}
                 setIsFilterOpen={setIsFilterOpen}
+                activeFilterCount={activeFilterCount}
               />
             )}
             {!showMap && filteredDestinations.length > 0 && (
@@ -189,8 +193,18 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
                   </div>
                 </div>
               </>
+            ) : hasNoData ? (
+              <EmptyState
+                compact
+                className=""
+                backgroundText={t("EmptyState.backgroundText")}
+                title={t("EmptyState.noDataTitle")}
+                description={t("EmptyState.noDataDescription")}
+              />
             ) : (
               <EmptyState
+                compact
+                className=""
                 backgroundText={t("EmptyState.backgroundText")}
                 title={t("EmptyState.title")}
                 description={

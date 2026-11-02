@@ -11,6 +11,7 @@ type FilterButtonSearchInputProps = {
   setVisibleCount: React.Dispatch<React.SetStateAction<number>>;
   initialCount: number;
   setIsFilterOpen: (isOpen: boolean) => void;
+   activeFilterCount?: number;
 };
 
 export default function FilterButtonSearchInput({
@@ -21,6 +22,7 @@ export default function FilterButtonSearchInput({
   setVisibleCount,
   initialCount,
   setIsFilterOpen,
+  activeFilterCount = 0, 
 }: FilterButtonSearchInputProps) {
   const t = useTranslations("Destinations.Explorer");
 
@@ -41,9 +43,9 @@ export default function FilterButtonSearchInput({
               {t("filterRegions")}
             </span>
 
-            {category !== "all" && (
+           {activeFilterCount > 0 && (
               <span className="ml-2 flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-micro font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a] group-hover:text-gold">
-                1
+                {activeFilterCount}
               </span>
             )}
           </button>
@@ -59,6 +61,7 @@ export default function FilterButtonSearchInput({
           count={filteredCount}
           itemLabel={t("destinations")}
           className="lg:w-96 md:w-72"
+          clearPositionClass="right-23"
         />
       </div>
       <div className="h-px w-full bg-linear-to-r from-transparent via-white/10 to-transparent" />

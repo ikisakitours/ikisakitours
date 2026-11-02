@@ -22,6 +22,7 @@ type TestimonialExplorerProps = {
 };
 
 const INITIAL_COUNT = 3;
+const FORCE_EMPTY = false;
 
 export function TestimonialExplorer({ comments }: TestimonialExplorerProps) {
   const t = useTranslations("Testimonials.Explorer");
@@ -52,6 +53,7 @@ export function TestimonialExplorer({ comments }: TestimonialExplorerProps) {
 
   // FILTERING LOGIC
   const filteredTestimonials = useMemo(() => {
+    if (FORCE_EMPTY) return [];
     let result = [...comments];
 
     // 2. Language Filter
@@ -142,8 +144,8 @@ export function TestimonialExplorer({ comments }: TestimonialExplorerProps) {
       setVisibleCount(INITIAL_COUNT);
     });
   }
-  const hasNoReviews = comments.length === 0;
-
+  const hasNoReviews = FORCE_EMPTY || comments.length === 0;
+  const activeFilterCount = (language !== "all" ? 1 : 0) + (rating !== "all" ? 1 : 0) + (sortDate !== "newest" ? 1 : 0);
   return (
     <section className="py-12 md:py-16 xl:py-16 2xl:py-20 3xl:py-24 ">
       <ContainerLayout>
@@ -181,7 +183,7 @@ export function TestimonialExplorer({ comments }: TestimonialExplorerProps) {
               )}
             </AnimatePresence>
           </div>
-          {!isWritingReview && comments.length > 0 && (
+          {!isWritingReview && !hasNoReviews && (
             <div className="relative flex justify-end">
               <button
                 type="button"
@@ -196,9 +198,9 @@ export function TestimonialExplorer({ comments }: TestimonialExplorerProps) {
                   {t("filterLanguages")}
                 </span>
 
-                {language !== "all" && (
+                {activeFilterCount > 0 && (
                   <span className="ml-2 flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-micro font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a] group-hover:text-gold">
-                    1
+                    {activeFilterCount}
                   </span>
                 )}
               </button>
@@ -240,34 +242,37 @@ export function TestimonialExplorer({ comments }: TestimonialExplorerProps) {
                 </div>
               ) : (
                 <EmptyState
+                  compact
+                  className=""
                   backgroundText={t("EmptyState.backgroundText")}
                   title={hasNoReviews ? t("EmptyState.noReviewsTitle") : t("EmptyState.title")}
                   description={hasNoReviews ? t("EmptyState.noReviewsDescription") : t("EmptyState.description")}
-                  buttonText={hasNoReviews ? t("EmptyState.writeReview") : t("EmptyState.clearFilter")}
-                  onAction={hasNoReviews ? () => setIsWritingReview(true) : clearFilters}
+                  buttonText={hasNoReviews ? undefined : t("EmptyState.clearFilter")}
+                  onAction={hasNoReviews ? undefined : clearFilters}
                 />
               )}
-
-              <div className="mt-8 flex flex-col items-center md:mt-14">
-                {hasMore && (
-                  <Button
-                    type="button"
-                    className="[&_span]:text-caption!"
-                    variant="explore"
-                    onClick={() => setVisibleCount((count) => count + INITIAL_COUNT)}
-                  >
-                    {t("loadMore")}
-                  </Button>
-                )}
-                <div className="mt-8 flex items-center gap-3">
-                  <div className="h-px w-8 bg-gold/20" />
-                  <p className="whitespace-nowrap text-tiny font-medium uppercase tracking-[0.2em] text-slate-500">
-                    {t("showing")} <span className="text-gold">{visibleTestimonials.length}</span> {t("of")}
-                    <span className="text-white"> {filteredTestimonials.length}</span> {t("journals")}
-                  </p>
-                  <div className="h-px w-8 bg-gold/20" />
+              {filteredTestimonials.length > 0 && (
+                <div className="mt-8 flex flex-col items-center md:mt-14">
+                  {hasMore && (
+                    <Button
+                      type="button"
+                      className="[&_span]:text-caption!"
+                      variant="explore"
+                      onClick={() => setVisibleCount((count) => count + INITIAL_COUNT)}
+                    >
+                      {t("loadMore")}
+                    </Button>
+                  )}
+                  <div className="mt-8 flex items-center gap-3">
+                    <div className="h-px w-8 bg-gold/20" />
+                    <p className="whitespace-nowrap text-tiny font-medium uppercase tracking-[0.2em] text-slate-500">
+                      {t("showing")} <span className="text-gold">{visibleTestimonials.length}</span> {t("of")}
+                      <span className="text-white"> {filteredTestimonials.length}</span> {t("journals")}
+                    </p>
+                    <div className="h-px w-8 bg-gold/20" />
+                  </div>
                 </div>
-              </div>
+              )}
             </motion.div>
           )}
         </AnimatePresence>

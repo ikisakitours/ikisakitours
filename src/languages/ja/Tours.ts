@@ -58,6 +58,9 @@ export default {
       filterNoResult: "選択したフィルターに該当するパッケージはありません.",
       redefine: "旅行の条件を再設定するか、フィルターをリセットしてください.",
       resetBtn: "リセットする",
+      //new
+      noDataTitle: "ツアーはまだありません",
+      noDataDescription: "新しいツアーパッケージを準備中です.後ほどもう一度ご確認ください.",
     },
     Sidebar: {
       categories: "カテゴリー",

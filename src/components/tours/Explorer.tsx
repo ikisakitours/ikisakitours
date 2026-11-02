@@ -22,6 +22,7 @@ type PackageExplorerProps = {
 };
 
 const INITIAL_COUNT = 4;
+const FORCE_EMPTY = false;
 
 export function Explorer({ tourType = "multi" }: PackageExplorerProps) {
   const t = useTranslations("Tours.Explorer");
@@ -124,6 +125,7 @@ export function Explorer({ tourType = "multi" }: PackageExplorerProps) {
 
   // Update filtering logic to use API fields
   const filteredPackages = useMemo(() => {
+    if (FORCE_EMPTY) return [];
     const normalizedQuery = query.trim().toLowerCase();
 
     return packages.filter((item) => {
@@ -157,6 +159,8 @@ export function Explorer({ tourType = "multi" }: PackageExplorerProps) {
 
   const visiblePackages = filteredPackages.slice(0, visibleCount);
   const hasMore = visiblePackages.length < filteredPackages.length;
+  const hasNoData = FORCE_EMPTY || packages.length === 0;
+
   const tApi = useTranslations("Common.Api");
   if (isLoading) {
     return (
@@ -184,47 +188,49 @@ export function Explorer({ tourType = "multi" }: PackageExplorerProps) {
   return (
     <section id="packages" className="bg-lanka-dark">
       <ContainerLayout className="pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28 space-y-8">
-        <div className="mb-12 md:mb-16 xl:mb-16 2xl:mb-20 3xl:mb-24 space-y-8">
-          <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
-            <div className="relative flex shrink-0 justify-start">
-              <button
-                type="button"
-                onClick={() => setIsFilterOpen(true)}
-                className="group flex w-full items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-8 py-3.5  text-caption font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:w-auto"
-              >
-                <Filter className="h-4 w-4 transition-all duration-300 group-hover:scale-110 group-hover:text-black" />
-                <span className="transition-colors duration-300 group-hover:text-black">{t("filterPackages")}</span>
+        {!hasNoData && (
+          <div className="mb-12 md:mb-16 xl:mb-16 2xl:mb-20 3xl:mb-24 space-y-8">
+            <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
+              <div className="relative flex shrink-0 justify-start">
+                <button
+                  type="button"
+                  onClick={() => setIsFilterOpen(true)}
+                  className="group flex w-full items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-8 py-3.5  text-caption font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:w-auto"
+                >
+                  <Filter className="h-4 w-4 transition-all duration-300 group-hover:scale-110 group-hover:text-black" />
+                  <span className="transition-colors duration-300 group-hover:text-black">{t("filterPackages")}</span>
 
-                {(category !== "all" ||
-                  duration !== "all" ||
-                  priceRange !== dynamicPriceFilters[0].label ||
-                  rating !== dynamicRatingFilters[0].label) && (
-                  <span className="ml-2 flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-micro font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a] group-hover:text-gold">
-                    {(category !== "all" ? 1 : 0) +
-                      (duration !== "all" ? 1 : 0) +
-                      (priceRange !== dynamicPriceFilters[0].label ? 1 : 0) +
-                      (rating !== dynamicRatingFilters[0].label ? 1 : 0)}
-                  </span>
-                )}
-              </button>
+                  {(category !== "all" ||
+                    duration !== "all" ||
+                    priceRange !== dynamicPriceFilters[0].label ||
+                    rating !== dynamicRatingFilters[0].label) && (
+                    <span className="ml-2 flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-micro font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a] group-hover:text-gold">
+                      {(category !== "all" ? 1 : 0) +
+                        (duration !== "all" ? 1 : 0) +
+                        (priceRange !== dynamicPriceFilters[0].label ? 1 : 0) +
+                        (rating !== dynamicRatingFilters[0].label ? 1 : 0)}
+                    </span>
+                  )}
+                </button>
+              </div>
+
+              <SearchInput
+                value={query}
+                onChange={(val) => {
+                  setQuery(val);
+                  setVisibleCount(INITIAL_COUNT);
+                }}
+                placeholder={t("searchPlaceholder")}
+                count={filteredPackages.length}
+                itemLabel={t("packages")}
+                className="w-full md:w-72 lg:flex-none lg:w-96"
+                clearPositionClass="right-27"
+              />
             </div>
 
-            <SearchInput
-              value={query}
-              onChange={(val) => {
-                setQuery(val);
-                setVisibleCount(INITIAL_COUNT);
-              }}
-              placeholder={t("searchPlaceholder")}
-              count={filteredPackages.length}
-              itemLabel={t("packages")}
-              className="w-full md:w-72 lg:flex-none lg:w-96"
-              clearPositionClass ="right-27"
-            />
+            <div className="h-px w-full bg-linear-to-r from-transparent via-white/10 to-transparent" />
           </div>
-
-          <div className="h-px w-full bg-linear-to-r from-transparent via-white/10 to-transparent" />
-        </div>
+        )}
 
         {filteredPackages.length > 0 ? (
           <>
@@ -256,31 +262,41 @@ export function Explorer({ tourType = "multi" }: PackageExplorerProps) {
               </div>
             </div>
           </>
+        ) : hasNoData ? (
+  <EmptyState
+    compact
+    className=""
+    backgroundText={t("EmptyState.backgroundText")}
+    title={t("EmptyState.noDataTitle")}
+    description={t("EmptyState.noDataDescription")}
+  />
+) : (
+  <EmptyState
+    compact
+    className=""
+    backgroundText={t("EmptyState.backgroundText")}
+    title={t("EmptyState.title")}
+    description={
+      <>
+        {query.trim() !== "" ? (
+          <>{t("EmptyState.searchNoResult", { query: query })}</>
         ) : (
-          <EmptyState
-            backgroundText={t("EmptyState.backgroundText")}
-            title={t("EmptyState.title")}
-            description={
-              <>
-                {query.trim() !== "" ? (
-                  <>{t("EmptyState.searchNoResult", { query: query })}</>
-                ) : (
-                  <>{t("EmptyState.filterNoResult")}</>
-                )}
-                <br />
-                {t("EmptyState.redefine")}
-              </>
-            }
-            buttonText={t("EmptyState.resetBtn")}
-            onAction={() => {
-              setQuery("");
-              setCategory("all");
-              setDuration("all");
-              setPriceRange(dynamicPriceFilters[0].label);
-              setRating(dynamicRatingFilters[0].label);
-            }}
-          />
+          <>{t("EmptyState.filterNoResult")}</>
         )}
+        <br />
+        {t("EmptyState.redefine")}
+      </>
+    }
+    buttonText={t("EmptyState.resetBtn")}
+    onAction={() => {
+      setQuery("");
+      setCategory("all");
+      setDuration("all");
+      setPriceRange(dynamicPriceFilters[0].label);
+      setRating(dynamicRatingFilters[0].label);
+    }}
+  />
+)}
       </ContainerLayout>
 
       <FilterSidebar

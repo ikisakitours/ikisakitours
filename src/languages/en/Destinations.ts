@@ -1,9 +1,10 @@
 export default {
   Metadata: {
     title: "Destinations",
-    description: "Discover the best places to visit in Sri Lanka, from UNESCO World Heritage Sites and beautiful beaches to historic temples and lush green mountains. Explore our carefully selected destinations and find inspiration for your next journey.",
-  //new
-  slugTitle: "{destinationName} Travel Guide & Attractions",
+    description:
+      "Discover the best places to visit in Sri Lanka, from UNESCO World Heritage Sites and beautiful beaches to historic temples and lush green mountains. Explore our carefully selected destinations and find inspiration for your next journey.",
+    //new
+    slugTitle: "{destinationName} Travel Guide & Attractions",
     slugNotFoundTitle: "Destination Not Found",
     slugNotFoundDesc: "The requested destination could not be found.",
   },
@@ -11,7 +12,8 @@ export default {
     eyebrow: "EXPLORE ISLAND",
     title: "A journey to the ",
     accent: "islands",
-    strapline: "Discover the charm of Sri Lanka, where history, culture, and nature come together to create an unforgettable journey.",
+    strapline:
+      "Discover the charm of Sri Lanka, where history, culture, and nature come together to create an unforgettable journey.",
     image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
     alt: "Breathtaking sunset over a pristine Sri Lankan beach",
   },
@@ -21,8 +23,7 @@ export default {
     watermark: "IkiSaki",
     geoBadge: "Geographical Discovery",
     mapTitle: "Discover Destinations Visually",
-    mapDesc:
-      "You can easily check the locations of the spots you’d like to visit using an interactive map.",
+    mapDesc: "You can easily check the locations of the spots you’d like to visit using an interactive map.",
     viewMapBtn: "View Route Map",
     loadMore: "See More Places",
     showing: "Showing",
@@ -36,6 +37,9 @@ export default {
       filterNoResult: "No matching places were found with these filters.",
       redefine: "Please try resetting your filters.",
       resetBtn: "Reset",
+      //new
+      noDataTitle: "No Destinations Yet",
+      noDataDescription: "We are adding new destinations soon. Please check back later.",
     },
     Sidebar: {
       all: "All",
