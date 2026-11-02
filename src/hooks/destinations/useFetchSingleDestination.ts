@@ -1,51 +1,55 @@
-// src/hooks/destinations/useFetchSingleDestination.ts
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useLocale } from "next-intl";
 import { fetchDestinationServices } from "@/services/destinations/fetchDestinationServices";
 import type { DestinationFull } from "@/services/destinations/types";
 
+interface DestState {
+  key: string;
+  slug: string;
+  data: DestinationFull | null;
+  error: string | null;
+}
+
 export function useFetchSingleDestination(slug: string) {
-  const [data, setData] = useState<DestinationFull | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const locale = useLocale();
 
-  const fetchDestination = useCallback(async () => {
-    try {
-      const response = await fetchDestinationServices.getDestinationBySlug(slug);
-      console.log(`📍 [SINGLE DESTINATION LOADED - ${slug}]:`, response);
-      setData(response);
-      setError(null);
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("Failed to load destination");
-      }
-      console.error("❌ [SINGLE DESTINATION ERROR]:", err);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [slug]);
+  const [state, setState] = useState<DestState | null>(null);
+  const [reloadCount, setReloadCount] = useState(0);
 
-  const handleRefetch = useCallback(() => {
-    setIsLoading(true);
-    setError(null);
-    fetchDestination();
-  }, [fetchDestination]);
+  const requestKey = `${slug}:${locale}:${reloadCount}`;
 
   useEffect(() => {
-    const loadData = async () => {
-      await fetchDestination();
-    };
+    const controller = new AbortController();
 
-    loadData();
-  }, [fetchDestination]);
+    fetchDestinationServices
+      .getDestinationBySlug(slug, locale, controller.signal)
+      .then((response) => {
+        console.log(`📍 [SINGLE DESTINATION LOADED - ${slug} | ${locale}]:`, response);
+        setState({ key: requestKey, slug, data: response, error: null });
+      })
+      .catch((err: unknown) => {
+        if (err instanceof DOMException && err.name === "AbortError") return;
 
-  return {
-    data,
-    isLoading,
-    error,
-    refetch: handleRefetch,
-  };
+        console.error("❌ [SINGLE DESTINATION ERROR]:", err);
+        setState({
+          key: requestKey,
+          slug,
+          data: null,
+          error: err instanceof Error ? err.message : "Failed to load destination",
+        });
+      });
+
+    return () => controller.abort();
+  }, [slug, locale, requestKey]);
+
+  const refetch = useCallback(() => setReloadCount((c) => c + 1), []);
+
+  const isCurrent = state?.key === requestKey;
+  const isLoading = !isCurrent;
+  const data = state && state.slug === slug ? state.data : null;
+  const error = isCurrent ? state.error : null;
+
+  return { data, isLoading, error, refetch };
 }

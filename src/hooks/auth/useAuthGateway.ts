@@ -23,6 +23,7 @@ export function useAuthGateway() {
   const toast = useToast();
   const tToast = useTranslations("ValidationErrors.ToastMessages.SocialLogin");
   const searchParams = useSearchParams();
+  const redirectPath = searchParams.get("redirect") || "/";
 
   useEffect(() => {
     const error = searchParams.get("error");
@@ -69,7 +70,7 @@ export function useAuthGateway() {
     try {
       setLoadingProvider(provider);
       console.log(`Redirecting to ${provider} authentication...`);
-      authService.socialLogin(provider);
+      authService.socialLogin(provider, redirectPath);
     } catch (error) {
       toast.error(toastId, tToast("error"));
       console.error(`${provider} login error:`, error);

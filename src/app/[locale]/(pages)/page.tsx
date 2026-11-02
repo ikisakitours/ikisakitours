@@ -9,8 +9,8 @@ import { TransfersSection } from "@/components/home/TransfersSection";
 import { CustomTourSection } from "@/components/home/CustomTourSection";
 import HomeContactCTA from "@/components/home/HomeContactCTA";
 // import { SpecialEventsSection } from "@/components/home/EventsSection";
-import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { PromoModal } from "@/components/ui/PromoModal";
+// import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
+// import { PromoModal } from "@/components/ui/PromoModal";
 
 
 export default function HomePage() {
@@ -37,9 +37,9 @@ export default function HomePage() {
       {/* 5. Action Phase */}
       <HomeContactCTA hideOnMobile={true} />
 
-      <ContainerLayout>
+      {/* <ContainerLayout>
         <PromoModal />
-      </ContainerLayout>
+      </ContainerLayout> */}
     </>
   );
 }

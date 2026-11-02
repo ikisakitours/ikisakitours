@@ -11,6 +11,7 @@ import { useTranslations } from "next-intl";
 import { languages } from "@/data/Languages-CurrencyData";
 import { usePrivateVehicleForm } from "@/hooks/services/usePrivateVehicleForm";
 import { CharterRatesSection } from "@/components/services/CharterRatesSection";
+import { AuthRequiredModal } from "@/components/ui/AuthRequiredModal";
 // Icons for Sidebar
 import { Car, UserCheck, Map, Wallet } from "lucide-react";
 
@@ -60,6 +61,8 @@ export function PrivateVehicleForm() {
     setErrors,
     isLoading,
     handleSubmit,
+    showAuthModal, 
+    closeAuthModal, 
   } = usePrivateVehicleForm();
   return (
     <ContainerLayout className="relative z-20 pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
@@ -72,7 +75,7 @@ export function PrivateVehicleForm() {
               activeFilter={activeFilter}
               onFilterChange={setActiveFilter}
               onVehicleChange={setSelectedVehicleId}
-              tourPackageType={tourPackageType} 
+              tourPackageType={tourPackageType}
               onTourPackageTypeChange={setTourPackageType}
               date={date}
               onDateChange={setDate}
@@ -117,8 +120,14 @@ export function PrivateVehicleForm() {
       </div>
 
       <div className="xl:col-span-12">
-       <CrossPromotionSection tourType="multi" />
+        <CrossPromotionSection tourType="multi" />
       </div>
+
+      <AuthRequiredModal
+        isOpen={showAuthModal}
+        onClose={closeAuthModal}
+        translationPath="ValidationErrors.AuthRequired.VehicleBooking"
+      />
     </ContainerLayout>
   );
 }

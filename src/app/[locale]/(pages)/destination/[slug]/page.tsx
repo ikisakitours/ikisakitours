@@ -2,8 +2,8 @@
 
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { PromoModal } from "@/components/ui/PromoModal";
+// import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
+// import { PromoModal } from "@/components/ui/PromoModal";
 import { DestinationSlugClientWrapper } from "@/components/Destinations/DestinationSlugClientWrapper";
 import { fetchDestinationServices } from "@/services/destinations/fetchDestinationServices";
 import { getTranslations } from "next-intl/server";
@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: DestinationPageProps): Promis
   const { slug, locale } = await params;
   const t = await getTranslations({ locale, namespace: "Destinations.Metadata" });
   try {
-    const dest = await fetchDestinationServices.getDestinationBySlug(slug);
+    const dest = await fetchDestinationServices.getDestinationBySlug(slug, locale);
     return {
       title: t("slugTitle", { destinationName: dest.title }),
       description: dest.summary,
@@ -38,9 +38,9 @@ export default async function DestinationPage({ params }: DestinationPageProps) 
         <DestinationSlugClientWrapper slug={slug} />
       </Suspense>
 
-      <ContainerLayout>
+      {/* <ContainerLayout>
         <PromoModal />
-      </ContainerLayout>
+      </ContainerLayout> */}
     </main>
   );
 }

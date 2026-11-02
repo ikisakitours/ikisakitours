@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Explorer } from "@/components/tours/Explorer";
 import { TourHero } from "@/components/tours/TourHero";
-import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { PromoModal } from "@/components/ui/PromoModal";
+// import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
+// import { PromoModal } from "@/components/ui/PromoModal";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -20,9 +20,9 @@ export default function OneDayToursPage() {
       <TourHero namespace="Tours.OneDay" />
       <Explorer  tourType="one" />
 
-      <ContainerLayout>
+      {/* <ContainerLayout>
         <PromoModal />
-      </ContainerLayout>
+      </ContainerLayout> */}
     </main>
   );
 }

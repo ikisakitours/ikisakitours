@@ -3,7 +3,8 @@ import { GalleryCollection } from "@/components/gallery/GalleryCollection";
 import { GalleryHero } from "@/components/gallery/GalleryHero";
 import type { GalleryItem } from "@/data/blog";
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+// import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { fetchDestinationServices } from "@/services/destinations/fetchDestinationServices";
 
 type DestinationGalleryPageProps = {
@@ -13,10 +14,11 @@ type DestinationGalleryPageProps = {
 
 export async function generateMetadata({ params }: DestinationGalleryPageProps): Promise<Metadata> {
   const t = await getTranslations("Gallery.Metadata");
+  const locale = await getLocale();
   const { slug } = await params;
 
   try {
-    const dest = await fetchDestinationServices.getDestinationBySlug(slug);
+    const dest = await fetchDestinationServices.getDestinationBySlug(slug, locale);
     return {
       title: t("destTitle", { name: dest.title }),
       description: t("destDesc", { name: dest.title }),
@@ -31,11 +33,12 @@ export async function generateMetadata({ params }: DestinationGalleryPageProps):
 
 export default async function DestinationGalleryPage({ params }: DestinationGalleryPageProps) {
   const t = await getTranslations("Gallery.Labels");
+  const locale = await getLocale();
   const { slug } = await params;
 
   let dest;
   try {
-    dest = await fetchDestinationServices.getDestinationBySlug(slug);
+    dest = await fetchDestinationServices.getDestinationBySlug(slug, locale);
   } catch {
     notFound();
   }

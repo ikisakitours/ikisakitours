@@ -10,6 +10,7 @@ import StepHeading from "@/components/services/StepHeading";
 import { useTranslations } from "next-intl";
 import { languages } from "@/data/Languages-CurrencyData";
 import { useTransferBookingForm } from "@/hooks/services/useTransferBookingForm";
+import { AuthRequiredModal } from "@/components/ui/AuthRequiredModal";
 
 export function TransferBookingForm() {
   const tStep = useTranslations("Services.StepHeadings");
@@ -41,6 +42,8 @@ export function TransferBookingForm() {
     setErrors,
     isLoading,
     handleSubmit,
+    showAuthModal,
+    closeAuthModal,
   } = useTransferBookingForm();
 
   return (
@@ -103,6 +106,11 @@ export function TransferBookingForm() {
       <div className="xl:col-span-12">
         <CrossPromotionSection />
       </div>
+      <AuthRequiredModal
+        isOpen={showAuthModal}
+        onClose={closeAuthModal}
+        translationPath="ValidationErrors.AuthRequired.TransferBooking"
+      />
     </ContainerLayout>
   );
 }

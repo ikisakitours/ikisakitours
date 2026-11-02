@@ -23,19 +23,19 @@ export default function SidebarWidget({ name, dest }: Props) {
         {/* Details List */}
         <div className="flex flex-col">
           <div className="flex items-center justify-between border-b border-white/5 py-4">
-            <span className="text-body-sm font-medium text-slate-400">Best Time to Visit</span>
+            <span className="text-body-sm font-medium text-slate-400">{t("bestTime")}</span>
             <span className="text-right text-body-sm font-bold text-white">{dest.bestTimeToVisit}</span>
           </div>
           <div className="flex items-center justify-between border-b border-white/5 py-4">
-            <span className="text-body-sm font-medium text-slate-400">Climate</span>
+            <span className="text-body-sm font-medium text-slate-400">{t("climate")}</span>
             <span className="text-right text-body-sm font-bold text-white">{dest.climate}</span>
           </div>
           <div className="flex items-center justify-between border-b border-white/5 py-4">
-            <span className="text-body-sm font-medium text-slate-400">Primary Languages</span>
+            <span className="text-body-sm font-medium text-slate-400">{t("languages")}</span>
             <span className="text-right text-body-sm font-bold text-white">{dest.primaryLanguage}</span>
           </div>
           <div className="flex items-center justify-between py-4">
-            <span className="text-body-sm font-medium text-slate-400">Local Currency</span>
+            <span className="text-body-sm font-medium text-slate-400">{t("currency")}</span>
             <span className="text-right text-body-sm font-bold text-white">{dest.localCurrency}</span>
           </div>
         </div>

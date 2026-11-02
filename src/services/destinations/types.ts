@@ -9,6 +9,7 @@ export interface DestinationPreview {
   heroImage: string | null;
   bestTimeToVisit: string;
   climate: string;
+  language: string;
 }
 
 export interface DestinationFull {
@@ -28,6 +29,7 @@ export interface DestinationFull {
     lat: number;
     lng: number;
   };
+  language: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -43,4 +45,5 @@ export interface DestinationMapData {
     lng: number;
   };
   heroImage: string | null;
+  language: string;
 }

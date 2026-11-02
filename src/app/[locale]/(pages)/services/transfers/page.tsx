@@ -3,8 +3,8 @@ import { getTranslations } from "next-intl/server";
 import { useTranslations } from "next-intl";
 import { TransferBookingForm } from "@/components/services/transfers/TransferBookingForm";
 import { Hero } from "@/components/ui/Hero";
-import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { PromoModal } from "@/components/ui/PromoModal";
+// import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
+// import { PromoModal } from "@/components/ui/PromoModal";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -29,9 +29,9 @@ export default function TransfersPage() {
         strapline={t("strapline")}
       />
       <TransferBookingForm />
-      <ContainerLayout>
+      {/* <ContainerLayout>
         <PromoModal />
-      </ContainerLayout>
+      </ContainerLayout> */}
     </main>
   );
 }

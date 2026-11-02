@@ -1,9 +1,8 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
 
 export const authService = {
-  
- socialLogin: (provider: "google" | "facebook" | "instagram") => {
-    window.location.href = `${API_URL}/social-auth/${provider}`;
+  socialLogin: (provider: "google" | "facebook" | "instagram", redirectPath: string = "/") => {
+    window.location.href = `${API_URL}/social-auth/${provider}?state=${encodeURIComponent(redirectPath)}`;
   },
 
   // Login data send to backend

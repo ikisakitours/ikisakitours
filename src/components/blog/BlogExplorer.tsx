@@ -9,7 +9,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { SearchInput } from "@/components/ui/SearchInput";
 import { Filter } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { PromoModal } from "@/components/ui/PromoModal";
+// import { PromoModal } from "@/components/ui/PromoModal";
 import type { BlogPreview } from "@/services/blogs/types";
 
 type BlogExplorerProps = {
@@ -246,7 +246,7 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
             </div>
           </div>
         )}
-        <PromoModal />
+        {/* <PromoModal /> */}
       </ContainerLayout>
     </section>
   );
