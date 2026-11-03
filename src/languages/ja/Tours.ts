@@ -58,7 +58,6 @@ export default {
       filterNoResult: "選択したフィルターに該当するパッケージはありません.",
       redefine: "旅行の条件を再設定するか、フィルターをリセットしてください.",
       resetBtn: "リセットする",
-      //new
       noDataTitle: "ツアーはまだありません",
       noDataDescription: "新しいツアーパッケージを準備中です.後ほどもう一度ご確認ください.",
     },
@@ -72,9 +71,17 @@ export default {
       showResults: "検索結果を表示",
     },
   },
+  //new
   Card: {
     startingFrom: "〜から始める",
     details: "詳細",
     newBadge: "新着",
+    save: "{discount}% オフ",
+    Badges: {
+      popular: "人気",
+      discounted: "割引",
+      new_arrival: "新着",
+      featured: "おすすめ",
+    },
   },
 } as const;

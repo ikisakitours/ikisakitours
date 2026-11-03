@@ -3,8 +3,7 @@ export default {
     title: "目的地",
     description:
       "スリランカ旅行で訪れたいおすすめの観光スポットをご紹介。世界遺産や美しいビーチ、歴史ある寺院、緑豊かな山々など、スリランカならではの魅力あふれる名所を厳選しました。次の旅の計画にぜひお役立てください.",
-    //new
-    slugTitle: "{destinationName} トラベルガイド＆観光スポット",
+    slugTitle: "{destinationName} おすすめの観光スポット",
     slugNotFoundTitle: "目的地が見つかりません",
     slugNotFoundDesc: "リクエストされた目的地が見つかりませんでした.",
   },
@@ -36,7 +35,6 @@ export default {
       filterNoResult: "選択した条件に一致するスポットが見つかりませんでした.",
       redefine: "フィルターをリセットしてみてください.",
       resetBtn: "リセットする",
-      //new
       noDataTitle: "目的地はまだありません",
       noDataDescription: "新しい目的地を近日追加予定です.後ほどもう一度ご確認ください.",
     },

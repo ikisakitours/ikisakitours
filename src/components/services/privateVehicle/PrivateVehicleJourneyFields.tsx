@@ -1,14 +1,14 @@
 import { fieldLabelClass, inputClass } from "@/components/services/formStyles";
 import CustomDatePicker from "@/components/ui/CustomDatePicker";
 import CustomTimePicker from "@/components/ui/CustomTimePicker";
-import { VehicleSelector, type ActiveVehicleFilter } from "@/components/services/VehicleSelector";
+// import { VehicleSelector, type ActiveVehicleFilter } from "@/components/services/VehicleSelector";
 import { TravelerPicker } from "@/components/ui/TravelerPicker";
 import { TourDurationPicker } from "@/components/ui/TourDurationPicker";
 import { FormError } from "@/components/ui/FormError";
 import LanguageSelect, { type LanguageOption } from "@/components/services/LanguageSelect";
 import { useAvailability } from "@/hooks/date-availability/useAvailability";
 import { useAutoResizeTextarea } from "@/hooks/useAutoResizeTextarea";
-
+import { VehicleSelector, type ActiveVehicleFilter, type ServiceType } from "@/components/services/VehicleSelector";
 //Icons
 import { Globe, MapPin } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -17,8 +17,8 @@ type PrivateVehicleJourneyFieldsProps = {
   activeFilter: ActiveVehicleFilter;
   onFilterChange: (filter: ActiveVehicleFilter) => void;
   onVehicleChange: (vehicleId: string) => void;
-  tourPackageType?: "driver" | "guide";
-  onTourPackageTypeChange?: (type: "driver" | "guide") => void;
+  tourPackageType?: ServiceType;
+  onTourPackageTypeChange?: (type: ServiceType) => void;
   date: string;
   onDateChange: (date: string) => void;
   time: string;
@@ -38,8 +38,6 @@ type PrivateVehicleJourneyFieldsProps = {
   languagesList: LanguageOption[];
   isLoading?: boolean;
 };
-
-
 
 export function PrivateVehicleJourneyFields({
   activeFilter,
@@ -67,7 +65,7 @@ export function PrivateVehicleJourneyFields({
   isLoading = false,
 }: PrivateVehicleJourneyFieldsProps) {
   const tForm = useTranslations("SharedForm");
-const { textareaRef, handleInput } = useAutoResizeTextarea(tourRequests);
+  const { textareaRef, handleInput } = useAutoResizeTextarea(tourRequests);
   const travelerOptions = [
     {
       type: "adult",
@@ -109,6 +107,7 @@ const { textareaRef, handleInput } = useAutoResizeTextarea(tourRequests);
           isLoading={isLoading}
           serviceType={tourPackageType}
           onServiceTypeChange={onTourPackageTypeChange}
+          noteServiceType="chauffeur"
         />
       </div>
 

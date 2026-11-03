@@ -16,16 +16,14 @@ const AUTO_SUBMIT_AFTER_LOGIN = false;
 const DRAFT_KEY = "transfer_form";
 
 export function useTransferBookingForm() {
-  const defaultCategory = vehicles[0].category;
-  const defaultVehicleId = vehicles[0].id;
-
   const searchParams = useSearchParams();
   const typeParam = searchParams.get("type") as TransferServiceId | null;
   const initialServiceType = typeParam && transferServiceIds.includes(typeParam) ? typeParam : "pickup";
 
   const [serviceType, setServiceType] = useState<TransferServiceId>(initialServiceType);
-  const [activeFilter, setActiveFilter] = useState<ActiveVehicleFilter>(defaultCategory);
-  const [selectedVehicleId, setSelectedVehicleId] = useState(defaultVehicleId);
+
+  const [activeFilter, setActiveFilter] = useState<ActiveVehicleFilter>("");
+  const [selectedVehicleId, setSelectedVehicleId] = useState("");
 
   const [pickupLocation, setPickupLocation] = useState("");
   const [dropoffLocation, setDropoffLocation] = useState("");
@@ -71,8 +69,8 @@ export function useTransferBookingForm() {
   };
 
   const selectedVehicle = useMemo(
-    () => vehicles.find((vehicle) => vehicle.id === selectedVehicleId) ?? vehicles[0],
-    [selectedVehicleId],
+    () => vehicles.find((vehicle) => vehicle.category.toLowerCase() === activeFilter.toLowerCase()) ?? vehicles[0],
+    [activeFilter],
   );
 
   const getTodayFormatted = () => {
@@ -132,6 +130,10 @@ export function useTransferBookingForm() {
       setLanguage("");
       setTravelerCounts({ adult: 0, couple: 0, child: 0, infant: 0 });
       setContact((prev) => ({ ...prev, phone: "", specialRequests: "" }));
+      setServiceType(initialServiceType);
+
+      setActiveFilter("");
+      setSelectedVehicleId("");
     } catch (error) {
       console.error("Submission error:", error);
       toast.error(toastId, tToast("error"));

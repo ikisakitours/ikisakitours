@@ -43,11 +43,10 @@ export default {
       showResults: "Show Results",
     },
     EmptyState: {
-      backgroundText: "Testimonials",
+      backgroundText: "Thoughts",
       title: "no testimonials found",
       description: "We currently don't have any testimonials to display.",
       clearFilter: "Clear Filter",
-      //new (no reviews at all)
       noReviewsTitle: "No Reviews Yet",
       noReviewsDescription: "Be the first to share your IkiSaki experience and inspire fellow travelers.",
       writeReview: "Write a Review",

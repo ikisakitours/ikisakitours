@@ -57,7 +57,6 @@ export default {
       filterNoResult: "No packages match the selected filters.",
       redefine: "Please adjust your trip criteria or reset your filters.",
       resetBtn: "Reset",
-      //new
       noDataTitle: "No Tours Yet",
       noDataDescription: "We are preparing new tour packages. Please check back soon.",
     },
@@ -71,9 +70,17 @@ export default {
       showResults: "Show Results",
     },
   },
+  //new
   Card: {
     startingFrom: "Starting from",
     details: "Details",
     newBadge: "New",
+    save: "Save {discount}%",
+Badges: {
+      popular: "Popular",
+      discounted: "Discounted",
+      new_arrival: "New Arrival",
+      featured: "Featured",
+    },
   },
 } as const;

@@ -67,10 +67,17 @@ export default {
     capacity: "乗車人数",
     pax: "名",
     luggage: "手荷物",
+    bags: "個",
     note: "備考",
-    customizeTour: "ツアーパッケージをカスタマイズする",
+    customizeTour: "サービスタイプを選択",
     withDriver: "ドライバー付き",
     withGuide: "ガイド付き",
+    both: "ドライバー ＆ ガイド",
+    serviceHints: {
+      driver: "ドライバー＆専用車",
+      guide: "専門ツアーガイド",
+      both: "ドライバー＆ガイド",
+    },
     Notes: {
       sedan: [
         "カップルや一人旅に最適です.",

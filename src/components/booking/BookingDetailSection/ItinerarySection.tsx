@@ -179,7 +179,7 @@ export default function ItinerarySection({ tour }: ItinerarySectionProps) {
                           </span>
                           <div className="flex items-center gap-2 text-body-sm font-bold text-white">
                             <Utensils className="h-4 w-4 text-gold shrink-0" />
-                            <span>{day.meals.join(", ")}</span>
+                            <span>{day.meals}</span>
                           </div>
                         </div>
                       )}
@@ -192,7 +192,7 @@ export default function ItinerarySection({ tour }: ItinerarySectionProps) {
                           </span>
                           <div className="flex items-center gap-2 text-body-sm font-bold text-white">
                             <Bed className="h-4 w-4 text-gold shrink-0" />
-                            <span>{day.accommodation.join(", ")}</span>
+                            <span>{day.accommodation}</span>
                           </div>
                         </div>
                       )}

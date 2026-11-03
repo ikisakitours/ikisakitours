@@ -1,8 +1,9 @@
 // src/utils/draft/servicesDraft.ts
+import type { ServiceType } from "@/components/services/VehicleSelector";
 
 export type ServicesDraft = {
   // Service Fields
-  activeFilter?: string;        
+  activeFilter?: string;
   selectedVehicleId?: string;
   serviceType?: string;
   pickupLocation?: string;
@@ -13,19 +14,19 @@ export type ServicesDraft = {
   tourDays?: number;
   travelerCounts?: Record<string, number>;
   tourRequests?: string;
-  tourPackageType?: "driver" | "guide";
-  
+  tourPackageType?: ServiceType;
+
   // Contact Fields
   fullName: string;
   email: string;
   phone: string;
   specialRequests: string;
-  
+
   autoSubmit?: boolean;
   savedAt: number;
 };
 
-const TTL_MS = 30 * 60 * 1000; 
+const TTL_MS = 30 * 60 * 1000;
 
 const keyFor = (key: string) => `ikisaki_service_draft_${key}`;
 
@@ -55,7 +56,7 @@ export function loadServiceDraft(key: string): ServicesDraft | null {
 export function claimServiceDraft(key: string): ServicesDraft | null {
   const draft = loadServiceDraft(key);
   if (!draft) return null;
-  clearServiceDraft(key); 
+  clearServiceDraft(key);
   return draft;
 }
 

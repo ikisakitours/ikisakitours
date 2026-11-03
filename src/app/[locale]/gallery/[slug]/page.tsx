@@ -21,15 +21,15 @@ type GalleryDetailPageProps = {
 
 const getBlog = cache(async (slug: string, locale: string): Promise<BlogPost | null> => {
   try {
-    return await fetchBlogServices.getBlogPostBySlug(slug, locale); 
+    return await fetchBlogServices.getBlogPostBySlug(slug, locale);
   } catch {
     return null;
   }
 });
 
-const getTour = cache(async (slug: string): Promise<PackageDetails | null> => {
+const getTour = cache(async (slug: string, locale: string): Promise<PackageDetails | null> => {
   try {
-    return await packageDetailsService.getPackageBySlug(slug);
+    return await packageDetailsService.getPackageBySlug(slug, locale);
   } catch (error) {
     if (!(error instanceof Error && error.message === "NOT_FOUND")) {
       console.error(`Failed to fetch package for gallery slug: ${slug}`, error);
@@ -62,11 +62,11 @@ async function resolvePost(
   locale: string,
 ): Promise<Resolved> {
   if (hasTourFilter) {
-    const tour = await getTour(slug);
+    const tour = await getTour(slug, locale);
     if (tour) return { kind: "tour", post: tour };
   }
 
-  const blog = await getBlog(slug, locale); 
+  const blog = await getBlog(slug, locale);
   if (blog) return { kind: "blog", post: blog };
 
   if (fromEvent || allSpecialEventsList.some((e) => e.slug === slug)) {
@@ -75,7 +75,7 @@ async function resolvePost(
   }
 
   if (!hasTourFilter) {
-    const tour = await getTour(slug);
+    const tour = await getTour(slug, locale);
     if (tour) return { kind: "tour", post: tour };
   }
 
@@ -126,7 +126,7 @@ export async function generateMetadata({ params, searchParams }: GalleryDetailPa
   const { slug } = await params;
   const { from, hasTourFilter, activeFilter } = readParams(await searchParams);
 
-  const resolved = await resolvePost(slug, hasTourFilter, from === "events",locale);
+  const resolved = await resolvePost(slug, hasTourFilter, from === "events", locale);
 
   if (!resolved) {
     return { title: t("notFoundTitle"), description: t("notFoundDesc") };
@@ -178,7 +178,7 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
   const { slug } = await params;
   const { from, hasTourFilter, activeFilter } = readParams(await searchParams);
 
-  const resolved = await resolvePost(slug, hasTourFilter, from === "events",locale);
+  const resolved = await resolvePost(slug, hasTourFilter, from === "events", locale);
   if (!resolved) notFound();
 
   let backLink = `/blog/${slug}`;
@@ -200,8 +200,6 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
       break;
     }
 
-   
-
     case "event": {
       const event = resolved.post;
       backLink = `/events/${slug}`;
@@ -222,7 +220,14 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
       if (activeFilter === "moments" || activeFilter === "all-moments") {
         const reviews = await getReviews(tour.id);
         const urls = reviews.flatMap((r) => r.imageUrls || []);
-        items = toItems(urls, "moment", `${fullTitle} moment`, t("guestMoments"), t("guestMoments"));
+      items = toItems(
+          urls, 
+          "moment", 
+          `${fullTitle} moment`, 
+          fullTitle, // <--- 1. Title එකට Tour එකේ නම (fullTitle) දෙන්න
+          t("guestMoment") // <--- 2. Category එකට "Guest Moments" දෙන්න
+        );
+
         heroTitle = t("guestMoments");
         heroSubtitle = t("capturedMemories", { title: fullTitle });
       } else if (activeFilter?.startsWith("review-")) {
@@ -241,8 +246,8 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
             review.imageUrls,
             `review-${review.id}`,
             `${review.fullName} photo`,
-            review.fullName,
             t("reviewBy", { name: review.fullName }),
+            t("guestMoments"),
           );
           heroTitle = t("reviewBy", { name: review.fullName });
           heroSubtitle = t("galleryMoments", { name: review.fullName });

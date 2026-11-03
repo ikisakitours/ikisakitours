@@ -4,11 +4,9 @@ export default {
     titleEmail: "メールを送信",
     onlineStatus: "オンライン",
     logoAlt: "IkiSaki ロゴ",
-    // new
     titleBot: "AIアシスタント",
   },
 
-  //new
   BotChat: {
     guideBadge: "スリランカ旅行ガイド",
     initialGreeting: "こんにちは！私はIkiSaki AI旅行ガイドです。今日はどのようなスリランカの旅をお手伝いしましょうか？",
@@ -44,7 +42,6 @@ export default {
     customerSupport: "カスタマーサポート",
     recentMessage: "👋 こんにちは！どのようにお手伝いしましょうか？",
     timeNow: "たった今",
-    //new
     botTitle: "AIアシスタントとチャット",
     botSubtitle: "即座に自動回答を取得",
   },

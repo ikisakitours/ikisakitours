@@ -77,6 +77,9 @@ export default {
       title: "No Reviews Found",
       description: "No reviews found for this selection.",
       clearBtn: "Clear Filters",
+      //new
+      noReviewsDescription: "Be the first to share your story and photos with fellow travelers.",
+      writeFirstReview: "Write a Review",
     },
   },
   ReviewsHeader: {

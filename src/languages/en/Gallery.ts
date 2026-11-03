@@ -36,6 +36,8 @@ export default {
     storyGallery: "Story Gallery",
     eventHighlightsGallery: "Event Highlights Gallery",
     tourGallery: "Tour Gallery",
+      //new
+    guestMoment: "Guest Moment",
     guestMoments: "Guest Moments",
     capturedMemories: "Captured memories from {title}",
     reviewBy: "Review by {name}",

@@ -55,7 +55,7 @@ function BlogArticleInner({ post }: BlogArticleProps) {
                 const number = match ? match[0] : "";
                 return (
                   <span className="text-body-sm font-extrabold uppercase tracking-wide text-white">
-                  {number} {t("min")}
+                    {number} {t("min")}
                   </span>
                 );
               })()}
@@ -137,7 +137,7 @@ function BlogArticleInner({ post }: BlogArticleProps) {
               <div className="flex items-center gap-3">
                 <div className="h-px w-8 bg-gold/40" />
                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gold/70 sm:text-tiny">
-                  {t("wordsBy")} <span className="text-white/90">{post.author}</span>
+                  {t("wordsBy", { author: post.author })}
                 </span>
               </div>
             </div>

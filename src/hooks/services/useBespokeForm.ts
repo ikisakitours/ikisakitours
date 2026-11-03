@@ -1,9 +1,8 @@
 // src/hooks/services/useBespokeForm.ts
 import { useRef, useEffect, useState, type FormEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
-import { type ActiveVehicleFilter } from "@/components/services/VehicleSelector";
+import { type ActiveVehicleFilter, type ServiceType } from "@/components/services/VehicleSelector";
 import { type ContactData } from "@/components/services/ContactForm";
-import { vehicles } from "@/data/vehicles";
 import { bespokeService } from "@/services/services/bespokeService";
 import { useTranslations } from "next-intl";
 import { useToast } from "@/context/ToastContext";
@@ -15,15 +14,12 @@ const AUTO_SUBMIT_AFTER_LOGIN = false;
 const DRAFT_KEY = "bespoke_form";
 
 export function useBespokeForm() {
-  const defaultCategory = vehicles[0].category;
-  const defaultVehicleId = vehicles[0].id;
-
-  const [activeFilter, setActiveFilter] = useState<ActiveVehicleFilter>(defaultCategory);
-  const [selectedVehicleId, setSelectedVehicleId] = useState(defaultVehicleId);
+  const [activeFilter, setActiveFilter] = useState<ActiveVehicleFilter>("");
+  const [selectedVehicleId, setSelectedVehicleId] = useState("");
 
   const [pickupLocation, setPickupLocation] = useState("");
   const [tourRequests, setTourRequests] = useState("");
-  const [tourPackageType, setTourPackageType] = useState<"driver" | "guide">("driver");
+  const [tourPackageType, setTourPackageType] = useState<ServiceType>("driver");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [language, setLanguage] = useState<string>("");
@@ -83,7 +79,7 @@ export function useBespokeForm() {
     payloadCounts: Record<string, number>,
     payloadPickup: string,
     payloadRequests: string,
-    payloadType: "driver" | "guide",
+    payloadType: ServiceType,
     payloadContact: ContactData,
   ) => {
     if (!user) return;
@@ -130,6 +126,9 @@ export function useBespokeForm() {
       setDate(getTodayFormatted());
       setTravelerCounts({ adult: 0, couple: 0, child: 0, infant: 0 });
       setContact((prev) => ({ ...prev, phone: "", specialRequests: "" }));
+      setActiveFilter("");
+      setSelectedVehicleId("");
+      setTourPackageType("driver");
     } catch (error) {
       console.error("Submission error:", error);
       toast.error(toastId, tToast("error"));

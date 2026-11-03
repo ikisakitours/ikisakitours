@@ -59,9 +59,7 @@ export function BlogCard({ post, index }: BlogCardProps) {
 
         <div className="flex items-center justify-between text-caption font-bold uppercase tracking-widest text-slate-400/70 transition-colors group-hover:text-slate-400">
           <span>{readTimeNumber ? `${readTimeNumber} ${tArticle("min")}` : post.readTime}</span>{" "}
-          <span className="text-gold/70">
-            {tArticle("by")} {post.author}
-          </span>
+          <span className="text-gold/70">{tArticle("by", { author: post.author })}</span>
         </div>
       </div>
 

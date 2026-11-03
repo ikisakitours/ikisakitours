@@ -9,8 +9,8 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { SearchInput } from "@/components/ui/SearchInput";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Filter } from "lucide-react";
-import { useTranslations } from "next-intl";
-
+// import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 // New Hook and Loader/Error Components
 import { usePackageSummaries } from "@/hooks/tours/usePackageSummaries";
 import { ApiCallLoader } from "@/components/ui/ApiCallLoader";
@@ -60,7 +60,17 @@ export function Explorer({ tourType = "multi" }: PackageExplorerProps) {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
   const [, startTransition] = useTransition();
-
+  const locale = useLocale();
+  const [prevLocale, setPrevLocale] = useState(locale);
+  if (locale !== prevLocale) {
+    setPrevLocale(locale);
+    setCategory("all");
+    setDuration("all");
+    setPriceRange(dynamicPriceFilters[0].label);
+    setRating(dynamicRatingFilters[0].label);
+    setQuery("");
+    setVisibleCount(INITIAL_COUNT);
+  }
   // Update dynamic lists to use API fields
   const dynamicCategories = useMemo(() => {
     const uniqueCategories = Array.from(new Set(packages.map((pkg) => pkg.category))); // Changed to item.category
@@ -263,40 +273,40 @@ export function Explorer({ tourType = "multi" }: PackageExplorerProps) {
             </div>
           </>
         ) : hasNoData ? (
-  <EmptyState
-    compact
-    className=""
-    backgroundText={t("EmptyState.backgroundText")}
-    title={t("EmptyState.noDataTitle")}
-    description={t("EmptyState.noDataDescription")}
-  />
-) : (
-  <EmptyState
-    compact
-    className=""
-    backgroundText={t("EmptyState.backgroundText")}
-    title={t("EmptyState.title")}
-    description={
-      <>
-        {query.trim() !== "" ? (
-          <>{t("EmptyState.searchNoResult", { query: query })}</>
+          <EmptyState
+            compact
+            className=""
+            backgroundText={t("EmptyState.backgroundText")}
+            title={t("EmptyState.noDataTitle")}
+            description={t("EmptyState.noDataDescription")}
+          />
         ) : (
-          <>{t("EmptyState.filterNoResult")}</>
+          <EmptyState
+            compact
+            className=""
+            backgroundText={t("EmptyState.backgroundText")}
+            title={t("EmptyState.title")}
+            description={
+              <>
+                {query.trim() !== "" ? (
+                  <>{t("EmptyState.searchNoResult", { query: query })}</>
+                ) : (
+                  <>{t("EmptyState.filterNoResult")}</>
+                )}
+                <br />
+                {t("EmptyState.redefine")}
+              </>
+            }
+            buttonText={t("EmptyState.resetBtn")}
+            onAction={() => {
+              setQuery("");
+              setCategory("all");
+              setDuration("all");
+              setPriceRange(dynamicPriceFilters[0].label);
+              setRating(dynamicRatingFilters[0].label);
+            }}
+          />
         )}
-        <br />
-        {t("EmptyState.redefine")}
-      </>
-    }
-    buttonText={t("EmptyState.resetBtn")}
-    onAction={() => {
-      setQuery("");
-      setCategory("all");
-      setDuration("all");
-      setPriceRange(dynamicPriceFilters[0].label);
-      setRating(dynamicRatingFilters[0].label);
-    }}
-  />
-)}
       </ContainerLayout>
 
       <FilterSidebar

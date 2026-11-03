@@ -24,7 +24,7 @@ export const vehicles: Vehicle[] = [
     rate: 120,
     price: "$120",
     passengers: "1-3",
-    luggage: "", //2 Medium Bags
+    luggage: "2", //2 Medium Bags
     touristNote: [
       "Ideal for couples or solo travelers.",
       "Perfect for comfortable city-to-city transfers and highway drives.",
@@ -38,7 +38,7 @@ export const vehicles: Vehicle[] = [
     rate: 180,
     price: "$180",
     passengers: "4-8",
-    luggage: "", //6 Large Bags
+    luggage: "6", //6 Large Bags
     touristNote: [
       "Perfect for family tours or small travel groups.",
       "Plenty of space for luggage, surfboards, and travel equipment.",
@@ -53,7 +53,7 @@ export const vehicles: Vehicle[] = [
     rate: 260,
     price: "$260",
     passengers: "1-5",
-    luggage: "", //4 Large Bags
+    luggage: "4", //4 Large Bags
     touristNote: [
       "Best for rough terrains and mountain hill country tours (Ella/Nuwara Eliya).",
       "Offers high-end luxury comfort with elevated scenic viewing angles.",

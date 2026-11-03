@@ -242,7 +242,7 @@ export default function MapContent({
             />
           )}
 
-          {destinations.map((dest) => {
+       {destinations.map((dest, idx) =>{
             const customHtmlIcon = divIcon({
               className: "custom-map-marker-wrapper",
               html: `
@@ -265,7 +265,7 @@ export default function MapContent({
 
             return (
               <Marker
-                key={dest.slug}
+             key={`${dest.slug}-${idx}`}
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 ref={(r: any) => {
                   if (r) markerRefs.current[dest.slug] = r;
