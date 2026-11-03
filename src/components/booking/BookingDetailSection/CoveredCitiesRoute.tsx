@@ -128,8 +128,7 @@ export default function CoveredCitiesRoute({ destinations }: CoveredCitiesRouteP
                 const safeTitle = fullMapData?.title || dest.slug || "";
 
                 return (
-                  <React.Fragment key={dest.id || idx}>
-                    <div className="group flex shrink-0 items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:bg-white/10">
+<React.Fragment key={`${dest.id || dest.slug}-${idx}`}>                    <div className="group flex shrink-0 items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:bg-white/10">
                       <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-gold text-tiny font-bold text-lanka-black">
                         {idx + 1}
                       </span>

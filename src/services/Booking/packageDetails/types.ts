@@ -1,20 +1,24 @@
-//services/Booking/types.ts
+// services/Booking/types.ts
 export interface DestinationSummary {
   id: string;
   slug: string;
+  title: string;   
+  summary: string; 
 }
 
 export interface ItineraryDay {
   day: number;
-  meals: string[];
-  route: string[];
   title: string;
-  details: string[];
-  locations: string[];
-  activities: string[];
+  description: string; 
+  images: string[];    
   travelTime: string;
+  locations: string[];
+  route: string[];
+  details: string[];
   scenicStops: string[];
-  accommodation: string[];
+  activities: string[];
+  meals: string;         
+  accommodation: string; 
 }
 
 export interface ActivityDetail {

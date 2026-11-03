@@ -130,7 +130,6 @@ export default {
       "December",
     ],
 
-    //new
     notAvailable: "Not Available"
   },
   DurationPicker: {

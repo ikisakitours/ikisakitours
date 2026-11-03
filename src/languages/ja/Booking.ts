@@ -84,6 +84,9 @@ export default {
       title: "レビューが見つかりません",
       description: "選択した条件に一致するレビューが見つかりませんでした.",
       clearBtn: "フィルターをクリア",
+      //new
+      noReviewsDescription: "最初のストーリーと写真をシェアして、他の旅行者の参考にしてもらいましょう。",
+      writeFirstReview: "レビューを書く",
     },
   },
   ReviewsHeader: {
@@ -161,6 +164,14 @@ export default {
     viewAll: "すべて見る",
     viewGallery: "ギャラリーを見る",
     showMore: "さらにレビューを見る",
+    // new
+    emptyTitle: "最初のストーリーをシェアしましょう",
+    emptyDescription: "まだこの体験のレビューはありません。あなたの声が次の旅行者の参考になります。",
+    writeReview: "レビューを書く",
+    hintRate: "旅を評価する",
+    hintStory: "ストーリーをシェアする",
+    hintPhotos: "写真を追加する",
+    noMoments: "このパッケージのゲストモーメントはまだ共有されていません。",
   },
   StoryBanner: {
     title: "野生動物の魔法の中心への旅",

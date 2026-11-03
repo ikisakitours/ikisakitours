@@ -3,7 +3,6 @@ export default {
     title: "ジャーナル",
     description:
       "IkiSaki Toursが厳選したスリランカ旅行の情報をお届けします.旅行ガイドや現地の文化、世界遺産、息をのむような絶景スポットを通して、スリランカの魅力を発見し、あなただけの特別な旅を計画しましょう.",
-    //new
     notFoundTitle: "ストーリーが見つかりません",
   },
   Hero: {
@@ -64,8 +63,8 @@ export default {
     lovedThis: "お気に入り",
     //new
     min: "分",
-    by: "執筆:",
-    wordsBy: "執筆：",
+    by: "{author} による",
+    wordsBy: "{author} 執筆者",
     Pending: {
       backgroundText: "準備中",
       title: "コンテンツは近日公開",

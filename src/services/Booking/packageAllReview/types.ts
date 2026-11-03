@@ -12,10 +12,10 @@ export interface ReviewType {
   createdAt: string;
   userSnapshot?: {
     avatarUrl?: string;
-    isVerified?: boolean; // 💡 Added
-    isVip?: boolean; // 💡 Added
+    isVerified?: boolean; 
+    isVip?: boolean; 
     country?: string;
-    firstName?: string; // 💡 අලුතින් එකතු කළා
-    lastName?: string; // 💡 අලුතින් එකතු කළා
+    firstName?: string; 
+    lastName?: string; 
   };
 }

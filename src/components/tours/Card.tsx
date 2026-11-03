@@ -12,6 +12,7 @@ type PackageCardProps = {
   item: PackageSummary;
   tourType?: "multi" | "one";
 };
+type BadgeKey = "popular" | "discounted" | "new_arrival" | "featured";
 
 const getBadgeStyles = (type: string) => {
   switch (type) {
@@ -32,6 +33,11 @@ export function Card({ item, tourType }: PackageCardProps) {
   const t = useTranslations("Tours.Card");
   const { formatPrice } = useCurrency();
 
+  const badgeKey = item.badge as BadgeKey;
+  const badgeText = badgeKey && [`popular`, `discounted`, `new_arrival`, `featured`].includes(badgeKey)
+    ? t(`Badges.${badgeKey}`)
+    : item.badge?.replace("_", " ");
+
   const bookingHref =
     tourType === "one" ? `/booking/one-day-tours/${item.slug}` : `/booking/multi-days-tours/${item.slug}`;
 
@@ -43,14 +49,14 @@ export function Card({ item, tourType }: PackageCardProps) {
           <span
             className={`${getBadgeStyles(item.badge)} rounded-sm px-2 py-2 text-micro 3xl:px-3 3xl:py-1.5 font-bold uppercase tracking-widest`}
           >
-            {item.badge.replace("_", " ")}
+          {badgeText}
           </span>
         )}
 
         {/* Discount Badge */}
         {item.discount && parseFloat(item.discount) > 0 ? (
           <span className="bg-red-600 text-white animate-pulse rounded-sm px-2 py-2 text-micro 3xl:px-3 3xl:py-1.5 font-bold uppercase tracking-widest ml-auto">
-            {parseFloat(item.discount)}% OFF
+            {t("save", { discount: parseFloat(String(item.discount)) })}
           </span>
         ) : null}
       </div>

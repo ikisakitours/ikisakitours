@@ -3,15 +3,17 @@
 import { ReactNode, useState, useMemo, useRef, useEffect } from "react";
 import { Link } from "@/lib/i18nNavigation";
 import { motion, Transition } from "framer-motion";
-import { Search, ArrowRight, MapPin, Map, BookOpen, CalendarHeart } from "lucide-react";
+import { Search, ArrowRight, MapPin, BookOpen, HelpCircle, Briefcase } from "lucide-react"; //CalendarHeart,Map
 import { useTranslations } from "next-intl";
 
 // Data Imports
-import { destinationsData } from "@/data/destinationData";
-import { oneDayTours } from "@/data/oneDayTours";
-import { packages } from "@/data/multiDaysTours";
-import { blogPosts } from "@/data/blog";
-import { allSpecialEventsList } from "@/data/specialEvents";
+// import { allSpecialEventsList } from "@/data/specialEvents";
+
+// Hooks Imports
+import { useFetchDestinationPreviews } from "@/hooks/destinations/useFetchDestinationPreviews";
+import { usePackageSummaries } from "@/hooks/tours/usePackageSummaries";
+import { useFetchBlogPreviews } from "@/hooks/blogs/useFetchBlogPreviews";
+import { useFetchFaqs } from "@/hooks/faqs/useFetchFaqs";
 
 export interface SearchResultItem {
   id: string;
@@ -27,6 +29,16 @@ const smoothTransition: Transition = {
   ease: [0.16, 1, 0.3, 1],
 };
 
+// 💡 "any"  Helper Function එක
+function matchItem<T>(item: T | null | undefined, fields: (keyof NonNullable<T>)[], query: string): boolean {
+  if (!item) return false;
+  return fields.some((field) => {
+    const val = item[field as keyof T];
+    if (val === null || val === undefined) return false;
+    return String(val).toLowerCase().includes(query);
+  });
+}
+
 export function OmniSearch() {
   const t = useTranslations("HomePage.Hero");
   const [searchQuery, setSearchQuery] = useState("");
@@ -34,6 +46,14 @@ export function OmniSearch() {
   const searchContainerRef = useRef<HTMLDivElement>(null);
   const [isTyping, setIsTyping] = useState(false);
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // 💡 API
+  const { data: destsData } = useFetchDestinationPreviews();
+  const { packages: multiDayPackages } = usePackageSummaries("multiday", 50);
+  const { packages: oneDayPackages } = usePackageSummaries("oneday", 50);
+  const { data: blogsData } = useFetchBlogPreviews();
+  const { data: faqsData } = useFetchFaqs();
+
   // Click outside to close the dropdown
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -45,41 +65,49 @@ export function OmniSearch() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Filter Logic
+  // 💡 Filter Logic
   const searchResults = useMemo(() => {
     const query = searchQuery.toLowerCase().trim();
     if (!query) return null;
 
-    // Destinations Filter
-    const dests = destinationsData
-      .filter((d) => d.name.toLowerCase().includes(query) || d.region.toLowerCase().includes(query))
+    // 1. Destinations Filter
+    const dests = (destsData || [])
+      .filter((d) => matchItem(d, ["title", "province", "summary", "climate", "bestTimeToVisit", "language"], query))
       .slice(0, 3);
 
-    // Multi-day Tours Filter (type property එක එක් කර ඇත)
-    const multiDayToursList = packages
-      .filter((t) => t.title.toLowerCase().includes(query) || t.categoryLabel.toLowerCase().includes(query))
+    // 2. Multi-day Tours Filter
+    const multiDayToursList = (multiDayPackages || [])
+      .filter((t) => matchItem(t, ["title", "category", "origin", "description", "duration", "badge"], query))
       .slice(0, 3)
       .map((t) => ({ ...t, tourType: "Multi-Day Tour" }));
 
-    const oneDayToursList = oneDayTours
-      .filter((t) => t.title.toLowerCase().includes(query) || t.categoryLabel.toLowerCase().includes(query))
+    // 3. One-Day Tours Filter
+    const oneDayToursList = (oneDayPackages || [])
+      .filter((t) => matchItem(t, ["title", "category", "origin", "description", "duration", "badge"], query))
       .slice(0, 3)
       .map((t) => ({ ...t, tourType: "One-Day Tour" }));
 
     const combinedTours = [...multiDayToursList, ...oneDayToursList].slice(0, 4);
 
-    // Journals / Blogs Filter
-    const blogs = blogPosts
-      .filter((b) => b.title.toLowerCase().includes(query) || b.category.toLowerCase().includes(query))
+    // 4. Journals / Blogs Filter
+    const blogs = (blogsData || [])
+      .filter((b) => matchItem(b, ["title", "category", "summary", "author", "language", "readTime"], query))
       .slice(0, 3);
 
-    // Events Filter
-    const events = allSpecialEventsList.filter((e) => e.title.toLowerCase().includes(query)).slice(0, 3);
+    // 5. Events Filter
+    /*
+    const events = (allSpecialEventsList || [])
+      .filter((e) => matchItem(e, ["title", "statusTag", "description"], query))
+      .slice(0, 3);
+    */
 
-    const hasResults = dests.length > 0 || combinedTours.length > 0 || blogs.length > 0 || events.length > 0;
+    // 6. FAQs Filter
+    const faqs = (faqsData || []).filter((f) => matchItem(f, ["question", "answer", "category"], query)).slice(0, 3);
 
-    return { dests, combinedTours, blogs, events, hasResults };
-  }, [searchQuery]);
+    const hasResults = dests.length > 0 || combinedTours.length > 0 || blogs.length > 0 || faqs.length > 0;
+
+    return { dests, combinedTours, blogs, faqs, hasResults };
+  }, [searchQuery, destsData, multiDayPackages, oneDayPackages, blogsData, faqsData]);
 
   return (
     <motion.div
@@ -155,7 +183,6 @@ export function OmniSearch() {
                     <span
                       className={`absolute h-2 w-2 rounded-full bg-gold/60 ${isTyping ? "animate-ping" : "animate-pulse"}`}
                     />
-
                     <span className="relative h-2 w-2 rounded-full bg-gold shadow-[0_0_6px_rgba(197,160,89,0.8)]" />
                   </div>
 
@@ -183,15 +210,15 @@ export function OmniSearch() {
                   items={searchResults.dests.map((d) => ({
                     id: d.slug,
                     href: `/destination/${d.slug}`,
-                    title: d.name,
-                    subtitle: d.region,
+                    title: d.title,
+                    subtitle: d.province || "Sri Lanka",
                   }))}
                 />
 
                 {/* 2. Tour Packages */}
                 <SearchResultSection
                   title="Tour Packages"
-                  icon={<Map className="h-3.5 w-3.5" />}
+                  icon={<Briefcase className="h-3.5 w-3.5" />}
                   onItemClick={() => setIsDropdownOpen(false)}
                   items={searchResults.combinedTours.map((t, idx) => {
                     const isMulti = t.tourType === "Multi-Day Tour";
@@ -199,7 +226,7 @@ export function OmniSearch() {
                       id: `${t.slug}-${idx}`,
                       href: isMulti ? `/booking/multi-days-tours/${t.slug}` : `/booking/one-day-tours/${t.slug}`,
                       title: t.title,
-                      subtitle: `${t.duration} • ${t.categoryLabel}`,
+                      subtitle: `${t.duration} | ${t.category}`,
                       badge: t.tourType,
                       isMultiDay: isMulti,
                     };
@@ -215,11 +242,12 @@ export function OmniSearch() {
                     id: b.slug,
                     href: `/blog/${b.slug}`,
                     title: b.title,
-                    subtitle: `${b.category} • ${b.readTime}`,
+                    subtitle: `${b.category} | ${b.readTime}`,
                   }))}
                 />
 
-                {/* 4. Events */}
+                {/* 4. Events 
+                {/* 
                 <SearchResultSection
                   title="Upcoming Events"
                   icon={<CalendarHeart className="h-3.5 w-3.5" />}
@@ -229,6 +257,20 @@ export function OmniSearch() {
                     href: `/events/${e.slug}`,
                     title: e.title,
                     subtitle: e.statusTag,
+                  }))}
+                /> 
+                */}
+
+                {/* 5. FAQs */}
+                <SearchResultSection
+                  title="FAQs"
+                  icon={<HelpCircle className="h-3.5 w-3.5" />}
+                  onItemClick={() => setIsDropdownOpen(false)}
+                  items={searchResults.faqs.map((f) => ({
+                    id: f.id,
+                    href: `/faq#${f.id}`,
+                    title: f.question,
+                    subtitle: f.category,
                   }))}
                 />
               </div>
@@ -252,12 +294,11 @@ export interface SearchSectionProps {
 }
 
 function SearchResultSection({ title, icon, items, onItemClick }: SearchSectionProps) {
-  // Results මුකුත් නැත්නම් මේ Section එක පෙන්නන්න එපා (Conditional Rendering)
   if (items.length === 0) return null;
 
   return (
     <div className="space-y-2">
-      {/* Header කොටස */}
+      {/* Header */}
       <div className="flex items-center gap-2 text-caption font-bold uppercase tracking-[0.25em] text-gold/70 pb-2 border-b border-white/5">
         {icon} {title}
       </div>

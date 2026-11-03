@@ -68,11 +68,18 @@ export default {
     perDay: "/ day",
     capacity: "Capacity",
     pax: "Pax",
+    bags: "Bags",
     luggage: "Luggage",
     note: "Note",
-    customizeTour: "Customize your tour package",
+    customizeTour: "Select Service Type",
     withDriver: "With Driver",
     withGuide: "With Guide",
+    both: "Driver & Guide",
+    serviceHints: {
+      driver: "Driver & private vehicle.",
+      guide: "Expert tour guide.",
+      both: "Driver & guide combo.",
+    },
     Notes: {
       sedan: [
         "Ideal for couples or solo travelers.",

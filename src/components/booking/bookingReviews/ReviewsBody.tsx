@@ -148,95 +148,113 @@ export default function ReviewsBody({ slug, tourType }: ReviewsBodyProps) {
             <>
               <Cta onShareClick={() => setShowForm(true)} />
 
-              <div className="mb-8 mt-16 flex items-center justify-between gap-4">
-                <h2 className="premium-serif text-[26px] italic text-white md:text-[30px]">{t("title")}</h2>
-
-                <button
-                  type="button"
-                  onClick={() => setIsFilterOpen(true)}
-                  className="group flex items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-6 py-3 text-caption! font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:px-8 sm:py-3.5"
-                >
-                  <Filter className="h-4 w-4 transition-all duration-300 group-hover:scale-110 group-hover:text-black" />
-                  <span className="transition-colors duration-300 group-hover:text-black sm:hidden">
-                    {tSidebar("filter")}
-                  </span>
-                  <span className="hidden transition-colors duration-300 group-hover:text-black sm:block">
-                    {tSidebar("filterLanguages")}
-                  </span>
-                  {activeFilterCount > 0 && (
-                    <span className="ml-1 flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-micro font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a]">
-                      {activeFilterCount}
-                    </span>
-                  )}
-                </button>
-              </div>
-
-              <div className="space-y-8 md:space-y-12 3xl:space-y-16">
-                {visibleReviews.length > 0 ? (
-                  visibleReviews.map((review) => {
-                    const formattedReview = {
-                      id: review.id,
-                      name: review.fullName,
-                      firstName: review.userSnapshot?.firstName,
-                      lastName: review.userSnapshot?.lastName,
-                      country: review.userSnapshot?.country || DEFAULT_COUNTRY,
-                      isVerified: review.userSnapshot?.isVerified,
-                      isVip: review.userSnapshot?.isVip,
-                      avatar: review.userSnapshot?.avatarUrl,
-                      date: new Date(review.createdAt).toLocaleDateString(),
-                      text: review.experience,
-                      rating: review.rating,
-                      photos: review.imageUrls?.map((url) => ({ src: url, alt: review.fullName, title: "" })) || [],
-                      response: review.adminReply || undefined,
-                    };
-                    return (
-                      <ReviewCard
-                        key={review.id}
-                        review={formattedReview as unknown as React.ComponentProps<typeof ReviewCard>["review"]}
-                        slug={tour.slug}
-                        tourType={tourType}
-                      />
-                    );
-                  })
-                ) : (
-                  <div className="py-10">
-                    <EmptyState
-                      backgroundText={t("EmptyState.backgroundText")}
-                      title={t("EmptyState.title")}
-                      description={t("EmptyState.description")}
-                      buttonText={t("EmptyState.clearBtn")}
-                      onAction={() => {
-                        setCountryFilter("all");
-                        setRating("all");
-                        setSortDate("newest");
-                        setVisibleCount(INITIAL_COUNT);
-                      }}
-                    />
-                  </div>
-                )}
-              </div>
-
-              {visibleReviews.length > 0 && (
-                <div className="mt-8 flex flex-col items-center md:mt-14">
-                  {hasMore && (
-                    <Button
-                      type="button"
-                      variant="explore"
-                      onClick={() => setVisibleCount((prev) => prev + INITIAL_COUNT)}
-                      className="w-full max-w-75 justify-center sm:w-auto [&_span]:text-caption!"
-                    >
-                      {t("loadMore")}
-                    </Button>
-                  )}
-                  <div className="mt-8 flex items-center gap-3">
-                    <div className="h-px w-8 bg-gold/20" />
-                    <p className="whitespace-nowrap text-tiny font-medium uppercase tracking-[0.2em] text-slate-500">
-                      {t("showing")} <span className="text-gold">{visibleReviews.length}</span> {t("of")}{" "}
-                      <span className="text-white">{filteredReviews.length}</span> {t("stories")}
-                    </p>
-                    <div className="h-px w-8 bg-gold/20" />
-                  </div>
+              {reviews.length === 0 ? (
+                <div className="mt-16 py-16 text-center">
+                  <EmptyState
+                    compact
+                    className=""
+                    backgroundText={t("EmptyState.backgroundText")}
+                    title={t("EmptyState.title")}
+                    description={t("EmptyState.noReviewsDescription")}
+                    // buttonText={t("EmptyState.writeFirstReview")}
+                    // onAction={() => setShowForm(true)}
+                  />
                 </div>
+              ) : (
+                <>
+                  <div className="mb-8 mt-16 flex items-center justify-between gap-4">
+                    <h2 className="premium-serif text-[26px] italic text-white md:text-[30px]">{t("title")}</h2>
+
+                    <button
+                      type="button"
+                      onClick={() => setIsFilterOpen(true)}
+                      className="group flex items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-6 py-3 text-caption! font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:px-8 sm:py-3.5"
+                    >
+                      <Filter className="h-4 w-4 transition-all duration-300 group-hover:scale-110 group-hover:text-black" />
+                      <span className="transition-colors duration-300 group-hover:text-black sm:hidden">
+                        {tSidebar("filter")}
+                      </span>
+                      <span className="hidden transition-colors duration-300 group-hover:text-black sm:block">
+                        {tSidebar("filterLanguages")}
+                      </span>
+                      {activeFilterCount > 0 && (
+                        <span className="ml-1 flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-micro font-black text-gold transition-all duration-300 group-hover:bg-[#0a0a0a]">
+                          {activeFilterCount}
+                        </span>
+                      )}
+                    </button>
+                  </div>
+
+                  <div className="space-y-8 md:space-y-12 3xl:space-y-16">
+                    {visibleReviews.length > 0 ? (
+                      visibleReviews.map((review) => {
+                        const formattedReview = {
+                          id: review.id,
+                          name: review.fullName,
+                          firstName: review.userSnapshot?.firstName,
+                          lastName: review.userSnapshot?.lastName,
+                          country: review.userSnapshot?.country || DEFAULT_COUNTRY,
+                          isVerified: review.userSnapshot?.isVerified,
+                          isVip: review.userSnapshot?.isVip,
+                          avatar: review.userSnapshot?.avatarUrl,
+                          date: new Date(review.createdAt).toLocaleDateString(),
+                          text: review.experience,
+                          rating: review.rating,
+                          photos: review.imageUrls?.map((url) => ({ src: url, alt: review.fullName, title: "" })) || [],
+                          response: review.adminReply || undefined,
+                        };
+                        return (
+                          <ReviewCard
+                            key={review.id}
+                            review={formattedReview as unknown as React.ComponentProps<typeof ReviewCard>["review"]}
+                            slug={tour.slug}
+                            tourType={tourType}
+                          />
+                        );
+                      })
+                    ) : (
+                      <div className="py-10">
+                        <EmptyState
+                          compact
+                          className=""
+                          backgroundText={t("EmptyState.backgroundText")}
+                          title={t("EmptyState.title")}
+                          description={t("EmptyState.description")}
+                          buttonText={t("EmptyState.clearBtn")}
+                          onAction={() => {
+                            setCountryFilter("all");
+                            setRating("all");
+                            setSortDate("newest");
+                            setVisibleCount(INITIAL_COUNT);
+                          }}
+                        />
+                      </div>
+                    )}
+                  </div>
+
+                  {visibleReviews.length > 0 && (
+                    <div className="mt-8 flex flex-col items-center md:mt-14">
+                      {hasMore && (
+                        <Button
+                          type="button"
+                          variant="explore"
+                          onClick={() => setVisibleCount((prev) => prev + INITIAL_COUNT)}
+                          className="w-full max-w-75 justify-center sm:w-auto [&_span]:text-caption!"
+                        >
+                          {t("loadMore")}
+                        </Button>
+                      )}
+                      <div className="mt-8 flex items-center gap-3">
+                        <div className="h-px w-8 bg-gold/20" />
+                        <p className="whitespace-nowrap text-tiny font-medium uppercase tracking-[0.2em] text-slate-500">
+                          {t("showing")} <span className="text-gold">{visibleReviews.length}</span> {t("of")}{" "}
+                          <span className="text-white">{filteredReviews.length}</span> {t("stories")}
+                        </p>
+                        <div className="h-px w-8 bg-gold/20" />
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
             </>
           )}

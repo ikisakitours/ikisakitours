@@ -3,8 +3,7 @@ export default {
     title: "Destinations",
     description:
       "Discover the best places to visit in Sri Lanka, from UNESCO World Heritage Sites and beautiful beaches to historic temples and lush green mountains. Explore our carefully selected destinations and find inspiration for your next journey.",
-    //new
-    slugTitle: "{destinationName} Travel Guide & Attractions",
+    slugTitle: "{destinationName} Recommended tourist spots",
     slugNotFoundTitle: "Destination Not Found",
     slugNotFoundDesc: "The requested destination could not be found.",
   },
@@ -37,7 +36,6 @@ export default {
       filterNoResult: "No matching places were found with these filters.",
       redefine: "Please try resetting your filters.",
       resetBtn: "Reset",
-      //new
       noDataTitle: "No Destinations Yet",
       noDataDescription: "We are adding new destinations soon. Please check back later.",
     },

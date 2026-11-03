@@ -30,7 +30,6 @@ export default {
     Sidebar: {
       all: "すべて",
       languages: "言語",
-      //new
       filterCountries: "国",
       clearFilter: "フィルターをクリア",
       categories: "カテゴリー",
@@ -43,7 +42,7 @@ export default {
       showResults: "結果を表示",
     },
     EmptyState: {
-      backgroundText: "レビュー",
+      backgroundText: "感想",
       title: "レビューが見つかりません",
       description: "現在、表示するレビューはありません.",
       //NEW

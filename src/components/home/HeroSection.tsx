@@ -1,7 +1,8 @@
 "use client";
+import { useMemo } from "react";
 import Image from "next/image";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
-import { heroStats, heroPopularTags, heroPopularServices, HeroBackGroundImages } from "@/data/home";
+import { heroStats, heroPopularServices, HeroBackGroundImages } from "@/data/home";
 import { Button } from "@/components/ui/Button";
 import { FaAward } from "react-icons/fa6";
 import { motion, Transition } from "framer-motion";
@@ -9,6 +10,11 @@ import { OmniSearch } from "./heroSearchField/OmniSearch";
 import { useTranslations } from "next-intl";
 //Icons
 import { Star } from "lucide-react";
+
+//Hook
+import { useFetchDestinationPreviews } from "@/hooks/destinations/useFetchDestinationPreviews";
+import { usePackageSummaries } from "@/hooks/tours/usePackageSummaries";
+import { useFetchBlogPreviews } from "@/hooks/blogs/useFetchBlogPreviews";
 
 const smoothTransition: Transition = {
   duration: 1.2,
@@ -18,6 +24,67 @@ const smoothTransition: Transition = {
 export function HeroSection() {
   const t = useTranslations("HomePage.Hero");
   const bgImage = HeroBackGroundImages[0];
+
+  const { data: destsData } = useFetchDestinationPreviews();
+  const { packages: multiDayPackages } = usePackageSummaries("multiday", 10);
+  const { packages: oneDayPackages } = usePackageSummaries("oneday", 10);
+  const { data: blogsData } = useFetchBlogPreviews();
+
+  const dynamicTags = useMemo(() => {
+    const tags = [];
+
+    // 1. Tours
+    if (multiDayPackages && multiDayPackages.length > 0) {
+      const bestTour = [...multiDayPackages].sort((a, b) => (b.averageRating || 0) - (a.averageRating || 0))[0];
+      if (bestTour) {
+        tags.push({
+          id: bestTour.slug,
+          label: `#${bestTour.title.replace(/\s+/g, "")}`,
+          href: `/booking/multi-days-tours/${bestTour.slug}`,
+        });
+      }
+    }
+
+    // 2. One-day Tour
+    if (oneDayPackages && oneDayPackages.length > 0) {
+      const bestOne = [...oneDayPackages].sort((a, b) => (b.averageRating || 0) - (a.averageRating || 0))[0];
+      if (bestOne) {
+        tags.push({
+          id: bestOne.slug,
+          label: `#${bestOne.title.replace(/\s+/g, "")}`,
+          href: `/booking/one-day-tours/${bestOne.slug}`,
+        });
+      }
+    }
+    // 3. Destinations
+    if (destsData && destsData.length > 0) {
+      const normalDest = destsData[0];
+      if (normalDest) {
+        tags.push({
+          id: normalDest.slug,
+          label: `#${normalDest.title.replace(/\s+/g, "")}`,
+          href: `/destination/${normalDest.slug}`,
+        });
+      }
+    }
+
+    // 4. Blogs
+    if (blogsData && blogsData.length > 0) {
+      const latestBlog = [...blogsData].sort(
+        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      )[0];
+
+      if (latestBlog) {
+        tags.push({
+          id: latestBlog.slug,
+          label: `#${latestBlog.title.replace(/\s+/g, "")}`,
+          href: `/blog/${latestBlog.slug}`,
+        });
+      }
+    }
+
+    return tags;
+  }, [destsData, multiDayPackages, oneDayPackages, blogsData]);
 
   return (
     <header className="relative flex flex-col justify-center text-center bg-[#050505] pt-20 pb-12  sm:py-24 md:py-26 lg:py-28 2xl:py-30 3xl:py-32">
@@ -90,7 +157,7 @@ export function HeroSection() {
               className="mb-6 max-w-lg border-l-2 border-gold/40 pl-4 text-body-lead font-light leading-relaxed text-foreground/90 md:mb-8 md:pl-6 3xl:mb-12 3xl:max-w-4xl 3xl:pl-8"
             >
               {t("content.description")}
-              <span className="font-semibold text-foreground"> {t("content.languagesOne")}</span> 
+              <span className="font-semibold text-foreground"> {t("content.languagesOne")}</span>
               <span className="font-semibold text-foreground"> {t("content.languagesTwo")}</span>
             </motion.p>
 
@@ -106,21 +173,23 @@ export function HeroSection() {
               </div>
 
               {/* 1. Popular Tags - Ultra-Minimal Inline Row */}
-              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 px-1 sm:mt-4 md:gap-x-4 3xl:mt-5">
+              <div className="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-2 px-1 sm:mt-4 md:gap-x-2 3xl:mt-5">
                 <span className="flex items-center gap-1.5 text-caption font-bold uppercase tracking-[0.2em] text-foreground/40">
-                  <span className="h-1 w-1 rounded-full bg-gold/50" /> {/* Tiny subtle dot */}
+                  <span className="h-1 w-1 rounded-full bg-gold/50" />
                   {t("content.popularLabel")}
                 </span>
-                <div className="hidden h-3 w-px bg-foreground/10 sm:block" />
-                <div className="flex flex-wrap items-center gap-2 md:gap-3">
-                  {heroPopularTags.map((tag, idx) => (
+
+                <div className="hidden h-3 w-px bg-foreground/10 mx-1 sm:block" />
+
+                <div className="md:mt-1 flex flex-wrap items-center gap-1.5 md:gap-2 ">
+                  {dynamicTags.map((tag, idx) => (
                     <Button
                       key={idx}
                       variant="tag"
                       href={tag.href}
-                      className="text-caption font-medium text-foreground/60 transition-colors hover:text-gold"
+                      className=" text-caption font-medium text-foreground/60 transition-colors hover:text-gold"
                     >
-                      {t(`popularTags.${tag.id}`)}
+                      {tag.label}{" "}
                     </Button>
                   ))}
                 </div>

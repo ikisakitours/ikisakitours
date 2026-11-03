@@ -1,5 +1,5 @@
-
 import type { Metadata } from "next";
+import { getLocale } from "next-intl/server";
 import BookingBody from "@/components/booking/BookingBody";
 // import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 // import { PromoModal } from "@/components/ui/PromoModal";
@@ -13,9 +13,9 @@ type BookingPageProps = {
 
 export async function generateMetadata({ params }: BookingPageProps): Promise<Metadata> {
   const { slug } = await params;
-
+  const locale = await getLocale();
   try {
-    const tour = await packageDetailsService.getPackageBySlug(slug);
+    const tour = await packageDetailsService.getPackageBySlug(slug, locale);
     const fullTitle = `${tour.title} ${tour.titleEmphasis}`;
     const ogImage = tour.gallery && tour.gallery.length > 0 ? tour.gallery[0] : "";
 
@@ -56,7 +56,7 @@ export default async function BookingPage({ params }: BookingPageProps) {
 
   return (
     <>
-      <BookingBody slug={slug} tourType="multi" /> 
+      <BookingBody slug={slug} tourType="multi" />
       {/* <ContainerLayout>
         <PromoModal />
       </ContainerLayout> */}

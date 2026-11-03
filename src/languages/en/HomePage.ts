@@ -190,9 +190,7 @@ export default {
     leaveMarkBtn: "Leave Your Mark",
     backReviewsBtn: "BACK TO REVIEWS",
     exploreMoreTestimonialsBtn: "Explore More Testimonials",
-
-    //new
-    emptyBackground: "Testimonials",
+    emptyBackground: "Thoughts",
     emptyTitle: "No Reviews Yet",
     emptyDescription: "Be the first to share your IkiSaki experience and inspire fellow travelers.",
   },
