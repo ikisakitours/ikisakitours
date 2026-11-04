@@ -69,6 +69,9 @@ export default {
       clearFilter: "フィルターを解除",
       clear: "クリア",
       showResults: "検索結果を表示",
+      //new
+      durationDays: "期間 (日数)",
+      durationHours: "期間 (時間)",
     },
   },
   //new

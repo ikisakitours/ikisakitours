@@ -87,6 +87,9 @@ export default function LegalBody() {
         showCounts={false}
         showAllCategory={false} /* 💡 "All" අයින් කිරීම */
         showBottomBar={false}
+         labels={{
+          categories: t("categories"), 
+        }}
       />
     </ContainerLayout>
   );

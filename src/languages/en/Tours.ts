@@ -63,11 +63,14 @@ export default {
     Sidebar: {
       categories: "Categories",
       all: "All",
-      price: "Price",
+      price: "Price", 
       rating: "Rating",
       clearFilter: "Clear Filter",
       clear: "Clear",
       showResults: "Show Results",
+      //new
+      durationDays: "Duration (Days)",
+      durationHours: "Duration (Hours)",
     },
   },
   //new
@@ -76,7 +79,7 @@ export default {
     details: "Details",
     newBadge: "New",
     save: "Save {discount}%",
-Badges: {
+    Badges: {
       popular: "Popular",
       discounted: "Discounted",
       new_arrival: "New Arrival",

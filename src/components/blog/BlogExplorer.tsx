@@ -153,6 +153,7 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
           onSelectCategory={selectCategory}
           title={t("filterCategories")}
           categoryCounts={categoryCounts}
+          showCounts={false}
           clearFilterText={t("Sidebar.clearFilter")}
           categoryLabels={{ all: t("Sidebar.all") }}
           selectedReadTime={readTime}

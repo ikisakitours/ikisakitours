@@ -24,6 +24,8 @@ export default {
   },
   Categories: {
     all: "すべて",
+    //new
+    categories: "カテゴリー",
   },
   EmptyState: {
     backgroundText: "FAQ",

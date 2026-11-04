@@ -142,6 +142,9 @@ export default function FaqBody({ faqs }: FaqBodyProps) {
           setActiveCategory(cat);
           setOpenFaqId(null);
         }}
+        labels={{
+          categories: t("Categories.categories"), 
+        }}
         title={t("UI.sidebarTitle")}
         categoryCounts={categoryCounts}
         categoryLabels={categoryTranslatedLabels}

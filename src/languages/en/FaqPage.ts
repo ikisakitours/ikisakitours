@@ -24,6 +24,8 @@ export default {
   },
   Categories: {
     all: "All",
+    //new
+    categories: "Categories",
   },
   EmptyState: {
     backgroundText: "FAQ",

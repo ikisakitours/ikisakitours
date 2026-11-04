@@ -26,6 +26,7 @@ const FORCE_EMPTY = false;
 
 export function Explorer({ tourType = "multi" }: PackageExplorerProps) {
   const t = useTranslations("Tours.Explorer");
+  
 
   // Fetch data directly within the component
   const mappedType = tourType === "multi" ? "multiday" : "oneday";
@@ -346,7 +347,7 @@ export function Explorer({ tourType = "multi" }: PackageExplorerProps) {
         }}
         durationCategories={dynamicDurations}
         durationCounts={durationCounts}
-        durationTitle={tourType === "multi" ? "Duration (Days)" : "Duration (Hours)"}
+        durationTitle={tourType === "multi" ? t("Sidebar.durationDays") : t("Sidebar.durationHours")}
         onClearAll={() => {
           setCategory("all");
           setDuration("all");
