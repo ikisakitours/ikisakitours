@@ -1,45 +1,53 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useLocale } from "next-intl";
 import { faqService } from "@/services/faqs/faqService";
 import type { Faq } from "@/services/faqs/types";
 
-export function useFetchFaqs() {
-  const [data, setData] = useState<Faq[] | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+interface FaqsState {
+  key: string;
+  data: Faq[] | null;
+  error: string | null;
+}
 
-  const fetchFaqs = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await faqService.getFaqs();
-      console.log("❓ [ALL FAQS LOADED]:", response);
-      setData(response);
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("Failed to load FAQs");
-      }
-      console.error("❌ [FAQS FETCH ERROR]:", err);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+export function useFetchFaqs() {
+  const locale = useLocale();
+
+  const [state, setState] = useState<FaqsState | null>(null);
+  const [reloadCount, setReloadCount] = useState(0);
+
+  const requestKey = `${locale}:${reloadCount}`;
 
   useEffect(() => {
-    const loadFaqsData = async () => {
-      await fetchFaqs();
-    };
+    const controller = new AbortController();
 
-    loadFaqsData();
-  }, [fetchFaqs]);
+    faqService
+      .getFaqs(locale, controller.signal)
+      .then((response) => {
+        console.log(`❓ [ALL FAQS LOADED - ${locale}]:`, response);
+        setState({ key: requestKey, data: response, error: null });
+      })
+      .catch((err: unknown) => {
+        if (err instanceof DOMException && err.name === "AbortError") return;
 
-  return {
-    data,
-    isLoading,
-    error,
-    refetch: fetchFaqs,
-  };
+        console.error("❌ [FAQS FETCH ERROR]:", err);
+        setState({
+          key: requestKey,
+          data: null,
+          error: err instanceof Error ? err.message : "Failed to load FAQs",
+        });
+      });
+
+    return () => controller.abort();
+  }, [locale, requestKey]);
+
+  const refetch = useCallback(() => setReloadCount((c) => c + 1), []);
+
+  const isCurrent = state?.key === requestKey;
+  const isLoading = !isCurrent;
+  const data = state?.data ?? null;
+  const error = isCurrent ? state.error : null;
+
+  return { data, isLoading, error, refetch };
 }
