@@ -51,7 +51,7 @@ export function useBespokeForm() {
 
   const restoredRef = useRef(false);
   const autoHandledRef = useRef(false);
-
+  const [prices, setPrices] = useState({ startingPrice: 0, selectedPrice: 0 });
   const handleTourDaysChange = (delta: number) => {
     setTourDays((prev) => Math.max(0, prev + delta));
   };
@@ -107,6 +107,8 @@ export function useBespokeForm() {
         email: payloadContact.email || user.email,
         phoneNumber: payloadContact.phone,
         specialRequests: payloadContact.specialRequests,
+      startingPrice: String(prices.startingPrice),
+  selectedPrice: String(prices.selectedPrice),
       };
 
       await Promise.all([
@@ -114,6 +116,7 @@ export function useBespokeForm() {
         new Promise((resolve) => setTimeout(resolve, 800)),
       ]);
 
+      console.log("Bespoke tour submitted successfully:", payload);
       toast.success(toastId, tToast("success"), 2000);
       clearServiceDraft(DRAFT_KEY);
 
@@ -320,5 +323,6 @@ export function useBespokeForm() {
     closeAuthModal: () => setShowAuthModal(false),
     draftRestored,
     clearDraftRestored: () => setDraftRestored(false),
+    setPrices,
   };
 }

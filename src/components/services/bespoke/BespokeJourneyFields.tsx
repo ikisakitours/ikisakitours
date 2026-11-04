@@ -35,10 +35,9 @@ type BespokeJourneyFieldsProps = {
   setErrors: React.Dispatch<React.SetStateAction<Record<string, string>>>;
   languagesList: LanguageOption[];
   isLoading?: boolean;
- 
-
-    tourPackageType?: ServiceType;
+  tourPackageType?: ServiceType;
   onTourPackageTypeChange?: (type: ServiceType) => void;
+  onPriceChange?: (prices: { startingPrice: number; selectedPrice: number }) => void;
 };
 
 export function BespokeJourneyFields({
@@ -65,6 +64,7 @@ export function BespokeJourneyFields({
   isLoading = false,
   tourPackageType = "driver",
   onTourPackageTypeChange,
+  onPriceChange,
 }: BespokeJourneyFieldsProps) {
   const tForm = useTranslations("SharedForm");
   const travelerOptions = [
@@ -109,6 +109,7 @@ export function BespokeJourneyFields({
           serviceType={tourPackageType}
           onServiceTypeChange={onTourPackageTypeChange}
           noteServiceType="custom"
+          onPriceChange={onPriceChange}
         />
       </div>
 

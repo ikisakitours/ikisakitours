@@ -37,6 +37,7 @@ type PrivateVehicleJourneyFieldsProps = {
   setErrors: React.Dispatch<React.SetStateAction<Record<string, string>>>;
   languagesList: LanguageOption[];
   isLoading?: boolean;
+  onPriceChange?: (prices: { startingPrice: number; selectedPrice: number }) => void;
 };
 
 export function PrivateVehicleJourneyFields({
@@ -63,6 +64,7 @@ export function PrivateVehicleJourneyFields({
   setErrors,
   languagesList,
   isLoading = false,
+  onPriceChange
 }: PrivateVehicleJourneyFieldsProps) {
   const tForm = useTranslations("SharedForm");
   const { textareaRef, handleInput } = useAutoResizeTextarea(tourRequests);
@@ -108,6 +110,7 @@ export function PrivateVehicleJourneyFields({
           serviceType={tourPackageType}
           onServiceTypeChange={onTourPackageTypeChange}
           noteServiceType="chauffeur"
+          onPriceChange={onPriceChange}
         />
       </div>
 

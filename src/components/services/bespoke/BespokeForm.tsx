@@ -64,6 +64,7 @@ export function BespokeForm() {
     handleSubmit,
     showAuthModal,  
     closeAuthModal,  
+     setPrices,
   } = useBespokeForm();
 
   return (
@@ -96,6 +97,7 @@ export function BespokeForm() {
               isLoading={isLoading}
               tourPackageType={tourPackageType} 
               onTourPackageTypeChange={setTourPackageType}
+              onPriceChange={setPrices}
             />
           </FormPanel>
 

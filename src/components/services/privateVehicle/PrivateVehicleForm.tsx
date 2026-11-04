@@ -64,6 +64,7 @@ export function PrivateVehicleForm() {
     handleSubmit,
     showAuthModal, 
     closeAuthModal, 
+     setPrices,
   } = usePrivateVehicleForm();
   return (
     <ContainerLayout className="relative z-20 pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
@@ -96,6 +97,7 @@ export function PrivateVehicleForm() {
               setErrors={setErrors}
               languagesList={languages}
               isLoading={isLoading}
+              onPriceChange={setPrices}
             />
           </FormPanel>
           <FormPanel className="border-t-2 border-gold/30">

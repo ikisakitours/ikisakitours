@@ -50,7 +50,7 @@ export function usePrivateVehicleForm() {
 
   const restoredRef = useRef(false);
   const autoHandledRef = useRef(false);
-
+  const [prices, setPrices] = useState({ startingPrice: 0, selectedPrice: 0 });
   const handleTourDaysChange = (delta: number) => {
     setTourDays((prev) => Math.max(0, prev + delta));
   };
@@ -106,6 +106,8 @@ export function usePrivateVehicleForm() {
         email: payloadContact.email || user.email,
         phoneNumber: payloadContact.phone,
         specialRequests: payloadContact.specialRequests,
+        startingPrice: String(prices.startingPrice),
+        selectedPrice: String(prices.selectedPrice),
       };
 
       await Promise.all([
@@ -316,5 +318,6 @@ export function usePrivateVehicleForm() {
     closeAuthModal: () => setShowAuthModal(false),
     draftRestored,
     clearDraftRestored: () => setDraftRestored(false),
+    setPrices,
   };
 }
