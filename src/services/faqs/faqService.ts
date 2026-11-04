@@ -3,12 +3,13 @@ import type { Faq } from "./types";
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
 
 export const faqService = {
-  async getFaqs(): Promise<Faq[]> {
-    const response = await fetch(`${API_URL}/faqs`, {
+  async getFaqs(lang: string = "en", signal?: AbortSignal): Promise<Faq[]> {
+    const response = await fetch(`${API_URL}/faqs?lang=${encodeURIComponent(lang)}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
+      signal,
     });
 
     if (!response.ok) {

@@ -48,7 +48,7 @@ export const experiencePillars = [
 ] as const;
 
 export const experienceFloatingStatsData = [
-  { value: "500+", id: "CompletedTours" }, // mapped to "floatingStats" in JSON
+  { value: "600+", id: "CompletedTours" }, // mapped to "floatingStats" in JSON
   { value: "10+", id: "YearsOf" },
 ] as const;
 
