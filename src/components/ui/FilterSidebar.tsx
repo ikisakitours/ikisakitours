@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { X, FilterX, Star } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type CategoryFilterSidebarProps = {
   isOpen: boolean;
@@ -124,6 +125,8 @@ export function FilterSidebar({
   showAllCategory = true,
   showBottomBar = true,
 }: CategoryFilterSidebarProps) {
+  const t = useTranslations("Tours.Explorer.Sidebar");
+
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add("overflow-hidden");
@@ -195,9 +198,10 @@ export function FilterSidebar({
                         readOnly
                         className="accent-gold h-4 w-4"
                       />
-                      All
+                     {t("all")}
                     </span>
                     {showCounts && <span className="text-white/30">{categoryCounts["all"] || 0}</span>}
+                    
                   </button>
                 )}
                 {categories
@@ -278,6 +282,7 @@ export function FilterSidebar({
                 </div>
               )}
 
+              {/* Read Time Filter Section */}
               {onSelectReadTime && readTimeOptions && (
                 <div className="space-y-4">
                   <h3 className="text-caption font-bold uppercase tracking-widest text-white/50">

@@ -243,6 +243,7 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
         }}
         title={t("filterRegions")}
         categoryCounts={categoryCounts}
+        showCounts={false}
         totalResults={filteredDestinations.length}
         bestTimes={dynamicBestTimes}
         selectedBestTime={bestTime}
@@ -260,6 +261,7 @@ export function DestinationExplorer({ destinations }: DestinationExplorerProps) 
             setVisibleCount(INITIAL_COUNT);
           });
         }}
+        
         // Labels
         clearFilterText={t("Sidebar.clearFilter")}
         categoryLabels={{ all: t("Sidebar.allProvinces") }}

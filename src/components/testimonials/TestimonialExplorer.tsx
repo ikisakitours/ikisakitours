@@ -283,6 +283,7 @@ export function TestimonialExplorer({ comments }: TestimonialExplorerProps) {
         isOpen={isFilterOpen}
         onClose={() => setIsFilterOpen(false)}
         categories={dynamicLanguages}
+        showCounts={false}
         selectedCategory={language}
         onSelectCategory={selectLanguage}
         title={t("filterLanguages")}

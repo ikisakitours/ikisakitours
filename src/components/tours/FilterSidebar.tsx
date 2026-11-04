@@ -146,7 +146,7 @@ export function FilterSidebar({
                   className="flex w-full items-center justify-between text-body-sm text-slate-300 transition-colors hover:text-gold"
                 >
                   <span className="flex items-center gap-3">
-                    <input type="radio" checked={selectedCategory === "all"} readOnly className="accent-gold" /> All
+                    <input type="radio" checked={selectedCategory === "all"} readOnly className="accent-gold" /> {t("all")}
                   </span>
                   <span className="text-white/30">{categoryCounts["all"]}</span>
                 </button>
@@ -178,7 +178,7 @@ export function FilterSidebar({
                   className="flex w-full items-center justify-between text-body-sm text-slate-300 transition-colors hover:text-gold"
                 >
                   <span className="flex items-center gap-3">
-                    <input type="radio" checked={duration === "all"} readOnly className="accent-gold" /> All
+                    <input type="radio" checked={duration === "all"} readOnly className="accent-gold" /> {t("all")}
                   </span>
                   <span className="text-white/30">{durationCounts["all"]}</span>
                 </button>
