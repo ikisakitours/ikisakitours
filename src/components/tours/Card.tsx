@@ -34,9 +34,10 @@ export function Card({ item, tourType }: PackageCardProps) {
   const { formatPrice } = useCurrency();
 
   const badgeKey = item.badge as BadgeKey;
-  const badgeText = badgeKey && [`popular`, `discounted`, `new_arrival`, `featured`].includes(badgeKey)
-    ? t(`Badges.${badgeKey}`)
-    : item.badge?.replace("_", " ");
+  const badgeText =
+    badgeKey && [`popular`, `discounted`, `new_arrival`, `featured`].includes(badgeKey)
+      ? t(`Badges.${badgeKey}`)
+      : item.badge?.replace("_", " ");
 
   const bookingHref =
     tourType === "one" ? `/booking/one-day-tours/${item.slug}` : `/booking/multi-days-tours/${item.slug}`;
@@ -49,7 +50,7 @@ export function Card({ item, tourType }: PackageCardProps) {
           <span
             className={`${getBadgeStyles(item.badge)} rounded-sm px-2 py-2 text-micro 3xl:px-3 3xl:py-1.5 font-bold uppercase tracking-widest`}
           >
-          {badgeText}
+            {badgeText}
           </span>
         )}
 
@@ -71,19 +72,25 @@ export function Card({ item, tourType }: PackageCardProps) {
           className="image-render-visible object-cover opacity-70!  group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-linear-to-t from-[#111] via-transparent to-black/40" />
-        <div className="absolute bottom-4 left-4 right-4 z-20 flex items-end justify-between">
-          <div className="flex flex-col">
-            <span className="mb-1 text-tiny uppercase tracking-[0.2em] font-bold text-gold">{item.category}</span>
-            <div className="flex items-center gap-3 text-white">
-              <span className="flex items-center gap-1.5">
+        <div className="absolute bottom-4 left-4 right-4 z-20 flex items-end justify-between gap-2">
+          <div className="flex min-w-0 flex-1 flex-col">
+            <span className="mb-1 text-tiny uppercase tracking-[0.2em] font-bold text-gold shrink-0">
+              {item.category}
+            </span>
+
+            {/* Flex container for Duration and Origin, forcing single line with truncate */}
+            <div className="flex items-center gap-3 text-white min-w-0">
+              <span className="flex items-center gap-1.5 shrink-0">
                 <FaClock className="h-3.5 w-3.5 3xl:h-4 3xl:w-4 text-gold" />
-                <span className="text-body-sm font-bold">{item.duration}</span>
+                <span className="text-body-sm font-bold whitespace-nowrap">{item.duration}</span>
               </span>
+
               {item.origin && (
                 <>
-                  <span className="h-3 w-px bg-white/30" />
+                  <span className="h-3 w-px bg-white/30 shrink-0" />
                   <span className="flex min-w-0 items-center gap-1.5">
                     <MapPin className="h-3.5 w-3.5 shrink-0 text-gold 3xl:h-4 3xl:w-4" />
+                    {/* truncate applied here so it doesn't wrap to the next line */}
                     <span className="truncate text-body-sm font-bold">{item.origin}</span>
                   </span>
                 </>
@@ -91,9 +98,9 @@ export function Card({ item, tourType }: PackageCardProps) {
             </div>
           </div>
 
-          <div className="flex items-center space-x-1 rounded border border-white/10 bg-black/80 px-2 py-1 3xl:px-3 3xl:py-1.5 backdrop-blur-md">
+          <div className="shrink-0 flex items-center space-x-1 rounded border border-white/10 bg-black/80 px-2 py-1 3xl:px-3 3xl:py-1.5 backdrop-blur-md">
             <Star className="h-3.5 w-3.5 3xl:h-4 3xl:w-4 text-gold" fill="currentColor" />
-            <span className="text-body-sm font-bold text-white">
+            <span className="text-body-sm font-bold text-white whitespace-nowrap">
               {item.averageRating > 0 ? item.averageRating.toFixed(1) : t("newBadge")}
             </span>
           </div>

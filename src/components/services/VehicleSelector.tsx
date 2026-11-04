@@ -16,6 +16,7 @@ type VehicleSelectorProps = {
   serviceType?: ServiceType;
   onServiceTypeChange?: (type: ServiceType) => void;
   noteServiceType?: string;
+  onPriceChange?: (prices: { startingPrice: number; selectedPrice: number }) => void;
 };
 
 // 1. Reusable Component for Data Point Items (Price, Passengers, Luggage)
@@ -86,6 +87,7 @@ export function VehicleSelector({
   serviceType = "driver",
   onServiceTypeChange = () => {},
   noteServiceType = "custom",
+   onPriceChange,
 }: VehicleSelectorProps) {
   const tVeh = useTranslations("Services.VehicleSelector");
   const { formatPrice } = useCurrency();
@@ -143,6 +145,10 @@ export function VehicleSelector({
     }
   }
 
+    useEffect(() => {
+    onPriceChange?.({ startingPrice: finalPriceUSD, selectedPrice: extraCostUSD });
+  }, [finalPriceUSD, extraCostUSD, onPriceChange]);
+  
   return (
     <>
       <div className={isLoading ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}>
