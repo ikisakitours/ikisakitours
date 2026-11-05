@@ -182,6 +182,8 @@ export default {
   },
   ActivityDetails: {
     title: "About this activity",
+    showAll: "Show All Activities",
+    showLess: "Show Less",
   },
   StickyBar: {
     Rate: "Rate",

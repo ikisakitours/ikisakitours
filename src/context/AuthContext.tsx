@@ -64,7 +64,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => clearTimeout(id);
   }, []);
 
-  // 2) API එකෙන් අලුත්ම data (දැනට තියෙන එක)
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       fetchUser();

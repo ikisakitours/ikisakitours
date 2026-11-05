@@ -6,8 +6,8 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
 export const packageDetailsService = {
   getPackageBySlug: async (
     slug: string,
-    lang: string = "en", // ← අලුත්
-    signal?: AbortSignal, // ← අලුත්
+    lang: string = "en", 
+    signal?: AbortSignal, 
   ): Promise<PackageDetails> => {
     const res = await fetch(`${API_URL}/addpackages/${slug}?lang=${encodeURIComponent(lang)}`, { signal });
 

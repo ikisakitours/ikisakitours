@@ -34,7 +34,11 @@ export default function RelatedBookingSections({
   } = useRelatedPackages(tourType, { slug: currentSlug, category, origin, price });
 
   const { insights, isLoading: insightLoading, error: insightError, refetch: refetchInsights } = useRelatedInsights();
+  const rec4 = recommendations.slice(0, 4);
+  const rec3 = recommendations.slice(0, 3);
 
+  const insight4 = insights.slice(0, 4);
+  const insight3 = insights.slice(0, 3);
   return (
     <>
       {/* ================= Recommendations ================= */}
@@ -65,9 +69,15 @@ export default function RelatedBookingSections({
             {t("youMightLike")}
           </h2>
 
-          <div className="flex flex-col gap-6 md:grid md:grid-cols-2 md:gap-12 lg:gap-15 2xl:gap-8 3xl:gap-10 md:px-0 2xl:grid-cols-3 3xl:grid-cols-4">
-            {recommendations.map((item) => (
-              <RecommendationCard key={item.slug} item={item} />
+          <div className="flex flex-col gap-6 md:grid md:grid-cols-2 md:gap-12 lg:gap-15 2xl:hidden 3xl:grid 3xl:grid-cols-4 md:px-0">
+            {rec4.map((item) => (
+              <RecommendationCard key={`rec-4-${item.slug}`} item={item} />
+            ))}
+          </div>
+
+          <div className="hidden 2xl:grid 2xl:grid-cols-3 2xl:gap-8 3xl:hidden md:px-0">
+            {rec3.map((item) => (
+              <RecommendationCard key={`rec-3-${item.slug}`} item={item} />
             ))}
           </div>
         </section>
@@ -100,9 +110,15 @@ export default function RelatedBookingSections({
           <h2 className="premium-serif mb-8 px-4 text-center text-3xl italic text-white md:mb-10 md:px-0 md:text-left ">
             {t("exploreInsights")}
           </h2>
-          <div className="flex flex-col gap-6 md:grid md:grid-cols-2 md:gap-12 lg:gap-15 2xl:gap-8 3xl:gap-10 md:px-0 2xl:grid-cols-3 3xl:grid-cols-4">
-            {insights.map((item) => (
-              <InsightCard key={item.slug} item={item} />
+          <div className="flex flex-col gap-6 md:grid md:grid-cols-2 md:gap-12 lg:gap-15 2xl:hidden 3xl:grid 3xl:grid-cols-4 md:px-0">
+            {insight4.map((item) => (
+              <InsightCard key={`insight-4-${item.slug}`} item={item} />
+            ))}
+          </div>
+
+          <div className="hidden 2xl:grid 2xl:grid-cols-3 2xl:gap-8 3xl:hidden md:px-0">
+            {insight3.map((item) => (
+              <InsightCard key={`insight-3-${item.slug}`} item={item} />
             ))}
           </div>
         </section>

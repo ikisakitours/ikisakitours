@@ -177,9 +177,9 @@ export default function ItinerarySection({ tour }: ItinerarySectionProps) {
                           <span className="mb-1 block text-tiny font-bold uppercase tracking-widest text-slate-500">
                             {t("mealsIncluded")}
                           </span>
-                          <div className="flex items-center gap-2 text-body-sm font-bold text-white">
-                            <Utensils className="h-4 w-4 text-gold shrink-0" />
-                            <span>{day.meals}</span>
+                          <div className="flex items-start gap-2 text-body-sm font-bold text-white min-w-0">
+                            <Utensils className="mt-0.5 h-4 w-4 text-gold shrink-0" />
+                            <span className="leading-relaxed wrap-break-word overflow-hidden">{day.meals}</span>
                           </div>
                         </div>
                       )}
@@ -190,9 +190,9 @@ export default function ItinerarySection({ tour }: ItinerarySectionProps) {
                           <span className="mb-1 block text-tiny font-bold uppercase tracking-widest text-slate-500">
                             {t("accommodation")}
                           </span>
-                          <div className="flex items-center gap-2 text-body-sm font-bold text-white">
-                            <Bed className="h-4 w-4 text-gold shrink-0" />
-                            <span>{day.accommodation}</span>
+                          <div className="flex items-start gap-2 text-body-sm font-bold text-white min-w-0">
+                            <Bed className="mt-0.5 h-4 w-4 text-gold shrink-0" />
+                            <span className="leading-relaxed wrap-break-word overflow-hidden">{day.accommodation}</span>
                           </div>
                         </div>
                       )}

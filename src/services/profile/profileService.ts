@@ -33,16 +33,16 @@ export const profileService = {
     return res.json();
   },
 
-  updateSecurity: async (data: Record<string, string>) => {
-    const res = await fetch(`${API_URL}/profile/security`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify(data),
-    });
-    if (!res.ok) throw new Error("Security update failed");
-    return res.json();
-  },
+ updateSecurity: async (data: { email: string; currentPassword: string; newPassword: string }) => {
+  const res = await fetch(`${API_URL}/auth/update-password`, {
+    method: "POST", // ← change to PATCH/PUT if your backend route uses that
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw new Error("Security update failed");
+  return res.json();
+},
 
   // Delete Account
   deleteAccount: async (payload: DeleteAccountPayload) => {

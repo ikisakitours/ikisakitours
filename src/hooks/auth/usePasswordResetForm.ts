@@ -1,4 +1,4 @@
-import { useState, useRef, type FormEvent, type KeyboardEvent } from "react";
+import { useState, useRef, type FormEvent, type KeyboardEvent, type ClipboardEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { usePasswordStrength, type TransientMsgType } from "@/hooks/usePasswordStrength";
 import { useRouter } from "@/lib/i18nNavigation";
@@ -7,6 +7,9 @@ import { authService } from "@/services/auth/authService";
 import { useToast } from "@/context/ToastContext";
 
 const otpLength = 6;
+
+// Letters + numbers only, always uppercase
+const cleanOtp = (value: string) => value.replace(/[^a-zA-Z0-9]/g, "").toUpperCase();
 
 export function usePasswordResetForm(tError: (key: string) => string) {
   const [otp, setOtp] = useState(() => Array.from({ length: otpLength }, () => ""));
@@ -28,18 +31,46 @@ export function usePasswordResetForm(tError: (key: string) => string) {
   const tErr = useTranslations("ValidationErrors.ServerErrors");
   const tToast = useTranslations("ValidationErrors.ToastMessages.PasswordReset");
   const toast = useToast();
+
   const handleOtpChange = (index: number, value: string) => {
-    const nextDigit = value.replace(/\D/g, "").slice(-1);
+    const cleaned = cleanOtp(value);
     const nextOtp = [...otp];
-    nextOtp[index] = nextDigit;
-    setOtp(nextOtp);
+
+    // Autofill / multi-character input: spread across the boxes
+    if (cleaned.length > 1) {
+      cleaned
+        .slice(0, otpLength - index)
+        .split("")
+        .forEach((char, i) => {
+          nextOtp[index + i] = char;
+        });
+      setOtp(nextOtp);
+      const focusIndex = Math.min(index + cleaned.length, otpLength - 1);
+      otpRefs.current[focusIndex]?.focus();
+    } else {
+      nextOtp[index] = cleaned;
+      setOtp(nextOtp);
+      if (cleaned && index < otpLength - 1) {
+        otpRefs.current[index + 1]?.focus();
+      }
+    }
 
     if (errors.otp) {
       setErrors((prev) => ({ ...prev, otp: "" }));
     }
+  };
 
-    if (nextDigit && index < otpLength - 1) {
-      otpRefs.current[index + 1]?.focus();
+  const handleOtpPaste = (event: ClipboardEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    const pasted = cleanOtp(event.clipboardData.getData("text")).slice(0, otpLength);
+    if (!pasted) return;
+
+    const nextOtp = Array.from({ length: otpLength }, (_, i) => pasted[i] ?? "");
+    setOtp(nextOtp);
+    otpRefs.current[Math.min(pasted.length, otpLength - 1)]?.focus();
+
+    if (errors.otp) {
+      setErrors((prev) => ({ ...prev, otp: "" }));
     }
   };
 
@@ -78,13 +109,19 @@ export function usePasswordResetForm(tError: (key: string) => string) {
     e.preventDefault();
     if (!validate({ otp, password, confirmPassword })) return;
 
-    const toastId = toast.loading(tToast("loading"));
+    const email = sessionStorage.getItem("reset_email");
+    if (!email) {
+      router.push("/login"); 
+      return;
+    }
 
+    const toastId = toast.loading(tToast("loading"));
     try {
       setIsLoading(true);
-      await authService.resetPassword({ otp, password, confirmPassword });
+      await authService.resetPassword({ email, otp, newPassword: password });
 
       toast.success(toastId, tToast("success"), 2000);
+      sessionStorage.removeItem("reset_email");
 
       // Form Clear
       setOtp(Array.from({ length: otpLength }, () => ""));
@@ -121,6 +158,7 @@ export function usePasswordResetForm(tError: (key: string) => string) {
     transientConfirmSuccess,
     localConfirmError,
     handleOtpChange,
+    handleOtpPaste,
     handleOtpKeyDown,
     handleConfirmChange,
     handleConfirmBlur,

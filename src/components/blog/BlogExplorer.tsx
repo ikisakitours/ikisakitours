@@ -16,7 +16,7 @@ type BlogExplorerProps = {
   posts: BlogPreview[];
 };
 
-const INITIAL_COUNT = 6;
+const INITIAL_COUNT = 4;
 const FORCE_EMPTY = false;
 
 export function BlogExplorer({ posts }: BlogExplorerProps) {
