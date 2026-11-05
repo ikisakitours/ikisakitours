@@ -43,6 +43,7 @@ export default {
   inquiryTypeRequired: "お問い合わせの種類を選択してください",
   missing: "未入力です：",
   noCountries: "国が見つかりません",
+  samePassword: "新しいパスワードは、現在のパスワードと異なる必要があります",
 
   PhoneDetection: {
     detecting: "国番号を検出しています...",
@@ -215,6 +216,12 @@ export default {
       loading: "空き状況を確認中",
       success: "予約リクエストを送信しました！",
       error: "予約に失敗しました.",
+    },
+    //new
+        ProfileUpdatePassword: {
+      loading: "パスワードを更新中",
+      success: "パスワードを更新しました！",
+      error: "パスワードの更新に失敗しました.",
     },
   },
 } as const;

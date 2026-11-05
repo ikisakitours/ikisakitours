@@ -28,6 +28,7 @@ export function useSecuritySettingsForm(tError: (key: string) => string) {
 
   const toast = useToast();
   const tToastDelete = useTranslations("ValidationErrors.ToastMessages.DeleteAccount");
+  const tToastSecurity = useTranslations("ValidationErrors.ToastMessages.ProfileUpdatePassword");
   const tErr = useTranslations("ValidationErrors.ServerErrors");
   const tEr = useTranslations("ValidationErrors");
 
@@ -41,9 +42,7 @@ export function useSecuritySettingsForm(tError: (key: string) => string) {
 
   const { user } = useAuth();
   const isSocialAuth = Boolean(user?.provider && user.provider !== "local");
-  const [deleteMethod, setDeleteMethod] = useState<"password" | "text">(
-    isSocialAuth ? "text" : "password" 
-  );
+  const [deleteMethod, setDeleteMethod] = useState<"password" | "text">(isSocialAuth ? "text" : "password");
   useEffect(() => {
     if (isDeleteModalOpen) {
       document.body.style.overflow = "hidden";
@@ -92,16 +91,29 @@ export function useSecuritySettingsForm(tError: (key: string) => string) {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!validate({ currentPassword, password: newPassword, confirmPassword })) return;
+    if (!user?.email) return;
 
+    if (currentPassword === newPassword) {
+      setErrors((prev) => ({ ...prev, password: tError("samePassword") }));
+      return;
+    }
+    const toastId = toast.loading(tToastSecurity("loading"));
     try {
       setIsLoading(true);
-      await profileService.updateSecurity({ currentPassword, newPassword, confirmPassword });
-      console.log("Security Updated!", { currentPassword, newPassword });
+      await profileService.updateSecurity({
+        email: user?.email ?? "",
+        currentPassword,
+        newPassword,
+      });
+      toast.success(toastId, tToastSecurity("success"), 2000);
+
+      // console.log("Security Updated!", { currentPassword, newPassword });
 
       setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
     } catch (error) {
+      toast.error(toastId, tToastSecurity("error"));
       setErrors((prev) => ({ ...prev, form: tErr("updateFailed") }));
       console.error("Security Updated error:", error);
     } finally {
@@ -111,6 +123,7 @@ export function useSecuritySettingsForm(tError: (key: string) => string) {
 
   // 🌟 Updated handleDeleteAccount to support both methods
   const handleDeleteAccount = async () => {
+    if (!user?.email) return;
     if (deleteMethod === "password" && !deletePassword) {
       setErrors((prev) => ({ ...prev, deletePassword: tError("passwordRequired") }));
       return;
@@ -147,7 +160,7 @@ export function useSecuritySettingsForm(tError: (key: string) => string) {
   };
 
   return {
-    isSocialAuth, 
+    isSocialAuth,
     currentPassword,
     newPassword,
     setNewPassword,

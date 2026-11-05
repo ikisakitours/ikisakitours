@@ -47,7 +47,7 @@ function AccountRecoveryFormInner() {
                   setEmail(e.target.value);
                   setErrors((prev) => ({ ...prev, email: "" }));
                 }}
-                className={`${inputClass} pl-12 pr-6`}
+                className={`${inputClass} pl-12 pr-12`}
               />
             </span>
             <div className="ml-2">

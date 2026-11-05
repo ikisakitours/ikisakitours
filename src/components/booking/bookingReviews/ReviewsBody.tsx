@@ -149,7 +149,7 @@ export default function ReviewsBody({ slug, tourType }: ReviewsBodyProps) {
               <Cta onShareClick={() => setShowForm(true)} />
 
               {reviews.length === 0 ? (
-                <div className="mt-16 py-16 text-center">
+                <div>
                   <EmptyState
                     compact
                     className=""
@@ -213,7 +213,7 @@ export default function ReviewsBody({ slug, tourType }: ReviewsBodyProps) {
                         );
                       })
                     ) : (
-                      <div className="py-10">
+                      <div >
                         <EmptyState
                           compact
                           className=""

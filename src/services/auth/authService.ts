@@ -39,29 +39,33 @@ export const authService = {
     return res.json();
   },
 
-  recoverPassword: async (email: string) => {
-    const res = await fetch(`${API_URL}/auth/recovery`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({ email }),
-    });
-    if (!res.ok) throw new Error("Recovery request failed");
-    return res.json();
-  },
+recoverPassword: async (email: string) => {
+  const res = await fetch(`${API_URL}/auth/forgot-password`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify({ email }),
+  });
+  if (!res.ok) throw new Error("Recovery request failed");
+  return res.json();
+},
 
-  resetPassword: async (data: { otp: string | string[]; password?: string; confirmPassword?: string }) => {
-    const payload = { ...data, otp: Array.isArray(data.otp) ? data.otp.join("") : data.otp };
+resetPassword: async (data: { email: string; otp: string | string[]; newPassword: string }) => {
+  const payload = {
+    email: data.email,
+    otp: Array.isArray(data.otp) ? data.otp.join("") : data.otp,
+    newPassword: data.newPassword,
+  };
 
-    const res = await fetch(`${API_URL}/auth/reset-password`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) throw new Error("Password reset failed");
-    return res.json();
-  },
+  const res = await fetch(`${API_URL}/auth/reset-password`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) throw new Error("Password reset failed");
+  return res.json();
+},
 
   logout: async () => {
     const res = await fetch(`${API_URL}/auth/logout`, {

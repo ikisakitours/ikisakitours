@@ -37,11 +37,11 @@ export function useRecoveryForm(tAuth: (key: string) => string) {
     try {
       setIsLoading(true);
       await authService.recoverPassword(email);
-      // await new Promise((resolve) => setTimeout(resolve, 1500));
 
       toast.success(toastId, tToast("success"), 2000);
 
-      console.log("Valid Email for recovery:", email);
+      // Needed by the reset step (backend requires the email there)
+      sessionStorage.setItem("reset_email", email.trim());
       router.push("/password-change");
     } catch (error) {
       console.error("Recovery error:", error);

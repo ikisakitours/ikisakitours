@@ -43,6 +43,7 @@ export default {
   inquiryTypeRequired: "Please select an inquiry type",
   missing: "Missing: ",
   noCountries: "No countries found",
+  samePassword: "New password must be different from the current password",
 
   PhoneDetection: {
     detecting: "Detecting country code...",
@@ -107,7 +108,7 @@ export default {
       description: "We’d love to hear that you enjoyed this journal! Please sign in to leave a like.",
       loginBtn: "Login to Continue",
     },
-     Booking: {
+    Booking: {
       title: "Oops! Sign in required",
       description: "Please sign in to check availability. Your selected date and travelers are saved.",
       loginBtn: "Login to Continue",
@@ -210,10 +211,16 @@ export default {
       instagramLoading: "Connecting to Instagram...",
       error: "Social login failed. Please try again.",
     },
-      Booking: {
+    Booking: {
       loading: "Checking availability",
       success: "Booking request sent!",
       error: "Booking failed.",
+    },
+    //new
+    ProfileUpdatePassword: {
+      loading: "Updating password",
+      success: "Password updated!",
+      error: "Password update failed.",
     },
   },
 } as const;

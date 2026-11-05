@@ -3,7 +3,7 @@
 import { useCurrency } from "@/context/CurrencyContext";
 import { LoadingImage } from "@/components/ui/LoadingImage";
 import { Button } from "@/components/ui/Button";
-import { Star, MapPin } from "lucide-react";
+import { Star } from "lucide-react";// MapPin
 import { FaClock } from "react-icons/fa6";
 import { useTranslations } from "next-intl";
 import { PackageSummary } from "@/services/tours/types";
@@ -85,16 +85,15 @@ export function Card({ item, tourType }: PackageCardProps) {
                 <span className="text-body-sm font-bold whitespace-nowrap">{item.duration}</span>
               </span>
 
-              {item.origin && (
+              {/* {item.origin && (
                 <>
                   <span className="h-3 w-px bg-white/30 shrink-0" />
                   <span className="flex min-w-0 items-center gap-1.5">
                     <MapPin className="h-3.5 w-3.5 shrink-0 text-gold 3xl:h-4 3xl:w-4" />
-                    {/* truncate applied here so it doesn't wrap to the next line */}
                     <span className="truncate text-body-sm font-bold">{item.origin}</span>
                   </span>
                 </>
-              )}
+              )} */}
             </div>
           </div>
 

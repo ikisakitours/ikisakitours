@@ -42,7 +42,7 @@ export default function DescriptionSection({ tour }: DescriptionSectionProps) {
   const t = useTranslations("Booking.Description");
   const [isExpanded, setIsExpanded] = useState(false);
   const descriptionArray = tour.description ? tour.description.split(/\r\n|\n/).filter((p) => p.trim() !== "") : [];
-  const initialParagraphsCount = 3;
+  const initialParagraphsCount = 1;
   const hasMultipleParagraphs = descriptionArray.length > initialParagraphsCount;
   const defaultParagraphs = descriptionArray.slice(0, initialParagraphsCount);
   const extraParagraphs = descriptionArray.slice(initialParagraphsCount);

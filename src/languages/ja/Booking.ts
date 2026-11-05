@@ -186,6 +186,8 @@ export default {
   },
   ActivityDetails: {
     title: "このアクティビティについて",
+    showAll: "すべてのアクティビティを表示",
+    showLess: "表示を減らす",
   },
   StickyBar: {
     Rate: "料金",

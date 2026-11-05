@@ -1,9 +1,9 @@
 import React from "react";
 // import { useTranslations } from "next-intl";
-import { PackageDetails } from "@/services/Booking/packageDetails/types"; // අලුත් Type එක import කරන්න
+import { PackageDetails } from "@/services/Booking/packageDetails/types";
 
 type StoryBannerProps = {
-  tour: PackageDetails; // පරණ { lead: string } වෙනුවට අලුත් Type එක ලබාදීම
+  tour: PackageDetails;
 };
 export default function StoryBanner({ tour }: StoryBannerProps) {
   // const t = useTranslations("Booking.StoryBanner");
@@ -19,12 +19,11 @@ export default function StoryBanner({ tour }: StoryBannerProps) {
             <span className="bg-linear-to-r from-gold-light via-gold to-gold-dark bg-clip-text text-transparent drop-shadow-sm">
               {/* {t("title")} */}
               {tour.leadTitle}
-
             </span>
           </h2>
 
           <p className="text-body-sm font-light leading-[1.8] tracking-widest text-slate-300/90 md:text-[15px]">
-{tour.leadDescription}
+            {tour.leadDescription}
           </p>
         </div>
       </div>

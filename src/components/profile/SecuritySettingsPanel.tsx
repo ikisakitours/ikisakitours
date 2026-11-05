@@ -77,7 +77,7 @@ export function SecuritySettingsPanel() {
                     disabled={isLoading}
                     onChange={(e) => handleCurrentChange(e.target.value)}
                     className={inputClass}
-                    autoComplete="current-password"
+                    autoComplete="off"
                   />
                   <button
                     type="button"
@@ -280,7 +280,7 @@ export function SecuritySettingsPanel() {
                       setErrors((prev) => ({ ...prev, deletePassword: "" }));
                     }}
                     className={inputClass}
-                    autoComplete="current-password"
+                  autoComplete="new-password"
                   />
                   <button
                     type="button"

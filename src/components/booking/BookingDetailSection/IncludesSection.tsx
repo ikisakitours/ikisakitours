@@ -49,7 +49,7 @@ export default function IncludesSection({ tour }: IncludesSectionProps) {
   const [isIncludesExpanded, setIsIncludesExpanded] = useState(false);
   const [isExcludesExpanded, setIsExcludesExpanded] = useState(false);
 
-const DEFAULT_COUNT = 8;
+const DEFAULT_COUNT = 5;
 
   // Provide fallbacks in case the API doesn't return includes/excludes
   const includes = tour.includes || [];
