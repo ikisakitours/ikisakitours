@@ -3,6 +3,7 @@
 import { SiWhatsapp, SiLine } from "react-icons/si";
 import { Mail, Phone, MapPin, Clock, Headphones } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { contactConfig } from "@/config/contactConfig";
 
 const contactInfoIcons = [Mail, Phone, MapPin, Clock];
 
@@ -23,7 +24,8 @@ function InfoItem({ icon, label, value }: { icon: React.ReactNode; label: string
 export default function ContactSidebar() {
   const t = useTranslations("ContactPage.Sidebar");
   const infoArray = t.raw("info") as { label: string; value: string }[];
-
+  const waDefaultMessage = t("whatsappDefaultText");
+  const waLink = contactConfig.getWhatsappUrl(waDefaultMessage);
   return (
     <div className="space-y-8 lg:col-span-1">
       <div className="glass-card rounded-3xl p-8">
@@ -48,7 +50,7 @@ export default function ContactSidebar() {
           {/* WhatsApp Button Card */}
           <button
             type="button"
-            onClick={() => window.open("https://wa.me/94771234567", "_blank")}
+            onClick={() => window.open(waLink, "_blank")}
             className="group flex w-full md:w-1/2 xl:w-full cursor-pointer items-start sm:items-center gap-4 rounded-2xl border border-white/5 bg-white/2 p-4 text-left shadow-sm transition-all duration-300 hover:border-white/10 hover:bg-white/5"
           >
             {/* Icon Container (Styles strictly preserved) */}
@@ -80,7 +82,7 @@ export default function ContactSidebar() {
           {/* LINE Button Card */}
           <button
             type="button"
-            onClick={() => window.open("https://line.me/ti/p/dcnpathirana", "_blank")}
+            onClick={() => window.open(contactConfig.getLineUrl(), "_blank")}
             className="group flex w-full md:w-1/2 xl:w-full cursor-pointer items-start sm:items-center gap-4 rounded-2xl border border-white/5 bg-white/2 p-4 text-left shadow-sm transition-all duration-300 hover:border-white/10 hover:bg-white/5"
           >
             {/* Icon Container (Styles strictly preserved) */}

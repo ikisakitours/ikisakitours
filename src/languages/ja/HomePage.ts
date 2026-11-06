@@ -131,7 +131,9 @@ export default {
       hireButtonText: "車を手配する",
       consultText: "私たちに相談する",
       appText: "WhatsApp・LINEで直接相談",
-      appDefaultText: "こんにちは！プライベート車両サービスについて問い合わせしたいです.",
+      //new
+      appDefaultText:
+        "こんにちは、IkiSaki Toursさん！ スリランカ旅行のために専用車（チャーター車）とドライバーの利用を検討しています。サービスの詳細や空き状況について教えていただけますか？",
       imagesAlt: {
         luxuryVan: "ラグジュアリーバン",
       },
@@ -204,7 +206,12 @@ export default {
     description:
       "決められたルートから解放されましょう.あなたの希望を共有してください.当社の高級旅行デザイナーが、あなたのペースに完全に合わせた完璧でプライベートな旅程を作成します.",
     ctaButtonText: "オーダーメイドの問い合わせ",
-    reviewCountText: "1000人以上の探検家に愛されています",
+    //new
+    loadingReviews: "レビューを読み込み中...",
+    lovedBy: "{count}人の探検家に愛されています",
+    replyTitle: "2時間以内にご返信",
+    replySub: "無料の個別相談",
+
     localExpertsText: "現地の専門家",
     supportText: "24時間365日のサポート",
     imagesAlt: {

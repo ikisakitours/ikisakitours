@@ -9,6 +9,7 @@ import { privateVehicleImagesData, featureCardsData } from "@/data/home";
 import SectionBadge from "@/components/home/Events/SectionBadge";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { contactConfig } from "@/config/contactConfig";
 //Icons
 import { Fuel, MapPinned, Check } from "lucide-react";
 import { SiWhatsapp, SiLine } from "react-icons/si";
@@ -35,10 +36,9 @@ export function PrivateVehicle({ hideImageOnMobile = false }: PrivateVehicleProp
     };
   }, [isContactOpen]);
 
-  const whatsappNumber = "94789187072";
-  const defaultMessage = t("appDefaultText");
-  const waLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(defaultMessage)}`;
-  const lineLink = "https://line.me/ti/p/dcnpathiran";
+  const defaultMessage = t("appDefaultText"); 
+  const waLink = contactConfig.getWhatsappUrl(defaultMessage);
+  const lineLink = contactConfig.getLineUrl();
 
   return (
     <>

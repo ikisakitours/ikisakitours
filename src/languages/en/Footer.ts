@@ -7,11 +7,14 @@ export default {
   buttonText: "Subscribe",
   copyright: " 2026 IkiSaki Tours Luxury. Crafted with",
   forTravelers: "for travelers.",
+  //new
+  whatsappDefaultText:
+    "Hello IkiSaki Tours! I'm browsing your website and would love to get more details about your tour packages and services.",
   brandDescription:
     "Experience an extraordinary journey in Sri Lanka, the Pearl of the Indian Ocean where nature, culture, and luxury intertwine.",
- nav: {
+  nav: {
     Home: "Home",
-    "Experience": "Experience",
+    Experience: "Experience",
     "Multi Days Tours": "Multi Days Tours",
     "One Day Tours": "One Day Tours",
     "Recommended Spots": "Recommended Spots",
@@ -29,8 +32,9 @@ export default {
     "How The Site Works": "How the site works",
   },
   contactInfo: {
-    Address: "123 Galle Road, Colombo 03",
-    Phone: "+94 11 234 5678",
+    //492/14, Halbarawa Road,\nThalahena,Malabe,\nColombo,Western Province,\nSri Lanka
+    Address: "492/14, Halbarawa Road,\nThalahena,Malabe,\nSri Lanka",
+    Phone: "+94 75 797 2582",
     Email: "hello@ikisakitours.com",
   },
   TimeDiv: {

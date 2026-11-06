@@ -11,6 +11,8 @@ import { ChatToggleButton } from "@/components/ui/ChatWidget/ChatToggleButton";
 import { useDocumentTitleNotification } from "@/hooks/useDocumentTitleNotification";
 import { useTranslations } from "next-intl";
 import { BotChatInterface } from "@/components/ui/ChatWidget/BotChatInterface";
+import { contactConfig } from "@/config/contactConfig";
+
 
 export function FullChatWidget() {
   const tWidget = useTranslations("ChatWidget.Widget");
@@ -254,10 +256,9 @@ export function FullChatWidget() {
     };
   }, [isMounted]);
 
-  const whatsappNumber = "94789187072";
   const defaultMessage = tWidget("whatsappDefaultText");
-  const waLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(defaultMessage)}`;
-  const lineLink = "https://line.me/ti/p/dcnpathirana";
+  const waLink = contactConfig.getWhatsappUrl(defaultMessage);
+  const lineLink = contactConfig.getLineUrl();
   if (!isMounted) return null; // Prevents hydration error by rendering nothing until client-side is ready
 
   return (
