@@ -273,14 +273,14 @@ export function Footer() {
                 {/* Default State ) */}
                 <div className="flex h-8 flex-col justify-center gap-0.5">
                   <span className="text-[8px] font-semibold uppercase tracking-[0.4em] text-slate-500">
-                    Engineered by
+                   {tFooter("engineeredBy")}
                   </span>
                   <span className="text-[11px] font-bold tracking-[0.15em] text-slate-300">{BRAND_NAME}</span>
                 </div>
 
                 {/* Hover State */}
                 <div className="flex h-8 flex-col justify-center gap-0.5">
-                  <span className="text-[8px] font-semibold uppercase tracking-[0.4em] text-gold/70">Developed by</span>
+                  <span className="text-[8px] font-semibold uppercase tracking-[0.4em] text-gold/70">{tFooter("developedBy")}</span>
                   <span className="text-[11px] font-bold tracking-[0.15em] text-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]">
                     {BRAND_NAME}
                   </span>

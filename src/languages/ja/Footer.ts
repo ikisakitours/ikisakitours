@@ -5,9 +5,12 @@ export default {
   newsletterDescription: "毎週の旅行のヒントや限定の隠れた名所を受け取りましょう.",
   emailPlaceholder: "メールアドレス...",
   buttonText: "購読する",
-  copyright: " 2026 IkiSaki Tours Luxury. で作成",
+  //new
+  copyright: " 2026 IkiSaki Tours ラグジュアリー. で作成",
   forTravelers: "旅行者のために.",
   //new
+ engineeredBy: "設計・開発", 
+  developedBy: "開発",
   whatsappDefaultText:
     "こんにちは、IkiSaki Toursさん！ ウェブサイトを拝見しているのですが、ツアーパッケージやサービスについて詳しく教えていただけますか？",
   brandDescription: "インド洋の真珠、スリランカで、自然・文化・贅沢が織りなす特別な旅を.",
