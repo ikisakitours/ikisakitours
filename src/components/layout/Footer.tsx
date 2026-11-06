@@ -8,11 +8,13 @@ import TimeDiv from "@/components/ui/TimeDiv";
 import { FormError } from "@/components/ui/FormError";
 import { useTranslations } from "next-intl";
 import { useNewsletterForm } from "@/hooks/Footer/useNewsletterForm";
+import { contactConfig } from "@/config/contactConfig";
 //Icons
 import { Heart, Mail, MapPin, Phone, Send, Globe } from "lucide-react";
-import { FaInstagram, FaTiktok, FaFacebookF, FaTwitter, FaYoutube, FaWhatsapp } from "react-icons/fa6";
+import { FaInstagram, FaTiktok, FaFacebookF, FaTwitter, FaYoutube } from "react-icons/fa6";
+import { SiWhatsapp, SiLine } from "react-icons/si";
 
-const socialLinksIcons = [FaInstagram, FaTiktok, FaFacebookF, FaTwitter, FaYoutube, FaWhatsapp];
+const socialLinksIcons = [FaInstagram, FaFacebookF, SiWhatsapp, SiLine]; //FaTiktok ,FaTwitter,FaYoutube
 const contactInfoIcons = [MapPin, Phone, Mail];
 
 export function Footer() {
@@ -23,11 +25,12 @@ export function Footer() {
   //Hook
   const { formData, setFormData, errors, setErrors, isLoading, handleBookingSubmit } = useNewsletterForm();
 
-  const BRAND_NAME = "AETHERIA LABS";
-  const BRAND_URL = "https://portfolio-app-pyqf.vercel.app/";
-  const BRAND_LOGO_URL = "/images/aetheria-logo.mp4";
+  const BRAND_NAME = contactConfig.brand.name;
+  const BRAND_URL = contactConfig.brand.url;
+  const BRAND_LOGO_URL = contactConfig.brand.logoUrl;
   const isVideoLogo = BRAND_LOGO_URL?.match(/\.(mp4|webm|ogg)$/i);
 
+  const waDefaultMessage = tFooter("whatsappDefaultText");
   return (
     <footer className="relative overflow-hidden border-t border-white/5 bg-[#050505] py-10">
       <div className="absolute bottom-0 left-1/2 -z-10 h-75 w-75 -translate-x-1/2 rounded-full bg-gold/5 blur-[100px] md:w-200" />
@@ -42,7 +45,8 @@ export function Footer() {
               <div className="group relative flex h-5 w-7 items-center justify-center overflow-hidden border-[0.5px] border-white/20 bg-black shadow-[0_0_15px_rgba(197,160,89,0.15)] transition-all duration-500 hover:border-gold/80 hover:shadow-[0_0_25px_rgba(197,160,89,0.6)] hover:scale-110">
                 <div className="pointer-events-none absolute inset-0 z-20 -translate-x-full bg-linear-to-r from-transparent via-white/50 to-transparent transition-transform duration-1000 ease-in-out group-hover:translate-x-full" />
                 <LoadingImage
-                  src="https://flagcdn.com/w80/lk.png"
+                  // https://flagcdn.com/w80/lk.png
+                  src="/images/lk.png"
                   alt="Sri Lanka Flag"
                   width={80}
                   height={53}
@@ -60,11 +64,20 @@ export function Footer() {
             <div className="flex flex-wrap justify-center gap-3 sm:justify-start">
               {socialLinks.map(({ label, href }, idx) => {
                 const Icon = socialLinksIcons[idx];
+
+                let finalHref = href;
+                if (label === "WhatsApp") {
+                  finalHref = contactConfig.getWhatsappUrl(waDefaultMessage);
+                } else if (label === "Line") {
+                  finalHref = contactConfig.getLineUrl();
+                }
                 return (
                   <a
                     key={label}
-                    href={href}
+                    href={finalHref}
                     aria-label={label}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-slate-200 transition-all duration-300 hover:-translate-y-1 hover:border-gold hover:text-gold"
                   >
                     <Icon className="h-4 w-4" />
@@ -108,7 +121,9 @@ export function Footer() {
                   <li key={index} className="group flex items-start justify-center space-x-3 sm:justify-start">
                     <Icon className="mt-1 h-4 w-4 3xl:h-5 3xl:w-5 shrink-0 text-gold" />
                     <span
-                      className={`text-base font-light leading-relaxed text-slate-300 ${item.label.includes("@") ? "transition-colors group-hover:text-gold" : ""}`}
+                      className={`whitespace-pre-line text-base font-light leading-relaxed text-slate-300 ${
+                        item.label.includes("@") ? "transition-colors group-hover:text-gold" : ""
+                      }`}
                     >
                       {tFooter(`contactInfo.${item.label}`)}
                     </span>

@@ -108,8 +108,4 @@ export const contactCtaImagesData = [
   },
 ] as const;
 
-export const contactCtaUsersData = [
-  { id: "user1", avatarUrl: "https://i.pravatar.cc/100?img=31" },
-  { id: "user2", avatarUrl: "https://i.pravatar.cc/100?img=32" },
-  { id: "user3", avatarUrl: "https://i.pravatar.cc/100?img=33" },
-] as const;
+

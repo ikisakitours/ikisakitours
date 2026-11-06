@@ -57,6 +57,9 @@ export default {
     whatsappButton: "WhatsAppでチャットする",
     lineButton: "LINEでチャット",
     onlineStatus: "オンラインですぐにチャット可能",
+    //new
+    whatsappDefaultText:
+      "こんにちは、IkiSaki Toursさん！ ウェブサイトを拝見しました。スリランカ旅行の計画について相談したいのですが、ツアーやサービスの詳細を教えていただけますか？",
     info: [
       {
         label: "電子メール",
@@ -64,7 +67,7 @@ export default {
       },
       {
         label: "電話",
-        value: "+94 77 123 4567",
+        value: "+94 75 797 2582",
       },
       {
         label: "位置",

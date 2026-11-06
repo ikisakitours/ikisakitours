@@ -1,3 +1,5 @@
+import { contactConfig } from "@/config/contactConfig";
+
 export type NavLink = { key: string; href: string; sectionId?: string; isDropdown?: never; subItems?: never };
 export type NavDropdown = {
   key: string;
@@ -47,12 +49,12 @@ export const primaryNavigation: NavItem[] = [
 export const footerLinks = [
   // 1. Core Navigation
   { label: "Home", href: "/" },
-  { label: "Experience", href: "/about", sectionId: "" }, 
+  { label: "Experience", href: "/about", sectionId: "" },
 
   // 2. Core Products
-  { label: "Multi Days Tours", href: "/tours/multi-days", sectionId: "" }, 
-  { label: "One Day Tours", href: "/tours/one-day", sectionId: "" },     
-  { label: "Recommended Spots", href: "/destination", sectionId: "" },    
+  { label: "Multi Days Tours", href: "/tours/multi-days", sectionId: "" },
+  { label: "One Day Tours", href: "/tours/one-day", sectionId: "" },
+  { label: "Recommended Spots", href: "/destination", sectionId: "" },
 
   // 3. Trust, Stories & Support
   { label: "Journal", href: "/blog", sectionId: "" },
@@ -60,13 +62,14 @@ export const footerLinks = [
   { label: "Contact", href: "/contact", sectionId: "" },
 ];
 export const socialLinks = [
-  { label: "Instagram", href: "#" },
-  { label: "TikTok", href: "#" },
-  { label: "Facebook", href: "#" },
-  { label: "Twitter", href: "#" },
-  { label: "YouTube", href: "#" },
+  { label: "Instagram", href: contactConfig.socials.instagram },
+  // { label: "TikTok", href: contactConfig.socials.tiktok },
+  { label: "Facebook", href: contactConfig.socials.facebook },
+  // { label: "Twitter", href: contactConfig.socials.twitter },
+  // { label: "YouTube", href: contactConfig.socials.youtube },
   { label: "WhatsApp", href: "#" },
-] as const;
+  { label: "Line", href: "#" },
+];
 
 export const legalLinks = [
   { label: "Terms of Use", href: "/legal/terms" },
@@ -79,7 +82,7 @@ export const legalLinks = [
 ] as const;
 
 export const contactInfo = [
-  { label: "Address", value: "123 Galle Road, Colombo 03" },
-  { label: "Phone", value: "+94 11 234 5678" },
+  { label: "Address", value: "492/14, Halbarawa Road,\nThalahena,Malabe,\nColombo,Western Province,\nSri Lanka" },
+  { label: "Phone", value: "+94 75 797 2582" },
   { label: "Email", value: "hello@ikisakitours.com" },
 ] as const;

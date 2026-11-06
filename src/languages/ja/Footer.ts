@@ -7,10 +7,13 @@ export default {
   buttonText: "購読する",
   copyright: " 2026 IkiSaki Tours Luxury. で作成",
   forTravelers: "旅行者のために.",
+  //new
+  whatsappDefaultText:
+    "こんにちは、IkiSaki Toursさん！ ウェブサイトを拝見しているのですが、ツアーパッケージやサービスについて詳しく教えていただけますか？",
   brandDescription: "インド洋の真珠、スリランカで、自然・文化・贅沢が織りなす特別な旅を.",
   nav: {
     Home: "ホーム",
-    "Experience": "体験",
+    Experience: "体験",
     "Multi Days Tours": "数日間のツアー",
     "One Day Tours": "日帰りツアー",
     "Recommended Spots": "おすすめスポット",
@@ -28,8 +31,8 @@ export default {
     "How The Site Works": "当サイトのご利用方法",
   },
   contactInfo: {
-    Address: "スリランカ、コロンボ 03、ゴールロード 123",
-    Phone: "+94 11 234 5678",
+    Address: "492/14, Halbarawa Road,\nThalahena,Malabe,\nSri Lanka",
+    Phone: "+94 75 797 2582",
     Email: "hello@ikisakitours.com",
   },
   TimeDiv: {

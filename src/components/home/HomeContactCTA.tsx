@@ -3,18 +3,45 @@ import { LoadingImage } from "@/components/ui/LoadingImage";
 import { motion } from "framer-motion";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { Button } from "@/components/ui/Button";
-import { contactCtaUsersData, contactCtaImagesData } from "@/data/home";
+import { contactCtaImagesData } from "@/data/home";
 import SectionBadge from "@/components/home/Events/SectionBadge";
-
+import { useReviews } from "@/hooks/testimonials/useFetchReviews";
 import { useTranslations } from "next-intl";
 //Icons
-import { MapPin, Star, ArrowRight } from "lucide-react";
+import { MapPin, Star, ArrowRight, Clock } from "lucide-react";
 interface HomeContactCTAProps {
   hideOnMobile?: boolean;
 }
 
 export default function HomeContactCTA({ hideOnMobile = false }: HomeContactCTAProps) {
   const t = useTranslations("HomePage.ContactCta");
+  const { data: reviewsData, isLoading } = useReviews();
+
+  const backendAvatars = reviewsData?.comments?.slice(0, 3) || [];
+
+  const getInitials = (name?: string) => {
+    const clean = (name || "").trim();
+    if (!clean) return "U";
+    return Array.from(clean).slice(0, 2).join("").toUpperCase();
+  };
+
+  const totalCount = reviewsData?.totalComments ?? 0;
+  const formattedCount = totalCount > 999 ? `${Math.floor(totalCount / 1000)}k+` : totalCount;
+
+  const ratings = (reviewsData?.comments ?? [])
+    .map((c) => c.rating)
+    .filter((r): r is number => typeof r === "number" && r > 0);
+
+  const averageRating =
+    reviewsData?.averageRating && reviewsData.averageRating > 0
+      ? reviewsData.averageRating
+      : ratings.length > 0
+        ? ratings.reduce((sum, r) => sum + r, 0) / ratings.length
+        : 0;
+
+  const displayRating = averageRating > 0 ? Math.min(averageRating, 5) : 5;
+
+  const hasReviews = totalCount > 0 && backendAvatars.length > 0;
   return (
     <section
       id="contact"
@@ -26,12 +53,12 @@ export default function HomeContactCTA({ hideOnMobile = false }: HomeContactCTAP
       <div className="absolute left-1/2 top-1/2 -z-10 h-150 w-150 -translate-x-1/2 -translate-y-1/2 pointer-events-none rounded-full bg-gold/5 blur-[120px]" />
 
       {/* Background Watermark */}
-    <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center overflow-hidden mt-2">
+      <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center overflow-hidden mt-2">
         <span className="select-none leading-none text-[20vw] lg:text-[18vw] 2xl:text-[20vw] font-black uppercase tracking-tighter text-white/2">
           {t("watermark")}
         </span>
         <span className="select-none text-[5vw] lg:text-[4vw] 2xl:text-[4.5vw] font-bold uppercase tracking-[0.5em] text-white/2 -mt-2 sm:-mt-4 lg:-mt-6 ml-[0.5em]">
-         {t("watermarkSub")}
+          {t("watermarkSub")}
         </span>
       </div>
 
@@ -69,34 +96,79 @@ export default function HomeContactCTA({ hideOnMobile = false }: HomeContactCTAP
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" strokeWidth={3} />
               </Button>
 
-              <div className="flex items-center gap-4 border-l border-white/10 pl-8">
-                <div className="flex -space-x-2">
-                  {contactCtaUsersData.map((user) => (
-                    <div
-                      key={user.id}
-                      className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-[#050505]"
-                    >
-                      <LoadingImage
-                        src={user.avatarUrl}
-                        alt={t("imagesAlt.userAvatar")}
-                        fill
-                        sizes="40px"
-                        isSmall
-                        className="object-cover"
-                        wrapperClassName="w-full h-full"
-                      />
-                    </div>
-                  ))}
-                </div>
-                <div>
-                  <div className="flex gap-1 text-gold">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <Star key={star} className="h-3.5 w-3.5 fill-gold" />
+              {isLoading ? (
+                <div className="flex items-center gap-4 border-l border-white/10 pl-8 animate-pulse">
+                  <span className="sr-only">{t("loadingReviews")}</span>
+                  <div className="flex -space-x-2" aria-hidden="true">
+                    {[0, 1, 2].map((i) => (
+                      <div key={i} className="h-10 w-10 rounded-full border-2 border-[#050505] bg-white/10" />
                     ))}
                   </div>
-                  <p className="mt-1 text-caption uppercase tracking-widest text-white/50">{t("reviewCountText")}</p>
+                  <div className="space-y-2" aria-hidden="true">
+                    <div className="h-3.5 w-24 rounded bg-white/10" />
+                    <div className="h-3 w-32 rounded bg-white/10" />
+                  </div>
                 </div>
-              </div>
+              ) : hasReviews ? (
+                <div className="flex items-center gap-4 border-l border-white/10 pl-8">
+                  <div className="flex -space-x-2">
+                    {backendAvatars.map((user, idx) => (
+                      <div
+                        key={user.id || idx}
+                        style={{ zIndex: backendAvatars.length - idx }}
+                        className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-[#050505] bg-[#0a0a0a]"
+                      >
+                        {user.avatarUrl ? (
+                          <LoadingImage
+                            src={user.avatarUrl}
+                            alt={user.authorName || t("imagesAlt.userAvatar")}
+                            fill
+                            sizes="40px"
+                            isSmall
+                            className="object-cover"
+                            wrapperClassName="w-full h-full"
+                          />
+                        ) : (
+                          <div
+                            aria-label={user.authorName || t("imagesAlt.userAvatar")}
+                            className="flex h-full w-full items-center justify-center bg-linear-to-br from-gold/30 to-gold/10 text-caption font-bold uppercase tracking-wider text-gold"
+                          >
+                            {getInitials(user.authorName)}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  <div>
+                    <div className="flex gap-1 text-gold" aria-label={`Rating ${displayRating.toFixed(1)} out of 5`}>
+                      {[1, 2, 3, 4, 5].map((star) => {
+                        const fillPercent = Math.min(Math.max(displayRating - (star - 1), 0), 1) * 100;
+                        return (
+                          <span key={star} className="relative inline-block h-3.5 w-3.5 shrink-0">
+                            <Star className="absolute inset-0 h-3.5 w-3.5 text-gold/30" />
+                            <span className="absolute inset-0 overflow-hidden" style={{ width: `${fillPercent}%` }}>
+                              <Star className="h-3.5 w-3.5 shrink-0 fill-gold text-gold" />
+                            </span>
+                          </span>
+                        );
+                      })}
+                    </div>
+                    <p className="mt-1 text-caption uppercase tracking-widest text-white/50">
+                      {`${averageRating > 0 ? averageRating.toFixed(1) + " · " : ""}${t("lovedBy", { count: formattedCount })}`}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-center gap-4 border-l border-white/10 pl-8">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gold/30 bg-gold/10">
+                    <Clock className="h-4 w-4 text-gold" />
+                  </div>
+                  <div>
+                    <p className="text-body-sm font-bold text-white">{t("replyTitle")}</p>
+                    <p className="mt-0.5 text-caption uppercase tracking-widest text-white/50">{t("replySub")}</p>
+                  </div>
+                </div>
+              )}
             </div>
           </motion.div>
 

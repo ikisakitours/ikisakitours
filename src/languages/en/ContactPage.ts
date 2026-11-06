@@ -57,9 +57,12 @@ export default {
     whatsappButton: "Chat on WhatsApp",
     lineButton: "Chat on LINE",
     onlineStatus: "Online & Ready to Chat",
+    //new
+    whatsappDefaultText:
+      "Hello IkiSaki Tours! I visited your website and would love to start planning my journey to Sri Lanka. Could you share more details about your tours and services?",
     info: [
       { label: "Email", value: "hello@ikisakitours.com" },
-      { label: "Phone", value: "+94 77 123 4567" },
+      { label: "Phone", value: "+94 75 797 2582" },
       { label: "Location", value: "Colombo, Sri Lanka" },
       { label: "Working Hours", value: "24/7 Available" },
     ],
