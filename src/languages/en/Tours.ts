@@ -68,12 +68,10 @@ export default {
       clearFilter: "Clear Filter",
       clear: "Clear",
       showResults: "Show Results",
-      //new
       durationDays: "Duration (Days)",
       durationHours: "Duration (Hours)",
     },
   },
-  //new
   Card: {
     startingFrom: "Starting from",
     details: "Details",

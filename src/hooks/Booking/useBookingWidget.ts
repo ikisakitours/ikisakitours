@@ -4,7 +4,7 @@ import { bookingWidgetService } from "@/services/Booking/bookingWidgetService";
 import { useTranslations } from "next-intl";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/context/ToastContext";
-import { claimBookingDraft, clearBookingDraft, loadBookingDraft, saveBookingDraft } from "@/utils/draft/bookingDraft";
+import { claimBookingDraft, clearBookingDraft, saveBookingDraft } from "@/utils/draft/bookingDraft";
 
 // true: after login, the saved draft is submitted automatically
 const AUTO_SUBMIT_AFTER_LOGIN = false;
@@ -25,15 +25,16 @@ export function useBookingWidget(tour: TourInfo, tourType: "oneday" | "multiday"
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [draftRestored, setDraftRestored] = useState(false);
 
-  const { user } = useAuth();
+  const { user, isHydrated } = useAuth();
   const toast = useToast();
   const { errors, validate, setErrors } = useValidationForm();
   const tErr = useTranslations("ValidationErrors.ServerErrors");
   const tToast = useTranslations("ValidationErrors.ToastMessages.Booking");
 
   const draftKey = tour.slug || tour.id || tour.title;
-  const restoredRef = useRef(false);
-  const autoHandledRef = useRef(false);
+
+  // මොන draft key එක restore කළාද කියලා (එකම draft එක දෙපාරක් restore වෙන්නේ නැති වෙන්න)
+  const restoredKeyRef = useRef<string | null>(null);
 
   const getTodayFormatted = () => {
     const today = new Date();
@@ -83,26 +84,19 @@ export function useBookingWidget(tour: TourInfo, tourType: "oneday" | "multiday"
     }
   };
 
-  // Restore draft (and optionally auto submit) after returning from login
+  // Login වෙලා ආපහු ආවම විතරක් draft එක restore කරනවා
   useEffect(() => {
+    // 1. Auth hydrate වෙනකම් / user login වෙලා නැත්නම් / tour එක load වෙලා නැත්නම් කිසිවක් නොකරන්න
+    if (!isHydrated || !user || !draftKey) return;
+    // 2. මේ draft එක දැනටමත් restore කරලා නම් නවතින්න
+    if (restoredKeyRef.current === draftKey) return;
+
     const id = setTimeout(() => {
-      // Not auto-submitting: just restore the fields (every instance fills itself)
-      if (!AUTO_SUBMIT_AFTER_LOGIN || !user) {
-        const draft = loadBookingDraft(draftKey);
-        if (!draft || restoredRef.current) return;
-        restoredRef.current = true;
-        setJourneyDate(draft.journeyDate);
-        setTravelerCounts({ ...EMPTY_COUNTS, ...draft.travelerCounts });
-        setDraftRestored(true);
-        return;
-      }
-
-      // Auto-submit mode, logged in: only ONE instance can claim the draft
-      if (autoHandledRef.current) return;
-      autoHandledRef.current = true;
-
+      // 3. Draft එක ගන්නවා + storage එකෙන් මකනවා (refresh කළාම ආයෙ modal එක ඇරෙන්නේ නැති වෙන්න)
       const draft = claimBookingDraft(draftKey);
-      if (!draft) return; // another instance already took it
+      if (!draft) return;
+
+      restoredKeyRef.current = draftKey;
 
       const values: BookingValues = {
         journeyDate: draft.journeyDate,
@@ -112,13 +106,23 @@ export function useBookingWidget(tour: TourInfo, tourType: "oneday" | "multiday"
       setJourneyDate(values.journeyDate);
       setTravelerCounts(values.travelerCounts);
 
-      if (draft.autoSubmit && validate({ date: values.journeyDate, counts: values.travelerCounts })) {
+      // Auto-submit mode එකේදී කෙලින්ම submit කරනවා
+      if (
+        AUTO_SUBMIT_AFTER_LOGIN &&
+        draft.autoSubmit &&
+        validate({ date: values.journeyDate, counts: values.travelerCounts })
+      ) {
         void submitBooking(values);
+        return;
       }
+
+      // Mobile එකේ StickyBookingBar එකට modal එක ඇරෙන්න signal එක
+      setDraftRestored(true);
     }, 0);
+
     return () => clearTimeout(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, draftKey]);
+  }, [isHydrated, user, draftKey]);
 
   const handleTravelerChange = (type: string, delta: number) => {
     setTravelerCounts((prev) => {

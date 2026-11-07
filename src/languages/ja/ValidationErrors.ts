@@ -91,47 +91,46 @@ export default {
     transferBookingFailed: "送迎予約の送信に失敗しました.もう一度お試しください.",
     deleteFailed: "アカウントの削除に失敗しました.パスワードを確認してください.",
   },
-  // NEW
   AuthRequired: {
     Review: {
       title: "ログインが必要です",
-      description: "レビューを投稿し、体験を共有するにはログインしてください。",
+      description: "レビューを投稿し、体験を共有するにはログインしてください.",
       loginBtn: "ログインして続ける",
     },
     Contact: {
       title: "ログインが必要です",
-      description: "お問い合わせを送信するにはログインしてください。",
+      description: "お問い合わせを送信するにはログインしてください.",
       loginBtn: "ログインして続ける",
     },
     Journal: {
       title: "ログインが必要です",
-      description:
-        "このジャーナルを気に入っていただけたら、とてもうれしいです！ぜひログインして「いいね！」をお願いします。",
+      description: "この記事を気に入っていただけましたら、ぜひログインして「いいね！」をお願いします.",
       loginBtn: "ログインして続ける",
     },
     Booking: {
       title: "ログインが必要です",
-      description: "空き状況を確認するにはログインしてください。選択した日付と人数は保存されています。",
+      description: "空き状況を確認するにはログインしてください.選択した日付と人数は保存されています.",
       loginBtn: "ログインして続ける",
     },
     Bespoke: {
       title: "ログインが必要です",
-      description: "オーダーメイドツアーのリクエストを送信するにはログインしてください。選択したツアープランは保存されています。",
+      description:
+        "オーダーメイドツアーのリクエストを送信するにはログインしてください.選択したツアープランは保存されています.",
       loginBtn: "ログインして続行",
     },
     VehicleBooking: {
       title: "ログインが必要です",
-      description: "配車予約を確定するにはログインしてください。車両と旅行の詳細は保存されています。",
+      description:
+        "プライベートチャーターのご予約を確定するには、ログインしてください.お客様の車両および旅行に関する情報は保存されています.",
       loginBtn: "ログインして続行",
     },
     TransferBooking: {
       title: "ログインが必要です",
-      description: "送迎予約を確定するにはログインしてください。送迎ルートと詳細は保存されています。",
+      description: "送迎予約を確定するにはログインしてください.送迎ルートと詳細は保存されています.",
       loginBtn: "ログインして続行",
     },
   },
 
-  // new translate need
   deleteConfirmationMatch: "確認のためにDELETEと入力してください",
   deleteGeneralFailed: "アカウントの削除に失敗しました.もう一度お試しください.",
   ToastMessages: {
@@ -210,7 +209,7 @@ export default {
       googleLoading: "Googleに接続中...",
       facebookLoading: "Facebookに接続しています...",
       instagramLoading: "Instagramに接続中...",
-      error: "ソーシャルログインに失敗しました。もう一度お試しください。",
+      error: "ソーシャルログインに失敗しました.もう一度お試しください.",
     },
     Booking: {
       loading: "空き状況を確認中",
@@ -218,7 +217,7 @@ export default {
       error: "予約に失敗しました.",
     },
     //new
-        ProfileUpdatePassword: {
+    ProfileUpdatePassword: {
       loading: "パスワードを更新中",
       success: "パスワードを更新しました！",
       error: "パスワードの更新に失敗しました.",

@@ -91,7 +91,6 @@ export default {
     transferBookingFailed: "Failed to submit transfer booking. Please try again.",
     deleteFailed: "Failed to delete account. Check your password.",
   },
-  // NEW
   AuthRequired: {
     Review: {
       title: "Oops! Sign in required",
@@ -105,7 +104,7 @@ export default {
     },
     Journal: {
       title: "Oops! Sign in required",
-      description: "We’d love to hear that you enjoyed this journal! Please sign in to leave a like.",
+      description: "If you enjoyed this article, please log in and give it a like.",
       loginBtn: "Login to Continue",
     },
     Booking: {
@@ -115,12 +114,12 @@ export default {
     },
     Bespoke: {
       title: "Oops! Sign in required",
-      description: "Please sign in to submit your bespoke tour request. Your selected tour plan is saved.",
+      description: "Please sign in to submit your Custom Made tour request. Your selected tour plan is saved.",
       loginBtn: "Login to Continue",
     },
     VehicleBooking: {
       title: "Oops! Sign in required",
-      description: "Please sign in to confirm your vehicle booking. Your vehicle and travel details are saved.",
+      description: "Please sign in to confirm your Private Chauffeur. Your vehicle and travel details are saved.",
       loginBtn: "Login to Continue",
     },
     TransferBooking: {
@@ -130,7 +129,6 @@ export default {
     },
   },
 
-  // new translate need
   deleteConfirmationMatch: "Type DELETE to confirm",
   deleteGeneralFailed: "Failed to delete account. Please try again.",
   ToastMessages: {
@@ -216,7 +214,6 @@ export default {
       success: "Booking request sent!",
       error: "Booking failed.",
     },
-    //new
     ProfileUpdatePassword: {
       loading: "Updating password",
       success: "Password updated!",

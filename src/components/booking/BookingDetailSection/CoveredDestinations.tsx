@@ -22,9 +22,7 @@ export default function CoveredDestinations({ destinations, tourSlug, tourType }
 
   if (!destinations || destinations.length === 0) return null;
 
-  const uniqueDestinations = Array.from(
-    new Map(destinations.map((dest) => [dest.id || dest.slug, dest])).values()
-  );
+  const uniqueDestinations = Array.from(new Map(destinations.map((dest) => [dest.id || dest.slug, dest])).values());
 
   return (
     <section
@@ -38,7 +36,8 @@ export default function CoveredDestinations({ destinations, tourSlug, tourType }
       <p className="mb-8 text-body-sm font-light text-slate-400">{t("description")}</p>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-{uniqueDestinations.map((dest, index) => {          const fullDestData = allMapDestinations?.find((item) => item.slug === dest.slug || item.id === dest.id);
+        {uniqueDestinations.map((dest, index) => {
+          const fullDestData = allMapDestinations?.find((item) => item.slug === dest.slug || item.id === dest.id);
 
           const title = fullDestData?.title || dest.slug || "";
           const summary = fullDestData?.summary || "";
@@ -72,8 +71,11 @@ export default function CoveredDestinations({ destinations, tourSlug, tourType }
                   {index + 1}
                 </div>
               </div>
-              <div className="flex flex-col justify-center">
-                <h4 className="mb-1 uppercase text-body font-bold tracking-wide text-white transition-colors group-hover:text-gold">
+              <div className="flex flex-col justify-center min-w-0">
+                <h4
+                  title={title.replace(/-/g, " ")}
+                  className="mb-1 truncate uppercase text-body font-bold tracking-wide text-white transition-colors group-hover:text-gold block w-full"
+                >
                   {title.replace(/-/g, " ")}
                 </h4>
                 <p className="line-clamp-2 text-body-sm font-light leading-relaxed text-slate-400">{summary}</p>

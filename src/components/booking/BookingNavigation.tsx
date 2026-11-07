@@ -6,8 +6,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const navItems = [
   { id: "about", key: "about" },
-  { id: "highlights", key: "highlights" },
   { id: "description", key: "details" },
+  { id: "highlights", key: "highlights" },
   { id: "itinerary", key: "itinerary" },
   { id: "Covered-CitiesRoute", key: "citiesRoute" },
   { id: "includes", key: "includesExcludes" },

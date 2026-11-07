@@ -69,17 +69,15 @@ export default {
       clearFilter: "フィルターを解除",
       clear: "クリア",
       showResults: "検索結果を表示",
-      //new
       durationDays: "期間 (日数)",
       durationHours: "期間 (時間)",
     },
   },
-  //new
   Card: {
     startingFrom: "〜から始める",
     details: "詳細",
     newBadge: "新着",
-    save: "{discount}% オフ",
+    save: "{discount}% 割引",
     Badges: {
       popular: "人気",
       discounted: "割引",

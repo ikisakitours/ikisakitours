@@ -31,6 +31,7 @@ export default {
     profilePicDesc: "PNG, JPG or GIF. Max 5MB.",
     savePhotoBtn: "Save Photo",
     savingPhoto: "Saving...",
+    //future
     vipBanner: {
       title: "Unlock Exclusive Perks",
       desc: "Invite friends & earn VIP badges + discounts",
@@ -55,6 +56,8 @@ export default {
     typeDeleteDesc: "Please type <strong>DELETE</strong> to confirm.",
     typeDeletePlaceholder: "Type DELETE here",
   },
+
+   //future
   ReferralPanel: {
     title: "Invite Friends & Earn",
     subtitle: "Share your unique link and unlock premium travel rewards.",
@@ -71,6 +74,7 @@ export default {
       earned: "Total Earned",
     },
   },
+  //
   Modals: {
     Crop: {
       title: "Adjust Profile Picture",

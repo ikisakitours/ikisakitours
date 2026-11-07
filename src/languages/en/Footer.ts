@@ -7,7 +7,6 @@ export default {
   buttonText: "Subscribe",
   copyright: " 2026 IkiSaki Tours Luxury. Crafted with",
   forTravelers: "for travelers.",
-  //new
   engineeredBy: "Engineered by",
   developedBy: "Developed by",
   whatsappDefaultText:

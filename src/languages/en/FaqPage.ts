@@ -24,7 +24,6 @@ export default {
   },
   Categories: {
     all: "All",
-    //new
     categories: "Categories",
   },
   EmptyState: {
@@ -36,7 +35,6 @@ export default {
     descSearchOnly: 'We couldn\'t find any questions matching "{query}". Please clear filters or try another keyword.',
     descCategoryOnly: 'We couldn\'t find any questions available in the "{category}" category.',
     descDefault: "No questions found matching your criteria.",
-    //new
     noDataTitle: "No FAQs Yet",
     noDataDescription: "We are preparing answers to common questions. Please check back soon.",
   },
