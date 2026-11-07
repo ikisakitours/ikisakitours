@@ -57,7 +57,6 @@ export default {
     whatsappButton: "WhatsAppでチャットする",
     lineButton: "LINEでチャット",
     onlineStatus: "オンラインですぐにチャット可能",
-    //new
     whatsappDefaultText:
       "こんにちは、IkiSaki Toursさん！ ウェブサイトを拝見しました。スリランカ旅行の計画について相談したいのですが、ツアーやサービスの詳細を教えていただけますか？",
     info: [

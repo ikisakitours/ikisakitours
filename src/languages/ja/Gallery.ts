@@ -37,7 +37,6 @@ export default {
     eventHighlightsGallery: "イベントハイライトギャラリー",
     tourGallery: "ツアーギャラリー",
     guestMoments: "ゲストの瞬間",
-    //new
     guestMoment: "ゲストモーメント",
     capturedMemories: "{title} からの思い出をキャプチャー",
     reviewBy: "{name} によるレビュー",

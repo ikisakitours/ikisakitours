@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { X, Sparkles, CalendarCheck } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BookingWidget } from "@/components/booking/BookingWidget";
@@ -9,7 +9,7 @@ import { useTranslations } from "next-intl";
 import { PackageDetails } from "@/services/Booking/packageDetails/types";
 
 type MobileBookingBarProps = {
-  tour: PackageDetails; 
+  tour: PackageDetails;
   booking: ReturnType<typeof useBookingWidget>;
 };
 
@@ -17,6 +17,9 @@ export function StickyBookingBar({ tour, booking }: MobileBookingBarProps) {
   const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
   const [showStickyBar, setShowStickyBar] = useState(false);
   const t = useTranslations("Booking.StickyBar");
+
+  // Modal ඇරලාද කියලා scroll handler එකට දැනගන්න (re-render නැතුව)
+  const isModalOpenRef = useRef(false);
 
   const { draftRestored, clearDraftRestored } = booking;
 
@@ -38,14 +41,48 @@ export function StickyBookingBar({ tour, booking }: MobileBookingBarProps) {
     window.dispatchEvent(new CustomEvent("bookingModalStateChange", { detail: { isOpen: isMobileModalOpen } }));
   }, [isMobileModalOpen]);
 
+  // Ref එක state එක එක්ක sync කරනවා (scroll lock effect එකට කලින් තියෙන්න ඕන)
   useEffect(() => {
-    if (isMobileModalOpen) {
-      document.body.classList.add("overflow-hidden");
-    } else {
-      document.body.classList.remove("overflow-hidden");
-    }
+    isModalOpenRef.current = isMobileModalOpen;
+  }, [isMobileModalOpen]);
+
+  // Page scroll lock (iOS Safari වලත් වැඩ කරනවා): body එක fixed කරලා scroll ස්ථානය මතක තියාගන්නවා
+  useEffect(() => {
+    if (!isMobileModalOpen) return;
+
+    const body = document.body;
+    const html = document.documentElement;
+    const scrollY = window.scrollY;
+
+    const previous = {
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width,
+      overflow: body.style.overflow,
+    };
+
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
+
     return () => {
-      document.body.classList.remove("overflow-hidden");
+      body.style.position = previous.position;
+      body.style.top = previous.top;
+      body.style.left = previous.left;
+      body.style.right = previous.right;
+      body.style.width = previous.width;
+      body.style.overflow = previous.overflow;
+
+      // html එකේ `scroll-behavior: smooth` තියෙන නිසා, restore එක smooth animate වෙන්නේ නැති වෙන්න තාවකාලිකව auto කරනවා
+      const previousBehavior = html.style.scrollBehavior;
+      html.style.scrollBehavior = "auto";
+      window.scrollTo(0, scrollY);
+      html.style.scrollBehavior = previousBehavior;
     };
   }, [isMobileModalOpen]);
 
@@ -56,6 +93,12 @@ export function StickyBookingBar({ tour, booking }: MobileBookingBarProps) {
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
+          // Modal එක ඇරලා තියෙනකොට (body fixed නිසා scrollY = 0) sticky bar එක වෙනස් කරන්න එපා
+          if (isModalOpenRef.current) {
+            ticking = false;
+            return;
+          }
+
           const scrollPos = window.scrollY;
           const screenWidth = window.innerWidth;
           const windowHeight = window.innerHeight;
@@ -160,11 +203,13 @@ export function StickyBookingBar({ tour, booking }: MobileBookingBarProps) {
             transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1] }}
             className="fixed inset-0 z-150 flex items-end md:items-center justify-center p-0 md:p-4 xl:hidden"
           >
+            {/* Backdrop: touch-none නිසා මේක උඩ swipe කළාම page එක scroll වෙන්නේ නෑ */}
             <div
               onClick={() => setIsMobileModalOpen(false)}
-              className="absolute inset-0 bg-black/80 backdrop-blur-md"
+              className="absolute inset-0 touch-none bg-black/80 backdrop-blur-md"
             />
 
+            {/* Panel: overscroll-contain නිසා scroll එක පිටුවට chain වෙන්නේ නෑ */}
             <motion.div
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
@@ -174,7 +219,7 @@ export function StickyBookingBar({ tour, booking }: MobileBookingBarProps) {
                 duration: 0.9,
                 ease: [0.4, 0, 0.2, 1],
               }}
-              className="relative h-dvh md:h-auto md:max-h-[calc(100dvh-2rem)] w-full max-w-lg overflow-y-auto rounded-none md:rounded-3xl border-0 md:border border-gold/40 bg-[#0d0d0d] px-3 sm:px-5 py-4 sm:py-7 no-scrollbar shadow-2xl z-10"
+              className="relative h-dvh md:h-auto md:max-h-[calc(100dvh-2rem)] w-full max-w-lg overflow-y-auto overscroll-contain rounded-none md:rounded-3xl border-0 md:border border-gold/40 bg-[#0d0d0d] px-3 sm:px-5 py-4 sm:py-7 no-scrollbar shadow-2xl z-10"
               style={{ willChange: "transform" }}
             >
               <div className="absolute top-0 left-1/2 -translate-x-1/2 h-32 w-48 bg-gold/15 blur-[60px] rounded-full pointer-events-none" />

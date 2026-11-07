@@ -52,8 +52,8 @@ export default {
     subtitle: "How was your journey with us?",
     ratingLabel: "Your Rating",
     experienceLabel: "Your Experience",
-    experiencePlaceholder: "Tell other travelers about your safari...",
-    uploadTitle: "Upload Safari Photos",
+    experiencePlaceholder: "Tell other travelers about your tour...",
+    uploadTitle: "Please upload photos from the tour",
     uploadSubtitle: "PNG, JPG or WEBP (Max 5 photos)",
     submitBtn: "Submit Review",
   },
@@ -77,7 +77,6 @@ export default {
       title: "No Reviews Found",
       description: "No reviews found for this selection.",
       clearBtn: "Clear Filters",
-      //new
       noReviewsDescription: "Be the first to share your story and photos with fellow travelers.",
       writeFirstReview: "Write a Review",
     },
@@ -90,7 +89,6 @@ export default {
   Header: {
     reviews: "reviews",
     provider: "Provider:",
-    //new
     labelOneDay: "One Day Tour",
     labelMultiDay: "Multi Day Tour",
   },
@@ -104,7 +102,7 @@ export default {
   CoveredDestinations: {
     title: "Covered Destinations",
     description:
-      "Explore the places you will visit on this tailor-made journey. Click any destination to view details.",
+      "Explore the places you will visit on this journey. Click any destination to view details.",
   },
   Description: {
     title: "Full description",
@@ -159,10 +157,9 @@ export default {
     viewAll: "View all",
     viewGallery: "View Gallery",
     showMore: "Show More Reviews",
-
-    //new
+    
     emptyTitle: "Be the first to share your story",
-    emptyDescription: "No one has reviewed this experience yet. Yours could help the next traveler decide.",
+    emptyDescription: "There are no reviews for this experience yet. Your review will be helpful to future travelers",
     writeReview: "Write a Review",
     hintRate: "Rate your trip",
     hintStory: "Share your story",
@@ -175,7 +172,7 @@ export default {
   Customization: {
     title: "Tour Customization",
     description:
-      "All IkiSaki tours are fully customizable. The listed package price includes Half Board accommodation (Breakfast & Dinner) and entrance tickets for attractions specifically mentioned in the itinerary. Hotels, meal plans, attractions, transportation, and included services can be adjusted according to your travel style and budget. A revised quotation will be provided for any customization requests.",
+      "All IkiSaki tours are fully customizable to suit your preferences and budget. The listed package price includes meals and entrance tickets for the attractions specifically mentioned in the itinerary.Please note that drinks are not included when dining at restaurants unless explicitly stated in the package details.Hotels, meal plans, attractions, transportation, and other included services can be adjusted according to your travel style and budget. A revised quotation will be provided for any customization requests in japanese.",
   },
   Gallery: {
     viewGallery: "View Gallery",

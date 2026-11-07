@@ -14,7 +14,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useAutoResizeTextarea } from "@/hooks/useAutoResizeTextarea";
 
 //Icons
-import { UserRound, ShieldCheck, CreditCard, Headset } from "lucide-react";
+import { UserRound, Star, ShieldCheck, Headset } from "lucide-react";
 
 export type ContactData = {
   fullName: string;
@@ -31,7 +31,7 @@ type ContactFieldsProps = {
   isLoading?: boolean;
 };
 
-const badgeIcons = [ShieldCheck, CreditCard, Headset];
+const badgeIcons = [Star, ShieldCheck, Headset];
 
 export function ContactForm({ data, setData, errors, setErrors, isLoading }: ContactFieldsProps) {
   const tForm = useTranslations("SharedForm");
@@ -47,7 +47,6 @@ export function ContactForm({ data, setData, errors, setErrors, isLoading }: Con
   const detectedCode = locationData?.country_code || "";
   const [hideMessage, setHideMessage] = useState(false);
 
-  
   const { textareaRef, handleInput } = useAutoResizeTextarea(data.specialRequests);
 
   const updateField = (field: keyof ContactData, value: string) => {

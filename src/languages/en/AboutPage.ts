@@ -97,6 +97,7 @@ export default {
   Leadership: {
     title: "Our Leadership",
     name: "Dhanuja Chathumal",
+    alt : "Ikisaki-Tours-Founder-&-CEO",
     role: "FOUNDER & CEO",
     bio: "Directing the custom travel experiences at IkiSaki Tours. Danuja is dedicated to integrating technology and local hospitality to deliver seamless, personalized itineraries to guests visiting Sri Lanka.",
   },

@@ -20,7 +20,6 @@ export default {
     pleaseContinueEmail: "Please continue with Google or email for now.",
   },
 
-  //new
   AccessRestricted: {
     ticketTitle: "Account Status",
     accountHolder: "Account holder",

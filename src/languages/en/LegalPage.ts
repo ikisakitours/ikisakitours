@@ -8,7 +8,6 @@ export default {
     booking: "Booking Policy",
     payment: "Payment Policy",
     cookie: "Cookie Policy",
-    //new
     categories: "Categories",
   },
   Metadata: {

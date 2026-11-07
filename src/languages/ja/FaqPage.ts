@@ -24,7 +24,6 @@ export default {
   },
   Categories: {
     all: "すべて",
-    //new
     categories: "カテゴリー",
   },
   EmptyState: {
@@ -37,7 +36,6 @@ export default {
       "「{query}」に一致する質問は見つかりませんでした.フィルターをクリアするか、別のキーワードをお試しください.",
     descCategoryOnly: "「{category}」カテゴリーには質問がありません.",
     descDefault: "条件に一致する質問は見つかりませんでした.",
-    //new
     noDataTitle: "FAQはまだありません",
     noDataDescription: "よくある質問への回答を準備中です.後ほどもう一度ご確認ください.",
   },

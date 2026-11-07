@@ -309,8 +309,8 @@ export function SiteHeader() {
                 alt="ikisaki-tours-Logo"
                 width={200}
                 height={80}
-               isSmall // 💡 මෙන්න මෙම ප්‍රොප් එක එකතු කරන්න
-  wrapperClassName="w-auto h-auto inline-flex items-center" // wrapper එක w-full h-full වෙනුවට w-auto h-auto කරන්න
+                isSmall
+                wrapperClassName="w-auto h-auto inline-flex items-center"
                 className="h-15 w-auto object-contain transition-transform duration-500 group-hover:scale-105 sm:h-16 lg:h-18"
                 priority
                 onError={(event) => {

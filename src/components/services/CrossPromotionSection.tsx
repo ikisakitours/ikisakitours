@@ -128,7 +128,7 @@ export function CrossPromotionSection({ tourType = "multi" }: CrossPromotionSect
         <div>
           <div className="relative mb-8 flex flex-wrap items-center justify-between gap-4 overflow-hidden py-2 sm:flex-nowrap">
             <h2 className="premium-serif z-10 -mt-2 flex items-center bg-[#080808] pr-4 text-2xl text-white sm:text-3xl">
-              {tCross("discoverMore")}
+              {tCross("guestStories")}
             </h2>
             <Link
               href="/testimonials"

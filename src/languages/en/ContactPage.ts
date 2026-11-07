@@ -57,7 +57,6 @@ export default {
     whatsappButton: "Chat on WhatsApp",
     lineButton: "Chat on LINE",
     onlineStatus: "Online & Ready to Chat",
-    //new
     whatsappDefaultText:
       "Hello IkiSaki Tours! I visited your website and would love to start planning my journey to Sri Lanka. Could you share more details about your tours and services?",
     info: [

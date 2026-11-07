@@ -3,41 +3,41 @@ export default {
     Transfers: {
       title: "Transfers",
       description:
-        "Book IkiSaki airport pick-ups, hotel transfers, and island-wide chauffeur services with live vehicle rates.",
+        "Book airport transfers, SriLanka hotel transfers, SriLanka private charter services, and SriLanka taxi services across Sri Lanka with IkiSaki Tours. Explore flexible transport options, check vehicle rates, and enjoy comfortable, reliable travel throughout the island.",
     },
     PrivateVehicle: {
-      title: "Private Chauffeur Service",
+      title: "private Taxi Service,private charter service,Private Chauffeur Service ",
       description:
-        "Experience seamless, door-to-door private vehicle transfers in Sri Lanka. Professional chauffeurs, reliable service, and total flexibility for your journey.",
+        "Explore Sri Lanka freely with our private charter service. Our experienced professional drivers provide flexible transportation tailored to your itinerary and preferences. From airport transfers and hotel pickups to sightseeing and long-distance travel between cities, enjoy a comfortable, reliable, and hassle-free journey in your own private vehicle.",
     },
     Bespoke: {
-      title: "Bespoke Journey Concierge",
+      title: "Custom-made travel support",
       description:
-        "Reserve a private vehicle and multilingual chauffeur concierge for a bespoke Sri Lanka travel experience.",
+        "For a tailor-made trip to Sri Lanka, choose IkiSaki Tours. We offer a unique travel experience customized to your preferences and travel style, complete with private vehicle transport and the support of an experienced, multilingual driver for your sightseeing needs.",
     },
   },
   Hero: {
     Transfers: {
-      eyebrow: "Chauffeur Service",
-      title: "Secure Your Elite Transfer",
-      accent: "Elite",
-      strapline: "Airport Pick-ups / Hotel Transfers / Island-wide Chauffeur",
+      eyebrow: "Transfers Service",
+      title: "Premium private transfers",
+      accent: "Premium",
+      strapline: "Airport and hotel transfer services in Sri Lanka",
       image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=2400",
       alt: "Private chauffeur transfer vehicle on a coastal Sri Lankan road",
     },
     PrivateVehicle: {
-      eyebrow: "Private Vehicle Service",
-      title: "Seamless Travel, Your Way",
-      accent: "Seamless",
+      eyebrow: "Private Charter Service",
+      title: "Comfortable charter service",
+      accent: "Comfortable",
       strapline: "Professional Drivers / Door-to-Door Service / Reliable & Punctual",
       image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=2400",
       alt: "Private chauffeur transfer vehicle on a coastal Sri Lankan road",
     },
     Bespoke: {
-      eyebrow: "Bespoke Travel Solutions",
-      title: "Curated Journeys, Tailored for You",
-      accent: "Tailored",
-      strapline: "Private Chauffeur / Custom Itineraries / Uncompromising Privacy",
+      eyebrow: "Custom-made travel",
+      title: "A special journey, just for you",
+      accent: "special journey",
+      strapline: "Private transfers / Flexible itineraries / Exceptional hospitality",
       image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=2400",
       alt: "Private chauffeur transfer vehicle on a coastal Sri Lankan road",
     },
@@ -47,7 +47,7 @@ export default {
     step1Journey: "Journey Details",
     step2Journey: "Journey Details",
     stepContact: "Contact Information",
-    stepContactSub: "Chauffeur assignment details",
+    stepContactSub: "Customer Information",
   },
   FareSummary: {
     titleBase: "Transfer",
@@ -68,9 +68,9 @@ export default {
     perDay: "/ day",
     capacity: "Capacity",
     pax: "Pax",
-    bags: "Bags",
+    bags: "Luggages",
     luggage: "Luggage",
-    note: "Note",
+    note: "Be aware",
     customizeTour: "Select Service Type",
     withDriver: "With Driver",
     withGuide: "With Guide",
@@ -80,28 +80,8 @@ export default {
       guide: "Expert tour guide.",
       both: "Driver & guide combo.",
     },
-    Notes: {
-      sedan: [
-        "Ideal for couples or solo travelers.",
-        "Perfect for comfortable city-to-city transfers and highway drives.",
-        "Fully air-conditioned with premium seating for a relaxing journey.",
-        "Compact size allows for smooth navigation in busy city streets.",
-      ],
-      van: [
-        "Perfect for family tours or small travel groups.",
-        "Plenty of space for luggage, surfboards, and travel equipment.",
-        "Spacious legroom designed for long-distance travel comfort.",
-        "Dual climate control (AC) for an optimal passenger experience.",
-        "Rates may vary depending on the van size and exact passenger capacity.",
-      ],
-      suv: [
-        "Best for rough terrains and mountain hill country tours (Ella/Nuwara Eliya).",
-        "Offers high-end luxury comfort with elevated scenic viewing angles.",
-        "Premium spacious interior equipped with advanced safety features.",
-        "The perfect combination of robust power and VIP travel experience.",
-      ],
-    },
   },
+
   CrossPromotion: {
     discoverMore: "Discover More",
     guestStories: "Guest Stories",
@@ -110,7 +90,46 @@ export default {
     details: "Details",
     startingFrom: "Starting from",
   },
-  AssuranceBadges: ["Premium Quality", "No Pre-payment", "24/7 Support"],
+  AssuranceBadges: ["Premium Quality", "Safety-First Travel Support", "24/7 Support"],
+
+  //future
+  Transfers: {
+    ServiceTypes: [
+      {
+        title: "Airport Pick-Up",
+        description: "Meet and greet arrival support at Bandaranaike International Airport.",
+        summaryLabel: "Airport arrival transfer",
+      },
+      {
+        title: "Hotel & City",
+        description: "Private transfer between hotels, city stops, beaches, and heritage sites.",
+        summaryLabel: "Hotel and city transfer",
+      },
+      {
+        title: "Airport Drop-Off",
+        description: "Timed departure transfer with route planning for a calm airport arrival.",
+        summaryLabel: "Airport departure transfer",
+      },
+    ],
+    Assurances: [
+      { title: "Your Journey, Our Commitment.", description: "Commercial passenger coverage for every confirmed journey." },
+      {
+        title: "24/7 Availability",
+        description: "Concierge support for early arrivals, late flights, and route changes.",
+      },
+      {
+        title: "GPS Mileage Confirmation",
+        description: "Final fare is checked against exact route mileage before payment.",
+      },
+    ],
+    FareInclusions: [
+      "Meet and greet service",
+      "Professional chauffeur",
+      "Premium insurance",
+      "Multi-language concierge support",
+    ],
+  },
+
   Bespoke: {
     Sidebar: {
       titleBase: "The Bespoke",
@@ -157,42 +176,7 @@ export default {
       footerDescription: "Fuel, highway tolls, and driver accommodation are already covered. No hidden costs.",
     },
   },
-  Transfers: {
-    ServiceTypes: [
-      {
-        title: "Airport Pick-Up",
-        description: "Meet and greet arrival support at Bandaranaike International Airport.",
-        summaryLabel: "Airport arrival transfer",
-      },
-      {
-        title: "Hotel & City",
-        description: "Private transfer between hotels, city stops, beaches, and heritage sites.",
-        summaryLabel: "Hotel and city transfer",
-      },
-      {
-        title: "Airport Drop-Off",
-        description: "Timed departure transfer with route planning for a calm airport arrival.",
-        summaryLabel: "Airport departure transfer",
-      },
-    ],
-    Assurances: [
-      { title: "Fully Insured Fleet", description: "Commercial passenger coverage for every confirmed journey." },
-      {
-        title: "24/7 Availability",
-        description: "Concierge support for early arrivals, late flights, and route changes.",
-      },
-      {
-        title: "GPS Mileage Confirmation",
-        description: "Final fare is checked against exact route mileage before payment.",
-      },
-    ],
-    FareInclusions: [
-      "Meet and greet service",
-      "Professional chauffeur",
-      "Premium insurance",
-      "Multi-language concierge support",
-    ],
-  },
+
   CharterRates: {
     titleBase: "Private Vehicle",
     titleAccent: "Charter Info",

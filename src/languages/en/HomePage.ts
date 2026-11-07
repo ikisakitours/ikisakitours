@@ -131,7 +131,6 @@ export default {
       hireButtonText: "Hire Your Vehicle",
       consultText: "Consult With Us",
       appText: "Direct WhatsApp & Line",
-      //new
       appDefaultText:
         "Hello IkiSaki Tours! I am interested in hiring a private vehicle and chauffeur for my trip to Sri Lanka. Could you share more information about your services and availability?",
       imagesAlt: {
@@ -169,7 +168,6 @@ export default {
     detailsBtnText: "Details",
     visitAllMultiText: "Visit All Multi Day Tours",
     viewAllOneText: "View All One Day Tours",
-    //NEW
     emptyBackground: "Tours",
     emptyTitle: "No Tours Available",
     emptyDescription: "We don't have any tours available right now. Please check back soon.",
@@ -206,10 +204,9 @@ export default {
     description:
       "Break free from preset routes. Share your desires, and our luxury travel designers will curate a flawless, private itinerary completely tailored to your pace.",
     ctaButtonText: "Enquire Your Bespoke",
-    //new
     loadingReviews: "Loading reviews...",
     lovedBy: "Loved by {count} Explorers",
-    replyTitle: "Reply within 2 hours",
+    replyTitle: "Reply within 24 hours",
     replySub: "Free personal consultation",
 
     localExpertsText: "Local Experts",

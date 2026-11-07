@@ -19,7 +19,6 @@ export default {
     pleaseContinueEmail: "当分はGoogleまたはメールアドレスで続けてください。",
   },
 
-  //new
   AccessRestricted: {
     ticketTitle: "アカウント状況",
     accountHolder: "アカウント名義",
@@ -38,7 +37,7 @@ export default {
     referenceHint: "アカウントをすばやく確認するため、このIDをサポートにお伝えください。",
     copy: "コピー",
     copied: "コピーしました",
-    contactSupport: "サポートに連絡",
+    contactSupport: "サポートチームに連絡する",
     backHome: "ホームへ戻る",
     signOut: "ログアウト",
     footerNote: "お困りの際はお気軽にご相談ください",
