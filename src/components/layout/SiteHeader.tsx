@@ -118,7 +118,7 @@ export function SiteHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-
+  const [isDrawerMounted, setIsDrawerMounted] = useState(false);
   const navRef = useRef<HTMLElement>(null);
   const profileButtonRef = useRef<HTMLButtonElement>(null);
   const profileDropdownRef = useRef<HTMLDivElement>(null);
@@ -178,7 +178,7 @@ export function SiteHeader() {
   //SCROLL
   const isMenuOpenRef = useRef(false);
   useEffect(() => {
-    if (!isMenuOpen) return;
+    if (!isDrawerMounted) return;
 
     isMenuOpenRef.current = true;
 
@@ -217,7 +217,7 @@ export function SiteHeader() {
       window.scrollTo(0, scrollY);
       html.style.scrollBehavior = previousBehavior;
     };
-  }, [isMenuOpen]);
+  }, [isDrawerMounted]);
 
   useEffect(() => {
     let isCurrentlyScrolled = false;
@@ -291,6 +291,7 @@ export function SiteHeader() {
     const nextValue = !isMenuOpen;
     setIsMenuOpen(nextValue);
     if (nextValue) {
+      setIsDrawerMounted(true);
       closeProfileDropdown();
     }
     window.dispatchEvent(new CustomEvent("mobileMenuStateChange", { detail: { isOpen: nextValue } }));
@@ -349,8 +350,20 @@ export function SiteHeader() {
                   event.currentTarget.style.display = "none";
                 }}
               />
-              <div className="text-2xl font-bold uppercase tracking-widest text-white sm:text-3xl">
-                Iki<span className="gold-gradient-text">Saki</span>
+              <div className="flex min-w-0 flex-col leading-none">
+                {/* IKISAKI */}
+                <span className="mr-[-0.2em] whitespace-nowrap text-xl font-extrabold uppercase tracking-[0.2em] text-white min-[400px]:text-2xl sm:text-3xl">
+                  Iki<span className="gold-gradient-text">Saki</span>
+                </span>
+
+                {/* ——— TOURS ——— */}
+                <span className="mt-1.5 flex w-0 min-w-full items-center gap-1.5 sm:mt-2 sm:gap-2">
+                  <span aria-hidden="true" className="h-px flex-1 bg-linear-to-r from-transparent to-gold/70" />
+                  <span className="mr-[-0.4em] whitespace-nowrap text-[8px] font-semibold uppercase tracking-[0.4em] text-white/70 min-[400px]:text-[9px] sm:text-[10px] lg:text-[11px]">
+                    Tours
+                  </span>
+                  <span aria-hidden="true" className="h-px flex-1 bg-linear-to-l from-transparent to-gold/70" />
+                </span>
               </div>
             </Link>
 
@@ -518,7 +531,7 @@ export function SiteHeader() {
       {/* ========================================== */}
       {/* 2. Framer Motion Animated Mobile Menu */}
       {/* ========================================== */}
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" onExitComplete={() => setIsDrawerMounted(false)}>
         {isMenuOpen && (
           <>
             {/* Background Overlay (Click to close) */}
@@ -533,7 +546,6 @@ export function SiteHeader() {
             {/* Mobile Menu Drawer */}
             <motion.div
               id="animated-mobile-menu"
-              layout
               variants={menuVariants}
               initial="initial"
               animate="enter"
