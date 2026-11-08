@@ -2,16 +2,16 @@ export default {
   exploreTitle: "探索",
   contactTitle: "お問い合わせ",
   newsletterTitle: "ニュースレター",
-  newsletterDescription: "毎週の旅行のヒントや限定の隠れた名所を受け取りましょう.",
-  emailPlaceholder: "メールアドレス...",
+  newsletterDescription: "毎週の旅行のヒントや限定の隠れた名所を受け取りましょう。",
+  emailPlaceholder: "メールアドレス。。。",
   buttonText: "購読する",
-  copyright: " 2026 IkiSaki Tours ラグジュアリー. で作成",
-  forTravelers: "旅行者のために.",
+  copyright: " 2026 IkiSaki Tours ラグジュアリー。 で作成",
+  forTravelers: "旅行者のために。",
   engineeredBy: "設計・開発",
   developedBy: "開発",
   whatsappDefaultText:
     "こんにちは、IkiSaki Toursさん！ ウェブサイトを拝見しているのですが、ツアーパッケージやサービスについて詳しく教えていただけますか？",
-  brandDescription: "インド洋の真珠、スリランカで、自然・文化・贅沢が織りなす特別な旅を.",
+  brandDescription: "インド洋の真珠、スリランカで、自然・文化・贅沢が織りなす特別な旅を。",
   nav: {
     Home: "ホーム",
     Experience: "体験",
@@ -34,11 +34,11 @@ export default {
   contactInfo: {
     Address: "492/14,Halbarawa Road,\nThalahena,Malabe,\nSri Lanka",
     Phone: "+94 75 797 2582",
-    Email: "hello@ikisakitours.com",
+    Email: "hello@ikisakitours。com",
   },
   TimeDiv: {
     title: "アイランドクロニクル",
     location: "コロンボ (GMT +05:30)",
-    loading: "読み込み中...",
+    loading: "読み込み中。。。",
   },
 } as const;
