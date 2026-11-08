@@ -198,7 +198,7 @@ export default {
       "Pickups/drop-offs from other locations may have an additional charge.",
       "Other language-speaking drivers are available on request.",
     ],
-    ctaButton: "Request a Personalized Quote",
+    ctaButton: "Request a quote",
     ctaDesc:
       "Please provide your travel dates, vehicle preference, and itinerary in the form above to receive an exact, customized quotation.",
   },
