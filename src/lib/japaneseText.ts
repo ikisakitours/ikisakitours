@@ -9,8 +9,7 @@ const PROTECT =
   /([¥$€£]\s?[\d,.]+|[\d,.]+\s?(?:円|ドル|%|％)|[\d]+(?:[〜~\-–][\d]+)?\s?(?:日間|泊|日|時間|名|人|台|km|㎞|年|月|時|分)|\d{1,2}:\d{2})/g;
 
 // Japanese character followed by English "." -> convert to "。"
-const JA_DOT = /([\u3040-\u30ff\u4e00-\u9fff])\.(?=\s|$|\u200B)/g;
-
+const JA_DOT = /([\u3040-\u30ff\u4e00-\u9fff])\.(?=\s|$|\u200B|[\u3040-\u30ff\u4e00-\u9fff])/g;
 // Japanese character followed by English "," -> convert to "、"
 const JA_COMMA = /([\u3040-\u30ff\u4e00-\u9fff]),(?=\s|[\u3040-\u30ff\u4e00-\u9fff]|$|\u200B)/g;
 
