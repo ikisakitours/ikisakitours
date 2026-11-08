@@ -7,6 +7,7 @@ import { BookingWidget } from "@/components/booking/BookingWidget";
 import type { useBookingWidget } from "@/hooks/Booking/useBookingWidget";
 import { useTranslations } from "next-intl";
 import { PackageDetails } from "@/services/Booking/packageDetails/types";
+import { useCurrency } from "@/context/CurrencyContext";
 
 type MobileBookingBarProps = {
   tour: PackageDetails;
@@ -17,8 +18,8 @@ export function StickyBookingBar({ tour, booking }: MobileBookingBarProps) {
   const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
   const [showStickyBar, setShowStickyBar] = useState(false);
   const t = useTranslations("Booking.StickyBar");
+  const { formatPrice } = useCurrency();
 
-  // Modal ඇරලාද කියලා scroll handler එකට දැනගන්න (re-render නැතුව)
   const isModalOpenRef = useRef(false);
 
   const { draftRestored, clearDraftRestored } = booking;
@@ -41,12 +42,10 @@ export function StickyBookingBar({ tour, booking }: MobileBookingBarProps) {
     window.dispatchEvent(new CustomEvent("bookingModalStateChange", { detail: { isOpen: isMobileModalOpen } }));
   }, [isMobileModalOpen]);
 
-  // Ref එක state එක එක්ක sync කරනවා (scroll lock effect එකට කලින් තියෙන්න ඕන)
   useEffect(() => {
     isModalOpenRef.current = isMobileModalOpen;
   }, [isMobileModalOpen]);
 
-  // Page scroll lock (iOS Safari වලත් වැඩ කරනවා): body එක fixed කරලා scroll ස්ථානය මතක තියාගන්නවා
   useEffect(() => {
     if (!isMobileModalOpen) return;
 
@@ -78,7 +77,6 @@ export function StickyBookingBar({ tour, booking }: MobileBookingBarProps) {
       body.style.width = previous.width;
       body.style.overflow = previous.overflow;
 
-      // html එකේ `scroll-behavior: smooth` තියෙන නිසා, restore එක smooth animate වෙන්නේ නැති වෙන්න තාවකාලිකව auto කරනවා
       const previousBehavior = html.style.scrollBehavior;
       html.style.scrollBehavior = "auto";
       window.scrollTo(0, scrollY);
@@ -93,7 +91,6 @@ export function StickyBookingBar({ tour, booking }: MobileBookingBarProps) {
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          // Modal එක ඇරලා තියෙනකොට (body fixed නිසා scrollY = 0) sticky bar එක වෙනස් කරන්න එපා
           if (isModalOpenRef.current) {
             ticking = false;
             return;
@@ -171,25 +168,28 @@ export function StickyBookingBar({ tour, booking }: MobileBookingBarProps) {
       >
         <div className="absolute inset-0 rounded-none md:rounded-2xl bg-linear-to-r from-gold/5 via-gold/10 to-transparent pointer-events-none" />
 
-        <div className="relative z-10 flex flex-col">
-          <div className="flex items-center gap-1.5 text-caption font-bold uppercase tracking-[0.2em] text-gold drop-shadow-[0_0_8px_rgba(197,160,89,0.5)]">
-            <Sparkles className="h-3 w-3 animate-pulse" />
-            <span>IkiSaki {t("Rate")}</span>
+        <div className="relative z-10 flex min-w-0 flex-col">
+          <div className="flex items-center gap-1.5 text-caption font-bold uppercase tracking-widest sm:tracking-[0.2em] text-gold drop-shadow-[0_0_8px_rgba(197,160,89,0.5)]">
+            <Sparkles className="h-3 w-3 shrink-0 animate-pulse" />
+            <span className="truncate">IkiSaki {t("Rate")}</span>
           </div>
-          <div className="flex items-baseline gap-1.5">
-            <span className="text-heading-sub font-black tracking-tight text-white drop-shadow-md">${tour.price}</span>
-            <span className="text-caption font-light text-slate-400">{t("perPerson")}</span>
+          <div className="flex flex-wrap items-baseline gap-x-1.5">
+            <span className="whitespace-nowrap text-heading-sub font-black tracking-tight text-white drop-shadow-md">
+              {formatPrice(tour.price)}
+            </span>
+            <span className="whitespace-nowrap text-caption font-light text-slate-400">{t("perPerson")}</span>
           </div>
         </div>
 
+        {/* Button: never shrinks, text stays on ONE line, spacing scales with screen */}
         <button
           type="button"
           onClick={() => setIsMobileModalOpen(true)}
-          className="group relative z-10 flex items-center gap-2 overflow-hidden rounded-full bg-linear-to-r from-gold-dark via-gold to-gold-light px-7 py-3 text-caption! font-black uppercase tracking-[0.25em] text-lanka-black shadow-[0_0_25px_rgba(197,160,89,0.4)] transition-all duration-300 hover:shadow-[0_0_35px_rgba(197,160,89,0.6)] active:scale-95"
+          className="group relative z-10 flex shrink-0 items-center gap-1.5 sm:gap-2 overflow-hidden rounded-full bg-linear-to-r from-gold-dark via-gold to-gold-light px-3.5 py-2.5 sm:px-7 sm:py-3 text-caption! font-black uppercase tracking-wider sm:tracking-[0.25em] text-lanka-black shadow-[0_0_25px_rgba(197,160,89,0.4)] transition-all duration-300 hover:shadow-[0_0_35px_rgba(197,160,89,0.6)] active:scale-95"
         >
           <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/40 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
-          <CalendarCheck className="h-4 w-4 relative z-10" />
-          <span className="relative z-10">{t("checkAvailability")}</span>
+          <CalendarCheck className="relative z-10 h-4 w-4 shrink-0" />
+          <span className="relative z-10 whitespace-nowrap">{t("checkAvailability")}</span>
         </button>
       </motion.div>
 
@@ -203,13 +203,11 @@ export function StickyBookingBar({ tour, booking }: MobileBookingBarProps) {
             transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1] }}
             className="fixed inset-0 z-150 flex items-end md:items-center justify-center p-0 md:p-4 xl:hidden"
           >
-            {/* Backdrop: touch-none නිසා මේක උඩ swipe කළාම page එක scroll වෙන්නේ නෑ */}
             <div
               onClick={() => setIsMobileModalOpen(false)}
               className="absolute inset-0 touch-none bg-black/80 backdrop-blur-md"
             />
 
-            {/* Panel: overscroll-contain නිසා scroll එක පිටුවට chain වෙන්නේ නෑ */}
             <motion.div
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
