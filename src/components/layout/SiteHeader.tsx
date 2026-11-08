@@ -418,7 +418,7 @@ export function SiteHeader() {
               ) : !user ? (
                 <Link
                   href={loginHref}
-                  className="relative group items-center justify-center px-4 md:px-7 py-1.75 rounded-full overflow-hidden border border-gold/40 bg-linear-to-r from-gold/15 via-gold/5 to-transparent text-gold text-body-sm font-semibold tracking-wider uppercase backdrop-blur-xl transition-all duration-500 hover:border-gold hover:shadow-[0_0_25px_rgba(197,160,89,0.35)] hover:-translate-y-0.5 active:translate-y-0 md:flex"
+                  className="relative group items-center justify-center px-5 md:px-7 py-1.75 rounded-full overflow-hidden border border-gold/40 bg-linear-to-r from-gold/15 via-gold/5 to-transparent text-gold text-body-sm font-semibold tracking-wider uppercase backdrop-blur-xl transition-all duration-500 hover:border-gold hover:shadow-[0_0_25px_rgba(197,160,89,0.35)] hover:-translate-y-0.5 active:translate-y-0 md:flex"
                 >
                   <span className="absolute inset-0 bg-linear-to-r from-gold/0 via-gold/20 to-gold/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                   <span className="relative z-10 flex items-center gap-2"> {tDropdown("logIn")}</span>
