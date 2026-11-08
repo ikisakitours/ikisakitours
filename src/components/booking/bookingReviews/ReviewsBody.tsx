@@ -162,13 +162,13 @@ export default function ReviewsBody({ slug, tourType }: ReviewsBodyProps) {
                 </div>
               ) : (
                 <>
-                  <div className="mb-8 mt-16 flex items-center justify-between gap-4">
+                  <div className="mb-8 mt-16 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <h2 className="premium-serif text-[26px] italic text-white md:text-[30px]">{t("title")}</h2>
 
                     <button
                       type="button"
                       onClick={() => setIsFilterOpen(true)}
-                      className="group flex items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-6 py-3 text-caption! font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:px-8 sm:py-3.5"
+                      className="group ml-auto flex shrink-0 items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-6 py-3 text-caption! font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:ml-0 sm:px-8 sm:py-3.5"
                     >
                       <Filter className="h-4 w-4 transition-all duration-300 group-hover:scale-110 group-hover:text-black" />
                       <span className="transition-colors duration-300 group-hover:text-black sm:hidden">
@@ -213,7 +213,7 @@ export default function ReviewsBody({ slug, tourType }: ReviewsBodyProps) {
                         );
                       })
                     ) : (
-                      <div >
+                      <div>
                         <EmptyState
                           compact
                           className=""
