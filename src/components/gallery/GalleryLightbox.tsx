@@ -66,6 +66,66 @@ export function GalleryLightbox({
   const isDragging = useRef(false);
   const touchStartX = useRef(0);
 
+  // ---------------- Zoom (image only) ----------------
+  const [scale, setScale] = useState(1);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const isZoomed = scale > 1;
+
+  const [prevItemId, setPrevItemId] = useState(activeItem.id);
+  if (prevItemId !== activeItem.id) {
+    setPrevItemId(activeItem.id);
+    setScale(1);
+    setOffset({ x: 0, y: 0 });
+  }
+
+  const imageAreaRef = useRef<HTMLDivElement>(null);
+  const scaleRef = useRef(1);
+  const pinchStartDist = useRef(0);
+  const pinchStartScale = useRef(1);
+  const panStart = useRef({ x: 0, y: 0, ox: 0, oy: 0 });
+  const hadPinch = useRef(false);
+  const mouseDragging = useRef(false); // desktop: mouse drag
+
+  useEffect(() => {
+    scaleRef.current = scale;
+  }, [scale]);
+
+  useEffect(() => {
+    const el = imageAreaRef.current;
+    if (!el) return;
+    const block = (e: TouchEvent) => {
+      if (e.touches.length === 2 || scaleRef.current > 1) e.preventDefault();
+    };
+    el.addEventListener("touchmove", block, { passive: false });
+    return () => el.removeEventListener("touchmove", block);
+  }, []);
+
+  useEffect(() => {
+    const el = imageAreaRef.current;
+    if (!el) return;
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      const factor = e.deltaY < 0 ? 1.15 : 1 / 1.15;
+      const next = Math.min(4, Math.max(1, scaleRef.current * factor));
+      const finalScale = next < 1.05 ? 1 : next;
+      scaleRef.current = finalScale;
+      setScale(finalScale);
+      setOffset((o) => {
+        if (finalScale === 1) return { x: 0, y: 0 };
+        const rect = el.getBoundingClientRect();
+        const maxX = (rect.width * (finalScale - 1)) / 2;
+        const maxY = (rect.height * (finalScale - 1)) / 2;
+        return {
+          x: Math.max(-maxX, Math.min(maxX, o.x)),
+          y: Math.max(-maxY, Math.min(maxY, o.y)),
+        };
+      });
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, []);
+  // ---------------------------------------------------
+
   useIsomorphicLayoutEffect(() => {
     if (imageKey && loadedLightboxCache.has(imageKey)) {
       setIsInstant(true);
@@ -121,6 +181,7 @@ export function GalleryLightbox({
     };
   }, [activeItem, imageKey]);
 
+  // ---------------- Thumbnail strip touch ----------------
   const handleStripTouchStart = (e: React.TouchEvent) => {
     e.stopPropagation();
     isDragging.current = false;
@@ -140,6 +201,89 @@ export function GalleryLightbox({
     setTimeout(() => {
       isDragging.current = false;
     }, 50);
+  };
+
+  // ---------------- Image pinch / pan touch ----------------
+  const getDist = (t: React.TouchList) => Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
+
+  const clampOffset = (x: number, y: number, s: number) => {
+    const rect = imageAreaRef.current?.getBoundingClientRect();
+    if (!rect) return { x, y };
+    const maxX = (rect.width * (s - 1)) / 2;
+    const maxY = (rect.height * (s - 1)) / 2;
+    return {
+      x: Math.max(-maxX, Math.min(maxX, x)),
+      y: Math.max(-maxY, Math.min(maxY, y)),
+    };
+  };
+
+  const handleImgTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 2) {
+      hadPinch.current = true;
+      pinchStartDist.current = getDist(e.touches);
+      pinchStartScale.current = scale;
+      e.stopPropagation();
+    } else if (e.touches.length === 1 && scale > 1) {
+      panStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY, ox: offset.x, oy: offset.y };
+      e.stopPropagation();
+    }
+  };
+
+  const handleImgTouchMove = (e: React.TouchEvent) => {
+    if (e.touches.length === 2) {
+      e.stopPropagation();
+      const next = Math.min(4, Math.max(1, (pinchStartScale.current * getDist(e.touches)) / pinchStartDist.current));
+      setScale(next);
+      setOffset((o) => (next === 1 ? { x: 0, y: 0 } : clampOffset(o.x, o.y, next)));
+    } else if (e.touches.length === 1 && scale > 1) {
+      e.stopPropagation();
+      const dx = e.touches[0].clientX - panStart.current.x;
+      const dy = e.touches[0].clientY - panStart.current.y;
+      setOffset(clampOffset(panStart.current.ox + dx, panStart.current.oy + dy, scale));
+    }
+  };
+
+  const handleImgTouchEnd = (e: React.TouchEvent) => {
+    if (hadPinch.current || scale > 1) e.stopPropagation();
+
+    if (e.touches.length === 0) {
+      hadPinch.current = false;
+      if (scale < 1.05) {
+        setScale(1);
+        setOffset({ x: 0, y: 0 });
+      }
+    } else if (e.touches.length === 1) {
+      panStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY, ox: offset.x, oy: offset.y };
+    }
+  };
+
+  // ---------------- Desktop: mouse drag + double click ----------------
+  const handleImgMouseDown = (e: React.MouseEvent) => {
+    if (scale <= 1) return;
+    e.preventDefault();
+    mouseDragging.current = true;
+    panStart.current = { x: e.clientX, y: e.clientY, ox: offset.x, oy: offset.y };
+  };
+
+  const handleImgMouseMove = (e: React.MouseEvent) => {
+    if (!mouseDragging.current) return;
+    const dx = e.clientX - panStart.current.x;
+    const dy = e.clientY - panStart.current.y;
+    setOffset(clampOffset(panStart.current.ox + dx, panStart.current.oy + dy, scale));
+  };
+
+  const handleImgMouseUp = () => {
+    mouseDragging.current = false;
+  };
+
+  const handleImgDoubleClick = () => {
+    if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) return;
+    if (scale > 1) {
+      setScale(1);
+      setOffset({ x: 0, y: 0 });
+    } else {
+      setScale(2.5);
+    }
   };
 
   const slideVariants: Variants = {
@@ -210,7 +354,20 @@ export function GalleryLightbox({
 
       <div className="flex w-full max-w-6xl flex-col items-center">
         {/* Main Image Container */}
-        <div className="relative h-[55vh] w-full md:h-[65vh] flex items-center justify-center">
+        <div
+          ref={imageAreaRef}
+          onTouchStart={handleImgTouchStart}
+          onTouchMove={handleImgTouchMove}
+          onTouchEnd={handleImgTouchEnd}
+          onMouseDown={handleImgMouseDown}
+          onMouseMove={handleImgMouseMove}
+          onMouseUp={handleImgMouseUp}
+          onMouseLeave={handleImgMouseUp}
+          onDoubleClick={handleImgDoubleClick}
+          className={`relative flex h-[50vh] w-full touch-none items-center justify-center md:h-[65vh] ${
+            isZoomed ? "cursor-grab overflow-hidden active:cursor-grabbing" : "cursor-zoom-in overflow-visible"
+          }`}
+        >
           <AnimatePresence>
             {!isMainReady && (
               <motion.div
@@ -295,23 +452,31 @@ export function GalleryLightbox({
                 exit="exit"
                 className="absolute inset-0 h-full w-full flex items-center justify-center"
               >
-                <Image
-                  src={activeItem.src}
-                  alt={activeItem.alt}
-                  fill
-                  sizes="100vw"
-                  quality={100}
-                  priority
-                  className={`image-render-visible object-contain drop-shadow-[0_0_50px_rgba(197,160,89,0.3)] ${
-                    isInstant ? "" : "transition-opacity duration-700 ease-out"
-                  }`}
-                />
+                <div
+                  className="relative h-full w-full"
+                  style={{
+                    transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale})`,
+                    willChange: "transform",
+                  }}
+                >
+                  <Image
+                    src={activeItem.src}
+                    alt={activeItem.alt}
+                    fill
+                    sizes="100vw"
+                    quality={100}
+                    priority
+                    className={`image-render-visible object-contain transition-[filter] duration-300 ${
+                      isZoomed ? "" : "drop-shadow-[0_0_50px_rgba(197,160,89,0.3)]"
+                    } ${isInstant ? "" : "transition-opacity duration-700 ease-out"}`}
+                  />
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
 
-        <div className="-mt-15 lg:mt-6! min-[540px]:max-[720px]:-mt-2 text-center w-full min-h-15">
+        <div className="mt-4 lg:mt-6 text-center w-full min-h-15">
           <AnimatePresence mode="wait">
             {isMainReady && (
               <motion.div

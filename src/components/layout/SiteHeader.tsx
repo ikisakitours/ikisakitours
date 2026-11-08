@@ -313,7 +313,7 @@ export function SiteHeader() {
 
   return (
     <>
-         <nav
+      <nav
         id="main-nav"
         ref={navRef}
         className={`top-0 left-0 fixed w-full z-100 border-b transition-all duration-500 ${
@@ -544,7 +544,9 @@ export function SiteHeader() {
 
               <div className="absolute top-[-10%] right-[-10%] w-62.5 h-62.5 bg-gold/10 blur-[80px] rounded-full pointer-events-none" />
 
-              <div className="flex-1 flex flex-col justify-start px-8 pt-32 pb-10 overflow-y-auto overscroll-contain relative z-10 no-scrollbar bg-[#0a0a0a]">                <motion.div
+              <div className="flex-1 flex flex-col justify-start px-8 pt-32 pb-10 overflow-y-auto overscroll-contain relative z-10 no-scrollbar bg-[#0a0a0a]">
+                {" "}
+                <motion.div
                   variants={navLinksContainerVariants}
                   initial="initial"
                   animate="enter"
@@ -588,7 +590,6 @@ export function SiteHeader() {
                     );
                   })}
                 </motion.div>
-
                 {/* Bottom Actions (Language & Currency) */}
                 <motion.div
                   variants={bottomActionVariants}

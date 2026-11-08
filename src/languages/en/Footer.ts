@@ -34,7 +34,7 @@ export default {
   },
   contactInfo: {
     //492/14, Halbarawa Road,\nThalahena,Malabe,\nColombo,Western Province,\nSri Lanka
-    Address: "492/14,Halbarawa Road,Thalahena,\nMalabe,Sri Lanka",
+    Address: "492/14,Halbarawa Road,\nThalahena,Malabe,\nSri Lanka",
     Phone: "+94 75 797 2582",
     Email: "hello@ikisakitours.com",
   },

@@ -32,7 +32,7 @@ export default {
     "How The Site Works": "当サイトのご利用方法",
   },
   contactInfo: {
-    Address: "492/14,Halbarawa Road,Thalahena,\nMalabe,Sri Lanka",
+    Address: "492/14,Halbarawa Road,\nThalahena,Malabe,\nSri Lanka",
     Phone: "+94 75 797 2582",
     Email: "hello@ikisakitours.com",
   },

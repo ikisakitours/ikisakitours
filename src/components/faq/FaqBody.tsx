@@ -102,7 +102,7 @@ export default function FaqBody({ faqs }: FaqBodyProps) {
                 count={filteredFaqs.length}
                 itemLabel={t("UI.searchItemLabel")}
                 className="md:w-72 lg:w-96"
-                clearPositionClass="right-26"
+                clearPositionClass="right-27"
               />
             </div>
 
