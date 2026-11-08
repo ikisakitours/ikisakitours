@@ -58,6 +58,51 @@ const Curve = () => {
   );
 };
 
+// ==========================================
+// Framer Motion Animation Variants
+// ==========================================
+const menuVariants: Variants = {
+  initial: { x: "calc(100% + 100px)" },
+  enter: {
+    x: "0%",
+    transition: { duration: 0.8, ease: customEase },
+  },
+  exit: {
+    x: "calc(100% + 100px)",
+    transition: { duration: 0.8, ease: customEase },
+  },
+};
+
+const navLinksContainerVariants: Variants = {
+  initial: {},
+  enter: {
+    transition: { staggerChildren: 0.05, delayChildren: 0.2 },
+  },
+  exit: {
+    transition: { staggerChildren: 0.05, staggerDirection: -1 },
+  },
+};
+
+const linkVariants: Variants = {
+  initial: { x: 40, opacity: 0 },
+  enter: {
+    x: 0,
+    opacity: 1,
+    transition: { duration: 0.6, ease: customEase },
+  },
+  exit: {
+    x: 40,
+    opacity: 0,
+    transition: { duration: 0.4, ease: customEase },
+  },
+};
+
+const bottomActionVariants: Variants = {
+  initial: { opacity: 0, y: 20 },
+  enter: { opacity: 1, y: 0, transition: { delay: 0.4, duration: 0.6 } },
+  exit: { opacity: 0, y: 20, transition: { duration: 0.3 } },
+};
+
 export function SiteHeader() {
   const tNav = useTranslations("SiteHeader.navigation");
   const tDropdown = useTranslations("SiteHeader.Dropdown");
@@ -130,19 +175,47 @@ export function SiteHeader() {
       }, 600);
     }
   };
-
+  //SCROLL
+  const isMenuOpenRef = useRef(false);
   useEffect(() => {
-    if (isMenuOpen) {
-      document.body.classList.add("overflow-hidden");
-      document.documentElement.classList.add("overflow-hidden");
-    } else {
-      document.body.classList.remove("overflow-hidden");
-      document.documentElement.classList.remove("overflow-hidden");
-    }
+    if (!isMenuOpen) return;
+
+    isMenuOpenRef.current = true;
+
+    const body = document.body;
+    const html = document.documentElement;
+    const scrollY = window.scrollY;
+
+    const previous = {
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width,
+      overflow: body.style.overflow,
+    };
+
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
 
     return () => {
-      document.body.classList.remove("overflow-hidden");
-      document.documentElement.classList.remove("overflow-hidden");
+      body.style.position = previous.position;
+      body.style.top = previous.top;
+      body.style.left = previous.left;
+      body.style.right = previous.right;
+      body.style.width = previous.width;
+      body.style.overflow = previous.overflow;
+
+      isMenuOpenRef.current = false;
+
+      const previousBehavior = html.style.scrollBehavior;
+      html.style.scrollBehavior = "auto";
+      window.scrollTo(0, scrollY);
+      html.style.scrollBehavior = previousBehavior;
     };
   }, [isMenuOpen]);
 
@@ -167,55 +240,12 @@ export function SiteHeader() {
     }
   };
 
-  // ==========================================
-  // Framer Motion Animation Variants
-  // ==========================================
-  const menuVariants: Variants = {
-    initial: { x: "calc(100% + 100px)" },
-    enter: {
-      x: "0%",
-      transition: { duration: 0.8, ease: customEase },
-    },
-    exit: {
-      x: "calc(100% + 100px)",
-      transition: { duration: 0.8, ease: customEase },
-    },
-  };
-
-  const navLinksContainerVariants: Variants = {
-    initial: {},
-    enter: {
-      transition: { staggerChildren: 0.05, delayChildren: 0.2 },
-    },
-    exit: {
-      transition: { staggerChildren: 0.05, staggerDirection: -1 },
-    },
-  };
-
-  const linkVariants: Variants = {
-    initial: { x: 40, opacity: 0 },
-    enter: {
-      x: 0,
-      opacity: 1,
-      transition: { duration: 0.6, ease: customEase },
-    },
-    exit: {
-      x: 40,
-      opacity: 0,
-      transition: { duration: 0.4, ease: customEase },
-    },
-  };
-
-  const bottomActionVariants: Variants = {
-    initial: { opacity: 0, y: 20 },
-    enter: { opacity: 1, y: 0, transition: { delay: 0.4, duration: 0.6 } },
-    exit: { opacity: 0, y: 20, transition: { duration: 0.3 } },
-  };
-
   useEffect(() => {
     let isCurrentlyScrolled = false;
 
     const handleScroll = () => {
+      if (isMenuOpenRef.current) return;
+
       const shouldBeScrolled = window.scrollY > 50;
 
       if (shouldBeScrolled !== isCurrentlyScrolled) {
