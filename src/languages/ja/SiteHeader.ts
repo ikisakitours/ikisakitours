@@ -26,14 +26,14 @@ export default {
   Language: {
     tooltip: "言語を変更",
     select: "言語を選択",
-    searchPlaceholder: "言語を検索...",
-    noResults: "言語が見つかりません.",
+    searchPlaceholder: "言語を検索。。。",
+    noResults: "言語が見つかりません。",
     autoDetect: {
       switchTitle: "言語を提案する",
-      switchDesc: "お客様は<b>{country}</b>にいらっしゃるようです.言語を{language}に変更しますか？",
+      switchDesc: "お客様は<b>{country}</b>にいらっしゃるようです。言語を{language}に変更しますか？",
       unsupportedTitle: "こんにちは、<b>{country}</b>！🌍",
       unsupportedDesc:
-        "お客様は<b>{country}</b>にいらっしゃるようですが、現地の言語にはまだ対応していません.リストから別の言語を選択してください.",
+        "お客様は<b>{country}</b>にいらっしゃるようですが、現地の言語にはまだ対応していません。リストから別の言語を選択してください。",
       btnYes: "はい、変更します",
       btnNo: "いいえ、結構です",
       btnKeep: "{lang}のまま",
@@ -43,7 +43,7 @@ export default {
   Currency: {
     tooltip: "通貨オプションを表示",
     select: "通貨を選択",
-    searchPlaceholder: "通貨を検索...",
+    searchPlaceholder: "通貨を検索。。。",
     noResults: "通貨が見つかりません",
   },
 } as const;

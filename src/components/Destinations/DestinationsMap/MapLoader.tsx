@@ -15,7 +15,7 @@ export default function MapLoader({ loadingText = "Please wait loading map" }: P
       className="relative flex h-137.5 w-full flex-col items-center justify-center overflow-hidden rounded-4xl border border-white/5 bg-[#0a0a0a]"
     >
       {/* Background Watermark */}
-      <div className="pointer-events-none absolute bottom-8 right-8 select-none whitespace-nowrap text-6xl font-bold leading-none tracking-tighter text-white/5 md:text-8xl">
+      <div className=" brand-watermark-map pointer-events-none absolute bottom-8 right-8 select-none whitespace-nowrap text-6xl font-bold leading-none tracking-tighter text-white/5 md:text-8xl">
         IkiSaki Tours
       </div>
 

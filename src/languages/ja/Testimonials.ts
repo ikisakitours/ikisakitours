@@ -2,14 +2,14 @@ export default {
   Metadata: {
     title: "ゲストジャーナル",
     description:
-      "スリランカ旅行を体験したお客様の口コミや旅行記をご紹介.世界遺産、絶景、文化体験、高級旅行のリアルな声をお届けします.",
+      "スリランカ旅行を体験したお客様の口コミや旅行記をご紹介。世界遺産、絶景、文化体験、高級旅行のリアルな声をお届けします。",
   },
   Hero: {
     badge: "ありのままの体験",
     titleStart: "ゲスト",
     titleHighlight: "ジャーナル",
     description:
-      "実際に旅したお客様のリアルなストーリー.世界中の旅を知り尽くした旅行者が、スリランカの旅にIkiSakiを選ぶ理由をご紹介します.",
+      "実際に旅したお客様のリアルなストーリー。世界中の旅を知り尽くした旅行者が、スリランカの旅にIkiSakiを選ぶ理由をご紹介します。",
     stats: {
       success: "成功しました",
       support: "サポート",
@@ -44,11 +44,11 @@ export default {
     EmptyState: {
       backgroundText: "感想",
       title: "レビューが見つかりません",
-      description: "現在、表示するレビューはありません.",
+      description: "現在、表示するレビューはありません。",
       //NEW
       clearFilter: "フィルターをクリア",
       noReviewsTitle: "まだレビューがありません",
-      noReviewsDescription: "最初にIkiSakiでの体験をシェアして、他の旅行者にインスピレーションを与えましょう.",
+      noReviewsDescription: "最初にIkiSakiでの体験をシェアして、他の旅行者にインスピレーションを与えましょう。",
       writeReview: "レビューを書く",
     },
   },
@@ -57,11 +57,12 @@ export default {
     badge: "ストーリーを共有する",
     title1: "次世代の",
     titleHighlight: "旅人",
-    title2: "たちに,旅への憧れを.",
-    description: "あなたのフィードバックは、私たちの未来の旅を導く羅針盤です.息をのむような瞬間について教えてください.",
+    title2: "たちに、旅への憧れを。",
+    description:
+      "あなたのフィードバックは、私たちの未来の旅を導く羅針盤です。息をのむような瞬間について教えてください。",
     ratingLabel: "あなたの評価",
     experienceLabel: "あなたの体験",
-    experiencePlaceholder: "あなたの旅について、他の旅行者たちに教えてあげてください...",
+    experiencePlaceholder: "あなたの旅について、他の旅行者たちに教えてあげてください。。。",
     submitBtn: "レビューを送信",
   },
 } as const;

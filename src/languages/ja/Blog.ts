@@ -2,7 +2,7 @@ export default {
   Metadata: {
     title: "ジャーナル",
     description:
-      "IkiSaki Toursが厳選したスリランカ旅行の情報をお届けします.旅行ガイドや現地の文化、世界遺産、息をのむような絶景スポットを通して、スリランカの魅力を発見し、あなただけの特別な旅を計画しましょう.",
+      "IkiSaki Toursが厳選したスリランカ旅行の情報をお届けします。旅行ガイドや現地の文化、世界遺産、息をのむような絶景スポットを通して、スリランカの魅力を発見し、あなただけの特別な旅を計画しましょう。",
     notFoundTitle: "ストーリーが見つかりません",
   },
   Hero: {
@@ -10,14 +10,14 @@ export default {
     title: "IkiSaki",
     accent: "と発見する旅",
     strapline:
-      "スリランカの旅、文化、歴史、そして隠れた魅力をご紹介します.特別な旅を計画するためのヒントを見つけましょう.",
-    image: "https://images.unsplash.com/photo-1546708973-b339540b5162?auto=format&fit=crop&q=80&w=2400",
+      "スリランカの旅、文化、歴史、そして隠れた魅力をご紹介します。特別な旅を計画するためのヒントを見つけましょう。",
+    image: "https://images。unsplash。com/photo-1546708973-b339540b5162?auto=format&fit=crop&q=80&w=2400",
     alt: "クラシックなコンパスとスリランカのビンテージ地図",
   },
   Explorer: {
     filterCategories: "カテゴリを絞り込む",
     filter: "フィルター",
-    searchPlaceholder: "記事を検索...",
+    searchPlaceholder: "記事を検索。。。",
     loadMore: "記事をもっと見る",
     showing: "Showing",
     of: "of",
@@ -37,14 +37,14 @@ export default {
     EmptyState: {
       backgroundText: "ジャーナル",
       title: "記事が見つかりません",
-      searchNoResult: "「{query}」の検索結果に記事はありませんでした.",
-      filterNoResult: "選択したカテゴリ ({category}) に記事はありませんでした.",
-      searchAndFilterNoResult: "「{category}」カテゴリ内で「{query}」に一致する記事は見つかりませんでした.",
-      redefine: "検索条件を変更するか、フィルターをリセットしてください.",
+      searchNoResult: "「{query}」の検索結果に記事はありませんでした。",
+      filterNoResult: "選択したカテゴリ ({category}) に記事はありませんでした。",
+      searchAndFilterNoResult: "「{category}」カテゴリ内で「{query}」に一致する記事は見つかりませんでした。",
+      redefine: "検索条件を変更するか、フィルターをリセットしてください。",
       resetBtn: "探索をリセット",
       //new
       noDataTitle: "記事はまだありません",
-      noDataDescription: "新しい旅のストーリーを準備中です.後ほどもう一度ご確認ください.",
+      noDataDescription: "新しい旅のストーリーを準備中です。後ほどもう一度ご確認ください。",
     },
   },
   Card: {
@@ -68,7 +68,7 @@ export default {
     Pending: {
       backgroundText: "準備中",
       title: "コンテンツは近日公開",
-      description: "現在、この記事を制作しております.公開まで今しばらくお待ちください.",
+      description: "現在、この記事を制作しております。公開まで今しばらくお待ちください。",
     },
   },
 } as const;

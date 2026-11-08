@@ -2,7 +2,7 @@ export default {
   MetadataReviews: {
     reviewNotFound: "レビューが見つかりません",
     reviewTitle: "ゲストレビュー | {tourName}",
-    reviewDescription: "私たちの {tourName} に参加されたお客様のリアルな体験談やエピソードをお読みください.",
+    reviewDescription: "私たちの {tourName} に参加されたお客様のリアルな体験談やエピソードをお読みください。",
   },
 
   Navigation: {
@@ -23,8 +23,8 @@ export default {
     perPerson: "/ 1人あたり",
     save: "{discount}% 割引",
     groupDiscount: "グループ割引適用",
-    priceDecreases: "グループ人数が多いほど、1名あたりの料金がお得になります.",
-    priceMayVary: "料金はカスタマイズ内容により異なる場合があります.",
+    priceDecreases: "グループ人数が多いほど、1名あたりの料金がお得になります。",
+    priceMayVary: "料金はカスタマイズ内容により異なる場合があります。",
     assurances: ["即時空き状況確認", "予約手数料無料", "日程変更に柔軟に対応"],
   },
   Related: {
@@ -36,7 +36,7 @@ export default {
   },
   Cta: {
     title: "IkiSakiの旅を体験しましたか？",
-    description: "あなたの旅が他の人のインスピレーションになります.感想や写真をシェアして、旅の魔法を伝えましょう.",
+    description: "あなたの旅が他の人のインスピレーションになります。感想や写真をシェアして、旅の魔法を伝えましょう。",
     shareBtn: "体験をシェアする",
   },
   ReviewCard: {
@@ -51,7 +51,7 @@ export default {
     subtitle: "私たちとの旅はいかがでしたか？",
     ratingLabel: "評価",
     experienceLabel: "体験談",
-    experiencePlaceholder: "他の旅行者にあなたのツアーについて教えてください...",
+    experiencePlaceholder: "他の旅行者にあなたのツアーについて教えてください。。。",
     uploadTitle: "ツアーの思い出の写真をアップロードしてください",
     uploadSubtitle: "PNG, JPG, WEBP (最大5枚)",
     submitBtn: "レビューを送信",
@@ -59,7 +59,7 @@ export default {
   ReviewsBody: {
     title: "旅行者のストーリー",
     filterLanguage: "言語で絞り込む",
-    noReviews: "選択した条件に一致するレビューが見つかりませんでした.",
+    noReviews: "選択した条件に一致するレビューが見つかりませんでした。",
     loadMore: "さらにレビューを読み込む",
     showing: "表示中",
     of: "/",
@@ -74,7 +74,7 @@ export default {
     EmptyState: {
       backgroundText: "ストーリー",
       title: "レビューが見つかりません",
-      description: "選択した条件に一致するレビューが見つかりませんでした.",
+      description: "選択した条件に一致するレビューが見つかりませんでした。",
       clearBtn: "フィルターをクリア",
       noReviewsDescription: "最初のストーリーと写真をシェアして、他の旅行者の参考にしてもらいましょう。",
       writeFirstReview: "レビューを書く",
@@ -100,7 +100,7 @@ export default {
   },
   CoveredDestinations: {
     title: "対象目的地",
-    description: "この旅で訪れる場所をご覧ください。目的地をクリックすると、詳細情報が表示されます.",
+    description: "この旅で訪れる場所をご覧ください。目的地をクリックすると、詳細情報が表示されます。",
   },
   Description: {
     title: "詳細説明",
@@ -156,7 +156,7 @@ export default {
     viewGallery: "ギャラリーを見る",
     showMore: "さらにレビューを見る",
     emptyTitle: "最初のストーリーをシェアしましょう",
-    emptyDescription: "この体験にはまだ口コミがありません。あなたの口コミが、次の旅行者の参考になります.",
+    emptyDescription: "この体験にはまだ口コミがありません。あなたの口コミが、次の旅行者の参考になります。",
     writeReview: "レビューを書く",
     hintRate: "旅を評価する",
     hintStory: "体験をシェアする",
@@ -169,7 +169,7 @@ export default {
   Customization: {
     title: "ツアーのカスタマイズ",
     description:
-      "IkiSaki Toursのすべてのツアーは、お客様のご希望やご予算に合わせて自由にカスタマイズいただけます.表示されているツアー料金には、旅程に明記されているお食事および観光施設の入場料が含まれています.レストランでのお食事の際のお飲み物は、ツアー内容に別途記載がない限り、料金に含まれておりません.ホテル、食事プラン、観光スポット、交通手段、その他のサービスについても、お客様の旅行スタイルやご予算に合わせて変更可能です.カスタマイズをご希望の場合は、変更内容に応じたお見積もりを改めてご案内いたします,",
+      "IkiSaki Toursのすべてのツアーは、お客様のご希望やご予算に合わせて自由にカスタマイズいただけます。表示されているツアー料金には、旅程に明記されているお食事および観光施設の入場料が含まれています。レストランでのお食事の際のお飲み物は、ツアー内容に別途記載がない限り、料金に含まれておりません。ホテル、食事プラン、観光スポット、交通手段、その他のサービスについても、お客様の旅行スタイルやご予算に合わせて変更可能です。カスタマイズをご希望の場合は、変更内容に応じたお見積もりを改めてご案内いたします、",
   },
   Gallery: {
     viewGallery: "ギャラリーを見る",

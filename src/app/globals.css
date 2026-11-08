@@ -810,3 +810,11 @@ textarea {
 :lang(ja) nav a.whitespace-nowrap {
   white-space: nowrap;
 }
+
+:lang(ja) .brand-watermark-map {
+  white-space: nowrap !important;
+
+  font-family: var(--font-plus-jakarta), sans-serif !important;
+
+  letter-spacing: -0.05em !important;
+}

@@ -3,7 +3,7 @@ export default {
     Metadata: {
       title: "周遊ツアー",
       description:
-        "IkiSakiが厳選したスリランカ各地の特別なツアーパッケージをご紹介。歴史遺産、豊かな自然、宗教文化、美しい海岸エリアを巡る、上質な旅をお楽しみください.",
+        "IkiSakiが厳選したスリランカ各地の特別なツアーパッケージをご紹介。歴史遺産、豊かな自然、宗教文化、美しい海岸エリアを巡る、上質な旅をお楽しみください。",
     },
     Hero: {
       badge: "周遊ツアー",
@@ -11,8 +11,8 @@ export default {
       HighlightTitle: "周遊",
       EndTitle: "ツアー",
       description:
-        "スリランカの世界遺産や豊かな自然、伝統文化、美しい海岸線を巡る特別な旅. 厳選された旅程で、スリランカの魅力をじっくりとご堪能ください.",
-      image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=2400",
+        "スリランカの世界遺産や豊かな自然、伝統文化、美しい海岸線を巡る特別な旅。 厳選された旅程で、スリランカの魅力をじっくりとご堪能ください。",
+      image: "https://images。unsplash。com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=2400",
       alt: "スリランカの茶畑を抜ける絶景の山岳列車の旅",
     },
   },
@@ -20,7 +20,7 @@ export default {
     Metadata: {
       title: "日帰りツアー",
       description:
-        "世界遺産や絶景スポット、歴史ある街並みなど、スリランカの魅力を1日で満喫。限られた時間でも、心に残る特別な体験をお楽しみいただけます.",
+        "世界遺産や絶景スポット、歴史ある街並みなど、スリランカの魅力を1日で満喫。限られた時間でも、心に残る特別な体験をお楽しみいただけます。",
     },
     Hero: {
       badge: "クイックエスケープ",
@@ -28,14 +28,14 @@ export default {
       HighlightTitle: "日帰り",
       EndTitle: "旅行",
       description:
-        "すべてをたった1日で。限られた時間であっても、スリランカならではのユニークな魅力や特別な体験を満喫することができます.",
-      image: "https://images.unsplash.com/photo-1588614959060-4d144f28b207?auto=format&fit=crop&q=80&w=2400",
+        "すべてをたった1日で。限られた時間であっても、スリランカならではのユニークな魅力や特別な体験を満喫することができます。",
+      image: "https://images。unsplash。com/photo-1588614959060-4d144f28b207?auto=format&fit=crop&q=80&w=2400",
       alt: "スリランカの茶畑を抜ける絶景の山岳列車の旅",
     },
   },
   Explorer: {
     filterPackages: "フィルター",
-    searchPlaceholder: "キーワードで検索...",
+    searchPlaceholder: "キーワードで検索。。。",
     loadMore: "さらにパッケージを読み込む",
     showing: "Showing",
     of: "of",
@@ -48,18 +48,18 @@ export default {
     },
     ratingFilters: {
       any: "すべての評価",
-      up45: "4.5 以上",
-      up48: "4.8 以上",
+      up45: "4。5 以上",
+      up48: "4。8 以上",
     },
     EmptyState: {
       backgroundText: "パッケージ",
       title: "一致する旅が見つかりません",
-      searchNoResult: "「{query}」の検索結果、パッケージは見つかりませんでした.",
-      filterNoResult: "選択したフィルターに該当するパッケージはありません.",
-      redefine: "旅行の条件を再設定するか、フィルターをリセットしてください.",
+      searchNoResult: "「{query}」の検索結果、パッケージは見つかりませんでした。",
+      filterNoResult: "選択したフィルターに該当するパッケージはありません。",
+      redefine: "旅行の条件を再設定するか、フィルターをリセットしてください。",
       resetBtn: "リセットする",
       noDataTitle: "ツアーはまだありません",
-      noDataDescription: "新しいツアーパッケージを準備中です.後ほどもう一度ご確認ください.",
+      noDataDescription: "新しいツアーパッケージを準備中です。後ほどもう一度ご確認ください。",
     },
     Sidebar: {
       categories: "カテゴリー",

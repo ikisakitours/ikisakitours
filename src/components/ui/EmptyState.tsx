@@ -32,7 +32,7 @@ export function EmptyState({
       {" "}
       <div className={`relative flex w-full items-center justify-center ${className}`}>
         {/* Background Text */}
-        <span className="premium-serif absolute select-none whitespace-nowrap text-[90px] font-bold tracking-tighter text-white/2 sm:text-[120px] md:text-[140px] lg:text-[170px] xl:text-[200px]">
+        <span className="premium-serif absolute select-none whitespace-nowrap text-[70px] font-bold tracking-tighter text-white/2 sm:text-[120px] md:text-[140px] lg:text-[170px] xl:text-[200px]">
           {backgroundText}
         </span>
         <div className="relative z-10 max-w-md">
