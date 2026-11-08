@@ -748,3 +748,61 @@ textarea {
   -webkit-mask-image: none;
   mask-image: none;
 }
+
+/* ===== Japanese typography ===== */
+
+/* 1. Every element on a Japanese page (any tag, any class) */
+:lang(ja),
+:where(:lang(ja) *) {
+  word-break: keep-all; /* fallback: budoux ZWSP */
+  overflow-wrap: break-word;
+  line-break: strict;
+  text-wrap: pretty; /* no lonely last character */
+}
+
+/* 2. Modern browsers: native phrase-based breaking for everything */
+@supports (word-break: auto-phrase) {
+  :lang(ja),
+  :where(:lang(ja) *) {
+    word-break: auto-phrase;
+  }
+}
+
+/* 3. Fonts */
+:lang(ja) body {
+  font-family: var(--font-plus-jakarta), var(--font-noto-sans-jp), "Hiragino Sans", "Yu Gothic", sans-serif;
+  line-height: 1.8;
+}
+:lang(ja) .premium-serif {
+  font-family: var(--font-playfair), var(--font-noto-serif-jp), "Hiragino Mincho ProN", serif;
+}
+
+/* 4. Headings: balanced lines */
+:lang(ja) :where(h1, h2, h3, h4, h5, h6) {
+  text-wrap: balance;
+  line-height: 1.35;
+}
+
+/* 5. Tracking: any element using a tracking-* class gets capped */
+:lang(ja) [class*="tracking-"] {
+  letter-spacing: 0.05em !important;
+}
+
+/* 6. Hero / section sizes */
+:lang(ja) .text-heading-hero {
+  font-size: clamp(1.75rem, 4.2vw, 3.75rem);
+  line-height: 1.3;
+}
+:lang(ja) .text-heading-section {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/* 7. No fake italics for Japanese */
+:lang(ja) :where(em, i, .italic) {
+  font-style: normal;
+}
+
+/* Japanese: long text blocks must always be allowed to wrap */
+:lang(ja) :is(p, li, h1, h2, h3, h4, h5, h6).whitespace-nowrap {
+  white-space: normal;
+}
