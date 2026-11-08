@@ -14,6 +14,22 @@ import IOSZoomFix from "@/components/ui/IOSZoomFix";
 import { ToastProvider } from "@/context/ToastContext";
 import { AuthProvider } from "@/context/AuthContext";
 import { CurrencyProvider } from "@/context/CurrencyContext";
+import { Noto_Sans_JP, Noto_Serif_JP } from "next/font/google";
+import { addJaBreaks } from "@/lib/japaneseText";
+
+const notoSansJP = Noto_Sans_JP({
+  variable: "--font-noto-sans-jp",
+  weight: ["300", "400", "500", "700"],
+  preload: false,
+  display: "swap",
+});
+
+const notoSerifJP = Noto_Serif_JP({
+  variable: "--font-noto-serif-jp",
+  weight: ["400", "600", "700"],
+  preload: false,
+  display: "swap",
+});
 
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -82,7 +98,8 @@ export default async function RootLayout({
   if (!isSupportedLocale) {
     notFound();
   }
-  const messages = await getMessages();
+  const rawMessages = await getMessages();
+  const messages = locale.toLowerCase() === "ja" ? addJaBreaks(rawMessages) : rawMessages;
   const resolvedParams = await params;
   console.log("🔥 RootLayout resolved locale ->", resolvedParams.locale);
   const cookieStore = await cookies();
@@ -93,7 +110,7 @@ export default async function RootLayout({
       suppressHydrationWarning
       translate="no"
       data-scroll-behavior="smooth"
-      className={`${plusJakarta.variable} ${playfair.variable} h-full scroll-smooth antialiased not-translate`}
+      className={`${plusJakarta.variable} ${playfair.variable} ${notoSansJP.variable} ${notoSerifJP.variable} h-full scroll-smooth antialiased not-translate`}
     >
       <body className="min-h-full bg-lanka-dark text-slate-200">
         <NextIntlClientProvider messages={messages}>
