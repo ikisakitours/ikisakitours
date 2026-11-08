@@ -119,13 +119,17 @@ function ProfileDashboardInner() {
         onClose={() => setIsSidebarOpen(false)}
         categories={tabCategories}
         selectedCategory={activeTab}
-        onSelectCategory={(category) => handleTabChange(category as ProfileTabId)}
+        onSelectCategory={(category) => {
+          handleTabChange(category as ProfileTabId);
+          setIsSidebarOpen(false);
+        }}
         title={t("Dashboard.accountMenuTitle")}
         categoryLabels={tabLabels}
         showClearButton={false}
         showCounts={false}
         showAllCategory={false}
         labels={{ categories: t("Dashboard.titleAccent") }}
+        showBottomBar={false}
       />
     </ContainerLayout>
   );

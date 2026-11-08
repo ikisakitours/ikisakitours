@@ -108,7 +108,7 @@ export function ReferralPanel() {
             <div
               ref={scrollContainerRef}
               // Mobile: Flex row with scroll (snap), md (Tablet/Desktop): Grid layout
-              className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4 md:grid md:grid-cols-3 md:gap-4 md:overflow-visible"
+              className="no-scrollbar flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4 md:grid md:grid-cols-3 md:gap-4 md:overflow-visible"
             >
               <div className="snap-center min-w-[75%] shrink-0 md:min-w-0 md:shrink">
                 <StatCard icon={<Coins />} title={t("stats.earned")} value={stats.totalEarned} highlight />
