@@ -90,7 +90,8 @@ export function Footer() {
           </div>
 
           <div className="xl:col-span-2 text-center sm:text-left lg:pl-4">
-            <h4 className="mb-5 text-base font-black uppercase tracking-[0.3em] text-white">
+            <h4 className="mb-5 pl-[0.3em] text-base font-black uppercase tracking-[0.3em] text-white sm:pl-0">
+              {" "}
               {tFooter("exploreTitle")}
             </h4>
             <ul className="space-y-4">
@@ -111,17 +112,21 @@ export function Footer() {
           </div>
 
           <div className="xl:col-span-3 text-center sm:text-left">
-            <h4 className="mb-5 text-base font-black uppercase tracking-[0.3em] text-white">
+            <h4 className="mb-5 pl-[0.3em] text-base font-black uppercase tracking-[0.3em] text-white sm:pl-0">
+              {" "}
               {tFooter("contactTitle")}
             </h4>
             <ul className="space-y-5">
               {contactInfo.map((item, index) => {
                 const Icon = contactInfoIcons[index];
                 return (
-                  <li key={index} className="group flex items-start justify-center space-x-3 sm:justify-start">
-                    <Icon className="mt-1 h-4 w-4 3xl:h-5 3xl:w-5 shrink-0 text-gold" />
+                  <li
+                    key={index}
+                    className="group grid grid-cols-[1fr_auto_1fr] items-start gap-3 sm:flex sm:justify-start"
+                  >
+                    <Icon className="md:hidden mt-1 h-4 w-4 shrink-0 justify-self-end text-gold sm:justify-self-auto 3xl:h-5 3xl:w-5" />
                     <span
-                      className={`whitespace-pre-line text-base font-light leading-relaxed text-slate-300 ${
+                      className={`whitespace-pre-line text-center text-base font-light leading-relaxed text-slate-300 sm:text-left ${
                         item.label.includes("@") ? "transition-colors group-hover:text-gold" : ""
                       }`}
                     >
@@ -134,7 +139,8 @@ export function Footer() {
           </div>
 
           <div className="xl:col-span-3 text-center sm:text-left">
-            <h4 className="mb-5 text-base font-black uppercase tracking-[0.3em] text-white">
+            <h4 className="mb-5 pl-[0.3em] text-base font-black uppercase tracking-[0.3em] text-white sm:pl-0">
+              {" "}
               {tFooter("newsletterTitle")}
             </h4>
             <p className="mb-6 text-base font-light text-slate-300">{tFooter("newsletterDescription")}</p>
@@ -273,14 +279,16 @@ export function Footer() {
                 {/* Default State ) */}
                 <div className="flex h-8 flex-col justify-center gap-0.5">
                   <span className="text-[8px] font-semibold uppercase tracking-[0.4em] text-slate-500">
-                   {tFooter("engineeredBy")}
+                    {tFooter("engineeredBy")}
                   </span>
                   <span className="text-[11px] font-bold tracking-[0.15em] text-slate-300">{BRAND_NAME}</span>
                 </div>
 
                 {/* Hover State */}
                 <div className="flex h-8 flex-col justify-center gap-0.5">
-                  <span className="text-[8px] font-semibold uppercase tracking-[0.4em] text-gold/70">{tFooter("developedBy")}</span>
+                  <span className="text-[8px] font-semibold uppercase tracking-[0.4em] text-gold/70">
+                    {tFooter("developedBy")}
+                  </span>
                   <span className="text-[11px] font-bold tracking-[0.15em] text-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]">
                     {BRAND_NAME}
                   </span>
