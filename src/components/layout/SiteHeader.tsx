@@ -219,6 +219,25 @@ export function SiteHeader() {
     };
   }, [isMenuOpen]);
 
+  useEffect(() => {
+    let isCurrentlyScrolled = false;
+
+    const handleScroll = () => {
+      if (isMenuOpenRef.current) return;
+
+      const shouldBeScrolled = window.scrollY > 50;
+
+      if (shouldBeScrolled !== isCurrentlyScrolled) {
+        isCurrentlyScrolled = shouldBeScrolled;
+        setIsScrolled(shouldBeScrolled);
+      }
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   // Logout Button
   const handleLogout = async () => {
     const toastId = toast.loading(tToast("loading"));
@@ -239,25 +258,6 @@ export function SiteHeader() {
       console.error("Logout error:", error);
     }
   };
-
-  useEffect(() => {
-    let isCurrentlyScrolled = false;
-
-    const handleScroll = () => {
-      if (isMenuOpenRef.current) return;
-
-      const shouldBeScrolled = window.scrollY > 50;
-
-      if (shouldBeScrolled !== isCurrentlyScrolled) {
-        isCurrentlyScrolled = shouldBeScrolled;
-        setIsScrolled(shouldBeScrolled);
-      }
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   useEffect(() => {
     const handleWindowClick = (event: PointerEvent) => {
@@ -313,13 +313,15 @@ export function SiteHeader() {
 
   return (
     <>
-      <nav
+         <nav
         id="main-nav"
         ref={navRef}
         className={`top-0 left-0 fixed w-full z-100 border-b transition-all duration-500 ${
-          isScrolled || isMenuOpen
-            ? "border-b-[rgba(212,175,55,0.2)] bg-[rgba(5,5,5,0.9)] backdrop-blur-[20px]"
-            : "border-white/0"
+          isMenuOpen
+            ? "border-b-[rgba(212,175,55,0.2)] bg-[#0a0a0a]"
+            : isScrolled
+              ? "border-b-[rgba(212,175,55,0.2)] bg-[rgba(5,5,5,0.9)] backdrop-blur-[20px]"
+              : "border-white/0"
         }`}
       >
         <ContainerLayout>
@@ -525,7 +527,7 @@ export function SiteHeader() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={closeMobileMenu}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-90 xl:hidden"
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-90 xl:hidden touch-none"
             />
 
             {/* Mobile Menu Drawer */}
@@ -536,14 +538,13 @@ export function SiteHeader() {
               initial="initial"
               animate="enter"
               exit="exit"
-              className="fixed top-0 right-0 h-dvh w-full sm:w-100 bg-[#0a0a0a] z-95 xl:hidden flex flex-col shadow-2xl will-change-transform border-l border-white/5"
+              className="fixed inset-y-0 right-0 w-full sm:w-100 bg-[#0a0a0a] z-95 xl:hidden flex flex-col shadow-2xl will-change-transform border-l border-white/5 overscroll-contain after:content-[''] after:absolute after:inset-x-0 after:top-full after:h-48 after:bg-[#0a0a0a]"
             >
               <Curve />
 
               <div className="absolute top-[-10%] right-[-10%] w-62.5 h-62.5 bg-gold/10 blur-[80px] rounded-full pointer-events-none" />
 
-              <div className="flex-1 flex flex-col justify-start px-8 pt-32 pb-10 overflow-y-auto relative z-10 no-scrollbar">
-                <motion.div
+              <div className="flex-1 flex flex-col justify-start px-8 pt-32 pb-10 overflow-y-auto overscroll-contain relative z-10 no-scrollbar bg-[#0a0a0a]">                <motion.div
                   variants={navLinksContainerVariants}
                   initial="initial"
                   animate="enter"
