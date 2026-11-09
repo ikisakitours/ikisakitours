@@ -44,7 +44,7 @@ export default {
         desc: "Handpicked hotels and resorts to match your style",
       },
       {
-        image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=95&w=1600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=95&w=1600&auto=format&fit=crop",
         alt: "Wildlife and Safari Tours",
         badge: "Unforgettable Safaris",
         desc: "Expert naturalists and thrilling wildlife encounters",

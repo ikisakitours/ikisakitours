@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import type { GalleryItem } from "@/data/blog";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
-
+import { useTranslations } from "next-intl";
 import { ThumbnailButton } from "./ThumbnailButton";
 
 const CACHE_KEY = "IkiSaki_loaded_lightbox";
@@ -58,6 +58,7 @@ export function GalleryLightbox({
   items,
   onSelectIndex,
 }: GalleryLightboxProps) {
+  const t = useTranslations("Gallery");
   const imageKey = activeItem?.src || "";
 
   const [isMainReady, setIsMainReady] = useState(false);
@@ -522,7 +523,7 @@ export function GalleryLightbox({
         </div>
 
         <p className="hidden text-caption font-bold uppercase tracking-[0.3em] text-white/40 pointer-coarse:block -mt-1">
-          Swipe to explore
+        {t("swipeToExplore")}
         </p>
       </div>
     </div>

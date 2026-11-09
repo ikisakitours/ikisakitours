@@ -5,7 +5,7 @@ export default {
       "IkiSaki Toursでは、スリランカ全土において、信頼性の高いプライベート・ドライバー・サービス、スリランカチャーターサービス、スリランカツアー、空港送迎、そしてお客様一人ひとりに合わせた特別な旅の体験をご提供しています。専用ドライバーと共に、美しいビーチや文化的な名所、ユネスコ世界遺産、さらには知られざる隠れた名所を、快適に巡ってみませんか。短距離の移動から数日間にわたる旅まで、お客様の旅行プランに合わせて柔軟な移動手段をご用意いたします。IkiSaki Toursと共に、あなたらしいスリランカの旅をお楽しみください。",
   },
   Hero: {
-    image: "https://images。unsplash。com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
     altText: "スリランカの夕日",
     eyebrow: "私たちの歩みを知る",
     title: "スリランカの真の魅力を発見する",
@@ -21,31 +21,31 @@ export default {
       "大手仲介業者を介さず、厳選した宿泊施設、信頼できる専属ドライバー、現地の自然ガイドと直接つながることで、サービスの質を保ちながら、適正な料金でスリランカの魅力をご案内します。",
     slides: [
       {
-        image: "https://images。unsplash。com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
         alt: "シーギリヤロック要塞",
         badge: "本物の遺産",
         desc: "個人のペースに合わせて設計されたオーダーメイドの旅程",
       },
       {
-        image: "https://images。unsplash。com/photo-1511884642898-4c92249e20b6?q=95&w=1600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=95&w=1600&auto=format&fit=crop",
         alt: "伝統的な竹馬漁",
         badge: "地元の文化",
         desc: "島の時代を超えた伝統と直接つながる",
       },
       {
-        image: "https://images。unsplash。com/photo-1447752875215-b2761acb3c5d?q=95&w=1600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=95&w=1600&auto=format&fit=crop",
         alt: "緑豊かな茶畑",
         badge: "自然の逃避行",
         desc: "スリランカの息をのむような風景に浸る",
       },
       {
-        image: "https://images。unsplash。com/photo-1520250497591-112f2f40a3f4?q=95&w=1600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=95&w=1600&auto=format&fit=crop",
         alt: "熱帯の砂浜",
         badge: "海岸の至福",
         desc: "人混みから離れた手つかずのビーチでリラックス",
       },
       {
-        image: "https://images。unsplash。com/photo-1502602898657-3e91760cbb34?q=95&w=1600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=95&w=1600&auto=format&fit=crop",
         alt: "サファリの野生のゾウ",
         badge: "野生動物との出会い",
         desc: "専門の地元自然ガイドによるスリリングなサファリを体験",

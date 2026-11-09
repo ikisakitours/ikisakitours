@@ -22,7 +22,7 @@ export default {
       title: "プレミアム・プライベート送迎",
       accent: "プレミアム",
       strapline: "スリランカの空港送迎・ホテル間送迎サービス",
-      image: "https://images。unsplash。com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=2400",
+      image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=2400",
       alt: "スリランカの海岸沿いの道路にあるプライベートショーファーの送迎車",
     },
     PrivateVehicle: {
@@ -30,7 +30,7 @@ export default {
       title: "快適なチャーターサービス",
       accent: "快適な",
       strapline: "プロのドライバー / ドアツードアサービス / 信頼と時間厳守",
-      image: "https://images。unsplash。com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=2400",
+      image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=2400",
       alt: "スリランカの海岸沿いの道路にあるプライベートショーファーの送迎車",
     },
     Bespoke: {
@@ -38,7 +38,7 @@ export default {
       title: "あなただけの特別な旅",
       accent: "特別な旅",
       strapline: "プライベート送迎 / 自由自在な旅程 / 上質なおもてなし",
-      image: "https://images。unsplash。com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=2400",
+      image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=2400",
       alt: "スリランカの海岸沿いの道路にあるプライベートショーファーの送迎車",
     },
   },

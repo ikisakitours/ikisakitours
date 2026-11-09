@@ -1,4 +1,7 @@
 export default {
+   //new
+    swipeToExplore: "スワイプして探索",
+    //
   Collection: {
     loadMore: "画像をもっと見る",
     showing: "Showing",

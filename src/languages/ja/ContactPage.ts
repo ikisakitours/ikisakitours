@@ -9,7 +9,7 @@ export default {
     title: "旅の始まりは、最初のひと言から",
     accent: "最初のひと言から",
     strapline: "何でもご相談ください。",
-    image: "https://images。unsplash。com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
     altText: "スリランカの夕日",
   },
   IntroCard: {
@@ -20,31 +20,31 @@ export default {
       "スリランカ旅行の計画やプライベートチャーター、空港送迎、オーダーメイドツアーについて、どんなことでもお気軽にご相談ください。お客様に最適な旅をご提案いたします。",
     slides: [
       {
-        image: "https://images。unsplash。com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
         alt: "地元のトラベルデスク",
         badge: "専門家のアドバイス",
         desc: "個人的な計画、迅速なフォローアップ、実践的な指導",
       },
       {
-        image: "https://images。unsplash。com/photo-1511884642898-4c92249e20b6?q=95&w=1600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=95&w=1600&auto=format&fit=crop",
         alt: "カスタム旅程計画",
         badge: "カスタマイズされたルート",
         desc: "あなたの興味を共有して、完璧な旅を作りましょう",
       },
       {
-        image: "https://images。unsplash。com/photo-1447752875215-b2761acb3c5d?q=95&w=1600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=95&w=1600&auto=format&fit=crop",
         alt: "輸送および運転手サービス",
         badge: "シームレスなトランスポート",
         desc: "信頼できるドライバーと快適な車両であなたの旅をサポートします",
       },
       {
-        image: "https://images。unsplash。com/photo-1520250497591-112f2f40a3f4?q=95&w=1600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=95&w=1600&auto=format&fit=crop",
         alt: "宿泊予約",
         badge: "ブティック ステイ",
         desc: "あなたのスタイルに合わせて厳選したホテルとリゾート",
       },
       {
-        image: "https://images。unsplash。com/photo-1502602898657-3e91760cbb34?q=95&w=1600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=95&w=1600&auto=format&fit=crop",
         alt: "野生動物とサファリのツアー",
         badge: "忘れられないサファリ",
         desc: "専門のナチュラリストとスリリングな野生動物との出会い",

@@ -8,7 +8,7 @@ export default {
     title: "島の",
     accent: "お祝いを探索する",
     strapline: "スリランカの最も壮大な文化的なページェントや生放送に浸ってください",
-    image: "https://images。unsplash。com/photo-1511884642898-4c92249e20b6?q=95&w=1920&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=95&w=1920&auto=format&fit=crop",
     alt: "スリランカの活気ある文化的な祭典とストリートのお祝い",
   },
   Explorer: {

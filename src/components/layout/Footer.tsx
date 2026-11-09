@@ -38,11 +38,23 @@ export function Footer() {
       <ContainerLayout className="relative z-10">
         <div className="mb-20 2xl:mb-20 3xl:mb-20 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:gap-x-24 lg:gap-y-12 xl:grid-cols-12 xl:gap-8">
           <div className="flex flex-col items-center space-y-6 text-center sm:items-start sm:text-left xl:col-span-4">
-            <div className="flex items-center space-x-3">
-              <h3 className="text-2xl font-bold tracking-[0.2em] text-white">
-                IKI<span className="gold-gradient-text font-bold italic text-gold">SAKI</span>
+            <div className="flex items-start gap-3">
+              {/* IKISAKI + TOURS (TOURS width = IKISAKI width) */}
+              <h3 className="flex flex-col leading-none">
+                <span className="whitespace-nowrap text-2xl font-extrabold uppercase tracking-[0.2em] text-white sm:text-3xl">
+                  Iki<span className="gold-gradient-text">Saki</span>
+                </span>
+
+                <span className="flex items-center gap-2">
+                  <span aria-hidden="true" className="h-px flex-1 bg-linear-to-r from-transparent to-gold/70" />
+                  <span className="whitespace-nowrap text-[9px] font-bold uppercase tracking-[0.3em] text-white sm:text-[11px]">
+                    Tours
+                  </span>
+                </span>
               </h3>
-              <div className="group relative flex h-5 w-7 items-center justify-center overflow-hidden border-[0.5px] border-white/20 bg-black shadow-[0_0_15px_rgba(197,160,89,0.15)] transition-all duration-500 hover:border-gold/80 hover:shadow-[0_0_25px_rgba(197,160,89,0.6)] hover:scale-110">
+
+              {/* Flag: aligned with the IKISAKI line */}
+              <div className="group relative mt-[0.40rem] flex h-5 w-7 shrink-0 items-center justify-center overflow-hidden border-[0.5px] border-white/20 bg-black shadow-[0_0_15px_rgba(197,160,89,0.15)] transition-all duration-500 hover:border-gold/80 hover:shadow-[0_0_25px_rgba(197,160,89,0.6)] hover:scale-110 sm:mt-[0.55rem]">
                 <div className="pointer-events-none absolute inset-0 z-20 -translate-x-full bg-linear-to-r from-transparent via-white/50 to-transparent transition-transform duration-1000 ease-in-out group-hover:translate-x-full" />
                 <LoadingImage
                   // https://flagcdn.com/w80/lk.png
@@ -54,7 +66,6 @@ export function Footer() {
                   className="h-full w-full object-fill group-hover:scale-110"
                   wrapperClassName="w-full h-full"
                 />
-
                 <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-tr from-black/40 via-transparent to-black/10" />
               </div>
             </div>

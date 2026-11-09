@@ -12,7 +12,7 @@ export default {
       EndTitle: "ツアー",
       description:
         "スリランカの世界遺産や豊かな自然、伝統文化、美しい海岸線を巡る特別な旅。 厳選された旅程で、スリランカの魅力をじっくりとご堪能ください。",
-      image: "https://images。unsplash。com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=2400",
+      image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=2400",
       alt: "スリランカの茶畑を抜ける絶景の山岳列車の旅",
     },
   },
@@ -29,7 +29,7 @@ export default {
       EndTitle: "旅行",
       description:
         "すべてをたった1日で。限られた時間であっても、スリランカならではのユニークな魅力や特別な体験を満喫することができます。",
-      image: "https://images。unsplash。com/photo-1588614959060-4d144f28b207?auto=format&fit=crop&q=80&w=2400",
+      image: "https://images.unsplash.com/photo-1588614959060-4d144f28b207?auto=format&fit=crop&q=80&w=2400",
       alt: "スリランカの茶畑を抜ける絶景の山岳列車の旅",
     },
   },
