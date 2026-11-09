@@ -13,6 +13,7 @@ interface LanguagePromptToastProps {
   currentLangName: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   t: any;
+   lang?: string;
   onAccept: () => void;
   onDismiss: (openDropdown: boolean) => void;
 }
@@ -24,6 +25,7 @@ export function LanguagePromptToast({
   targetLangObj,
   currentLangName,
   t,
+  lang, 
   onAccept,
   onDismiss,
 }: LanguagePromptToastProps) {
@@ -31,6 +33,7 @@ export function LanguagePromptToast({
     <AnimatePresence>
       {showPrompt && promptType && (
         <motion.div
+          lang={lang}
           initial={{ opacity: 0, y: -20, filter: "blur(8px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
@@ -81,8 +84,7 @@ export function LanguagePromptToast({
                 {promptType === "switch"
                   ? t.rich("autoDetect.switchDesc", {
                       country: detectedCountry,
-                      language: targetLangObj?.name,
-                      b: (chunks: React.ReactNode) => <strong className="text-gold font-bold">{chunks}</strong>,
+language: targetLangObj?.nativeName ?? targetLangObj?.name,                      b: (chunks: React.ReactNode) => <strong className="text-gold font-bold">{chunks}</strong>,
                     })
                   : t.rich("autoDetect.unsupportedDesc", {
                       country: detectedCountry,

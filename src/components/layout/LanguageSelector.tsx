@@ -1,15 +1,22 @@
 "use client";
-
 import { useState, useEffect, useRef, useMemo, useTransition } from "react";
 import { usePathname, useRouter } from "@/lib/i18nNavigation";
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale, useTranslations, createTranslator } from "next-intl";
 import { languages } from "@/data/Languages-CurrencyData";
 import { createPortal } from "react-dom";
+import jaSiteHeader from "@/languages/ja/SiteHeader";
+import enSiteHeader from "@/languages/en/SiteHeader";
 // Icons
 import { ChevronDown, Search } from "lucide-react";
 import { LanguagePromptToast } from "./LanguageSelector/LanguagePromptToast";
 import { useUserLocation } from "@/hooks/useUserLocation";
 
+const promptMessages: Record<string, unknown> = {
+  ja: jaSiteHeader.Language,
+  en: enSiteHeader.Language,
+  // fr: frSiteHeader.Language,
+  // de: deSiteHeader.Language,
+};
 export function LanguageSelector() {
   const router = useRouter();
   const pathname = usePathname();
@@ -89,8 +96,6 @@ export function LanguageSelector() {
     return () => window.removeEventListener("openLanguageDropdown", handleOpenEvent as EventListener);
   }, []);
 
-  
-
   useEffect(() => {
     if (!locationData) return;
 
@@ -163,6 +168,11 @@ export function LanguageSelector() {
   }, [locationData, currentLocale, detectedCountry, promptType, showPrompt, targetLangObj]);
 
   // Prompt Actions
+  const markLanguageDeclined = () => {
+    localStorage.setItem("ikisaki_lang_declined", "true");
+    window.dispatchEvent(new Event("languageDeclined"));
+  };
+
   const handlePromptAccept = () => {
     window.dispatchEvent(new CustomEvent("hideLanguagePrompt"));
     localStorage.setItem("ikisaki_lang_prompt_seen", "true");
@@ -179,7 +189,7 @@ export function LanguageSelector() {
   const handlePromptDismiss = (openDropdown: boolean) => {
     window.dispatchEvent(new CustomEvent("hideLanguagePrompt"));
     localStorage.setItem("ikisaki_lang_prompt_seen", "true");
-
+    markLanguageDeclined();
     if (openDropdown) {
       if (window.innerWidth < 1280) {
         const mobileMenuState = document.getElementById("mobile-menu-btn")?.getAttribute("aria-expanded");
@@ -209,6 +219,33 @@ export function LanguageSelector() {
 
   const currentLang = languages.find((l) => l.code.toLowerCase() === currentLocale.toLowerCase()) || languages[0];
 
+  const promptConfig = useMemo(() => {
+    const code = targetLangObj?.code?.toLowerCase() as string | undefined;
+    const langMessages = code ? promptMessages[code] : undefined;
+
+    if (promptType !== "switch" || !code || !langMessages) {
+      return { t, lang: currentLocale, country: detectedCountry };
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const translator: any = createTranslator({
+      locale: code,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      messages: { SiteHeader: { Language: langMessages } } as any,
+      namespace: "SiteHeader.Language",
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } as any);
+
+    let country = detectedCountry;
+    try {
+      const code2 = locationData?.country_code;
+      if (code2) {
+        country = new Intl.DisplayNames([code], { type: "region" }).of(code2) ?? detectedCountry;
+      }
+    } catch {}
+
+    return { t: translator, lang: code, country };
+  }, [promptType, targetLangObj, t, currentLocale, detectedCountry, locationData]);
   return (
     <>
       <div className="relative flex items-center z-70" ref={dropdownRef}>
@@ -269,7 +306,7 @@ export function LanguageSelector() {
                       const newLocale = lang.code.toLowerCase();
                       setIsOpen(false);
                       setSearch("");
-
+                      markLanguageDeclined();
                       window.dispatchEvent(new CustomEvent("languageChanged", { detail: lang.currency }));
 
                       if (newLocale !== currentLocale) {
@@ -313,10 +350,11 @@ export function LanguageSelector() {
           <LanguagePromptToast
             showPrompt={showPrompt}
             promptType={promptType}
-            detectedCountry={detectedCountry}
+            detectedCountry={promptConfig.country}
             targetLangObj={targetLangObj}
             currentLangName={currentLang.name}
-            t={t}
+            t={promptConfig.t}
+            lang={promptConfig.lang}
             onAccept={handlePromptAccept}
             onDismiss={handlePromptDismiss}
           />,

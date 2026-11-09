@@ -1,14 +1,49 @@
 "use client";
-import { useState } from "react";
+// import { useState } from "react";
 import { Link } from "@/lib/i18nNavigation";
 import { CookiePreferenceModal } from "./CookiePreferenceModal";
-import { useTranslations } from "next-intl";
+// import { useTranslations } from "next-intl";
 import { useCookieConsent } from "@/hooks/cookies/useCookieConsent";
+import { useEffect, useMemo, useState } from "react";
+import { createTranslator, useLocale, useTranslations } from "next-intl";
+import { useUserLocation } from "@/hooks/useUserLocation";
+import jaCookie from "@/languages/ja/cookie";
 //Icons
 import { Cookie, X } from "lucide-react";
-
+const cookieMessages: Record<string, unknown> = { ja: jaCookie };
 export function CookieConsent() {
-  const t = useTranslations("cookie");
+ const tLocal = useTranslations("cookie");
+const currentLocale = useLocale();
+const { data: locationData, isDetecting } = useUserLocation();
+const [declined, setDeclined] = useState(false);
+
+useEffect(() => {
+  const sync = () => setDeclined(localStorage.getItem("ikisaki_lang_declined") === "true");
+  const id = setTimeout(sync, 0);
+  window.addEventListener("languageDeclined", sync);
+  return () => {
+    clearTimeout(id);
+    window.removeEventListener("languageDeclined", sync);
+  };
+}, []);
+
+const { t, lang } = useMemo(() => {
+  const detected = locationData?.languages.split(",")[0].split("-")[0].toLowerCase();
+  const messages = detected ? cookieMessages[detected] : undefined;
+
+  if (declined || !detected || !messages || currentLocale.toLowerCase() !== "en" || detected === "en") {
+    return { t: tLocal, lang: currentLocale };
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const translator: any = createTranslator({
+    locale: detected,
+    messages: { cookie: messages },
+    namespace: "cookie",
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } as any);
+  return { t: translator, lang: detected };
+}, [locationData, declined, currentLocale, tLocal]);
 
   const {
     isVisible,
@@ -30,11 +65,10 @@ export function CookieConsent() {
     }
   };
 
-  if (!isVisible || isLegalPage || isHeaderMenuOpen) return null;
-
+if (!isVisible || isLegalPage || isHeaderMenuOpen || isDetecting) return null;
   return (
     <>
-      <div className="fixed bottom-4 left-4 right-4 z-9999 md:bottom-8 md:left-8 md:right-auto md:max-w-105 animate-fade-in-up">
+      <div lang={lang} className="fixed bottom-4 left-4 right-4 z-9999 md:bottom-8 md:left-8 md:right-auto md:max-w-105 animate-fade-in-up">
         <div className="relative overflow-hidden rounded-3xl bg-[#0a0a0a]/98 sm:bg-[#080808]/98 backdrop-blur-3xl border border-white/15 p-6 sm:px-7 shadow-[0_40px_80px_rgba(0,0,0,0.9)]">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 h-0.5 w-2/3 bg-linear-to-r from-transparent via-gold to-transparent opacity-80" />
 

@@ -2,8 +2,15 @@
 
 import React from "react";
 import { CloseButton } from "@/components/ui/ChatWidget/CloseButton";
-import { useTranslations } from "next-intl";
+// import { useTranslations } from "next-intl";
 
+import { useMemo } from "react";
+import { createTranslator, useLocale, useTranslations } from "next-intl";
+import { useUserLocation } from "@/hooks/useUserLocation";
+import jaChatWidget from "@/languages/ja/ChatWidget";
+import { useEffect, useState } from "react";
+
+const chatMessages: Record<string, unknown> = { ja: jaChatWidget };
 interface ChatTooltipsProps {
   isOpen: boolean;
   showSideTooltip: boolean;
@@ -23,11 +30,43 @@ export function ChatTooltips({
   onCloseSideTooltip,
   onCloseBottomTooltip,
 }: ChatTooltipsProps) {
-  const t = useTranslations("ChatWidget.Tooltips");
+const tLocal = useTranslations("ChatWidget.Tooltips");
+const currentLocale = useLocale();
+const { data: locationData } = useUserLocation();
+const [declined, setDeclined] = useState(false);
+
+useEffect(() => {
+  const sync = () => setDeclined(localStorage.getItem("ikisaki_lang_declined") === "true");
+  const id = setTimeout(sync, 0);
+  window.addEventListener("languageDeclined", sync);
+  return () => {
+    clearTimeout(id);
+    window.removeEventListener("languageDeclined", sync);
+  };
+}, []);
+
+const { t, lang } = useMemo(() => {
+  const detected = locationData?.languages.split(",")[0].split("-")[0].toLowerCase();
+  const messages = detected ? chatMessages[detected] : undefined;
+
+  if (declined || !detected || !messages || currentLocale.toLowerCase() !== "en" || detected === "en") {
+    return { t: tLocal, lang: currentLocale };
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const translator: any = createTranslator({
+    locale: detected,
+    messages: { ChatWidget: messages },
+    namespace: "ChatWidget.Tooltips",
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } as any);
+  return { t: translator, lang: detected };
+}, [locationData, declined, currentLocale, tLocal]);
   const tWidget = useTranslations("ChatWidget.Widget");
   return (
     <>
       <div
+      lang={lang}
         className={`absolute right-[125%] mr-3 whitespace-nowrap px-4 py-2.5 rounded-2xl bg-linear-to-r from-lanka-black via-surface to-lanka-black border border-gold/50 shadow-[0_0_30px_rgba(197,160,89,0.3)] backdrop-blur-2xl text-[13px] text-gold font-medium tracking-wide transition-all duration-500 origin-right ${
           showSideTooltip && !isOpen && !isAtBottom
             ? "opacity-100 translate-x-0 scale-100"
@@ -49,6 +88,7 @@ export function ChatTooltips({
       </div>
 
       <div
+      lang={lang} 
         className={`absolute bottom-[130%] right-0 w-80 sm:w-80 md:w-90 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] origin-bottom-right ${
           showBottomTooltip && !isOpen && !isBottomDismissed
             ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"

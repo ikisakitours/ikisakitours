@@ -266,7 +266,6 @@ export function SignupForm() {
                 <Link href="/legal/privacy" className="text-gold underline underline-offset-4">
                   {tForm("Labels.privacy")}
                 </Link>
-                .
               </span>
             </label>
 
