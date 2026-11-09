@@ -11,7 +11,7 @@ export default {
     accent: "と発見する旅",
     strapline:
       "スリランカの旅、文化、歴史、そして隠れた魅力をご紹介します。特別な旅を計画するためのヒントを見つけましょう。",
-    image: "https://images。unsplash。com/photo-1546708973-b339540b5162?auto=format&fit=crop&q=80&w=2400",
+    image: "https://images.unsplash.com/photo-1546708973-b339540b5162?auto=format&fit=crop&q=80&w=2400",
     alt: "クラシックなコンパスとスリランカのビンテージ地図",
   },
   Explorer: {

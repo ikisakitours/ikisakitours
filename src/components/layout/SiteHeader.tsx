@@ -350,19 +350,19 @@ export function SiteHeader() {
                   event.currentTarget.style.display = "none";
                 }}
               />
+              {/* brand Logo Text */}
               <div className="flex min-w-0 flex-col leading-none">
                 {/* IKISAKI */}
-                <span className="mr-[-0.2em] whitespace-nowrap text-xl font-extrabold uppercase tracking-[0.2em] text-white min-[400px]:text-2xl sm:text-3xl">
+                <span className="whitespace-nowrap text-xl font-extrabold uppercase tracking-widest text-white min-[400px]:text-2xl sm:text-3xl">
                   Iki<span className="gold-gradient-text">Saki</span>
                 </span>
 
-                {/* ——— TOURS ——— */}
-                <span className="mt-1.5 flex w-0 min-w-full items-center gap-1.5 sm:mt-2 sm:gap-2">
+                {/* ———— TOURS (right aligned) */}
+                <span className=" flex items-center gap-2">
                   <span aria-hidden="true" className="h-px flex-1 bg-linear-to-r from-transparent to-gold/70" />
-                  <span className="mr-[-0.4em] whitespace-nowrap text-[8px] font-semibold uppercase tracking-[0.4em] text-white/70 min-[400px]:text-[9px] sm:text-[10px] lg:text-[11px]">
+                  <span className="whitespace-nowrap text-[8px] font-bold uppercase tracking-[0.3em] text-white min-[400px]:text-[10px] sm:text-[12px]">
                     Tours
                   </span>
-                  <span aria-hidden="true" className="h-px flex-1 bg-linear-to-l from-transparent to-gold/70" />
                 </span>
               </div>
             </Link>

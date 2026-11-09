@@ -12,7 +12,7 @@ export default {
     title: "島を",
     accent: "巡る旅へ",
     strapline: "歴史、文化、自然が織りなすスリランカの魅力を発見し、心に残る特別な旅へ。",
-    image: "https://images。unsplash。com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
     alt: "手付かずのスリランカのビーチに沈む息をのむような夕日",
   },
   Explorer: {

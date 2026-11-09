@@ -1,4 +1,7 @@
 export default {
+  //new
+  swipeToExplore: "Swipe to explore",
+  //
   Collection: {
     loadMore: "See More Images",
     showing: "Showing",
