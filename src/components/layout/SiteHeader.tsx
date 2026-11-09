@@ -431,7 +431,7 @@ export function SiteHeader() {
               ) : !user ? (
                 <Link
                   href={loginHref}
-                  className="relative group items-center justify-center px-5 md:px-7 py-1.75 rounded-full overflow-hidden border border-gold/40 bg-linear-to-r from-gold/15 via-gold/5 to-transparent text-gold text-body-sm font-semibold tracking-wider uppercase backdrop-blur-xl transition-all duration-500 hover:border-gold hover:shadow-[0_0_25px_rgba(197,160,89,0.35)] hover:-translate-y-0.5 active:translate-y-0 md:flex"
+                  className="relative group items-center justify-center px-6 md:px-7 py-1.75 rounded-full overflow-hidden border border-gold/40 bg-linear-to-r from-gold/15 via-gold/5 to-transparent text-gold text-body-sm font-semibold tracking-wider uppercase backdrop-blur-xl transition-all duration-500 hover:border-gold hover:shadow-[0_0_25px_rgba(197,160,89,0.35)] hover:-translate-y-0.5 active:translate-y-0 md:flex"
                 >
                   <span className="absolute inset-0 bg-linear-to-r from-gold/0 via-gold/20 to-gold/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                   <span className="relative z-10 flex items-center gap-2"> {tDropdown("logIn")}</span>
@@ -453,7 +453,7 @@ export function SiteHeader() {
                       initialsClassName="font-serif text-body-sm! uppercase"
                     />
 
-                    <span className="pointer-events-none absolute top-full left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap rounded-md bg-[#0a0a0a] border border-gold/30 px-3 py-1.5 text-tiny font-bold uppercase tracking-wider text-gold opacity-0 transition-all duration-200 group-hover:opacity-100 shadow-2xl z-50 hidden md:block">
+                    <span className="tooltip pointer-events-none absolute top-full left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap rounded-md bg-[#0a0a0a] border border-gold/30 px-3 py-1.5 text-tiny font-bold uppercase tracking-wider text-gold opacity-0 transition-all duration-200 group-hover:opacity-100 shadow-2xl z-50 hidden md:block">
                       {tDropdown("tooltip")}
                     </span>
                   </button>
@@ -557,7 +557,6 @@ export function SiteHeader() {
               <div className="absolute top-[-10%] right-[-10%] w-62.5 h-62.5 bg-gold/10 blur-[80px] rounded-full pointer-events-none" />
 
               <div className="flex-1 flex flex-col justify-start px-8 pt-32 pb-10 overflow-y-auto overscroll-contain relative z-10 no-scrollbar bg-[#0a0a0a]">
-                {" "}
                 <motion.div
                   variants={navLinksContainerVariants}
                   initial="initial"

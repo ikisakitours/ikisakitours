@@ -157,8 +157,8 @@ export function CountrySelect({
           <div
             className={`absolute left-0 w-full max-h-72 overflow-hidden rounded-xl border border-white/10 bg-[#121212] shadow-2xl z-50 flex flex-col ${
               dropdownPosition === "top"
-                ? "bottom-full mb-2 origin-bottom" // උඩට විවෘත වීම
-                : "top-full mt-2 origin-top" // පහළට විවෘත වීම (Default)
+                ? "bottom-full mb-2 origin-bottom" 
+                : "top-full mt-2 origin-top" 
             }`}
             onClick={(e) => e.stopPropagation()}
           >
