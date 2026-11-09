@@ -23,7 +23,7 @@ export default {
   },
   Intros: {
     Gateway: {
-      image: "/images/sander-traa-bfdshIHD5Y4-unsplash。webp",
+      image: "/images/sander-traa-bfdshIHD5Y4-unsplash.webp",
       imageAlt: "スリランカの茶園の息をのむような景色",
       eyebrow: "IkiSakiへようこそ",
       title: "ここから始まる、",
@@ -31,7 +31,7 @@ export default {
       body: "ログインまたは新規登録して、ご予約の管理や限定ツアーのご案内、お客様だけの特別なスリランカ旅行の計画をお楽しみください。",
     },
     Signup: {
-      image: "/images/sander-traa-bfdshIHD5Y4-unsplash。webp",
+      image: "/images/sander-traa-bfdshIHD5Y4-unsplash.webp",
       imageAlt: "スリランカの茶園の息をのむような景色",
       eyebrow: "メンバー特典",
       title: "上質な旅への",
@@ -39,7 +39,7 @@ export default {
       body: "旅を愛する方々のための特別なコミュニティに参加して、スリランカ全土で楽しむ、あなただけの上質で贅沢な旅をご体験ください。",
     },
     Login: {
-      image: "/images/sander-traa-bfdshIHD5Y4-unsplash。webp",
+      image: "/images/sander-traa-bfdshIHD5Y4-unsplash.webp",
       imageAlt: "夕暮れ時のスリランカの豪華な海岸沿いのリゾート",
       eyebrow: "プレミアムトラベル",
       title: "楽園の魅力を",
@@ -47,7 +47,7 @@ export default {
       body: "楽園の中心へ――インド洋の真珠、スリランカで、あなただけの特別な旅を。",
     },
     Recovery: {
-      image: "/images/sander-traa-bfdshIHD5Y4-unsplash。webp",
+      image: "/images/sander-traa-bfdshIHD5Y4-unsplash.webp",
       imageAlt: "ミリッサの穏やかで平和なビーチの波",
       eyebrow: "セキュリティ・ファースト",
       title: "アクセスを安全に",
@@ -55,7 +55,7 @@ export default {
       body: "ご安心ください。すぐにアカウントの復旧をお手伝いいたします。",
     },
     Reset: {
-      image: "/images/sander-traa-bfdshIHD5Y4-unsplash。webp",
+      image: "/images/sander-traa-bfdshIHD5Y4-unsplash.webp",
       imageAlt: "エラの山々に昇る美しい日の出",
       eyebrow: "新たな始まり",
       title: "アカウントを",

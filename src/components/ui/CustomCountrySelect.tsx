@@ -16,6 +16,14 @@ export const CustomCountrySelect = ({ value, onChange, options }: CustomCountryS
   const [searchQuery, setSearchQuery] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  // 404 Error එන රටවල් වල කේත ටික තියාගන්න state එක
+  const [failedImages, setFailedImages] = useState<Set<string>>(new Set()); 
+
+  // Image එක fail වුණාම state එක update කරන function එක
+  const handleImageError = (countryCode: string) => {
+    setFailedImages((prev) => new Set(prev).add(countryCode));
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -39,15 +47,16 @@ export const CustomCountrySelect = ({ value, onChange, options }: CustomCountryS
         className="flex items-center cursor-pointer gap-2 bg-transparent hover:bg-transparent transition-colors"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {selectedOption && selectedOption.value ? (
+        {selectedOption && selectedOption.value && !failedImages.has(selectedOption.value) ? (
           <img
             src={`https://flagcdn.com/w20/${selectedOption.value.toLowerCase()}.png`}
             alt={selectedOption.label}
             className="w-5 h-auto object-cover shadow-sm"
             style={{ height: "auto" }}
+            onError={() => handleImageError(selectedOption.value!)}
           />
         ) : (
-          <Globe className="w-5 h-5 text-slate-400" />
+          <Globe className="w-4.5 h-4.5 text-slate-400" />
         )}
         <ChevronDown className={`w-3.5 h-3.5 text-gold transition-transform ${isOpen ? "rotate-180" : ""}`} />
       </div>
@@ -84,15 +93,16 @@ export const CustomCountrySelect = ({ value, onChange, options }: CustomCountryS
                     value === option.value ? "bg-gold/20 text-gold" : "text-slate-200"
                   }`}
                 >
-                  {option.value ? (
+                  {option.value && !failedImages.has(option.value)? (
                     <img
                       src={`https://flagcdn.com/w20/${option.value.toLowerCase()}.png`}
                       alt={option.label}
                       className="w-5 h-auto object-cover shadow-sm"
                       style={{ height: "auto" }}
+                      onError={() => handleImageError(option.value!)}
                     />
                   ) : (
-                    <Globe className="w-6 h-6 text-slate-400 shrink-0" />
+                    <Globe className="w-4.5 h-4.5 text-slate-400 shrink-0" />
                   )}
                   <span className="text-sm truncate flex-1">{option.label}</span>
                   {option.value && (

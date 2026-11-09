@@ -818,3 +818,7 @@ textarea {
 
   letter-spacing: -0.05em !important;
 }
+
+:lang(ja) .tooltip {
+  white-space: nowrap !important;
+}
