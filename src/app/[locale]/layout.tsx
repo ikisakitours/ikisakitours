@@ -110,9 +110,13 @@ export default async function RootLayout({
       suppressHydrationWarning
       translate="no"
       data-scroll-behavior="smooth"
-      className={`${plusJakarta.variable} ${playfair.variable} ${notoSansJP.variable} ${notoSerifJP.variable} h-full scroll-smooth antialiased not-translate`}
+      className={`${plusJakarta.variable} ${playfair.variable} ${notoSansJP.variable} ${notoSerifJP.variable} h-full scroll-smooth antialiased notranslate`}
     >
-      <body className="min-h-full bg-lanka-dark text-slate-200">
+      <head>
+        <meta name="google" content="notranslate" />
+      </head>
+
+      <body className="min-h-full bg-lanka-dark text-slate-200 notranslate">
         <NextIntlClientProvider messages={messages}>
           <ToastProvider>
             <AuthProvider>

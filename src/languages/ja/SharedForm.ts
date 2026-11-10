@@ -37,7 +37,7 @@ export default {
     firstName: "アレクサンダー",
     lastName: "ナイト",
     fullName: "アレクサンダー・ナイト",
-    email: "name@example。com",
+    email: "name@example.com",
     phone: "+94 77 123 4567",
     password: "パスワード",
     confirmPassword: "パスワードの確認",

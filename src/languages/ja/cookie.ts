@@ -1,4 +1,4 @@
-// messages/ja/cookie。ts
+// messages/ja/cookie.ts
 export default {
   // CookieConsent component strings
   titlePrefix: "クッキーの",
