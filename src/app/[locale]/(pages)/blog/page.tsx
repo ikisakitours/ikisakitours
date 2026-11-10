@@ -10,7 +10,7 @@ type BlogPageProps = {
 
 export async function generateMetadata({ params }: BlogPageProps): Promise<Metadata> {
   const { locale } = await params;
-  
+
   const t = await getTranslations({ locale, namespace: "Blog.Metadata" });
   const tHero = await getTranslations({ locale, namespace: "Blog.Hero" });
 
@@ -21,10 +21,15 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
   return {
     title: title,
     description: description,
+    alternates: {
+      canonical: `/${locale}/blog`,
+      languages: { en: "/en/blog", ja: "/ja/blog" },
+    },
     openGraph: {
       title: `${title} | IkiSaki Tours`,
       description: description,
-      url: "/blog",
+      url: `/${locale}/blog`,
+      locale: locale === "ja" ? "ja_JP" : "en_US",
       type: "website",
       images: [
         {

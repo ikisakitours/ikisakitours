@@ -70,7 +70,7 @@ export function ArticleActions({ postId, initialLikes, isLiked, postTitle, postS
           <ShareButton
             iconSize={21}
             title={postTitle}
-            text={`Check out this story: ${postTitle}`}
+            text={t("shareText", { title: postTitle })}
             url={`/blog/${postSlug}`}
             iconClassName="w-5 h-5 lg:w-5 lg:h-5"
           />

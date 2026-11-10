@@ -18,6 +18,8 @@ export default {
     reviews: "レビュー",
   },
   Widget: {
+    //NEW
+    shareText: "このツアーをチェックしてみてください：{title}",
     loveTour: "このツアーが好きですか？",
     Rate: "IkiSaki 料金",
     perPerson: "/ 1人あたり",

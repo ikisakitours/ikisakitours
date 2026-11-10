@@ -42,7 +42,6 @@ export default {
       searchAndFilterNoResult: "「{category}」カテゴリ内で「{query}」に一致する記事は見つかりませんでした。",
       redefine: "検索条件を変更するか、フィルターをリセットしてください。",
       resetBtn: "探索をリセット",
-      //new
       noDataTitle: "記事はまだありません",
       noDataDescription: "新しい旅のストーリーを準備中です。後ほどもう一度ご確認ください。",
     },
@@ -52,6 +51,8 @@ export default {
     lovedThis: "お気に入り",
   },
   Article: {
+    //NEW
+    shareText: "この記事をチェックしてみてください：{title}",
     backToHome: "ホームに戻る",
     backToJournal: "ジャーナルに戻る",
     published: "公開日",

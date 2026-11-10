@@ -71,8 +71,13 @@ export default {
       joined: "予約した友人",
       earned: "獲得総額",
     },
+    //new
+    shareMessage:
+      "こんにちは！スリランカで素敵なトラベルコンシェルジュを見つけました。私のリンクから初回のご予約が特別割引になります：{link}",
+    shareTitle: "ikiSaki Toursに一緒に参加しませんか？",
+    shareDesc: "私の招待コードで、スリランカでの初めてのラグジュアリーツアーが10%オフになります。",
   },
-  //
+  
   Modals: {
     Crop: {
       title: "プロフィール写真の調整",

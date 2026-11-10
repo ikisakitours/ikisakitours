@@ -18,6 +18,9 @@ export default {
     reviews: "Reviews",
   },
   Widget: {
+    //NEW
+    shareText: "Check out this tour: {title}",
+    loginToLike: "Please log in to like this tour.",
     loveTour: "Love this tour?",
     Rate: "IkiSaki Rate",
     perPerson: "/ Per Person",
@@ -101,8 +104,7 @@ export default {
   },
   CoveredDestinations: {
     title: "Covered Destinations",
-    description:
-      "Explore the places you will visit on this journey. Click any destination to view details.",
+    description: "Explore the places you will visit on this journey. Click any destination to view details.",
   },
   Description: {
     title: "Full description",
@@ -157,7 +159,7 @@ export default {
     viewAll: "View all",
     viewGallery: "View Gallery",
     showMore: "Show More Reviews",
-    
+
     emptyTitle: "Be the first to share your story",
     emptyDescription: "There are no reviews for this experience yet. Your review will be helpful to future travelers",
     writeReview: "Write a Review",

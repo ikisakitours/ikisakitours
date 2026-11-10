@@ -42,7 +42,6 @@ export default {
       searchAndFilterNoResult: 'Your search for "{query}" in category "{category}" returned no articles.',
       redefine: "Please change your search criteria or reset the filters.",
       resetBtn: "Reset",
-      //new
       noDataTitle: "No Stories Yet",
       noDataDescription: "We are writing new travel stories. Please check back soon.",
     },
@@ -52,6 +51,8 @@ export default {
     lovedThis: "Loved this",
   },
   Article: {
+     //NEW
+    shareText: "Check out this story: {title}",
     backToHome: "Back To Home",
     backToJournal: "Back To Journal",
     published: "Published",

@@ -29,7 +29,6 @@ const isMobileDevice = (): boolean => {
   // Fallback: user agent check
   const mobileUA = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
 
-  // iPadOS (Mac wage report karanawa, eth touch thiyenawa)
   const isIPadOS = navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
 
   return mobileUA || isIPadOS;
@@ -71,7 +70,6 @@ export function ShareButton({ title, text, url, className, iconClassName, iconSi
     const absoluteUrl = `${window.location.origin}${localizedPath}`;
     const shareData = { title, text, url: absoluteUrl };
 
-    // Native share use karanne MOBILE walata witharai
     const canNativeShare =
       isMobileDevice() &&
       typeof navigator.share === "function" &&

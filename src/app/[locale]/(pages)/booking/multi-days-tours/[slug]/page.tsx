@@ -22,10 +22,18 @@ export async function generateMetadata({ params }: BookingPageProps): Promise<Me
     return {
       title: fullTitle,
       description: tour.leadDescription,
+      alternates: {
+        canonical: `/${locale}/booking/multi-days-tours/${tour.slug}`,
+        languages: {
+          en: `/en/booking/multi-days-tours/${tour.slug}`,
+          ja: `/ja/booking/multi-days-tours/${tour.slug}`,
+        },
+      },
       openGraph: {
         title: fullTitle,
         description: tour.leadDescription,
-        url: `/booking/multi-days-tours/${tour.slug}`,
+        url: `/${locale}/booking/multi-days-tours/${tour.slug}`,
+        locale: locale === "ja" ? "ja_JP" : "en_US",
         type: "website",
         images: [
           {
