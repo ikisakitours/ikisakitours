@@ -1,20 +1,20 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { ShareButton } from "@/components/ui/ShareButton";
-import { useTranslations } from "next-intl";
 import { Copy, CheckCircle2, Gift, Users, Coins } from "lucide-react";
 import { SiWhatsapp, SiLine } from "react-icons/si";
-
+import { useLocale, useTranslations } from "next-intl";
 //Icons
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export function ReferralPanel() {
   const t = useTranslations("ProfilePage.ReferralPanel");
+  const locale = useLocale();
 
   const [isCopied, setIsCopied] = useState(false);
 
   const referralCode = "IKISAKI-ALEX24";
-  const referralLink = `https://www.ikisakitours.com/invite/${referralCode}`;
+  const referralLink = `https://www.ikisakitours.com/${locale}/invite/${referralCode}`;
   const stats = {
     invitesSent: 12,
     friendsJoined: 3,
@@ -70,16 +70,12 @@ export function ReferralPanel() {
 
   // 3. WhatsApp Direct Share Logic
   const handleWhatsappShare = () => {
-    const text = encodeURIComponent(
-      `Hey! I found this amazing travel concierge in Sri Lanka. Use my link to get an exclusive discount on your first booking: ${referralLink}`,
-    );
+    const text = encodeURIComponent(t("shareMessage", { link: referralLink }));
     window.open(`https://wa.me/?text=${text}`, "_blank");
   };
 
   const handleLineShare = () => {
-    const text = encodeURIComponent(
-      `Hey! I found this amazing travel concierge in Sri Lanka. Use my link to get an exclusive discount on your first booking: ${referralLink}`,
-    );
+    const text = encodeURIComponent(t("shareMessage", { link: referralLink }));
     window.open(`https://line.me/R/msg/text/?${text}`, "_blank");
   };
   return (
@@ -192,8 +188,8 @@ export function ReferralPanel() {
                 </button>
 
                 <ShareButton
-                  title="Join me on ikiSaki Tours!"
-                  text="Use my invite code to get 10% off on your first luxury tour in Sri Lanka."
+                  title={t("shareTitle")}
+                  text={t("shareDesc")}
                   url={`/invite/${referralCode}`}
                   className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-300! hover:border-gold hover:text-gold!"
                   iconClassName="h-5 w-5"

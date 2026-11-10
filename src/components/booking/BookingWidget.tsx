@@ -105,7 +105,7 @@ export function BookingWidget({ tour, booking, className = "" }: BookingWidgetPr
               <ShareButton
                 iconSize={20}
                 title={tour.title}
-                text={`Check out this tour: ${tour.title}`}
+                text={t("shareText", { title: tour.title })}
                 url={`/booking/multi-days-tours/${tour.slug}`}
               />
             </div>

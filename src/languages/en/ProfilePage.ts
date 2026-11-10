@@ -73,8 +73,13 @@ export default {
       joined: "Friends Booked",
       earned: "Total Earned",
     },
+      // new
+     shareMessage:
+      "Hey! I found this amazing travel concierge in Sri Lanka. Use my link to get an exclusive discount on your first booking: {link}",
+    shareTitle: "Join me on ikiSaki Tours!",
+    shareDesc: "Use my invite code to get 10% off on your first luxury tour in Sri Lanka.",
   },
-  //
+
   Modals: {
     Crop: {
       title: "Adjust Profile Picture",

@@ -21,10 +21,18 @@ export async function generateMetadata({ params }: BlogDetailPageProps): Promise
     return {
       title: post.title,
       description: post.summary,
+      alternates: {
+        canonical: `/${locale}/blog/${post.slug}`,
+        languages: {
+          en: `/en/blog/${post.slug}`,
+          ja: `/ja/blog/${post.slug}`,
+        },
+      },
       openGraph: {
         title: post.title,
         description: post.summary,
-        url: `/blog/${post.slug}`,
+        url: `/${locale}/blog/${post.slug}`,
+        locale: locale === "ja" ? "ja_JP" : "en_US",
         type: "article",
         images: [
           {
