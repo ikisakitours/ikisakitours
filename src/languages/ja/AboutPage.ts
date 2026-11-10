@@ -112,7 +112,7 @@ export default {
     generalTitle: "お問い合わせ・ツアーのご相談",
     generalDesc: "カスタム旅程、旅行サポート、および一般的なお問い合わせについて。",
     legalTitle: "法務・商標デスク",
-    email: "hello@ikisakitours。com",
-    legalEmail: "legal@ikisakitours。com",
+    email: "hello@ikisakitours.com",
+    legalEmail: "legal@ikisakitours.com",
   },
 } as const;

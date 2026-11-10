@@ -62,7 +62,7 @@ export default {
     info: [
       {
         label: "電子メール",
-        value: "hello@ikisakitours。com",
+        value: "hello@ikisakitours.com",
       },
       {
         label: "電話",

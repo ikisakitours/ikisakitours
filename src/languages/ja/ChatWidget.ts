@@ -49,7 +49,7 @@ export default {
     fullNameLabel: "氏名 *",
     fullNamePlaceholder: "山田 太郎",
     emailLabel: "メールアドレス *",
-    emailPlaceholder: "taro@example。com",
+    emailPlaceholder: "taro@example.com",
     phoneLabel: "電話番号 *",
     messageLabel: "メッセージ *",
     messagePlaceholder: "メッセージを入力してEnterを押してください。。。",
