@@ -34,7 +34,7 @@ export default {
   contactInfo: {
     Address: "492/14,Halbarawa Road,\nThalahena,Malabe,\nSri Lanka",
     Phone: "+94 75 797 2582",
-    Email: "hello@ikisakitours。com",
+    Email: "hello@ikisakitours.com",
   },
   TimeDiv: {
     title: "アイランドクロニクル",

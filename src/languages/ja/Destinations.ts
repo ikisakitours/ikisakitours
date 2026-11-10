@@ -18,6 +18,8 @@ export default {
   Explorer: {
     filterRegions: "地域で絞り込む",
     searchPlaceholder: "目的地を検索。。。",
+    //new
+    destinationSearchLabel: "の場所",
     watermark: "IkiSaki",
     geoBadge: "地理的発見",
     mapTitle: "視覚的に目的地を発見する",
@@ -27,7 +29,6 @@ export default {
     showing: "Showing",
     of: "of",
     destinations: "Places",
-    destinationSingular: "Place",
     EmptyState: {
       backgroundText: "島",
       title: "目的地が見つかりません",

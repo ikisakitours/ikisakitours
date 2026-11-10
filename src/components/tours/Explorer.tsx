@@ -26,7 +26,6 @@ const FORCE_EMPTY = false;
 
 export function Explorer({ tourType = "multi" }: PackageExplorerProps) {
   const t = useTranslations("Tours.Explorer");
-  
 
   // Fetch data directly within the component
   const mappedType = tourType === "multi" ? "multiday" : "oneday";
@@ -233,7 +232,7 @@ export function Explorer({ tourType = "multi" }: PackageExplorerProps) {
                 }}
                 placeholder={t("searchPlaceholder")}
                 count={filteredPackages.length}
-                itemLabel={t("packages")}
+                itemLabel={t("SearchInputPackageLabel")}
                 className="w-full md:w-72 lg:flex-none lg:w-96"
                 clearPositionClass="right-27"
               />

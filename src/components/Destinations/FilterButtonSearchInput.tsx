@@ -59,7 +59,7 @@ export default function FilterButtonSearchInput({
           }}
           placeholder={t("searchPlaceholder")}
           count={filteredCount}
-          itemLabel={t("destinations")}
+          itemLabel={t("destinationSearchLabel")}
           className="lg:w-96 md:w-72"
           clearPositionClass="right-23"
         />

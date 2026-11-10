@@ -19,6 +19,7 @@ export default {
   Explorer: {
     filterRegions: "Filter Regions",
     searchPlaceholder: "Search destinations...",
+    destinationSearchLabel: "Place",
     watermark: "IkiSaki",
     geoBadge: "Geographical Discovery",
     mapTitle: "Discover Destinations Visually",
@@ -28,7 +29,6 @@ export default {
     showing: "Showing",
     of: "of",
     destinations: "Places",
-    destinationSingular: "Place",
     EmptyState: {
       backgroundText: "Island",
       title: "no destinations found",

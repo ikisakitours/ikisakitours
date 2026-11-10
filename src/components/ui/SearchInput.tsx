@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocale } from "next-intl";
 //Icon
 import { Search, X } from "lucide-react";
 
@@ -21,7 +22,11 @@ export function SearchInput({
   className = "",
   clearPositionClass = "right-24",
 }: SearchInputProps) {
+
+  const locale = useLocale();
+  const shouldAddS = locale === "en" && count !== 1;
   return (
+    
     <label className={`group relative w-full ${className}`}>
       <span className="sr-only">{placeholder}</span>
 
@@ -57,7 +62,7 @@ export function SearchInput({
         {count !== undefined && (
           <span className="absolute right-4 rounded border border-white/10 bg-white/5 px-2 py-1 text-caption font-bold text-gray-400">
             {count} {itemLabel}
-            {count === 1 ? "" : "s"}
+           {shouldAddS ? "s" : ""}
           </span>
         )}
       </span>

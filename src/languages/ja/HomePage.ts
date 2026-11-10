@@ -11,7 +11,8 @@ export default {
       TeaCountry: "#紅茶列車",
     },
     popularServices: {
-      Taxi: "タクシーチャーター",
+      //new
+      Taxi: "タクシーチャーターサービス",
       CustomTours: "オーダーメイドツアー",
       Transfers: "送迎サービス",
     },

@@ -1,6 +1,6 @@
 "use client";
 import { useToast } from "@/context/ToastContext";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Share2 } from "lucide-react";
 interface NavigatorWithUAData extends Navigator {
   userAgentData?: {
@@ -36,6 +36,7 @@ const isMobileDevice = (): boolean => {
 };
 
 export function ShareButton({ title, text, url, className, iconClassName, iconSize }: ShareButtonProps) {
+  const locale = useLocale();
   const toast = useToast();
   const tToast = useTranslations("SharedForm.ShareButtonToastMessages");
 
@@ -66,7 +67,8 @@ export function ShareButton({ title, text, url, className, iconClassName, iconSi
   };
 
   const handleShare = async () => {
-    const absoluteUrl = `${window.location.origin}${url}`;
+    const localizedPath = url.startsWith(`/${locale}/`) ? url : `/${locale}${url}`;
+    const absoluteUrl = `${window.location.origin}${localizedPath}`;
     const shareData = { title, text, url: absoluteUrl };
 
     // Native share use karanne MOBILE walata witharai
