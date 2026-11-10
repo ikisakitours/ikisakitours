@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef, useMemo, useTransition } from "react";
-import { usePathname, useRouter } from "@/lib/i18nNavigation";
+import { usePathname, useRouter, routing } from "@/lib/i18nNavigation";
 import { useLocale, useTranslations, createTranslator } from "next-intl";
 import { languages } from "@/data/Languages-CurrencyData";
 import { createPortal } from "react-dom";
@@ -173,6 +173,18 @@ export function LanguageSelector() {
     window.dispatchEvent(new Event("languageDeclined"));
   };
 
+  const switchLanguage = (newLocale: string) => {
+    const isSupported = (routing.locales as readonly string[]).includes(newLocale);
+
+    startTransition(() => {
+      if (isSupported) {
+        router.replace(pathname, { locale: newLocale });
+      } else {
+        router.push(`/${newLocale}`, { locale: currentLocale });
+      }
+    });
+  };
+
   const handlePromptAccept = () => {
     window.dispatchEvent(new CustomEvent("hideLanguagePrompt"));
     localStorage.setItem("ikisaki_lang_prompt_seen", "true");
@@ -180,9 +192,7 @@ export function LanguageSelector() {
     if (promptType === "switch" && targetLangObj) {
       const newLocale = targetLangObj.code.toLowerCase();
       window.dispatchEvent(new CustomEvent("languageChanged", { detail: targetLangObj.currency }));
-      startTransition(() => {
-        router.replace(pathname, { locale: newLocale });
-      });
+      switchLanguage(newLocale);
     }
   };
 
@@ -310,9 +320,7 @@ export function LanguageSelector() {
                       window.dispatchEvent(new CustomEvent("languageChanged", { detail: lang.currency }));
 
                       if (newLocale !== currentLocale) {
-                        startTransition(() => {
-                          router.replace(pathname, { locale: newLocale });
-                        });
+                        switchLanguage(newLocale);
                       }
                     }}
                     className={`flex w-full items-center justify-between px-4 py-3 text-left transition-colors hover:bg-gold/10 ${
