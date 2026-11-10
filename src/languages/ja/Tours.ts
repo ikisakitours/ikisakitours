@@ -36,6 +36,8 @@ export default {
   Explorer: {
     filterPackages: "フィルター",
     searchPlaceholder: "キーワードで検索。。。",
+    //new
+    SearchInputPackageLabel: "件のプラン",
     loadMore: "さらにパッケージを読み込む",
     showing: "Showing",
     of: "of",

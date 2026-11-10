@@ -11,9 +11,9 @@ export default {
       TeaCountry: "#TeaTrain",
     },
     popularServices: {
-      Taxi: "Chartering a Taxi",
+      Taxi: "Chartering a Taxi Service",
       CustomTours: "Custom Made Tours",
-      Transfers: "Transfer Tours",
+      Transfers: "Transfer Tours Service",
     },
     content: {
       badge: "The Gold Standard of Travel",

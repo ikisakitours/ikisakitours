@@ -35,6 +35,7 @@ export default {
   Explorer: {
     filterPackages: "Filter Packages",
     searchPlaceholder: "Search by Keywords...",
+    SearchInputPackageLabel: "Package",
     loadMore: "Load More Packages",
     showing: "Showing",
     of: "of",
