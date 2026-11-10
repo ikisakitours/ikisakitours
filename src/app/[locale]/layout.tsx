@@ -112,10 +112,6 @@ export default async function RootLayout({
       data-scroll-behavior="smooth"
       className={`${plusJakarta.variable} ${playfair.variable} ${notoSansJP.variable} ${notoSerifJP.variable} h-full scroll-smooth antialiased notranslate`}
     >
-      <head>
-        <meta name="google" content="notranslate" />
-      </head>
-
       <body className="min-h-full bg-lanka-dark text-slate-200 notranslate">
         <NextIntlClientProvider messages={messages}>
           <ToastProvider>
