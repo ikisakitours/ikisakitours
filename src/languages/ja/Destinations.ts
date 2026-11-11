@@ -12,8 +12,8 @@ export default {
     title: "島を",
     accent: "巡る旅へ",
     strapline: "歴史、文化、自然が織りなすスリランカの魅力を発見し、心に残る特別な旅へ。",
-    image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
-    alt: "手付かずのスリランカのビーチに沈む息をのむような夕日",
+    image: "/ikisaki-images/Destinations/coconut-tree-hill-mirissa-aerial-sri-lanka.webp",
+    alt: "Stunning aerial drone view of Coconut Tree Hill, palm trees, and the turquoise coastline in Mirissa, Sri Lanka",
   },
   Explorer: {
     filterRegions: "地域で絞り込む",

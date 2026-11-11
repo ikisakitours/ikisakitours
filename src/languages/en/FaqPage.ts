@@ -4,8 +4,8 @@ export default {
     description: "Find quick answers to common questions about your bespoke Sri Lankan journey.",
   },
   Hero: {
-    backGroundImage: "https://images.unsplash.com/photo-1512632578888-169bbbc64f33?q=95&w=1600&auto=format&fit=crop",
-    altText: "Customer Support and Assistance",
+    backGroundImage: "/ikisaki-images/FAQs/sri-lanka-mountain-sunset-view.webp",
+    altText: "Breathtaking sunset view with golden sun rays over misty mountain ranges and hills in Sri Lanka",
     eyebrow: "SUPPORT & FAQ",
     title: "How can we help you?",
     accent: "help you?",

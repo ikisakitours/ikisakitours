@@ -22,7 +22,7 @@ export const heroPopularServices = [
 export const HeroBackGroundImages = [
   {
     id: "sigiriyaView",
-    url: "/images/sander-traa-bfdshIHD5Y4-unsplash.webp",
+    url: "/ikisaki-images/home/hero/sigiriya-rock-fortress.webp",
   },
 ] as const;
 
@@ -53,8 +53,8 @@ export const experienceFloatingStatsData = [
 ] as const;
 
 export const experienceImagesData = [
-  { id: "culturalGuide", src: "/images/polonnaruwa-185290_1280.webp", className: "" },
-  { id: "luxuryTravel", src: "/images/sri-lanka-334437_1280.webp", className: "mt-8 md:mt-12 xl:mt-16 3xl:mt-24" },
+  { id: "culturalGuide", src: "/ikisaki-images/home/about/ella-mountain-swing-sri-lanka.webp", className: "" },
+  { id: "luxuryTravel", src: "/ikisaki-images/home/about/sri-lanka-coastal-resort-beach.webp", className: "mt-8 md:mt-12 xl:mt-16 3xl:mt-24" },
 ] as const;
 
 // ==========================================
@@ -82,7 +82,7 @@ export const transferCards = [
 export const privateVehicleImagesData = [
   {
     id: "luxuryVan",
-    src: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=2000&auto=format&fit=crop",
+    src: "/ikisaki-images/home/private-vehicle/private-tour-vehicle-nine-arch-bridge-ella.webp",
   },
 ] as const;
 
@@ -100,11 +100,11 @@ export const featureCardsData = [
 export const contactCtaImagesData = [
   {
     id: "mainExperience",
-    src: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=95&w=1400&auto=format&fit=crop",
+    src: "/ikisaki-images/home/contact-cta/sri-lanka-aerial-beach-waves.webp",
   },
   {
     id: "detailShot",
-    src: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=800&auto=format&fit=crop",
+    src: "/ikisaki-images/home/contact-cta/nine-arch-bridge-ella-sri-lanka.webp",
   },
 ] as const;
 

@@ -4,8 +4,8 @@ export default {
     description: "オーダーメイドのスリランカ旅行に関するよくある質問の回答をすばやく見つけることができます。",
   },
   Hero: {
-    backGroundImage: "https://images.unsplash.com/photo-1512632578888-169bbbc64f33?q=95&w=1600&auto=format&fit=crop",
-    altText: "カスタマーサポートとアシスタンス",
+    backGroundImage: "/ikisaki-images/FAQs/sri-lanka-mountain-sunset-view.webp",
+    altText: "Breathtaking sunset view with golden sun rays over misty mountain ranges and hills in Sri Lanka",
     eyebrow: "サポートとよくある質問",
     title: "どのようなご用件でしょうか？",
     accent: "ご用件でしょうか？",

@@ -12,8 +12,8 @@ export default {
       EndTitle: "ツアー",
       description:
         "スリランカの世界遺産や豊かな自然、伝統文化、美しい海岸線を巡る特別な旅。 厳選された旅程で、スリランカの魅力をじっくりとご堪能ください。",
-      image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=2400",
-      alt: "スリランカの茶畑を抜ける絶景の山岳列車の旅",
+      image: "/ikisaki-images/Tours/sigiriya-rock-fortress-multiday-tour-sri-lanka.webp",
+      alt: "Travelers admiring the majestic Sigiriya Rock Fortress surrounded by lush green forests during a multi-day tour in Sri Lanka",
     },
   },
   OneDay: {
@@ -29,8 +29,8 @@ export default {
       EndTitle: "旅行",
       description:
         "すべてをたった1日で。限られた時間であっても、スリランカならではのユニークな魅力や特別な体験を満喫することができます。",
-      image: "https://images.unsplash.com/photo-1588614959060-4d144f28b207?auto=format&fit=crop&q=80&w=2400",
-      alt: "スリランカの茶畑を抜ける絶景の山岳列車の旅",
+      image: "/ikisaki-images/Tours/galle-fort-oneday-excursion-sri-lanka.webp",
+      alt: "Historic ramparts and lively streets of the UNESCO World Heritage Galle Fort during a one-day excursion in Sri Lanka",
     },
   },
   Explorer: {

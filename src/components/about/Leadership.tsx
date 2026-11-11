@@ -12,7 +12,7 @@ export default function Leadership() {
 
       <div className="w-28 h-28 rounded-full overflow-hidden border-2 border-gold/30 mb-6 relative group">
         <LoadingImage
-          src="/images/Ikisaki-Tours-Founder-&-Ceo.webp"
+          src="/ikisaki-images/Ceo/Ikisaki-Tours-Founder-&-Ceo.webp"
           alt={t("alt")}
           fill
           sizes="112px"

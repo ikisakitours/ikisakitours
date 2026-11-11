@@ -29,8 +29,9 @@ export default {
       popularLabel: "人気:",
       servicesHeading: "人気のサービスを見つける",
     },
+    //new
     bgImagesAlt: {
-      sigiriyaView: "日の出時のシーギリヤロック要塞の空撮 ",
+      sigiriyaView: "Aerial view of Sigiriya Rock Fortress at sunrise",
     },
   },
   Discovery: {
@@ -86,8 +87,10 @@ export default {
       },
     },
     imagesAlt: {
-      culturalGuide: "文化ガイド",
-      luxuryTravel: "ラグジュアリートラベル",
+      //new
+      culturalGuide:
+        "A traveler on a scenic mountain swing overlooking the lush green tea plantations and hills in Ella, Sri Lanka",
+      luxuryTravel: "Scenic view of a tropical beach resort and palm trees along the coast of Sri Lanka",
     },
   },
   Services: {
@@ -135,7 +138,7 @@ export default {
       appDefaultText:
         "こんにちは、IkiSaki Toursさん！ スリランカ旅行のために専用車（チャーター車）とドライバーの利用を検討しています。サービスの詳細や空き状況について教えていただけますか？",
       imagesAlt: {
-        luxuryVan: "ラグジュアリーバン",
+        luxuryVan: "Explore the scenic Nine Arch Bridge in Ella comfortably with our private vehicle and chauffeur service in Sri Lanka",
       },
       features: {
         itineraryControl: {
@@ -213,9 +216,11 @@ export default {
     localExpertsText: "現地の専門家",
     supportText: "24時間365日のサポート",
     imagesAlt: {
-      mainExperience: "ラグジュアリーな旅行体験",
-      detailShot: "詳細ショット",
-      userAvatar: "探検家のアバター",
+      mainExperience:
+        "Stunning aerial drone view of white waves crashing onto a golden sandy beach with traditional fishing boats in Sri Lanka",
+      detailShot:
+        "High-angle view of the historic Nine Arch Bridge surrounded by lush green jungle forests in Ella, Sri Lanka",
+      userAvatar: "Explorer Avatar",
     },
   },
 } as const;

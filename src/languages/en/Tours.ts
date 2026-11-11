@@ -11,8 +11,8 @@ export default {
       HighlightTitle: "Heritage",
       EndTitle: "Collection",
       description: "Exclusive access to Sri Lanka's hidden wonders with ikisaki multi-lingual guidance.",
-      image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=2400",
-      alt: "Scenic mountain train journey through Sri Lankan tea country",
+      image: "/ikisaki-images/Tours/sigiriya-rock-fortress-multiday-tour-sri-lanka.webp",
+      alt: "Travelers admiring the majestic Sigiriya Rock Fortress surrounded by lush green forests during a multi-day tour in Sri Lanka",
     },
   },
   OneDay: {
@@ -28,8 +28,8 @@ export default {
       EndTitle: "Excursions",
       description:
         "All in a single day. Even with limited time, you can enjoy the unique charm and special experiences that only Sri Lanka has to offer.",
-      image: "https://images.unsplash.com/photo-1588614959060-4d144f28b207?auto=format&fit=crop&q=80&w=2400",
-      alt: "Scenic mountain train journey through Sri Lankan tea country",
+      image: "/ikisaki-images/Tours/galle-fort-oneday-excursion-sri-lanka.webp",
+      alt: "Historic ramparts and lively streets of the UNESCO World Heritage Galle Fort during a one-day excursion in Sri Lanka",
     },
   },
   Explorer: {
@@ -64,7 +64,7 @@ export default {
     Sidebar: {
       categories: "Categories",
       all: "All",
-      price: "Price", 
+      price: "Price",
       rating: "Rating",
       clearFilter: "Clear Filter",
       clear: "Clear",

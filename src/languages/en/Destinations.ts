@@ -13,8 +13,8 @@ export default {
     accent: "islands",
     strapline:
       "Discover the charm of Sri Lanka, where history, culture, and nature come together to create an unforgettable journey.",
-    image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
-    alt: "Breathtaking sunset over a pristine Sri Lankan beach",
+    image: "/ikisaki-images/Destinations/coconut-tree-hill-mirissa-aerial-sri-lanka.webp",
+    alt: "Stunning aerial drone view of Coconut Tree Hill, palm trees, and the turquoise coastline in Mirissa, Sri Lanka",
   },
   Explorer: {
     filterRegions: "Filter Regions",
