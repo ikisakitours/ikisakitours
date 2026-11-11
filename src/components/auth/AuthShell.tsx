@@ -23,7 +23,7 @@ export function AuthShell({ children, introKey }: AuthShellProps) {
           sizes="100vw"
           className="image-render-visible animate-slow-zoom object-cover"
         />
-        <div className="absolute inset-0 bg-linear-to-b from-black/45 to-black/95" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/50 via-black/60 to-lanka-dark" />
       </div>
 
       <div className="relative z-10 flex min-h-dvh items-center justify-center px-4 py-8 md:px-8">
