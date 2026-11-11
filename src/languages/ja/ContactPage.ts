@@ -21,31 +21,31 @@ export default {
       "スリランカ旅行の計画やプライベートチャーター、空港送迎、オーダーメイドツアーについて、どんなことでもお気軽にご相談ください。お客様に最適な旅をご提案いたします。",
     slides: [
       {
-        image: "/ikisaki-images/contact/slider/sri-lanka-wild-elephants-grassland.webp",
+        image: "/ikisaki-images/Contact/slider/sri-lanka-wild-elephants-grassland.webp",
         alt: "Wild elephants grazing on a green grassland near a lake during a wildlife safari in Sri Lanka",
         badge: "専門家のアドバイス",
         desc: "個別プランニング、迅速な対応、実践的なご案内",
       },
       {
-        image: "/ikisaki-images/contact/slider/sigiriya-rock-fortress-distant-view.webp",
+        image: "/ikisaki-images/Contact/slider/sigiriya-rock-fortress-distant-view.webp",
         alt: "Scenic distant view of the historic Sigiriya Rock Fortress rising above the green forest canopy in Sri Lanka",
         badge: "オーダーメイドのルート",
         desc: "ご希望をお聞かせいただければ、最適な旅をコーディネートいたします",
       },
       {
-        image: "/ikisaki-images/contact/slider/sri-lanka-elephants-bathing-river-pinnawala.webp",
+        image: "/ikisaki-images/Contact/slider/sri-lanka-elephants-bathing-river-pinnawala.webp",
         alt: "Herd of elephants bathing and splashing in a tropical river surrounded by lush greenery in Sri Lanka",
         badge: "シームレスな移動",
         desc: "ご旅行に最適な、信頼できるドライバーと快適な車両",
       },
       {
-        image: "/ikisaki-images/contact/slider/tropical-beach-sunbeds-umbrella-sri-lanka.webp",
+        image: "/ikisaki-images/Contact/slider/tropical-beach-sunbeds-umbrella-sri-lanka.webp",
         alt: "Relaxing wooden sunbeds and white umbrella on a pristine tropical beach overlooking the ocean in Sri Lanka",
         badge: "厳選されたブティックステイ",
         desc: "お客様のスタイルに合わせて厳選されたホテルやリゾート",
       },
       {
-        image: "/ikisaki-images/contact/slider/yala-national-park-safari-jeep-elephant.webp",
+        image: "/ikisaki-images/Contact/slider/yala-national-park-safari-jeep-elephant.webp",
         alt: "Wildlife safari experience with tourists observing a wild elephant from a safari jeep in Sri Lanka",
         badge: "忘れられないサファリ体験",
         desc: "専門の自然ガイドと巡る、スリル満点の野生動物との出会い",
