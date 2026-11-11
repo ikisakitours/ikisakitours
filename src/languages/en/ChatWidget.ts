@@ -72,4 +72,28 @@ export default {
     closeChatAria: "Close chat",
     toggleAria: "Toggle chat",
   },
+
+  // Chat Widget Image Slider Configuration
+chatWidgetImages: [
+  {
+    image: "/ikisaki-images/chat-bot/nine-arch-bridge-ella-blue-train-sri-lanka.webp",
+    alt: "The iconic blue train crossing the historic Nine Arch Bridge amidst lush green forests in Ella, Sri Lanka"
+  },
+  {
+    image: "/ikisaki-images/chat-bot/sri-lanka-tea-plantation-sunrise-mist.webp",
+    alt: "Golden sunrise breaking over the misty green terraced hills of a tea plantation in Sri Lanka"
+  },
+  {
+    image: "/ikisaki-images/chat-bot/oceanfront-dining-terrace-rocky-beach-sri-lanka.webp",
+    alt: "Outdoor dining tables and chairs overlooking the blue ocean waves and rocky shoreline in Sri Lanka"
+  },
+  {
+    image: "/ikisaki-images/chat-bot/luxury-boutique-villa-pool-night-sri-lanka.webp",
+    alt: "Illuminated swimming pool and traditional architecture of a luxury boutique villa at night in Sri Lanka"
+  },
+  {
+    image: "/ikisaki-images/chat-bot/sri-lanka-coastal-island-suspension-bridge.webp",
+    alt: "Pedestrian suspension bridge leading to a scenic temple island on the sandy coast of Sri Lanka"
+  }
+]
 } as const;

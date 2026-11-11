@@ -74,7 +74,7 @@ export function ChatMessages({ onEmailClick, onBotClick, waLink, lineLink }: Cha
             </button> */}
 
             {/* AI Chatbot Button */}
-            <button
+            {/* <button
               onClick={onBotClick}
               className="group flex w-full items-center justify-between rounded-xl bg-lanka-black border border-[#0ea5e9]/30 p-3.5 hover:border-[#0ea5e9] hover:bg-[#0ea5e9]/5 transition-all duration-300"
             >
@@ -87,7 +87,7 @@ export function ChatMessages({ onEmailClick, onBotClick, waLink, lineLink }: Cha
                   <p className="text-[10px] text-slate-500">{t("botSubtitle") || "Get instant automated answers"}</p>
                 </div>
               </div>
-            </button>
+            </button> */}
           </div>
         </div>
 

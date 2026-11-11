@@ -20,7 +20,7 @@ const tabIcons = {
 } satisfies Record<ProfileTabId, LucideIcon>;
 
 // you  can false referral wen not use
-const ENABLE_REFERRALS = true;
+const ENABLE_REFERRALS = false;
 
 function ProfileDashboardInner() {
   const searchParams = useSearchParams();

@@ -5,8 +5,9 @@ export default {
       "IkiSaki Tours offers a range of services across Sri Lanka, including reliable private driver services, vehicle charters, guided tours, airport transfers, and bespoke travel experiences tailored to your individual preferences. With your own dedicated driver, you can explore beautiful beaches, cultural landmarks, UNESCO World Heritage sites, and even lesser-known hidden gems—all in complete comfort. Whether you need a short trip or a multi-day journey, we provide flexible transportation solutions designed to fit your specific travel plans. Enjoy a Sri Lanka experience that is uniquely yours with IkiSaki Tours.",
   },
   Hero: {
-    image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
-    altText: "Sri Lankan sunset",
+    image: "/ikisaki-images/about/polonnaruwa-vatadage-ancient-ruins-sri-lanka.webp",
+    altText:
+      "Ancient ruins of the Polonnaruwa Vatadage historic site showcasing intricate stone carvings and architecture in Sri Lanka",
     eyebrow: "DISCOVER OUR STORY",
     title: "Discover the true essence of Sri Lanka",
     accent: "true essence",
@@ -19,38 +20,38 @@ export default {
       "IkiSaki Tours was established with a singular vision: to dismantle the cookie-cutter approach to tourism and build deeply personal travel stories. We believe that Sri Lanka is best experienced when it is tailored to your unique interests and pace.",
     description2:
       "By bypassing large middlemen networks, we connect you directly to local boutique stays, trusted chauffeur drivers, and local naturalists, giving you the best rates without sacrificing service quality.",
-    slides: [
-      {
-        image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=95&w=1600&auto=format&fit=crop",
-        alt: "Sigiriya Rock Fortress",
-        badge: "Authentic Heritage",
-        desc: "Bespoke itineraries designed around your personal pace",
-      },
-      {
-        image: "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=95&w=1600&auto=format&fit=crop",
-        alt: "Traditional Stilt Fishermen",
-        badge: "Local Culture",
-        desc: "Connect directly with the island's timeless traditions",
-      },
-      {
-        image: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=95&w=1600&auto=format&fit=crop",
-        alt: "Lush Tea Plantations",
-        badge: "Nature Escapes",
-        desc: "Immerse yourself in Sri Lanka's breathtaking landscapes",
-      },
-      {
-        image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=95&w=1600&auto=format&fit=crop",
-        alt: "Tropical Sandy Beaches",
-        badge: "Coastal Bliss",
-        desc: "Unwind on pristine shores away from the crowds",
-      },
-      {
-        image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=95&w=1600&auto=format&fit=crop",
-        alt: "Wild Elephants in Safari",
-        badge: "Wildlife Encounters",
-        desc: "Experience thrilling safaris with expert local naturalists",
-      },
-    ],
+slides: [
+    {
+      image: "/ikisaki-images/about/slider/sri-lanka-lush-waterfall-nature.webp",
+      alt: "Breathtaking view of a cascading waterfall flowing through lush green tropical forests in Sri Lanka",
+      badge: "Nature Escapes",
+      desc: "Immerse yourself in Sri Lanka's breathtaking landscapes and cascading waters",
+    },
+    {
+      image: "/ikisaki-images/about/slider/sri-lanka-tea-plantation-landscape.webp",
+      alt: "Vibrant green tea estate hills under a bright blue sky with fluffy clouds in Sri Lanka",
+      badge: "Highland Beauty",
+      desc: "Journey through the misty, emerald-green hills of the central highlands",
+    },
+    {
+      image: "/ikisaki-images/about/slider/yala-national-park-leopard-safari-sri-lanka.webp",
+      alt: "Wild Sri Lankan leopard walking through the dry zone during a wildlife safari in Yala National Park",
+      badge: "Wildlife Encounters",
+      desc: "Experience thrilling safaris with expert local naturalists and guides",
+    },
+    {
+      image: "/ikisaki-images/about/slider/sri-lanka-luxury-villa-poolside.webp",
+      alt: "Relaxing infinity swimming pool surrounded by tropical palm trees at a luxury boutique villa in Sri Lanka",
+      badge: "Boutique Stays",
+      desc: "Relax in unparalleled comfort at exclusive luxury resorts and villas",
+    },
+    {
+      image: "/ikisaki-images/about/slider/sri-lanka-stilt-fishermen-sunset.webp",
+      alt: "Traditional stilt fishermen working along the golden southern coast of Sri Lanka during sunset",
+      badge: "Local Culture",
+      desc: "Connect directly with the island's timeless coastal traditions",
+    },
+  ],
   },
   Stats: {
     headerBadge: "Overview",
@@ -97,7 +98,7 @@ export default {
   Leadership: {
     title: "Our Leadership",
     name: "Dhanuja Chathumal",
-    alt : "Ikisaki-Tours-Founder-&-CEO",
+    alt: "Ikisaki-Tours-Founder-&-CEO",
     role: "FOUNDER & CEO",
     bio: "Directing the custom travel experiences at IkiSaki Tours. Danuja is dedicated to integrating technology and local hospitality to deliver seamless, personalized itineraries to guests visiting Sri Lanka.",
   },

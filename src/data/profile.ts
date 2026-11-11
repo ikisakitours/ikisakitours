@@ -22,5 +22,5 @@ export const profileUser = {
 export const profileTabs: ProfileTab[] = [
   { id: "profile", label: "Profile Management" },
   { id: "security", label: "Security & Privacy" },
-  { id: "referral", label: "Invite Friends" }, //  comment want referral show
+  // { id: "referral", label: "Invite Friends" }, //  comment want referral show
 ];

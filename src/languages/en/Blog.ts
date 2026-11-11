@@ -11,8 +11,8 @@ export default {
     accent: "Discovering Us",
     strapline:
       "Discover the culture, history, and hidden charms of Sri Lanka. Find tips to help you plan an extraordinary trip.",
-    image: "https://images.unsplash.com/photo-1546708973-b339540b5162?auto=format&fit=crop&q=80&w=2400",
-    alt: "Vintage map of Sri Lanka with a classic compass",
+    image: "/ikisaki-images/Journal/sri-lanka-stilt-fishermen-sunset.webp",
+    alt: "Traditional stilt fishermen working along the golden southern coast of Sri Lanka during sunset",
   },
   Explorer: {
     filterCategories: "Filter Categories",

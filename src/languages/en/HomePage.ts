@@ -28,6 +28,7 @@ export default {
       popularLabel: "Popular:",
       servicesHeading: "Discover Our Popular Services",
     },
+    //new
     bgImagesAlt: {
       sigiriyaView: "Aerial view of Sigiriya Rock Fortress at sunrise",
     },
@@ -85,8 +86,9 @@ export default {
       },
     },
     imagesAlt: {
-      culturalGuide: "Cultural Guide",
-      luxuryTravel: "Luxury Travel",
+      //new
+      culturalGuide: "A traveler on a scenic mountain swing overlooking the lush green tea plantations and hills in Ella, Sri Lanka",
+      luxuryTravel: "Scenic view of a tropical beach resort and palm trees along the coast of Sri Lanka",
     },
   },
   Services: {
@@ -134,7 +136,7 @@ export default {
       appDefaultText:
         "Hello IkiSaki Tours! I am interested in hiring a private vehicle and chauffeur for my trip to Sri Lanka. Could you share more information about your services and availability?",
       imagesAlt: {
-        luxuryVan: "Luxury Van",
+        luxuryVan: "Explore the scenic Nine Arch Bridge in Ella comfortably with our private vehicle and chauffeur service in Sri Lanka",
       },
       features: {
         itineraryControl: {
@@ -212,8 +214,8 @@ export default {
     localExpertsText: "Local Experts",
     supportText: "24/7 Support",
     imagesAlt: {
-      mainExperience: "Luxury Travel Experience",
-      detailShot: "Detail Shot",
+      mainExperience: "Stunning aerial drone view of white waves crashing onto a golden sandy beach with traditional fishing boats in Sri Lanka",
+      detailShot: "High-angle view of the historic Nine Arch Bridge surrounded by lush green jungle forests in Ella, Sri Lanka",
       userAvatar: "Explorer Avatar",
     },
   },
