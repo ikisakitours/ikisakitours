@@ -37,6 +37,7 @@ export default {
       eyebrow: "オーダーメイド旅行",
       title: "あなただけの特別な旅",
       accent: "特別な旅",
+      strapline: "プライベート送迎 / 自由自在な旅程 / 上質なおもてなし",
       image: "/ikisaki-images/services/custom-made/personalized-travel-coastal-dining-sri-lanka.webp",
       alt: "Scenic coastal dining terrace overlooking the ocean, perfect for crafting your own custom travel itinerary in Sri Lanka",
     },

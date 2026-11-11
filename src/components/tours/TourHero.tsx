@@ -21,10 +21,10 @@ export function TourHero({ namespace }: TourHeroProps) {
           priority
           quality={90}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
-          className="object-cover object-center scale-110 animate-slow-zoom"
+          className="object-cover object-center animate-slow-zoom"
         />
 
-        <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/80 to-lanka-dark" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/50 via-black/60 to-lanka-dark" />
       </div>
 
       <div className="absolute -bottom-0.5 left-0 right-0 z-0 h-1 bg-lanka-dark pointer-events-none" />
