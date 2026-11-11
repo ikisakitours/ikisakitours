@@ -21,31 +21,31 @@ export default {
       "Please feel free to reach out to us regarding any aspect of your trip to Sri Lanka—whether it’s travel planning, private charters, airport transfers, or bespoke tours. We will help you design the perfect journey tailored to your needs.",
     slides: [
       {
-        image: "/ikisaki-images/contact/slider/sri-lanka-wild-elephants-grassland.webp",
+        image: "/ikisaki-images/Contact/slider/sri-lanka-wild-elephants-grassland.webp",
         alt: "Wild elephants grazing on a green grassland near a lake during a wildlife safari in Sri Lanka",
         badge: "Expert Advice",
         desc: "Personal planning, fast follow-up, practical guidance",
       },
       {
-        image: "/ikisaki-images/contact/slider/sigiriya-rock-fortress-distant-view.webp",
+        image: "/ikisaki-images/Contact/slider/sigiriya-rock-fortress-distant-view.webp",
         alt: "Scenic distant view of the historic Sigiriya Rock Fortress rising above the green forest canopy in Sri Lanka",
         badge: "Tailored Routes",
         desc: "Share your interests and we'll craft the perfect journey",
       },
       {
-        image: "/ikisaki-images/contact/slider/sri-lanka-elephants-bathing-river-pinnawala.webp",
+        image: "/ikisaki-images/Contact/slider/sri-lanka-elephants-bathing-river-pinnawala.webp",
         alt: "Herd of elephants bathing and splashing in a tropical river surrounded by lush greenery in Sri Lanka",
         badge: "Seamless Transport",
         desc: "Reliable drivers and comfortable vehicles for your trip",
       },
       {
-        image: "/ikisaki-images/contact/slider/tropical-beach-sunbeds-umbrella-sri-lanka.webp",
+        image: "/ikisaki-images/Contact/slider/tropical-beach-sunbeds-umbrella-sri-lanka.webp",
         alt: "Relaxing wooden sunbeds and white umbrella on a pristine tropical beach overlooking the ocean in Sri Lanka",
         badge: "Boutique Stays",
         desc: "Handpicked hotels and resorts to match your style",
       },
       {
-        image: "/ikisaki-images/contact/slider/yala-national-park-safari-jeep-elephant.webp",
+        image: "/ikisaki-images/Contact/slider/yala-national-park-safari-jeep-elephant.webp",
         alt: "Wildlife safari experience with tourists observing a wild elephant from a safari jeep in Sri Lanka",
         badge: "Unforgettable Safaris",
         desc: "Expert naturalists and thrilling wildlife encounters",

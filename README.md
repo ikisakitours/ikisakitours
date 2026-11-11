@@ -42,4 +42,3 @@ An interactive travel planning and tour itinerary management platform built with
 ## Project Links
 
 You can access the repository here: https://github.com/pramodSiriwardhana/map-mate-tours.git
-
