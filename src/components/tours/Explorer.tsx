@@ -174,21 +174,21 @@ export function Explorer({ tourType = "multi" }: PackageExplorerProps) {
   const tApi = useTranslations("Common.Api");
   if (isLoading) {
     return (
-      <section className="bg-lanka-dark min-h-screen">
-        <ApiCallLoader fullScreen={true} text={tApi("loadingTours")} />
+      <section className="bg-lanka-dark py-12 md:py-20 xl:py-20">
+        <ApiCallLoader fullScreen={false} text={tApi("loadingTours")} />
       </section>
     );
   }
 
   if (error) {
     return (
-      <section className="bg-lanka-dark min-h-screen">
+      <section className="bg-lanka-dark py-12 md:py-20 xl:py-20">
         <ApiCallError
           message={tApi("contentLoadError")}
           title={tApi("failedToLoad")}
           watermark={tApi("errorWatermark")}
           buttonText={tApi("tryAgain")}
-          fullScreen={true}
+          fullScreen={false}
           onRetry={refetch}
         />
       </section>
