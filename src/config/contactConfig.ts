@@ -15,7 +15,7 @@ export const contactConfig = {
   //3.  Brand Details
   brand: {
     name: "AETHERIA LABS",
-    url: "https://portfolio-app-pyqf.vercel.app/",
+    url: "https://pramod-siriwardhana.vercel.app/",
     logoUrl: "/images/aetheria-logo.mp4",
   },
 

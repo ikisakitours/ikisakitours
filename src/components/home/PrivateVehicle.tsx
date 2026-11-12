@@ -11,10 +11,10 @@ import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { contactConfig } from "@/config/contactConfig";
 //Icons
-import { Fuel, MapPinned, Check } from "lucide-react";
+import {MapPinned, Check,Receipt } from "lucide-react";
 import { SiWhatsapp, SiLine } from "react-icons/si";
 
-const featureCardsIcons = [MapPinned, Fuel];
+const featureCardsIcons = [MapPinned, Receipt];
 
 interface PrivateVehicleProps {
   hideImageOnMobile?: boolean;

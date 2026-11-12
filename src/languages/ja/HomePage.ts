@@ -24,7 +24,7 @@ export default {
       description: " 対応の現地公認ガイドと、快適なスリランカの旅へ。",
       languagesOne: "日本語-英語-フランス語-",
       languagesTwo: "スペイン語",
-      searchPlaceholder: "どこを探索しますか？",
+      searchPlaceholder: "日本語で検索すべきです。",
       startJourneyText: "旅を始める",
       popularLabel: "人気:",
       servicesHeading: "人気のサービスを見つける",
@@ -95,26 +95,26 @@ export default {
   },
   Services: {
     Transfers: {
-      badge: "運転手付きサービス",
-      titlePart1: "トラベラーズ",
-      titlePart2: "トランジット",
+      badge: "送迎サービス",
+      titlePart1: "お迎え・",
+      titlePart2: "お送り",
       subtitle:
-        "スリランカのどこへでも、日本人🇯🇵、フランス人🇫🇷、スペイン人🇪🇸、イギリス人🇬🇧の旅行者のための快適で安全、そして信頼できる交通手段。",
+        "多言語対応のプロフェッショナルなドライバーが、すべての旅行者に安心で快適な移動サービスをお届けします。",
       cards: {
         airportPickup: {
-          title: "空港お迎え",
-          description: "バンダラナイケ国際空港でのミート＆グリートサービス、快適な専用車での送迎。",
+          title: "空港送迎",
+          description: "バンダラナイケ国際空港での到着時の出迎えサポート。",
           action: "送迎を予約する",
         },
         hotelCity: {
-          title: "ホテル＆市内送迎",
-          description: "ホテル、都市、ビーチ、文化的な目的地の間をスムーズに移動します。",
-          action: "車両を見る",
+          title: "ホテル・都市",
+          description: "ホテル、市内の観光スポット、ビーチ、世界遺産などへの専用送迎サービス。",
+          action: "送迎を予約する",
         },
         dropOff: {
-          title: "空港・目的地お送り",
-          description: "旅の終わりに、空港または次の目的地まで安全かつ時間通りにお送りします。",
-          action: "今すぐスケジュール",
+          title: "空港へのお送り",
+          description: "フライト時刻に合わせた時間指定の空港送迎で、余裕を持って安心してご出発いただけます。",
+          action: "送迎を予約する",
         },
       },
       trustBadges: {
@@ -123,34 +123,38 @@ export default {
       },
     },
     PrivateVehicle: {
-      badge: "専用車手配",
-      titlePart1: "あなた専用の車",
-      titleAccent: "＆",
-      titlePart2: "ドライバー",
+      badge: "チャーターサービス",
+      titlePart1: "スリランカ",
+      titleAccent: "専用車",
+      titlePart2: "の旅",
       description:
-        "旅行中の完全な自主性を体験してください。国をまたぐ冒険を計画している場合でも、シンプルな都市間の送迎でも、当社の高級車とプロのドライバーがあなたの指示に従います。目的地、立ち寄り先、スケジュールを決めるのはあなたです。私たちは物流を担当し、あなたの条件に完全に合わせたシームレスな旅を保証します。",
+        "旅程や目的地を自由に決められる、スリランカ専用車チャーターサービス。空港送迎から都市間の移動、観光地巡りまで、お客様のご希望に合わせて柔軟に対応します。専用車と経験豊富なドライバーが、快適で自由な旅をサポートします。",
       nativeFriendlyText: "ネイティブフレンドリー",
       quote:
         "あなたが旅をデザインし、私たちが安全を確保します。私たちが保護と手配を担当する間、あなたは完全な自由を体験してください。",
-      hireButtonText: "車を手配する",
+      hireButtonText: "専用車を予約する",
       consultText: "私たちに相談する",
       appText: "WhatsApp・LINEで直接相談",
       appDefaultText:
         "こんにちは、IkiSaki Toursさん！ スリランカ旅行のために専用車（チャーター車）とドライバーの利用を検討しています。サービスの詳細や空き状況について教えていただけますか？",
       imagesAlt: {
-        luxuryVan: "Explore the scenic Nine Arch Bridge in Ella comfortably with our private vehicle and chauffeur service in Sri Lanka",
+        luxuryVan:
+          "Explore the scenic Nine Arch Bridge in Ella comfortably with our private vehicle and chauffeur service in Sri Lanka",
       },
       features: {
         itineraryControl: {
           title: "旅程の完全なコントロール",
-          description: "目的地、立ち寄り先、ペースはあなたが決めます。パッケージツアーではなく、あなただけの計画です。",
+          description:
+            "あなただけの旅を、あなたらしいスタイルで。目的地や立ち寄り先、そして旅のペースを、完全に自由に選ぶことができます。",
         },
         flexibleTransparent: {
-          title: "柔軟性と透明性",
-          description: "お客様だけの旅程に合わせた、すべて込みのカスタムお見積もり。隠れた費用は一切ありません。",
+          title: "柔軟な対応と明確な料金設定",
+          description:
+            "お客様の旅程に合わせたお見積もりをご提示。追加料金のない、明確で透明性の高い料金設定をお約束します。",
         },
       },
     },
+
     CustomTour: {
       badge: "オーダーメイド＆フレキシブル",
       titlePart1: "あなたの旅、",
@@ -158,7 +162,7 @@ export default {
       titlePart2: "あなたの思い通りに。",
       watermark: "オーダーメイド",
       description:
-        "決められた旅程から解放されましょう。すべての詳細をその場で形作り、私たちの専門家があなたの気分、ペース、そして自発的な要望にぴったり合うようにプライベートな旅を適応させます。",
+        "決められた旅程に縛られることなく、お客様だけの自由な旅をお楽しみください。訪れたい場所や立ち寄り先、滞在時間も自由に設定でき、その日の気分やご希望に合わせてルートの変更や予定の追加にも柔軟に対応します。経験豊富な現地スタッフが移動から観光まで丁寧にサポートし、自分らしい特別な旅を実現します。",
       ctaText: "あなたの旅を創る",
     },
   },
@@ -185,10 +189,10 @@ export default {
     exploreMoreBtn: "さらにブログを見る",
   },
   ClientExperiences: {
-    badge: "クライアントの体験",
-    titlePart1: "マップメイトの",
-    titleAccent: "声",
-    avgScoreLabel: "平均スコア",
+    badge: "お客様の声",
+    titlePart1: "ご利用いただいたお客様の",
+    titleAccent: "感想",
+    avgScoreLabel: "お客様満足度",
     basedOnText: "基づく",
     globalReviewsText: "グローバルレビュー",
     leaveMarkBtn: "あなたの足跡を残す",
@@ -199,15 +203,15 @@ export default {
     emptyDescription: "最初にIkiSakiでの体験をシェアして、他の旅行者にインスピレーションを与えましょう。",
   },
   ContactCta: {
-    badge: "オーダーメイドの体験",
+    badge: "お気軽にお問い合わせください",
     watermark: "IkiSaki",
     watermarkSub: "Tours",
     titlePart1: "あなたのビジョンを、",
     titleAccent: "完璧に",
     titlePart2: "実行します。",
     description:
-      "決められたルートから解放されましょう。あなたの希望を共有してください。当社の高級旅行デザイナーが、あなたのペースに完全に合わせた完璧でプライベートな旅程を作成します。",
-    ctaButtonText: "オーダーメイドの問い合わせ",
+      "スリランカでのプライベートチャーター、オーダーメイドツアー、空港送迎・ホテル送迎など、幅広いサービスをご用意しております。旅行に関するご質問やご相談、お見積もりなど、どんなことでもお気軽にお問い合わせください。お客様のご希望や旅のスタイルに合わせて、最適なサービスをご提案いたします。",
+    ctaButtonText: "お問い合わせ",
     loadingReviews: "レビューを読み込み中。。。",
     lovedBy: "{count}人の探検家に愛されています",
     replyTitle: "24時間以内にご返信",

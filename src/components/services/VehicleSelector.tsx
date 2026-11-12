@@ -87,7 +87,7 @@ export function VehicleSelector({
   serviceType = "driver",
   onServiceTypeChange = () => {},
   noteServiceType = "custom",
-   onPriceChange,
+  onPriceChange,
 }: VehicleSelectorProps) {
   const tVeh = useTranslations("Services.VehicleSelector");
   const { formatPrice } = useCurrency();
@@ -145,10 +145,10 @@ export function VehicleSelector({
     }
   }
 
-    useEffect(() => {
+  useEffect(() => {
     onPriceChange?.({ startingPrice: finalPriceUSD, selectedPrice: extraCostUSD });
   }, [finalPriceUSD, extraCostUSD, onPriceChange]);
-  
+
   return (
     <>
       <div className={isLoading ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}>
@@ -234,8 +234,6 @@ export function VehicleSelector({
               </div>
               {/* --- Service Option Buttons (Driver vs Guide) --- */}
               {(() => {
-                const ROW = 68;
-
                 const options: {
                   value: ServiceType;
                   label: string;
@@ -301,7 +299,6 @@ export function VehicleSelector({
                   },
                 ];
                 const activeIndex = options.findIndex((o) => o.value === serviceType);
-                const hasActive = activeIndex !== -1;
 
                 return (
                   <div className="mt-5 w-full">
@@ -314,37 +311,12 @@ export function VehicleSelector({
                     </div>
 
                     {/* Rail selector */}
+                    {/* Rail selector */}
                     <div
                       role="radiogroup"
                       aria-label={tVeh("customizeTour")}
                       className="relative w-full rounded-2xl border border-white/10 bg-black/40 p-1.5 backdrop-blur-md"
                     >
-                      {/* Sliding gold highlight */}
-                      <div
-                        aria-hidden="true"
-                        className={`pointer-events-none absolute left-1.5 right-1.5 top-1.5 rounded-xl border border-gold/40 bg-linear-to-r from-gold/20 via-gold/5 to-transparent shadow-[0_0_22px_rgba(197,160,89,0.18)] transition-all duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] ${
-                          hasActive ? "opacity-100" : "opacity-0"
-                        }`}
-                        style={{
-                          height: ROW,
-                          transform: `translateY(${Math.max(activeIndex, 0) * ROW}px)`,
-                        }}
-                      />
-
-                      {/* Rail line (background) */}
-                      <div
-                        aria-hidden="true"
-                        className="pointer-events-none absolute left-8.75 top-10 w-0.5 rounded-full bg-white/10"
-                        style={{ height: ROW * (options.length - 1) }}
-                      >
-                        {/* Rail fill (gold progress) */}
-                        <div
-                          className="w-full rounded-full bg-linear-to-b from-gold/40 to-gold transition-all duration-500 ease-[cubic-bezier(0.65,0,0.35,1)]"
-                          style={{ height: Math.max(activeIndex, 0) * ROW }}
-                        />
-                      </div>
-
-                      {/* Options */}
                       {options.map((opt, i) => {
                         const selected = serviceType === opt.value;
 
@@ -355,9 +327,29 @@ export function VehicleSelector({
                             role="radio"
                             aria-checked={selected}
                             onClick={() => onServiceTypeChange(opt.value)}
-                            style={{ height: ROW }}
-                            className="group relative z-10 flex w-full cursor-pointer items-center gap-3.5 rounded-xl px-3.5 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+                            className={`group relative z-10 flex w-full cursor-pointer items-center gap-3.5 rounded-xl border px-3.5 py-3 text-left transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 ${
+                              selected
+                                ? "border-gold/40 bg-linear-to-r from-gold/20 via-gold/5 to-transparent shadow-[0_0_22px_rgba(197,160,89,0.18)]"
+                                : "border-transparent"
+                            }`}
                           >
+                            {i > 0 && (
+                              <span
+                                aria-hidden="true"
+                                className={`pointer-events-none absolute left-7.25 -top-px h-[calc(50%+1px)] w-0.5 transition-colors duration-500 ${
+                                  i <= activeIndex ? "bg-gold" : "bg-white/10"
+                                }`}
+                              />
+                            )}
+                            {i < options.length - 1 && (
+                              <span
+                                aria-hidden="true"
+                                className={`pointer-events-none absolute -bottom-px left-7.25 h-[calc(50%+1px)] w-0.5 transition-colors duration-500 ${
+                                  i < activeIndex ? "bg-gold" : "bg-white/10"
+                                }`}
+                              />
+                            )}
+
                             {/* Diamond node = radio */}
                             <span
                               className={`flex h-8 w-8 shrink-0 rotate-45 items-center justify-center rounded-lg border transition-all duration-500 ${
@@ -370,16 +362,16 @@ export function VehicleSelector({
                             </span>
 
                             {/* Texts */}
-                            <span className="flex min-w-0 flex-1 flex-col">
+                            <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                               <span
-                                className={`truncate text-body-sm font-semibold tracking-wide transition-colors duration-300 ${
+                                className={`text-body-sm font-semibold leading-snug tracking-wide transition-colors duration-300 ${
                                   selected ? "text-gold" : "text-slate-300 group-hover:text-white"
                                 }`}
                               >
                                 {opt.label}
                               </span>
                               <span
-                                className={`truncate text-xs transition-colors duration-300 ${
+                                className={`text-[11px] leading-snug transition-colors duration-300 sm:text-xs ${
                                   selected ? "text-gold/60" : "text-slate-500"
                                 }`}
                               >

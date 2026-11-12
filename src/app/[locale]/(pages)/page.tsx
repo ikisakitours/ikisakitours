@@ -12,7 +12,6 @@ import HomeContactCTA from "@/components/home/HomeContactCTA";
 // import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 // import { PromoModal } from "@/components/ui/PromoModal";
 
-
 export default function HomePage() {
   return (
     <>
@@ -22,9 +21,9 @@ export default function HomePage() {
       <ExperienceSection />
 
       {/* 2. Core Products Phase*/}
-      <ToursSection />
-      <CustomTourSection />
       <PrivateVehicle hideImageOnMobile={true} />
+      <CustomTourSection />
+      <ToursSection />
       <TransfersSection />
 
       {/* 3. entertainment & Content Phase */}

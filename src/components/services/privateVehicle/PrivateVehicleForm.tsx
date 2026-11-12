@@ -14,7 +14,7 @@ import { CharterRatesSection } from "@/components/services/CharterRatesSection";
 import { AuthRequiredModal } from "@/components/ui/AuthRequiredModal";
 
 // Icons for Sidebar
-import { Car, UserCheck, Map, Wallet } from "lucide-react";
+import { Car, UserCheck, Map, Wallet, MapPinned } from "lucide-react";
 
 export function PrivateVehicleForm() {
   const tStep = useTranslations("Services.StepHeadings");
@@ -29,6 +29,7 @@ export function PrivateVehicleForm() {
       { icon: Car, title: featuresData[0].title, description: featuresData[0].description },
       { icon: UserCheck, title: featuresData[1].title, description: featuresData[1].description },
       { icon: Map, title: featuresData[2].title, description: featuresData[2].description },
+      { icon: MapPinned, title: featuresData[3].title, description: featuresData[3].description },
     ],
     footerIcon: Wallet,
     footerTitle: tSidebar("footerTitle"),
@@ -62,9 +63,9 @@ export function PrivateVehicleForm() {
     setErrors,
     isLoading,
     handleSubmit,
-    showAuthModal, 
-    closeAuthModal, 
-     setPrices,
+    showAuthModal,
+    closeAuthModal,
+    setPrices,
   } = usePrivateVehicleForm();
   return (
     <ContainerLayout className="relative z-20 pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
