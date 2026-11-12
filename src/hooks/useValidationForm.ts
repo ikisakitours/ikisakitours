@@ -163,7 +163,7 @@ export const useValidationForm = () => {
 
     // 17. Otp Validation
     if (data.otp !== undefined) {
-      if (data.otp.some((digit) => digit === "")) newErrors.otp = t("otpRequired");
+      if (data.otp.some((digit) => !/^\d$/.test(digit))) newErrors.otp = t("otpRequired");
     }
 
     // 18. Image Validation for Profile

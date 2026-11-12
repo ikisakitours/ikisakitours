@@ -26,7 +26,6 @@ export function PasswordResetForm() {
     setShowPassword,
     showConfirmPassword,
     setShowConfirmPassword,
-    otpRefs,
     errors,
     setErrors,
     transientSuccessMsgs,
@@ -35,14 +34,19 @@ export function PasswordResetForm() {
     handlePasswordBlur,
     transientConfirmSuccess,
     localConfirmError,
-    handleOtpChange,
-    handleOtpKeyDown,
+      otpInputRef,
+    isOtpFocused,
+    setIsOtpFocused,
+    handleOtpInputChange,
+    moveOtpCaretToEnd,
     handleConfirmChange,
     handleConfirmBlur,
     isLoading,
     handleSubmit,
   } = usePasswordResetForm(tError);
 
+    const otpValue = otp.join("");
+  const activeOtpIndex = Math.min(otpValue.length, otp.length - 1);
   return (
     <section className="flex max-h-[calc(100dvh-4rem)] w-full max-w-125 flex-col overflow-hidden rounded-[2.5rem] border border-gold/15 bg-[#0a0a0a]/85 shadow-2xl backdrop-blur-3xl py-8 md:py-12">
       <AuthFormHeader introKey="Reset" />
@@ -54,26 +58,49 @@ export function PasswordResetForm() {
             <label className="ml-1 block text-caption font-bold uppercase tracking-[0.2em] text-gold">
               {tForm("ResetFormOtp.verificationCode")}
             </label>
+            <div className="relative">
+              <div className="flex justify-between gap-1.5 md:gap-2" aria-hidden="true">
+                {otp.map((digit, index) => {
+                  const isActive = isOtpFocused && index === activeOtpIndex;
 
-            <div className="flex justify-between gap-1.5 md:gap-2">
-              {otp.map((digit, index) => (
-                <input
-                  key={index}
-                  ref={(element) => {
-                    otpRefs.current[index] = element;
-                  }}
-                  type="text"
-                  inputMode="numeric"
-                  autoComplete="one-time-code"
-                  maxLength={1}
-                  value={digit}
-                  disabled={isLoading}
-                  onChange={(event) => handleOtpChange(index, event.target.value)}
-                  onKeyDown={(event) => handleOtpKeyDown(index, event)}
-                  className="disabled:opacity-60 disabled:cursor-not-allowed h-12 w-full max-w-14 rounded-xl border border-white/10 bg-white/3 text-center text-lg font-extrabold text-gold outline-none transition-all focus:border-gold focus:bg-gold/5 sm:h-14 sm:text-xl"
-                />
-              ))}
+                  return (
+                    <div
+                      key={index}
+                      className={`relative flex h-12 w-full max-w-14 items-center justify-center rounded-xl border text-lg font-extrabold text-gold transition-all sm:h-14 sm:text-xl ${
+                        isActive ? "border-gold bg-gold/5" : "border-white/10 bg-white/3"
+                      } ${isLoading ? "opacity-60" : ""}`}
+                    >
+                      {digit}
+
+                      {isActive && !digit && (
+                        <span className="h-5 w-0.5 animate-pulse rounded-full bg-gold sm:h-6" />
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              <input
+                ref={otpInputRef}
+                type="text"
+                name="otp"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                autoComplete="one-time-code"
+                aria-label={tForm("ResetFormOtp.verificationCode")}
+                value={otpValue}
+                disabled={isLoading}
+                onChange={(event) => handleOtpInputChange(event.target.value)}
+                onFocus={() => {
+                  setIsOtpFocused(true);
+                  moveOtpCaretToEnd();
+                }}
+                onClick={moveOtpCaretToEnd}
+                onBlur={() => setIsOtpFocused(false)}
+                className="absolute inset-0 h-full w-full cursor-text text-base opacity-0 disabled:cursor-not-allowed"
+              />
             </div>
+
             <div className="ml-1">
               <FormError message={errors.otp} />
             </div>
