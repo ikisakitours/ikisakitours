@@ -138,7 +138,7 @@ export function ProfileDetailsPanel() {
               )}
             </div>
 
-            {isHydrated && user && !user.isVip && (
+            {/* {isHydrated && user && !user.isVip && (
               <div className="mx-auto mb-8 flex max-w-2xl flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border border-gold/20 bg-linear-to-r from-gold/5 via-white/5 to-transparent p-4 sm:px-6 shadow-[0_4px_20px_rgba(0,0,0,0.2)] backdrop-blur-md lg:mx-0">
                 <div className="flex items-center gap-3 text-center sm:text-left">
                   <div className="flex flex-col">
@@ -157,7 +157,9 @@ export function ProfileDetailsPanel() {
                   {t("DetailsPanel.vipBanner.btnText")}
                 </button>
               </div>
-            )}
+            )} */}
+
+
             <div className="mx-auto mb-10 flex max-w-2xl flex-col items-center gap-5 overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-5 sm:flex-row sm:items-start sm:p-6 lg:mx-0">
               <div className="flex h-20 w-20 shrink-0 flex-col items-center justify-center rounded-2xl bg-linear-to-br from-gold to-gold-dark shadow-[0_10px_30px_rgba(197,160,89,0.3)] sm:h-20 sm:w-20">
                 <span className="text-heading-sub font-black leading-none text-black">
