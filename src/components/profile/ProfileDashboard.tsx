@@ -37,8 +37,8 @@ function ProfileDashboardInner() {
   };
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  // const tabCategories = ["profile", "security"] as const;
-  const tabCategories = ["profile", "security", "referral"] as const;
+  const tabCategories = ["profile", "security"] as const;
+  // const tabCategories = ["profile", "security", "referral"] as const;
 
   const tabLabels = {
     profile: t("Dashboard.tabProfile"),
