@@ -87,32 +87,33 @@ export default {
     },
     imagesAlt: {
       //new
-      culturalGuide: "A traveler on a scenic mountain swing overlooking the lush green tea plantations and hills in Ella, Sri Lanka",
+      culturalGuide:
+        "A traveler on a scenic mountain swing overlooking the lush green tea plantations and hills in Ella, Sri Lanka",
       luxuryTravel: "Scenic view of a tropical beach resort and palm trees along the coast of Sri Lanka",
     },
   },
   Services: {
     Transfers: {
-      badge: "Chauffeur Service",
-      titlePart1: "Traveler's",
-      titlePart2: "Transit",
+      badge: "Transfer Service",
+      titlePart1: "Arrivals & ",
+      titlePart2: "Departures",
       subtitle:
-        "Comfortable, safe & reliable transport for Japanese 🇯🇵, French 🇫🇷, Spain 🇪🇸 and English 🇬🇧 travelers anywhere in Sri Lanka.",
+        "Our professional, multilingual drivers provide a safe and comfortable transport service for all travelers.",
       cards: {
         airportPickup: {
           title: "Airport Pick-Up",
-          description: "Meet & greet service at Bandaranaike International Airport with comfortable private vehicles.",
+          description: "Meet and greet arrival support at Bandaranaike International Airport.",
           action: "Book Transfer",
         },
         hotelCity: {
           title: "Hotel & City",
-          description: "Smooth transport between hotels, cities, beaches, and cultural destinations.",
-          action: "View Fleet",
+          description: "Private transfer between hotels, city stops, beaches, and heritage sites.",
+          action: "Book Transfer",
         },
         dropOff: {
-          title: "Drop-Off",
-          description: "Safe and timely drop-off to airport or your next destination at the end of your journey.",
-          action: "Schedule Now",
+          title: "Airport Drop-Off",
+          description: "Timed departure transfer with route planning for a calm airport arrival.",
+          action: "Book Transfer",
         },
       },
       trustBadges: {
@@ -122,11 +123,11 @@ export default {
     },
     PrivateVehicle: {
       badge: "Private Vehicle Hire",
-      titlePart1: "Your Private Vehicle",
-      titleAccent: "&",
-      titlePart2: "Driver",
+      titlePart1: "Private Guided Tours",
+      titleAccent: "of",
+      titlePart2: "Sri Lanka",
       description:
-        "Experience total autonomy on your travels. Whether you are crafting a cross-country adventure or a simple city transfer, our premium vehicles and professional drivers are at your command. You dictate the destination, the stops, and the schedule—we handle the logistics, ensuring a seamless journey entirely on your terms.",
+        "Our private vehicle charter service in Sri Lanka offers you the freedom to set your own itinerary and choose your destinations. Whether you need airport transfers, travel between cities, or visits to tourist attractions, we provide flexible arrangements tailored to your preferences. With a private vehicle and an experienced driver at your disposal, you can enjoy a comfortable and truly flexible travel experience.",
       nativeFriendlyText: "Native Friendly",
       quote:
         "You design the journey, we ensure the safety. Experience total freedom while we handle your protection and logistics.",
@@ -136,27 +137,29 @@ export default {
       appDefaultText:
         "Hello IkiSaki Tours! I am interested in hiring a private vehicle and chauffeur for my trip to Sri Lanka. Could you share more information about your services and availability?",
       imagesAlt: {
-        luxuryVan: "Explore the scenic Nine Arch Bridge in Ella comfortably with our private vehicle and chauffeur service in Sri Lanka",
+        luxuryVan:
+          "Explore the scenic Nine Arch Bridge in Ella comfortably with our private vehicle and chauffeur service in Sri Lanka",
       },
       features: {
         itineraryControl: {
           title: "Total Itinerary Control",
-          description: "You decide the destinations, the stops, and the pace. No pre-packaged tours—just your plan.",
+          description: "Your journey, your way. Choose your destinations, stops, and pace with complete freedom.",
         },
         flexibleTransparent: {
           title: "Flexible & Transparent",
-          description: "All-inclusive, custom quotes tailored to your unique itinerary. No hidden costs, ever.",
+          description: "We provide price quotes tailored to your specific itinerary, with a guarantee of clear, transparent pricing and no hidden extra charges.",
         },
       },
     },
+
     CustomTour: {
-      badge: "Bespoke & Flexible",
+      badge: "custom-made & Flexible",
       titlePart1: "Your Journey,",
       titleAccent: "Entirely",
       titlePart2: "Your Way.",
       watermark: "BESPOKE",
       description:
-        "Break free from rigid itineraries. Shape every single detail on the fly and let our experts adapt your private journey to match your exact mood, pace, and spontaneous desires.",
+        "Enjoy the freedom of a journey designed entirely around you, without being tied to a fixed itinerary. Choose your destinations, stops, and time at each location. We flexibly accommodate route changes and additional stops based on your preferences and mood. Our experienced local team will support you throughout your journey, from transportation to sightseeing, creating a truly personalized travel experience.",
       ctaText: "Craft Your Journey",
     },
   },
@@ -183,9 +186,9 @@ export default {
     exploreMoreBtn: "Explore More Blogs",
   },
   ClientExperiences: {
-    badge: "Client Experiences",
-    titlePart1: "Voices of",
-    titleAccent: "IkiSaki",
+    badge: "Customer Feedback",
+    titlePart1: "Feedback from",
+    titleAccent: "Our Guests",
     avgScoreLabel: "Average Score",
     basedOnText: "Based on",
     globalReviewsText: "global reviews",
@@ -197,15 +200,15 @@ export default {
     emptyDescription: "Be the first to share your IkiSaki experience and inspire fellow travelers.",
   },
   ContactCta: {
-    badge: "Bespoke Experiences",
+    badge: "Feel free to contact us",
     watermark: "IkiSaki",
     watermarkSub: "Tours",
     titlePart1: "Your Vision,",
     titleAccent: "Impeccably",
     titlePart2: "Executed.",
     description:
-      "Break free from preset routes. Share your desires, and our luxury travel designers will curate a flawless, private itinerary completely tailored to your pace.",
-    ctaButtonText: "Enquire Your Bespoke",
+      "We offer a wide range of services in Sri Lanka, including private charters, tailor-made tours, and airport or hotel transfers. Please feel free to reach out to us with any questions, requests for advice, or inquiries regarding price quotes—we are here to help. We will propose the ideal service tailored to your specific preferences and travel style.",
+    ctaButtonText: "Contact us",
     loadingReviews: "Loading reviews...",
     lovedBy: "Loved by {count} Explorers",
     replyTitle: "Reply within 24 hours",
@@ -214,8 +217,10 @@ export default {
     localExpertsText: "Local Experts",
     supportText: "24/7 Support",
     imagesAlt: {
-      mainExperience: "Stunning aerial drone view of white waves crashing onto a golden sandy beach with traditional fishing boats in Sri Lanka",
-      detailShot: "High-angle view of the historic Nine Arch Bridge surrounded by lush green jungle forests in Ella, Sri Lanka",
+      mainExperience:
+        "Stunning aerial drone view of white waves crashing onto a golden sandy beach with traditional fishing boats in Sri Lanka",
+      detailShot:
+        "High-angle view of the historic Nine Arch Bridge surrounded by lush green jungle forests in Ella, Sri Lanka",
       userAvatar: "Explorer Avatar",
     },
   },

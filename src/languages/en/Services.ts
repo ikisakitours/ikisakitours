@@ -73,11 +73,12 @@ export default {
     note: "Be aware",
     customizeTour: "Select Service Type",
     withDriver: "With Driver",
-    withGuide: "With Guide",
+    withGuide: "Professional Driver-Guide",
     both: "Driver & Guide",
     serviceHints: {
       driver: "Driver & private vehicle.",
-      guide: "Expert tour guide.",
+      guide:
+        "A licensed, dedicated driver-guide will provide attentive support, handling everything from driving to sightseeing guidance.",
       both: "Driver & guide combo.",
     },
   },
@@ -92,7 +93,6 @@ export default {
   },
   AssuranceBadges: ["Premium Quality", "Safety-First Travel Support", "24/7 Support"],
 
-  //future
   Transfers: {
     ServiceTypes: [
       {
@@ -112,21 +112,24 @@ export default {
       },
     ],
     Assurances: [
-      { title: "Your Journey, Our Commitment.", description: "Commercial passenger coverage for every confirmed journey." },
+      { title: "A Promise of Security and Trust.", description: "Safety and comfort, every step of your journey." },
       {
         title: "24/7 Availability",
-        description: "Concierge support for early arrivals, late flights, and route changes.",
+        description:
+          "A reliable support system that flexibly accommodates early-morning arrivals, late-night flights, and sudden changes to your itinerary.",
       },
       {
-        title: "GPS Mileage Confirmation",
-        description: "Final fare is checked against exact route mileage before payment.",
+        title: " Comfortable Private Vehicles & Experienced Local Guides",
+        description:
+          "Our clean, comfortable private vehicles and experienced, locally knowledgeable guides ensure a safe and fulfilling travel experience.",
       },
     ],
     FareInclusions: [
-      "Meet and greet service",
-      "Professional chauffeur",
-      "Premium insurance",
-      "Multi-language concierge support",
+      "Private vehicle transfer service",
+      "Professional driver",
+      "Multilingual support during your trip",
+      "Verified Guest Reviews",
+      "Transparent Pricing",
     ],
   },
 
@@ -134,25 +137,28 @@ export default {
     Sidebar: {
       titleBase: "The Bespoke",
       titleAccent: "Experience",
-      subtitle: "Crafting personalized journeys with uncompromising luxury, privacy, and precision.",
+      subtitle: "We offer a high-quality, personalized travel experience, with a focus on comfort and privacy.",
       features: [
         {
-          title: "Ultimate Privacy",
-          description: "Discreet chauffeurs and tinted vehicles ensuring your complete confidentiality.",
+          title: "A completely private trip",
+          description:
+            "With a private vehicle at your disposal, you can enjoy a free and comfortable trip tailored exclusively to you, without having to worry about those around you.",
         },
         {
-          title: "Total Flexibility",
-          description: "Your itinerary is fluid. Adjust routes or extend your journey as you wish.",
+          title: "Completely flexible itinerary",
+          description: "We can flexibly accommodate requests to change routes or extend your itinerary.",
         },
         {
-          title: "24/7 Concierge",
-          description: "A dedicated travel manager is available at your fingertips, anytime.",
+          title: "24/7 Support",
+          description: "Always attentive to our customers' needs and provide dedicated, careful support.",
         },
       ],
-      footerTitle: "No upfront payment required",
-      footerDescription: "Our team will confirm your exact requirements before finalizing the booking.",
+      footerTitle: "Secure and safe payment",
+      footerDescription:
+        "We offer secure payment methods, ensuring a safe and smooth checkout experience for our customers.",
     },
   },
+
   PrivateVehicle: {
     Sidebar: {
       titleBase: "Your Private",
@@ -160,20 +166,26 @@ export default {
       subtitle: "Experience seamless travel with a professional driver dedicated to your itinerary.",
       features: [
         {
-          title: "Dedicated Vehicle",
-          description: "Comfortable, well-maintained luxury vehicle exclusively for your group.",
+          title: "Dedicated chartered vehicle",
+          description: "Enjoy a flexible and comfortable journey in a vehicle reserved exclusively for your use.",
         },
         {
           title: "Expert Driver",
-          description: "Professional, English-speaking driver trained for safe and smooth navigation.",
+          description: "Professional, multilingual drivers trained to provide safe and smooth journeys.",
         },
         {
-          title: "Your Pace",
-          description: "Complete freedom to stop anywhere. No rigid schedules, just your own plan.",
+          title: "Flexible route planning",
+          description: "We can adjust the route to suit your desired destination and schedule.",
+        },
+
+        {
+          title: "Optional sightseeing guiding",
+          description: "provide information on local sightseeing spots and attractions, based on your preferences.",
         },
       ],
-      footerTitle: "All-Inclusive Rates",
-      footerDescription: "Fuel, highway tolls, and driver accommodation are already covered. No hidden costs.",
+      footerTitle: "Secure and safe payment",
+      footerDescription:
+        "We offer secure payment methods, ensuring a safe and smooth checkout experience for our customers.",
     },
   },
 
