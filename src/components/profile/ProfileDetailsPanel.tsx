@@ -23,7 +23,7 @@ export function ProfileDetailsPanel() {
   const t = useTranslations("ProfilePage");
   const tForm = useTranslations("SharedForm");
   const tError = useTranslations("ValidationErrors");
-  const { user ,isHydrated } = useAuth();
+  const { user, isHydrated } = useAuth();
   const router = useRouter();
   //Hook
   const {
@@ -122,19 +122,20 @@ export function ProfileDetailsPanel() {
           <div className="relative z-10">
             <div className="mb-8 flex flex-col items-center justify-between gap-4 sm:flex-row">
               <h2 className="premium-serif mb-6 text-heading-sub text-white">{t("DetailsPanel.title")}</h2>
-
-              <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-end sm:gap-3">
-                {user?.isVerified && (
-                  <StatusBadge tone="green" icon={<BsPatchCheck className="h-4 w-4" />}>
-                    {t("Badge.verified")}
-                  </StatusBadge>
-                )}
-                {user?.isVip && (
-                  <StatusBadge tone="gold" icon={<Crown className="h-4 w-4" strokeWidth={2} />}>
-                    {t("Badge.vipMember")}
-                  </StatusBadge>
-                )}
-              </div>
+              {(user?.isVerified || user?.isVip) && (
+                <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-end sm:gap-3">
+                  {user?.isVerified && (
+                    <StatusBadge tone="green" icon={<BsPatchCheck className="h-4 w-4" />}>
+                      {t("Badge.verified")}
+                    </StatusBadge>
+                  )}
+                  {user?.isVip && (
+                    <StatusBadge tone="gold" icon={<Crown className="h-4 w-4" strokeWidth={2} />}>
+                      {t("Badge.vipMember")}
+                    </StatusBadge>
+                  )}
+                </div>
+              )}
             </div>
 
             {isHydrated && user && !user.isVip && (
