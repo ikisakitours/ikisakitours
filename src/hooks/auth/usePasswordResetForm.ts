@@ -1,4 +1,4 @@
-import { useState, useRef, type FormEvent, type KeyboardEvent, type ClipboardEvent } from "react";
+import { useState, useRef, type FormEvent} from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { usePasswordStrength, type TransientMsgType } from "@/hooks/usePasswordStrength";
 import { useRouter } from "@/lib/i18nNavigation";
@@ -8,8 +8,8 @@ import { useToast } from "@/context/ToastContext";
 
 const otpLength = 6;
 
-// Letters + numbers only, always uppercase
-const cleanOtp = (value: string) => value.replace(/[^a-zA-Z0-9]/g, "").toUpperCase();
+// Numbers only,
+const cleanOtp = (value: string) => value.replace(/\D/g, "");
 
 export function usePasswordResetForm(tError: (key: string) => string) {
   const [otp, setOtp] = useState(() => Array.from({ length: otpLength }, () => ""));
@@ -19,8 +19,8 @@ export function usePasswordResetForm(tError: (key: string) => string) {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const otpRefs = useRef<Array<HTMLInputElement | null>>([]);
-  const { errors, validate, setErrors } = useValidationForm();
+  const otpInputRef = useRef<HTMLInputElement | null>(null);
+  const [isOtpFocused, setIsOtpFocused] = useState(false);  const { errors, validate, setErrors } = useValidationForm();
   const { transientSuccessMsgs, localError, handlePasswordChange, handlePasswordBlur } = usePasswordStrength();
 
   const [transientConfirmSuccess, setTransientConfirmSuccess] = useState<TransientMsgType[]>([]);
@@ -32,52 +32,19 @@ export function usePasswordResetForm(tError: (key: string) => string) {
   const tToast = useTranslations("ValidationErrors.ToastMessages.PasswordReset");
   const toast = useToast();
 
-  const handleOtpChange = (index: number, value: string) => {
-    const cleaned = cleanOtp(value);
-    const nextOtp = [...otp];
-
-    // Autofill / multi-character input: spread across the boxes
-    if (cleaned.length > 1) {
-      cleaned
-        .slice(0, otpLength - index)
-        .split("")
-        .forEach((char, i) => {
-          nextOtp[index + i] = char;
-        });
-      setOtp(nextOtp);
-      const focusIndex = Math.min(index + cleaned.length, otpLength - 1);
-      otpRefs.current[focusIndex]?.focus();
-    } else {
-      nextOtp[index] = cleaned;
-      setOtp(nextOtp);
-      if (cleaned && index < otpLength - 1) {
-        otpRefs.current[index + 1]?.focus();
-      }
-    }
+  const handleOtpInputChange = (value: string) => {
+    const cleaned = cleanOtp(value).slice(0, otpLength);
+    setOtp(Array.from({ length: otpLength }, (_, i) => cleaned[i] ?? ""));
 
     if (errors.otp) {
       setErrors((prev) => ({ ...prev, otp: "" }));
     }
   };
 
-  const handleOtpPaste = (event: ClipboardEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    const pasted = cleanOtp(event.clipboardData.getData("text")).slice(0, otpLength);
-    if (!pasted) return;
-
-    const nextOtp = Array.from({ length: otpLength }, (_, i) => pasted[i] ?? "");
-    setOtp(nextOtp);
-    otpRefs.current[Math.min(pasted.length, otpLength - 1)]?.focus();
-
-    if (errors.otp) {
-      setErrors((prev) => ({ ...prev, otp: "" }));
-    }
-  };
-
-  const handleOtpKeyDown = (index: number, event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Backspace" && !otp[index] && index > 0) {
-      otpRefs.current[index - 1]?.focus();
-    }
+  const moveOtpCaretToEnd = () => {
+    const el = otpInputRef.current;
+    if (!el) return;
+    requestAnimationFrame(() => el.setSelectionRange(el.value.length, el.value.length));
   };
 
   const handleConfirmChange = (val: string) => {
@@ -111,7 +78,7 @@ export function usePasswordResetForm(tError: (key: string) => string) {
 
     const email = sessionStorage.getItem("reset_email");
     if (!email) {
-      router.push("/login"); 
+      router.push("/login");
       return;
     }
 
@@ -148,7 +115,6 @@ export function usePasswordResetForm(tError: (key: string) => string) {
     setShowPassword,
     showConfirmPassword,
     setShowConfirmPassword,
-    otpRefs,
     errors,
     setErrors,
     transientSuccessMsgs,
@@ -157,9 +123,11 @@ export function usePasswordResetForm(tError: (key: string) => string) {
     handlePasswordBlur,
     transientConfirmSuccess,
     localConfirmError,
-    handleOtpChange,
-    handleOtpPaste,
-    handleOtpKeyDown,
+       otpInputRef,
+    isOtpFocused,
+    setIsOtpFocused,
+    handleOtpInputChange,
+    moveOtpCaretToEnd,
     handleConfirmChange,
     handleConfirmBlur,
     isLoading,

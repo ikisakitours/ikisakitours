@@ -12,7 +12,7 @@ export function FaqClientWrapper() {
 
   if (isLoading) {
     return (
-      <section className="bg-lanka-dark py-12 md:py-20 xl:py-20 min-h-[50vh] flex items-center justify-center">
+      <section className="bg-lanka-dark py-12 md:py-20 xl:py-20">
         <ApiCallLoader text={tApi("loadingFaqs")} fullScreen={false} />
       </section>
     );
@@ -20,7 +20,7 @@ export function FaqClientWrapper() {
 
   if (error || !data) {
     return (
-      <section className="bg-lanka-dark py-12 md:py-20 xl:py-20 min-h-[50vh] flex items-center justify-center">
+      <section className="bg-lanka-dark py-12 md:py-20 xl:py-20">
         <ApiCallError
           message={tApi("contentLoadError")}
           title={tApi("failedToLoad")}

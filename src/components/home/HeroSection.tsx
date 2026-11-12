@@ -173,28 +173,29 @@ export function HeroSection() {
               </div>
 
               {/* 1. Popular Tags - Ultra-Minimal Inline Row */}
-              <div className="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-2 px-1 sm:mt-4 md:gap-x-2 3xl:mt-5">
-                <span className="flex items-center gap-1.5 text-caption font-bold uppercase tracking-[0.2em] text-foreground/40">
-                  <span className="h-1 w-1 rounded-full bg-gold/50" />
-                  {t("content.popularLabel")}
-                </span>
+              {dynamicTags.length > 0 && (
+                <div className="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-2 px-1 sm:mt-4 md:gap-x-2 3xl:mt-5">
+                  <span className="flex items-center gap-1.5 text-caption font-bold uppercase tracking-[0.2em] text-foreground/40">
+                    <span className="h-1 w-1 rounded-full bg-gold/50" />
+                    {t("content.popularLabel")}
+                  </span>
 
-                <div className="hidden h-3 w-px bg-foreground/10 mx-1 sm:block" />
+                  <div className="hidden h-3 w-px bg-foreground/10 mx-1 sm:block" />
 
-                <div className="md:mt-1 flex flex-wrap items-center gap-1.5 md:gap-2 ">
-                  {dynamicTags.map((tag, idx) => (
-                    <Button
-                      key={idx}
-                      variant="tag"
-                      href={tag.href}
-                      className=" text-caption font-medium text-foreground/60 transition-colors hover:text-gold"
-                    >
-                      {tag.label}{" "}
-                    </Button>
-                  ))}
+                  <div className="md:mt-1 flex flex-wrap items-center gap-1.5 md:gap-2 ">
+                    {dynamicTags.map((tag, idx) => (
+                      <Button
+                        key={idx}
+                        variant="tag"
+                        href={tag.href}
+                        className=" text-caption font-medium text-foreground/60 transition-colors hover:text-gold"
+                      >
+                        {tag.label}{" "}
+                      </Button>
+                    ))}
+                  </div>
                 </div>
-              </div>
-
+              )}
               {/* 2. Premium Services - The Luxury Dock Layout */}
               <div className="mt-8 flex flex-col gap-4 sm:mt-10 md:mt-12 md:gap-5 3xl:mt-16">
                 {/* Elegant Section Divider */}
