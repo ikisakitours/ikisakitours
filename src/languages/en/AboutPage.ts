@@ -20,38 +20,38 @@ export default {
       "IkiSaki Tours was established with a singular vision: to dismantle the cookie-cutter approach to tourism and build deeply personal travel stories. We believe that Sri Lanka is best experienced when it is tailored to your unique interests and pace.",
     description2:
       "By bypassing large middlemen networks, we connect you directly to local boutique stays, trusted chauffeur drivers, and local naturalists, giving you the best rates without sacrificing service quality.",
-slides: [
-    {
-      image: "/ikisaki-images/about/slider/sri-lanka-lush-waterfall-nature.webp",
-      alt: "Breathtaking view of a cascading waterfall flowing through lush green tropical forests in Sri Lanka",
-      badge: "Nature Escapes",
-      desc: "Immerse yourself in Sri Lanka's breathtaking landscapes and cascading waters",
-    },
-    {
-      image: "/ikisaki-images/about/slider/sri-lanka-tea-plantation-landscape.webp",
-      alt: "Vibrant green tea estate hills under a bright blue sky with fluffy clouds in Sri Lanka",
-      badge: "Highland Beauty",
-      desc: "Journey through the misty, emerald-green hills of the central highlands",
-    },
-    {
-      image: "/ikisaki-images/about/slider/yala-national-park-leopard-safari-sri-lanka.webp",
-      alt: "Wild Sri Lankan leopard walking through the dry zone during a wildlife safari in Yala National Park",
-      badge: "Wildlife Encounters",
-      desc: "Experience thrilling safaris with expert local naturalists and guides",
-    },
-    {
-      image: "/ikisaki-images/about/slider/sri-lanka-luxury-villa-poolside.webp",
-      alt: "Relaxing infinity swimming pool surrounded by tropical palm trees at a luxury boutique villa in Sri Lanka",
-      badge: "Boutique Stays",
-      desc: "Relax in unparalleled comfort at exclusive luxury resorts and villas",
-    },
-    {
-      image: "/ikisaki-images/about/slider/sri-lanka-stilt-fishermen-sunset.webp",
-      alt: "Traditional stilt fishermen working along the golden southern coast of Sri Lanka during sunset",
-      badge: "Local Culture",
-      desc: "Connect directly with the island's timeless coastal traditions",
-    },
-  ],
+    slides: [
+      {
+        image: "/ikisaki-images/about/slider/sri-lanka-lush-waterfall-nature.webp",
+        alt: "Breathtaking view of a cascading waterfall flowing through lush green tropical forests in Sri Lanka",
+        badge: "Nature Escapes",
+        desc: "Immerse yourself in Sri Lanka's breathtaking landscapes and cascading waters",
+      },
+      {
+        image: "/ikisaki-images/about/slider/sri-lanka-tea-plantation-landscape.webp",
+        alt: "Vibrant green tea estate hills under a bright blue sky with fluffy clouds in Sri Lanka",
+        badge: "Highland Beauty",
+        desc: "Journey through the misty, emerald-green hills of the central highlands",
+      },
+      {
+        image: "/ikisaki-images/about/slider/yala-national-park-leopard-safari-sri-lanka.webp",
+        alt: "Wild Sri Lankan leopard walking through the dry zone during a wildlife safari in Yala National Park",
+        badge: "Wildlife Encounters",
+        desc: "Experience thrilling safaris with expert local naturalists and guides",
+      },
+      {
+        image: "/ikisaki-images/about/slider/sri-lanka-luxury-villa-poolside.webp",
+        alt: "Relaxing infinity swimming pool surrounded by tropical palm trees at a luxury boutique villa in Sri Lanka",
+        badge: "Boutique Stays",
+        desc: "Relax in unparalleled comfort at exclusive luxury resorts and villas",
+      },
+      {
+        image: "/ikisaki-images/about/slider/sri-lanka-stilt-fishermen-sunset.webp",
+        alt: "Traditional stilt fishermen working along the golden southern coast of Sri Lanka during sunset",
+        badge: "Local Culture",
+        desc: "Connect directly with the island's timeless coastal traditions",
+      },
+    ],
   },
   Stats: {
     headerBadge: "Overview",
@@ -97,7 +97,7 @@ slides: [
   },
   Leadership: {
     title: "Our Leadership",
-    name: "Dhanuja Chathumal",
+    name: "Navimana Pathirana",
     alt: "Ikisaki-Tours-Founder-&-CEO",
     role: "FOUNDER & CEO",
     bio: "Directing the custom travel experiences at IkiSaki Tours. Danuja is dedicated to integrating technology and local hospitality to deliver seamless, personalized itineraries to guests visiting Sri Lanka.",

@@ -53,8 +53,8 @@ export default {
   Experience: {
     content: {
       badge: "IkiSaki Travel Partner",
-      titlePart1: "Curating Memories",
-      titleAccent: "Beyond Borders",
+      titlePart1: "Sharing Sri Lanka ",
+      titleAccent: "with the World",
       description:
         "We specialize in high-end, personalized journeys across Sri Lanka. Our mission is to bridge the gap between cultures by providing expert insights in your native tongue.",
       responseTitle: "Response within 2 hours",

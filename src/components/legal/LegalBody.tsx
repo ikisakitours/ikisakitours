@@ -85,7 +85,7 @@ export default function LegalBody() {
         categoryLabels={categoryLabels}
         showClearButton={false}
         showCounts={false}
-        showAllCategory={false} /* 💡 "All" අයින් කිරීම */
+        showAllCategory={false} 
         showBottomBar={false}
          labels={{
           categories: t("categories"), 

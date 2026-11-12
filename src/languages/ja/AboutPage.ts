@@ -88,10 +88,8 @@ export default {
   },
   Leadership: {
     title: "リーダーシップ",
-    //new
-    name: "Danuja Chathumal", //japanese convert krnna meka
+    name: "ナヴィマナ・パティラナ", 
     alt: "イキサキ・ツアーズ創設者兼CEO",
-    //
     role: "創業者兼代表取締役",
     bio: "IkiSaki Toursでのカスタム旅行体験を指揮しています。テクノロジーと地元のおもてなしを統合し、スリランカを訪れるゲストにシームレスでパーソナライズされた旅程を提供することに専念しています。",
   },

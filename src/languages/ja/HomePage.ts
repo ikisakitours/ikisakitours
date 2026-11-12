@@ -53,9 +53,9 @@ export default {
   },
   Experience: {
     content: {
-      badge: "マップメイト・トラベルパートナー",
-      titlePart1: "記憶を彩る",
-      titleAccent: "国境を越えて",
+      badge: "IkiSaki・トラベルパートナー",
+      titlePart1: "スリランカの魅力を、",
+      titleAccent: "世界へ",
       description:
         "私たちはスリランカ全土での高級なオーダーメイド旅行を専門としています。母国語での専門的な洞察を提供することで、文化の架け橋となることが私たちの使命です。",
       responseTitle: "2時間以内の返答",
