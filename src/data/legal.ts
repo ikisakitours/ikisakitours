@@ -56,6 +56,10 @@ export const legalDocuments: LegalDocument[] = [
             body: "We provide private vehicle transportation with professional drivers for sightseeing, local journeys, intercity travel, multi-day trips and island-wide transportation throughout Sri Lanka. Services are arranged according to the agreed vehicle category, route, duration and booking conditions.",
           },
           {
+            title: "Tailor-made Tours",
+            body: "We design personalized Sri Lanka travel experiences around each customer's interests, preferences, travel dates, schedule and budget. Customers can choose their destinations, sightseeing experiences, accommodation, activities, transportation and other travel arrangements. Our team coordinates the requested services and prepares a tailored itinerary and quotation for approval. Each tour is subject to availability, supplier conditions and the arrangements confirmed at the time of booking.",
+          },
+          {
             title: "Custom-made Tours",
             body: "We assist customers in creating personalized travel itineraries based on their destinations, interests, schedules and budgets. Customized arrangements may include transportation, sightseeing, accommodation coordination, activities and other travel-related services as specified in the confirmed quotation.",
           },
@@ -170,7 +174,43 @@ export const legalDocuments: LegalDocument[] = [
         ],
       },
 
-      // 06. CUSTOM TOURS
+      // 06. TAILOR-MADE TOURS
+      {
+        heading: "Tailor-made Tours & Itinerary Conditions",
+        sectionIcon: "Map",
+        type: "checklist",
+        subItems: [
+          {
+            title: "Personalized Tour Planning",
+            body: "Tailor-made tours are designed according to each customer's travel preferences, destinations, interests, available dates, schedule and agreed budget. Customers may request a completely personalized itinerary rather than selecting one of our standard tour packages. The proposed itinerary and quotation will be shared for review and approval before confirmation.",
+          },
+          {
+            title: "Choice of Travel Arrangements",
+            body: "Depending on the customer's requirements, tailor-made arrangements may include private transportation, airport transfers, hotel accommodation, sightseeing, attraction visits, safari experiences, train journeys, activities, meals, guides and other travel-related services. Only the services specifically included in the confirmed quotation or booking confirmation form part of the agreed package.",
+          },
+          {
+            title: "Flexible Itineraries",
+            body: "Customers may request changes to destinations, sightseeing stops, departure times, accommodation, activities and other travel arrangements. Flexibility depends on available time, travel distances, road conditions, opening hours, supplier availability and operational feasibility.",
+          },
+          {
+            title: "Changes During the Journey",
+            body: "Reasonable itinerary adjustments may be accommodated where possible. However, additional destinations, significant detours, extended waiting periods, accommodation changes or additional services may involve extra costs. Any applicable additional charges will be communicated for customer approval.",
+          },
+          {
+            title: "Third-party Bookings & Availability",
+            body: "Accommodation, attraction tickets, safari experiences, train journeys, restaurants and other activities may be provided by independent suppliers. All such arrangements are subject to availability, confirmation, supplier conditions and applicable payment or cancellation requirements.",
+          },
+          {
+            title: "Package Inclusions & Exclusions",
+            body: "The inclusions and exclusions of each tailor-made tour will be clearly stated in the individual quotation. Unless expressly included, expenses such as accommodation, meals, entrance tickets, activity fees, safari charges, train tickets, personal purchases and tips are not included in the quoted price.",
+          },
+          {
+            title: "Travel Time Estimates",
+            body: "Travel durations, activity schedules and arrival times provided in proposed itineraries are estimates. Actual journey times and arrangements may vary due to traffic, weather, road conditions, public events, supplier availability and other circumstances.",
+          },
+        ],
+      },
+      // 07. CUSTOM TOURS
       {
         heading: "Custom-made Tours & Itinerary Conditions",
         sectionIcon: "Map",
@@ -203,7 +243,7 @@ export const legalDocuments: LegalDocument[] = [
         ],
       },
 
-      // 07. AIRPORT TRANSFERS
+      // 08. AIRPORT TRANSFERS
       {
         heading: "Airport Pick-up, Drop-off & Hotel Transfers",
         sectionIcon: "Plane",
@@ -242,7 +282,7 @@ export const legalDocuments: LegalDocument[] = [
         ],
       },
 
-      // 08. MODIFICATIONS
+      // 09. MODIFICATIONS
       {
         heading: "Booking Amendments & Changes",
         sectionIcon: "RefreshCw",
@@ -267,7 +307,7 @@ export const legalDocuments: LegalDocument[] = [
         ],
       },
 
-      // 09. CANCELLATIONS
+      // 10. CANCELLATIONS
       {
         heading: "Cancellations & Refunds",
         sectionIcon: "CalendarX",
@@ -276,7 +316,7 @@ export const legalDocuments: LegalDocument[] = [
           "Customers wishing to cancel a confirmed booking must notify IkiSaki Tours through an official communication channel. Cancellation charges, refund eligibility, deadlines and applicable supplier conditions will be determined according to our separate Cancellation Policy and the conditions stated in the confirmed quotation.\n\nCertain third-party services, including hotels, attraction tickets, train reservations, safari operators and other prepaid activities, may have separate cancellation conditions. These conditions will be communicated where applicable.\n\nFor further information, please refer to our Cancellation & Refund Policy and Payment Policy.",
       },
 
-      // 10. CUSTOMER RESPONSIBILITIES
+      // 11. CUSTOMER RESPONSIBILITIES
       {
         heading: "Customer Responsibilities",
         sectionIcon: "Users",
@@ -309,7 +349,7 @@ export const legalDocuments: LegalDocument[] = [
         ],
       },
 
-      // 11. SAFETY
+      // 12. SAFETY
       {
         heading: "Passenger Safety & Transportation Standards",
         sectionIcon: "ShieldCheck",
@@ -343,7 +383,7 @@ export const legalDocuments: LegalDocument[] = [
         ],
       },
 
-      // 12. THIRD PARTY SERVICES
+      // 13. THIRD PARTY SERVICES
       {
         heading: "Third-party Suppliers & External Services",
         sectionIcon: "Handshake",
@@ -352,7 +392,7 @@ export const legalDocuments: LegalDocument[] = [
           "Certain travel arrangements may involve independent third-party suppliers, including hotels, restaurants, safari operators, activity providers, attractions, train services, boat operators and other travel-related businesses.\n\nWhere IkiSaki Tours arranges or coordinates such services, the relevant supplier may have its own booking, payment, safety, availability, amendment and cancellation conditions.\n\nUnless expressly stated otherwise, independent suppliers remain responsible for the direct provision of their own services. We will make reasonable efforts to coordinate arrangements and communicate relevant information, but cannot guarantee services or decisions controlled entirely by independent providers.\n\nAny supplier-specific conditions that materially affect a customer's booking should be communicated where reasonably available.",
       },
 
-      // 13. INSURANCE
+      // 14. INSURANCE
       {
         heading: "Travel Insurance & Personal Protection",
         sectionIcon: "Umbrella",
@@ -377,7 +417,7 @@ export const legalDocuments: LegalDocument[] = [
         ],
       },
 
-      // 14. SERVICE INTERRUPTIONS
+      // 15. SERVICE INTERRUPTIONS
       {
         heading: "Delays, Changes & Unforeseen Circumstances",
         sectionIcon: "CloudSun",
@@ -386,7 +426,7 @@ export const legalDocuments: LegalDocument[] = [
           "Travel within Sri Lanka may be affected by traffic congestion, adverse weather, road closures, public demonstrations, government restrictions, attraction closures, infrastructure conditions and other unexpected events.\n\nWe will make reasonable efforts to inform customers of significant disruptions and suggest practical alternatives where possible. Changes to routes, departure times, destinations or activities may be necessary to protect customer safety or maintain operational feasibility.\n\nAny additional costs resulting from revised arrangements will be communicated and agreed where practicable before the revised service is provided.",
       },
 
-      // 15. LIABILITY
+      // 16. LIABILITY
       {
         heading: "Liability & Limitations",
         sectionIcon: "Shield",
@@ -420,7 +460,7 @@ export const legalDocuments: LegalDocument[] = [
         ],
       },
 
-      // 16. FORCE MAJEURE
+      // 17. FORCE MAJEURE
       {
         heading: "Force Majeure",
         sectionIcon: "Globe",
@@ -429,7 +469,7 @@ export const legalDocuments: LegalDocument[] = [
           "IkiSaki Tours shall not be considered in breach of its obligations to the extent that performance is prevented or materially affected by events beyond its reasonable control. Such events may include natural disasters, floods, severe weather, epidemics, public health emergencies, war, terrorism, civil unrest, government restrictions, strikes, major infrastructure failures or other comparable circumstances.\n\nWhere such circumstances affect a confirmed booking, we will make reasonable efforts to communicate with customers and discuss available alternatives, rescheduling or other appropriate arrangements. Any refund or additional payment will be handled in accordance with the applicable booking conditions and relevant law.",
       },
 
-      // 17. PHOTOGRAPHY
+      // 18. PHOTOGRAPHY
       {
         heading: "Photography, Videos & Marketing",
         sectionIcon: "Camera",
@@ -438,7 +478,7 @@ export const legalDocuments: LegalDocument[] = [
           "Customers may take photographs and videos during their journeys, subject to applicable laws, attraction rules, privacy considerations and the rights of other individuals.\n\nIkiSaki Tours will not use identifiable customer photographs, videos, testimonials or other personal media for promotional or marketing purposes without obtaining the customer's appropriate permission, unless another lawful basis applies.\n\nCustomers who provide testimonials or media for publication may contact us regarding their permission and any applicable withdrawal requests.",
       },
 
-      // 18. PRIVACY
+      // 19. PRIVACY
       {
         heading: "Privacy & Personal Information",
         sectionIcon: "Lock",
@@ -447,7 +487,7 @@ export const legalDocuments: LegalDocument[] = [
           "We collect and process customer information where necessary to manage bookings, coordinate transportation, arrange travel services, communicate with customers and meet applicable legal obligations.\n\nPersonal information may be shared with relevant drivers, guides, hotels, activity providers, payment processors and other service partners where reasonably necessary to fulfil a confirmed booking.\n\nWe take reasonable steps to protect personal information and handle it in accordance with our Privacy Policy and applicable data protection laws.\n\nFor further information about the collection, use, retention and protection of personal data, please refer to our Privacy Policy.",
       },
 
-      // 19. COMPLAINTS
+      // 20. COMPLAINTS
       {
         heading: "Customer Support & Complaints",
         sectionIcon: "Headset",
@@ -468,7 +508,7 @@ export const legalDocuments: LegalDocument[] = [
         ],
       },
 
-      // 20. GOVERNING LAW
+      // 21. GOVERNING LAW
       {
         heading: "Governing Law & Dispute Resolution",
         sectionIcon: "Scale",
@@ -477,7 +517,7 @@ export const legalDocuments: LegalDocument[] = [
           "These Terms of Service shall be governed by and interpreted in accordance with the laws of Sri Lanka, subject to applicable mandatory consumer protection and other legal requirements.\n\nCustomers and IkiSaki Tours are encouraged to make reasonable efforts to resolve any disagreement through direct communication before pursuing formal legal proceedings.\n\nNothing in this section prevents either party from exercising rights or remedies available under applicable law.",
       },
 
-      // 21. CHANGES TO TERMS
+      // 22. CHANGES TO TERMS
       {
         heading: "Changes to These Terms",
         sectionIcon: "RefreshCw",
@@ -486,7 +526,7 @@ export const legalDocuments: LegalDocument[] = [
           "IkiSaki Tours may update these Terms of Service from time to time to reflect changes in our services, business operations, legal requirements or customer arrangements.\n\nThe latest version will be published on our official website together with its applicable revision date. Changes will generally apply to future bookings. Any material change affecting an already confirmed booking will be handled in accordance with the agreed booking conditions and applicable law.",
       },
 
-      // 22. CONTACT
+      // 23. CONTACT
       {
         heading: "Contact IkiSaki Tours",
         sectionIcon: "Mail",
@@ -1379,11 +1419,21 @@ export const legalDocuments: LegalDocument[] = [
         type: "row-list",
         subItems: [
           {
-            title: "Essential Cookies",
-            body: "Strictly necessary to provide core functionalities (e.g., security, routing).",
+            title: "Strictly Necessary Cookies",
+            body: "Always active and strictly necessary to provide core functionalities such as security, network management, and accessibility.",
           },
-          { title: "Analytics & Performance", body: "Helps us track visitor counts and improve page performance." },
-          { title: "Marketing Cookies", body: "Used to deliver relevant advertisements and track ad performance." },
+          {
+            title: "Performance Cookies",
+            body: "Helps us track visitor counts, understand how visitors interact with the website, and improve overall page performance.",
+          },
+          {
+            title: "Functional Cookies",
+            body: "Enables the website to provide enhanced functionality and personalization, such as remembering your language and preference choices.",
+          },
+          {
+            title: "Targeting & Marketing Cookies",
+            body: "Used to deliver relevant advertisements, track ad performance, and build a profile of your interests through our advertising partners.",
+          },
         ],
       },
       {
