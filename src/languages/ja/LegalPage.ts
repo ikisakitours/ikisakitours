@@ -15,4 +15,7 @@ export default {
     description:
       "利用規約、プライバシーポリシー、予約条件、安全な支払いポリシー、クッキーの使用方法など、IkiSakiの包括的な法的情報をご確認ください。",
   },
+  LegalPage: {
+    contactPrompt: "本ポリシーに関するご質問は、お気軽にお問い合わせください：",
+  },
 } as const;
