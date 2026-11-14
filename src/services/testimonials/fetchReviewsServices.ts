@@ -4,7 +4,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
 export const fetchReviewsServices = {
   // Get all Testimonial data
   getReviews: async (): Promise<ReviewsResponse> => {
-    const res = await fetch(`${API_URL}/comments`, {
+    const res = await fetch(`${API_URL}/comments/client`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
