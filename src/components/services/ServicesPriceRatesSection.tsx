@@ -4,7 +4,7 @@ import React from "react";
 import { Info, CheckCircle2, ArrowUpCircle, Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-export function CharterRatesSection() {
+export function ServicesPriceRatesSection() {
   const t = useTranslations("Services.CharterRates");
   const notes = t.raw("notes") as string[];
 

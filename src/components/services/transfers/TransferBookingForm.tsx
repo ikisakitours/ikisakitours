@@ -11,6 +11,7 @@ import { useTranslations } from "next-intl";
 import { languages } from "@/data/Languages-CurrencyData";
 import { useTransferBookingForm } from "@/hooks/services/useTransferBookingForm";
 import { AuthRequiredModal } from "@/components/ui/AuthRequiredModal";
+import { ServicesPriceRatesSection } from "@/components/services/ServicesPriceRatesSection";
 
 export function TransferBookingForm() {
   const tStep = useTranslations("Services.StepHeadings");
@@ -103,6 +104,11 @@ export function TransferBookingForm() {
         {/* Fare Summary Sidebar */}
         <TransferFareSummary selectedServiceId={serviceType} selectedVehicle={selectedVehicle} />
       </div>
+
+      <div className="xl:col-span-12 order-2 xl:order-last w-full xl:mt-4">
+        <ServicesPriceRatesSection />
+      </div>
+
       <div className="xl:col-span-12">
         <CrossPromotionSection />
       </div>

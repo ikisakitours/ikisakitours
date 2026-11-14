@@ -9,7 +9,7 @@ import { languages } from "@/data/Languages-CurrencyData";
 import { InfoSidebar } from "@/components/services/InfoSidebar";
 import { useTranslations } from "next-intl";
 import { useBespokeForm } from "@/hooks/services/useBespokeForm";
-import { CharterRatesSection } from "@/components/services/CharterRatesSection";
+import { ServicesPriceRatesSection } from "@/components/services/ServicesPriceRatesSection";
 import { AuthRequiredModal } from "@/components/ui/AuthRequiredModal";
 // Icons for Sidebar
 import { ShieldCheck, Clock, Headset, Sparkles } from "lucide-react";
@@ -62,9 +62,9 @@ export function BespokeForm() {
     setErrors,
     isLoading,
     handleSubmit,
-    showAuthModal,  
-    closeAuthModal,  
-     setPrices,
+    showAuthModal,
+    closeAuthModal,
+    setPrices,
   } = useBespokeForm();
 
   return (
@@ -95,7 +95,7 @@ export function BespokeForm() {
               setErrors={setErrors}
               languagesList={languages}
               isLoading={isLoading}
-              tourPackageType={tourPackageType} 
+              tourPackageType={tourPackageType}
               onTourPackageTypeChange={setTourPackageType}
               onPriceChange={setPrices}
             />
@@ -116,7 +116,7 @@ export function BespokeForm() {
         </form>
 
         <div className="xl:col-span-12 order-2 xl:order-last w-full xl:mt-4">
-          <CharterRatesSection />
+          <ServicesPriceRatesSection />
         </div>
 
         {/* Right Side: Info Sidebar */}
@@ -126,13 +126,13 @@ export function BespokeForm() {
       </div>
 
       <div className="xl:col-span-12">
-       <CrossPromotionSection tourType="one" />
+        <CrossPromotionSection tourType="one" />
       </div>
 
       <AuthRequiredModal
         isOpen={showAuthModal}
         onClose={closeAuthModal}
-        translationPath="ValidationErrors.AuthRequired.Bespoke" 
+        translationPath="ValidationErrors.AuthRequired.Bespoke"
       />
     </ContainerLayout>
   );

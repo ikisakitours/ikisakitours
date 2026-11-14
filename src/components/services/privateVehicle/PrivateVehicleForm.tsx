@@ -10,7 +10,7 @@ import { InfoSidebar } from "@/components/services/InfoSidebar";
 import { useTranslations } from "next-intl";
 import { languages } from "@/data/Languages-CurrencyData";
 import { usePrivateVehicleForm } from "@/hooks/services/usePrivateVehicleForm";
-import { CharterRatesSection } from "@/components/services/CharterRatesSection";
+import { ServicesPriceRatesSection } from "@/components/services/ServicesPriceRatesSection";
 import { AuthRequiredModal } from "@/components/ui/AuthRequiredModal";
 
 // Icons for Sidebar
@@ -115,7 +115,7 @@ export function PrivateVehicleForm() {
           </FormPanel>
         </form>
         <div className="xl:col-span-12 order-2 xl:order-last w-full xl:mt-4">
-          <CharterRatesSection />
+          <ServicesPriceRatesSection />
         </div>
         {/* Right Side: Info Sidebar */}
         <div className="xl:col-span-4 order-3 xl:order-0 h-full relative">
