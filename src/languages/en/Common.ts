@@ -11,6 +11,8 @@ export default {
     loadingInsights: "Loading Travel Insights...",
     //new
     loadingContent: "Loading Content...",
+    loadingLegal: "Loading Legal Content...",
+
     //
     errorWatermark: "ERROR",
     failedToLoad: "Oops! Something went wrong.",

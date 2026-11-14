@@ -1,8 +1,8 @@
-import { type LegalDocument } from "@/data/legal";
+import type { LegalDocumentContent } from "@/services/legal/types";
 import EyeBrow from "@/components/ui/EyeBrow";
 import { useTranslations } from "next-intl";
 
-export function LegalHero({ activeDoc }: { activeDoc: LegalDocument }) {
+export function LegalHero({ activeDoc }: { activeDoc: LegalDocumentContent }) {
   const t = useTranslations("LegalPage.Hero");
   const titleParts = activeDoc.title.split(activeDoc.accent);
 

@@ -15,4 +15,8 @@ export default {
     description:
       "Review IkiSaki's comprehensive legal information, including our terms of service, privacy policy, booking terms, secure payment policies, and cookie usage.",
   },
+
+  LegalPage: {
+    contactPrompt: "If you have any questions about this policy, please contact us:",
+  },
 } as const;

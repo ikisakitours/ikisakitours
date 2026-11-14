@@ -1,30 +1,35 @@
 "use client";
+
 import { useState } from "react";
 import { useRouter, usePathname } from "@/lib/i18nNavigation";
 import { LegalDocumentSection } from "@/components/legal/LegalDocumentSection";
 import { LegalHero } from "@/components/legal/LegalHero";
-import { legalDocuments, type LegalDocumentId } from "@/data/legal";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { useTranslations } from "next-intl";
 import { CookiePageActions } from "@/components/ui/CookieModel/CookiePageActions";
 import { CookiePreferenceModal } from "@/components/ui/CookieModel/CookiePreferenceModal";
 import { useCookieConsent } from "@/hooks/cookies/useCookieConsent";
-//Icons
+import { useLegalDocument } from "@/hooks/legal/useLegalDocument";
+import { ApiCallLoader } from "@/components/ui/ApiCallLoader";
+import { ApiCallError } from "@/components/ui/ApiCallError";
 import { FilterSidebar } from "@/components/ui/FilterSidebar";
+// Icons
 import { Filter } from "lucide-react";
+
+const validIds = ["terms", "booking", "cookie", "privacy", "payment"] as const;
+type LegalDocumentId = (typeof validIds)[number];
 
 export default function LegalBody() {
   const { handleAccept } = useCookieConsent();
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations("LegalPage.Tabs");
+  const tApi = useTranslations("Common.Api");
 
   const currentSlug = pathname.split("/").pop() as LegalDocumentId;
-
-  const validIds = legalDocuments.map((doc) => doc.id);
   const activeId = validIds.includes(currentSlug) ? currentSlug : "terms";
 
-  const activeDoc = legalDocuments.find((doc) => doc.id === activeId) || legalDocuments[0];
+  const { data: activeDoc, isLoading, error, refetch } = useLegalDocument(activeId);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false);
@@ -40,6 +45,32 @@ export default function LegalBody() {
     },
     {} as Record<string, string>,
   );
+
+  const statusWrapperClass =
+    "flex min-h-dvh w-full items-center justify-center bg-lanka-dark px-4 pt-20 sm:pt-24";
+
+  if (isLoading && !activeDoc) {
+    return (
+      <section className={statusWrapperClass}>
+        <ApiCallLoader fullScreen={false} text={tApi("loadingLegal")} />
+      </section>
+    );
+  }
+
+  if (error || !activeDoc) {
+    return (
+      <section className={statusWrapperClass}>
+        <ApiCallError
+          fullScreen={false}
+          onRetry={refetch}
+          message={tApi("contentLoadError")}
+          title={tApi("failedToLoad")}
+          watermark={tApi("errorWatermark")}
+          buttonText={tApi("tryAgain")}
+        />
+      </section>
+    );
+  }
 
   return (
     <ContainerLayout className="pt-28 sm:pt-30 md:pt-34 lg:pt-28 2xl:pt-30 3xl:pt-32 pb-12 sm:pb-16 md:pb-18 lg:pb-20 2xl:pb-22 3xl:pb-24">
@@ -62,33 +93,30 @@ export default function LegalBody() {
         </div>
 
         <div className="glass-card space-y-10 rounded-4xl border-gold/15 p-6 shadow-2xl md:space-y-12 md:rounded-[2.5rem] md:p-12">
-          {legalDocuments
-            .filter((doc) => doc.id === activeId)
-            .map((doc) => (
-              <div key={doc.id}>
-                <LegalDocumentSection document={doc} />
-                {activeId === "cookie" && (
-                  <CookiePageActions onManageCookies={() => setIsModalOpen(true)} onAcceptAll={handleAccept} />
-                )}
-              </div>
-            ))}
+          <div>
+            <LegalDocumentSection document={activeDoc} />
+            {activeId === "cookie" && (
+              <CookiePageActions onManageCookies={() => setIsModalOpen(true)} onAcceptAll={handleAccept} />
+            )}
+          </div>
         </div>
       </div>
+
       <CookiePreferenceModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       <FilterSidebar
         isOpen={isFilterSidebarOpen}
         onClose={() => setIsFilterSidebarOpen(false)}
-        categories={validIds}
+        categories={[...validIds]}
         selectedCategory={activeId}
         onSelectCategory={(id: string) => handleTabChange(id as LegalDocumentId)}
         title="Legal Documents"
         categoryLabels={categoryLabels}
         showClearButton={false}
         showCounts={false}
-        showAllCategory={false} 
+        showAllCategory={false}
         showBottomBar={false}
-         labels={{
-          categories: t("categories"), 
+        labels={{
+          categories: t("categories"),
         }}
       />
     </ContainerLayout>

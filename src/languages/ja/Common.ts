@@ -11,6 +11,7 @@ export default {
     loadingInsights: "旅のヒントを読み込み中",
     //new
     loadingContent: "コンテンツを読み込み中...",
+    loadingLegal: "法的コンテンツを読み込んでいます...",
     //
     errorWatermark: "エラー",
     failedToLoad: "申し訳ありません。問題が発生しました。",
