@@ -115,7 +115,7 @@ export function PrivateVehicleForm() {
           </FormPanel>
         </form>
         <div className="xl:col-span-12 order-2 xl:order-last w-full xl:mt-4">
-          <ServicesPriceRatesSection />
+         <ServicesPriceRatesSection serviceType="charter" />
         </div>
         {/* Right Side: Info Sidebar */}
         <div className="xl:col-span-4 order-3 xl:order-0 h-full relative">

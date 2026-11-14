@@ -197,7 +197,7 @@ export function ContactForm({ data, setData, errors, setErrors, isLoading }: Con
               return (
                 <span
                   key={badge}
-                  className="flex items-center gap-2 whitespace-nowrap text-caption font-bold uppercase tracking-widest text-slate-500"
+                  className="assuranceBadges flex items-center gap-2 whitespace-nowrap text-caption font-bold uppercase tracking-widest text-slate-500"
                 >
                   <Icon className="h-4 w-4 text-gold 3xl:h-5 3xl:w-5" />
                   {badge}

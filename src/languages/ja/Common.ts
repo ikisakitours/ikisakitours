@@ -9,7 +9,9 @@ export default {
     loadingTourDetails: "ツアー詳細を読み込み中",
     loadingRelatedTours: "おすすめのツアーを読み込み中",
     loadingInsights: "旅のヒントを読み込み中",
-    
+    //new
+    loadingContent: "コンテンツを読み込み中...",
+    //
     errorWatermark: "エラー",
     failedToLoad: "申し訳ありません。問題が発生しました。",
     tryAgain: "再試行",

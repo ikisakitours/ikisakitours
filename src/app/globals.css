@@ -822,3 +822,7 @@ textarea {
 :lang(ja) .tooltip {
   white-space: nowrap !important;
 }
+
+:lang(ja) .assuranceBadges {
+  white-space: nowrap !important;
+}
