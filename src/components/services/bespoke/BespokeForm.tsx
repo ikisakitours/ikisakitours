@@ -116,7 +116,7 @@ export function BespokeForm() {
         </form>
 
         <div className="xl:col-span-12 order-2 xl:order-last w-full xl:mt-4">
-          <ServicesPriceRatesSection />
+          <ServicesPriceRatesSection serviceType="custom" />
         </div>
 
         {/* Right Side: Info Sidebar */}

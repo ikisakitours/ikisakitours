@@ -3,14 +3,41 @@
 import React from "react";
 import { Info, CheckCircle2, ArrowUpCircle, Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useServicePricing } from "@/hooks/services/service-pricing/useServicePricing";
+import { ApiCallLoader } from "@/components/ui/ApiCallLoader";
+import { ApiCallError } from "@/components/ui/ApiCallError";
 
-export function ServicesPriceRatesSection() {
+interface ServicesPriceRatesSectionProps {
+  serviceType?: string; // Add serviceType prop
+}
+
+export function ServicesPriceRatesSection({ serviceType = "custom" }: ServicesPriceRatesSectionProps) {
   const t = useTranslations("Services.CharterRates");
-  const notes = t.raw("notes") as string[];
+  const tApi = useTranslations("Common.Api");
 
+  const { data: pricing, isLoading, error, refetch } = useServicePricing(serviceType);
   const scrollToForm = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  // 1. Loading State using ApiCallLoader
+  if (isLoading && !pricing) {
+    return <ApiCallLoader fullScreen={false} text={tApi("loadingContent")} />;
+  }
+
+  // 2. Error State using ApiCallError with retry capability
+  if (error || !pricing) {
+    return (
+      <ApiCallError
+        fullScreen={false}
+        onRetry={refetch}
+        message={tApi("contentLoadError")}
+        title={tApi("failedToLoad")}
+        watermark={tApi("errorWatermark")}
+        buttonText={tApi("tryAgain")}
+      />
+    );
+  }
 
   return (
     <section className="w-full mt-8 mb-8 bg-[#0a0a0a] rounded-2xl border border-white/10 p-6 md:p-10 shadow-2xl relative overflow-hidden">
@@ -22,13 +49,13 @@ export function ServicesPriceRatesSection() {
         <div className="xl:w-1/3 flex flex-col gap-6">
           <div>
             <h2 className="text-heading-sub font-bold text-white premium-serif mb-4">
-              {t("titleBase")} <span className="text-gold">{t("titleAccent")}</span>
+              {pricing.titleBase} <span className="text-gold">{pricing.titleAccent}</span>
             </h2>
             <p className="text-body-sm text-slate-300 leading-relaxed mb-4">
-              <strong className="text-white text-body">{t("subtitleStrong")}</strong>
+              <strong className="text-white text-body">{pricing.subtitleStrong}</strong>
               <br />
               <br />
-              {t("subtitle")}
+              {pricing.subtitle}
             </p>
           </div>
 
@@ -38,11 +65,11 @@ export function ServicesPriceRatesSection() {
             <div className="flex items-center gap-2 mb-2">
               <Sparkles className="w-5 h-5 text-gold" />
               <span className="text-caption font-extrabold text-gold tracking-widest uppercase">
-                {t("popularBadge")}
+                {pricing.popularBadge}
               </span>
             </div>
-            <h3 className="text-heading-sub-sm text-white font-bold mb-2">{t("popularTitle")}</h3>
-            <p className="text-body-sm text-slate-400">{t("popularDesc")}</p>
+            <h3 className="text-heading-sub-sm text-white font-bold mb-2">{pricing.popularTitle}</h3>
+            <p className="text-body-sm text-slate-400">{pricing.popularDesc}</p>
           </div>
         </div>
 
@@ -54,7 +81,7 @@ export function ServicesPriceRatesSection() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5">
-            {notes.map((note, idx) => (
+            {pricing.notes.map((note, idx) => (
               <div key={idx} className="flex items-start gap-3 group">
                 <CheckCircle2 className="w-4.5 h-4.5 text-gold/40 mt-0.75 shrink-0 group-hover:text-gold transition-colors duration-300" />
                 <p className="text-body-sm text-slate-300 leading-relaxed">{note}</p>

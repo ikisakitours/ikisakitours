@@ -106,7 +106,7 @@ export function TransferBookingForm() {
       </div>
 
       <div className="xl:col-span-12 order-2 xl:order-last w-full xl:mt-4">
-        <ServicesPriceRatesSection />
+       <ServicesPriceRatesSection serviceType="transfer" />
       </div>
 
       <div className="xl:col-span-12">

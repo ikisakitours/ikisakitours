@@ -9,7 +9,9 @@ export default {
     loadingTourDetails: "Loading Tour Details...",
     loadingRelatedTours: "Loading Similar Tours...",
     loadingInsights: "Loading Travel Insights...",
-
+    //new
+    loadingContent: "Loading Content...",
+    //
     errorWatermark: "ERROR",
     failedToLoad: "Oops! Something went wrong.",
     tryAgain: "Try Again",
