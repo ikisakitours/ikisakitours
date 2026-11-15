@@ -42,8 +42,8 @@ export function checkIfDateClosed(
 
     const normalizedClosed = closedTypes.map((t) => normalizeTourType(t));
 
-    // "all" or "other" means all services (multiday, oneday, custom, charter, transfer) are unavailable!
-    if (normalizedClosed.includes("all") || normalizedClosed.includes("other")) {
+    // "all" means all services (multiday, oneday, custom, charter, transfer) are unavailable!
+    if (normalizedClosed.includes("all")) {
       return true;
     }
 

@@ -144,7 +144,6 @@ export default {
       custom: "Custom Made Tours",
       charter: "Private Charter",
       transfer: "Transfers",
-      other: "Other (All Closed)",
       all: "All Services Closed",
     },
   },
