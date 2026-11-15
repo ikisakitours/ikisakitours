@@ -9,15 +9,11 @@ import { useTranslations } from "next-intl";
 import { CookiePageActions } from "@/components/ui/CookieModel/CookiePageActions";
 import { CookiePreferenceModal } from "@/components/ui/CookieModel/CookiePreferenceModal";
 import { useCookieConsent } from "@/hooks/cookies/useCookieConsent";
-import { useLegalDocument } from "@/hooks/legal/useLegalDocument";
+import { useAllLegalDocuments } from "@/hooks/legal/useLegalDocument";
 import { ApiCallLoader } from "@/components/ui/ApiCallLoader";
 import { ApiCallError } from "@/components/ui/ApiCallError";
 import { FilterSidebar } from "@/components/ui/FilterSidebar";
-// Icons
 import { Filter } from "lucide-react";
-
-const validIds = ["terms", "booking", "cookie", "privacy", "payment"] as const;
-type LegalDocumentId = (typeof validIds)[number];
 
 export default function LegalBody() {
   const { handleAccept } = useCookieConsent();
@@ -26,25 +22,31 @@ export default function LegalBody() {
   const t = useTranslations("LegalPage.Tabs");
   const tApi = useTranslations("Common.Api");
 
-  const currentSlug = pathname.split("/").pop() as LegalDocumentId;
-  const activeId = validIds.includes(currentSlug) ? currentSlug : "terms";
-
-  const { data: activeDoc, isLoading, error, refetch } = useLegalDocument(activeId);
+  const { docs: allDocs, isLoading, error, refetch } = useAllLegalDocuments();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false);
 
-  const handleTabChange = (id: LegalDocumentId) => {
+  const currentSlug = pathname.split("/").pop();
+
+  const activeDoc =
+    allDocs.find((doc) => doc.id === currentSlug) ||
+    allDocs.find((doc) => doc.id === "terms") ||
+    allDocs[0] ||
+    null;
+
+  const activeId = activeDoc?.id || "";
+
+  const handleTabChange = (id: string) => {
     router.push(`/legal/${id}`, { scroll: false });
   };
 
-  const categoryLabels = validIds.reduce(
-    (acc, id) => {
-      acc[id] = t(id);
-      return acc;
-    },
-    {} as Record<string, string>,
-  );
+  const dynamicCategories = allDocs.map((doc) => doc.id);
+
+const categoryLabels = allDocs.reduce((acc, doc) => {
+  acc[doc.id] = doc.title; 
+  return acc;
+}, {} as Record<string, string>);
 
   const statusWrapperClass =
     "flex min-h-dvh w-full items-center justify-center bg-lanka-dark px-4 pt-20 sm:pt-24";
@@ -77,7 +79,7 @@ export default function LegalBody() {
       <div className="mx-auto max-w-7xl">
         <LegalHero activeDoc={activeDoc} />
 
-        {/* Tab Buttons */}
+        {/* Tab Buttons / Filter Trigger */}
         <div className="mb-10 flex justify-start">
           <button
             type="button"
@@ -85,9 +87,8 @@ export default function LegalBody() {
             className="group flex items-center justify-center gap-3 rounded-full border border-gold/30 bg-[#0a0a0a] px-8 py-3.5 text-tiny font-bold uppercase tracking-[0.2em] text-gold shadow-[0_10px_30px_rgba(197,160,89,0.1)] transition-all duration-300 hover:border-gold hover:bg-gold sm:w-auto"
           >
             <Filter className="h-4 w-4 transition-all duration-300 group-hover:scale-110 group-hover:text-black" />
-
             <span className="transition-colors duration-300 group-hover:text-black">
-              {activeId ? t(activeId) : "Filter Legal Documents"}
+               {activeDoc?.title || "Legal Documents"}
             </span>
           </button>
         </div>
@@ -96,19 +97,23 @@ export default function LegalBody() {
           <div>
             <LegalDocumentSection document={activeDoc} />
             {activeId === "cookie" && (
-              <CookiePageActions onManageCookies={() => setIsModalOpen(true)} onAcceptAll={handleAccept} />
+              <CookiePageActions
+                onManageCookies={() => setIsModalOpen(true)}
+                onAcceptAll={handleAccept}
+              />
             )}
           </div>
         </div>
       </div>
 
       <CookiePreferenceModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      
       <FilterSidebar
         isOpen={isFilterSidebarOpen}
         onClose={() => setIsFilterSidebarOpen(false)}
-        categories={[...validIds]}
+        categories={dynamicCategories}
         selectedCategory={activeId}
-        onSelectCategory={(id: string) => handleTabChange(id as LegalDocumentId)}
+        onSelectCategory={(id: string) => handleTabChange(id)}
         title="Legal Documents"
         categoryLabels={categoryLabels}
         showClearButton={false}
