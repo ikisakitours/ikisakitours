@@ -3,7 +3,6 @@ import type { LegalDocumentContent } from "./types";
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
 
 export const legalDocsService = {
-  // 1. තනි document එකක් ලබාගැනීමට
   getLegalDocument: async (
     id: string = "terms",
     lang: string = "en",
@@ -21,7 +20,6 @@ export const legalDocsService = {
     return res.json();
   },
 
-  // 2. අලුතින් එකතු කරන dynamic documents ඇතුළු සියලුම documents ලබාගැනීමට (NEW)
   getAllLegalDocuments: async (
     lang: string = "en",
     signal?: AbortSignal,

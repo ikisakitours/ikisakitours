@@ -129,8 +129,24 @@ export default {
       "November",
       "December",
     ],
-
-    notAvailable: "Not Available"
+    //new
+    notAvailable: "Not Available",
+    available: "Available",
+    note: "Note",
+    legendTitle: "Availability Colors Guide",
+    legendSubtitle: "Colored dots indicate services unavailable on that date",
+    currentService: "Current Service",
+    unavailableForCurrent: "Unavailable for this service",
+    availableForCurrent: "Available for this service",
+    services: {
+      multiday: "Multi-day Tours",
+      oneday: "One Day Tours",
+      custom: "Custom Made Tours",
+      charter: "Private Charter",
+      transfer: "Transfers",
+      other: "Other (All Closed)",
+      all: "All Services Closed",
+    },
   },
   DurationPicker: {
     selectDuration: "Select duration",

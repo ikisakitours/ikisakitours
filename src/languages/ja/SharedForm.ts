@@ -116,6 +116,23 @@ export default {
     months: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
     fullMonths: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
     notAvailable: "空きなし",
+    available: "予約可能",
+    //new
+    note: "備考",
+    legendTitle: "空き状況カラーガイド",
+    legendSubtitle: "色のついた点は、その日に利用できないサービスを示しています",
+    currentService: "選択中のサービス",
+    unavailableForCurrent: "このサービスはご利用いただけません",
+    availableForCurrent: "このサービスは予約可能です",
+    services: {
+      multiday: "複数日ツアー",
+      oneday: "日帰りツアー",
+      custom: "オーダーメイドツアー",
+      charter: "プライベートチャーター",
+      transfer: "空港・都市間送迎",
+      other: "その他（全休業）",
+      all: "全サービス休業",
+    },
   },
   DurationPicker: {
     selectDuration: "期間を選択",

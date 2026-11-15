@@ -93,7 +93,7 @@ export function BespokeJourneyFields({
       ageRange: tForm("TravelerOptions.infantAge"),
     },
   ];
-  const { closedDates, isLoadingDates } = useAvailability();
+  const { closedDates, dateDetails, isLoadingDates } = useAvailability();
   const { textareaRef, handleInput } = useAutoResizeTextarea(tourRequests);
   return (
     <div className="space-y-8">
@@ -158,6 +158,8 @@ export function BespokeJourneyFields({
           <CustomDatePicker
             value={date}
             closedDates={closedDates}
+            dateDetails={dateDetails}
+            tourType="custom made tours"
             isLoading={isLoadingDates}
             onChange={(d) => {
               onDateChange(d);
