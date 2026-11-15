@@ -19,4 +19,20 @@ export const legalDocsService = {
     if (!res.ok) throw new Error("Failed to fetch legal document content");
     return res.json();
   },
+
+  getAllLegalDocuments: async (
+    lang: string = "en",
+    signal?: AbortSignal,
+  ): Promise<LegalDocumentContent[]> => {
+    const res = await fetch(
+      `${API_URL}/legaldocs/client?lang=${encodeURIComponent(lang)}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        signal,
+      },
+    );
+    if (!res.ok) throw new Error("Failed to fetch all legal documents");
+    return res.json();
+  },
 };

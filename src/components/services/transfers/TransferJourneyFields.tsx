@@ -82,7 +82,7 @@ export function TransferJourneyFields({
       ageRange: tForm("TravelerOptions.infantAge"),
     },
   ];
-  const { closedDates, isLoadingDates } = useAvailability();
+  const { closedDates, dateDetails, isLoadingDates } = useAvailability();
 
   return (
     <div className="space-y-8">
@@ -144,6 +144,8 @@ export function TransferJourneyFields({
           <CustomDatePicker
             value={date}
             closedDates={closedDates}
+            dateDetails={dateDetails}
+            tourType="transfer"
             isLoading={isLoadingDates}
             onChange={(d) => {
               onDateChange(d);

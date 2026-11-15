@@ -26,18 +26,19 @@ type TourType = {
 type BookingWidgetProps = {
   tour: TourType;
   booking: ReturnType<typeof useBookingWidget>;
+  tourType?: string;
   className?: string;
 };
 
 const bookingAssurancesIcons = [Zap, Banknote, CalendarDays];
 
-export function BookingWidget({ tour, booking, className = "" }: BookingWidgetProps) {
+export function BookingWidget({ tour, booking, tourType, className = "" }: BookingWidgetProps) {
   const { formatPrice } = useCurrency();
   const t = useTranslations("Booking.Widget");
   const tForms = useTranslations("SharedForm");
   const rawAssurances = t.raw("assurances") as string[];
   const { user } = useAuth();
-  const { closedDates, isLoadingDates } = useAvailability();
+  const { closedDates, dateDetails, isLoadingDates } = useAvailability();
   const { handlePackageLikeToggle } = useTogglePackageLike();
   const { isLiked } = useCheckPackageLike(tour.id, user?.id);
   const travelerOptions = [
@@ -159,6 +160,8 @@ export function BookingWidget({ tour, booking, className = "" }: BookingWidgetPr
               <CustomDatePicker
                 value={journeyDate}
                 closedDates={closedDates}
+                dateDetails={dateDetails}
+                tourType={tourType}
                 isLoading={isLoadingDates}
                 onChange={(d) => {
                   setJourneyDate(d);

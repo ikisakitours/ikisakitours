@@ -12,9 +12,10 @@ import { useCurrency } from "@/context/CurrencyContext";
 type MobileBookingBarProps = {
   tour: PackageDetails;
   booking: ReturnType<typeof useBookingWidget>;
+  tourType?: string;
 };
 
-export function StickyBookingBar({ tour, booking }: MobileBookingBarProps) {
+export function StickyBookingBar({ tour, booking, tourType }: MobileBookingBarProps) {
   const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
   const [showStickyBar, setShowStickyBar] = useState(false);
   const t = useTranslations("Booking.StickyBar");
@@ -244,7 +245,7 @@ export function StickyBookingBar({ tour, booking }: MobileBookingBarProps) {
               </div>
 
               <div className="relative z-10">
-                <BookingWidget tour={tour} booking={booking} />
+                <BookingWidget tour={tour} booking={booking} tourType={tourType} />
               </div>
             </motion.div>
           </motion.div>

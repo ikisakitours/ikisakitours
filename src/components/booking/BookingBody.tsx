@@ -22,6 +22,7 @@ type BookingBodyProps = {
 export default function BookingBody({ slug, tourType }: BookingBodyProps) {
   const tApi = useTranslations("Common.Api");
   const mappedTourType = tourType === "one" ? "oneday" : "multiday";
+  const canonicalTourType = tourType === "one" ? "one day tours" : "multiday tours";
 
   const { tour, isLoading, error, isNotFound, refetch } = usePackageDetails(slug);
 
@@ -54,7 +55,7 @@ export default function BookingBody({ slug, tourType }: BookingBodyProps) {
           <BookingDetailSections tour={tour} tourType={tourType} />
         </div>
 
-        <BookingWidget tour={tour} booking={booking} className="hidden xl:block" />
+        <BookingWidget tour={tour} booking={booking} tourType={canonicalTourType} className="hidden xl:block" />
       </div>
       <RelatedBookingSections
         currentSlug={tour.slug}
@@ -63,7 +64,7 @@ export default function BookingBody({ slug, tourType }: BookingBodyProps) {
         origin={tour.origin}
         price={tour.price}
       />
-      <StickyBookingBar tour={tour} booking={booking} />
+      <StickyBookingBar tour={tour} booking={booking} tourType={canonicalTourType} />
       <AuthRequiredModal
         isOpen={booking.showAuthModal}
         onClose={booking.closeAuthModal}
