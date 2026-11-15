@@ -136,6 +136,14 @@ export default function CustomDatePicker({
     [tourType]
   );
 
+  // Filter legend keys to show only relevant services for the current context
+  const legendKeys: KnownTourType[] = useMemo(() => {
+    if (normalizedCurrentTourType && normalizedCurrentTourType !== "all") {
+      return [normalizedCurrentTourType as KnownTourType, "all"];
+    }
+    return Object.keys(TOUR_TYPES_CONFIG) as KnownTourType[];
+  }, [normalizedCurrentTourType]);
+
   // Extract closed services and colors for any date
   const getDayDetails = (dateStr: string): {
     isClosedForCurrent: boolean;
@@ -144,6 +152,16 @@ export default function CustomDatePicker({
   } => {
     const detail = dateDetails?.[dateStr];
     const isClosedForCurrent = checkIfDateClosed(dateStr, tourType, dateDetails, closedDates);
+
+    // If a specific tourType is active and the date is available for it,
+    // keep the cell 100% clean, active, and free of dots from other irrelevant services
+    if (tourType && !isClosedForCurrent) {
+      return {
+        isClosedForCurrent: false,
+        services: [],
+        note: undefined,
+      };
+    }
 
     const services: ClosedServiceItem[] = [];
 
@@ -155,23 +173,34 @@ export default function CustomDatePicker({
         typesList.push(...detail.tourType.split(",").map((s) => s.trim()));
       }
 
-      typesList.forEach((rawType, idx) => {
+      typesList.forEach((rawType) => {
         const canonical = normalizeTourType(rawType);
         const config = TOUR_TYPES_CONFIG[canonical as KnownTourType];
         const hex =
-          detail.hexes?.[idx] ||
-          detail.hex ||
           config?.defaultHex ||
-          "#ef4444";
-        const colorName = detail.colors?.[idx] || detail.color || config?.defaultColor;
+          (typesList.length === 1 ? detail.hex : undefined) ||
+          "#f43f5e";
+        const colorName =
+          config?.defaultColor ||
+          (typesList.length === 1 ? detail.color : undefined) ||
+          "rose";
 
-        services.push({
-          name: rawType,
-          canonicalName: canonical,
-          label: getServiceLabel(canonical),
-          hex,
-          colorName,
-        });
+        // When booking a specific tour type, only show the service(s) relevant to this closure:
+        // the current tour type, or global closures ("all")
+        const isRelevant =
+          !normalizedCurrentTourType ||
+          canonical === normalizedCurrentTourType ||
+          canonical === "all";
+
+        if (isRelevant) {
+          services.push({
+            name: rawType,
+            canonicalName: canonical,
+            label: getServiceLabel(canonical),
+            hex,
+            colorName,
+          });
+        }
       });
     } else if (closedDates?.includes(dateStr)) {
       // General closure with no service breakdown
@@ -179,14 +208,14 @@ export default function CustomDatePicker({
         name: "all",
         canonicalName: "all",
         label: t("notAvailable"),
-        hex: "#ef4444",
+        hex: "#f43f5e",
       });
     }
 
     return {
       isClosedForCurrent,
       services,
-      note: detail?.note,
+      note: isClosedForCurrent ? detail?.note : undefined,
     };
   };
 
@@ -424,8 +453,7 @@ export default function CustomDatePicker({
                                 <span
                                   className={`truncate ${normalizedCurrentTourType &&
                                     (srv.canonicalName === normalizedCurrentTourType ||
-                                      srv.canonicalName === "all" ||
-                                      srv.canonicalName === "other")
+                                      srv.canonicalName === "all")
                                     ? "text-red-400 font-bold"
                                     : "text-slate-300"
                                     }`}
@@ -470,7 +498,7 @@ export default function CustomDatePicker({
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 pt-1">
-                  {(Object.keys(TOUR_TYPES_CONFIG) as KnownTourType[]).map((typeKey) => {
+                  {legendKeys.map((typeKey) => {
                     const cfg = TOUR_TYPES_CONFIG[typeKey];
                     const label = getServiceLabel(typeKey);
                     const isCurrent = normalizedCurrentTourType === typeKey;

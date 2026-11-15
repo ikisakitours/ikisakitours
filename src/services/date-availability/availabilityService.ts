@@ -24,11 +24,10 @@ export type KnownTourType =
   | "custom made tours"
   | "private charter"
   | "transfer"
-  | "other"
   | "all";
 
 export interface TourTypeMeta {
-  key: "multiday" | "oneday" | "custom" | "charter" | "transfer" | "other" | "all";
+  key: "multiday" | "oneday" | "custom" | "charter" | "transfer" | "all";
   canonicalName: KnownTourType;
   defaultHex: string;
   defaultColor: string;
@@ -77,19 +76,11 @@ export const TOUR_TYPES_CONFIG: Record<KnownTourType, TourTypeMeta> = {
     enLabel: "Transfers",
     jaLabel: "送迎サービス",
   },
-  "other": {
-    key: "other",
-    canonicalName: "other",
-    defaultHex: "#71717a",
-    defaultColor: "zinc",
-    enLabel: "Other / General",
-    jaLabel: "その他・全休業",
-  },
   "all": {
     key: "all",
     canonicalName: "all",
-    defaultHex: "#ef4444",
-    defaultColor: "red",
+    defaultHex: "#f43f5e",
+    defaultColor: "rose",
     enLabel: "All Services Closed",
     jaLabel: "全サービス休業",
   },
@@ -99,7 +90,6 @@ export function normalizeTourType(type?: string): KnownTourType | string {
   if (!type) return "";
   const lower = type.toLowerCase().trim();
   if (lower === "all" || lower.includes("all tour") || lower.includes("all service")) return "all";
-  if (lower === "other" || lower.includes("other")) return "other";
   if (lower.includes("multi")) return "multiday tours";
   if (lower.includes("one") || lower === "oneday") return "one day tours";
   if (lower.includes("custom") || lower.includes("bespoke")) return "custom made tours";

@@ -130,7 +130,6 @@ export default {
       custom: "オーダーメイドツアー",
       charter: "プライベートチャーター",
       transfer: "空港・都市間送迎",
-      other: "その他（全休業）",
       all: "全サービス休業",
     },
   },
