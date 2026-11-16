@@ -57,7 +57,7 @@ export default function PhotosSection({ name, slug, photos }: Props) {
             >
               <LoadingImage
                 src={photoSrc}
-                alt={`${name} highlight ${index + 1}`}
+                alt={t("photoAlt", { name, index: index + 1 })}
                 fill
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 wrapperClassName="w-full h-full"

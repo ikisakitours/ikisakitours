@@ -137,9 +137,8 @@ export function Footer() {
                   >
                     <Icon className="md:hidden mt-1 h-4 w-4 shrink-0 justify-self-end text-gold sm:justify-self-auto 3xl:h-5 3xl:w-5" />
                     <span
-                      className={`whitespace-pre-line text-center text-base font-light leading-relaxed text-slate-300 sm:text-left ${
-                        item.label.includes("@") ? "transition-colors group-hover:text-gold" : ""
-                      }`}
+                      className={`whitespace-pre-line text-center text-base font-light leading-relaxed text-slate-300 sm:text-left ${item.label.includes("@") ? "transition-colors group-hover:text-gold" : ""
+                        }`}
                     >
                       {tFooter(`contactInfo.${item.label}`)}
                     </span>

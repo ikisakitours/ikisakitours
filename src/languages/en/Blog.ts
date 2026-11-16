@@ -1,8 +1,8 @@
 export default {
   Metadata: {
-    title: "Journal",
+    title: "Sri Lanka Travel Guides, Itinerary Tips & Cultural Journal",
     description:
-      "IkiSaki Tours brings you a curated selection of information for your trip to Sri Lanka. Through travel guides, insights into local culture, World Heritage sites, and breathtaking scenic spots, discover the charm of Sri Lanka and plan your own unique and unforgettable journey.",
+      "Insider Sri Lanka travel advice, safety guides, best time to visit, visa requirements, culture tips, and secret spots curated by the local destination specialists at IkiSaki Tours.",
     notFoundTitle: "Story not found",
   },
   Hero: {
@@ -49,6 +49,7 @@ export default {
   Card: {
     readMore: "Read More",
     lovedThis: "Loved this",
+    imageAlt: "{title} - Sri Lanka Travel Guide | Ikisaki Tours",
   },
   Article: {
      //NEW

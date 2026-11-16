@@ -2,16 +2,20 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { allSpecialEventsList } from "@/data/specialEvents";
 import { EventBody } from "@/components/Events/slug/EventBody";
+import { getLocale } from "next-intl/server";
+import JsonLd from "@/components/seo/JsonLd";
+import { getEventSchema, getBreadcrumbSchema, getSeoAlternates } from "@/components/seo/schemas";
 // import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 // import { PromoModal } from "@/components/ui/PromoModal";
 interface PageProps {
   params: Promise<{
     slug: string;
+    locale?: string;
   }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale = "en" } = await params;
   const listItem = allSpecialEventsList.find((e) => e.slug === slug);
 
   if (!listItem) {
@@ -26,6 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${listItem.title} | ${listItem.mode}`,
     description: listItem.description,
+    alternates: getSeoAlternates(`/events/${slug}`, locale),
     openGraph: {
       title: `${listItem.title} | ${listItem.mode}`,
       description: listItem.description,
@@ -43,6 +48,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function SpecialEventDetailsPage({ params }: PageProps) {
   const { slug } = await params;
+  const locale = await getLocale();
 
   const listItem = allSpecialEventsList.find((e) => e.slug === slug);
 
@@ -50,8 +56,16 @@ export default async function SpecialEventDetailsPage({ params }: PageProps) {
     notFound();
   }
 
+  const eventSchema = getEventSchema(listItem, locale);
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: locale === "ja" ? "ホーム" : "Home", url: `/${locale}` },
+    { name: locale === "ja" ? "イベント" : "Events", url: `/${locale}/events` },
+    { name: listItem.title, url: `/${locale}/events/${slug}` },
+  ]);
+
   return (
     <main className="min-h-screen bg-lanka-dark">
+      <JsonLd schema={[eventSchema, breadcrumbSchema]} />
       <EventBody listItem={listItem} />
       {/* <ContainerLayout>
         <PromoModal />

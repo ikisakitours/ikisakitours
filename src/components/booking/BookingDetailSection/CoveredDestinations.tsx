@@ -59,7 +59,7 @@ export default function CoveredDestinations({ destinations, tourSlug, tourType }
                 {heroImage && (
                   <LoadingImage
                     src={heroImage}
-                    alt={title}
+                    alt={t("imageAlt", { title })}
                     fill
                     sizes="84px"
                     watermarkClassName="text-[15px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"

@@ -16,8 +16,8 @@ export default function DestinationsCard({ dest }: DestinationsCardProps) {
     <article className="group relative flex h-full w-full flex-col overflow-hidden rounded-xl border border-white/10 bg-[#111] shadow-2xl transition-all duration-500 hover:border-gold/50">
       <div className="relative h-48 shrink-0 overflow-hidden sm:h-56">
         <LoadingImage
-        src={dest.heroImage || "/images/default-destination.jpg"} 
-          alt={dest.title} 
+          src={dest.heroImage || "/images/default-destination.jpg"}
+          alt={t("imageAlt", { title: dest.title, province: dest.province })}
           fill
           sizes="(min-width: 1280px) 25vw, 340px"
           wrapperClassName="w-full h-full"
@@ -36,10 +36,10 @@ export default function DestinationsCard({ dest }: DestinationsCardProps) {
       <div className="flex grow flex-col p-5 sm:p-6">
         <div>
           <h3 className="mb-2 text-heading-card font-bold italic text-white transition-colors group-hover:text-gold">
-           {dest.title} 
+            {dest.title}
           </h3>
           <p className="mb-6 grow ine-clamp-2 text-body font-normal leading-relaxed text-slate-400 line-clamp-2">
-           {dest.summary}
+            {dest.summary}
           </p>
         </div>
 

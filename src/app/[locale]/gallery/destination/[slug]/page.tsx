@@ -6,6 +6,8 @@ import type { Metadata } from "next";
 // import { getTranslations } from "next-intl/server";
 import { getTranslations, getLocale } from "next-intl/server";
 import { fetchDestinationServices } from "@/services/destinations/fetchDestinationServices";
+import JsonLd from "@/components/seo/JsonLd";
+import { getBreadcrumbSchema, getSeoAlternates } from "@/components/seo/schemas";
 
 type DestinationGalleryPageProps = {
   params: Promise<{ slug: string }>;
@@ -22,11 +24,13 @@ export async function generateMetadata({ params }: DestinationGalleryPageProps):
     return {
       title: t("destTitle", { name: dest.title }),
       description: t("destDesc", { name: dest.title }),
+      alternates: getSeoAlternates(`/gallery/destination/${slug}`, locale),
     };
   } catch {
     return {
       title: t("notFoundTitle"),
       description: t("notFoundDestDesc"),
+      alternates: getSeoAlternates(`/gallery/destination/${slug}`, locale),
     };
   }
 }
@@ -57,8 +61,23 @@ export default async function DestinationGalleryPage({ params }: DestinationGall
     category: dest.title,
   }));
 
+  const gallerySchema = {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    name: `${dest.title} Photo Gallery`,
+    description: dest.summary,
+    image: dest.images || [],
+  };
+
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: locale === "ja" ? "ホーム" : "Home", url: `/${locale}` },
+    { name: locale === "ja" ? "観光スポット" : "Destinations", url: `/${locale}/destination` },
+    { name: `${dest.title} Gallery`, url: `/gallery/destination/${slug}` },
+  ]);
+
   return (
     <main className="min-h-screen bg-lanka-black">
+      <JsonLd schema={[gallerySchema, breadcrumbSchema]} />
       <GalleryHero
         backLink={dynamicBackLink}
         backLabel={dynamicBackLabel}

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { getLocale } from "next-intl/server";
 import BookingBody from "@/components/booking/BookingBody";
+import JsonLd from "@/components/seo/JsonLd";
+import { getTourSchema, getBreadcrumbSchema, getSeoAlternates } from "@/components/seo/schemas";
 // import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 // import { PromoModal } from "@/components/ui/PromoModal";
 import { packageDetailsService } from "@/services/Booking/packageDetails/packageDetailsService";
@@ -22,13 +24,7 @@ export async function generateMetadata({ params }: BookingPageProps): Promise<Me
     return {
       title: fullTitle,
       description: tour.leadDescription,
-      alternates: {
-        canonical: `/${locale}/booking/multi-days-tours/${tour.slug}`,
-        languages: {
-          en: `/en/booking/multi-days-tours/${tour.slug}`,
-          ja: `/ja/booking/multi-days-tours/${tour.slug}`,
-        },
-      },
+      alternates: getSeoAlternates(`/booking/multi-days-tours/${tour.slug}`, locale),
       openGraph: {
         title: fullTitle,
         description: tour.leadDescription,
@@ -61,9 +57,29 @@ export async function generateMetadata({ params }: BookingPageProps): Promise<Me
 
 export default async function BookingPage({ params }: BookingPageProps) {
   const { slug } = await params;
+  const locale = await getLocale();
+
+  let schemas: Array<Record<string, unknown>> = [];
+  try {
+    const tour = await packageDetailsService.getPackageBySlug(slug, locale).catch(() => null);
+    if (tour) {
+      const fullTitle = `${tour.title} ${tour.titleEmphasis || ""}`.trim();
+      schemas.push(getTourSchema(tour, locale));
+      schemas.push(
+        getBreadcrumbSchema([
+          { name: locale === "ja" ? "ホーム" : "Home", url: `/${locale}` },
+          { name: locale === "ja" ? "ツアー" : "Tours", url: `/${locale}/tours/multi-days` },
+          { name: fullTitle, url: `/${locale}/booking/multi-days-tours/${slug}` },
+        ])
+      );
+    }
+  } catch {
+    // Graceful fallback
+  }
 
   return (
     <>
+      {schemas.length > 0 && <JsonLd schema={schemas} />}
       <BookingBody slug={slug} tourType="multi" />
       {/* <ContainerLayout>
         <PromoModal />

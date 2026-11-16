@@ -1,8 +1,8 @@
 export default {
   Metadata: {
-    title: "Guest Journals",
+    title: "Traveler Reviews & Testimonials - Sri Lanka Private Tours | IkiSaki Tours",
     description:
-      "Discover reviews and travelogues from those who have visited Sri Lanka. We share authentic accounts covering World Heritage sites, breathtaking scenery, cultural experiences, and luxury travel.",
+      "Read authentic reviews, ratings, and travel feedback from international visitors who explored Sri Lanka with IkiSaki Tours' private drivers, bespoke journeys, and airport transfers.",
   },
   Hero: {
     badge: "Unfiltered Experiences",

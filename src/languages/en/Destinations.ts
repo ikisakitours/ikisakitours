@@ -1,9 +1,9 @@
 export default {
   Metadata: {
-    title: "Destinations",
+    title: "Best Places to Visit in Sri Lanka - Top Destinations & Attractions",
     description:
-      "Discover the best places to visit in Sri Lanka, from UNESCO World Heritage Sites and beautiful beaches to historic temples and lush green mountains. Explore our carefully selected destinations and find inspiration for your next journey.",
-    slugTitle: "{destinationName} Recommended tourist spots",
+      "Explore the ultimate Sri Lanka travel destinations: from the iconic Sigiriya Rock Fortress and misty tea hills of Ella to the historic Galle Fort and wildlife-rich Yala National Park. Plan your bespoke itinerary with IkiSaki Tours.",
+    slugTitle: "{destinationName} Travel Guide & Sightseeing Highlights | Sri Lanka",
     slugNotFoundTitle: "Destination Not Found",
     slugNotFoundDesc: "The requested destination could not be found.",
   },
@@ -54,6 +54,7 @@ export default {
     country: "Sri Lanka",
     bestTime: "Best Time",
     details: "Details",
+    imageAlt: "{title}, {province} - Sri Lanka Destination",
   },
   Slug: {
     backToDestinations: "Back to Destinations",
@@ -66,6 +67,7 @@ export default {
     explore: "Explore {name}",
     viewAll: "View all",
     viewGallery: "View Gallery",
+    photoAlt: "{name} Sri Lanka travel highlight photo {index}",
     highlight: "Highlights",
     destinationGuide: "Destination Guide",
     guideSubtitle: "Helpful info for your next vacation.",
@@ -89,6 +91,7 @@ export default {
     choosePlace: "Click on any destination to explore",
     loading: "Loading",
     explore: "Explore",
+    imageAlt: "{title} - Sri Lanka Tourist Destination",
     noDestinationsTitle: "no destinations found",
     noDestinationsDesc: "Your search criteria returned no locations. Please try resetting your search.",
     resetExploration: "Reset",

@@ -30,7 +30,7 @@ export default {
     },
     //new
     bgImagesAlt: {
-      sigiriyaView: "Aerial view of Sigiriya Rock Fortress at sunrise",
+      sigiriyaView: "Aerial sunrise view of Sigiriya Rock Fortress ancient citadel - Sri Lanka private tours",
     },
   },
   Discovery: {
@@ -103,17 +103,17 @@ export default {
         airportPickup: {
           title: "Airport Pick-Up",
           description: "Meet and greet arrival support at Bandaranaike International Airport.",
-          action: "Book Transfer",
+          action: "Book Arrival",
         },
         hotelCity: {
           title: "Hotel & City",
           description: "Private transfer between hotels, city stops, beaches, and heritage sites.",
-          action: "Book Transfer",
+          action: "Book Private Transfer",
         },
         dropOff: {
           title: "Airport Drop-Off",
           description: "Timed departure transfer with route planning for a calm airport arrival.",
-          action: "Book Transfer",
+          action: "Book Departure",
         },
       },
       trustBadges: {
@@ -147,7 +147,8 @@ export default {
         },
         flexibleTransparent: {
           title: "Flexible & Transparent",
-          description: "We provide price quotes tailored to your specific itinerary, with a guarantee of clear, transparent pricing and no hidden extra charges.",
+          description:
+            "We provide price quotes tailored to your specific itinerary, with a guarantee of clear, transparent pricing and no hidden extra charges.",
         },
       },
     },

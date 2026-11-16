@@ -1,9 +1,9 @@
 export default {
   MultiDay: {
     Metadata: {
-      title: "Sightseeing Tours",
+      title: "Sri Lanka Multi-Day Private Tours & Holiday Packages",
       description:
-        "Discover a selection of exclusive tour packages across Sri Lanka, curated by IkiSaki. Enjoy a premium travel experience as you explore historical heritage sites, lush natural landscapes, religious and cultural landmarks, and stunning coastal regions.",
+        "Discover curated multi-day tour packages across Sri Lanka with IkiSaki Tours. Explore UNESCO World Heritage sites, tea country highlands, wildlife safaris, and tropical beaches with your own dedicated private chauffeur.",
     },
     Hero: {
       badge: "Sightseeing - Tours",
@@ -17,9 +17,9 @@ export default {
   },
   OneDay: {
     Metadata: {
-      title: "One Day Tours",
+      title: "Sri Lanka Day Tours & Private Sightseeing Excursions",
       description:
-        "Experience the best of Sri Lanka—from World Heritage sites and breathtaking scenery to historic townscapes—all in a single day. Even with limited time, you can enjoy a special, memorable experience.",
+        "Experience the best of Sri Lanka in a single day. From Sigiriya Rock and Kandy Temple of the Tooth to Galle Fort and tea plantations, book private day tours tailored for maximum comfort and flexibility.",
     },
     Hero: {
       badge: "Quick Escapes",
@@ -78,6 +78,7 @@ export default {
     details: "Details",
     newBadge: "New",
     save: "Save {discount}%",
+    imageAlt: "{title} - Sri Lanka Tour Package | Ikisaki Tours",
     Badges: {
       popular: "Popular",
       discounted: "Discounted",

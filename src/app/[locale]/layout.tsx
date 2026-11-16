@@ -16,6 +16,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import { CurrencyProvider } from "@/context/CurrencyContext";
 import { Noto_Sans_JP, Noto_Serif_JP } from "next/font/google";
 import { addJaBreaks } from "@/lib/japaneseText";
+import { getSeoAlternates } from "@/components/seo/schemas";
 
 const notoSansJP = Noto_Sans_JP({
   variable: "--font-noto-sans-jp",
@@ -56,6 +57,38 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       template: t("titleTemplate"),
     },
     description: t("description"),
+    keywords:
+      locale === "ja"
+        ? [
+            "スリランカ旅行",
+            "スリランカ観光",
+            "スリランカ 専用車 チャーター",
+            "スリランカ プライベートツアー",
+            "スリランカ 専属ドライバー",
+            "スリランカ 空港送迎",
+            "スリランカ タクシーチャーター",
+            "スリランカ 周遊ツアー",
+            "スリランカ 日帰りツアー",
+            "シギリヤロック 日帰り",
+            "スリランカ オーダーメイド旅行",
+            "スリランカ 日本語ガイド",
+            "IkiSaki Tours",
+          ]
+        : [
+            "Sri Lanka private tours",
+            "Sri Lanka private driver",
+            "Sri Lanka chauffeur guide",
+            "Sri Lanka car charter",
+            "Sri Lanka airport transfer",
+            "Sri Lanka multi day tours",
+            "Sri Lanka day tours",
+            "tailor made Sri Lanka holidays",
+            "Bespoke Sri Lanka itineraries",
+            "Sigiriya day trip",
+            "Sri Lanka private taxi service",
+            "IkiSaki Tours",
+          ],
+    alternates: getSeoAlternates("", locale),
     other: {
       google: "notranslate",
     },
@@ -63,7 +96,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     openGraph: {
       title: t("titleDefault"),
       description: t("description"),
-      url: "/",
+      url: `https://www.ikisakitours.com/${locale}`,
       siteName: t("siteName"),
       images: [
         {

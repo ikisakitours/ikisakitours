@@ -34,7 +34,7 @@ export function BlogCard({ post, index }: BlogCardProps) {
         <div className="mb-6 h-20 w-20 overflow-hidden rounded-2xl border border-gold/20">
           <LoadingImage
             src={post.previewImage || "/images/default-blog.jpg"}
-            alt={post.title}
+            alt={t("imageAlt", { title: post.title })}
             width={160}
             height={160}
             watermarkClassName="text-[15px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"

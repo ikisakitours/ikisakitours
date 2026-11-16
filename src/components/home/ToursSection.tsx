@@ -73,9 +73,8 @@ export function ToursSection() {
   return (
     <section
       id="tours"
-      className={`bg-background ${
-        !isLoading && !error && !hasPackages ? "pt-8 pb-0 md:pt-12" : "py-12 md:py-20 xl:py-20 2xl:py-24 3xl:py-28"
-      }`}
+      className={`bg-background ${!isLoading && !error && !hasPackages ? "pt-8 pb-0 md:pt-12" : "py-12 md:py-20 xl:py-20 2xl:py-24 3xl:py-28"
+        }`}
     >
       {" "}
       <ContainerLayout>
@@ -105,22 +104,20 @@ export function ToursSection() {
           <Button
             variant="shine"
             onClick={() => setActiveTab("multi")}
-            className={`whitespace-nowrap px-3! py-2.5! sm:px-5! sm:py-3! lg:px-7! lg:py-3.5! transition-all duration-300 [&_span]:text-tiny! ${
-              activeTab === "multi"
-                ? "bg-gold! border-gold! shadow-[0_0_20px_rgba(197,160,89,0.4)] [&_span]:text-black!"
-                : "border-white/20 hover:border-gold/50 hover:bg-gold/10 [&_span]:text-white/70! hover:[&_span]:text-white!"
-            }`}
+            className={`whitespace-nowrap px-3! py-2.5! sm:px-5! sm:py-3! lg:px-7! lg:py-3.5! transition-all duration-300 [&_span]:text-tiny! ${activeTab === "multi"
+              ? "bg-gold! border-gold! shadow-[0_0_20px_rgba(197,160,89,0.4)] [&_span]:text-black!"
+              : "border-white/20 hover:border-gold/50 hover:bg-gold/10 [&_span]:text-white/70! hover:[&_span]:text-white!"
+              }`}
           >
             {t("multiDayBtn")}
           </Button>
           <Button
             variant="shine"
             onClick={() => setActiveTab("one")}
-            className={`whitespace-nowrap px-3! py-2.5! sm:px-5! sm:py-3! lg:px-7! lg:py-3.5! transition-all duration-300 [&_span]:text-tiny! ${
-              activeTab === "one"
-                ? "bg-gold! border-gold! shadow-[0_0_20px_rgba(197,160,89,0.4)] [&_span]:text-black!"
-                : "border-white/20 hover:border-gold/50 hover:bg-gold/10 [&_span]:text-white/70! hover:[&_span]:text-white!"
-            }`}
+            className={`whitespace-nowrap px-3! py-2.5! sm:px-5! sm:py-3! lg:px-7! lg:py-3.5! transition-all duration-300 [&_span]:text-tiny! ${activeTab === "one"
+              ? "bg-gold! border-gold! shadow-[0_0_20px_rgba(197,160,89,0.4)] [&_span]:text-black!"
+              : "border-white/20 hover:border-gold/50 hover:bg-gold/10 [&_span]:text-white/70! hover:[&_span]:text-white!"
+              }`}
           >
             {t("oneDayBtn")}
           </Button>
@@ -187,7 +184,7 @@ export function ToursSection() {
                       <div className="relative h-48 shrink-0 overflow-hidden sm:h-56 3xl:h-72">
                         <LoadingImage
                           src={item.heroImage}
-                          alt={item.title}
+                          alt={tCard("imageAlt", { title: item.title })}
                           fill
                           sizes="(min-width: 1280px) 25vw, 100vw"
                           className="object-cover opacity-70!  group-hover:scale-110"

@@ -36,7 +36,7 @@ export default function RecommendationCard({ item }: { item: RecommendationType 
         </div>
         <LoadingImage
           src={item.image}
-          alt={item.subtitle ? `${item.title} ${item.subtitle}` : item.title}
+          alt={t("recommendationAlt", { title: item.subtitle ? `${item.title} ${item.subtitle}` : item.title })}
           fill
           sizes="(min-width: 1280px) 380px, 85vw"
           wrapperClassName="w-full h-full"

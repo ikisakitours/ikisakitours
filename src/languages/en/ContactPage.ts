@@ -1,8 +1,8 @@
 export default {
   Metadata: {
-    title: "Contact Us - Get in Touch",
+    title: "Contact IkiSaki Tours - Inquire & Plan Your Sri Lanka Journey",
     description:
-      "Please feel free to contact IkiSaki Tours for any inquiries regarding travel to Sri Lanka, including private charter services, taxi services, airport transfers, or the arrangement of bespoke, tailor-made tours. We are here to help you plan a comfortable journey perfectly suited to your preferences.",
+      "Contact our Sri Lanka travel specialists for private tours, dedicated vehicle charters, Colombo airport transfers, or custom holiday itineraries. Fast response via WhatsApp (+94 75 797 2582) or Email.",
   },
   Hero: {
     eyebrow: "Start a Conversation",

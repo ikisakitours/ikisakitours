@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { Explorer } from "@/components/tours/Explorer";
 import { TourHero } from "@/components/tours/TourHero";
+import JsonLd from "@/components/seo/JsonLd";
+import { getBreadcrumbSchema, getSeoAlternates } from "@/components/seo/schemas";
 // import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 // import { PromoModal } from "@/components/ui/PromoModal";
 
@@ -11,14 +13,24 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: t("title"),
     description: t("description"),
+    alternates: getSeoAlternates("/tours/one-day", locale),
   };
 }
 
-export default function OneDayToursPage() {
+export default async function OneDayToursPage() {
+  const locale = await getLocale();
+  const tMeta = await getTranslations({ locale, namespace: "Tours.OneDay.Metadata" });
+
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: locale === "ja" ? "ホーム" : "Home", url: `/${locale}` },
+    { name: tMeta("title"), url: `/${locale}/tours/one-day` },
+  ]);
+
   return (
     <main className="min-h-screen bg-lanka-dark">
+      <JsonLd schema={breadcrumbSchema} />
       <TourHero namespace="Tours.OneDay" />
-      <Explorer  tourType="one" />
+      <Explorer tourType="one" />
 
       {/* <ContainerLayout>
         <PromoModal />

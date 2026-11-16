@@ -30,7 +30,7 @@ export default function InsightCard({ item }: { item: InsightType }) {
        {item.image ? (
   <LoadingImage
     src={item.image}
-    alt={item.title}
+    alt={t("insightAlt", { title: item.title })}
     fill
     sizes="(min-width: 1280px) 380px, 85vw"
     wrapperClassName="w-full h-full"

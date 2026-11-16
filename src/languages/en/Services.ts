@@ -1,19 +1,19 @@
 export default {
   Metadata: {
     Transfers: {
-      title: "Transfers",
+      title: "Sri Lanka Airport Transfers & Intercity Private Taxi Service",
       description:
-        "Book airport transfers, SriLanka hotel transfers, SriLanka private charter services, and SriLanka taxi services across Sri Lanka with IkiSaki Tours. Explore flexible transport options, check vehicle rates, and enjoy comfortable, reliable travel throughout the island.",
+        "Book reliable Sri Lanka airport transfers from Bandaranaike International Airport (CMB) to Colombo, Galle, Kandy, Sigiriya, and beyond. Enjoy comfortable, punctual private vehicle transfers with licensed professional drivers.",
     },
     PrivateVehicle: {
-      title: "private Taxi Service,private charter service,Private Chauffeur Service ",
+      title: "Sri Lanka Private Chauffeur & Dedicated Car Charter Service",
       description:
-        "Explore Sri Lanka freely with our private charter service. Our experienced professional drivers provide flexible transportation tailored to your itinerary and preferences. From airport transfers and hotel pickups to sightseeing and long-distance travel between cities, enjoy a comfortable, reliable, and hassle-free journey in your own private vehicle.",
+        "Hire a private car with driver in Sri Lanka. Our licensed, English-speaking chauffeurs offer flexible door-to-door transport, custom sightseeing, and seamless intercity travel across the island with zero hassle.",
     },
     Bespoke: {
-      title: "Custom-made travel support",
+      title: "Tailor-Made Sri Lanka Tours & Custom Private Itineraries",
       description:
-        "For a tailor-made trip to Sri Lanka, choose IkiSaki Tours. We offer a unique travel experience customized to your preferences and travel style, complete with private vehicle transport and the support of an experienced, multilingual driver for your sightseeing needs.",
+        "Plan your personalized Sri Lanka journey with IkiSaki Tours. We design bespoke private travel itineraries tailored to your dates, preferences, luxury stays, and sightseeing style with a dedicated private chauffeur.",
     },
   },
   Hero: {

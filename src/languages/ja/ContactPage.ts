@@ -1,8 +1,8 @@
 export default {
   Metadata: {
-    title: "お問い合わせ - ご連絡ください",
+    title: "お問い合わせ・ツアー無料相談・お見積り | IkiSaki Tours",
     description:
-      "スリランカ旅行に関するお問い合わせ、スリランカのプライベートチャーターサービスやタクシーサービス、空港送迎、オーダーメイドツアーのご相談は、IkiSaki Toursまでお気軽にご連絡ください。お客様のご希望に合わせた快適な旅の計画をサポートいたします。",
+      "スリランカ旅行の専用車チャーター、プライベートツアー、空港送迎、オーダーメイドプランのお見積もり・ご相談はこちらから。日本人旅行者向けサポート、LINE・WhatsApp（+94 75 797 2582）でもお気軽にお問い合わせください。",
   },
   Hero: {
     eyebrow: "会話を始める",
@@ -11,7 +11,7 @@ export default {
     strapline: "何でもご相談ください。",
     image: "/ikisaki-images/Contact/sri-lanka-tropical-sunset-palm-trees.webp",
     altText:
-      "Breathtaking tropical sunset over the ocean framed by silhouette palm tree leaves on a sandy beach in Sri Lanka",
+      "夕暮れ時のスリランカの砂浜とヤシの木のシルエットが美しいトロピカルサンセット絶景",
   },
   IntroCard: {
     badge: "会話を始めましょう",
@@ -22,31 +22,31 @@ export default {
     slides: [
       {
         image: "/ikisaki-images/Contact/slider/sri-lanka-wild-elephants-grassland.webp",
-        alt: "Wild elephants grazing on a green grassland near a lake during a wildlife safari in Sri Lanka",
+        alt: "スリランカのサファリツアーで湖畔の草原で草を食む野生の象の群れ",
         badge: "専門家のアドバイス",
         desc: "個別プランニング、迅速な対応、実践的なご案内",
       },
       {
         image: "/ikisaki-images/Contact/slider/sigiriya-rock-fortress-distant-view.webp",
-        alt: "Scenic distant view of the historic Sigiriya Rock Fortress rising above the green forest canopy in Sri Lanka",
+        alt: "緑の森林キャノピーの上にそびえ立つ世界遺産シーギリヤ・ロック古代遺跡の遠景",
         badge: "オーダーメイドのルート",
         desc: "ご希望をお聞かせいただければ、最適な旅をコーディネートいたします",
       },
       {
         image: "/ikisaki-images/Contact/slider/sri-lanka-elephants-bathing-river-pinnawala.webp",
-        alt: "Herd of elephants bathing and splashing in a tropical river surrounded by lush greenery in Sri Lanka",
+        alt: "ピンナワラの熱帯の川で水浴びを楽しむスリランカ象の群れ",
         badge: "シームレスな移動",
         desc: "ご旅行に最適な、信頼できるドライバーと快適な車両",
       },
       {
         image: "/ikisaki-images/Contact/slider/tropical-beach-sunbeds-umbrella-sri-lanka.webp",
-        alt: "Relaxing wooden sunbeds and white umbrella on a pristine tropical beach overlooking the ocean in Sri Lanka",
+        alt: "穏やかな青い海を望むスリランカのプライベートビーチのサンベッドと白いパラソル",
         badge: "厳選されたブティックステイ",
         desc: "お客様のスタイルに合わせて厳選されたホテルやリゾート",
       },
       {
         image: "/ikisaki-images/Contact/slider/yala-national-park-safari-jeep-elephant.webp",
-        alt: "Wildlife safari experience with tourists observing a wild elephant from a safari jeep in Sri Lanka",
+        alt: "ヤーラ国立公園のサファリジープから野生の象を観察する観光客の体験",
         badge: "忘れられないサファリ体験",
         desc: "専門の自然ガイドと巡る、スリル満点の野生動物との出会い",
       },

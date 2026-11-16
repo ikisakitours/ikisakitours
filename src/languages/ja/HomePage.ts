@@ -31,7 +31,7 @@ export default {
     },
     //new
     bgImagesAlt: {
-      sigiriyaView: "Aerial view of Sigiriya Rock Fortress at sunrise",
+      sigiriyaView: "朝日に輝く世界遺産シーギリヤ・ロック古代遺跡の空撮絶景 - スリランカ観光ツアー",
     },
   },
   Discovery: {
@@ -89,8 +89,8 @@ export default {
     imagesAlt: {
       //new
       culturalGuide:
-        "A traveler on a scenic mountain swing overlooking the lush green tea plantations and hills in Ella, Sri Lanka",
-      luxuryTravel: "Scenic view of a tropical beach resort and palm trees along the coast of Sri Lanka",
+        "スリランカ・エッラの美しい茶畑と緑豊かな山々を見渡す絶景スイングを楽しむ旅行者 - スリランカ観光",
+      luxuryTravel: "スリランカ南海岸の美しいトロピカルビーチとヤシの木のラグジュアリーリゾート絶景",
     },
   },
   Services: {
@@ -104,17 +104,17 @@ export default {
         airportPickup: {
           title: "空港送迎",
           description: "バンダラナイケ国際空港での到着時の出迎えサポート。",
-          action: "送迎を予約する",
+          action: "空港お迎えを予約",
         },
         hotelCity: {
           title: "ホテル・都市",
           description: "ホテル、市内の観光スポット、ビーチ、世界遺産などへの専用送迎サービス。",
-          action: "送迎を予約する",
+          action: "プライベート送迎を予約",
         },
         dropOff: {
           title: "空港へのお送り",
           description: "フライト時刻に合わせた時間指定の空港送迎で、余裕を持って安心してご出発いただけます。",
-          action: "送迎を予約する",
+          action: "空港お送りを予約",
         },
       },
       trustBadges: {
@@ -139,7 +139,7 @@ export default {
         "こんにちは、IkiSaki Toursさん！ スリランカ旅行のために専用車（チャーター車）とドライバーの利用を検討しています。サービスの詳細や空き状況について教えていただけますか？",
       imagesAlt: {
         luxuryVan:
-          "Explore the scenic Nine Arch Bridge in Ella comfortably with our private vehicle and chauffeur service in Sri Lanka",
+          "スリランカ・エッラの世界的に有名なナインアーチブリッジを専用車チャーターと専属ドライバーで快適に巡る旅",
       },
       features: {
         itineraryControl: {
@@ -221,10 +221,10 @@ export default {
     supportText: "24時間365日のサポート",
     imagesAlt: {
       mainExperience:
-        "Stunning aerial drone view of white waves crashing onto a golden sandy beach with traditional fishing boats in Sri Lanka",
+        "スリランカの黄金の砂浜に打ち寄せる波と伝統的な漁船の息をのむような空撮ドローン絶景",
       detailShot:
-        "High-angle view of the historic Nine Arch Bridge surrounded by lush green jungle forests in Ella, Sri Lanka",
-      userAvatar: "Explorer Avatar",
+        "スリランカ・エッラの緑豊かなジャングルに囲まれた歴史的なナインアーチブリッジ（九連橋）の高所パノラマ絶景",
+      userAvatar: "旅行者アバター",
     },
   },
 } as const;
