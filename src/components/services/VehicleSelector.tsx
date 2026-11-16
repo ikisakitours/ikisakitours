@@ -177,11 +177,11 @@ export function VehicleSelector({
       {/* Messages Section */}
       {showDriverIncludedNote ? (
         /* Private Vehicle Layout */
-        <div className="mt-8 space-y-4">
+        <div className="mt-6 space-y-6">
           {matchedServiceNote && (
-            <div className="flex flex-col rounded-xl border border-gold/30 bg-linear-to-br from-gold/10 to-transparent px-4 sm:px-6 py-5 w-full shadow-lg">
+            <div className="flex flex-col w-full">
               {/* Data Points - Using Reusable Component */}
-              <div className="flex flex-wrap justify-center gap-y-4 sm:gap-y-5 gap-x-2 sm:gap-x-4">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4 w-full">
                 {/* 1. Price */}
                 <VehicleDataPoint
                   icon={Tag}
@@ -396,7 +396,7 @@ export function VehicleSelector({
               })()}
               {/* Tourist Note  */}
               {matchedServiceNote.notes && matchedServiceNote.notes.length > 0 && (
-                <div className="mt-5 pt-4 border-t border-gold/15 w-full text-left flex flex-col items-start">
+                <div className="mt-6 pt-5 border-t border-white/10 w-full text-left flex flex-col items-start">
                   <div className="flex items-center gap-1.5 mb-2.5">
                     <span className="text-[15px]">📌</span>
                     <span className="text-gold font-bold uppercase tracking-widest text-caption">{tVeh("note")}</span>

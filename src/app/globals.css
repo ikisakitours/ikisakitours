@@ -826,3 +826,7 @@ textarea {
 :lang(ja) .assuranceBadges {
   white-space: nowrap !important;
 }
+
+:lang(ja) .Preloader-text {
+  white-space: nowrap !important;
+}

@@ -137,6 +137,11 @@ export default async function RootLayout({
   console.log("🔥 RootLayout resolved locale ->", resolvedParams.locale);
   const cookieStore = await cookies();
   const hasSeenPreloader = cookieStore.has("preloader_seen");
+
+  // ⚠️ Set to true during UI testing so the preloader always shows without clearing cookies.
+  // Set to false for normal production behavior.
+  // const IS_PRELOADER_TEST_MODE = false;
+
   return (
     <html
       lang={locale}
@@ -145,6 +150,9 @@ export default async function RootLayout({
       data-scroll-behavior="smooth"
       className={`${plusJakarta.variable} ${playfair.variable} ${notoSansJP.variable} ${notoSerifJP.variable} h-full scroll-smooth antialiased notranslate`}
     >
+      <head>
+        <link rel="preload" href="/images/preloader.webp" as="image" type="image/webp" fetchPriority="high" />
+      </head>
       <body className="min-h-full bg-lanka-dark text-slate-200 notranslate">
         <NextIntlClientProvider messages={messages}>
           <ToastProvider>
