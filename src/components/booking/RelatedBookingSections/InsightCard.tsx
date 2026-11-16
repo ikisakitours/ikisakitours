@@ -27,18 +27,18 @@ export default function InsightCard({ item }: { item: InsightType }) {
             {item.category}
           </span>
         </div>
-       {item.image ? (
-  <LoadingImage
-    src={item.image}
-    alt={t("insightAlt", { title: item.title })}
-    fill
-    sizes="(min-width: 1280px) 380px, 85vw"
-    wrapperClassName="w-full h-full"
-    className="image-render-visible object-cover opacity-70! group-hover:scale-110"
-  />
-) : (
-  <div className="h-full w-full bg-linear-to-br from-gold/10 via-white/5 to-transparent" />
-)}
+        {item.image ? (
+          <LoadingImage
+            src={item.image}
+            alt={t("insightAlt", { title: item.title })}
+            fill
+            sizes="(min-width: 1280px) 380px, 85vw"
+            wrapperClassName="w-full h-full"
+            className="image-render-visible object-cover opacity-70! group-hover:scale-110"
+          />
+        ) : (
+          <div className="h-full w-full bg-linear-to-br from-gold/10 via-white/5 to-transparent" />
+        )}
       </div>
 
       <div className="flex grow flex-col p-6">

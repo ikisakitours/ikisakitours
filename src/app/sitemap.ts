@@ -3,7 +3,6 @@ import { apiResponseEvents } from "@/data/specialEvents";
 import { packageSummaryService } from "@/services/tours/packageSummaryService";
 import { fetchBlogServices } from "@/services/blogs/fetchBlogServices";
 import { fetchDestinationServices } from "@/services/destinations/fetchDestinationServices";
-import { reviewService } from "@/services/Booking/packageAllReview/FetchReviewService";
 
 const BASE_URL = "https://www.ikisakitours.com";
 const LOCALES = ["en", "ja"] as const;
@@ -13,6 +12,16 @@ interface RouteDefinition {
   priority: number;
   changeFrequency: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
   lastModified?: Date;
+}
+
+// Timeout helper to ensure build steps never block or hang Vercel builds
+function withTimeout<T>(promise: Promise<T>, timeoutMs: number = 8000): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) =>
+      setTimeout(() => reject(new Error(`Timeout after ${timeoutMs}ms`)), timeoutMs)
+    ),
+  ]);
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -41,10 +50,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 4. Dynamic Pages (Multi-day Tours, One-day Tours, Blogs, Destinations, Events)
   try {
     const [multiDayRes, oneDayRes, blogsRes, destinationsRes] = await Promise.allSettled([
-      packageSummaryService.getSummaries("multiday", 1, 100, "en").catch(() => null),
-      packageSummaryService.getSummaries("oneday", 1, 100, "en").catch(() => null),
-      fetchBlogServices.getBlogPreviews("en").catch(() => null),
-      fetchDestinationServices.getDestinationPreviews("en").catch(() => null),
+      withTimeout(packageSummaryService.getSummaries("multiday", 1, 100, "en")),
+      withTimeout(packageSummaryService.getSummaries("oneday", 1, 100, "en")),
+      withTimeout(fetchBlogServices.getBlogPreviews("en")),
+      withTimeout(fetchDestinationServices.getDestinationPreviews("en")),
     ]);
 
     // Multi-day Tour Packages
@@ -66,32 +75,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.75,
             changeFrequency: "monthly",
           });
-          // Package Guest Review & Moments Gallery
-          routes.push({
-            path: `/gallery/${tour.slug}?filter-multi-days-tours=all-moments`,
-            priority: 0.75,
-            changeFrequency: "monthly",
-          });
-
-          // Specific User Review Image Galleries
-          if (tour.id) {
-            try {
-              const reviews = await reviewService.getReviewsByPackageId(tour.id).catch(() => []);
-              const reviewsWithImages = (reviews || []).filter(
-                (r) => Array.isArray(r.imageUrls) && r.imageUrls.length > 0
-              );
-              for (const r of reviewsWithImages) {
-                const reviewKey = r.id || encodeURIComponent(r.fullName.toLowerCase().trim());
-                routes.push({
-                  path: `/gallery/${tour.slug}?filter-multi-days-tours=review-${reviewKey}&from=reviews`,
-                  priority: 0.65,
-                  changeFrequency: "monthly",
-                });
-              }
-            } catch {
-              // Graceful fallback if reviews cannot be fetched
-            }
-          }
         }
       }
     }
@@ -115,32 +98,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.75,
             changeFrequency: "monthly",
           });
-          // Package Guest Review & Moments Gallery
-          routes.push({
-            path: `/gallery/${tour.slug}?filter-one-day-tours=all-moments`,
-            priority: 0.75,
-            changeFrequency: "monthly",
-          });
-
-          // Specific User Review Image Galleries
-          if (tour.id) {
-            try {
-              const reviews = await reviewService.getReviewsByPackageId(tour.id).catch(() => []);
-              const reviewsWithImages = (reviews || []).filter(
-                (r) => Array.isArray(r.imageUrls) && r.imageUrls.length > 0
-              );
-              for (const r of reviewsWithImages) {
-                const reviewKey = r.id || encodeURIComponent(r.fullName.toLowerCase().trim());
-                routes.push({
-                  path: `/gallery/${tour.slug}?filter-one-day-tours=review-${reviewKey}&from=reviews`,
-                  priority: 0.65,
-                  changeFrequency: "monthly",
-                });
-              }
-            } catch {
-              // Graceful fallback if reviews cannot be fetched
-            }
-          }
         }
       }
     }
