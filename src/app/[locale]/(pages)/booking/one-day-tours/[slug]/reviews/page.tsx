@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";
 import ReviewsBody from "@/components/booking/bookingReviews/ReviewsBody";
 import { packageDetailsService } from "@/services/Booking/packageDetails/packageDetailsService";
+import JsonLd from "@/components/seo/JsonLd";
+import { getBreadcrumbSchema, getSeoAlternates } from "@/components/seo/schemas";
 
 type BookingReviewsPageProps = {
   params: Promise<{ slug: string; locale?: string }>;
@@ -28,10 +30,25 @@ export async function generateMetadata({ params }: BookingReviewsPageProps): Pro
   return {
     title: t("reviewTitle", { tourName }),
     description: t("reviewDescription", { tourName }),
+    alternates: getSeoAlternates(`/booking/one-day-tours/${slug}/reviews`, locale),
   };
 }
 
 export default async function BookingReviewsPage({ params }: BookingReviewsPageProps) {
   const { slug } = await params;
-  return <ReviewsBody slug={slug} tourType="one" />;
+  const locale = await getLocale();
+
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: locale === "ja" ? "ホーム" : "Home", url: `/${locale}` },
+    { name: locale === "ja" ? "日帰りツアー" : "One Day Tours", url: `/${locale}/tours/one-day` },
+    { name: slug, url: `/${locale}/booking/one-day-tours/${slug}` },
+    { name: locale === "ja" ? "レビュー" : "Reviews", url: `/${locale}/booking/one-day-tours/${slug}/reviews` },
+  ]);
+
+  return (
+    <>
+      <JsonLd schema={breadcrumbSchema} />
+      <ReviewsBody slug={slug} tourType="one" />
+    </>
+  );
 }

@@ -35,6 +35,8 @@ export default {
     readArticle: "記事を読む",
     details: "詳細",
     startingFrom: "開始価格",
+    insightAlt: "{title} - スリランカ旅行のヒント | イキサキ・ツアーズ",
+    recommendationAlt: "{title} - スリランカツアーパッケージ",
   },
   Cta: {
     title: "IkiSakiの旅を体験しましたか？",
@@ -103,6 +105,7 @@ export default {
   CoveredDestinations: {
     title: "対象目的地",
     description: "この旅で訪れる場所をご覧ください。目的地をクリックすると、詳細情報が表示されます。",
+    imageAlt: "{title} - スリランカ観光名所",
   },
   Description: {
     title: "詳細説明",
@@ -175,6 +178,7 @@ export default {
   },
   Gallery: {
     viewGallery: "ギャラリーを見る",
+    imageAlt: "{title} - スリランカツアー写真 {index} | イキサキ・ツアーズ",
   },
   ActivityDetails: {
     title: "このアクティビティについて",

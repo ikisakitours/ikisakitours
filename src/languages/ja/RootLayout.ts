@@ -1,9 +1,9 @@
 export default {
   Metadata: {
-    titleDefault: "プレミアム スリランカ プライベートツアー | IkiSaki Tours",
+    titleDefault: "スリランカ旅行・専用車プライベートツアー＆送迎手配 | IkiSaki Tours",
     titleTemplate: "%s | IkiSaki Tours",
     description:
-      "スリランカ全土で、上質なプライベートツアー、チャーターサービス、送迎サービス、旅行パッケージ、多言語対応のきめ細やかな旅行サポートをご提供します。",
-    siteName: "IkiSaki Tours ツアー",
+      "スリランカ全土の上質な専用車チャーター、安心のプライベートツアー、空港送迎、オーダーメイド個人旅行を手配。多言語対応ドライバーと共に安心で特別な旅をお届けします。",
+    siteName: "IkiSaki Tours",
   },
 } as const;

@@ -1,8 +1,8 @@
 export default {
   Metadata: {
-    title: "About Us - Discover Our Story & Vision",
+    title: "About IkiSaki Tours - Premier Sri Lanka Travel & Chauffeur Agency",
     description:
-      "IkiSaki Tours offers a range of services across Sri Lanka, including reliable private driver services, vehicle charters, guided tours, airport transfers, and bespoke travel experiences tailored to your individual preferences. With your own dedicated driver, you can explore beautiful beaches, cultural landmarks, UNESCO World Heritage sites, and even lesser-known hidden gems—all in complete comfort. Whether you need a short trip or a multi-day journey, we provide flexible transportation solutions designed to fit your specific travel plans. Enjoy a Sri Lanka experience that is uniquely yours with IkiSaki Tours.",
+      "Learn about IkiSaki Tours, Sri Lanka's trusted boutique travel operator. We provide professional chauffeur drivers, dedicated private vehicle charters, airport transfers, and tailor-made journeys designed around your unique travel style.",
   },
   Hero: {
     image: "/ikisaki-images/about/polonnaruwa-vatadage-ancient-ruins-sri-lanka.webp",
@@ -98,7 +98,7 @@ export default {
   Leadership: {
     title: "Our Leadership",
     name: "Navimana Pathirana",
-    alt: "Ikisaki-Tours-Founder-&-CEO",
+    alt: "Navimana Pathirana - Founder & CEO of Ikisaki Tours Sri Lanka",
     role: "FOUNDER & CEO",
     bio: "Directing the custom travel experiences at IkiSaki Tours. Danuja is dedicated to integrating technology and local hospitality to deliver seamless, personalized itineraries to guests visiting Sri Lanka.",
   },

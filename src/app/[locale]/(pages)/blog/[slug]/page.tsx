@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { fetchBlogServices } from "@/services/blogs/fetchBlogServices";
 import { SingleBlogClientWrapper } from "@/components/blog/SingleBlogClientWrapper";
 import { getTranslations } from "next-intl/server";
+import JsonLd from "@/components/seo/JsonLd";
+import { getBlogPostSchema, getBreadcrumbSchema, getSeoAlternates } from "@/components/seo/schemas";
 
 type BlogDetailPageProps = {
   params: Promise<{
@@ -21,13 +23,7 @@ export async function generateMetadata({ params }: BlogDetailPageProps): Promise
     return {
       title: post.title,
       description: post.summary,
-      alternates: {
-        canonical: `/${locale}/blog/${post.slug}`,
-        languages: {
-          en: `/en/blog/${post.slug}`,
-          ja: `/ja/blog/${post.slug}`,
-        },
-      },
+      alternates: getSeoAlternates(`/blog/${post.slug}`, locale),
       openGraph: {
         title: post.title,
         description: post.summary,
@@ -63,9 +59,28 @@ export async function generateMetadata({ params }: BlogDetailPageProps): Promise
 // Main Page එක
 export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   const { slug } = await params;
+  const locale = await getLocale();
+
+  let schemas: Array<Record<string, unknown>> = [];
+  try {
+    const post = await fetchBlogServices.getBlogPostBySlug(slug, locale).catch(() => null);
+    if (post) {
+      schemas.push(getBlogPostSchema(post, locale));
+      schemas.push(
+        getBreadcrumbSchema([
+          { name: locale === "ja" ? "ホーム" : "Home", url: `/${locale}` },
+          { name: locale === "ja" ? "ジャーナル" : "Journal", url: `/${locale}/blog` },
+          { name: post.title, url: `/${locale}/blog/${slug}` },
+        ])
+      );
+    }
+  } catch {
+    // Graceful fallback
+  }
 
   return (
     <main className="min-h-screen bg-lanka-dark">
+      {schemas.length > 0 && <JsonLd schema={schemas} />}
       <SingleBlogClientWrapper slug={slug} />
     </main>
   );

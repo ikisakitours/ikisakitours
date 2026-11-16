@@ -1,9 +1,9 @@
 export default {
   Metadata: {
-    titleDefault: "Premium Sri Lanka Private Tours & Charter services | IkiSaki Tours",
+    titleDefault: "Sri Lanka Private Tours, Chauffeur Driver & Bespoke Travel | IkiSaki Tours",
     titleTemplate: "%s | IkiSaki Tours",
     description:
-      "Across Sri Lanka, we offer high-quality private tours, charter services, transfers, travel packages, and attentive, multilingual travel support.",
+      "Explore Sri Lanka with premier private chauffeur tours, airport transfers, customizable multi-day itineraries, and 24/7 multilingual travel support across the island.",
     siteName: "IkiSaki Tours",
   },
 } as const;

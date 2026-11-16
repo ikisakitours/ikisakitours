@@ -25,7 +25,7 @@ export default {
     Gateway: {
       image: "/ikisaki-images/Auth/sign-up/heritance-tea-factory-nuwara-eliya.webp",
       imageAlt:
-        "The historic Heritance Tea Factory hotel perched among rolling green tea plantations in Kandapola, Nuwara Eliya, Sri Lanka",
+        "ヌワラエリヤ・カンダポラの広大な緑の茶畑に佇む歴史ある名門ホテル「ヘリタンス・ティーファクトリー」",
       eyebrow: "IkiSakiへようこそ",
       title: "ここから始まる、",
       accent: "あなただけの旅",
@@ -33,7 +33,7 @@ export default {
     },
     Signup: {
       image: "/ikisaki-images/Auth/sign-up/sri-lanka-hill-country-tea-plantation.webp",
-      imageAlt: "A breathtaking panoramic view of lush green tea plantation hills under a blue sky in Sri Lanka",
+      imageAlt: "澄み渡る青空の下に広がるスリランカ高地のエメラルドグリーンの茶畑パノラマビュー",
       eyebrow: "メンバー特典",
       title: "上質な旅への",
       accent: "第一歩",
@@ -41,7 +41,7 @@ export default {
     },
     Login: {
       image: "/ikisaki-images/Auth/login/luxury-resort-pool-sunset-sri-lanka.webp",
-      imageAlt: "Relaxing infinity pool reflecting a vibrant sunset sky at a luxury tropical resort in Sri Lanka",
+      imageAlt: "夕焼け空が水面に映るスリランカの高級トロピカルリゾートのインフィニティプール",
       eyebrow: "プレミアムトラベル",
       title: "楽園の魅力を",
       accent: "巡る旅",
@@ -49,7 +49,7 @@ export default {
     },
     Recovery: {
       image: "/ikisaki-images/Auth/confirm-email/sigiriya-ancient-ruins-aerial-view.webp",
-      imageAlt: "Aerial drone view of the ancient archaeological royal palace ruins atop Sigiriya Rock in Sri Lanka",
+      imageAlt: "世界遺産シーギリヤ・ロック頂上に残る古代宮殿遺跡のドローン空撮パノラマ",
       eyebrow: "セキュリティ・ファースト",
       title: "アクセスを安全に",
       accent: "保護",
@@ -57,7 +57,7 @@ export default {
     },
     Reset: {
       image: "/ikisaki-images/Auth/password-change/sri-lanka-mountain-sunrise-mist.webp",
-      imageAlt: "Breathtaking view of misty mountain ranges and hills during sunrise in Sri Lanka",
+      imageAlt: "日の出の朝霧に包まれたスリランカ中央高地の雄大な山並みと連峰の絶景",
       eyebrow: "新たな始まり",
       title: "アカウントを",
       accent: "安全に保護",

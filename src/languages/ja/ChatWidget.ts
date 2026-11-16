@@ -78,23 +78,23 @@ export default {
 chatWidgetImages: [
   {
     image: "/ikisaki-images/chat-bot/nine-arch-bridge-ella-blue-train-sri-lanka.webp",
-    alt: "The iconic blue train crossing the historic Nine Arch Bridge amidst lush green forests in Ella, Sri Lanka"
+    alt: "スリランカ・エッラの緑豊かな森とナインアーチブリッジを渡る人気の青い高原列車"
   },
   {
     image: "/ikisaki-images/chat-bot/sri-lanka-tea-plantation-sunrise-mist.webp",
-    alt: "Golden sunrise breaking over the misty green terraced hills of a tea plantation in Sri Lanka"
+    alt: "朝霧に包まれたスリランカの紅茶畑の段々畑に昇る黄金色の美しい日の出"
   },
   {
     image: "/ikisaki-images/chat-bot/oceanfront-dining-terrace-rocky-beach-sri-lanka.webp",
-    alt: "Outdoor dining tables and chairs overlooking the blue ocean waves and rocky shoreline in Sri Lanka"
+    alt: "青いインド洋の波と海岸線を望むスリランカのオープンエア・オーシャンフロントダイニング"
   },
   {
     image: "/ikisaki-images/chat-bot/luxury-boutique-villa-pool-night-sri-lanka.webp",
-    alt: "Illuminated swimming pool and traditional architecture of a luxury boutique villa at night in Sri Lanka"
+    alt: "ライトアップされたプールと伝統建築が美しいスリランカの高級ラグジュアリーブティックヴィラ"
   },
   {
     image: "/ikisaki-images/chat-bot/sri-lanka-coastal-island-suspension-bridge.webp",
-    alt: "Pedestrian suspension bridge leading to a scenic temple island on the sandy coast of Sri Lanka"
+    alt: "スリランカ沿岸の砂浜から美しい海の寺院へと続く木造の吊り橋"
   }
 ]
 } as const;

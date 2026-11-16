@@ -1,13 +1,13 @@
 export default {
   Metadata: {
-    title: "私たちについて ― 私たちの歩みとビジョンを知る",
+    title: "私たちについて - スリランカ専門旅行会社 | IkiSaki Tours",
     description:
-      "IkiSaki Toursでは、スリランカ全土において、信頼性の高いプライベート・ドライバー・サービス、スリランカチャーターサービス、スリランカツアー、空港送迎、そしてお客様一人ひとりに合わせた特別な旅の体験をご提供しています。専用ドライバーと共に、美しいビーチや文化的な名所、ユネスコ世界遺産、さらには知られざる隠れた名所を、快適に巡ってみませんか。短距離の移動から数日間にわたる旅まで、お客様の旅行プランに合わせて柔軟な移動手段をご用意いたします。IkiSaki Toursと共に、あなたらしいスリランカの旅をお楽しみください。",
+      "IkiSaki Toursはスリランカ全土で上質な専用車チャーター、専属ドライバーサービス、空港送迎、オーダーメイド個人旅行を手掛ける現地旅行会社です。お客様の安心・安全を最優先に、心に残る特別なスリランカの旅をお届けします。",
   },
   Hero: {
     image: "/ikisaki-images/about/polonnaruwa-vatadage-ancient-ruins-sri-lanka.webp",
     altText:
-      "Ancient ruins of the Polonnaruwa Vatadage historic site showcasing intricate stone carvings and architecture in Sri Lanka",
+      "スリランカのポロンナルワ古代遺跡ワタダーゲの精緻な石彫と歴史的建築物 - イキサキ・ツアーズ",
     eyebrow: "私たちの歩みを知る",
     title: "スリランカの真の魅力を発見する",
     accent: "真の魅力",
@@ -23,31 +23,31 @@ export default {
     slides: [
       {
         image: "/ikisaki-images/about/slider/sri-lanka-lush-waterfall-nature.webp",
-        alt: "Breathtaking view of a cascading waterfall flowing through lush green tropical forests in Sri Lanka",
+        alt: "スリランカの緑豊かな熱帯雨林を流れる息をのむような美しい滝の絶景",
         badge: "自然の逃避行",
         desc: "スリランカの息をのむような風景と豊かな水流に浸る",
       },
       {
         image: "/ikisaki-images/about/slider/sri-lanka-tea-plantation-landscape.webp",
-        alt: "Vibrant green tea estate hills under a bright blue sky with fluffy clouds in Sri Lanka",
+        alt: "青空と白い雲が広がるスリランカ中央高地の鮮やかな緑の紅茶畑",
         badge: "高原の美しさ",
         desc: "中央高地の霧に包まれたエメラルドグリーンの丘陵地帯を巡る",
       },
       {
         image: "/ikisaki-images/about/slider/yala-national-park-leopard-safari-sri-lanka.webp",
-        alt: "Wild Sri Lankan leopard walking through the dry zone during a wildlife safari in Yala National Park",
+        alt: "ヤーラ国立公園のサファリツアーで遭遇した野生のスリランカヒョウ",
         badge: "野生動物との出会い",
         desc: "専門の地元自然ガイドと共にスリリングなサファリを体験する",
       },
       {
         image: "/ikisaki-images/about/slider/sri-lanka-luxury-villa-poolside.webp",
-        alt: "Relaxing infinity swimming pool surrounded by tropical palm trees at a luxury boutique villa in Sri Lanka",
+        alt: "熱帯のヤシの木に囲まれたスリランカの高級ラグジュアリーブティックヴィラのインフィニティプール",
         badge: "ブティックステイ",
         desc: "極上の快適さを誇る高級リゾートやヴィラで心からリラックスする",
       },
       {
         image: "/ikisaki-images/about/slider/sri-lanka-stilt-fishermen-sunset.webp",
-        alt: "Traditional stilt fishermen working along the golden southern coast of Sri Lanka during sunset",
+        alt: "夕暮れ時のスリランカ南海岸で夕日を背景に伝統的な棒釣り（スティルトフィッシング）を行う漁師",
         badge: "地元の文化",
         desc: "島の時代を超えた美しい沿岸部の伝統と直接触れ合う",
       },
@@ -89,7 +89,7 @@ export default {
   Leadership: {
     title: "リーダーシップ",
     name: "ナヴィマナ・パティラナ", 
-    alt: "イキサキ・ツアーズ創設者兼CEO",
+    alt: "イキサキ・ツアーズ創業者兼代表取締役 ナヴィマナ・パティラナ - スリランカ旅行プライベートツアー",
     role: "創業者兼代表取締役",
     bio: "IkiSaki Toursでのカスタム旅行体験を指揮しています。テクノロジーと地元のおもてなしを統合し、スリランカを訪れるゲストにシームレスでパーソナライズされた旅程を提供することに専念しています。",
   },

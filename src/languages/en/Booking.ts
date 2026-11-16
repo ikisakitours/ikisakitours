@@ -36,6 +36,8 @@ export default {
     readArticle: "Read Article",
     details: "Details",
     startingFrom: "Starting from",
+    insightAlt: "{title} - Sri Lanka Travel Tip | Ikisaki Tours",
+    recommendationAlt: "{title} - Sri Lanka Tour Package",
   },
   Cta: {
     title: "Lived an IkiSaki Story?",
@@ -105,6 +107,7 @@ export default {
   CoveredDestinations: {
     title: "Covered Destinations",
     description: "Explore the places you will visit on this journey. Click any destination to view details.",
+    imageAlt: "{title} - Sri Lanka Tour Attraction",
   },
   Description: {
     title: "Full description",
@@ -178,6 +181,7 @@ export default {
   },
   Gallery: {
     viewGallery: "View Gallery",
+    imageAlt: "{title} - Sri Lanka Tour Photo {index} | Ikisaki Tours",
   },
   ActivityDetails: {
     title: "About this activity",

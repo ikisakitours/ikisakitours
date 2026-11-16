@@ -1,7 +1,8 @@
 export default {
   Metadata: {
-    title: "文化祭と特別イベント",
-    description: "スリランカの最も壮大な文化的なページェントや生放送に浸ってください。",
+    title: "スリランカの祭り・文化イベント・ペラヘラ祭ガイド | IkiSaki Tours",
+    description:
+      "キャンディのエサラ・ペラヘラ祭、ゴール文学祭、ウェサック祭など、スリランカを代表する伝統的な祭りや特別イベントをご紹介。観覧席の手配や専用車送迎もお任せください。",
   },
   Hero: {
     eyebrow: "文化の祭典とライブ",
@@ -44,10 +45,12 @@ export default {
       title: "現在利用できるイベントはありません",
       description: "エキサイティングな新しいイベントやお祝いの準備をしています。後でもう一度チェックしてください！",
     },
+    cardImageAlt: "{title} - スリランカ文化フェスティバル＆イベント",
   },
   Slug: {
     highlights: "イベントのハイライト",
     viewGallery: "ギャラリーを見る",
+    photoAlt: "{title} - フォトハイライト {index}",
     liveBroadcast: "ライブ中継",
     upcomingEvent: "今後のイベント",
     featuredExperience: "注目の体験",

@@ -1,8 +1,8 @@
 export default {
   Metadata: {
-    title: "ジャーナル",
+    title: "スリランカ旅行ブログ・現地観光お役立ちガイド＆治安情報",
     description:
-      "IkiSaki Toursが厳選したスリランカ旅行の情報をお届けします。旅行ガイドや現地の文化、世界遺産、息をのむような絶景スポットを通して、スリランカの魅力を発見し、あなただけの特別な旅を計画しましょう。",
+      "スリランカ旅行のベストシーズン、服装や持ち物、治安情報、ビザ（ETA）の申請方法、おすすめレストランやアーユルヴェーダ体験まで、現地を知り尽くしたIkiSaki Toursが役立つ最新旅行情報をお届けします。",
     notFoundTitle: "ストーリーが見つかりません",
   },
   Hero: {
@@ -12,7 +12,7 @@ export default {
     strapline:
       "スリランカの旅、文化、歴史、そして隠れた魅力をご紹介します。特別な旅を計画するためのヒントを見つけましょう。",
      image: "/ikisaki-images/Journal/sri-lanka-stilt-fishermen-sunset.webp",
-    alt: "Traditional stilt fishermen working along the golden southern coast of Sri Lanka during sunset",
+    alt: "スリランカ南海岸の伝統的な夕暮れ時の棒釣り（スティルトフィッシング）の風景 - スリランカ旅行ブログ",
   },
   Explorer: {
     filterCategories: "カテゴリを絞り込む",
@@ -49,6 +49,7 @@ export default {
   Card: {
     readMore: "続きを読む",
     lovedThis: "お気に入り",
+    imageAlt: "{title} - スリランカ旅行ガイド | イキサキ・ツアーズ",
   },
   Article: {
     //NEW

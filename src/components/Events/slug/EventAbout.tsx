@@ -56,7 +56,7 @@ export function EventAbout({ slug, aboutTitle, aboutText1, aboutText2, perks, im
                 <>
                   <LoadingImage
                     src={img}
-                    alt={`Event Highlight ${idx + 1}`}
+                    alt={t("photoAlt", { title: aboutTitle || "Sri Lanka Cultural Event", index: idx + 1 })}
                     fill
                     sizes="(max-width: 768px) 50vw, 25vw"
                     watermarkClassName="text-[15px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"

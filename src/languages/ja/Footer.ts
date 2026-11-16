@@ -1,4 +1,5 @@
 export default {
+  brandLogoAlt: "イキサキ・ツアーズ - スリランカ個人旅行＆プライベートチャーター",
   exploreTitle: "探索",
   contactTitle: "お問い合わせ",
   newsletterTitle: "ニュースレター",

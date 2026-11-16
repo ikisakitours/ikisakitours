@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { Hero } from "@/components/ui/Hero";
 import { Suspense } from "react";
 import { useTranslations } from "next-intl";
+import JsonLd from "@/components/seo/JsonLd";
+import { getBreadcrumbSchema, getSeoAlternates } from "@/components/seo/schemas";
 // import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 // import { PromoModal } from "@/components/ui/PromoModal";
 import { DestinationsClientWrapper } from "@/components/Destinations/DestinationsClientWrapper";
@@ -13,6 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: t("title"),
     description: t("description"),
+    alternates: getSeoAlternates("/destination", locale),
   };
 }
 
@@ -31,9 +34,18 @@ function TranslatedHero() {
   );
 }
 
-export default function DestinationsPage() {
+export default async function DestinationsPage() {
+  const locale = await getLocale();
+  const tMeta = await getTranslations({ locale, namespace: "Destinations.Metadata" });
+
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: locale === "ja" ? "ホーム" : "Home", url: `/${locale}` },
+    { name: tMeta("title"), url: `/${locale}/destination` },
+  ]);
+
   return (
     <main className="min-h-screen bg-lanka-dark">
+      <JsonLd schema={breadcrumbSchema} />
       <TranslatedHero />
       <Suspense fallback={<div className="text-white">Loading...</div>}>
         <DestinationsClientWrapper />

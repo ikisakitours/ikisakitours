@@ -1,9 +1,9 @@
 export default {
   Metadata: {
-    title: "目的地",
+    title: "スリランカおすすめ観光地・世界遺産＆絶景スポット一覧",
     description:
-      "スリランカ旅行で訪れたいおすすめの観光スポットをご紹介。世界遺産や美しいビーチ、歴史ある寺院、緑豊かな山々など、スリランカならではの魅力あふれる名所を厳選しました。次の旅の計画にぜひお役立てください。",
-    slugTitle: "{destinationName} おすすめの観光スポット",
+      "シギリヤロック、キャンディ仏歯寺、高原列車で有名なエッラ、ゴール旧市街、ヤーラ国立公園など、スリランカ旅行で必ず訪れたい人気の観光スポットと世界遺産を厳選ガイド。専用車での効率的な観光ルートをご案内します。",
+    slugTitle: "{destinationName}の観光見どころ・おすすめスポット徹底ガイド | スリランカ旅行",
     slugNotFoundTitle: "目的地が見つかりません",
     slugNotFoundDesc: "リクエストされた目的地が見つかりませんでした。",
   },
@@ -13,7 +13,7 @@ export default {
     accent: "巡る旅へ",
     strapline: "歴史、文化、自然が織りなすスリランカの魅力を発見し、心に残る特別な旅へ。",
     image: "/ikisaki-images/Destinations/coconut-tree-hill-mirissa-aerial-sri-lanka.webp",
-    alt: "Stunning aerial drone view of Coconut Tree Hill, palm trees, and the turquoise coastline in Mirissa, Sri Lanka",
+    alt: "スリランカ南部ミリッサのココナッツツリーヒルと美しいターコイズブルーの海岸線ドローン空撮絶景 - スリランカ観光地ガイド",
   },
   Explorer: {
     filterRegions: "地域で絞り込む",
@@ -54,6 +54,7 @@ export default {
     country: "スリランカ",
     bestTime: "ベストシーズン",
     details: "詳細",
+    imageAlt: "{title}、{province} - スリランカの観光地",
   },
   Slug: {
     backToDestinations: "目的地一覧に戻る",
@@ -66,6 +67,7 @@ export default {
     explore: "{name}を探索する",
     viewAll: "すべて見る",
     viewGallery: "ギャラリーを見る",
+    photoAlt: "{name} スリランカ観光ハイライト写真 {index}",
     highlight: "ハイライト",
     destinationGuide: "目的地ガイド",
     guideSubtitle: "次の休暇に役立つ情報。",
@@ -89,6 +91,7 @@ export default {
     choosePlace: "目的地をクリックして、詳細を確認しましょう。",
     loading: "読み込み中",
     explore: "検索",
+    imageAlt: "{title} - スリランカ観光地",
     noDestinationsTitle: "目的地が見つかりません",
     noDestinationsDesc: "検索条件に一致する場所が見つかりませんでした。検索をリセットしてください。",
     resetExploration: "リセットする",

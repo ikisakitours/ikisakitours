@@ -1,7 +1,8 @@
 export default {
   Metadata: {
-    title: "Frequently Asked Questions",
-    description: "Find quick answers to common questions about your bespoke Sri Lankan journey.",
+    title: "Sri Lanka Travel FAQ - Private Tours, Drivers, Visas & Safety Guide",
+    description:
+      "Frequently asked questions about traveling in Sri Lanka: private chauffeur hire costs, tipping customs, visa requirements, best season to visit, payment options, and safety tips answered by IkiSaki Tours.",
   },
   Hero: {
     backGroundImage: "/ikisaki-images/FAQs/sri-lanka-mountain-sunset-view.webp",

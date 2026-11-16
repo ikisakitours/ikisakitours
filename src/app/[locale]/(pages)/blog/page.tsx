@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/ui/Hero";
 import { BlogClientWrapper } from "@/components/blog/BlogClientWrapper";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { useTranslations } from "next-intl";
+import JsonLd from "@/components/seo/JsonLd";
+import { getBreadcrumbSchema, getSeoAlternates } from "@/components/seo/schemas";
 
 type BlogPageProps = {
   params: Promise<{ locale: string }>;
@@ -21,10 +23,7 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
   return {
     title: title,
     description: description,
-    alternates: {
-      canonical: `/${locale}/blog`,
-      languages: { en: "/en/blog", ja: "/ja/blog" },
-    },
+    alternates: getSeoAlternates("/blog", locale),
     openGraph: {
       title: `${title} | IkiSaki Tours`,
       description: description,
@@ -69,9 +68,18 @@ function TranslatedHero() {
   );
 }
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const locale = await getLocale();
+  const tMeta = await getTranslations({ locale, namespace: "Blog.Metadata" });
+
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: locale === "ja" ? "ホーム" : "Home", url: `/${locale}` },
+    { name: tMeta("title"), url: `/${locale}/blog` },
+  ]);
+
   return (
     <main className="min-h-screen bg-lanka-dark">
+      <JsonLd schema={breadcrumbSchema} />
       <TranslatedHero />
       <BlogClientWrapper />
     </main>

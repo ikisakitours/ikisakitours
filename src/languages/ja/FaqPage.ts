@@ -1,11 +1,12 @@
 export default {
   Metadata: {
-    title: "よくある質問",
-    description: "オーダーメイドのスリランカ旅行に関するよくある質問の回答をすばやく見つけることができます。",
+    title: "スリランカ旅行のよくある質問（FAQ）・ビザ・治安・車チャーター Q&A",
+    description:
+      "スリランカ旅行に関するよくあるご質問にお答えします。専用車チャーターの料金や予約方法、チップの相場、ビザ（ETA）の取得、治安や衛生面、キャンセル規定など、出発前の疑問を解決します。",
   },
   Hero: {
     backGroundImage: "/ikisaki-images/FAQs/sri-lanka-mountain-sunset-view.webp",
-    altText: "Breathtaking sunset view with golden sun rays over misty mountain ranges and hills in Sri Lanka",
+    altText: "霧深い山並みと丘陵地帯に黄金色の夕日が差し込むスリランカの絶景 - スリランカ旅行FAQ",
     eyebrow: "サポートとよくある質問",
     title: "どのようなご用件でしょうか？",
     accent: "ご用件でしょうか？",

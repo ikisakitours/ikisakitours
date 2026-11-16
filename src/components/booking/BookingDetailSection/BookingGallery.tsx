@@ -29,7 +29,7 @@ export default function BookingGallery({ tour, tourType }: BookingGalleryProps) 
       <div className="group relative h-62.5 overflow-hidden rounded-3xl border border-white/5 sm:h-75 md:col-span-2 md:h-87.5 md:rounded-4xl">
         <LoadingImage
           src={img1}
-          alt={`${tour.title} Gallery Image 1`}
+          alt={t("imageAlt", { title: tour.title, index: 1 })}
           fill
           loading="eager"
           fetchPriority="high"
@@ -43,7 +43,7 @@ export default function BookingGallery({ tour, tourType }: BookingGalleryProps) 
         <div className="group relative h-37.5 overflow-hidden rounded-[1.2rem] border border-white/5 md:h-full md:rounded-3xl">
           <LoadingImage
             src={img2}
-            alt={`${tour.title} Gallery Image 2`}
+            alt={t("imageAlt", { title: tour.title, index: 2 })}
             fill
             sizes="(min-width: 1024px) 360px, 50vw"
             watermarkClassName="text-[28px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
@@ -58,7 +58,7 @@ export default function BookingGallery({ tour, tourType }: BookingGalleryProps) 
         >
           <LoadingImage
             src={img3}
-            alt={`${tour.title} Gallery Image 3`}
+            alt={t("imageAlt", { title: tour.title, index: 3 })}
             fill
             sizes="(min-width: 1024px) 360px, 50vw"
             watermarkClassName="text-[28px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"

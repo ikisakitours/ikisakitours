@@ -1,19 +1,19 @@
 export default {
   Metadata: {
     Transfers: {
-      title: "送迎",
+      title: "スリランカ空港送迎・コロンボ都市間プライベートタクシー",
       description:
-        "スリランカの空港送迎、スリランカホテル送迎、スリランカチャーターサービス、スリランカタクシーサービスをIkiSaki Toursで簡単予約。コロンボ、ネゴンボから島内各地への移動に対応。料金を確認して、快適で安心なプライベート送迎をご利用ください。",
+        "バンダラナイケ国際空港（CMB）からコロンボ、ゴール、キャンディ、シギリヤ各地への安心のプライベート空港送迎。定額料金、プロドライバー対応で、到着から出発まで快適な移動をお約束します。",
     },
     PrivateVehicle: {
-      title: "プライベートチャーターサービス、プライベートタクシーサービス、プライベートショーファーサービス",
+      title: "スリランカ専用車チャーター・専属ドライバー付き送迎サービス",
       description:
-        "スリランカ全土を自由に巡るプライベートチャーターサービス。経験豊富なプロのドライバーが、お客様の旅程やご希望に合わせて柔軟に対応します。空港送迎、ホテル送迎、観光、都市間の長距離移動まで、快適で安心な専用車の旅をお楽しみください。",
+        "スリランカ全土を自由に巡る専用車チャーター（カーチャーター）。経験豊富な専属ドライバーが、お客様の旅程に合わせて柔軟に対応。都市間移動、観光、ホテル送迎まで安心・安全・快適な旅をお届けします。",
     },
     Bespoke: {
-      title: "オーダーメイド旅行サポート",
+      title: "スリランカ オーダーメイド旅行・個人手配プライベートツアー",
       description:
-        "オーダーメイドのスリランカ旅行ならIkiSaki Toursへ。専用車と経験豊富な多言語対応ドライバーによる送迎・観光サポートで、お客様のご希望や旅のスタイルに合わせた特別な旅行体験をご提供します。",
+        "あなただけのオリジナルなスリランカ旅行をIkiSaki Toursが完全オーダーメイドでプランニング。専用車送迎、厳選リゾート、現地サポートで、自由で贅沢な個人旅行をご提案します。",
     },
   },
   Hero: {
@@ -23,7 +23,7 @@ export default {
       accent: "プレミアム",
       strapline: "スリランカの空港送迎・ホテル間送迎サービス",
       image: "/ikisaki-images/services/Airport-&-City-Transfers/colombo-cityscape-sunset-panorama-sri-lanka.webp",
-      alt: "Panoramic aerial view of the sprawling Colombo cityscape under a warm sunset sky in Sri Lanka",
+      alt: "夕暮れ時のスリランカ・コロンボ都市圏のパノラマ夜景 - 空港送迎・専用車チャーター イキサキ・ツアーズ",
     },
     PrivateVehicle: {
       eyebrow: "プライベートチャーターサービス",
@@ -31,7 +31,7 @@ export default {
       accent: "快適な",
       strapline: "プロのドライバー / ドアツードアサービス / 信頼と時間厳守",
       image: "/ikisaki-images/services/Private-Chauffeur/winding-mountain-road-sri-lanka-highlands.webp",
-      alt: "Scenic winding road cutting through lush green mountain ranges and misty highlands in Sri Lanka",
+      alt: "スリランカ中央高地の山々と緑の茶畑を縫うワインディングロード - 専属ドライバー付き専用車チャーター",
     },
     Bespoke: {
       eyebrow: "オーダーメイド旅行",
@@ -39,7 +39,7 @@ export default {
       accent: "特別な旅",
       strapline: "プライベート送迎 / 自由自在な旅程 / 上質なおもてなし",
       image: "/ikisaki-images/services/custom-made/personalized-travel-coastal-dining-sri-lanka.webp",
-      alt: "Scenic coastal dining terrace overlooking the ocean, perfect for crafting your own custom travel itinerary in Sri Lanka",
+      alt: "スリランカの美しい海を望むプライベートダイニング - オーダーメイド個人旅行・カスタムツアー",
     },
   },
   StepHeadings: {

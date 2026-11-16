@@ -1,4 +1,5 @@
 export default {
+  logoAlt: "イキサキ・ツアーズ - スリランカ専用車チャーター＆プライベートツアー",
   navigation: {
     Home: "ホーム",
     Experience: "体験",

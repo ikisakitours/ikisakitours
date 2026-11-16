@@ -13,6 +13,8 @@ import { packageDetailsService } from "@/services/Booking/packageDetails/package
 import type { PackageDetails } from "@/services/Booking/packageDetails/types";
 import { reviewService } from "@/services/Booking/packageAllReview/FetchReviewService";
 import type { ReviewType } from "@/services/Booking/packageAllReview/types";
+import JsonLd from "@/components/seo/JsonLd";
+import { getBreadcrumbSchema, getSeoAlternates } from "@/components/seo/schemas";
 
 type GalleryDetailPageProps = {
   params: Promise<{ slug: string }>;
@@ -128,14 +130,17 @@ export async function generateMetadata({ params, searchParams }: GalleryDetailPa
 
   const resolved = await resolvePost(slug, hasTourFilter, from === "events", locale);
 
+  const alternates = getSeoAlternates(`/gallery/${slug}`, locale);
+
   if (!resolved) {
-    return { title: t("notFoundTitle"), description: t("notFoundDesc") };
+    return { title: t("notFoundTitle"), description: t("notFoundDesc"), alternates };
   }
 
   if (resolved.kind === "event") {
     return {
       title: t("eventTitle", { title: resolved.post.title }),
       description: `Discover visual highlights and exclusive images from ${resolved.post.title}.`,
+      alternates,
     };
   }
 
@@ -146,6 +151,7 @@ export async function generateMetadata({ params, searchParams }: GalleryDetailPa
       return {
         title: t("guestMomentsTitle", { title: fullTitle }),
         description: t("guestMomentsDesc", { title: fullTitle }),
+        alternates,
       };
     }
     if (activeFilter?.startsWith("review-")) {
@@ -155,11 +161,13 @@ export async function generateMetadata({ params, searchParams }: GalleryDetailPa
       return {
         title: t("reviewTitle", { name, title: fullTitle }),
         description: t("reviewDesc", { name, title: fullTitle }),
+        alternates,
       };
     }
     return {
       title: t("tourTitle", { title: fullTitle }),
       description: t("tourDesc", { title: fullTitle }),
+      alternates,
     };
   }
 
@@ -167,6 +175,7 @@ export async function generateMetadata({ params, searchParams }: GalleryDetailPa
   return {
     title: t("storyTitle", { title: resolved.post.title }),
     description: t("blogDesc", { title: resolved.post.title }),
+    alternates,
   };
 }
 
@@ -220,10 +229,10 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
       if (activeFilter === "moments" || activeFilter === "all-moments") {
         const reviews = await getReviews(tour.id);
         const urls = reviews.flatMap((r) => r.imageUrls || []);
-      items = toItems(
-          urls, 
-          "moment", 
-          `${fullTitle} moment`, 
+        items = toItems(
+          urls,
+          "moment",
+          `${fullTitle} moment`,
           fullTitle, // <--- 1. Title එකට Tour එකේ නම (fullTitle) දෙන්න
           t("guestMoment") // <--- 2. Category එකට "Guest Moments" දෙන්න
         );
@@ -266,8 +275,22 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
     }
   }
 
+  const gallerySchema = {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    name: heroTitle,
+    description: heroSubtitle,
+    image: items.map((i) => i.src),
+  };
+
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: locale === "ja" ? "ホーム" : "Home", url: `/${locale}` },
+    { name: heroTitle, url: `/gallery/${slug}` },
+  ]);
+
   return (
     <main className="min-h-screen bg-lanka-black ">
+      <JsonLd schema={[gallerySchema, breadcrumbSchema]} />
       <GalleryHero backLink={backLink} backLabel={backLabel} title={heroTitle} subtitle={heroSubtitle} />
       <GalleryCollection items={items} />
     </main>

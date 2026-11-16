@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/Button";
 import { CalendarDays, Radio, Sparkles, ExternalLink } from "lucide-react";
 import { SpecialEventListItem } from "@/data/specialEvents";
@@ -15,6 +16,7 @@ interface EventCardProps {
 }
 
 export function EventCard({ event }: EventCardProps) {
+  const t = useTranslations("Events.Explorer");
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { amount: 0.3 });
 
@@ -44,12 +46,12 @@ export function EventCard({ event }: EventCardProps) {
   const displayDate =
     event.mode === "upcoming" && event.date.includes("T")
       ? new Date(event.date).toLocaleString("en-US", {
-          month: "short",
-          day: "numeric",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-        })
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      })
       : event.date;
 
   return (
@@ -76,7 +78,7 @@ export function EventCard({ event }: EventCardProps) {
         ) : (
           <Image
             src={event.image}
-            alt={event.title}
+            alt={t("cardImageAlt", { title: event.title })}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
             className="object-cover transition-transform duration-700 group-hover:scale-105 z-0"
@@ -101,9 +103,8 @@ export function EventCard({ event }: EventCardProps) {
 
         {/* Category Badge (Top Right if Live, otherwise Top Left) */}
         <div
-          className={`absolute top-3 z-10 flex items-center gap-1.5 rounded-full border border-white/20 bg-black/70 px-3 py-1.5 -mt-1.5 backdrop-blur-md shadow-lg ${
-            event.mode === "live" ? "right-3" : "left-3"
-          }`}
+          className={`absolute top-3 z-10 flex items-center gap-1.5 rounded-full border border-white/20 bg-black/70 px-3 py-1.5 -mt-1.5 backdrop-blur-md shadow-lg ${event.mode === "live" ? "right-3" : "left-3"
+            }`}
         >
           {event.category === "Live" ? (
             <Radio className="h-3 w-3 text-red-500 animate-pulse" />

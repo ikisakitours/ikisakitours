@@ -1,7 +1,8 @@
 export default {
   Metadata: {
-    title: "Cultural Festivals & Special Events",
-    description: "Immerse in Sri Lanka's most magnificent cultural pageants and live broadcasts.",
+    title: "Sri Lanka Cultural Festivals, Perahera Pageants & Special Events | IkiSaki Tours",
+    description:
+      "Experience Sri Lanka's grandest festivals: Kandy Esala Perahera, Galle Literary Festival, Vesak lantern celebrations, and traditional cultural pageants with VIP passes and private transfers.",
   },
   Hero: {
     eyebrow: "Cultural Pageants & Live",
@@ -44,10 +45,12 @@ export default {
       title: "No events currently available",
       description: "We are preparing some exciting new events and celebrations for you. Please check back later!",
     },
+    cardImageAlt: "{title} - Sri Lanka Cultural Festival & Event",
   },
   Slug: {
     highlights: "Event Highlights",
     viewGallery: "View Gallery",
+    photoAlt: "{title} - Photo Highlight {index}",
     liveBroadcast: "Live Broadcast",
     upcomingEvent: "Upcoming Event",
     featuredExperience: "Featured Experience",

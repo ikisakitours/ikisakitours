@@ -104,6 +104,7 @@ const bottomActionVariants: Variants = {
 };
 
 export function SiteHeader() {
+  const tHeader = useTranslations("SiteHeader");
   const tNav = useTranslations("SiteHeader.navigation");
   const tDropdown = useTranslations("SiteHeader.Dropdown");
   const tToast = useTranslations("ValidationErrors.ToastMessages.Logout");
@@ -317,20 +318,18 @@ export function SiteHeader() {
       <nav
         id="main-nav"
         ref={navRef}
-        className={`top-0 left-0 fixed w-full z-100 border-b transition-all duration-500 ${
-          isMenuOpen
-            ? "border-b-[rgba(212,175,55,0.2)] bg-[#0a0a0a]"
-            : isScrolled
-              ? "border-b-[rgba(212,175,55,0.2)] bg-[rgba(5,5,5,0.9)] backdrop-blur-[20px]"
-              : "border-white/0"
-        }`}
+        className={`top-0 left-0 fixed w-full z-100 border-b transition-all duration-500 ${isMenuOpen
+          ? "border-b-[rgba(212,175,55,0.2)] bg-[#0a0a0a]"
+          : isScrolled
+            ? "border-b-[rgba(212,175,55,0.2)] bg-[rgba(5,5,5,0.9)] backdrop-blur-[20px]"
+            : "border-white/0"
+          }`}
       >
         <ContainerLayout>
           <div
             id="nav-container"
-            className={`flex items-center justify-between transition-all duration-500 ${
-              isScrolled ? "h-17.5" : "h-20 sm:h-24"
-            }`}
+            className={`flex items-center justify-between transition-all duration-500 ${isScrolled ? "h-17.5" : "h-20 sm:h-24"
+              }`}
           >
             <Link
               href="/"
@@ -339,7 +338,7 @@ export function SiteHeader() {
             >
               <LoadingImage
                 src="/images/bg-remove.png"
-                alt="ikisaki-tours-Logo"
+                alt={tHeader("logoAlt")}
                 width={200}
                 height={80}
                 isSmall
@@ -461,11 +460,10 @@ export function SiteHeader() {
                   <div
                     id="profile-dropdown"
                     ref={profileDropdownRef}
-                    className={`absolute right-0 top-full mt-4 w-56 origin-top-right overflow-hidden rounded-xl border border-white/10 bg-[#0a0a0a]/95 shadow-2xl backdrop-blur-2xl transition-all duration-300 ${
-                      isProfileOpen
-                        ? "pointer-events-auto scale-100 opacity-100"
-                        : "pointer-events-none scale-95 opacity-0"
-                    }`}
+                    className={`absolute right-0 top-full mt-4 w-56 origin-top-right overflow-hidden rounded-xl border border-white/10 bg-[#0a0a0a]/95 shadow-2xl backdrop-blur-2xl transition-all duration-300 ${isProfileOpen
+                      ? "pointer-events-auto scale-100 opacity-100"
+                      : "pointer-events-none scale-95 opacity-0"
+                      }`}
                   >
                     <div className="border-b border-white/5 bg-white/5 px-6 py-4">
                       <p className="truncate text-body-sm font-bold text-white capitalize" id="dropdown-user-name">
@@ -508,19 +506,16 @@ export function SiteHeader() {
                 className="group relative flex h-10 w-10 flex-col items-center justify-center focus:outline-none xl:hidden"
               >
                 <span
-                  className={`h-[1.5px] w-6 bg-white transition-all duration-300 ${
-                    isMenuOpen ? "translate-y-px rotate-45" : "-translate-y-1.5"
-                  }`}
+                  className={`h-[1.5px] w-6 bg-white transition-all duration-300 ${isMenuOpen ? "translate-y-px rotate-45" : "-translate-y-1.5"
+                    }`}
                 />
                 <span
-                  className={`h-[1.5px] w-6 bg-white transition-all duration-300 ${
-                    isMenuOpen ? "-translate-x-2.5 opacity-0" : "opacity-100"
-                  }`}
+                  className={`h-[1.5px] w-6 bg-white transition-all duration-300 ${isMenuOpen ? "-translate-x-2.5 opacity-0" : "opacity-100"
+                    }`}
                 />
                 <span
-                  className={`h-[1.5px] w-6 bg-white transition-all duration-300 ${
-                    isMenuOpen ? "-translate-y-0.5 -rotate-45" : "translate-y-1.5"
-                  }`}
+                  className={`h-[1.5px] w-6 bg-white transition-all duration-300 ${isMenuOpen ? "-translate-y-0.5 -rotate-45" : "translate-y-1.5"
+                    }`}
                 />
               </button>
             </div>

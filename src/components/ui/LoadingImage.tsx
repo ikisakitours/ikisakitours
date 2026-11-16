@@ -164,7 +164,7 @@ export function LoadingImage({
 
       <Image
         src={src}
-        alt={alt}
+        alt={alt || "Ikisaki Tours Sri Lanka - Private Tours & Chauffeur Services"}
         className={`${className} ${
           isInstant ? "" : "transition-all duration-[1.2s] ease-[cubic-bezier(0.25,1,0.5,1)]"
         } ${isLoading ? "opacity-0 scale-100 blur-none" : "opacity-100 scale-100 blur-0"}`}

@@ -1,9 +1,9 @@
 export default {
   MultiDay: {
     Metadata: {
-      title: "周遊ツアー",
+      title: "スリランカ周遊ツアー・世界遺産を巡るモデルコース",
       description:
-        "IkiSakiが厳選したスリランカ各地の特別なツアーパッケージをご紹介。歴史遺産、豊かな自然、宗教文化、美しい海岸エリアを巡る、上質な旅をお楽しみください。",
+        "IkiSaki Toursが厳選したスリランカ周遊プライベートツアー。シギリヤロック、キャンディ、ヌワラエリヤ、南海岸など、歴史遺産、豊かな自然、紅茶畑を専用車と専属ドライバーで巡る上質なモデルコースをご紹介します。",
     },
     Hero: {
       badge: "周遊ツアー",
@@ -13,14 +13,14 @@ export default {
       description:
         "スリランカの世界遺産や豊かな自然、伝統文化、美しい海岸線を巡る特別な旅。 厳選された旅程で、スリランカの魅力をじっくりとご堪能ください。",
       image: "/ikisaki-images/Tours/sigiriya-rock-fortress-multiday-tour-sri-lanka.webp",
-      alt: "Travelers admiring the majestic Sigiriya Rock Fortress surrounded by lush green forests during a multi-day tour in Sri Lanka",
+      alt: "緑豊かな森に囲まれた世界遺産シーギリヤ・ロック遺跡を巡るスリランカ周遊プライベートツアー",
     },
   },
   OneDay: {
     Metadata: {
-      title: "日帰りツアー",
+      title: "スリランカ日帰りツアー・現地オプショナルツアー観光",
       description:
-        "世界遺産や絶景スポット、歴史ある街並みなど、スリランカの魅力を1日で満喫。限られた時間でも、心に残る特別な体験をお楽しみいただけます。",
+        "コロンボやネゴンボ発の充実したスリランカ日帰りツアー。世界遺産シギリヤロック、象の孤児院、ゴール旧市街などの人気観光地を、プライベート専用車で効率よく満喫できるオプショナルツアーです。",
     },
     Hero: {
       badge: "クイックエスケープ",
@@ -30,7 +30,7 @@ export default {
       description:
         "すべてをたった1日で。限られた時間であっても、スリランカならではのユニークな魅力や特別な体験を満喫することができます。",
       image: "/ikisaki-images/Tours/galle-fort-oneday-excursion-sri-lanka.webp",
-      alt: "Historic ramparts and lively streets of the UNESCO World Heritage Galle Fort during a one-day excursion in Sri Lanka",
+      alt: "世界遺産ゴール旧市街の歴史ある要塞とコロニアルな街並みを巡るスリランカ日帰り観光ツアー",
     },
   },
   Explorer: {
@@ -80,6 +80,7 @@ export default {
     details: "詳細",
     newBadge: "新着",
     save: "{discount}% 割引",
+    imageAlt: "{title} - スリランカツアーパッケージ | イキサキ・ツアーズ",
     Badges: {
       popular: "人気",
       discounted: "割引",

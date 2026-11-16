@@ -182,15 +182,13 @@ export default function MapContent({
   return (
     <div className="relative mx-auto h-112.5 w-full max-w-full overflow-hidden rounded-3xl border border-white/10 shadow-2xl z-10 sm:h-137.5 md:h-187.5 lg:h-205">
       <div
-        className={`pointer-events-none absolute right-2 top-2 sm:right-4 sm:top-4 z-1000 flex items-center gap-1.5 rounded-full border px-3 py-1.5 shadow-lg backdrop-blur-md ${
-          isDarkMode ? "border-white/10 bg-black/70" : "border-black/10 bg-white/80"
-        }`}
+        className={`pointer-events-none absolute right-2 top-2 sm:right-4 sm:top-4 z-1000 flex items-center gap-1.5 rounded-full border px-3 py-1.5 shadow-lg backdrop-blur-md ${isDarkMode ? "border-white/10 bg-black/70" : "border-black/10 bg-white/80"
+          }`}
       >
         <span className="shrink-0 inline-block h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
         <span
-          className={`translate-y-[0.5px] text-micro font-semibold uppercase tracking-[0.2em] leading-none ${
-            isDarkMode ? "text-gold/90" : "text-lanka-black"
-          }`}
+          className={`translate-y-[0.5px] text-micro font-semibold uppercase tracking-[0.2em] leading-none ${isDarkMode ? "text-gold/90" : "text-lanka-black"
+            }`}
         >
           {t("choosePlace")}
         </span>
@@ -242,14 +240,14 @@ export default function MapContent({
             />
           )}
 
-       {destinations.map((dest, idx) =>{
+          {destinations.map((dest, idx) => {
             const customHtmlIcon = divIcon({
               className: "custom-map-marker-wrapper",
               html: `
                 <div class="pointer-events-auto relative flex scale-90 flex-col items-center sm:scale-100">
                   <div class="group relative mb-1 flex w-max cursor-pointer items-center gap-1.5 rounded-full border border-gold/40 ${isDarkMode ? "bg-lanka-black/90" : "bg-white/90 shadow-sm"} px-1 py-0.5 shadow-xl backdrop-blur-md transition-transform hover:scale-105 sm:gap-2 sm:px-1.5 sm:py-1">
                     <div class="relative h-5 w-5 shrink-0 overflow-hidden rounded-full border border-gold/60 sm:h-6 sm:w-6">
-                      <img src="${dest.heroImage}" alt="${dest.title}" class="h-full w-full object-cover" />
+                      <img src="${dest.heroImage}" alt="${t("imageAlt", { title: dest.title })}" class="h-full w-full object-cover" />
                     </div>
                     <span class="whitespace-nowrap pr-1.5 text-tiny font-bold uppercase tracking-wider ${isDarkMode ? "text-white" : "text-lanka-black"} sm:pr-2 ">${dest.title}</span>
                   </div>
@@ -265,7 +263,7 @@ export default function MapContent({
 
             return (
               <Marker
-             key={`${dest.slug}-${idx}`}
+                key={`${dest.slug}-${idx}`}
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 ref={(r: any) => {
                   if (r) markerRefs.current[dest.slug] = r;
@@ -296,11 +294,10 @@ export default function MapContent({
               >
                 <Popup className="custom-map-popup">
                   <div
-                    className={`relative w-56 overflow-hidden rounded-2xl border p-0 text-left shadow-2xl backdrop-blur-xl transition-colors duration-300 ${
-                      isDarkMode
-                        ? "border-white/10 bg-lanka-black text-white"
-                        : "border-black/10 bg-white text-lanka-black"
-                    }`}
+                    className={`relative w-56 overflow-hidden rounded-2xl border p-0 text-left shadow-2xl backdrop-blur-xl transition-colors duration-300 ${isDarkMode
+                      ? "border-white/10 bg-lanka-black text-white"
+                      : "border-black/10 bg-white text-lanka-black"
+                      }`}
                     onMouseEnter={() => {
                       if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
                     }}
@@ -330,11 +327,10 @@ export default function MapContent({
                         setQuery("");
                       }}
                       style={{ outline: "none", boxShadow: "none", WebkitTapHighlightColor: "transparent" }}
-                      className={`absolute right-2 top-2 z-20 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-gold! hover:text-lanka-black! focus:outline-none focus:ring-0 [-webkit-tap-highlight-color:transparent] ${
-                        isDarkMode
-                          ? "bg-black/60 border-white/20 text-white!"
-                          : "bg-white/60 border-black/10 text-lanka-black!"
-                      }`}
+                      className={`absolute right-2 top-2 z-20 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-gold! hover:text-lanka-black! focus:outline-none focus:ring-0 [-webkit-tap-highlight-color:transparent] ${isDarkMode
+                        ? "bg-black/60 border-white/20 text-white!"
+                        : "bg-white/60 border-black/10 text-lanka-black!"
+                        }`}
                       title="Close"
                     >
                       <X className="h-3.5 w-3.5" />
@@ -343,7 +339,7 @@ export default function MapContent({
                     <div className="relative h-28 w-full overflow-hidden">
                       <LoadingImage
                         src={dest.heroImage || "/images/default-destination.jpg"}
-                        alt={dest.title}
+                        alt={t("imageAlt", { title: dest.title })}
                         fill
                         sizes="220px"
                         wrapperClassName="w-full h-full"

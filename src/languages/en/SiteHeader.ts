@@ -1,4 +1,5 @@
 export default {
+  logoAlt: "Ikisaki Tours Sri Lanka - Private Tours & Chauffeur Services",
   navigation: {
     Home: "Home",
     Experience: "Experience",

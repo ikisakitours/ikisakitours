@@ -65,7 +65,7 @@ export function Card({ item, tourType }: PackageCardProps) {
       <div className="relative h-48 shrink-0 overflow-hidden sm:h-56">
         <LoadingImage
           src={item.heroImage} // Mapped to API field
-          alt={item.slug} // Alt text from API
+          alt={t("imageAlt", { title: item.title || item.slug.replace(/-/g, " ") })}
           fill
           sizes="(min-width: 1280px) 25vw, 340px"
           wrapperClassName="w-full h-full"
