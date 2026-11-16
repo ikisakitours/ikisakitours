@@ -7,12 +7,6 @@ export const heroStats = [
   { value: "100%", id: "Private" },
 ] as const;
 
-export const heroPopularTags = [
-  { id: "GalleFort", href: "/destinations/galle-fort" },
-  { id: "YalaSafari", href: "/destinations/yala-safari" },
-  { id: "TeaCountry", href: "/destinations/tea-country" },
-] as const;
-
 export const heroPopularServices = [
   { id: "Taxi", href: "/services/private-vehicle" },
   { id: "CustomTours", href: "/services/bespoke-travel" },

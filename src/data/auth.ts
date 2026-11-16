@@ -1,14 +1,3 @@
-//Src/Data/Languages-CurrencyData.ts
-
-export const authSocialProviders = ["Google", "Apple"] as const;
-
-export const strengthChecks = [
-  { id: "length", regex: /.{8,}/, msg: "At least 8 characters" },
-  { id: "upper", regex: /[A-Z]/, msg: "1 Uppercase letter" },
-  { id: "lower", regex: /[a-z]/, msg: "1 Lowercase letter" },
-  { id: "num", regex: /\d/, msg: "1 Numeral" },
-  { id: "special", regex: /[^A-Za-z0-9]/, msg: "1 Special character" },
-];
 export const ALL_COUNTRIES = [
   { code: "AF", name: "Afghanistan" },
   { code: "AL", name: "Albania" },

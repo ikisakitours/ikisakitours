@@ -1,13 +1,65 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
-export default function Preloader() {
+interface PreloaderProps {
+  isTestMode?: boolean;
+}
+
+// =========================================================================
+// 🧪 DEV TEST CONTROLLER
+// Set to true while testing & designing the UI (infinite continuous loop).
+// Set to false for production (runs once for 4s, sets cookie & triggers events).
+// =========================================================================
+const FORCE_TEST_LOOP = false;
+
+export default function Preloader({ isTestMode }: PreloaderProps) {
+  const activeTestMode = isTestMode ?? FORCE_TEST_LOOP;
   const [loading, setLoading] = useState(true);
+  const [loopCount, setLoopCount] = useState(0);
+  const counterRef = useRef<HTMLSpanElement>(null);
+  const t = useTranslations("RootLayout.Preloader");
+
+  // -------------------------------------------------------------
+  // Zero-Lag Native Counter via direct DOM Ref (0 React Re-renders)
+  // -------------------------------------------------------------
+  useEffect(() => {
+    if (!loading) return;
+    if (counterRef.current) counterRef.current.textContent = "00";
+
+    const startTime = performance.now();
+    const duration = 3500; // 3.5s to reach 100%
+
+    let frameId: number;
+    const updateProgress = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progressFraction = Math.min(elapsed / duration, 1);
+      // Luxury ease-out cubic curve
+      const eased = 1 - Math.pow(1 - progressFraction, 3);
+      const val = Math.round(eased * 100);
+
+      if (counterRef.current) {
+        counterRef.current.textContent = String(val).padStart(2, "0");
+      }
+
+      if (progressFraction < 1) {
+        frameId = requestAnimationFrame(updateProgress);
+      }
+    };
+
+    frameId = requestAnimationFrame(updateProgress);
+    return () => cancelAnimationFrame(frameId);
+  }, [loading, loopCount]);
 
   useEffect(() => {
+    // If in test mode, clean up preloader cookie so browser refresh always works
+    if (activeTestMode) {
+      document.cookie = "preloader_seen=; max-age=0; path=/";
+    }
+
     document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
 
@@ -16,6 +68,47 @@ export default function Preloader() {
     };
     document.addEventListener("touchmove", preventTouchScroll, { passive: false });
 
+    // -------------------------------------------------------------
+    // TEST LOOP LOGIC:
+    // Loops animation smoothly without firing race-condition events
+    // -------------------------------------------------------------
+    if (activeTestMode) {
+      let isCancelled = false;
+      let loopTimer: ReturnType<typeof setTimeout>;
+      let restartTimer: ReturnType<typeof setTimeout>;
+
+      const runLoop = () => {
+        if (isCancelled) return;
+        setLoading(true);
+
+        loopTimer = setTimeout(() => {
+          if (isCancelled) return;
+          setLoading(false);
+
+          // Wait for theatrical curtain exit, then restart
+          restartTimer = setTimeout(() => {
+            if (isCancelled) return;
+            setLoopCount((prev) => prev + 1);
+            runLoop();
+          }, 1400);
+        }, 4000);
+      };
+
+      runLoop();
+
+      return () => {
+        isCancelled = true;
+        clearTimeout(loopTimer);
+        clearTimeout(restartTimer);
+        document.documentElement.style.overflow = "";
+        document.body.style.overflow = "";
+        document.removeEventListener("touchmove", preventTouchScroll);
+      };
+    }
+
+    // =============================================================
+    // 100% UNTOUCHED PRODUCTION LOGIC (Race-condition safe)
+    // =============================================================
     const timer = setTimeout(() => {
       setLoading(false);
 
@@ -36,82 +129,135 @@ export default function Preloader() {
       document.body.style.overflow = "";
       document.removeEventListener("touchmove", preventTouchScroll);
     };
-  }, []);
+  }, [activeTestMode]);
 
   return (
     <>
       <style>{`
-        @keyframes shimmerSweep {
-          0% { transform: translateX(-150vw); }
-          100% { transform: translateX(150vw); }
+        @keyframes gentleFloat {
+          0%, 100% {
+            transform: translate3d(0, 0, 0);
+          }
+          50% {
+            transform: translate3d(0, -4px, 0);
+          }
         }
-        @keyframes spinPulse {
-          0% { transform: rotate(0deg) scale(1); }
-          50% { transform: rotate(180deg) scale(1.1); }
-          100% { transform: rotate(360deg) scale(1); }
+        .anim-gentle-float {
+          animation: gentleFloat 4.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+          will-change: transform;
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          transform-style: preserve-3d;
         }
-        @keyframes spinReverse {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(-360deg); }
+
+        @keyframes smoothReveal {
+          0% {
+            opacity: 0;
+            transform: translate3d(0, 12px, 0);
+          }
+          100% {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+          }
         }
-        .anim-shimmer { animation: shimmerSweep 4s ease-in-out infinite; }
-        .anim-ring-1 { animation: spinPulse 6s linear infinite; }
-        .anim-ring-2 { animation: spinReverse 4s linear infinite; }
+        .anim-reveal {
+          animation: smoothReveal 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+          will-change: transform, opacity;
+        }
       `}</style>
 
       <AnimatePresence mode="wait">
         {loading && (
-          <motion.div
-            className="fixed inset-0 z-9999 flex flex-col items-center justify-center bg-lanka-dark overflow-hidden"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 1.2, ease: "easeInOut" } }}
+          <div
+            key={`ikisaki-preloader-${loopCount}`}
+            className="fixed inset-0 z-99999 pointer-events-auto overflow-hidden select-none"
           >
-            {/* Ultra-Luxury Soft Shimmer Sweep */}
-            <div className="pointer-events-none absolute inset-0 z-50 overflow-hidden">
-              <div className="absolute top-[-50%] bottom-[-50%] w-screen sm:w-[60vw] rotate-30">
-                <div className="w-full h-full bg-linear-to-r from-transparent via-gold/5 to-transparent blur-2xl anim-shimmer" />
-              </div>
-            </div>
-
-            <div className="relative z-10 flex flex-col items-center justify-center">
-              <div className="absolute h-40 w-40 sm:h-52 sm:w-52 lg:h-56 lg:w-56 3xl:h-64 3xl:w-64 rounded-full border border-gold/30 anim-ring-1" />
-              <div className="absolute h-32 w-32 sm:h-44 sm:w-44 lg:h-48 lg:w-48 3xl:h-56 3xl:w-56 rounded-full border-t-2 border-gold anim-ring-2" />
-
-              <motion.div
-                className="relative overflow-hidden rounded-full"
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1.5, ease: "easeOut" }}
-              >
-                <Image
-                  src="/images/preloader.webp"
-                  alt="Logo"
-                  width={200}
-                  height={200}
-                  className="h-35 w-35 sm:h-45 sm:w-45 md:h-50 md:w-50 lg:h-45 lg:w-45 3xl:h-50 3xl:w-50 drop-shadow-[0_0_15px_rgba(197,160,89,0.5)] object-contain"
-                  priority
-                />
-              </motion.div>
-            </div>
-
-            {/* Luxury Text */}
+            {/* Theatrical Split Shutter: Top Panel (Overlaps by 4px to prevent any sub-pixel seam) */}
             <motion.div
-              className="relative z-10 mt-16 px-4 text-center"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.5, duration: 1 }}
+              className="absolute top-0 left-0 right-0 h-[calc(50%+4px)] bg-[#070708] z-0"
+              initial={{ y: 0 }}
+              exit={{
+                y: "-100%",
+                transition: { duration: 1.05, ease: [0.77, 0, 0.175, 1] },
+              }}
+            />
+
+            {/* Theatrical Split Shutter: Bottom Panel (Overlaps by 4px to prevent any sub-pixel seam) */}
+            <motion.div
+              className="absolute bottom-0 left-0 right-0 h-[calc(50%+4px)] bg-[#070708] z-0"
+              initial={{ y: 0 }}
+              exit={{
+                y: "100%",
+                transition: { duration: 1.05, ease: [0.77, 0, 0.175, 1] },
+              }}
+            />
+
+            {/* Central Stage */}
+            <motion.div
+              className="relative z-10 flex h-full w-full flex-col items-center justify-center text-white"
+              initial={{ opacity: 1 }}
+              exit={{
+                opacity: 0,
+                scale: 1.04,
+                transition: { duration: 0.5, ease: "easeOut" },
+              }}
             >
-              <p className="text-[14px] sm:text-[16px] md:text-[18px] lg:text-[18px] 3xl:text-[22px] font-bold uppercase tracking-[0.6em] sm:tracking-[0.8em] text-gold">
-                Iki Saki
-              </p>
+              {/* Haute Horlogerie Corner Brackets (Framing Logo at Balanced Distance) */}
               <motion.div
-                className="mt-2 h-px bg-gold/50 mx-auto w-40 sm:w-56 lg:w-64 3xl:w-80 origin-center"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 1, duration: 1.5 }}
-              />
+                className="relative flex items-center justify-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.9, ease: "easeOut" }}
+              >
+                {/* Royal Crest with Symmetrically Equidistant Framing Brackets */}
+                <div className="relative z-10 w-48 h-48 sm:w-56 sm:h-56 md:w-60 md:h-60 flex items-center justify-center anim-gentle-float">
+                  <Image
+                    src="/images/preloader.webp"
+                    alt="Crest"
+                    width={260}
+                    height={260}
+                    priority
+                    loading="eager"
+                    decoding="sync"
+                    className="w-full h-full object-contain"
+                  />
+
+                  {/* 4 Architectural Golden Corner Brackets - Symmetrically Equidistant around the logo geometry */}
+                  <div className="absolute inset-x-1.5 top-1.5 bottom-5 sm:bottom-6 pointer-events-none">
+                    {/* Top-Left */}
+                    <span className="absolute top-0 left-0 h-3.5 w-3.5 border-t-2 border-l-2 border-gold/90" />
+                    {/* Top-Right */}
+                    <span className="absolute top-0 right-0 h-3.5 w-3.5 border-t-2 border-r-2 border-gold/90" />
+                    {/* Bottom-Left */}
+                    <span className="absolute bottom-0 left-0 h-3.5 w-3.5 border-b-2 border-l-2 border-gold/90" />
+                    {/* Bottom-Right */}
+                    <span className="absolute bottom-0 right-0 h-3.5 w-3.5 border-b-2 border-r-2 border-gold/90" />
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Sub-Descriptors with Hardware-Accelerated Smooth Entrance (Zero-Lag) */}
+              <div className="relative z-10 mt-6 flex flex-col items-center text-center anim-reveal">
+                {/* Localized Luxury Tagline */}
+                <p className="Preloader-text text-caption tracking-[0.55em] sm:tracking-[0.75em] uppercase text-gold/85 pl-[0.55em] sm:pl-[0.75em] font-light">
+                  {t("tagline")}
+                </p>
+
+                {/* Direct-DOM Precision Counter (No React Re-renders, 0ms Lag) */}
+                <div className="mt-4 flex items-baseline gap-1 font-serif text-gold">
+                  <span ref={counterRef} className="text-3xl sm:text-4xl font-light tracking-widest tabular-nums">
+                    00
+                  </span>
+                  <span className="text-xs font-sans text-gold/45 tracking-widest">%</span>
+                </div>
+
+                {/* Localized Ceylon Coordinates */}
+                <p className="Preloader-text mt-3 text-tiny tracking-[0.45em] uppercase text-white/35 pl-[0.45em]">
+                  {t("coordinates")}
+                </p>
+              </div>
             </motion.div>
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </>
