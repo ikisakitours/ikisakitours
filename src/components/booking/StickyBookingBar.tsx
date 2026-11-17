@@ -8,6 +8,7 @@ import type { useBookingWidget } from "@/hooks/Booking/useBookingWidget";
 import { useTranslations } from "next-intl";
 import { PackageDetails } from "@/services/Booking/packageDetails/types";
 import { useCurrency } from "@/context/CurrencyContext";
+import { calculateDynamicPricing } from "@/services/Booking/packageDetails/pricingUtils";
 
 type MobileBookingBarProps = {
   tour: PackageDetails;
@@ -20,6 +21,12 @@ export function StickyBookingBar({ tour, booking, tourType }: MobileBookingBarPr
   const [showStickyBar, setShowStickyBar] = useState(false);
   const t = useTranslations("Booking.StickyBar");
   const { formatPrice } = useCurrency();
+
+  const { unitPrice } = calculateDynamicPricing(
+    tour.price,
+    booking.travelerCounts,
+    tour.pricingConfig
+  );
 
   const isModalOpenRef = useRef(false);
 
@@ -176,7 +183,7 @@ export function StickyBookingBar({ tour, booking, tourType }: MobileBookingBarPr
           </div>
           <div className="flex flex-wrap items-baseline gap-x-1.5">
             <span className="whitespace-nowrap text-heading-sub font-black tracking-tight text-white drop-shadow-md">
-              {formatPrice(tour.price)}
+              {formatPrice(unitPrice)}
             </span>
             <span className="whitespace-nowrap text-caption font-light text-slate-400">{t("perPerson")}</span>
           </div>

@@ -5,11 +5,18 @@ import { useTranslations } from "next-intl";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/context/ToastContext";
 import { claimBookingDraft, clearBookingDraft, saveBookingDraft } from "@/utils/draft/bookingDraft";
+import { PricingConfig } from "@/services/Booking/packageDetails/types";
 
 // true: after login, the saved draft is submitted automatically
 const AUTO_SUBMIT_AFTER_LOGIN = false;
 
-type TourInfo = { id?: string; slug?: string; title: string };
+type TourInfo = {
+  id?: string;
+  slug?: string;
+  title: string;
+  price?: number;
+  pricingConfig?: PricingConfig;
+};
 
 type BookingValues = {
   journeyDate: string;
