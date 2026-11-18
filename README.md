@@ -308,5 +308,9 @@ npm run start
 | :--- | :--- |
 | **Client** | [Ikisaki Tours (Pvt) Ltd](https://www.ikisakitours.com) |
 | **Powered By** | Aetheria Labs |
-| **Engineered By** | Pramod_Siriwardhana |
-| **License** | All rights reserved © 2026 Ikisaki Tours (Pvt) Ltd |
+| **Engineered By** | `Pramod_Siriwardhana` |
+| **License** | Proprietary — All Rights Reserved ([`LICENSE`](./LICENSE)) |
+
+> [!NOTE]
+> **Copyright © 2026 Ikisaki Tours (Pvt) Ltd. All rights reserved.**  
+> This repository and its source code, design assets, and localization dictionaries are proprietary and confidential. Unauthorized copying, redistribution, modification, or commercial use is strictly prohibited without prior written consent from Ikisaki Tours (Pvt) Ltd. See [`LICENSE`](./LICENSE) for full terms.
