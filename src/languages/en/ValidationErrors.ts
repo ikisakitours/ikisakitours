@@ -211,7 +211,7 @@ export default {
       error: "Social login failed. Please try again.",
     },
     Booking: {
-      loading: "Checking availability",
+      loading: "Submitting booking",
       success: "Booking request sent!",
       error: "Booking failed.",
     },

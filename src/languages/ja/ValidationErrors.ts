@@ -213,7 +213,7 @@ export default {
       error: "ソーシャルログインに失敗しました。もう一度お試しください。",
     },
     Booking: {
-      loading: "空き状況を確認中",
+      loading: "予約を送信中",
       success: "予約リクエストを送信しました！",
       error: "予約に失敗しました。",
     },
