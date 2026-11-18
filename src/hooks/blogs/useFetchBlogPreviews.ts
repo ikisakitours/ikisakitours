@@ -26,7 +26,7 @@ export function useFetchBlogPreviews() {
     fetchBlogServices
       .getBlogPreviews(locale, controller.signal)
       .then((response) => {
-        console.log(`📚 [ALL BLOGS LOADED - ${locale}]:`, response);
+        // console.log(`📚 [ALL BLOGS LOADED - ${locale}]:`, response);
         setState({ key: requestKey, data: response, error: null });
       })
       .catch((err: unknown) => {

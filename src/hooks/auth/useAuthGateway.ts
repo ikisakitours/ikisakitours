@@ -69,7 +69,7 @@ export function useAuthGateway() {
 
     try {
       setLoadingProvider(provider);
-      console.log(`Redirecting to ${provider} authentication...`);
+      // console.log(`Redirecting to ${provider} authentication...`);
       authService.socialLogin(provider, redirectPath);
     } catch (error) {
       toast.error(toastId, tToast("error"));

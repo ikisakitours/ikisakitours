@@ -31,6 +31,8 @@ export function useBookingWidget(tour: TourInfo, tourType: "oneday" | "multiday"
   const [isLoading, setIsLoading] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [draftRestored, setDraftRestored] = useState(false);
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState<Record<string, { count: number; checked: boolean }>>({});
 
   const { user, isHydrated } = useAuth();
   const toast = useToast();
@@ -40,6 +42,30 @@ export function useBookingWidget(tour: TourInfo, tourType: "oneday" | "multiday"
 
   const draftKey = tour.slug || tour.id || tour.title;
 
+  // Toggle / Change Option Count
+  const handleOptionToggle = (optionId: string, isChecked: boolean, defaultCount = 1) => {
+    setSelectedOptions((prev) => ({
+      ...prev,
+      [optionId]: {
+        checked: isChecked,
+        count: isChecked ? (prev[optionId]?.count || defaultCount) : 0,
+      },
+    }));
+  };
+
+  const handleOptionCountChange = (optionId: string, delta: number, maxCount?: number) => {
+    setSelectedOptions((prev) => {
+      const current = prev[optionId]?.count || 1;
+      let next = current + delta;
+      if (next < 1) next = 1;
+      if (maxCount !== undefined && next > maxCount) next = maxCount;
+      return {
+        ...prev,
+        [optionId]: { checked: true, count: next },
+      };
+    });
+  };
+
   // මොන draft key එක restore කළාද කියලා (එකම draft එක දෙපාරක් restore වෙන්නේ නැති වෙන්න)
   const restoredKeyRef = useRef<string | null>(null);
 
@@ -48,8 +74,8 @@ export function useBookingWidget(tour: TourInfo, tourType: "oneday" | "multiday"
     return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
   };
 
-  const submitBooking = async (values: BookingValues) => {
-    if (!user) return;
+  const submitBooking = async (values: BookingValues): Promise<boolean> => {
+    if (!user) return false;
 
     const toastId = toast.loading(tToast("loading"));
     try {
@@ -61,10 +87,10 @@ export function useBookingWidget(tour: TourInfo, tourType: "oneday" | "multiday"
         packageType: tourType,
         journeyDate: values.journeyDate,
         travelers: {
-          adults: values.travelerCounts.adult,
-          couples: values.travelerCounts.couple / 2,
-          children: values.travelerCounts.child,
-          infants: values.travelerCounts.infant,
+          adults: values.travelerCounts.adult || 0,
+          couples: values.travelerCounts.couple || 0, // Direct couple count (Do not divide by 2!)
+          children: values.travelerCounts.child || 0,
+          infants: values.travelerCounts.infant || 0,
         },
         firstname: user.firstname,
         lastname: user.lastname,
@@ -82,10 +108,13 @@ export function useBookingWidget(tour: TourInfo, tourType: "oneday" | "multiday"
       clearBookingDraft(draftKey);
       setJourneyDate(getTodayFormatted());
       setTravelerCounts(EMPTY_COUNTS);
+      setSelectedOptions({});
+      return true;
     } catch (error) {
       toast.error(toastId, tToast("error"));
       console.error("Booking error:", error);
       setErrors((prev) => ({ ...prev, date: tErr("bookingFailed") }));
+      return false;
     } finally {
       setIsLoading(false);
     }
@@ -133,15 +162,16 @@ export function useBookingWidget(tour: TourInfo, tourType: "oneday" | "multiday"
 
   const handleTravelerChange = (type: string, delta: number) => {
     setTravelerCounts((prev) => {
-      const actualDelta = type === "couple" ? delta * 2 : delta;
-      const next = (prev[type] || 0) + actualDelta;
+      // Keep 1-to-1 increment for couples so state matches UI (e.g. 2 couples)
+      const next = (prev[type] || 0) + delta;
       if (next < 0) return prev;
       return { ...prev, [type]: next };
     });
   };
 
-  const handleBookingSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  // 1. Check Availability (Opens Modal)
+  const handleBookingSubmit = async (event?: FormEvent<HTMLFormElement>) => {
+    if (event) event.preventDefault();
     const isValid = validate({ date: journeyDate, counts: travelerCounts });
     if (!isValid) return;
 
@@ -156,7 +186,19 @@ export function useBookingWidget(tour: TourInfo, tourType: "oneday" | "multiday"
       return;
     }
 
-    await submitBooking({ journeyDate, travelerCounts });
+    // Open the review modal
+    setIsBookingModalOpen(true);
+  };
+
+  // 2. Final Booking Confirmation (Called inside Modal)
+  const handleConfirmBooking = async () => {
+    const isValid = validate({ date: journeyDate, counts: travelerCounts });
+    if (!isValid) return;
+
+    const success = await submitBooking({ journeyDate, travelerCounts });
+    if (success) {
+      setIsBookingModalOpen(false);
+    }
   };
 
   return {
@@ -172,5 +214,11 @@ export function useBookingWidget(tour: TourInfo, tourType: "oneday" | "multiday"
     closeAuthModal: () => setShowAuthModal(false),
     draftRestored,
     clearDraftRestored: () => setDraftRestored(false),
+    isBookingModalOpen,
+    setIsBookingModalOpen,
+    selectedOptions,
+    handleOptionToggle,
+    handleOptionCountChange,
+    handleConfirmBooking,
   };
 }

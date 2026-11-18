@@ -30,7 +30,7 @@ export function useFetchSingleBlog(slug: string) {
     fetchBlogServices
       .getBlogPostBySlug(slug, locale, userId, controller.signal)
       .then((response) => {
-        console.log(`📖 [SINGLE BLOG LOADED - ${slug} - ${locale}]:`, response);
+        // console.log(`📖 [SINGLE BLOG LOADED - ${slug} - ${locale}]:`, response);
         setState({ key: requestKey, slug, data: response, error: null });
       })
       .catch((err: unknown) => {

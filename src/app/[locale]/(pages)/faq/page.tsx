@@ -22,7 +22,7 @@ export default async function Page() {
   const locale = await getLocale();
   const t = await getTranslations("FaqPage.Hero");
 
-  let schemas: Array<Record<string, unknown>> = [
+  const schemas: Array<Record<string, unknown>> = [
     getBreadcrumbSchema([
       { name: locale === "ja" ? "ホーム" : "Home", url: `/${locale}` },
       { name: locale === "ja" ? "よくある質問" : "Frequently Asked Questions", url: `/${locale}/faq` },

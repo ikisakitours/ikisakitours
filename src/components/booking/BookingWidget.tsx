@@ -91,8 +91,20 @@ export function BookingWidget({ tour, booking, tourType, className = "" }: Booki
     tour.pricingConfig,
   );
 
+  const childDiscountLabel =
+    tour.pricingConfig?.passengerPricing?.childRateType === "fixed"
+      ? t("childRateFixed")
+      : t("childRatePercent", {
+          percent:
+            typeof tour.pricingConfig?.passengerPricing?.childRateValue === "number" &&
+            tour.pricingConfig.passengerPricing.childRateValue > 0
+              ? Number(tour.pricingConfig.passengerPricing.childRateValue)
+              : 50,
+        });
+
   return (
-<aside className={`mt-12 w-full md:mx-auto md:max-w-115 xl:mx-0 xl:mt-0 xl:w-[38%] xl:min-w-105 ${className}`}>      <div className="sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto no-scrollbar space-y-4 pb-4">
+    <aside className={`mt-12 w-full md:mx-auto md:max-w-115 xl:mx-0 xl:mt-0 xl:w-[38%] xl:min-w-105 ${className}`}>
+      <div className="sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto no-scrollbar space-y-4 pb-4">
         {/* Like & Share Header */}
         <div className="flex items-center justify-between px-2">
           <span className="text-caption font-bold uppercase tracking-[0.2em] text-slate-400">{t("loveTour")}</span>
@@ -103,7 +115,7 @@ export function BookingWidget({ tour, booking, tourType, className = "" }: Booki
               initialIsLiked={isLiked}
               onToggle={async () => {
                 if (!user?.id) {
-                  alert("Please log in to like this tour.");
+                  alert(t("loginToLike"));
                   return;
                 }
                 if (!tour.id) return;
@@ -160,11 +172,13 @@ export function BookingWidget({ tour, booking, tourType, className = "" }: Booki
                 <h4 className="flex items-center justify-center gap-1.5 text-[11px] sm:text-[12px] md:text-[12px] font-black uppercase tracking-widest text-gold">
                   <span className="text-[14px] sm:text-[16px] md:text-[18px]">✨</span>
                   {activeTier
-                    ? `${activeTier.label || `${activeTier.minPax}-${activeTier.maxPax} Pax Tier`}`
+                    ? Number(activeTier.minPax) === Number(activeTier.maxPax)
+                      ? t("paxTierSingle", { count: activeTier.minPax })
+                      : t("paxTier", { min: activeTier.minPax, max: activeTier.maxPax })
                     : t("groupDiscount")}
                 </h4>
                 <p className="text-[12px] sm:text-[13px] md:text-[13px] font-medium text-slate-400 italic leading-tight text-center">
-                  {totalPax > 0 ? `Active Rate: ${formatPrice(unitPrice)} / person applied` : t("priceDecreases")}
+                  {totalPax > 0 ? t("activeRateApplied", { price: formatPrice(unitPrice) }) : t("priceDecreases")}
                 </p>
               </div>
             </div>
@@ -216,10 +230,10 @@ export function BookingWidget({ tour, booking, tourType, className = "" }: Booki
             <div className="mb-5 rounded-2xl border border-gold/25 bg-white/2 p-4 space-y-2.5 transition-all">
               <div className="flex items-center justify-between pb-2 border-b border-white/5">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
-                  Price Calculation ({totalPax} Travelers)
+                  {t("priceCalculation", { count: totalPax })}
                 </span>
                 <span className="text-[10px] font-bold uppercase tracking-widest text-gold bg-gold/10 px-2 py-0.5 rounded-full border border-gold/20">
-                  Tier Applied
+                  {t("tierApplied")}
                 </span>
               </div>
 
@@ -227,7 +241,7 @@ export function BookingWidget({ tour, booking, tourType, className = "" }: Booki
               {breakdown.adults.count > 0 && (
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-slate-300">
-                    {breakdown.adults.count} × Adult ({formatPrice(breakdown.adults.unitPrice)})
+                    {breakdown.adults.count} × {tForms("TravelerOptions.adult")} ({formatPrice(breakdown.adults.unitPrice)})
                   </span>
                   <span className="font-semibold text-white">{formatPrice(breakdown.adults.total)}</span>
                 </div>
@@ -237,19 +251,19 @@ export function BookingWidget({ tour, booking, tourType, className = "" }: Booki
               {breakdown.couples.count > 0 && (
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-slate-300">
-                    {breakdown.couples.count} × Couple ({formatPrice(breakdown.couples.unitPrice)})
+                    {breakdown.couples.count} × {tForms("TravelerOptions.couple")} ({formatPrice(breakdown.couples.unitPrice)})
                   </span>
                   <span className="font-semibold text-white">{formatPrice(breakdown.couples.total)}</span>
                 </div>
               )}
 
-              {/* Children Row (with 50% discount callout) */}
+              {/* Children Row (with discount callout) */}
               {breakdown.children.count > 0 && (
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-slate-300 flex items-center gap-1.5">
-                    {breakdown.children.count} × Child
+                    {breakdown.children.count} × {tForms("TravelerOptions.child")}
                     <span className="text-[10px] text-emerald-400 font-bold bg-emerald-500/10 px-1.5 py-0.2 rounded border border-emerald-500/20">
-                      {breakdown.children.discountNote}
+                      {childDiscountLabel}
                     </span>
                   </span>
                   <span className="font-semibold text-white">{formatPrice(breakdown.children.total)}</span>
@@ -260,10 +274,14 @@ export function BookingWidget({ tour, booking, tourType, className = "" }: Booki
               {breakdown.infants.count > 0 && (
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-slate-300 flex items-center gap-1.5">
-                    {breakdown.infants.count} × Infant
-                    <span className="text-[10px] text-slate-400 font-bold bg-white/5 px-1.5 py-0.2 rounded">Free</span>
+                    {breakdown.infants.count} × {tForms("TravelerOptions.infant")}
+                    {breakdown.infants.unitPrice === 0 && (
+                      <span className="text-[10px] text-slate-400 font-bold bg-white/5 px-1.5 py-0.2 rounded">
+                        {t("free")}
+                      </span>
+                    )}
                   </span>
-                  <span className="font-semibold text-emerald-400">$0.00</span>
+                  <span className="font-semibold text-emerald-400">{formatPrice(breakdown.infants.total)}</span>
                 </div>
               )}
 
@@ -271,9 +289,9 @@ export function BookingWidget({ tour, booking, tourType, className = "" }: Booki
               <div className="flex items-center justify-between pt-2.5 border-t border-gold/20">
                 <div>
                   <span className="block text-[11px] font-black uppercase tracking-widest text-gold">
-                    Estimated Total
+                    {t("estimatedTotal")}
                   </span>
-                  <span className="text-[10px] text-slate-500">Taxes & fees included</span>
+                  <span className="text-[10px] text-slate-500">{t("taxesIncluded")}</span>
                 </div>
                 <span className="text-[22px] font-black tracking-tight text-white drop-shadow-[0_0_12px_rgba(197,160,89,0.3)]">
                   {formatPrice(totalPrice)}
@@ -287,7 +305,7 @@ export function BookingWidget({ tour, booking, tourType, className = "" }: Booki
             type="submit"
             disabled={isLoading}
             variant="auth"
-            className="w-full disabled:opacity-60 disabled:cursor-not-allowed"
+            className="md:min-w-90! w-full disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {isLoading ? tForms("ButtonsLoading.checkingAvailability") : tForms("Buttons.checkAvailability")}
           </Button>

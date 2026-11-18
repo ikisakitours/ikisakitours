@@ -249,7 +249,7 @@ export function SiteHeader() {
       logoutUser();
       toast.success(toastId, tToast("success"), 2000);
       setIsProfileOpen(false);
-      console.log("Logout valid and submitted!", response);
+      // console.log("Logout valid and submitted!", response);
 
       setTimeout(() => {
         window.location.href = "/login";
@@ -325,7 +325,7 @@ export function SiteHeader() {
             : "border-white/0"
           }`}
       >
-        <ContainerLayout>
+        <ContainerLayout className="px-5! sm:px-8! md:px-12! lg:px-16! xl:px-20! 2xl:px-32! 3xl:px-[7%]!">
           <div
             id="nav-container"
             className={`flex items-center justify-between transition-all duration-500 ${isScrolled ? "h-17.5" : "h-20 sm:h-24"
@@ -334,16 +334,16 @@ export function SiteHeader() {
             <Link
               href="/"
               onClick={closeMobileMenu}
-              className="group flex shrink-0 items-center space-x-2 relative z-101"
+              className="group flex shrink-0 items-center gap-3.5 sm:gap-6 relative z-101"
             >
               <LoadingImage
-                src="/images/bg-remove.png"
+                src="/Layout-Icons/logo-transparent.webp"
                 alt={tHeader("logoAlt")}
-                width={200}
-                height={80}
+                width={281}
+                height={323}
                 isSmall
-                wrapperClassName="w-auto h-auto inline-flex items-center"
-                className="h-15 w-auto object-contain transition-transform duration-500 group-hover:scale-105 sm:h-16 lg:h-18"
+                wrapperClassName="w-auto h-auto shrink-0 inline-flex items-center overflow-visible"
+                className="h-11 w-auto object-contain transition-transform duration-500 group-hover:scale-105 sm:h-13 lg:h-14"
                 priority
                 onError={(event) => {
                   event.currentTarget.style.display = "none";

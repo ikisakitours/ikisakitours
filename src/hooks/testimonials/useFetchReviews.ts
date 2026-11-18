@@ -13,7 +13,7 @@ export function useReviews() {
     setError(null);
     try {
       const response = await fetchReviewsServices.getReviews();
-      console.log("Full Backend Reviews Response Object:", response);
+      // console.log("Full Backend Reviews Response Object:", response);
       setData(response);
     } catch (err: unknown) {
       if (err instanceof Error) {

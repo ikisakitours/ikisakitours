@@ -7,37 +7,19 @@ import { Star } from "lucide-react";// MapPin
 import { FaClock } from "react-icons/fa6";
 import { useTranslations } from "next-intl";
 import { PackageSummary } from "@/services/tours/types";
+import { getBadgeStyles, getBadgeLabel, isBadgeVisible } from "@/utils/packageBadge";
 
 type PackageCardProps = {
   item: PackageSummary;
   tourType?: "multi" | "one";
-};
-type BadgeKey = "popular" | "discounted" | "new_arrival" | "featured";
-
-const getBadgeStyles = (type: string) => {
-  switch (type) {
-    case "popular":
-      return "bg-gold text-black";
-    case "discounted": // 'sale'
-      return "bg-red-600 text-white animate-pulse";
-    case "new_arrival": // 'new'
-      return "bg-white/10 text-white";
-    case "featured":
-      return "bg-emerald-600 text-white border border-emerald-400/30";
-    default:
-      return "bg-white/10 text-white";
-  }
 };
 
 export function Card({ item, tourType }: PackageCardProps) {
   const t = useTranslations("Tours.Card");
   const { formatPrice } = useCurrency();
 
-  const badgeKey = item.badge as BadgeKey;
-  const badgeText =
-    badgeKey && [`popular`, `discounted`, `new_arrival`, `featured`].includes(badgeKey)
-      ? t(`Badges.${badgeKey}`)
-      : item.badge?.replace("_", " ");
+  const showBadge = isBadgeVisible(item.badge);
+  const badgeText = item.badge ? getBadgeLabel(item.badge, t) : "";
 
   const bookingHref =
     tourType === "one" ? `/booking/one-day-tours/${item.slug}` : `/booking/multi-days-tours/${item.slug}`;
@@ -46,7 +28,7 @@ export function Card({ item, tourType }: PackageCardProps) {
     <article className="group relative flex h-full w-full flex-col overflow-hidden rounded-xl border border-white/10 bg-[#111] shadow-2xl transition-all duration-500 hover:border-gold/50">
       <div className="absolute left-3 right-3 top-3 z-30 flex items-center justify-between 3xl:left-5 3xl:right-5 3xl:top-5">
         {/* Main Category/Status Badge */}
-        {item.badge && (
+        {showBadge && (
           <span
             className={`${getBadgeStyles(item.badge)} rounded-sm px-2 py-2 text-micro 3xl:px-3 3xl:py-1.5 font-bold uppercase tracking-widest`}
           >

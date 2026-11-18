@@ -45,7 +45,7 @@ export function ChatHeader({ showMailForm, setShowMailForm, activeTab, setActive
           <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-surface border border-gold/30 relative">
             {!logoError ? (
               <Image
-                src="/images/bg-remove.png"
+                src="/Layout-Icons/image-400x400.webp"
                 alt={t("logoAlt")}
                 width={36}
                 height={36}

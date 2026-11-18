@@ -29,8 +29,25 @@ export function StickyBookingBar({ tour, booking, tourType }: MobileBookingBarPr
   );
 
   const isModalOpenRef = useRef(false);
+  const isReviewModalOpenRef = useRef(booking.isBookingModalOpen);
 
-  const { draftRestored, clearDraftRestored } = booking;
+  const { draftRestored, clearDraftRestored, isBookingModalOpen } = booking;
+
+  // Keep ref in sync so scroll-lock cleanup knows if the review modal is open
+  useEffect(() => {
+    isReviewModalOpenRef.current = isBookingModalOpen;
+  }, [isBookingModalOpen]);
+
+  // Close the mobile booking widget sheet automatically when the Booking Review Modal opens
+  useEffect(() => {
+    if (!isBookingModalOpen || !isMobileModalOpen) return;
+
+    const timer = setTimeout(() => {
+      setIsMobileModalOpen(false);
+    }, 0);
+
+    return () => clearTimeout(timer);
+  }, [isBookingModalOpen, isMobileModalOpen]);
 
   // After returning from login: reopen the modal with the restored data
   useEffect(() => {
@@ -47,8 +64,12 @@ export function StickyBookingBar({ tour, booking, tourType }: MobileBookingBarPr
   }, [draftRestored, clearDraftRestored]);
 
   useEffect(() => {
-    window.dispatchEvent(new CustomEvent("bookingModalStateChange", { detail: { isOpen: isMobileModalOpen } }));
-  }, [isMobileModalOpen]);
+    window.dispatchEvent(
+      new CustomEvent("bookingModalStateChange", {
+        detail: { isOpen: isMobileModalOpen || isBookingModalOpen },
+      }),
+    );
+  }, [isMobileModalOpen, isBookingModalOpen]);
 
   useEffect(() => {
     isModalOpenRef.current = isMobileModalOpen;
@@ -78,6 +99,9 @@ export function StickyBookingBar({ tour, booking, tourType }: MobileBookingBarPr
     body.style.overflow = "hidden";
 
     return () => {
+      // If closing to transition into BookingModal, let BookingModal keep ownership of the body scroll lock
+      if (isReviewModalOpenRef.current) return;
+
       body.style.position = previous.position;
       body.style.top = previous.top;
       body.style.left = previous.left;

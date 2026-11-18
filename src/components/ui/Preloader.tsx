@@ -134,130 +134,55 @@ export default function Preloader({ isTestMode }: PreloaderProps) {
   return (
     <>
       <style>{`
-        @keyframes gentleFloat {
+        @keyframes logoBreathe {
           0%, 100% {
-            transform: translate3d(0, 0, 0);
+            opacity: 1;
+            transform: scale3d(1, 1, 1);
           }
           50% {
-            transform: translate3d(0, -4px, 0);
+            opacity: 0.4;
+            transform: scale3d(0.95, 0.95, 1);
           }
         }
-        .anim-gentle-float {
-          animation: gentleFloat 4.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
-          will-change: transform;
+        .anim-logo-breathe {
+          animation: logoBreathe 1.8s ease-in-out infinite;
+          will-change: transform, opacity;
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;
-          transform-style: preserve-3d;
-        }
-
-        @keyframes smoothReveal {
-          0% {
-            opacity: 0;
-            transform: translate3d(0, 12px, 0);
-          }
-          100% {
-            opacity: 1;
-            transform: translate3d(0, 0, 0);
-          }
-        }
-        .anim-reveal {
-          animation: smoothReveal 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
-          will-change: transform, opacity;
         }
       `}</style>
 
       <AnimatePresence mode="wait">
         {loading && (
-          <div
+          <motion.div
             key={`ikisaki-preloader-${loopCount}`}
-            className="fixed inset-0 z-99999 pointer-events-auto overflow-hidden select-none"
+            role="status"
+            aria-label={t("tagline")}
+            className="fixed inset-0 z-99999 bg-[#070708] pointer-events-auto overflow-hidden select-none"
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 1 }}
+            exit={{
+              opacity: 0,
+              transition: { duration: 0.6, ease: [0.4, 0, 0.2, 1] },
+            }}
           >
-            {/* Theatrical Split Shutter: Top Panel (Overlaps by 4px to prevent any sub-pixel seam) */}
-            <motion.div
-              className="absolute top-0 left-0 right-0 h-[calc(50%+4px)] bg-[#070708] z-0"
-              initial={{ y: 0 }}
-              exit={{
-                y: "-100%",
-                transition: { duration: 1.05, ease: [0.77, 0, 0.175, 1] },
-              }}
-            />
-
-            {/* Theatrical Split Shutter: Bottom Panel (Overlaps by 4px to prevent any sub-pixel seam) */}
-            <motion.div
-              className="absolute bottom-0 left-0 right-0 h-[calc(50%+4px)] bg-[#070708] z-0"
-              initial={{ y: 0 }}
-              exit={{
-                y: "100%",
-                transition: { duration: 1.05, ease: [0.77, 0, 0.175, 1] },
-              }}
-            />
-
-            {/* Central Stage */}
-            <motion.div
-              className="relative z-10 flex h-full w-full flex-col items-center justify-center text-white"
-              initial={{ opacity: 1 }}
-              exit={{
-                opacity: 0,
-                scale: 1.04,
-                transition: { duration: 0.5, ease: "easeOut" },
-              }}
-            >
-              {/* Haute Horlogerie Corner Brackets (Framing Logo at Balanced Distance) */}
-              <motion.div
-                className="relative flex items-center justify-center"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.9, ease: "easeOut" }}
-              >
-                {/* Royal Crest with Symmetrically Equidistant Framing Brackets */}
-                <div className="relative z-10 w-48 h-48 sm:w-56 sm:h-56 md:w-60 md:h-60 flex items-center justify-center anim-gentle-float">
-                  <Image
-                    src="/images/preloader.webp"
-                    alt="Crest"
-                    width={260}
-                    height={260}
-                    priority
-                    loading="eager"
-                    decoding="sync"
-                    className="w-full h-full object-contain"
-                  />
-
-                  {/* 4 Architectural Golden Corner Brackets - Symmetrically Equidistant around the logo geometry */}
-                  <div className="absolute inset-x-1.5 top-1.5 bottom-5 sm:bottom-6 pointer-events-none">
-                    {/* Top-Left */}
-                    <span className="absolute top-0 left-0 h-3.5 w-3.5 border-t-2 border-l-2 border-gold/90" />
-                    {/* Top-Right */}
-                    <span className="absolute top-0 right-0 h-3.5 w-3.5 border-t-2 border-r-2 border-gold/90" />
-                    {/* Bottom-Left */}
-                    <span className="absolute bottom-0 left-0 h-3.5 w-3.5 border-b-2 border-l-2 border-gold/90" />
-                    {/* Bottom-Right */}
-                    <span className="absolute bottom-0 right-0 h-3.5 w-3.5 border-b-2 border-r-2 border-gold/90" />
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Sub-Descriptors with Hardware-Accelerated Smooth Entrance (Zero-Lag) */}
-              <div className="relative z-10 mt-6 flex flex-col items-center text-center anim-reveal">
-                {/* Localized Luxury Tagline */}
-                <p className="Preloader-text text-caption tracking-[0.55em] sm:tracking-[0.75em] uppercase text-gold/85 pl-[0.55em] sm:pl-[0.75em] font-light">
-                  {t("tagline")}
-                </p>
-
-                {/* Direct-DOM Precision Counter (No React Re-renders, 0ms Lag) */}
-                <div className="mt-4 flex items-baseline gap-1 font-serif text-gold">
-                  <span ref={counterRef} className="text-3xl sm:text-4xl font-light tracking-widest tabular-nums">
-                    00
-                  </span>
-                  <span className="text-xs font-sans text-gold/45 tracking-widest">%</span>
-                </div>
-
-                {/* Localized Ceylon Coordinates */}
-                <p className="Preloader-text mt-3 text-tiny tracking-[0.45em] uppercase text-white/35 pl-[0.45em]">
-                  {t("coordinates")}
-                </p>
+            {/* Fixed 100vw stage prevents any horizontal jump when browser scrollbar hides/reappears */}
+            <div className="fixed top-0 left-0 w-screen h-dvh flex items-center justify-center">
+              <div className="relative w-44 h-44 sm:w-52 sm:h-52 md:w-60 md:h-60 flex items-center justify-center anim-logo-breathe">
+                <Image
+                  src="/Layout-Icons/image-600x600.webp"
+                  alt={t("tagline")}
+                  width={260}
+                  height={260}
+                  unoptimized
+                  priority
+                  loading="eager"
+                  decoding="sync"
+                  className="w-full h-full object-contain [mask-image:radial-gradient(circle,black_52%,transparent_76%)]"
+                />
               </div>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </>

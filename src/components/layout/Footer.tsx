@@ -58,7 +58,7 @@ export function Footer() {
                 <div className="pointer-events-none absolute inset-0 z-20 -translate-x-full bg-linear-to-r from-transparent via-white/50 to-transparent transition-transform duration-1000 ease-in-out group-hover:translate-x-full" />
                 <LoadingImage
                   // https://flagcdn.com/w80/lk.png
-                  src="/images/lk.png"
+                  src="/ikisaki-images/lk.png"
                   alt="Sri Lanka Flag"
                   width={80}
                   height={53}

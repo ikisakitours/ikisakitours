@@ -25,7 +25,7 @@ export function useServicePricing(serviceType: string = "custom") {
     servicePricingService
       .getServicePricing(serviceType, locale, controller.signal)
       .then((response) => {
-        console.log(`🏷️ [SERVICE PRICING LOADED - ${serviceType} / ${locale}]:`, response);
+        // console.log(`🏷️ [SERVICE PRICING LOADED - ${serviceType} / ${locale}]:`, response);
         setState({ key: requestKey, data: response, error: null });
       })
       .catch((err: unknown) => {

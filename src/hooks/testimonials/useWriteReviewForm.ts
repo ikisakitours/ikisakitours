@@ -66,8 +66,8 @@ export function useWriteReviewForm() {
       ]);
       toast.success(toastId, tToast("success"), 2000);
 
-      console.log("Testimonial Form valid and submitted!", apiPayload);
-      console.log("Testimonial Form Response!", response);
+      // console.log("Testimonial Form valid and submitted!", apiPayload);
+      // console.log("Testimonial Form Response!", response);
 
       clearReviewDraft();
       setRating(0);

@@ -93,7 +93,7 @@ export function useCookieConsent() {
     if (user?.id) {
       try {
         await cookieService.saveConsent(user.id, defaultPrefs);
-        console.log("✅ Accept All: Cookies successfully saved to DB!");
+        // console.log("✅ Accept All: Cookies successfully saved to DB!");
       } catch (error) {
         console.error("❌ Accept All: Failed to save cookies to DB:", error);
       }
@@ -109,7 +109,7 @@ export function useCookieConsent() {
     if (user?.id) {
       try {
         await cookieService.saveConsent(user.id, { performance: false, functional: false, targeting: false });
-        console.log("✅ Reject All: Cookies successfully saved to DB!");
+        // console.log("✅ Reject All: Cookies successfully saved to DB!");
       } catch (error) {
         console.error("❌ Reject All: Failed to save cookies to DB:", error);
       }

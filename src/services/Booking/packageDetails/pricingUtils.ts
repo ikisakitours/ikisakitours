@@ -22,105 +22,165 @@ export interface PricingCalculationResult {
   };
 }
 
+/**
+ * Fully Optimized Dynamic Tour Pricing Calculator
+ * Correctly calculates Group Tiers, Couples (2-pax rooms), Child discounts, and Infants.
+ */
 export function calculateDynamicPricing(
   basePrice: number,
   travelerCounts: Record<string, number> = {},
   pricingConfig?: PricingConfig
 ): PricingCalculationResult {
-  const adults = travelerCounts.adult || 0;
-  const couplePersons = travelerCounts.couple || 0;
-  const couplePairs = couplePersons / 2;
-  const children = travelerCounts.child || 0;
-  const infants = travelerCounts.infant || 0;
+  // Fallback safe base price
+  const fallbackPrice =
+    typeof basePrice === "number" && !isNaN(basePrice) ? basePrice : Number(basePrice) || 0;
 
+  // 1. Extract counts safely (handles both singular: 'adult' and plural: 'adults')
+  const adults = Math.max(0, Number(travelerCounts.adult ?? travelerCounts.adults ?? 0));
+  
+  // In the UI, 'couple' count represents the number of Couples (rooms/pairs, e.g. 2 Couples)
+  const coupleCount = Math.max(0, Number(travelerCounts.couple ?? travelerCounts.couples ?? 0));
+  // Each couple consists of 2 adult persons
+  const couplePersons = coupleCount * 2;
+
+  const children = Math.max(0, Number(travelerCounts.child ?? travelerCounts.children ?? 0));
+  const infants = Math.max(0, Number(travelerCounts.infant ?? travelerCounts.infants ?? 0));
+
+  // Total paying travelers headcount (determines Group Discount Tier)
+  // Note: Infants travel free on lap and do not count toward paying group discount tiers
   const totalPax = adults + couplePersons + children;
+
   const tiers = pricingConfig?.tiers;
   const passengerPricing = pricingConfig?.passengerPricing;
 
-  let unitPrice = Number(basePrice) || 0;
+  let unitPrice = fallbackPrice;
   let activeTier: PricingTier | undefined;
   let isTierPricingApplied = false;
 
-  // 1. Determine Active Group Discount Tier
-  if (tiers && tiers.length > 0) {
+  // 2. Match Active Group Discount Tier by totalPax
+  if (tiers && Array.isArray(tiers) && tiers.length > 0) {
     if (totalPax > 0) {
-      activeTier = tiers.find((tier) => totalPax >= tier.minPax && totalPax <= tier.maxPax);
+      // Find tier where totalPax falls between minPax and maxPax
+      activeTier = tiers.find(
+        (tier) => totalPax >= Number(tier.minPax) && totalPax <= Number(tier.maxPax)
+      );
 
-      // If totalPax exceeds highest tier, use the highest tier rate
+      // If totalPax exceeds the highest tier, apply the largest group discount rate
       if (!activeTier) {
-        const sortedDesc = [...tiers].sort((a, b) => b.minPax - a.minPax);
-        if (totalPax >= sortedDesc[0].minPax) {
-          activeTier = sortedDesc[0];
+        const sortedAsc = [...tiers].sort((a, b) => Number(a.minPax) - Number(b.minPax));
+        const highestTier = sortedAsc[sortedAsc.length - 1];
+        const lowestTier = sortedAsc[0];
+
+        if (totalPax >= Number(highestTier.maxPax || highestTier.minPax)) {
+          activeTier = highestTier;
         } else {
-          const sortedAsc = [...tiers].sort((a, b) => a.minPax - b.minPax);
-          activeTier = sortedAsc[0];
+          activeTier = lowestTier;
         }
       }
 
       if (activeTier) {
-        unitPrice = activeTier.pricePerPerson;
+        unitPrice = Number(activeTier.pricePerPerson) || fallbackPrice;
         isTierPricingApplied = true;
       }
     } else {
-      const soloTier = tiers.find((t) => t.minPax === 1) || tiers[0];
+      // If 0 travelers selected, default to Solo (1 pax) tier rate
+      const soloTier = tiers.find((t) => Number(t.minPax) === 1) || tiers[0];
       if (soloTier) {
-        unitPrice = soloTier.pricePerPerson;
+        unitPrice = Number(soloTier.pricePerPerson) || fallbackPrice;
         activeTier = soloTier;
       }
     }
   }
 
-  // 2. Adult Calculation
+  // 3. Adults Total
   const adultTotal = adults * unitPrice;
 
-  // 3. Couple Calculation
+  // 4. Couples Total (2 Adults in 1 Room)
+  // Rate is either Custom Fixed Couple Rate or Auto (2 x active tier rate)
   let coupleUnitRate = unitPrice * 2;
   let coupleTotal = 0;
   let coupleNote = "2 Adults (Shared Room)";
 
-  if (couplePairs > 0) {
-    if (passengerPricing?.couplePricingType === "fixed" && typeof passengerPricing.coupleFixedPrice === "number" && passengerPricing.coupleFixedPrice > 0) {
-      coupleUnitRate = passengerPricing.coupleFixedPrice;
-      coupleTotal = couplePairs * coupleUnitRate;
+  if (coupleCount > 0) {
+    if (
+      passengerPricing?.couplePricingType === "fixed" &&
+      typeof passengerPricing.coupleFixedPrice === "number" &&
+      passengerPricing.coupleFixedPrice > 0
+    ) {
+      coupleUnitRate = Number(passengerPricing.coupleFixedPrice);
       coupleNote = "Fixed Couple Rate";
     } else {
-      coupleTotal = couplePairs * coupleUnitRate;
+      coupleUnitRate = unitPrice * 2;
+      coupleNote = "2 × Adult Tier Rate";
     }
+    coupleTotal = coupleCount * coupleUnitRate;
   }
 
-  // 4. Child Calculation (Percentage or Fixed)
-  let childUnitPrice = unitPrice;
-  let childDiscountNote = "50% off";
+  // 5. Children Total (Percentage discount or fixed rate)
+  let childUnitPrice = unitPrice * 0.5; // Default 50% discount if unconfigured
+  let childDiscountNote = "50% of adult rate";
 
   if (passengerPricing) {
-    if (passengerPricing.childRateType === "percentage") {
-      const percent = typeof passengerPricing.childRateValue === "number" ? passengerPricing.childRateValue : 50;
+    if (passengerPricing.childRateType === "fixed") {
+      childUnitPrice =
+        typeof passengerPricing.childRateValue === "number" && passengerPricing.childRateValue >= 0
+          ? Number(passengerPricing.childRateValue)
+          : unitPrice;
+      childDiscountNote = "Fixed child fee";
+    } else {
+      const percent =
+        typeof passengerPricing.childRateValue === "number" && passengerPricing.childRateValue > 0
+          ? Number(passengerPricing.childRateValue)
+          : 50;
       childUnitPrice = (unitPrice * percent) / 100;
       childDiscountNote = `${percent}% of adult rate`;
-    } else if (passengerPricing.childRateType === "fixed") {
-      childUnitPrice = typeof passengerPricing.childRateValue === "number" ? passengerPricing.childRateValue : unitPrice;
-      childDiscountNote = "Fixed child fee";
     }
   }
   const childTotal = children * childUnitPrice;
 
-  // 5. Infant Calculation
-  const infantUnitPrice = passengerPricing && typeof passengerPricing.infantPrice === "number" ? passengerPricing.infantPrice : 0;
+  // 6. Infants Total (Usually Free / 0)
+  const infantUnitPrice =
+    passengerPricing &&
+    typeof passengerPricing.infantPrice === "number" &&
+    passengerPricing.infantPrice >= 0
+      ? Number(passengerPricing.infantPrice)
+      : 0;
   const infantTotal = infants * infantUnitPrice;
 
+  // 7. Final Grand Total
   const totalPrice = adultTotal + coupleTotal + childTotal + infantTotal;
 
+  // 8. Return rounded results to prevent JavaScript floating point decimals
   return {
-    unitPrice,
-    totalPrice,
+    unitPrice: Math.round(unitPrice * 100) / 100,
+    totalPrice: Math.round(totalPrice * 100) / 100,
     activeTier,
     totalPax,
     isTierPricingApplied,
     breakdown: {
-      adults: { count: adults, unitPrice, total: adultTotal },
-      couples: { count: couplePairs, unitPrice: coupleUnitRate, total: coupleTotal, discountNote: coupleNote },
-      children: { count: children, unitPrice: childUnitPrice, total: childTotal, discountNote: childDiscountNote },
-      infants: { count: infants, unitPrice: infantUnitPrice, total: infantTotal, discountNote: "Free (Under 2)" },
+      adults: {
+        count: adults,
+        unitPrice: Math.round(unitPrice * 100) / 100,
+        total: Math.round(adultTotal * 100) / 100,
+      },
+      couples: {
+        count: coupleCount, // Passes the actual number of Couples (e.g. 2, NOT 4)
+        unitPrice: Math.round(coupleUnitRate * 100) / 100,
+        total: Math.round(coupleTotal * 100) / 100,
+        discountNote: coupleNote,
+      },
+      children: {
+        count: children,
+        unitPrice: Math.round(childUnitPrice * 100) / 100,
+        total: Math.round(childTotal * 100) / 100,
+        discountNote: childDiscountNote,
+      },
+      infants: {
+        count: infants,
+        unitPrice: Math.round(infantUnitPrice * 100) / 100,
+        total: Math.round(infantTotal * 100) / 100,
+        discountNote: infantUnitPrice === 0 ? "Free (Under 2)" : "Infant fee",
+      },
     },
   };
 }

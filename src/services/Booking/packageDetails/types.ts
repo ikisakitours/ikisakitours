@@ -18,8 +18,8 @@ export interface ItineraryDay {
   details: string[];
   scenicStops: string[];
   activities: string[];
-  meals: string;
-  accommodation: string;
+  meals: string[] | string;
+  accommodation: string[] | string;
 }
 
 export interface ActivityDetail {
@@ -44,7 +44,8 @@ export interface PricingOption {
   name: PricingOptionLocalization | string;
   price: number;
   description?: PricingOptionLocalization | string;
-  calculationType: "per_person" | "flat" | string;
+  calculationType?: "per_person" | "per_room" | "per_booking" | "flat" | string;
+  type?: "per_person" | "per_room" | "per_booking" | "flat" | string;
 }
 
 export interface PassengerPricing {

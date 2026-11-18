@@ -2,6 +2,7 @@ export default {
   dateRequired: "出発日を選択してください",
   dateFuture: "将来の日付の出発日を選択してください。",
   travelersRequired: "少なくとも1人の旅行者を選択してください",
+  adultRequired: "お子様または乳幼児のみでのご予約はできません。大人またはカップルを1名以上選択してください",
   timeRequired: "時間を選択してください",
   daysMin: "期間は少なくとも1日である必要があります",
   firstNameRequired: "ファーストネームを入力してください。",

@@ -210,8 +210,8 @@ Structured Data allows Google to read your prices, ratings, and business entity 
   "@type": "TravelAgency",
   "name": "IkiSaki Tours",
   "url": "https://www.ikisakitours.com",
-  "logo": "https://www.ikisakitours.com/images/logo.png",
-  "image": "https://www.ikisakitours.com/images/opengraph-image.png",
+  "logo": "https://www.ikisakitours.com/Layout-Icons/image-600x600.webp",
+  "image": "https://www.ikisakitours.com/Layout-Icons/image-600x600.webp",
   "description": "Premier inbound travel & bespoke private tour operator in Sri Lanka.",
   "address": {
     "@type": "PostalAddress",

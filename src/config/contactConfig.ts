@@ -16,7 +16,7 @@ export const contactConfig = {
   brand: {
     name: "AETHERIA LABS",
     url: "https://pramod-siriwardhana.vercel.app/",
-    logoUrl: "/images/aetheria-logo.mp4",
+    logoUrl: "/Layout-Icons/aetheria-logo.mp4",
   },
 
   getWhatsappUrl: (text: string = "") =>

@@ -31,14 +31,17 @@ export function TravelerPicker({ options, counts, onChange, isLoading = false }:
     .map((opt) => {
       const count = counts[opt.type] || 0;
       if (opt.type === "couple") {
-        const coupleCount = (counts[opt.type] || 0) / 2;
-        return `${coupleCount} ${coupleCount > 1 ? t("couples") : t("couple")}`;
+        return `${count} ${count > 1 ? t("couples") : t("couple")}`;
       }
       const labelToShow = count > 1 && opt.pluralLabel ? opt.pluralLabel : opt.label;
       return `${count} ${labelToShow}`;
     });
 
-  const totalTravelers = Object.values(counts).reduce((a, b) => a + b, 0);
+  const totalTravelers =
+    (counts.adult || 0) +
+    ((counts.couple || 0) * 2) +
+    (counts.child || 0) +
+    (counts.infant || 0);
 
   const triggerLabel = totalTravelers === 0 ? t("zeroTravelers") : activeSelections.join(", ");
   return (
@@ -91,9 +94,9 @@ export function TravelerPicker({ options, counts, onChange, isLoading = false }:
                     <Minus strokeWidth={3} className="h-4 w-4" />
                   </button>
 
-<span className="text-body-sm font-bold w-4 text-center text-white">
-  {option.type === "couple" ? (counts[option.type] || 0) / 2 : counts[option.type] || 0}
-</span>
+                  <span className="text-body-sm font-bold w-4 text-center text-white">
+                    {counts[option.type] || 0}
+                  </span>
                   <button
                     type="button"
                     onClick={() => onChange(option.type, 1)}

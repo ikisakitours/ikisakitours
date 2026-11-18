@@ -2,6 +2,7 @@ export default {
   dateRequired: "Please select a journey date",
   dateFuture: "Please select a future departure date",
   travelersRequired: "Select at least one traveler",
+  adultRequired: "At least one adult or couple is required to book with children or infants",
   timeRequired: "Please select a time",
   daysMin: "Duration must be at least 1 day",
   firstNameRequired: "Please enter your first name.",

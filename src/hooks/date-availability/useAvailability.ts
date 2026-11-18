@@ -65,7 +65,34 @@ export const useAvailability = (preferredLocale?: string) => {
   });
   const [isLoadingDates, setIsLoadingDates] = useState<boolean>(true);
 
-  const loadDates = useCallback(async () => {
+  useEffect(() => {
+    let isCancelled = false;
+
+    fetchAvailability(locale)
+      .then((data) => {
+        if (!isCancelled) {
+          setAvailability(data);
+          setIsLoadingDates(false);
+        }
+      })
+      .catch((error) => {
+        if (!isCancelled) {
+          console.error("Failed to load availability dates", error);
+          setAvailability({
+            apiClosedDates: [],
+            dateDetails: {},
+            closedDateDetails: [],
+          });
+          setIsLoadingDates(false);
+        }
+      });
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [locale]);
+
+  const refetch = useCallback(async () => {
     setIsLoadingDates(true);
     try {
       const data = await fetchAvailability(locale);
@@ -81,10 +108,6 @@ export const useAvailability = (preferredLocale?: string) => {
       setIsLoadingDates(false);
     }
   }, [locale]);
-
-  useEffect(() => {
-    void loadDates();
-  }, [loadDates]);
 
   const isDateClosed = useCallback(
     (dateStr: string, tourType?: string): boolean => {
@@ -113,6 +136,6 @@ export const useAvailability = (preferredLocale?: string) => {
     isLoadingDates,
     isDateClosed,
     getDateDetail,
-    refetch: loadDates,
+    refetch,
   };
 };

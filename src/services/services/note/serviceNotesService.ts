@@ -23,7 +23,7 @@ export const serviceNotesService = {
       throw new Error(`Failed to fetch service notes for type: ${serviceType}`);
     }
     const jsonRes = await res.json();
-    console.log("📦 [RAW SERVICE NOTES RESPONSE]:", jsonRes);
+    // console.log("📦 [RAW SERVICE NOTES RESPONSE]:", jsonRes);
     return jsonRes;
   },
 };
