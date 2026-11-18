@@ -321,7 +321,7 @@ export function BookingModal({
                 <button
                   type="button"
                   onClick={() => onTravelerChange("adult", 1)}
-                  className="w-8 h-8 rounded-full border border-gold/40 bg-gold/10 text-gold flex items-center justify-center hover:bg-gold hover:text-black transition-colors"
+                  className="w-8 h-8 rounded-full border border-gold/40 bg-gold/10 text-gold flex items-center justify-center cursor-pointer hover:bg-gold hover:text-black! transition-colors"
                 >
                   <Plus className="w-3.5 h-3.5" />
                 </button>
@@ -352,7 +352,7 @@ export function BookingModal({
                 <button
                   type="button"
                   onClick={() => onTravelerChange("couple", 1)}
-                  className="w-8 h-8 rounded-full border border-gold/40 bg-gold/10 text-gold flex items-center justify-center hover:bg-gold hover:text-black transition-colors"
+                  className="w-8 h-8 rounded-full border border-gold/40 bg-gold/10 text-gold flex items-center justify-center cursor-pointer hover:bg-gold hover:text-black! transition-colors"
                 >
                   <Plus className="w-3.5 h-3.5" />
                 </button>
@@ -383,7 +383,7 @@ export function BookingModal({
                 <button
                   type="button"
                   onClick={() => onTravelerChange("child", 1)}
-                  className="w-8 h-8 rounded-full border border-gold/40 bg-gold/10 text-gold flex items-center justify-center hover:bg-gold hover:text-black transition-colors"
+                  className="w-8 h-8 rounded-full border border-gold/40 bg-gold/10 text-gold flex items-center justify-center cursor-pointer hover:bg-gold hover:text-black! transition-colors"
                 >
                   <Plus className="w-3.5 h-3.5" />
                 </button>
@@ -415,7 +415,7 @@ export function BookingModal({
                 <button
                   type="button"
                   onClick={() => onTravelerChange("infant", 1)}
-                  className="w-8 h-8 rounded-full border border-gold/40 bg-gold/10 text-gold flex items-center justify-center hover:bg-gold hover:text-black transition-colors"
+                  className="w-8 h-8 rounded-full border border-gold/40 bg-gold/10 text-gold flex items-center justify-center cursor-pointer hover:bg-gold hover:text-black! transition-colors"
                 >
                   <Plus className="w-3.5 h-3.5" />
                 </button>
@@ -566,7 +566,7 @@ export function BookingModal({
                               type="button"
                               onClick={() => handleOptionCountChange(opt.id, 1, maxCount)}
                               disabled={effectiveCount >= maxCount}
-                              className="w-6.5 h-6.5 rounded-full border border-gold/40 bg-gold/15 text-gold flex items-center justify-center hover:bg-gold hover:text-black disabled:opacity-30 disabled:hover:bg-gold/15 disabled:hover:text-gold transition-colors"
+                              className="w-6.5 h-6.5 rounded-full border border-gold/40 bg-gold/15 text-gold flex items-center justify-center cursor-pointer enabled:hover:bg-gold enabled:hover:text-black! disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                               aria-label={tModal("increaseQuantity")}
                             >
                               <Plus className="w-3 h-3" />
