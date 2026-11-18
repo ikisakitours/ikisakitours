@@ -15,23 +15,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 //Icons
 import { FaClock } from "react-icons/fa6";
 import { Star } from "lucide-react";
-
-type BadgeKey = "popular" | "discounted" | "new_arrival" | "featured";
-
-const getBadgeStyles = (type: string) => {
-  switch (type) {
-    case "popular":
-      return "bg-gold text-black";
-    case "discounted":
-      return "bg-red-600 text-white animate-pulse";
-    case "new_arrival":
-      return "bg-white/10 text-white";
-    case "featured":
-      return "bg-emerald-600 text-white border border-emerald-400/30";
-    default:
-      return "bg-white/10 text-white";
-  }
-};
+import { getBadgeStyles, getBadgeLabel, isBadgeVisible } from "@/utils/packageBadge";
 
 export function ToursSection() {
   const t = useTranslations("HomePage.Tours");
@@ -148,11 +132,8 @@ export function ToursSection() {
                 className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3 3xl:gap-10"
               >
                 {fetchedPackages.map((item, index) => {
-                  const badgeKey = item.badge as BadgeKey;
-                  const badgeText =
-                    badgeKey && ["popular", "discounted", "new_arrival", "featured"].includes(badgeKey)
-                      ? tCard(`Badges.${badgeKey}`)
-                      : item.badge?.replace("_", " ");
+                  const showBadge = isBadgeVisible(item.badge);
+                  const badgeText = item.badge ? getBadgeLabel(item.badge, tCard) : "";
                   return (
                     <motion.article
                       // key={item.slug}
@@ -165,7 +146,7 @@ export function ToursSection() {
                       {/* Badges */}
                       <div className="absolute left-3 right-3 top-3 z-30 flex items-center justify-between 3xl:left-5 3xl:right-5 3xl:top-5">
                         {/* 1. Main Category/Status Badge (e.g. new_arrival) */}
-                        {item.badge && (
+                        {showBadge && (
                           <span
                             className={`${getBadgeStyles(item.badge)} rounded-sm px-2 py-2 text-micro 3xl:px-3 3xl:py-1.5 font-bold uppercase tracking-widest`}
                           >

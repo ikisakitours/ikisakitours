@@ -61,7 +61,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   const { slug } = await params;
   const locale = await getLocale();
 
-  let schemas: Array<Record<string, unknown>> = [];
+  const schemas: Array<Record<string, unknown>> = [];
   try {
     const post = await fetchBlogServices.getBlogPostBySlug(slug, locale).catch(() => null);
     if (post) {

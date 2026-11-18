@@ -22,9 +22,9 @@ export function EventCard({ event }: EventCardProps) {
 
   useEffect(() => {
     if (isInView) {
-      console.log("▶️ EventsMedia is IN VIEWPORT: Playing/Active state triggered.");
+      // console.log("▶️ EventsMedia is IN VIEWPORT: Playing/Active state triggered.");
     } else {
-      console.log("⏸️ EventsMedia is OUT OF VIEWPORT: Pausing/Inactive state.");
+      // console.log("⏸️ EventsMedia is OUT OF VIEWPORT: Pausing/Inactive state.");
     }
   }, [isInView]);
 

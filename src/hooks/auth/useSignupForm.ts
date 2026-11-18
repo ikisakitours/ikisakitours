@@ -91,7 +91,7 @@ export function useSignupForm(tError: (key: string) => string) {
         new Promise((resolve) => setTimeout(resolve, 800)),
       ]);
 
-      console.log("Login valid and submitted!", response);
+      // console.log("Login valid and submitted!", response);
       toast.success(toastId, tToast("success"), 2000);
 
       setTimeout(() => {

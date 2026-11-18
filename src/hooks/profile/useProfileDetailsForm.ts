@@ -63,7 +63,7 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
     setCurrentFileSignature(fileSignature);
 
     const sizeInMB = (file.size / (1024 * 1024)).toFixed(2);
-    console.log(`📦 Original Image Size: ${sizeInMB} MB`);
+    // console.log(`📦 Original Image Size: ${sizeInMB} MB`);
     setOriginalImageSize(file.size);
 
     if (file.size > 5 * 1024 * 1024) {
@@ -127,7 +127,7 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
       });
 
       toast.success(toastId, tToastProfile("success"), 2000);
-      console.log("Login valid and submitted!", response);
+      // console.log("Login valid and submitted!", response);
     } catch (error) {
       toast.error(toastId, tToastProfile("error"));
       console.error("Update error:", error);
@@ -178,8 +178,8 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
       const originalMB = (originalImageSize / (1024 * 1024)).toFixed(2);
       const savedSpace = (Number(originalMB) - Number(webpSizeMB)).toFixed(2);
 
-      console.log(`🚀 Converted WebP Size: ${webpSizeMB} MB`);
-      console.log(`🎉 Cloudflare Storage Saved: ${savedSpace} MB!`);
+      // console.log(`🚀 Converted WebP Size: ${webpSizeMB} MB`);
+      // console.log(`🎉 Cloudflare Storage Saved: ${savedSpace} MB!`);
 
       if (webpBlob.size > 5 * 1024 * 1024) {
         setErrors((prev) => ({ ...prev, avatar: "Converted image is still too large." }));
@@ -202,7 +202,7 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
       }
 
       toast.success(toastId, tToastAvatar("success"), 2000);
-      console.log("Avatar uploaded successfully!");
+      // console.log("Avatar uploaded successfully!");
     } catch (error) {
       toast.error(toastId, tToastAvatar("error"));
       console.error("Avatar upload error:", error);

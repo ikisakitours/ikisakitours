@@ -4,8 +4,11 @@ import { useTranslations } from "next-intl";
 import ContainerLayout from "@/components/pageLayouts/ContainerLayout";
 import { BookingDetailSections } from "@/components/booking/BookingDetailSections";
 import { BookingWidget } from "@/components/booking/BookingWidget";
+import { BookingModal } from "@/components/booking/BookingModal";
 import { StickyBookingBar } from "@/components/booking/StickyBookingBar";
 import { useBookingWidget } from "@/hooks/Booking/useBookingWidget";
+import { useAvailability } from "@/hooks/date-availability/useAvailability";
+import { calculateDynamicPricing } from "@/services/Booking/packageDetails/pricingUtils";
 import { AuthRequiredModal } from "@/components/ui/AuthRequiredModal";
 import { PackageDetails } from "@/services/Booking/packageDetails/types";
 import { notFound } from "next/navigation";
@@ -27,6 +30,7 @@ export default function BookingBody({ slug, tourType }: BookingBodyProps) {
   const { tour, isLoading, error, isNotFound, refetch } = usePackageDetails(slug);
 
   const booking = useBookingWidget((tour || {}) as PackageDetails, mappedTourType);
+  const { closedDates, dateDetails, isLoadingDates } = useAvailability();
   if (isLoading) {
     return <ApiCallLoader fullScreen={true} text={tApi("loadingTourDetails")} />;
   }
@@ -48,6 +52,12 @@ export default function BookingBody({ slug, tourType }: BookingBodyProps) {
     );
   }
 
+  const { unitPrice, totalPrice, totalPax, breakdown } = calculateDynamicPricing(
+    tour.price,
+    booking.travelerCounts,
+    tour.pricingConfig,
+  );
+
   return (
     <ContainerLayout className="min-h-screen pt-27 sm:pt-25 md:pt-30 lg:pt-32 2xl:pt-34 3xl:pt-36 pb-12 md:pb-20 xl:pb-20 2xl:pb-24 3xl:pb-28">
       <div className="xl:flex xl:gap-6 2xl:gap-8 pb-20 md:pb-28 xl:pb-20 2xl:pb-32 3xl:pb-40">
@@ -65,6 +75,27 @@ export default function BookingBody({ slug, tourType }: BookingBodyProps) {
         price={tour.price}
       />
       <StickyBookingBar tour={tour} booking={booking} tourType={canonicalTourType} />
+      <BookingModal
+        isOpen={booking.isBookingModalOpen}
+        onClose={() => booking.setIsBookingModalOpen(false)}
+        tour={tour}
+        tourType={canonicalTourType}
+        journeyDate={booking.journeyDate}
+        setJourneyDate={booking.setJourneyDate}
+        travelerCounts={booking.travelerCounts}
+        handleTravelerChange={booking.handleTravelerChange}
+        selectedOptions={booking.selectedOptions}
+        handleOptionToggle={booking.handleOptionToggle}
+        handleOptionCountChange={booking.handleOptionCountChange}
+        onConfirmBooking={booking.handleConfirmBooking}
+        isLoading={booking.isLoading}
+        errors={booking.errors}
+        setErrors={booking.setErrors}
+        baseCalculations={{ unitPrice, totalPrice, totalPax, breakdown }}
+        closedDates={closedDates}
+        dateDetails={dateDetails}
+        isLoadingDates={isLoadingDates}
+      />
       <AuthRequiredModal
         isOpen={booking.showAuthModal}
         onClose={booking.closeAuthModal}

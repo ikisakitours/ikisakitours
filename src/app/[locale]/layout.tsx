@@ -52,6 +52,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     // metadataBase: new URL("https://mapmate-sri-lanka.vercel.app"),
     metadataBase: new URL("https://www.ikisakitours.com"),
+    icons: {
+      icon: [
+        { url: "/Layout-Icons/favicon.ico?v=4", sizes: "any" },
+        { url: "/Layout-Icons/favicon.png?v=4", type: "image/png", sizes: "180x180" },
+      ],
+      apple: [{ url: "/Layout-Icons/favicon.png?v=4", sizes: "180x180", type: "image/png" }],
+    },
     title: {
       default: t("titleDefault"),
       template: t("titleTemplate"),
@@ -100,12 +107,20 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       siteName: t("siteName"),
       images: [
         {
-          url: "/images/opengraph-image.png",
-          width: 1200,
-          height: 630,
+          url: "/Layout-Icons/image-600x315.webp",
+          width: 600,
+          height: 315,
+          alt: t("titleDefault"),
+        },
+
+        {
+          url: "/Layout-Icons/image-400x400.webp",
+          width: 400,
+          height: 400,
           alt: t("titleDefault"),
         },
       ],
+
       locale: locale === "ja" ? "ja_JP" : "en_US",
       type: "website",
     },
@@ -114,7 +129,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       card: "summary_large_image",
       title: t("titleDefault"),
       description: t("description"),
-      images: ["/images/opengraph-image.png"],
+      images: ["/Layout-Icons/image-600x315.webp"],
     },
   };
 }
@@ -133,8 +148,8 @@ export default async function RootLayout({
   }
   const rawMessages = await getMessages();
   const messages = locale.toLowerCase() === "ja" ? addJaBreaks(rawMessages) : rawMessages;
-  const resolvedParams = await params;
-  console.log("🔥 RootLayout resolved locale ->", resolvedParams.locale);
+  // const resolvedParams = await params;
+  // console.log("🔥 RootLayout resolved locale ->", resolvedParams.locale);
   const cookieStore = await cookies();
   const hasSeenPreloader = cookieStore.has("preloader_seen");
 
@@ -151,7 +166,7 @@ export default async function RootLayout({
       className={`${plusJakarta.variable} ${playfair.variable} ${notoSansJP.variable} ${notoSerifJP.variable} h-full scroll-smooth antialiased notranslate`}
     >
       <head>
-        <link rel="preload" href="/images/preloader.webp" as="image" type="image/webp" fetchPriority="high" />
+        <link rel="preload" href="/Layout-Icons/image-600x600.webp" as="image" type="image/webp" fetchPriority="high" />
       </head>
       <body className="min-h-full bg-lanka-dark text-slate-200 notranslate">
         <NextIntlClientProvider messages={messages}>

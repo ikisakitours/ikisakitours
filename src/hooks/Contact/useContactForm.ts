@@ -110,7 +110,7 @@ export function useContactForm(inquiryOptions: string[]) {
       });
       setInquiryType("");
       setTourType("");
-      console.log("Contact Form valid and submitted!");
+      // console.log("Contact Form valid and submitted!");
     } catch (error) {
       toast.error(toastId, tToastContact("error"));
       console.error("Submission error:", error);

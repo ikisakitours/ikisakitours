@@ -5,7 +5,7 @@ export function useToggleLike() {
   const handleLikeToggle = async (postId: string, userId: string) => {
     try {
       const response = await fetchBlogServices.toggleLike(postId, userId);
-      console.log("❤️ [LIKE TOGGLED]:", response);
+      // console.log("❤️ [LIKE TOGGLED]:", response);
       return response;
     } catch (error) {
       console.error("❌ [LIKE ERROR]:", error);

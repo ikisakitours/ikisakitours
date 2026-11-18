@@ -58,7 +58,12 @@ export const useValidationForm = () => {
     // 2. Travelers Validation
     if (data.counts !== undefined) {
       const totalTravelers = Object.values(data.counts).reduce((a, b) => a + b, 0);
-      if (totalTravelers === 0) newErrors.travelers = t("travelersRequired");
+      const adultCount = (data.counts.adult || 0) + (data.counts.couple || 0);
+      if (totalTravelers === 0) {
+        newErrors.travelers = t("travelersRequired");
+      } else if (adultCount === 0) {
+        newErrors.travelers = t("adultRequired");
+      }
     }
 
     // 3. Time Validation

@@ -18,8 +18,8 @@ export function getTravelAgencySchema(locale: string = "en") {
     name: "Ikisaki Tours",
     alternateName: isJa ? "行き先ツアーズ" : "Ikisaki Tours Sri Lanka",
     url: `${BASE_URL}/${locale}`,
-    logo: `${BASE_URL}/images/opengraph-image.png`,
-    image: `${BASE_URL}/images/opengraph-image.png`,
+    logo: `${BASE_URL}/Layout-Icons/image-600x600.webp`,
+    image: `${BASE_URL}/Layout-Icons/image-1200x630.webp`,
     description: isJa
       ? "スリランカのオーダーメイドツアー、日本語対応の専属ドライバーチャーター、空港送迎サービスを提供する旅行会社。"
       : "Premier luxury travel agency specializing in bespoke private chauffeur tours, day trips, and custom itineraries across Sri Lanka.",
@@ -44,15 +44,7 @@ export function getTravelAgencySchema(locale: string = "en") {
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
-        dayOfWeek: [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-          "Sunday",
-        ],
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
         opens: "00:00",
         closes: "23:59",
       },
@@ -161,7 +153,8 @@ export function getBlogPostSchema(post: BlogPost, locale: string = "en") {
       url: `${BASE_URL}/${locale}`,
       logo: {
         "@type": "ImageObject",
-        url: `${BASE_URL}/images/opengraph-image.png`,
+        url: `${BASE_URL}/Layout-Icons/image-600x600.webp`,
+        
       },
     },
   };
@@ -228,7 +221,7 @@ export function getServiceSchema(
     url: string;
     serviceType: string;
   },
-  locale: string = "en"
+  locale: string = "en",
 ) {
   const serviceUrl = `${BASE_URL}/${locale}${service.url}`;
 
@@ -317,5 +310,3 @@ export function getSeoAlternates(path: string, locale: string) {
     },
   };
 }
-
-

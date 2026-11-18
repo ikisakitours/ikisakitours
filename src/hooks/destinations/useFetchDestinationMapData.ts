@@ -25,7 +25,7 @@ export function useFetchDestinationMapData() {
     fetchDestinationServices
       .getDestinationMapData(locale, controller.signal)
       .then((response) => {
-        console.log(`🌍 [ALL MAP DATA LOADED - ${locale}]:`, response);
+        // console.log(`🌍 [ALL MAP DATA LOADED - ${locale}]:`, response);
         setState({ key: requestKey, data: response, error: null });
       })
       .catch((err: unknown) => {

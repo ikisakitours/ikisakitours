@@ -26,7 +26,7 @@ export function useFetchSingleDestination(slug: string) {
     fetchDestinationServices
       .getDestinationBySlug(slug, locale, controller.signal)
       .then((response) => {
-        console.log(`📍 [SINGLE DESTINATION LOADED - ${slug} | ${locale}]:`, response);
+        // console.log(`📍 [SINGLE DESTINATION LOADED - ${slug} | ${locale}]:`, response);
         setState({ key: requestKey, slug, data: response, error: null });
       })
       .catch((err: unknown) => {

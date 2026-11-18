@@ -8,6 +8,7 @@ import type { useBookingWidget } from "@/hooks/Booking/useBookingWidget";
 import { useTranslations } from "next-intl";
 import { PackageDetails } from "@/services/Booking/packageDetails/types";
 import { useCurrency } from "@/context/CurrencyContext";
+import { calculateDynamicPricing } from "@/services/Booking/packageDetails/pricingUtils";
 
 type MobileBookingBarProps = {
   tour: PackageDetails;
@@ -21,9 +22,32 @@ export function StickyBookingBar({ tour, booking, tourType }: MobileBookingBarPr
   const t = useTranslations("Booking.StickyBar");
   const { formatPrice } = useCurrency();
 
-  const isModalOpenRef = useRef(false);
+  const { unitPrice } = calculateDynamicPricing(
+    tour.price,
+    booking.travelerCounts,
+    tour.pricingConfig
+  );
 
-  const { draftRestored, clearDraftRestored } = booking;
+  const isModalOpenRef = useRef(false);
+  const isReviewModalOpenRef = useRef(booking.isBookingModalOpen);
+
+  const { draftRestored, clearDraftRestored, isBookingModalOpen } = booking;
+
+  // Keep ref in sync so scroll-lock cleanup knows if the review modal is open
+  useEffect(() => {
+    isReviewModalOpenRef.current = isBookingModalOpen;
+  }, [isBookingModalOpen]);
+
+  // Close the mobile booking widget sheet automatically when the Booking Review Modal opens
+  useEffect(() => {
+    if (!isBookingModalOpen || !isMobileModalOpen) return;
+
+    const timer = setTimeout(() => {
+      setIsMobileModalOpen(false);
+    }, 0);
+
+    return () => clearTimeout(timer);
+  }, [isBookingModalOpen, isMobileModalOpen]);
 
   // After returning from login: reopen the modal with the restored data
   useEffect(() => {
@@ -40,8 +64,12 @@ export function StickyBookingBar({ tour, booking, tourType }: MobileBookingBarPr
   }, [draftRestored, clearDraftRestored]);
 
   useEffect(() => {
-    window.dispatchEvent(new CustomEvent("bookingModalStateChange", { detail: { isOpen: isMobileModalOpen } }));
-  }, [isMobileModalOpen]);
+    window.dispatchEvent(
+      new CustomEvent("bookingModalStateChange", {
+        detail: { isOpen: isMobileModalOpen || isBookingModalOpen },
+      }),
+    );
+  }, [isMobileModalOpen, isBookingModalOpen]);
 
   useEffect(() => {
     isModalOpenRef.current = isMobileModalOpen;
@@ -71,6 +99,9 @@ export function StickyBookingBar({ tour, booking, tourType }: MobileBookingBarPr
     body.style.overflow = "hidden";
 
     return () => {
+      // If closing to transition into BookingModal, let BookingModal keep ownership of the body scroll lock
+      if (isReviewModalOpenRef.current) return;
+
       body.style.position = previous.position;
       body.style.top = previous.top;
       body.style.left = previous.left;
@@ -176,7 +207,7 @@ export function StickyBookingBar({ tour, booking, tourType }: MobileBookingBarPr
           </div>
           <div className="flex flex-wrap items-baseline gap-x-1.5">
             <span className="whitespace-nowrap text-heading-sub font-black tracking-tight text-white drop-shadow-md">
-              {formatPrice(tour.price)}
+              {formatPrice(unitPrice)}
             </span>
             <span className="whitespace-nowrap text-caption font-light text-slate-400">{t("perPerson")}</span>
           </div>

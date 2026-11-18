@@ -1,23 +1,25 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
 
+export interface CreateBookingData {
+  packageId: string;
+  packageName: string;
+  packageType: string;
+  journeyDate: string;
+  travelers: {
+    adults: number;
+    couples: number;
+    children: number;
+    infants: number;
+  };
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  country?: string;
+  type?: string;
+}
+
 export const bookingWidgetService = {
-  createBooking: async (data: { 
-    packageId: string;
-    packageName: string;
-    packageType: string; 
-    journeyDate: string; 
-    travelers: {
-      adults: number;
-      couples: number;
-      children: number;
-      infants: number;
-    };
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-    country?: string;
-    type?: string;
-  }) => {
+  createBooking: async (data: CreateBookingData) => {
     const res = await fetch(`${API_URL}/package-bookings`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

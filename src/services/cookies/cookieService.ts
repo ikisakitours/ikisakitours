@@ -8,7 +8,7 @@ export const cookieService = {
       const res = await fetch(`${API_URL}/cookies/consent/${userId}`);
       if (!res.ok) return null;
       const data = await res.json();
-      console.log("🔍 Backend Cookie Response:", data);
+      // console.log("🔍 Backend Cookie Response:", data);
       return data;
     } catch (error) {
       console.error("Error fetching cookie consent:", error);

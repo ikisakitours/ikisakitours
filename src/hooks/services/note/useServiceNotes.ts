@@ -26,7 +26,7 @@ export function useServiceNotes(serviceType: string = "custom") {
     serviceNotesService
       .getServiceNotes(serviceType, locale, controller.signal)
       .then((response) => {
-        console.log(`📝 [SERVICE NOTES LOADED - ${locale}]:`, response);
+        // console.log(`📝 [SERVICE NOTES LOADED - ${locale}]:`, response);
         setState({ key: requestKey, data: response, error: null });
       })
       .catch((err: unknown) => {

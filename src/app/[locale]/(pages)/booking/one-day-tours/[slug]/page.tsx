@@ -39,6 +39,12 @@ export async function generateMetadata({ params }: BookingPageProps): Promise<Me
             height: 630,
             alt: fullTitle,
           },
+          {
+            url: ogImage,
+            width: 400,
+            height: 400,
+            alt: fullTitle,
+          },
         ],
       },
       twitter: {
@@ -60,7 +66,7 @@ export default async function BookingPage({ params }: BookingPageProps) {
   const { slug } = await params;
   const locale = await getLocale();
 
-  let schemas: Array<Record<string, unknown>> = [];
+  const schemas: Array<Record<string, unknown>> = [];
   try {
     const tour = await packageDetailsService.getPackageBySlug(slug, locale).catch(() => null);
     if (tour) {

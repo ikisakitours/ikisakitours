@@ -55,7 +55,7 @@ export function useChatMailForm() {
 
       // await new Promise((resolve) => setTimeout(resolve, 1500));
       await chatMailService.submitMail(formData);
-      console.log("Chat Mail Form valid and submitted!", formData);
+      // console.log("Chat Mail Form valid and submitted!", formData);
       setFormData({ fullName: "", email: "", phone: "", message: "" });
     } catch (error) {
       console.error("Submission error:", error);

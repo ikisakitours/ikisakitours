@@ -14,6 +14,24 @@ type BookingHeaderProps = {
   tour: PackageDetails;
 };
 
+// ⭐ Title එක ඇතුළේ titleEmphasis වචන ටික Gold gradient කරන Helper එක
+function renderHighlightedTitle(title: string, highlight?: string) {
+  if (!highlight || !title.toLowerCase().includes(highlight.toLowerCase())) {
+    return title;
+  }
+  // Highlight විය යුතු වචන අනුව Title එක split කරනවා
+  const regex = new RegExp(`(${highlight})`, "gi");
+  const parts = title.split(regex);
+  return parts.map((part, index) =>
+    part.toLowerCase() === highlight.toLowerCase() ? (
+      <span key={index} className="gold-gradient-text font-light italic">
+        {part}
+      </span>
+    ) : (
+      part
+    )
+  );
+}
 export default function BookingHeader({ tour }: BookingHeaderProps) {
   const t = useTranslations("Booking.Header");
   const tCard = useTranslations("Tours.Card");
@@ -27,9 +45,8 @@ export default function BookingHeader({ tour }: BookingHeaderProps) {
   return (
     <section id="header" className="mb-8 md:mb-12">
       <SectionLabel>{label}</SectionLabel>
-      <h1 className="premium-serif mb-6 text-heading-section leading-[1.1] text-white">
-        {tour.title} <br className="hidden sm:block" />
-        <span className="gold-gradient-text font-light italic">{tour.titleEmphasis}</span>
+         <h1 className="premium-serif mb-6 text-heading-section leading-[1.1] text-white">
+        {renderHighlightedTitle(tour.title, tour.titleEmphasis)}
       </h1>
       <div className="flex flex-wrap items-center gap-x-4 gap-y-4 border-b border-white/10 pb-8 md:gap-x-6">
         {/* 1. Rating Section */}

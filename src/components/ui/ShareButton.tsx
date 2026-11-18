@@ -83,7 +83,7 @@ export function ShareButton({ title, text, url, className, iconClassName, iconSi
         if (error instanceof DOMException && error.name === "AbortError") {
           return; // user cancel kala
         }
-        console.log("Native share failed, falling back to copy.", error);
+        // console.log("Native share failed, falling back to copy.", error);
       }
     }
 

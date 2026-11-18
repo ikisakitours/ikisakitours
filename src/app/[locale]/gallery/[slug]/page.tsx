@@ -248,7 +248,7 @@ export default async function GalleryDetailPage({ params, searchParams }: Galler
         //   reviews.map((r) => ({ id: r.id, name: JSON.stringify(r.fullName), imgs: r.imageUrls?.length })),
         // );
         const review = findReview(reviews, getFilterKey(activeFilter));
-        console.log("FOUND:", review?.id, review?.imageUrls);
+        // console.log("FOUND:", review?.id, review?.imageUrls);
 
         if (review && review.imageUrls?.length > 0) {
           items = toItems(

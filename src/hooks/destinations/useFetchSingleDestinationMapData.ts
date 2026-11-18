@@ -26,7 +26,7 @@ export function useFetchSingleDestinationMapData(slug: string) {
     fetchDestinationServices
       .getSingleDestinationMapData(slug, locale, controller.signal)
       .then((response) => {
-        console.log(`📌 [SINGLE MAP DATA LOADED - ${slug} | ${locale}]:`, response);
+        // console.log(`📌 [SINGLE MAP DATA LOADED - ${slug} | ${locale}]:`, response);
         setState({ key: requestKey, slug, data: response, error: null });
       })
       .catch((err: unknown) => {

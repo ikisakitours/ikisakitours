@@ -25,7 +25,7 @@ export function useFetchDestinationPreviews() {
     fetchDestinationServices
       .getDestinationPreviews(locale, controller.signal)
       .then((response) => {
-        console.log(`🗺️ [ALL DESTINATIONS LOADED - ${locale}]:`, response);
+        // console.log(`🗺️ [ALL DESTINATIONS LOADED - ${locale}]:`, response);
         setState({ key: requestKey, data: response, error: null });
       })
       .catch((err: unknown) => {

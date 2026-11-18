@@ -37,7 +37,7 @@ export default async function DestinationPage({ params }: DestinationPageProps) 
   const { slug } = await params;
   const locale = await getLocale();
 
-  let schemas: Array<Record<string, unknown>> = [];
+  const schemas: Array<Record<string, unknown>> = [];
   try {
     const dest = await fetchDestinationServices.getDestinationBySlug(slug, locale).catch(() => null);
     if (dest) {

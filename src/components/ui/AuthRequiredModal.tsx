@@ -26,7 +26,7 @@ export function AuthRequiredModal({
   const handleLoginClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log("Login clicked →", `/${locale}${loginHref}`);
+    // console.log("Login clicked →", `/${locale}${loginHref}`);
     window.location.assign(`/${locale}${loginHref}`);
   };
 

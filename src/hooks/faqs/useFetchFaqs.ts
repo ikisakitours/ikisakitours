@@ -25,7 +25,7 @@ export function useFetchFaqs() {
     faqService
       .getFaqs(locale, controller.signal)
       .then((response) => {
-        console.log(`❓ [ALL FAQS LOADED - ${locale}]:`, response);
+        // console.log(`❓ [ALL FAQS LOADED - ${locale}]:`, response);
         setState({ key: requestKey, data: response, error: null });
       })
       .catch((err: unknown) => {

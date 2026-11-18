@@ -63,7 +63,7 @@ export function useLoginForm() {
 
           if (userId) {
             await cookieService.saveConsent(userId, guestPreferences);
-            console.log("✅ Guest cookie preferences successfully synced on login!");
+            // console.log("✅ Guest cookie preferences successfully synced on login!");
           }
         }
       } catch (cookieError) {
@@ -71,7 +71,7 @@ export function useLoginForm() {
       }
       toast.success(toastId, tToast("success"), 2000);
 
-      console.log("Login valid and submitted!", response);
+      // console.log("Login valid and submitted!", response);
 
     setTimeout(() => {
   router.push(getSafeRedirect("/"));

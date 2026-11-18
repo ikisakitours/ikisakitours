@@ -1,24 +1,25 @@
-// services/Booking/types.ts
+// services/Booking/packageDetails/types.ts
+
 export interface DestinationSummary {
   id: string;
   slug: string;
-  title: string;   
-  summary: string; 
+  title: string;
+  summary: string;
 }
 
 export interface ItineraryDay {
   day: number;
   title: string;
-  description: string; 
-  images: string[];    
+  description: string;
+  images: string[];
   travelTime: string;
   locations: string[];
   route: string[];
   details: string[];
   scenicStops: string[];
   activities: string[];
-  meals: string;         
-  accommodation: string; 
+  meals: string[] | string;
+  accommodation: string[] | string;
 }
 
 export interface ActivityDetail {
@@ -26,10 +27,45 @@ export interface ActivityDetail {
   description: string;
 }
 
+export interface PricingTier {
+  label: string;
+  minPax: number;
+  maxPax: number;
+  pricePerPerson: number;
+}
+
+export interface PricingOptionLocalization {
+  en?: string;
+  ja?: string;
+}
+
+export interface PricingOption {
+  id: string;
+  name: PricingOptionLocalization | string;
+  price: number;
+  description?: PricingOptionLocalization | string;
+  calculationType?: "per_person" | "per_room" | "per_booking" | "flat" | string;
+  type?: "per_person" | "per_room" | "per_booking" | "flat" | string;
+}
+
+export interface PassengerPricing {
+  infantPrice: number;
+  childRateType: "percentage" | "fixed" | string;
+  childRateValue: number;
+  coupleFixedPrice: number;
+  couplePricingType: "auto_tier" | "fixed" | string;
+}
+
+export interface PricingConfig {
+  tiers?: PricingTier[];
+  options?: PricingOption[];
+  passengerPricing?: PassengerPricing;
+}
+
 export interface PackageDetails {
   id: string;
   slug: string;
-  type: "oneday" | "multiday";
+  type: "oneday" | "multiday" | string;
   category: string;
   origin: string;
   duration: string;
@@ -49,6 +85,7 @@ export interface PackageDetails {
   activityDetails: ActivityDetail[];
   itinerary: ItineraryDay[];
   destinations: DestinationSummary[];
+  pricingConfig?: PricingConfig;
   likes: number;
   createdAt: string;
   updatedAt: string;

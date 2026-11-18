@@ -10,6 +10,13 @@ type ItinerarySectionProps = {
   tour: PackageDetails;
 };
 
+const normalizeList = (val?: string[] | string): string[] => {
+  if (!val) return [];
+  if (Array.isArray(val)) return val.filter((item) => typeof item === "string" && item.trim().length > 0);
+  if (typeof val === "string" && val.trim().length > 0) return [val.trim()];
+  return [];
+};
+
 export default function ItinerarySection({ tour }: ItinerarySectionProps) {
   const t = useTranslations("Booking.Itinerary");
   const [openDay, setOpenDay] = useState<number | null>(1);
@@ -26,6 +33,8 @@ export default function ItinerarySection({ tour }: ItinerarySectionProps) {
       <div className="mb-8 flex flex-col gap-4">
         {tour.itinerary.map((day) => {
           const isOpen = openDay === day.day;
+          const mealList = normalizeList(day.meals);
+          const accommodationList = normalizeList(day.accommodation);
           return (
             <div
               key={day.day}
@@ -170,30 +179,34 @@ export default function ItinerarySection({ tour }: ItinerarySectionProps) {
                       )}
                     </div>
 
+                    {/*  Meals & Accommodation Section (Exact same UI with mapped icons) */}
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 pt-6 border-t border-white/5 mt-6">
-                      {/* 4. Meals Section*/}
-                      {day.meals && day.meals.length > 0 && (
-                        <div className="rounded-xl border border-white/5 bg-white/5 p-4 md:p-5">
+                      {/* Meals Section */}
+                      {mealList.length > 0 && (
+                        <div className="rounded-xl border border-white/5 bg-white/5 p-4 md:p-5 space-y-2.5">
                           <span className="mb-1 block text-tiny font-bold uppercase tracking-widest text-slate-500">
                             {t("mealsIncluded")}
                           </span>
-                          <div className="flex items-start gap-2 text-body-sm font-bold text-white min-w-0">
-                            <Utensils className="mt-0.5 h-4 w-4 text-gold shrink-0" />
-                            <span className="leading-relaxed wrap-break-word overflow-hidden">{day.meals}</span>
-                          </div>
+                          {mealList.map((meal, idx) => (
+                            <div key={idx} className="flex items-start gap-2 text-body-sm font-bold text-white min-w-0">
+                              <Utensils className="mt-0.5 h-4 w-4 text-gold shrink-0" />
+                              <span className="leading-relaxed wrap-break-word overflow-hidden">{meal}</span>
+                            </div>
+                          ))}
                         </div>
                       )}
-
-                      {/*  Accommodation Section */}
-                      {day.accommodation && day.accommodation.length > 0 && (
-                        <div className="rounded-xl border border-white/5 bg-white/5 p-4 md:p-5">
+                      {/* Accommodation Section */}
+                      {accommodationList.length > 0 && (
+                        <div className="rounded-xl border border-white/5 bg-white/5 p-4 md:p-5 space-y-2.5">
                           <span className="mb-1 block text-tiny font-bold uppercase tracking-widest text-slate-500">
                             {t("accommodation")}
                           </span>
-                          <div className="flex items-start gap-2 text-body-sm font-bold text-white min-w-0">
-                            <Bed className="mt-0.5 h-4 w-4 text-gold shrink-0" />
-                            <span className="leading-relaxed wrap-break-word overflow-hidden">{day.accommodation}</span>
-                          </div>
+                          {accommodationList.map((acc, idx) => (
+                            <div key={idx} className="flex items-start gap-2 text-body-sm font-bold text-white min-w-0">
+                              <Bed className="mt-0.5 h-4 w-4 text-gold shrink-0" />
+                              <span className="leading-relaxed wrap-break-word overflow-hidden">{acc}</span>
+                            </div>
+                          ))}
                         </div>
                       )}
                     </div>

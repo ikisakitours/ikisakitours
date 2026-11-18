@@ -174,7 +174,7 @@ export function FullChatWidget() {
             const audio = new Audio("/sounds/notification.mp3");
             audio.volume = 0.5;
             audio.play().catch((err) => {
-              console.log("Audio play prevented:", err);
+              // console.log("Audio play prevented:", err);
             });
           } catch (e) {
             console.error("Audio error:", e);

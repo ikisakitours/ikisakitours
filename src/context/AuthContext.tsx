@@ -36,12 +36,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const response = await authService.getCurrentUser();
       const userData = response.user ? response.user : response;
-      console.log("Raw API Response:", response);
+      // console.log("Raw API Response:", response);
 
       if (userData && (userData.id || userData.email)) {
         setUser(userData);
         localStorage.setItem("userData", JSON.stringify(userData));
-        console.log("Fetch Data Success!", userData);
+        // console.log("Fetch Data Success!", userData);
       }
     } catch (error) {
       console.error("No active session", error);
