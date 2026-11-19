@@ -23,16 +23,18 @@ export function AccessRestricted() {
 
   const fullName = user ? `${user.firstname || ""} ${user.lastname || ""}`.trim() : "";
   const initials = user ? `${user.firstname?.charAt(0) || ""}${user.lastname?.charAt(0) || ""}`.toUpperCase() : "";
-  const userId = user?.id ? String(user.id) : "";
+  const referenceId = user?.customerReferenceId || user?.referenceId || (user?.id ? String(user.id) : "IKISAKI-CUSTOMER");
 
-  const mailtoHref = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(t("mailSubject"))}&body=${encodeURIComponent(
-    `${t("mailBody")}\n\n${t("accountHolder")}: ${fullName}\n${t("emailLabel")}: ${user?.email || ""}\n${t("referenceLabel")}: ${userId}\n`,
-  )}`;
+  const mailSubject = encodeURIComponent(`Account Suspension Inquiry - [${referenceId}]`);
+  const mailBody = encodeURIComponent(
+    `Hello Support Team,\n\nMy account access has been restricted.\n\nAccount Details:\n- Reference ID: ${referenceId}\n- Name: ${user?.firstname || ""} ${user?.lastname || ""}\n- Email: ${user?.email || ""}\n\nPlease review my account status.`
+  );
+  const supportMailUrl = `mailto:${SUPPORT_EMAIL}?subject=${mailSubject}&body=${mailBody}`;
 
   const handleCopy = async () => {
-    if (!userId) return;
+    if (!referenceId) return;
     try {
-      await navigator.clipboard.writeText(userId);
+      await navigator.clipboard.writeText(referenceId);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -161,7 +163,7 @@ export function AccessRestricted() {
 
             {/* Reference stub */}
             <div className="px-6 pb-6 pt-6">
-              {userId && (
+              {referenceId && (
                 <>
                   <p className="mb-2 text-tiny font-bold uppercase tracking-[0.25em] text-slate-500">
                     {t("referenceLabel")}
@@ -171,7 +173,7 @@ export function AccessRestricted() {
                     onClick={handleCopy}
                     className="group flex w-full items-center justify-between gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-left transition-colors hover:border-gold/40"
                   >
-                    <span className="truncate font-mono text-caption tracking-wider text-slate-300">{userId}</span>
+                    <span className="truncate font-mono text-caption tracking-wider text-slate-300">{referenceId}</span>
                     <span className="flex shrink-0 items-center gap-1.5 text-tiny font-bold uppercase tracking-widest text-gold">
                       {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
                       {copied ? t("copied") : t("copy")}
@@ -192,7 +194,7 @@ export function AccessRestricted() {
             {/* Actions */}
             <div className="border-t border-white/5 bg-white/2 px-6 py-5">
               <a
-                href={mailtoHref}
+                href={supportMailUrl}
                 className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full bg-linear-to-r from-gold-dark via-gold to-gold-light px-6 py-3.5 text-caption font-black uppercase tracking-[0.25em] text-lanka-black shadow-[0_10px_30px_-10px_rgba(197,160,89,0.7)] transition-all duration-300 hover:-translate-y-0.5 active:scale-95"
               >
                 <span className="pointer-events-none absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/40 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
@@ -210,3 +212,6 @@ export function AccessRestricted() {
     </div>
   );
 }
+
+export default AccessRestricted;
+

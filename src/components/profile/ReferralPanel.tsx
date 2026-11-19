@@ -6,14 +6,16 @@ import { SiWhatsapp, SiLine } from "react-icons/si";
 import { useLocale, useTranslations } from "next-intl";
 //Icons
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 export function ReferralPanel() {
   const t = useTranslations("ProfilePage.ReferralPanel");
   const locale = useLocale();
+  const { user } = useAuth();
 
   const [isCopied, setIsCopied] = useState(false);
 
-  const referralCode = "IKISAKI-ALEX24";
+  const referralCode = user?.customerReferenceId || user?.referenceId || "IKISAKI-ALEX24";
   const referralLink = `https://www.ikisakitours.com/${locale}/invite/${referralCode}`;
   const stats = {
     invitesSent: 12,

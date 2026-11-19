@@ -1,13 +1,16 @@
 "use client";
 import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from "react";
+import { usePathname } from "next/navigation";
 import { authService } from "@/services/auth/authService";
 
-interface User {
+export interface User {
   id: string;
   firstname: string;
   lastname: string;
   email: string;
   country: string;
+  customerReferenceId?: string;
+  referenceId?: string;
   hasAccess?: boolean;
   isVerified?: boolean;
   isVip?: boolean;
@@ -31,6 +34,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isHydrated, setIsHydrated] = useState(false);
+  const pathname = usePathname();
 
   const fetchUser = useCallback(async () => {
     try {
@@ -94,6 +98,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }, 0);
     return () => clearTimeout(timeoutId);
   }, [fetchUser]);
+
+  // Window focus listener to re-verify user access in background when returning to tab
+  useEffect(() => {
+    const handleFocus = () => {
+      fetchUser();
+    };
+    window.addEventListener("focus", handleFocus);
+    return () => window.removeEventListener("focus", handleFocus);
+  }, [fetchUser]);
+
+  // Route change sync to re-verify access whenever user navigates to a new page
+  useEffect(() => {
+    if (isHydrated) {
+      fetchUser();
+    }
+  }, [pathname, fetchUser, isHydrated]);
 
   const loginUser = async () => {
     await fetchUser();
