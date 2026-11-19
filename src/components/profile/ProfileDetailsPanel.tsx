@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { profileUser } from "@/data/profile";
 import { Button } from "@/components/ui/Button";
 import { FormError } from "@/components/ui/FormError";
@@ -14,7 +14,7 @@ import { useRouter } from "@/lib/i18nNavigation";
 
 //Icons
 import { BsPatchCheck } from "react-icons/bs";
-import { Crown } from "lucide-react";
+import { Crown, Copy, Check } from "lucide-react";
 
 const inputClass =
   "disabled:opacity-60 disabled:cursor-not-allowed w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-body-sm text-white outline-none transition-all placeholder:text-slate-500 focus:border-gold/50";
@@ -25,6 +25,7 @@ export function ProfileDetailsPanel() {
   const tError = useTranslations("ValidationErrors");
   const { user, isHydrated } = useAuth();
   const router = useRouter();
+  const [isMemberIdCopied, setIsMemberIdCopied] = useState(false);
   //Hook
   const {
     firstName,
@@ -122,20 +123,41 @@ export function ProfileDetailsPanel() {
           <div className="relative z-10">
             <div className="mb-8 flex flex-col items-center justify-between gap-4 sm:flex-row">
               <h2 className="premium-serif mb-6 text-heading-sub text-white">{t("DetailsPanel.title")}</h2>
-              {(user?.isVerified || user?.isVip) && (
-                <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-end sm:gap-3">
-                  {user?.isVerified && (
-                    <StatusBadge tone="green" icon={<BsPatchCheck className="h-4 w-4" />}>
-                      {t("Badge.verified")}
-                    </StatusBadge>
-                  )}
-                  {user?.isVip && (
-                    <StatusBadge tone="gold" icon={<Crown className="h-4 w-4" strokeWidth={2} />}>
-                      {t("Badge.vipMember")}
-                    </StatusBadge>
-                  )}
-                </div>
-              )}
+              <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-end sm:gap-3">
+                {user && (
+                  <div className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-3.5 py-1.5 backdrop-blur-sm">
+                    <span className="text-tiny font-bold uppercase tracking-[0.2em] text-gold/80">Member ID:</span>
+                    <span className="font-mono text-tiny font-bold tracking-wider text-white">
+                      {user.customerReferenceId || user.referenceId || user.id}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const id = user.customerReferenceId || user.referenceId || user.id;
+                        if (id) {
+                          navigator.clipboard.writeText(id);
+                          setIsMemberIdCopied(true);
+                          setTimeout(() => setIsMemberIdCopied(false), 2000);
+                        }
+                      }}
+                      className="text-gold hover:text-gold-light transition-colors ml-0.5"
+                      title="Copy Member ID"
+                    >
+                      {isMemberIdCopied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+                    </button>
+                  </div>
+                )}
+                {user?.isVerified && (
+                  <StatusBadge tone="green" icon={<BsPatchCheck className="h-4 w-4" />}>
+                    {t("Badge.verified")}
+                  </StatusBadge>
+                )}
+                {user?.isVip && (
+                  <StatusBadge tone="gold" icon={<Crown className="h-4 w-4" strokeWidth={2} />}>
+                    {t("Badge.vipMember")}
+                  </StatusBadge>
+                )}
+              </div>
             </div>
 
             {/* {isHydrated && user && !user.isVip && (
