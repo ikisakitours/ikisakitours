@@ -30,6 +30,7 @@
   - [3. Auth-Safe Draft Persistence, Geo-Detection & WebP Media Pipeline](#3-auth-safe-draft-persistence-geo-detection--webp-media-pipeline)
   - [4. 5-Pillar Enterprise Global SEO Architecture](#4-5-pillar-enterprise-global-seo-architecture)
   - [5. Interactive UX Systems, Chat Concierge & Compliance](#5-interactive-ux-systems-chat-concierge--compliance)
+  - [6. Zero-Flash Access Gate, Real-Time Tab Sync & Branded Reference IDs](#6-zero-flash-access-gate-real-time-tab-sync--branded-reference-ids)
 - [Custom UI Controls & React Hooks](#custom-ui-controls--react-hooks)
 - [API Service Layer Reference](#api-service-layer-reference)
 - [Tech Stack](#tech-stack)
@@ -82,7 +83,7 @@ flowchart LR
 | **Cultural Events** | `/[locale]/events`, `/[locale]/events/[slug]` | Sri Lanka heritage festivals (Kandy Esala Perahera, Vesak, Sinhala & Tamil New Year) with `UniversalPlayer` video streaming and high-resolution event sliders |
 | **Travel Journal (Blog)** | `/[locale]/blog`, `/[locale]/blog/[slug]` | Multilingual Sri Lanka travel guides (ETA visa, packing, currency, etiquette, Ayurveda) with category explorer, article likes, and full-screen galleries |
 | **Full-Screen Galleries** | `/[locale]/gallery/[slug]`, `/[locale]/gallery/destination/[slug]` | Full-screen `GalleryLightbox` viewer with thumbnail navigation for tours, blogs, and destinations |
-| **Auth, Profile & Access Gate** | `/[locale]/login`, `/signup`, `/auth-gateway`, `/confirm-email`, `/password-change`, `/profile`, `/access-restricted` | Email/password & Social OAuth login, OTP verification, password strength meter (`usePasswordStrength`), profile dashboard with interactive avatar cropper (`react-easy-crop` → WebP), security settings, referral panel, and `AccessGate` for suspended accounts |
+| **Auth, Profile & Access Gate** | `/[locale]/login`, `/signup`, `/auth-gateway`, `/confirm-email`, `/password-change`, `/profile`, `/access-restricted` | Email/password & Social OAuth login, OTP verification, password strength meter (`usePasswordStrength`), profile dashboard with interactive avatar cropper (`react-easy-crop` → WebP), security settings, dynamic referral panel with branded Member ID, window-focus real-time sync, and **Zero-Flash `AccessGate`** with instant Frame-0 lockout for suspended accounts |
 | **Support, Legal & System** | `/[locale]/about`, `/contact`, `/faq`, `/testimonials`, `/legal/[[...slug]]`, `/[locale]/[...catchAll]` | Company story & leadership, Contact Us inquiry form, accordion FAQs, customer testimonials writer, CMS-driven Privacy/Terms legal pages, and localized **Unsupported Language / 404** (`NotFoundUI`) |
 | **Platform Endpoints** | `/exchange-rates`, `/robots.txt`, `/sitemap.xml` | 12-hour ISR USD exchange rate proxy, dynamic crawler directives, and timeout-guarded multilingual XML sitemap |
 
@@ -137,7 +138,26 @@ flowchart LR
 
 - **Zero-Shift 60fps Minimalist Preloader & Event Bus**: [`Preloader.tsx`](./src/components/ui/Preloader.tsx) uses a cookie-gated (`preloader_seen`) pure-GPU breathing crest animation on a fixed `100vw` stage (preventing scrollbar layout shifts) and dispatches `preloaderFinished` so `FloatingWidgets`, `CookieConsent`, and `LanguagePromptToast` coordinate cleanly without race conditions.
 - **Omnichannel Chat Concierge & Tab Alerts**: `FullChatWidget` combines automated bot help (`BotChatInterface`), direct email concierge (`ChatMailForm`), localized WhatsApp handoff, and live browser tab notifications via [`useDocumentTitleNotification.ts`](./src/hooks/useDocumentTitleNotification.ts).
-- **Promotional Campaigns, Mobile Polish & Compliance**: Includes `PromoModal` with animated `ConfettiRain`, `IOSZoomFix` (`useDisableIOSZoom`) preventing Safari form auto-zoom, `ShareButton` (Web Share API + clipboard fallback), `ProgressBarProvider` (`nextjs-toploader`), `CookieConsent` + `GlobalCookieModal`, and `AccessGate` / `AccessRestricted` account enforcement.
+- **Promotional Campaigns, Mobile Polish & Compliance**: Includes `PromoModal` with animated `ConfettiRain`, `IOSZoomFix` (`useDisableIOSZoom`) preventing Safari form auto-zoom, `ShareButton` (Web Share API + clipboard fallback), `ProgressBarProvider` (`nextjs-toploader`), and `CookieConsent` + `GlobalCookieModal`.
+
+### 6. Zero-Flash Access Gate, Real-Time Tab Sync & Branded Reference IDs
+
+Engineered across [`AccessGate.tsx`](./src/components/access/AccessGate.tsx), [`AccessRestricted.tsx`](./src/components/access/AccessRestricted.tsx), [`AuthContext.tsx`](./src/context/AuthContext.tsx), and [`ProfileDashboard.tsx`](./src/components/profile/ProfileDashboard.tsx):
+
+- **Zero-Flash Route Guard & Frame-0 Lockout (`AccessGate.tsx`)**:
+  - Performs a synchronous `localStorage` inspection during component initialization before hydration begins. If a suspended session (`hasAccess === false`) exists, the UI locks out immediately from Millisecond 0 (Frame 0), eliminating unauthorized content flashes.
+  - While hydrating active sessions, it protects private `{children}` from leaking by rendering a brand-aligned luxury dark loader (`bg-[#0d0d0d]`, `border-amber-500`).
+  - Integrated directly in `RootLayout` (`src/app/[locale]/layout.tsx`) to guard every customer route globally.
+- **Window Focus & Route Navigation Real-Time Sync (`AuthContext.tsx`)**:
+  - Implements a window `focus` event listener that silently calls `fetchUser()` whenever a customer switches back to the Ikisaki Tours tab. If an administrator revokes access in the Admin Panel, the customer interface locks instantly without requiring a manual page refresh.
+  - Subscribes to route changes via `usePathname()`, re-verifying customer authorization upon client-side navigation.
+  - Preserves user identity data under 403 / `ACCOUNT_SUSPENDED` responses while setting `hasAccess: false` in both React state and `localStorage` so the restriction screen can display full account context.
+- **Branded Customer Reference ID System**:
+  - Replaces raw database UUIDs with customer-friendly branded Reference IDs (e.g., `IKISAKI-8F42M9` under `user.customerReferenceId` / `user.referenceId`).
+  - **Access Restricted Ticket Screen (`AccessRestricted.tsx`)**: Renders the branded Reference ID on an airline-style digital ticket with a one-click clipboard copy button and pre-populates support email links (`mailto:info@ikisakitours.com?subject=Account Suspension Inquiry - [IKISAKI-XXXXXX]&body=...`) with name, email, and reference ID.
+  - **Profile Dashboard & Details (`ProfileDashboard.tsx` & `ProfileDetailsPanel.tsx`)**: Displays the branded identifier as **"Member ID / Referral Code"** across the desktop sidebar, mobile header, and main profile details panel with instant copy feedback.
+  - **Dynamic Referral Engine (`ReferralPanel.tsx`)**: Automatically seeds customer referral links with their branded Reference ID (`/invite/${referralCode}`) instead of static placeholders.
+  - **Protected Profile Route**: Safeguards customer profile data with a hydration spinner and auto-displays `AuthRequiredModal` if unauthenticated.
 
 ---
 
@@ -297,24 +317,12 @@ npm run start
 - [x] Native `EN` & `JA` localization (`25` modular dictionary files per locale) with Google **BudouX** Japanese phrase segmentation
 - [x] Dynamic group pricing (`pricingConfig`), adult/couple traveler validation, and multi-step **Luxury Booking Review Modal** with `per_person` / `per_room` / `per_booking` add-ons
 - [x] Auth-safe draft save & restore across bookings, services, reviews, and contact inquiries
+- [x] **Zero-Flash `AccessGate` Route Guard** (Millisecond-0 synchronous lockout, multi-tab window `focus` background sync & route transition re-verification)
+- [x] **Branded Customer Reference ID System** (`customerReferenceId` / `referenceId`) integrated across ticket restriction screen, profile dashboard, and dynamic referrals
 - [x] 5-pillar enterprise SEO (`robots.ts`, `sitemap.ts`, 9 Schema.org JSON-LD builders, `hreflang` alternates, OpenGraph & Twitter cards)
 - [x] Transparent cropped header crest, full-bleed rounded dark-gold favicon badge, and zero-shift 60fps minimalist preloader
 
 ---
-
-## Credits & License
-
-| Role | Details |
-| :--- | :--- |
-| **Client** | [Ikisaki Tours (Pvt) Ltd](https://www.ikisakitours.com) |
-| **Powered By** | Aetheria Labs |
-| **Engineered By** | `Pramod_Siriwardhana` |
-| **License** | Proprietary — All Rights Reserved ([`LICENSE`](./LICENSE)) |
-
-> [!NOTE]
-> **Copyright © 2026 Ikisaki Tours (Pvt) Ltd. All rights reserved.**  
-> This repository and its source code, design assets, and localization dictionaries are proprietary and confidential. Unauthorized copying, redistribution, modification, or commercial use is strictly prohibited without prior written consent from Ikisaki Tours (Pvt) Ltd. See [`LICENSE`](./LICENSE) for full terms.
-
 
 ## Credits & License
 
@@ -323,9 +331,7 @@ npm run start
 | **Client & Owner** | **Ikisaki Tours (Pvt) Ltd** — [www.ikisakitours.com](https://www.ikisakitours.com) |
 | **Powered By** | **Aetheria Labs** |
 | **Engineered By** | **Pramod_Siriwardhana** |
-| **License** | All rights reserved © 2026 Ikisaki Tours (Pvt) Ltd |
-| **Organization** | Ikisaki Tours (Pvt) Ltd |
-| **License** | All rights reserved © 2026 Ikisaki Tours (Pvt) Ltd |
+| **License** | All rights reserved © 2026 Ikisaki Tours (Pvt) Ltd ([`LICENSE`](./LICENSE)) |
 
 > [!IMPORTANT]
 > **Proprietary Software Notice:** This application and its source code are private, proprietary assets built exclusively for the internal operations of **Ikisaki Tours (Pvt) Ltd**. Unauthorized copying, modification, redistribution, or commercial use of any part of this repository without prior written consent is strictly prohibited.
@@ -333,6 +339,7 @@ npm run start
 > [!NOTE]
 > **Copyright © 2026 Ikisaki Tours (Pvt) Ltd. All rights reserved.**  
 > This repository and its source code, design assets, and localization dictionaries are proprietary and confidential. Unauthorized copying, redistribution, modification, or commercial use is strictly prohibited without prior written consent from Ikisaki Tours (Pvt) Ltd. See [`LICENSE`](./LICENSE) for full terms.
+
 ---
 
 <div align="center">
