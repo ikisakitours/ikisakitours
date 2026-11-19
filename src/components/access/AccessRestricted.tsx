@@ -46,17 +46,24 @@ export function AccessRestricted() {
     const toastId = toast.loading(tToast("loading"));
 
     try {
-      await Promise.all([authService.logout(), new Promise((resolve) => setTimeout(resolve, 800))]);
+      try {
+        await Promise.all([authService.logout(), new Promise((resolve) => setTimeout(resolve, 800))]);
+      } catch (err) {
+        console.warn("Backend session clear warning:", err);
+      }
 
       logoutUser();
       toast.success(toastId, tToast("success"), 2000);
 
       setTimeout(() => {
         window.location.href = "/login";
-      }, 2200);
+      }, 1500);
     } catch (error) {
       toast.error(toastId, tToast("error"));
       console.error("Logout error:", error);
+      logoutUser();
+      window.location.href = "/login";
+    } finally {
       setIsSigningOut(false);
     }
   };

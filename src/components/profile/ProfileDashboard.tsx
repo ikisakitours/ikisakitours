@@ -9,6 +9,8 @@ import { useRouter } from "@/lib/i18nNavigation";
 import { useTranslations } from "next-intl";
 import { ReferralPanel } from "./ReferralPanel";
 import { FilterSidebar } from "@/components/ui/FilterSidebar";
+import { useAuth } from "@/context/AuthContext";
+import { AuthRequiredModal } from "@/components/ui/AuthRequiredModal";
 
 //Icons
 import { ShieldCheck, UserRound, Gift, Settings2, type LucideIcon } from "lucide-react";
@@ -26,6 +28,7 @@ function ProfileDashboardInner() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const t = useTranslations("ProfilePage");
+  const { user, isHydrated } = useAuth();
 
   const tabParam = searchParams?.get("tab");
 
@@ -45,6 +48,23 @@ function ProfileDashboardInner() {
     security: t("Dashboard.tabSecurity"),
     referral: t("Dashboard.tabReferral"),
   };
+
+  if (!isHydrated) {
+    return (
+      <ContainerLayout className="min-h-[70vh] flex items-center justify-center py-26">
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-gold border-t-transparent" />
+      </ContainerLayout>
+    );
+  }
+
+  if (isHydrated && !user) {
+    return (
+      <ContainerLayout className="min-h-[70vh] flex items-center justify-center py-26">
+        <AuthRequiredModal isOpen={true} onClose={() => router.push("/")} />
+      </ContainerLayout>
+    );
+  }
+
   return (
     <ContainerLayout className="grid grid-cols-1 gap-8 xl:gap-12 xl:grid-cols-12 py-26 sm:py-27 md:py-26 lg:py-28 2xl:py-30 3xl:py-32">
       <div className="xl:hidden col-span-full w-full flex items-center justify-between border-b border-white/10 pb-4">

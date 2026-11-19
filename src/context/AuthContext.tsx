@@ -43,10 +43,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         localStorage.setItem("userData", JSON.stringify(userData));
         // console.log("Fetch Data Success!", userData);
       }
-    } catch (error) {
-      console.error("No active session", error);
-      setUser(null);
-      localStorage.removeItem("userData");
+    } catch (error: unknown) {
+      const err = error as { status?: number; message?: string; error?: string; data?: { error?: string } };
+      // If backend reports ACCOUNT_SUSPENDED (403), keep user info but set hasAccess: false
+      const isSuspended =
+        err?.status === 403 ||
+        err?.message?.toLowerCase().includes("suspended") ||
+        err?.error === "ACCOUNT_SUSPENDED" ||
+        err?.data?.error === "ACCOUNT_SUSPENDED";
+
+      if (isSuspended) {
+        let suspendedUser: User | null = null;
+        const saved = localStorage.getItem("userData");
+        if (saved) {
+          try {
+            const parsed = JSON.parse(saved);
+            parsed.hasAccess = false;
+            suspendedUser = parsed;
+            localStorage.setItem("userData", JSON.stringify(parsed));
+          } catch {
+            /* ignore JSON parse error */
+          }
+        }
+        setUser((prev) => (prev ? { ...prev, hasAccess: false } : suspendedUser));
+      } else {
+        console.error("No active session", error);
+        setUser(null);
+        localStorage.removeItem("userData");
+      }
     }
   }, []);
 
