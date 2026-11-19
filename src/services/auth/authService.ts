@@ -24,7 +24,27 @@ export const authService = {
       headers: { "Content-Type": "application/json" },
       credentials: "include",
     });
-    if (!res.ok) throw new Error("Failed to fetch user");
+    if (!res.ok) {
+      let errorData: Record<string, unknown> = {};
+      try {
+        errorData = await res.json();
+      } catch {
+        /* empty response */
+      }
+      const message =
+        (typeof errorData.message === "string" && errorData.message) ||
+        (typeof errorData.error === "string" && errorData.error) ||
+        `Failed to fetch user (${res.status})`;
+      const err = new Error(message) as Error & {
+        status?: number;
+        error?: unknown;
+        data?: unknown;
+      };
+      err.status = res.status;
+      err.error = errorData.error || errorData.code;
+      err.data = errorData;
+      throw err;
+    }
     return res.json();
   },
 

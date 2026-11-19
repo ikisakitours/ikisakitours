@@ -14,6 +14,7 @@ import IOSZoomFix from "@/components/ui/IOSZoomFix";
 import { ToastProvider } from "@/context/ToastContext";
 import { AuthProvider } from "@/context/AuthContext";
 import { CurrencyProvider } from "@/context/CurrencyContext";
+import { AccessGate } from "@/components/access/AccessGate";
 import { Noto_Sans_JP, Noto_Serif_JP } from "next/font/google";
 import { addJaBreaks } from "@/lib/japaneseText";
 import { getSeoAlternates } from "@/components/seo/schemas";
@@ -173,12 +174,14 @@ export default async function RootLayout({
           <ToastProvider>
             <AuthProvider>
               <CurrencyProvider>
-                {!hasSeenPreloader && <Preloader />}
-                <ProgressBarProvider />
-                <IOSZoomFix />
-                {children}
-                <CookieConsent />
-                <GlobalCookieModal />
+                <AccessGate>
+                  {!hasSeenPreloader && <Preloader />}
+                  <ProgressBarProvider />
+                  <IOSZoomFix />
+                  {children}
+                  <CookieConsent />
+                  <GlobalCookieModal />
+                </AccessGate>
               </CurrencyProvider>
             </AuthProvider>
           </ToastProvider>
