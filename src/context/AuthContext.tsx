@@ -18,6 +18,8 @@ export interface User {
   avatarSignature?: string | null;
   provider?: string | null;
   providerId?: string | null;
+  isTwoFactorEnabled?: boolean;
+  twoFactorEnabled?: boolean;
 }
 
 interface AuthContextType {
@@ -32,24 +34,56 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [isHydrated, setIsHydrated] = useState(false);
+  // 1. Synchronously initialize user from localStorage (Zero delay)
+  const [user, setUser] = useState<User | null>(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("userData");
+        return saved ? JSON.parse(saved) : null;
+      } catch {
+        return null;
+      }
+    }
+    return null;
+  });
+
+  // 2. Synchronously initialize hydration state
+  const [isHydrated, setIsHydrated] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      return Boolean(localStorage.getItem("userData"));
+    }
+    return false;
+  });
+
   const pathname = usePathname();
+
+  // 3. Helper to set user, localStorage, AND sync Edge Cookie
+  const setAuthenticatedUser = useCallback((userData: User | null) => {
+    setUser(userData);
+    if (typeof window !== "undefined") {
+      if (userData) {
+        localStorage.setItem("userData", JSON.stringify(userData));
+        // Sync cookie so Edge proxy.ts recognizes authenticated session
+        document.cookie = "customer_token=true; path=/; max-age=2592000; SameSite=Lax";
+      } else {
+        localStorage.removeItem("userData");
+        localStorage.removeItem("token");
+        localStorage.removeItem("customer_token");
+        document.cookie = "customer_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax";
+      }
+    }
+  }, []);
 
   const fetchUser = useCallback(async () => {
     try {
       const response = await authService.getCurrentUser();
       const userData = response.user ? response.user : response;
-      // console.log("Raw API Response:", response);
 
       if (userData && (userData.id || userData.email)) {
-        setUser(userData);
-        localStorage.setItem("userData", JSON.stringify(userData));
-        // console.log("Fetch Data Success!", userData);
+        setAuthenticatedUser(userData);
       }
     } catch (error: unknown) {
       const err = error as { status?: number; message?: string; error?: string; data?: { error?: string } };
-      // If backend reports ACCOUNT_SUSPENDED (403), keep user info but set hasAccess: false
       const isSuspended =
         err?.status === 403 ||
         err?.message?.toLowerCase().includes("suspended") ||
@@ -57,47 +91,62 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         err?.data?.error === "ACCOUNT_SUSPENDED";
 
       if (isSuspended) {
-        let suspendedUser: User | null = null;
-        const saved = localStorage.getItem("userData");
-        if (saved) {
-          try {
-            const parsed = JSON.parse(saved);
-            parsed.hasAccess = false;
-            suspendedUser = parsed;
-            localStorage.setItem("userData", JSON.stringify(parsed));
-          } catch {
-            /* ignore JSON parse error */
+        let baseUser: User | null = null;
+        if (typeof window !== "undefined") {
+          const saved = localStorage.getItem("userData");
+          if (saved) {
+            try {
+              baseUser = JSON.parse(saved);
+            } catch {
+              /* ignore */
+            }
           }
         }
-        setUser((prev) => (prev ? { ...prev, hasAccess: false } : suspendedUser));
+        setAuthenticatedUser(
+          baseUser
+            ? { ...baseUser, hasAccess: false }
+            : ({ id: "", firstname: "", lastname: "", email: "", country: "", hasAccess: false } as User)
+        );
+      } else if (err?.status === 401) {
+        setAuthenticatedUser(null);
       } else {
-        console.error("No active session", error);
-        setUser(null);
-        localStorage.removeItem("userData");
+        console.error("Session verification error:", error);
       }
     }
-  }, []);
+  }, [setAuthenticatedUser]);
 
-  // 1) localStorage restore
+  // 4. Background re-validation (Silent verification with /api/auth/me)
   useEffect(() => {
-    const id = setTimeout(() => {
-      try {
-        const saved = localStorage.getItem("userData");
-        if (saved) setUser(JSON.parse(saved));
-      } catch {
-        localStorage.removeItem("userData");
-      }
+    queueMicrotask(() => {
       setIsHydrated(true);
-    }, 0);
-    return () => clearTimeout(id);
-  }, []);
+    });
+    const raw = typeof window !== "undefined" ? localStorage.getItem("userData") : null;
+    if (!raw) return;
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      fetchUser();
-    }, 0);
-    return () => clearTimeout(timeoutId);
-  }, [fetchUser]);
+    authService
+      .getCurrentUser()
+      .then((freshUser) => {
+        const userData = freshUser?.user ? freshUser.user : freshUser;
+        if (userData && (userData.id || userData.email)) {
+          setAuthenticatedUser(userData);
+        }
+      })
+      .catch((err) => {
+        if (err?.status === 403 || err?.error === "ACCOUNT_SUSPENDED") {
+          let baseUser: User | null = null;
+          try {
+            baseUser = JSON.parse(raw);
+          } catch {
+            /* ignore */
+          }
+          if (baseUser) {
+            setAuthenticatedUser({ ...baseUser, hasAccess: false });
+          }
+        } else if (err?.status === 401) {
+          setAuthenticatedUser(null);
+        }
+      });
+  }, [setAuthenticatedUser]);
 
   // Window focus listener to re-verify user access in background when returning to tab
   useEffect(() => {
@@ -111,7 +160,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // Route change sync to re-verify access whenever user navigates to a new page
   useEffect(() => {
     if (isHydrated) {
-      fetchUser();
+      const timer = setTimeout(() => {
+        fetchUser();
+      }, 0);
+      return () => clearTimeout(timer);
     }
   }, [pathname, fetchUser, isHydrated]);
 
@@ -120,21 +172,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const logoutUser = () => {
-    setUser(null);
-    localStorage.removeItem("userData");
+    setAuthenticatedUser(null);
   };
 
   const updateUser = (updatedFields: Partial<User>) => {
     setUser((prevUser) => {
       if (!prevUser) return null;
       const newUser = { ...prevUser, ...updatedFields };
-      localStorage.setItem("userData", JSON.stringify(newUser));
+      if (typeof window !== "undefined") {
+        localStorage.setItem("userData", JSON.stringify(newUser));
+      }
       return newUser;
     });
   };
 
   return (
-    <AuthContext.Provider value={{ user, isHydrated,loginUser, logoutUser, updateUser, fetchUser }}>
+    <AuthContext.Provider value={{ user, isHydrated, loginUser, logoutUser, updateUser, fetchUser }}>
       {children}
     </AuthContext.Provider>
   );

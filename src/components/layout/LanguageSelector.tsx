@@ -41,10 +41,9 @@ export function LanguageSelector() {
   const { data: locationData } = useUserLocation();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    queueMicrotask(() => {
       setMounted(true);
-    }, 0);
-    return () => clearTimeout(timer);
+    });
   }, []);
 
   // Click Outside Logic for Dropdown

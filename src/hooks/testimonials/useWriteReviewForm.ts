@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/context/ToastContext";
 import { clearReviewDraft, loadReviewDraft, saveReviewDraft } from "@/utils/draft/reviewDraft";
+import { isSuspensionError } from "@/utils/apiError";
 
 const AUTO_SUBMIT_AFTER_LOGIN = false;
 
@@ -47,6 +48,7 @@ export function useWriteReviewForm() {
   const { errors, validate, setErrors } = useValidationForm();
   const tErr = useTranslations("ValidationErrors");
   const tToast = useTranslations("ValidationErrors.ToastMessages.Review");
+  const tAuth = useTranslations("Auth");
   const toast = useToast();
 
   const submitReview = async (values: ReviewValues) => {
@@ -73,6 +75,10 @@ export function useWriteReviewForm() {
       setRating(0);
       setExperience("");
     } catch (error) {
+      if (isSuspensionError(error)) {
+        toast.error(toastId, tAuth("Suspension.review_restricted_message"));
+        return;
+      }
       toast.error(toastId, tToast("error"));
       console.error("Submission error:", error);
       setErrors((prev) => ({ ...prev, form: tErr("ServerErrors.reviewSubmitFailed") }));

@@ -1,13 +1,17 @@
 "use client";
+import { useState } from "react";
 import { Link } from "@/lib/i18nNavigation";
 import { Button } from "@/components/ui/Button";
 import { FormError } from "@/components/ui/FormError";
 import { TransientMessage } from "@/components/ui/TransientMessage";
 import { useTranslations } from "next-intl";
 import { useSecuritySettingsForm } from "@/hooks/profile/useSecuritySettingsForm";
+import { useAuth } from "@/context/AuthContext";
+import { TwoFactorSetupModal } from "./TwoFactorSetupModal";
+import { TwoFactorDisableModal } from "./TwoFactorDisableModal";
 
 //Icons
-import { Eye, EyeOff, X } from "lucide-react";
+import { Eye, EyeOff, X, Smartphone, ShieldAlert, Plus } from "lucide-react";
 
 const inputClass =
   "disabled:opacity-60 disabled:cursor-not-allowed w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 pr-12 text-body-sm! text-white outline-none transition-all placeholder:text-slate-500 focus:border-gold/50";
@@ -16,6 +20,11 @@ export function SecuritySettingsPanel() {
   const t = useTranslations("ProfilePage");
   const tForm = useTranslations("SharedForm");
   const tError = useTranslations("ValidationErrors");
+  const { user, updateUser } = useAuth();
+  const [isSetupModalOpen, setIsSetupModalOpen] = useState(false);
+  const [isDisableModalOpen, setIsDisableModalOpen] = useState(false);
+  const [isActivateBtnHovered, setIsActivateBtnHovered] = useState(false);
+  const is2FAEnabled = Boolean(user?.isTwoFactorEnabled || user?.twoFactorEnabled);
   //Hook
   const {
     isSocialAuth,
@@ -63,6 +72,18 @@ export function SecuritySettingsPanel() {
           <h2 className="premium-serif mb-6 text-heading-sub text-white">{t("SecurityPanel.title")}</h2>
 
           <form className="space-y-6" onSubmit={handleSubmit} noValidate>
+            {/* Hidden username field for accessibility and password manager compliance (WCAG/DOM standard) */}
+            <input
+              type="text"
+              name="username"
+              autoComplete="username"
+              value={user?.email || ""}
+              readOnly
+              className="hidden"
+              aria-hidden="true"
+              tabIndex={-1}
+            />
+
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
               {/* 1. Current Password (No TransientMessage) */}
               <label className="block space-y-2">
@@ -77,7 +98,7 @@ export function SecuritySettingsPanel() {
                     disabled={isLoading}
                     onChange={(e) => handleCurrentChange(e.target.value)}
                     className={inputClass}
-                    autoComplete="off"
+                    autoComplete="current-password"
                   />
                   <button
                     type="button"
@@ -192,6 +213,78 @@ export function SecuritySettingsPanel() {
           </form>
         </div>
 
+        {/* ─── Two-Factor Authentication (2FA) Card ─── */}
+        <div className="glass-card backdrop-blur-none! rounded-3xl p-6 md:p-12 border border-white/10 bg-white/5 space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
+            <div className="flex items-center gap-4">
+              <div
+                className={`hidden sm:flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border ${is2FAEnabled
+                    ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-400 shadow-lg shadow-emerald-500/10"
+                    : "bg-white/5 border-white/10 text-slate-400"
+                  }`}
+              >
+                <Smartphone className="h-6 w-6" />
+              </div>
+              <div>
+                <h3 className="text-heading-card font-bold text-white">
+                  {t("SecurityPanel.twoFactorTitle")}
+                </h3>
+                <div className="mt-1.5 flex items-center gap-2">
+                  <span
+                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-tiny font-bold tracking-wider uppercase border ${is2FAEnabled
+                        ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30"
+                        : "bg-white/5 text-slate-400 border-white/10"
+                      }`}
+                  >
+                    {is2FAEnabled
+                      ? t("SecurityPanel.twoFactorStatusActive")
+                      : t("SecurityPanel.twoFactorStatusDisabled")}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              {is2FAEnabled ? (
+                <button
+                  type="button"
+                  onClick={() => setIsDisableModalOpen(true)}
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-red-500/30 bg-red-500/10 text-red-300 text-caption font-bold uppercase tracking-wider hover:bg-red-500 hover:text-white hover:border-red-500 transition-all duration-300 cursor-pointer whitespace-nowrap"
+                >
+                  <ShieldAlert className="h-4 w-4 shrink-0 transition-colors" />
+                  <span className="leading-none transition-colors">
+                    {t("SecurityPanel.twoFactorDisableBtn")}
+                  </span>
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setIsSetupModalOpen(true)}
+                  onMouseEnter={() => setIsActivateBtnHovered(true)}
+                  onMouseLeave={() => setIsActivateBtnHovered(false)}
+                  onFocus={() => setIsActivateBtnHovered(true)}
+                  onBlur={() => setIsActivateBtnHovered(false)}
+                  style={{
+                    color: isActivateBtnHovered ? "#000000" : "#c5a059",
+                  }}
+                  className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl border border-gold/40 bg-gold/10 text-caption font-bold uppercase tracking-wider hover:bg-gold hover:border-gold transition-all duration-300 cursor-pointer whitespace-nowrap shadow-sm hover:shadow-[0_0_20px_rgba(197,160,89,0.3)]"
+                >
+                  <Plus className="h-3.5 w-3.5 shrink-0 transition-colors" />
+                  <span className="leading-none transition-colors">
+                    {t("SecurityPanel.twoFactorActivateBtn")}
+                  </span>
+                </button>
+              )}
+            </div>
+          </div>
+
+          <p className="text-body-sm text-slate-300 leading-relaxed">
+            {is2FAEnabled
+              ? t("SecurityPanel.twoFactorActiveDesc")
+              : t("SecurityPanel.twoFactorDesc")}
+          </p>
+        </div>
+
         {/* Delete Account Card */}
         <div className="glass-card backdrop-blur-none! rounded-3xl p-6 md:p-12 border-red-500/20 bg-red-950/5">
           <div className="flex flex-col items-start gap-6">
@@ -241,11 +334,10 @@ export function SecuritySettingsPanel() {
                     setConfirmText("");
                     setErrors((prev) => ({ ...prev, deletePassword: "" }));
                   }}
-                  className={`flex-1 py-2 rounded-lg transition-all outline-none focus:outline-none focus:ring-0 ${
-                    deleteMethod === "password"
+                  className={`flex-1 py-2 rounded-lg transition-all outline-none focus:outline-none focus:ring-0 ${deleteMethod === "password"
                       ? "bg-red-500/20 text-red-400 border border-red-500/30"
                       : "text-slate-400 hover:text-white border border-transparent"
-                  }`}
+                    }`}
                 >
                   {t("SecurityPanel.usePasswordBtn")}
                 </button>
@@ -256,11 +348,10 @@ export function SecuritySettingsPanel() {
                     setDeletePassword("");
                     setErrors((prev) => ({ ...prev, deletePassword: "" }));
                   }}
-                  className={`flex-1 py-2 rounded-lg transition-all outline-none focus:outline-none focus:ring-0 ${
-                    deleteMethod === "text"
+                  className={`flex-1 py-2 rounded-lg transition-all outline-none focus:outline-none focus:ring-0 ${deleteMethod === "text"
                       ? "bg-red-500/20 text-red-400 border border-red-500/30"
                       : "text-slate-400 hover:text-white border border-transparent"
-                  }`}
+                    }`}
                 >
                   {t("SecurityPanel.typeDeleteBtn")}
                 </button>
@@ -280,7 +371,7 @@ export function SecuritySettingsPanel() {
                       setErrors((prev) => ({ ...prev, deletePassword: "" }));
                     }}
                     className={inputClass}
-                  autoComplete="new-password"
+                    autoComplete="new-password"
                   />
                   <button
                     type="button"
@@ -342,6 +433,25 @@ export function SecuritySettingsPanel() {
           </div>
         </div>
       )}
+
+      {/* 2FA Setup Modal */}
+      <TwoFactorSetupModal
+        isOpen={isSetupModalOpen}
+        onClose={() => setIsSetupModalOpen(false)}
+        onSuccess={() => {
+          updateUser({ isTwoFactorEnabled: true, twoFactorEnabled: true });
+        }}
+      />
+
+      {/* 2FA Disable Modal */}
+      <TwoFactorDisableModal
+        isOpen={isDisableModalOpen}
+        onClose={() => setIsDisableModalOpen(false)}
+        onSuccess={() => {
+          updateUser({ isTwoFactorEnabled: false, twoFactorEnabled: false });
+        }}
+        isSocialAuth={isSocialAuth}
+      />
     </>
   );
 }

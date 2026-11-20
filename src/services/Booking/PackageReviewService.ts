@@ -1,3 +1,5 @@
+import { parseApiError } from "@/utils/apiError";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
 
 export type PackageReviewPayload = {
@@ -30,7 +32,7 @@ export const PackageReviewService = {
       body: formData,
     });
 
-    if (!res.ok) throw new Error("Review submission failed");
+    if (!res.ok) await parseApiError(res, "Review submission failed");
     return res.json();
   },
 };

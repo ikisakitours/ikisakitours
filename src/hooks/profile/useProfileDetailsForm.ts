@@ -1,9 +1,11 @@
 import { useState, useEffect, type ChangeEvent, type FormEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { profileService } from "@/services/profile/profileService";
+import { convertImageToWebP } from "@/utils/image-converter.util";
 import { useTranslations } from "next-intl";
 import { useToast } from "@/context/ToastContext";
 import { useAuth } from "@/context/AuthContext";
+import { isSuspensionError } from "@/utils/apiError";
 
 export function useProfileDetailsForm(tError: (key: string) => string) {
   const { user, updateUser } = useAuth();
@@ -25,9 +27,9 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
   const tErr = useTranslations("ValidationErrors.ServerErrors");
   const tToastProfile = useTranslations("ValidationErrors.ToastMessages.ProfileUpdate");
   const tToastAvatar = useTranslations("ValidationErrors.ToastMessages.AvatarUpload");
+  const tAuth = useTranslations("Auth");
 
   const [isImageChanged, setIsImageChanged] = useState(false);
-  const [originalImageSize, setOriginalImageSize] = useState<number>(0);
   const [currentFileSignature, setCurrentFileSignature] = useState<string | null>(null);
   const toast = useToast();
 
@@ -61,10 +63,6 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
     }
 
     setCurrentFileSignature(fileSignature);
-
-    const sizeInMB = (file.size / (1024 * 1024)).toFixed(2);
-    // console.log(`📦 Original Image Size: ${sizeInMB} MB`);
-    setOriginalImageSize(file.size);
 
     if (file.size > 5 * 1024 * 1024) {
       setErrors({ avatar: tError("imageSizeProfile") });
@@ -114,7 +112,7 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
         country,
       };
 
-      const [response] = await Promise.all([
+      await Promise.all([
         profileService.updateDetails(payload),
         new Promise((resolve) => setTimeout(resolve, 800)),
       ]);
@@ -129,6 +127,10 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
       toast.success(toastId, tToastProfile("success"), 2000);
       // console.log("Login valid and submitted!", response);
     } catch (error) {
+      if (isSuspensionError(error)) {
+        toast.error(toastId, tAuth("Suspension.profile_restricted_message"));
+        return;
+      }
       toast.error(toastId, tToastProfile("error"));
       console.error("Update error:", error);
       setErrors((prev) => ({ ...prev, form: tErr("updateFailed") }));
@@ -144,69 +146,88 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
     try {
       setIsProfileLoading(true);
 
-      const webpBlob = await new Promise<Blob>((resolve, reject) => {
-        const img = new window.Image();
-        img.src = avatarPreview;
-        img.onload = () => {
-          // 1) Resize: උපරිම 512px
-          const MAX_SIZE = 512;
-          const scale = Math.min(1, MAX_SIZE / Math.max(img.width, img.height));
+      // 1. Client-Side WebP Conversion (Max 512px, quality 0.85)
+      const { file: webpFile } = await convertImageToWebP(avatarPreview, 512, 0.85);
 
-          const canvas = document.createElement("canvas");
-          canvas.width = Math.round(img.width * scale);
-          canvas.height = Math.round(img.height * scale);
-
-          const ctx = canvas.getContext("2d");
-          if (!ctx) return reject(new Error("Canvas context failed"));
-
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-          // 2) WebP check
-          canvas.toBlob(
-            (blob) => {
-              if (blob && blob.type === "image/webp") resolve(blob);
-              else reject(new Error("WebP not supported"));
-            },
-            "image/webp",
-            0.8,
-          );
-        };
-        img.onerror = () => reject(new Error("Image loading failed"));
-      });
-
-      const webpSizeMB = (webpBlob.size / (1024 * 1024)).toFixed(2);
-      const originalMB = (originalImageSize / (1024 * 1024)).toFixed(2);
-      const savedSpace = (Number(originalMB) - Number(webpSizeMB)).toFixed(2);
-
-      // console.log(`🚀 Converted WebP Size: ${webpSizeMB} MB`);
-      // console.log(`🎉 Cloudflare Storage Saved: ${savedSpace} MB!`);
-
-      if (webpBlob.size > 5 * 1024 * 1024) {
+      if (webpFile.size > 5 * 1024 * 1024) {
         setErrors((prev) => ({ ...prev, avatar: "Converted image is still too large." }));
         setIsProfileLoading(false);
         return;
       }
 
-      const [response] = await Promise.all([
-        profileService.uploadAvatar(webpBlob, currentFileSignature || ""),
-        new Promise((resolve) => setTimeout(resolve, 800)),
-      ]);
+      // 2. Upload avatar to Cloudflare R2 (/api/uploads/batch)
+      const uploadedUrl = await profileService.uploadAvatar(webpFile);
+
+      // 3. Cache-busting timestamp to ensure fresh image load
+      const cacheBustedUrl = `${uploadedUrl}?t=${Date.now()}`;
+
+      // 4. Update profile with oldAvatarUrl so backend prunes orphaned R2 file
+      const oldAvatarUrl = user?.avatarUrl || null;
+      await profileService.updateProfile({
+        avatarUrl: cacheBustedUrl,
+        oldAvatarUrl,
+      });
+
+      // 5. Instantly sync user state and localStorage
+      updateUser({
+        avatarUrl: cacheBustedUrl,
+        avatarSignature: currentFileSignature,
+      });
+
       setIsImageChanged(false);
-
-      if (response && response.avatarUrl) {
-        updateUser({
-          avatarUrl: response.avatarUrl,
-          avatarSignature: currentFileSignature,
-        });
-        setAvatarPreview(null);
-      }
-
+      setAvatarPreview(null);
       toast.success(toastId, tToastAvatar("success"), 2000);
-      // console.log("Avatar uploaded successfully!");
     } catch (error) {
+      if (isSuspensionError(error)) {
+        toast.error(toastId, tAuth("Suspension.profile_restricted_message"));
+        return;
+      }
       toast.error(toastId, tToastAvatar("error"));
       console.error("Avatar upload error:", error);
       setErrors((prev) => ({ ...prev, avatar: tErr("avatarUploadFailed") }));
+    } finally {
+      setIsProfileLoading(false);
+    }
+  };
+
+  const handleRemoveAvatar = async () => {
+    const oldAvatarUrl = user?.avatarUrl;
+
+    // If only an unsaved local preview exists, simply discard it
+    if (!oldAvatarUrl && avatarPreview) {
+      setAvatarPreview(null);
+      setIsImageChanged(false);
+      return;
+    }
+
+    if (!oldAvatarUrl) return;
+
+    const toastId = toast.loading(tToastAvatar("removing"));
+    try {
+      setIsProfileLoading(true);
+
+      // Send { avatarUrl: null, oldAvatarUrl: previousAvatarUrl } for R2 pruning
+      await profileService.updateProfile({
+        avatarUrl: null,
+        oldAvatarUrl,
+      });
+
+      // Synchronize AuthContext and localStorage
+      updateUser({
+        avatarUrl: null,
+        avatarSignature: null,
+      });
+
+      setAvatarPreview(null);
+      setIsImageChanged(false);
+      toast.success(toastId, tToastAvatar("removeSuccess"), 2000);
+    } catch (error) {
+      if (isSuspensionError(error)) {
+        toast.error(toastId, tAuth("Suspension.profile_restricted_message"));
+        return;
+      }
+      toast.error(toastId, tToastAvatar("removeError"));
+      console.error("Avatar remove error:", error);
     } finally {
       setIsProfileLoading(false);
     }
@@ -239,5 +260,6 @@ export function useProfileDetailsForm(tError: (key: string) => string) {
     handleCropComplete,
     handlePersonalUpdate,
     handleImageUpdate,
+    handleRemoveAvatar,
   };
 }

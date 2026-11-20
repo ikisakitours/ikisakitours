@@ -8,6 +8,7 @@ import { useTranslations } from "next-intl";
 import { useToast } from "@/context/ToastContext";
 import { useAuth } from "@/context/AuthContext";
 import { claimServiceDraft, loadServiceDraft, saveServiceDraft, clearServiceDraft } from "@/utils/draft/servicesDraft";
+import { isSuspensionError } from "@/utils/apiError";
 
 // true: after login, the saved draft is submitted automatically
 const AUTO_SUBMIT_AFTER_LOGIN = false;
@@ -48,6 +49,7 @@ export function useBespokeForm() {
 
   const tErr = useTranslations("ValidationErrors.ServerErrors");
   const tToast = useTranslations("ValidationErrors.ToastMessages.BespokeTour");
+  const tAuth = useTranslations("Auth");
 
   const restoredRef = useRef(false);
   const autoHandledRef = useRef(false);
@@ -133,6 +135,10 @@ export function useBespokeForm() {
       setSelectedVehicleId("");
       setTourPackageType("driver");
     } catch (error) {
+      if (isSuspensionError(error)) {
+        toast.error(toastId, tAuth("Suspension.service_restricted_message"));
+        return;
+      }
       console.error("Submission error:", error);
       toast.error(toastId, tToast("error"));
       setErrors((prev) => ({ ...prev, form: tErr("submissionFailed") }));

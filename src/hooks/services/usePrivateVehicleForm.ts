@@ -8,6 +8,7 @@ import { useTranslations } from "next-intl";
 import { useToast } from "@/context/ToastContext";
 import { useAuth } from "@/context/AuthContext";
 import { claimServiceDraft, loadServiceDraft, saveServiceDraft, clearServiceDraft } from "@/utils/draft/servicesDraft";
+import { isSuspensionError } from "@/utils/apiError";
 
 const AUTO_SUBMIT_AFTER_LOGIN = false;
 const DRAFT_KEY = "private_vehicle_form";
@@ -47,6 +48,7 @@ export function usePrivateVehicleForm() {
 
   const tErr = useTranslations("ValidationErrors.ServerErrors");
   const tToast = useTranslations("ValidationErrors.ToastMessages.VehicleBooking");
+  const tAuth = useTranslations("Auth");
 
   const restoredRef = useRef(false);
   const autoHandledRef = useRef(false);
@@ -131,6 +133,10 @@ export function usePrivateVehicleForm() {
       setSelectedVehicleId("");
       setTourPackageType("driver");
     } catch (error) {
+      if (isSuspensionError(error)) {
+        toast.error(toastId, tAuth("Suspension.service_restricted_message"));
+        return;
+      }
       console.error("Submission error:", error);
       toast.error(toastId, tToast("error"));
       setErrors((prev) => ({ ...prev, form: tErr("vehicleBookingFailed") }));

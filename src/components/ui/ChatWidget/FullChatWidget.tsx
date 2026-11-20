@@ -39,9 +39,9 @@ export function FullChatWidget() {
   //Tab Heder Message
   useDocumentTitleNotification(showBottomTooltip && !isOpen, tWidget("documentTitle"));
 
-  // On mount, read from sessionStorage safely using setTimeout to prevent synchronous setState warning
+  // On mount, read from sessionStorage safely using queueMicrotask to prevent synchronous setState warning
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
+    queueMicrotask(() => {
       setIsMounted(true);
 
       const bottomShown = sessionStorage.getItem("chat_bottom_shown") === "true";
@@ -55,9 +55,7 @@ export function FullChatWidget() {
       setShowChatWidget(initialized);
       setHasInteracted(interacted);
       setHasShownBottomTooltip(bottomShown);
-    }, 0);
-
-    return () => clearTimeout(timeoutId);
+    });
   }, []);
 
   useEffect(() => {

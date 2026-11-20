@@ -1,4 +1,5 @@
 import type { PricingOptionLocalization } from "@/services/Booking/packageDetails/types";
+import { parseApiError } from "@/utils/apiError";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
 
@@ -75,7 +76,7 @@ export const bookingWidgetService = {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-    if (!res.ok) throw new Error("Booking submission failed");
+    if (!res.ok) await parseApiError(res, "Booking submission failed");
     return res.json();
   },
 };

@@ -93,6 +93,14 @@ export default {
     deleteFailed: "Failed to delete account. Check your password.",
   },
   AuthRequired: {
+    title: "Oops! Sign in required",
+    description: "Please sign in to continue and access your account.",
+    loginBtn: "Login to Continue",
+    Profile: {
+      title: "Oops! Sign in required",
+      description: "Please sign in to access your profile dashboard and account settings.",
+      loginBtn: "Login to Continue",
+    },
     Review: {
       title: "Oops! Sign in required",
       description: "Please sign in to submit your review and share your experience.",
@@ -167,6 +175,9 @@ export default {
       loading: "Uploading",
       success: "Picture updated!",
       error: "Upload failed.",
+      removing: "Removing photo...",
+      removeSuccess: "Photo removed!",
+      removeError: "Failed to remove photo.",
     },
     BespokeTour: {
       loading: "Submitting",
@@ -198,6 +209,13 @@ export default {
       loading: "Deleting account",
       success: "Account deleted successfully!",
       error: "Failed to delete account.",
+    },
+    TwoFactor: {
+      activated: "Two-Factor Authentication activated!",
+      disabled: "Two-Factor Authentication disabled.",
+      invalidCode: "Invalid 6-digit code. Please try again.",
+      activating: "Activating 2FA...",
+      disabling: "Disabling 2FA...",
     },
     ContactForm: {
       loading: "Sending message",

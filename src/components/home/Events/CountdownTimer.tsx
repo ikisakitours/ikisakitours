@@ -18,7 +18,7 @@ export function CountdownTimer({ targetDate }: { targetDate: string }) {
       }
     };
 
-    calculateTime();
+    queueMicrotask(() => calculateTime());
     const timer = setInterval(calculateTime, 1000);
     return () => clearInterval(timer);
   }, [targetDate]);

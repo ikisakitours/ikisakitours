@@ -1,3 +1,5 @@
+import { parseApiError } from "@/utils/apiError";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
 
 export const bespokeService = {
@@ -8,7 +10,7 @@ export const bespokeService = {
       body: JSON.stringify(data),
     });
 
-    if (!res.ok) throw new Error("Bespoke tour submission failed");
+    if (!res.ok) await parseApiError(res, "Bespoke tour submission failed");
     return res.json();
   },
 };

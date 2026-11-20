@@ -1,3 +1,5 @@
+import { parseApiError } from "@/utils/apiError";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
 
 export const transferServiceApi = {
@@ -8,7 +10,7 @@ export const transferServiceApi = {
       body: JSON.stringify(data),
     });
 
-    if (!res.ok) throw new Error("Transfer booking failed");
+    if (!res.ok) await parseApiError(res, "Transfer booking failed");
     return res.json();
   },
 };

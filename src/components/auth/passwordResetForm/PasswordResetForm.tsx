@@ -1,5 +1,6 @@
 "use client";
 import { Link } from "@/lib/i18nNavigation";
+import { useSearchParams } from "next/navigation";
 import { AuthFormHeader } from "../AuthFormHeader";
 import { Button } from "@/components/ui/Button";
 import { FormError } from "@/components/ui/FormError";
@@ -16,6 +17,9 @@ export function PasswordResetForm() {
   const tAuth = useTranslations("Auth");
   const tForm = useTranslations("SharedForm");
   const tError = useTranslations("ValidationErrors");
+
+  const searchParams = useSearchParams();
+  const email = searchParams.get("email") || "";
 
   const {
     otp,
@@ -53,6 +57,17 @@ export function PasswordResetForm() {
 
       <div className="overflow-y-auto no-scrollbar px-8 md:px-12">
         <form className="space-y-6" onSubmit={handleSubmit} noValidate>
+          {/* Hidden username field for accessibility and password manager compliance */}
+          <input
+            type="text"
+            name="username"
+            autoComplete="username"
+            value={email}
+            readOnly
+            className="hidden"
+            aria-hidden="true"
+            tabIndex={-1}
+          />
           {/* OTP */}
           <div className="space-y-3">
             <label className="ml-1 block text-caption font-bold uppercase tracking-[0.2em] text-gold">

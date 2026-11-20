@@ -1,5 +1,6 @@
 export default {
   Api: {
+    loading: "Loading...",
     loadingReviews: "Loading Reviews...",
     loadingJournals: "Loading Journals...",
     loadingDestinations: "Loading Destinations...",
@@ -12,6 +13,8 @@ export default {
     //new
     loadingContent: "Loading Content...",
     loadingLegal: "Loading Legal Content...",
+    loadingSession: "Verifying Session...",
+    loadingProfile: "Loading Profile...",
 
     //
     errorWatermark: "ERROR",

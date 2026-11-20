@@ -11,6 +11,7 @@ import { useTranslations } from "next-intl";
 import { useToast } from "@/context/ToastContext";
 import { useAuth } from "@/context/AuthContext";
 import { claimServiceDraft, loadServiceDraft, saveServiceDraft, clearServiceDraft } from "@/utils/draft/servicesDraft";
+import { isSuspensionError } from "@/utils/apiError";
 
 const AUTO_SUBMIT_AFTER_LOGIN = false;
 const DRAFT_KEY = "transfer_form";
@@ -54,9 +55,11 @@ export function useTransferBookingForm() {
 
   const tErr = useTranslations("ValidationErrors.ServerErrors");
   const tToast = useTranslations("ValidationErrors.ToastMessages.TransferBooking");
+  const tAuth = useTranslations("Auth");
 
   const restoredRef = useRef(false);
   const autoHandledRef = useRef(false);
+  const [prices, setPrices] = useState({ startingPrice: 0, selectedPrice: 0 });
 
   const handleTravelerChange = (type: string, delta: number) => {
     setTravelerCounts((prev) => {
@@ -115,6 +118,7 @@ export function useTransferBookingForm() {
         email: payloadContact.email || user.email,
         phoneNumber: payloadContact.phone,
         specialRequests: payloadContact.specialRequests,
+        startingPrice: String(prices.startingPrice),
       };
 
       await Promise.all([transferServiceApi.bookTransfer(payload), new Promise((resolve) => setTimeout(resolve, 800))]);
@@ -135,6 +139,10 @@ export function useTransferBookingForm() {
       setActiveFilter("");
       setSelectedVehicleId("");
     } catch (error) {
+      if (isSuspensionError(error)) {
+        toast.error(toastId, tAuth("Suspension.service_restricted_message"));
+        return;
+      }
       console.error("Submission error:", error);
       toast.error(toastId, tToast("error"));
       setErrors((prev) => ({ ...prev, form: tErr("transferBookingFailed") }));
@@ -311,5 +319,7 @@ export function useTransferBookingForm() {
     closeAuthModal: () => setShowAuthModal(false),
     draftRestored,
     clearDraftRestored: () => setDraftRestored(false),
+    prices,
+    setPrices,
   };
 }

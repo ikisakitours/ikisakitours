@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { AuthShell } from "@/components/auth/AuthShell";
 import { PasswordResetForm } from "@/components/auth/passwordResetForm/PasswordResetForm";
 import { getTranslations } from "next-intl/server";
@@ -15,7 +16,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default function PasswordChangePage() {
   return (
     <AuthShell introKey="Reset">
-      <PasswordResetForm />
+      <Suspense fallback={null}>
+        <PasswordResetForm />
+      </Suspense>
     </AuthShell>
   );
 }

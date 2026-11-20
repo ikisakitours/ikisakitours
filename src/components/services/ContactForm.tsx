@@ -58,11 +58,13 @@ export function ContactForm({ data, setData, errors, setErrors, isLoading }: Con
 
   useEffect(() => {
     if (user) {
-      setData((prev) => ({
-        ...prev,
-        fullName: prev.fullName || `${user.firstname || ""} ${user.lastname || ""}`.trim(),
-        email: prev.email || user.email || "",
-      }));
+      queueMicrotask(() => {
+        setData((prev) => ({
+          ...prev,
+          fullName: prev.fullName || `${user.firstname || ""} ${user.lastname || ""}`.trim(),
+          email: prev.email || user.email || "",
+        }));
+      });
     }
   }, [user, setData]);
 
