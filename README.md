@@ -211,13 +211,29 @@ Engineered across [`AccessGate.tsx`](./src/components/access/AccessGate.tsx), [`
   - **Suspended Customer Lockout (`hasAccess: false`)**: If an administrator suspends an account, the UI locks instantly into `<AccessRestricted />` without leaking even 1 millisecond of private profile details or dashboard DOM markup.
   - **Unauthenticated Protection**: Visitors accessing `/profile` directly or via hard refresh (F5) without credentials see strictly `<AuthRequiredModal />`; private dashboard components are never mounted into the DOM.
   - **Zero Double-Guard Race Conditions**: Completely eliminates inner redundant guards (`!isHydrated` / `!user`) from `ProfileDashboard.tsx`, ensuring all access decisions are owned exclusively by `ProfileAccessGate`.
-- **Synchronous Edge Session & Cookie Sync (`AuthContext.tsx` & `src/proxy.ts`)**:
-  - `user` and `isHydrated` initialize synchronously on Frame 0 from cached `userData` in `localStorage`.
-  - Automatically synchronizes the `customer_token` cookie so edge proxy recognized authenticated sessions with zero delay.
+- **Redirect-Based Suspension Architecture (Dedicated `/access-restricted` Route)**:
+  - Suspended accounts are **redirected** (not overlay-wrapped) to the dedicated [`/[locale]/access-restricted`](./src/app/%5Blocale%5D/access-restricted/page.tsx) page — keeping `RootLayout` completely free of access-gate wrappers and eliminating all hydration mismatch risks.
+  - The page is loaded via `next/dynamic` with `{ ssr: false }` so server-rendered HTML never differs from client HTML when rendering user data (name, email, Reference ID) from `localStorage`.
+  - **Zero-Flash Pre-Render**: Even if a suspended user manually types any URL (`/`, `/tours`, `/profile`), `AuthContext`'s route-protection `useEffect` instantly pushes them back to `/access-restricted` before any private page DOM is painted.
+- **Vercel Edge Middleware Suspension Lock (`src/proxy.ts`)**:
+  - At the Vercel Edge (before any Next.js render), `proxy.ts` reads the `customer_suspended` cookie. If `true` and the requested path is not already `/access-restricted`, the request is **immediately redirected** to `/${locale}/access-restricted` — blocking even direct URL manipulation at the CDN layer.
+  - Reverse unlock: if `customer_suspended` is absent/false and the user is on `/access-restricted` with a valid `customer_token`, the Edge redirects them to `/${locale}/profile`, preventing stale lockout screens.
+  - All other requests fall through cleanly to `intlMiddleware(request)` for standard locale routing.
+- **Dual Cookie Session Strategy (`customer_token` & `customer_suspended`)**:
+  - `setAuthenticatedUser` in `AuthContext` synchronizes two cookies on every auth state change: `customer_token=true` (authenticated session presence) and `customer_suspended=true/false` (suspension flag).
+  - Both cookies are cleared atomically on logout, ensuring Edge middleware always operates on a consistent session snapshot.
+- **Instant Block & Activate with 60-Second Throttled Focus Re-Validation**:
+  - `handleFocus` in `AuthContext` calls `fetchUser()` on every browser tab focus event, throttled to **at most once every 60 seconds** via `lastFocusCheckRef` (`useRef<number>(0)`).
+  - The throttle guard runs for **all users** (including suspended ones), so when an administrator unsuspends an account, the next tab focus (within 60s window) triggers `/api/auth/me`, receives `hasAccess: true`, and the route-protection `useEffect` automatically redirects them to `/profile` — **no manual refresh required**.
+  - Blocking is equally instant: `fetchUser()` on focus returns `{ hasAccess: false }` for newly suspended users, triggering immediate redirect to `/access-restricted`.
+- **Cross-Origin Authorization Header for JWT (`authService.ts`)**:
+  - `getCurrentUser` reads `localStorage.getItem("token") || localStorage.getItem("customer_token")` and attaches `Authorization: Bearer <token>` to every `/api/auth/me` request, ensuring credentials are transmitted correctly on cross-origin deployments (e.g. `localhost:3000` → Vercel backend) where HttpOnly cookies may be restricted.
+  - HTTP `403` responses are **caught gracefully** and returned as `{ hasAccess: false }` (no thrown error, no console spam), so callers check `response.hasAccess === false` directly.
+- **Synchronous Edge Session & Cookie Sync (`AuthContext.tsx`)**:
+  - `isHydrated` initializes as `useState<boolean>(false)` — never branching on `typeof window !== "undefined"` — eliminating SSR/client HTML mismatches.
   - Silent background verification with `/api/auth/me` safely re-validates credentials without blocking initial render.
-  - Clean edge proxy delegation in `src/proxy.ts` passes localized routing to `intlMiddleware` without query parameter pollution.
 - **Window Focus & Route Navigation Real-Time Sync**:
-  - Listens to window `focus` events to silently call `fetchUser()` when customers switch back to the browser tab, catching administrative suspensions immediately.
+  - Listens to window `focus` events (60s throttle) to silently call `fetchUser()` when customers switch back to the browser tab.
   - Subscribes to route changes via `usePathname()`, re-verifying customer authorization upon client-side navigation.
 - **Branded Customer Reference ID System**:
   - Replaces raw database UUIDs with customer-friendly branded Reference IDs (e.g., `IKISAKI-8F42M9` under `user.customerReferenceId` / `user.referenceId`).
@@ -257,6 +273,7 @@ Engineered across [`authService.ts`](./src/services/auth/authService.ts), [`Logi
   - Adds a dedicated luxury 2FA security card under the Account Security tab with live status badges (Slate **"Disabled"** vs. Emerald **"Active & Protected ✓"**).
   - Responsive Mobile Polish: Smartphone icon is hidden on mobile screens (`hidden sm:flex`) for optimal layout flow on handheld viewports.
   - Interactive Action button with responsive state handling: Lucide `<Plus />` icon on activation and high-contrast hover state.
+  - **WCAG / DOM Accessibility Compliance**: Password change form includes a visually-hidden (`sr-only`) username `<input autoComplete="username" />` field containing the customer's email, satisfying Chrome's password-manager heuristic (eliminating the `[DOM] Password forms should have username fields` console warning) while remaining invisible to sighted users.
 - **Compact Setup Modal (`TwoFactorSetupModal.tsx`)**:
   - **Balanced Header Layout**: Positioned the Emerald Shield status badge at Top-Left (`absolute top-4 left-4`), perfectly balancing the Top-Right Close (X) button and reducing header height.
   - **Auto-Width Centered Setup Key**: The Base32 secret key box dynamically auto-fits strictly to key length (`inline-flex w-auto max-w-full`) and is centered horizontally with one-click copy feedback.
@@ -458,6 +475,11 @@ npm run start
 - [x] **Branded Customer Reference ID System** (`customerReferenceId` / `referenceId`) integrated across ticket restriction screen, profile dashboard, and dynamic referrals
 - [x] 5-pillar enterprise SEO (`robots.ts`, `sitemap.ts`, 9 Schema.org JSON-LD builders, `hreflang` alternates, OpenGraph & Twitter cards)
 - [x] Transparent cropped header crest, full-bleed rounded dark-gold favicon badge, and zero-shift 60fps minimalist preloader
+- [x] **Redirect-Based Account Suspension Architecture** — dedicated `/access-restricted` route with `dynamic({ ssr: false })` (zero hydration errors), Vercel Edge `customer_suspended` cookie redirect in `proxy.ts`, and `AuthContext` route-protection `useEffect` (zero private DOM leakage)
+- [x] **60-Second Throttled Focus Re-Validation** — instant admin block & activate sync via `handleFocus` → `fetchUser()` on tab switch (no manual refresh required)
+- [x] **Cross-Origin JWT Bearer Header** — `authService.getCurrentUser` attaches `Authorization: Bearer <token>` for cross-origin deployments; graceful `403` → `{ hasAccess: false }` (zero console spam)
+- [x] **Dual Cookie Session Sync** — `customer_token` + `customer_suspended` cookies kept atomically consistent across `AuthContext`, `ProfileAccessGate`, and Vercel Edge middleware
+- [x] **WCAG Password Form Accessibility** — `sr-only` username input (`autoComplete="username"`) in all password forms (`SecuritySettingsPanel`, `TwoFactorDisableModal`, `PasswordResetForm`) satisfying Chrome/browser password-manager heuristics
 
 ---
 
