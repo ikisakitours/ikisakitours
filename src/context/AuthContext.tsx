@@ -1,6 +1,6 @@
 "use client";
-import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from "react";
-import { usePathname } from "next/navigation";
+import { createContext, useContext, useState, useEffect, ReactNode, useCallback, useRef } from "react";
+import { useRouter, usePathname } from "@/lib/i18nNavigation";
 import { authService } from "@/services/auth/authService";
 
 export interface User {
@@ -47,15 +47,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return null;
   });
 
-  // 2. Synchronously initialize hydration state
-  const [isHydrated, setIsHydrated] = useState<boolean>(() => {
-    if (typeof window !== "undefined") {
-      return Boolean(localStorage.getItem("userData"));
-    }
-    return false;
-  });
+  // 2. Initialize as false on both server and client to guarantee zero hydration mismatch
+  const [isHydrated, setIsHydrated] = useState<boolean>(false);
 
+  const router = useRouter();
   const pathname = usePathname();
+  const lastFocusCheckRef = useRef<number>(0);
 
   // 3. Helper to set user, localStorage, AND sync Edge Cookie
   const setAuthenticatedUser = useCallback((userData: User | null) => {
@@ -63,6 +60,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (typeof window !== "undefined") {
       if (userData) {
         localStorage.setItem("userData", JSON.stringify(userData));
+        if (userData.hasAccess === false) {
+          document.cookie = "customer_suspended=true; path=/; max-age=2592000; SameSite=Lax";
+        } else {
+          document.cookie = "customer_suspended=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax";
+        }
         // Sync cookie so Edge proxy.ts recognizes authenticated session
         document.cookie = "customer_token=true; path=/; max-age=2592000; SameSite=Lax";
       } else {
@@ -70,6 +72,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         localStorage.removeItem("token");
         localStorage.removeItem("customer_token");
         document.cookie = "customer_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax";
+        document.cookie = "customer_suspended=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax";
       }
     }
   }, []);
@@ -77,6 +80,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const fetchUser = useCallback(async () => {
     try {
       const response = await authService.getCurrentUser();
+
+      // If backend returned 403 / hasAccess: false
+      if (response && response.hasAccess === false) {
+        let baseUser: User | null = null;
+        if (typeof window !== "undefined") {
+          const saved = localStorage.getItem("userData");
+          if (saved) {
+            try {
+              baseUser = JSON.parse(saved);
+            } catch {
+              /* ignore */
+            }
+          }
+        }
+        setAuthenticatedUser(
+          baseUser
+            ? { ...baseUser, hasAccess: false }
+            : ({ id: "", firstname: "", lastname: "", email: "", country: "", hasAccess: false } as User)
+        );
+        return;
+      }
+
       const userData = response.user ? response.user : response;
 
       if (userData && (userData.id || userData.email)) {
@@ -121,11 +146,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setIsHydrated(true);
     });
     const raw = typeof window !== "undefined" ? localStorage.getItem("userData") : null;
+    if (raw) {
+      try {
+        const parsed = JSON.parse(raw);
+        if (parsed?.hasAccess === false) {
+          document.cookie = "customer_suspended=true; path=/; max-age=2592000; SameSite=Lax";
+        }
+      } catch {
+        /* ignore */
+      }
+    }
     if (!raw) return;
 
     authService
       .getCurrentUser()
       .then((freshUser) => {
+        if (freshUser && freshUser.hasAccess === false) {
+          let baseUser: User | null = null;
+          try {
+            baseUser = JSON.parse(raw);
+          } catch {
+            /* ignore */
+          }
+          if (baseUser) {
+            setAuthenticatedUser({ ...baseUser, hasAccess: false });
+          }
+          return;
+        }
+
         const userData = freshUser?.user ? freshUser.user : freshUser;
         if (userData && (userData.id || userData.email)) {
           setAuthenticatedUser(userData);
@@ -151,21 +199,43 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // Window focus listener to re-verify user access in background when returning to tab
   useEffect(() => {
     const handleFocus = () => {
+      // Throttle to at most once every 3 seconds to eliminate network spamming
+      const now = Date.now();
+      if (now - lastFocusCheckRef.current < 60_000) return;
+      lastFocusCheckRef.current = now;
       fetchUser();
     };
     window.addEventListener("focus", handleFocus);
     return () => window.removeEventListener("focus", handleFocus);
   }, [fetchUser]);
 
+  // Real-time Route Protection Redirect & URL Lock
+  useEffect(() => {
+    if (!isHydrated) return;
+    // 1. If user is SUSPENDED and not already on /access-restricted, force redirect:
+    if (user && user.hasAccess === false) {
+      if (!pathname.includes("/access-restricted")) {
+        router.replace("/access-restricted");
+      }
+    }
+    // 2. If user is ACTIVE and tries to visit /access-restricted, return to profile:
+    if (user && user.hasAccess === true) {
+      if (pathname.includes("/access-restricted")) {
+        router.replace("/profile");
+      }
+    }
+  }, [user, isHydrated, pathname, router]);
+
   // Route change sync to re-verify access whenever user navigates to a new page
   useEffect(() => {
     if (isHydrated) {
+      if (!user || user.hasAccess === false) return;
       const timer = setTimeout(() => {
         fetchUser();
       }, 0);
       return () => clearTimeout(timer);
     }
-  }, [pathname, fetchUser, isHydrated]);
+  }, [pathname, fetchUser, isHydrated, user]);
 
   const loginUser = async () => {
     await fetchUser();

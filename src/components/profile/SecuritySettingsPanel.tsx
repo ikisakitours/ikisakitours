@@ -72,15 +72,15 @@ export function SecuritySettingsPanel() {
           <h2 className="premium-serif mb-6 text-heading-sub text-white">{t("SecurityPanel.title")}</h2>
 
           <form className="space-y-6" onSubmit={handleSubmit} noValidate>
-            {/* Hidden username field for accessibility and password manager compliance (WCAG/DOM standard) */}
+            {/* Visually-hidden username field — required by Chrome's password-manager heuristic (WCAG / DOM standard).
+                Must NOT use display:none or visibility:hidden — use sr-only so the browser sees it in layout. */}
             <input
               type="text"
               name="username"
               autoComplete="username"
               value={user?.email || ""}
               readOnly
-              className="hidden"
-              aria-hidden="true"
+              className="sr-only"
               tabIndex={-1}
             />
 

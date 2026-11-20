@@ -92,13 +92,24 @@ export const authService = {
 
   // Get one specific user data
   getCurrentUser: async () => {
-    const res = await fetch(`${API_URL}/auth/me`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-    });
-    if (!res.ok) await parseErrorResponse(res, "Failed to fetch user");
-    return res.json();
+    try {
+      const res = await fetch(`${API_URL}/auth/me`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
+      if (res.status === 403) {
+        return { hasAccess: false };
+      }
+      if (!res.ok) await parseErrorResponse(res, "Failed to fetch user");
+      return res.json();
+    } catch (err: unknown) {
+      const error = err as { status?: number };
+      if (error?.status === 403) {
+        return { hasAccess: false };
+      }
+      throw err;
+    }
   },
 
   signup: async (data: Record<string, string | boolean>) => {
