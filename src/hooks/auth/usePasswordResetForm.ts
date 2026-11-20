@@ -1,7 +1,8 @@
-import { useState, useRef, type FormEvent} from "react";
+import { useState, useRef, type FormEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
 import { usePasswordStrength, type TransientMsgType } from "@/hooks/usePasswordStrength";
 import { useRouter } from "@/lib/i18nNavigation";
+import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { authService } from "@/services/auth/authService";
 import { useToast } from "@/context/ToastContext";
@@ -28,6 +29,8 @@ export function usePasswordResetForm(tError: (key: string) => string) {
   const confirmTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const tAuth = useTranslations("Auth");
   const tErr = useTranslations("ValidationErrors.ServerErrors");
   const tToast = useTranslations("ValidationErrors.ToastMessages.PasswordReset");
   const toast = useToast();
@@ -76,7 +79,7 @@ export function usePasswordResetForm(tError: (key: string) => string) {
     e.preventDefault();
     if (!validate({ otp, password, confirmPassword })) return;
 
-    const email = sessionStorage.getItem("reset_email");
+    const email = sessionStorage.getItem("reset_email") || searchParams?.get("email");
     if (!email) {
       router.push("/login");
       return;
@@ -95,11 +98,26 @@ export function usePasswordResetForm(tError: (key: string) => string) {
       setPassword("");
       setConfirmPassword("");
       router.push("/login");
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Password reset error:", error);
+      const err = error as {
+        status?: number;
+        error?: string;
+        message?: string;
+        response?: { status?: number; data?: { error?: string; message?: string } };
+        data?: { error?: string; message?: string };
+      };
+
+      const status = err?.status || err?.response?.status;
+      const errorCode = err?.error || err?.data?.error || err?.response?.data?.error;
+
+      if (status === 403 || errorCode === "ACCOUNT_SUSPENDED") {
+        toast.error(toastId, tAuth("Suspension.password_reset_restricted"));
+        setErrors((prev) => ({ ...prev, form: tAuth("Suspension.password_reset_restricted") }));
+        return;
+      }
 
       toast.error(toastId, tToast("error"));
-
       setErrors((prev) => ({ ...prev, form: tErr("resetFailed") }));
     } finally {
       setIsLoading(false);

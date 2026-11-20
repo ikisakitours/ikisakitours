@@ -130,8 +130,9 @@ export function SiteHeader() {
   const toast = useToast();
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => setIsMounted(true), 0);
-    return () => clearTimeout(timeoutId);
+    queueMicrotask(() => {
+      setIsMounted(true);
+    });
   }, []);
 
   const getFinalHref = (itemHref: string, itemSectionId?: string) => {

@@ -31,6 +31,7 @@ type TransferJourneyFieldsProps = {
   setErrors: React.Dispatch<React.SetStateAction<Record<string, string>>>;
   languagesList: LanguageOption[];
   isLoading?: boolean;
+  onPriceChange?: (prices: { startingPrice: number; selectedPrice: number }) => void;
 };
 
 export function TransferJourneyFields({
@@ -53,6 +54,7 @@ export function TransferJourneyFields({
   setErrors,
   languagesList,
   isLoading = false,
+  onPriceChange,
 }: TransferJourneyFieldsProps) {
   const tForm = useTranslations("SharedForm");
 
@@ -93,7 +95,10 @@ export function TransferJourneyFields({
           activeFilter={activeFilter}
           onFilterChange={onFilterChange}
           onVehicleChange={onVehicleChange}
+          showDriverIncludedNote={true}
+          noteServiceType="transfer"
           isLoading={isLoading}
+          onPriceChange={onPriceChange}
         />
       </div>
 

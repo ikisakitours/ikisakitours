@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useValidationForm } from "@/hooks/useValidationForm";
+import { isSuspensionError } from "@/utils/apiError";
 import {
   bookingWidgetService,
   type CreateBookingData,
@@ -47,6 +48,7 @@ export function useBookingWidget(tour: TourInfo, tourType: "oneday" | "multiday"
   const { errors, validate, setErrors } = useValidationForm();
   const tErr = useTranslations("ValidationErrors.ServerErrors");
   const tToast = useTranslations("ValidationErrors.ToastMessages.Booking");
+  const tAuth = useTranslations("Auth");
 
   const draftKey = tour.slug || tour.id || tour.title;
 
@@ -193,6 +195,10 @@ export function useBookingWidget(tour: TourInfo, tourType: "oneday" | "multiday"
       setSelectedOptions({});
       return true;
     } catch (error) {
+      if (isSuspensionError(error)) {
+        toast.error(toastId, tAuth("Suspension.booking_restricted_message"));
+        return false;
+      }
       toast.error(toastId, tToast("error"));
       console.error("Booking error:", error);
       setErrors((prev) => ({ ...prev, date: tErr("bookingFailed") }));

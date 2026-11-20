@@ -10,6 +10,7 @@ import {
 } from "@/utils/draft/bookingReviewDraft";
 import { useToast } from "@/context/ToastContext";
 import { convertToWebp } from "@/utils/convertToWebp";
+import { isSuspensionError } from "@/utils/apiError";
 
 const AUTO_SUBMIT_AFTER_LOGIN = false;
 
@@ -59,6 +60,7 @@ export function useReviewForm(slug: string, pkg: PackageInfo) {
   const tErr = useTranslations("ValidationErrors");
 
   const tToast = useTranslations("ValidationErrors.ToastMessages.Review");
+  const tAuth = useTranslations("Auth");
   const toast = useToast();
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -106,6 +108,10 @@ export function useReviewForm(slug: string, pkg: PackageInfo) {
       setImages([]);
       setPreviews([]);
     } catch (error) {
+      if (isSuspensionError(error)) {
+        toast.error(toastId, tAuth("Suspension.review_restricted_message"));
+        return;
+      }
       toast.error(toastId, tToast("error"));
       console.error("Submission error:", error);
       setErrors((prev) => ({ ...prev, form: tErr("ServerErrors.reviewSubmitFailed") }));

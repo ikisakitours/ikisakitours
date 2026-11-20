@@ -27,10 +27,14 @@
 - [Core Engineering Highlights](#core-engineering-highlights)
   - [1. Dynamic Group Pricing & Multi-Step Luxury Booking Review Modal](#1-dynamic-group-pricing--multi-step-luxury-booking-review-modal)
   - [2. Bilingual i18n (`EN` / `JA`), BudouX Typography & Live Multi-Currency](#2-bilingual-i18n-en--ja-budoux-typography--live-multi-currency)
-  - [3. Auth-Safe Draft Persistence, Geo-Detection & WebP Media Pipeline](#3-auth-safe-draft-persistence-geo-detection--webp-media-pipeline)
+  - [3. Full-Spectrum Guest Draft Persistence, Auto-Fill Workflow & Media Pipeline](#3-full-spectrum-guest-draft-persistence-auto-fill-workflow--media-pipeline)
   - [4. 5-Pillar Enterprise Global SEO Architecture](#4-5-pillar-enterprise-global-seo-architecture)
   - [5. Interactive UX Systems, Chat Concierge & Compliance](#5-interactive-ux-systems-chat-concierge--compliance)
-  - [6. Zero-Flash Access Gate, Real-Time Tab Sync & Branded Reference IDs](#6-zero-flash-access-gate-real-time-tab-sync--branded-reference-ids)
+  - [6. Master Zero-Flash Route Guard, Frame-0 Multi-Lock & Reference IDs](#6-master-zero-flash-route-guard-frame-0-multi-lock--reference-ids)
+  - [7. Cloudflare R2 Avatar Pipeline & Automated Storage Pruning](#7-cloudflare-r2-avatar-pipeline--automated-storage-pruning)
+  - [8. Customer Two-Factor Authentication (2FA) & Dual-Barrier Challenge](#8-customer-two-factor-authentication-2fa--dual-barrier-challenge)
+  - [9. Route-Level Suspense Streaming, Universal Scroll Lock & React 19 queueMicrotask Engine](#9-route-level-suspense-streaming-universal-scroll-lock--react-19-queuemicrotask-engine)
+  - [10. Dynamic Transfer & Chauffeur Fleet Rates with Operational Note Engine](#10-dynamic-transfer--chauffeur-fleet-rates-with-operational-note-engine)
 - [Custom UI Controls & React Hooks](#custom-ui-controls--react-hooks)
 - [API Service Layer Reference](#api-service-layer-reference)
 - [Tech Stack](#tech-stack)
@@ -111,9 +115,67 @@ Powered by [`pricingUtils.ts`](./src/services/Booking/packageDetails/pricingUtil
 - **Geo-Location Language Prompt & Unsupported Locale UX**: Detects visitor locale (`useUserLocation`), displays a localized `LanguagePromptToast` after preloader completion, and routes unsupported language codes into a friendly localized `NotFoundUI` with instant EN/JA recovery buttons.
 - **Live Multi-Currency (`CurrencyContext` + `/exchange-rates`)**: Converts all tour rates, tier breakdowns, add-ons, and service pricing live using USD-base rates cached for 12 hours via Next.js ISR ([`src/app/exchange-rates/route.ts`](./src/app/exchange-rates/route.ts)), synchronized automatically with language switches.
 
-### 3. Auth-Safe Draft Persistence, Geo-Detection & WebP Media Pipeline
+### 3. Full-Spectrum Guest Draft Persistence, Auto-Fill Workflow & Media Pipeline
 
-- **Zero-Data-Loss Draft Recovery (`src/utils/draft/`)**: Five dedicated draft modules (`bookingDraft.ts`, `bookingReviewDraft.ts`, `contactDraft.ts`, `reviewDraft.ts`, `servicesDraft.ts`) preserve in-progress user selections across `AuthRequiredModal` login redirects and automatically restore them on return (including reopening the mobile `StickyBookingBar` drawer when needed).
+A zero-data-loss user experience across all booking funnels, concierge inquiries, and community feedback forms. Guest travelers can fill out any multi-step form before registering or logging in without ever losing typed inputs or luxury tier selections.
+
+```mermaid
+sequenceDiagram
+  autonumber
+  actor Guest as Guest Traveler
+  participant Form as UI Form / React Hook
+  participant Storage as sessionStorage (30-min TTL)
+  participant AuthModal as AuthRequiredModal / Login
+  participant AuthState as AuthContext (Sync Edge Session)
+  participant Backend as Ikisaki Backend API
+
+  Guest->>Form: 1. Fills form as unauthenticated guest
+  Guest->>Form: 2. Clicks "Book Now" / "Submit"
+  Form->>Form: 3. Validates client inputs & detects guest (!user)
+  Form->>Storage: 4. Saves atomic draft (save*Draft) with 30-min TTL
+  Form->>AuthModal: 5. Opens AuthRequiredModal or redirects to /login?redirect=...
+  Guest->>AuthModal: 6. Signs in or creates new account
+  AuthModal->>AuthState: 7. Synchronously hydrates session & customer_token
+  AuthState->>Form: 8. User redirected back to original page / view
+  Form->>Storage: 9. Calls claim*Draft() (Atomic read + immediate deletion)
+  Storage-->>Form: 10. Restores exact selections into React State
+  Note over Form,Guest: AUTO_SUBMIT_AFTER_LOGIN = false (Default: Manual Review)
+  Form-->>Guest: 11. Form auto-fills all saved fields for final verification
+  Guest->>Form: 12. Clicks "Confirm & Submit" manually
+  Form->>Backend: 13. Submits authenticated payload with User ID
+```
+
+#### End-to-End Guest Draft & Auto-Fill Lifecycle
+
+1. **Guest Form Input & Pre-Validation**:
+   - An unauthenticated visitor interacts with any booking or submission form (e.g. customized multi-day itinerary, VIP airport transfer, private chauffeur booking, contact inquiry, package review, or website testimonial).
+   - Upon clicking submit, client-side schemas validate the payload (dates, guest counts, room configurations, vehicle tiers, or review scores).
+2. **Atomic Session Persistence (`src/utils/draft/`)**:
+   - When the form detects an unauthenticated session (`!user`), the payload is serialized into `sessionStorage` with a 30-minute Time-To-Live (TTL) timestamp and unique domain key (`ikisaki_booking_draft_*`, `ikisaki_service_draft_*`, `ikisaki_contact_draft`, `ikisaki_write_review_draft`, etc.).
+3. **Graceful Authentication Intercept**:
+   - The `<AuthRequiredModal />` or localized `/login` screen is triggered, cleanly preserving the return URL and any modal state (such as the mobile `StickyBookingBar` drawer).
+4. **Synchronous Auth Hydration & Atomic Draft Claiming**:
+   - Upon successful login, `AuthContext` hydrates synchronously at Frame 0 and synchronizes the `customer_token` cookie for Edge middleware.
+   - When the user lands back on the target form, the corresponding hook invokes `claim*Draft()`. This function reads the cached draft, verifies TTL validity, and **immediately deletes the storage entry** in a single atomic operation. This prevents duplicate submissions or race conditions across simultaneous desktop tabs and mobile modal drawers.
+5. **Auto-Fill & Manual Review Submit (`AUTO_SUBMIT_AFTER_LOGIN = false`)**:
+   - All restored parameters (travel dates, passenger counts, room configurations, luggage counts, notes, vehicle selections) automatically populate the form's React state.
+   - **Manual Submit Default**: By default, `const AUTO_SUBMIT_AFTER_LOGIN = false;` is configured across all 7 form hooks. Rather than unexpectedly triggering an immediate transaction or API request without user awareness, the form presents the restored data cleanly to the customer for deliberate final review before they manually click **Submit**.
+   - **Instant Auto-Submission Switch**: If zero-click automated submission is desired in any workflow, changing `AUTO_SUBMIT_AFTER_LOGIN = true` instructs the mounting `useEffect` to validate and dispatch the API call automatically as soon as the draft is successfully claimed.
+
+#### Complete Domain Coverage (7 Specialized Form Hooks & 5 Draft Modules)
+
+| Domain / Workflow | Form Hook | Draft Storage Module | Storage Key & Payload Features |
+| :--- | :--- | :--- | :--- |
+| **One-Day & Multi-Day Tours** | [`useBookingWidget.ts`](./src/hooks/Booking/useBookingWidget.ts) | [`bookingDraft.ts`](./src/utils/draft/bookingDraft.ts) | `ikisaki_booking_draft_${key}`: Selected dates, adults, couples, rooms, add-ons, pricing breakdown, open drawer state. |
+| **Airport & Intercity Transfers** | [`useTransferBookingForm.ts`](./src/hooks/services/useTransferBookingForm.ts) | [`servicesDraft.ts`](./src/utils/draft/servicesDraft.ts) | `ikisaki_service_draft_transfer`: Pickup/dropoff locations, flight numbers, vehicle category, passenger & luggage counts. |
+| **Private Chauffeur & Vehicle Hire** | [`usePrivateVehicleForm.ts`](./src/hooks/services/usePrivateVehicleForm.ts) | [`servicesDraft.ts`](./src/utils/draft/servicesDraft.ts) | `ikisaki_service_draft_private-vehicle`: Start/end dates, vehicle fleet type, itinerary notes, custom pickup points. |
+| **Bespoke Luxury Journeys** | [`useBespokeForm.ts`](./src/hooks/services/useBespokeForm.ts) | [`servicesDraft.ts`](./src/utils/draft/servicesDraft.ts) | `ikisaki_service_draft_bespoke`: Destinations wishlist, duration, luxury accommodation tier, special concierge requests. |
+| **Concierge Contact Inquiries** | [`useContactForm.ts`](./src/hooks/Contact/useContactForm.ts) | [`contactDraft.ts`](./src/utils/draft/contactDraft.ts) | `ikisaki_contact_draft`: Traveler name, email, dial code, phone number, subject, and detailed message body. |
+| **Tour Package Reviews** | [`usePackageReviewForm.ts`](./src/hooks/Booking/usePackageReviewForm.ts) | [`bookingReviewDraft.ts`](./src/utils/draft/bookingReviewDraft.ts) | `ikisaki_package_review_draft_${slug}`: Star ratings, category ratings, traveler review text, attached photo metadata. |
+| **Website Testimonials** | [`useWriteReviewForm.ts`](./src/hooks/testimonials/useWriteReviewForm.ts) | [`reviewDraft.ts`](./src/utils/draft/reviewDraft.ts) | `ikisaki_write_review_draft`: General satisfaction rating, tour highlights, visitor testimonial comments. |
+
+#### Geo-Detection & Media Pipeline Assets
+
 - **Automatic Country & Phone Code Detection**: `useUserLocation` + `LocationDetectionFeedback` + `react-phone-number-input` auto-detect visitor country and dial codes across signup, profile, contact, and service forms with mismatch notifications.
 - **Client-Side Cropping & WebP Conversion**: Interactive avatar cropping (`react-easy-crop`, [`cropImage.ts`](./src/utils/cropImage.ts)) and automatic client-side `.webp` compression ([`convertToWebp.ts`](./src/utils/convertToWebp.ts)) before uploading profile photos or guest review images.
 - **Session-Cached Media & Optimized Brand Assets**: `LoadingImage` caches loaded image URLs in `sessionStorage` for instant repeat transitions; `LoadingVideo` handles video buffers; [`public/Layout-Icons/`](./public/Layout-Icons) houses the transparent header logo (`logo-transparent.webp`), edge-to-edge rounded dark-gold multi-size favicons (`favicon.ico`, `favicon.png`), preloader crest (`image-600x600.webp`), and OpenGraph/Twitter WebP banners (`image-1200x630.webp`, `image-600x315.webp`).
@@ -140,24 +202,94 @@ flowchart LR
 - **Omnichannel Chat Concierge & Tab Alerts**: `FullChatWidget` combines automated bot help (`BotChatInterface`), direct email concierge (`ChatMailForm`), localized WhatsApp handoff, and live browser tab notifications via [`useDocumentTitleNotification.ts`](./src/hooks/useDocumentTitleNotification.ts).
 - **Promotional Campaigns, Mobile Polish & Compliance**: Includes `PromoModal` with animated `ConfettiRain`, `IOSZoomFix` (`useDisableIOSZoom`) preventing Safari form auto-zoom, `ShareButton` (Web Share API + clipboard fallback), `ProgressBarProvider` (`nextjs-toploader`), and `CookieConsent` + `GlobalCookieModal`.
 
-### 6. Zero-Flash Access Gate, Real-Time Tab Sync & Branded Reference IDs
+### 6. Master Zero-Flash Route Guard, Frame-0 Multi-Lock & Reference IDs
 
-Engineered across [`AccessGate.tsx`](./src/components/access/AccessGate.tsx), [`AccessRestricted.tsx`](./src/components/access/AccessRestricted.tsx), [`AuthContext.tsx`](./src/context/AuthContext.tsx), and [`ProfileDashboard.tsx`](./src/components/profile/ProfileDashboard.tsx):
+Engineered across [`AccessGate.tsx`](./src/components/access/AccessGate.tsx), [`ProfileAccessGate.tsx`](./src/components/profile/ProfileAccessGate.tsx), [`AccessRestricted.tsx`](./src/components/access/AccessRestricted.tsx), [`AuthContext.tsx`](./src/context/AuthContext.tsx), [`ProfileDashboard.tsx`](./src/components/profile/ProfileDashboard.tsx), and [`src/proxy.ts`](./src/proxy.ts):
 
-- **Zero-Flash Route Guard & Frame-0 Lockout (`AccessGate.tsx`)**:
-  - Performs a synchronous `localStorage` inspection during component initialization before hydration begins. If a suspended session (`hasAccess === false`) exists, the UI locks out immediately from Millisecond 0 (Frame 0), eliminating unauthorized content flashes.
-  - While hydrating active sessions, it protects private `{children}` from leaking by rendering a brand-aligned luxury dark loader (`bg-[#0d0d0d]`, `border-amber-500`).
-  - Integrated directly in `RootLayout` (`src/app/[locale]/layout.tsx`) to guard every customer route globally.
-- **Window Focus & Route Navigation Real-Time Sync (`AuthContext.tsx`)**:
-  - Implements a window `focus` event listener that silently calls `fetchUser()` whenever a customer switches back to the Ikisaki Tours tab. If an administrator revokes access in the Admin Panel, the customer interface locks instantly without requiring a manual page refresh.
+- **Master Zero-Flash Multi-Lock Architecture (`ProfileAccessGate.tsx`)**:
+  - Implements a dedicated Frame-0 state machine (`"loading" | "authenticated" | "unauthenticated" | "suspended"`) that parses `localStorage.getItem("userData")` synchronously before rendering begins.
+  - **Suspended Customer Lockout (`hasAccess: false`)**: If an administrator suspends an account, the UI locks instantly into `<AccessRestricted />` without leaking even 1 millisecond of private profile details or dashboard DOM markup.
+  - **Unauthenticated Protection**: Visitors accessing `/profile` directly or via hard refresh (F5) without credentials see strictly `<AuthRequiredModal />`; private dashboard components are never mounted into the DOM.
+  - **Zero Double-Guard Race Conditions**: Completely eliminates inner redundant guards (`!isHydrated` / `!user`) from `ProfileDashboard.tsx`, ensuring all access decisions are owned exclusively by `ProfileAccessGate`.
+- **Synchronous Edge Session & Cookie Sync (`AuthContext.tsx` & `src/proxy.ts`)**:
+  - `user` and `isHydrated` initialize synchronously on Frame 0 from cached `userData` in `localStorage`.
+  - Automatically synchronizes the `customer_token` cookie so edge proxy recognized authenticated sessions with zero delay.
+  - Silent background verification with `/api/auth/me` safely re-validates credentials without blocking initial render.
+  - Clean edge proxy delegation in `src/proxy.ts` passes localized routing to `intlMiddleware` without query parameter pollution.
+- **Window Focus & Route Navigation Real-Time Sync**:
+  - Listens to window `focus` events to silently call `fetchUser()` when customers switch back to the browser tab, catching administrative suspensions immediately.
   - Subscribes to route changes via `usePathname()`, re-verifying customer authorization upon client-side navigation.
-  - Preserves user identity data under 403 / `ACCOUNT_SUSPENDED` responses while setting `hasAccess: false` in both React state and `localStorage` so the restriction screen can display full account context.
 - **Branded Customer Reference ID System**:
   - Replaces raw database UUIDs with customer-friendly branded Reference IDs (e.g., `IKISAKI-8F42M9` under `user.customerReferenceId` / `user.referenceId`).
   - **Access Restricted Ticket Screen (`AccessRestricted.tsx`)**: Renders the branded Reference ID on an airline-style digital ticket with a one-click clipboard copy button and pre-populates support email links (`mailto:info@ikisakitours.com?subject=Account Suspension Inquiry - [IKISAKI-XXXXXX]&body=...`) with name, email, and reference ID.
   - **Profile Dashboard & Details (`ProfileDashboard.tsx` & `ProfileDetailsPanel.tsx`)**: Displays the branded identifier as **"Member ID / Referral Code"** across the desktop sidebar, mobile header, and main profile details panel with instant copy feedback.
   - **Dynamic Referral Engine (`ReferralPanel.tsx`)**: Automatically seeds customer referral links with their branded Reference ID (`/invite/${referralCode}`) instead of static placeholders.
-  - **Protected Profile Route**: Safeguards customer profile data with a hydration spinner and auto-displays `AuthRequiredModal` if unauthenticated.
+
+### 7. Cloudflare R2 Avatar Pipeline & Automated Storage Pruning
+
+Engineered across [`image-converter.util.ts`](./src/utils/image-converter.util.ts), [`profileService.ts`](./src/services/profile/profileService.ts), [`useProfileDetailsForm.ts`](./src/hooks/profile/useProfileDetailsForm.ts), and [`ProfileAvatarSection.tsx`](./src/components/profile/profileDetails/ProfileAvatarSection.tsx):
+
+- **Client-Side WebP Conversion (`image-converter.util.ts`)**:
+  - Automatically resizes customer-selected profile images client-side to a maximum dimension of 512px while maintaining the exact aspect ratio.
+  - Compresses images to WebP format (`quality: 0.85`), drastically reducing upload payloads and Cloudflare R2 bandwidth consumption.
+- **Dedicated Cloudflare R2 Batch Endpoint (`/api/uploads/batch`)**:
+  - Uploads the compressed WebP file directly using `multipart/form-data` with `folder: "users"`, returning the public Cloudflare R2 asset URL.
+- **Cache-Busting URL Dispatch**:
+  - Automatically appends a timestamp query parameter (e.g. `${url}?t=${Date.now()}`) to freshly uploaded avatars to guarantee immediate browser cache invalidation.
+- **Automated Orphan Pruning (`oldAvatarUrl`)**:
+  - When updating or removing a profile photo, the frontend sends both `avatarUrl` (the new image URL or `null`) and `oldAvatarUrl` (the previous image URL) in the `PATCH /api/auth/profile` payload.
+  - This allows the NestJS backend to automatically prune orphaned objects from Cloudflare R2 storage, preventing dangling files and storage clutter.
+- **Instant Navbar & Profile Avatar Sync**:
+  - Dispatches updates immediately into `AuthContext` and `localStorage`, synchronizing the user avatar across both the desktop/mobile navigation header and the customer profile dashboard without requiring a page reload.
+- **Bilingual Photo Removal Action**:
+  - Customers can seamlessly remove their profile photo with one click, providing localized feedback toasts in both English and Japanese.
+
+### 8. Customer Two-Factor Authentication (2FA) & Dual-Barrier Challenge
+
+Engineered across [`authService.ts`](./src/services/auth/authService.ts), [`LoginForm.tsx`](./src/components/auth/login/LoginForm.tsx), [`useLoginForm.ts`](./src/hooks/auth/useLoginForm.ts), [`SecuritySettingsPanel.tsx`](./src/components/profile/SecuritySettingsPanel.tsx), [`TwoFactorSetupModal.tsx`](./src/components/profile/TwoFactorSetupModal.tsx), and [`TwoFactorDisableModal.tsx`](./src/components/profile/TwoFactorDisableModal.tsx):
+
+- **Strict Dual-Barrier Zero-Trust Challenge Flow (`LoginForm.tsx` & `useLoginForm.ts`)**:
+  - **Unified Ticket-Based Verification (`POST /api/auth/2fa/verify-challenge`)**: Both Password and Social Logins funnel into a single zero-trust challenge step, validating `{ ticket, totpCode, staySignedIn }` before establishing the HttpOnly session cookie.
+  - **Social OAuth Redirect Support**: Captures OAuth redirects with query parameters `/login?step=2fa_challenge&ticket=...&email=...&ref=...` (Google, Facebook, Instagram), immediately surfacing the 6-digit TOTP challenge modal without asking for credentials again.
+  - **Standard Email/Password Challenge**: Intercepts `POST /api/auth/login` responses returning `{ requiresTwoFactor: true, ticket: "..." }`, seamlessly pivoting to Step 2 with ticket preservation.
+  - **Unified 6-Digit Verification UI**: Displays a dedicated smartphone shield badge, user badge indication, a centered 6-digit verification input with numeric masking, and a safe "← Back to Email & Password" fallback (which clears tickets and resets search params).
+- **Profile Security Management (`SecuritySettingsPanel.tsx`)**:
+  - Adds a dedicated luxury 2FA security card under the Account Security tab with live status badges (Slate **"Disabled"** vs. Emerald **"Active & Protected ✓"**).
+  - Responsive Mobile Polish: Smartphone icon is hidden on mobile screens (`hidden sm:flex`) for optimal layout flow on handheld viewports.
+  - Interactive Action button with responsive state handling: Lucide `<Plus />` icon on activation and high-contrast hover state.
+- **Compact Setup Modal (`TwoFactorSetupModal.tsx`)**:
+  - **Balanced Header Layout**: Positioned the Emerald Shield status badge at Top-Left (`absolute top-4 left-4`), perfectly balancing the Top-Right Close (X) button and reducing header height.
+  - **Auto-Width Centered Setup Key**: The Base32 secret key box dynamically auto-fits strictly to key length (`inline-flex w-auto max-w-full`) and is centered horizontally with one-click copy feedback.
+  - **Streamlined Single Primary Action**: Removed redundant Cancel button; a full-width "Verify & Activate" action anchors the form.
+  - Calls `authService.generate2FA()` and verifies setup with 6-digit TOTP (`authService.enable2FA(totpCode)`), instantaneously syncing `isTwoFactorEnabled: true` in `AuthContext` and `localStorage`.
+- **Protected Deactivation Modal (`TwoFactorDisableModal.tsx`)**:
+  - Prompts customers for their current password or 6-digit code with Top-Left `ShieldAlert` badge and single primary confirm button.
+- **Universal Background Scroll Lock**:
+  - Both 2FA modals automatically lock `document.body` and `document.documentElement` (`overflow: hidden` + `.overflow-hidden`) while open, preventing background page scrolling on mobile, tablet, and desktop devices.
+- **Full Bilingual Localization**:
+  - All labels, copy actions, alt texts, loading toasts, and error messages are localized across `ProfilePage.ts` and `ValidationErrors.ts`.
+
+### 9. Route-Level Suspense Streaming, Universal Scroll Lock & React 19 queueMicrotask Engine
+
+- **Route-Level Suspense Streaming (`src/app/[locale]/loading.tsx`)**:
+  - Next.js route-level loading state using the project's standard luxury [`ApiCallLoader`](./src/components/ui/ApiCallLoader.tsx) (`fullScreen={true}`).
+  - Features concentric SVG animation rings, IKISAKI watermark, pulsing gold typography, and localized translation (`Common.Api.loading`).
+  - Seamlessly handles React Suspense streaming and page navigation transitions across `/tours`, `/destinations`, `/profile`, and all customer routes.
+- **React 19 / Next.js Cascading Render Elimination with `queueMicrotask`**:
+  - Complete codebase audit resolving React 19 "Calling setState synchronously within an effect can trigger cascading renders" warnings across 11 files and 13 locations.
+  - Synchronous mount state updates (`setMounted`, `setIsHydrated`, `setAuthState`, `checkPreferences`, etc.) are wrapped in `queueMicrotask(() => { ... })` (Admin Panel Gold Standard) for zero visual lag and zero console warnings.
+- **Universal Modal Scroll Lock**:
+  - Standardized background scroll locking across modals (`TwoFactorSetupModal`, `TwoFactorDisableModal`, `FilterSidebar`) preventing background content shift on iOS Safari, Android Chrome, and desktop viewports.
+
+### 10. Dynamic Transfer & Chauffeur Fleet Rates with Operational Note Engine
+
+Engineered across [`VehicleSelector.tsx`](./src/components/services/VehicleSelector.tsx), [`TransferJourneyFields.tsx`](./src/components/services/transfers/TransferJourneyFields.tsx), [`TransferBookingForm.tsx`](./src/components/services/transfers/TransferBookingForm.tsx), and [`serviceNotesService.ts`](./src/services/services/note/serviceNotesService.ts):
+
+- **Dynamic Airport & Intercity Transfer Rates**:
+  - Integrated with backend endpoint `/api/services/notes?serviceType=transfer&lang=...` via `useServiceNotes("transfer")`.
+  - Automatically loads and maps dynamic vehicle fleets (Van, Sedan, SUV) with dynamic starting prices (`formatPrice`), passenger capacities (`vehicleCapacity`), luggage allowances (`luggages`), and operational tourist notes (`notes[]`).
+- **Dynamic Rates Section (`ServicesPriceRatesSection.tsx`)**:
+  - Fetches and displays dynamic service pricing content via `/service-pricing/client/transfer` for transparent traveler fare breakdowns.
 
 ---
 
@@ -228,6 +360,7 @@ ikisakitours/
     │   ├── sitemap.ts                     # Dynamic multilingual XML sitemap generator
     │   └── [locale]/
     │       ├── layout.tsx                 # Root localized layout, fonts, metadata, icons, providers
+    │       ├── loading.tsx                # Route-level Suspense streaming with luxury ApiCallLoader
     │       ├── not-found.tsx              # Localized 404 & Unsupported Language UI
     │       ├── [...catchAll]/page.tsx     # Catch-all handler routing into localized not-found
     │       ├── access-restricted/         # Suspended account notice page
@@ -316,8 +449,12 @@ npm run start
 - [x] Next.js `16.2.10` + React `19.2.4` + React Compiler + Tailwind CSS `v4` verified (`npx tsc --noEmit` & `npm run lint` passing with `0` errors)
 - [x] Native `EN` & `JA` localization (`25` modular dictionary files per locale) with Google **BudouX** Japanese phrase segmentation
 - [x] Dynamic group pricing (`pricingConfig`), adult/couple traveler validation, and multi-step **Luxury Booking Review Modal** with `per_person` / `per_room` / `per_booking` add-ons
-- [x] Auth-safe draft save & restore across bookings, services, reviews, and contact inquiries
-- [x] **Zero-Flash `AccessGate` Route Guard** (Millisecond-0 synchronous lockout, multi-tab window `focus` background sync & route transition re-verification)
+- [x] **Full-Spectrum Guest Draft Persistence & Auto-Fill / Manual Review Workflow** (30-min TTL, atomic single-consumer claim, and configurable auto-submit switch across 7 form hooks)
+- [x] **Master Zero-Flash `ProfileAccessGate` Route Guard** (Frame-0 synchronous lockout, multi-tab window `focus` background sync, edge cookie coordination & route re-verification)
+- [x] **React 19 Cascading Render Elimination with `queueMicrotask`** (Admin Panel Standard applied across 11 files / 13 locations)
+- [x] **Route-Level Suspense Streaming Fallback** (`src/app/[locale]/loading.tsx` with localized `ApiCallLoader` & concentric SVG animation)
+- [x] **Customer Two-Factor Authentication (2FA)** with compact mobile-responsive modals, Top-Left status badge, auto-width setup key, and universal background scroll lock
+- [x] **Dynamic Airport Transfers & Chauffeur Fleet Rates** integrated with `/api/services/notes` & `/service-pricing/client/transfer`
 - [x] **Branded Customer Reference ID System** (`customerReferenceId` / `referenceId`) integrated across ticket restriction screen, profile dashboard, and dynamic referrals
 - [x] 5-pillar enterprise SEO (`robots.ts`, `sitemap.ts`, 9 Schema.org JSON-LD builders, `hreflang` alternates, OpenGraph & Twitter cards)
 - [x] Transparent cropped header crest, full-bleed rounded dark-gold favicon badge, and zero-shift 60fps minimalist preloader

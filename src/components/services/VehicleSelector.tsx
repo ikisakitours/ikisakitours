@@ -17,6 +17,8 @@ type VehicleSelectorProps = {
   onServiceTypeChange?: (type: ServiceType) => void;
   noteServiceType?: string;
   onPriceChange?: (prices: { startingPrice: number; selectedPrice: number }) => void;
+  showServiceOptions?: boolean;
+  priceUnit?: string;
 };
 
 // 1. Reusable Component for Data Point Items (Price, Passengers, Luggage)
@@ -82,12 +84,14 @@ export function VehicleSelector({
   activeFilter,
   onFilterChange,
   onVehicleChange,
-  showDriverIncludedNote = false,
+  showDriverIncludedNote = true,
   isLoading = false,
   serviceType = "driver",
   onServiceTypeChange = () => {},
   noteServiceType = "custom",
   onPriceChange,
+  showServiceOptions = true,
+  priceUnit,
 }: VehicleSelectorProps) {
   const tVeh = useTranslations("Services.VehicleSelector");
   const { formatPrice } = useCurrency();
@@ -103,8 +107,10 @@ export function VehicleSelector({
 
     const exists = availableVehicleTypes.some((v) => v.toLowerCase() === activeFilter?.toLowerCase());
     if (!exists) {
-      onFilterChange(availableVehicleTypes[0]);
-      onVehicleChange(String(serviceNotesData[0].id));
+      queueMicrotask(() => {
+        onFilterChange(availableVehicleTypes[0]);
+        onVehicleChange(String(serviceNotesData[0].id));
+      });
     }
   }, [serviceNotesData, availableVehicleTypes, activeFilter, onFilterChange, onVehicleChange]);
 
@@ -146,7 +152,9 @@ export function VehicleSelector({
   }
 
   useEffect(() => {
-    onPriceChange?.({ startingPrice: finalPriceUSD, selectedPrice: extraCostUSD });
+    queueMicrotask(() => {
+      onPriceChange?.({ startingPrice: finalPriceUSD, selectedPrice: extraCostUSD });
+    });
   }, [finalPriceUSD, extraCostUSD, onPriceChange]);
 
   return (
@@ -199,7 +207,9 @@ export function VehicleSelector({
                         </span>
                       )}
 
-                      <span className="text-tiny text-slate-400 font-normal">{tVeh("perDay")}</span>
+                      <span className="text-tiny text-slate-400 font-normal">
+                        {priceUnit || (noteServiceType === "transfer" ? tVeh("perTrip") : tVeh("perDay"))}
+                      </span>
                     </div>
                   }
                 />
@@ -233,7 +243,7 @@ export function VehicleSelector({
                 )}
               </div>
               {/* --- Service Option Buttons (Driver vs Guide) --- */}
-              {(() => {
+              {showServiceOptions && noteServiceType !== "transfer" && (() => {
                 const options: {
                   value: ServiceType;
                   label: string;

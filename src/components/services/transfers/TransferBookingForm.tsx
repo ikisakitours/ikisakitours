@@ -45,6 +45,7 @@ export function TransferBookingForm() {
     handleSubmit,
     showAuthModal,
     closeAuthModal,
+    setPrices,
   } = useTransferBookingForm();
 
   return (
@@ -84,6 +85,7 @@ export function TransferBookingForm() {
               setErrors={setErrors}
               languagesList={languages}
               isLoading={isLoading}
+              onPriceChange={setPrices}
             />
           </FormPanel>
 

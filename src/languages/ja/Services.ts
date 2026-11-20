@@ -65,6 +65,7 @@ export default {
     driverDesc: "ご予約には、プロの運転手とご旅行専用のよく手入れされたプライベート車両が含まれます。",
     startingFrom: "〜から",
     perDay: "/ 日",
+    perTrip: "/ 回",
     capacity: "乗車人数",
     pax: "名",
     luggage: "手荷物",

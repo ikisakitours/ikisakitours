@@ -9,11 +9,9 @@ import { useRouter } from "@/lib/i18nNavigation";
 import { useTranslations } from "next-intl";
 import { ReferralPanel } from "./ReferralPanel";
 import { FilterSidebar } from "@/components/ui/FilterSidebar";
-import { useAuth } from "@/context/AuthContext";
-import { AuthRequiredModal } from "@/components/ui/AuthRequiredModal";
 
 //Icons
-import { ShieldCheck, UserRound, Gift, Settings2, Copy, Check, type LucideIcon } from "lucide-react";
+import { ShieldCheck, UserRound, Gift, Settings2, type LucideIcon } from "lucide-react";
 
 const tabIcons = {
   profile: UserRound,
@@ -28,7 +26,6 @@ function ProfileDashboardInner() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const t = useTranslations("ProfilePage");
-  const { user, isHydrated } = useAuth();
 
   const tabParam = searchParams?.get("tab");
 
@@ -40,19 +37,6 @@ function ProfileDashboardInner() {
   };
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isCopied, setIsCopied] = useState(false);
-  const memberId = user?.customerReferenceId || user?.referenceId || (user?.id ? String(user.id) : null);
-
-  const handleCopyMemberId = async () => {
-    if (!memberId) return;
-    try {
-      await navigator.clipboard.writeText(memberId);
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
-    } catch {
-      /* clipboard unavailable */
-    }
-  };
 
   const tabCategories = ["profile", "security"] as const;
   // const tabCategories = ["profile", "security", "referral"] as const;
@@ -62,22 +46,6 @@ function ProfileDashboardInner() {
     security: t("Dashboard.tabSecurity"),
     referral: t("Dashboard.tabReferral"),
   };
-
-  if (!isHydrated) {
-    return (
-      <ContainerLayout className="min-h-[70vh] flex items-center justify-center py-26">
-        <div className="h-10 w-10 animate-spin rounded-full border-2 border-gold border-t-transparent" />
-      </ContainerLayout>
-    );
-  }
-
-  if (isHydrated && !user) {
-    return (
-      <ContainerLayout className="min-h-[70vh] flex items-center justify-center py-26">
-        <AuthRequiredModal isOpen={true} onClose={() => router.push("/")} />
-      </ContainerLayout>
-    );
-  }
 
   return (
     <ContainerLayout className="grid grid-cols-1 gap-8 xl:gap-12 xl:grid-cols-12 py-26 sm:py-27 md:py-26 lg:py-28 2xl:py-30 3xl:py-32">
@@ -95,52 +63,12 @@ function ProfileDashboardInner() {
             {t("Dashboard.menuBtn")}
           </button>
         </div>
-
-        {memberId && (
-          <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-3.5 py-2">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gold/80">
-              Member ID / Referral Code:
-            </span>
-            <div className="flex items-center gap-2">
-              <span className="font-mono text-xs font-bold text-white tracking-wider">{memberId}</span>
-              <button
-                type="button"
-                onClick={handleCopyMemberId}
-                className="text-gold hover:text-gold-light p-0.5"
-                title="Copy Member ID"
-              >
-                {isCopied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
-              </button>
-            </div>
-          </div>
-        )}
       </div>
 
       <aside className="hidden xl:block w-full space-y-6 lg:col-span-4">
         <h1 className="premium-serif mb-6 whitespace-nowrap text-left text-4xl 3xl:text-5xl text-white">
           {t("Dashboard.titleBase")} <span className="text-gold">{t("Dashboard.titleAccent")}</span>
         </h1>
-
-        {memberId && (
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4.5 backdrop-blur-sm transition-all hover:border-gold/30">
-            <span className="block text-[11px] font-bold uppercase tracking-[0.2em] text-gold/80 mb-2">
-              Member ID / Referral Code
-            </span>
-            <div className="flex items-center justify-between gap-3">
-              <span className="font-mono text-sm font-bold tracking-wider text-white truncate">
-                {memberId}
-              </span>
-              <button
-                type="button"
-                onClick={handleCopyMemberId}
-                className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1 text-tiny font-bold uppercase tracking-wider text-gold hover:border-gold/40 hover:bg-gold/10 transition-colors shrink-0"
-              >
-                {isCopied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
-                <span>{isCopied ? "Copied" : "Copy"}</span>
-              </button>
-            </div>
-          </div>
-        )}
 
         <nav className="mx-0 flex w-full max-w-full flex-col space-y-2.5">
           {profileTabs.map((tab) => {
@@ -167,11 +95,10 @@ function ProfileDashboardInner() {
                 type="button"
                 aria-pressed={isActive}
                 onClick={() => handleTabChange(tab.id)}
-                className={`flex flex-1 items-center justify-center space-x-1.5 rounded-xl border px-1.5 py-3 text-left transition-all duration-300 sm:justify-start sm:px-4 sm:space-x-3 lg:w-full lg:px-5 lg:py-3.5 ${
-                  isActive
-                    ? "border-gold/25 bg-gold/10 text-gold shadow-lg shadow-gold/5"
-                    : "border-white/5 text-slate-400 hover:border-gold/30 hover:bg-white/5 hover:text-gold"
-                }`}
+                className={`flex flex-1 items-center justify-center space-x-1.5 rounded-xl border px-1.5 py-3 text-left transition-all duration-300 sm:justify-start sm:px-4 sm:space-x-3 lg:w-full lg:px-5 lg:py-3.5 ${isActive
+                  ? "border-gold/25 bg-gold/10 text-gold shadow-lg shadow-gold/5"
+                  : "border-white/5 text-slate-400 hover:border-gold/30 hover:bg-white/5 hover:text-gold"
+                  }`}
               >
                 <Icon className="h-4 w-4 shrink-0 sm:h-5 sm:w-5" />
 

@@ -52,16 +52,14 @@ export function CountrySelect({
   const { data: locationData, isDetecting } = useUserLocation();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    queueMicrotask(() => {
       if (countryName) {
         const matchedCountry = countriesList.find((c) => c.name.toLowerCase() === countryName.toLowerCase());
         if (matchedCountry) {
           setCountryCode(matchedCountry.code);
         }
       }
-    }, 0);
-
-    return () => clearTimeout(timer);
+    });
   }, [countryName, countriesList]);
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { profileUser } from "@/data/profile";
 import { Button } from "@/components/ui/Button";
 import { FormError } from "@/components/ui/FormError";
@@ -10,11 +10,10 @@ import { CountrySelect } from "@/components/auth/signUp/CountrySelect";
 import { useTranslations } from "next-intl";
 import { useProfileDetailsForm } from "@/hooks/profile/useProfileDetailsForm";
 import { useAuth } from "@/context/AuthContext";
-import { useRouter } from "@/lib/i18nNavigation";
 
 //Icons
 import { BsPatchCheck } from "react-icons/bs";
-import { Crown, Copy, Check } from "lucide-react";
+import { Crown } from "lucide-react";
 
 const inputClass =
   "disabled:opacity-60 disabled:cursor-not-allowed w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-body-sm text-white outline-none transition-all placeholder:text-slate-500 focus:border-gold/50";
@@ -23,9 +22,7 @@ export function ProfileDetailsPanel() {
   const t = useTranslations("ProfilePage");
   const tForm = useTranslations("SharedForm");
   const tError = useTranslations("ValidationErrors");
-  const { user, isHydrated } = useAuth();
-  const router = useRouter();
-  const [isMemberIdCopied, setIsMemberIdCopied] = useState(false);
+  const { user } = useAuth();
   //Hook
   const {
     firstName,
@@ -53,6 +50,7 @@ export function ProfileDetailsPanel() {
     handleCropComplete,
     handlePersonalUpdate,
     handleImageUpdate,
+    handleRemoveAvatar,
   } = useProfileDetailsForm(tError);
 
   const triggerInput = async (inputId: string) => {
@@ -124,29 +122,6 @@ export function ProfileDetailsPanel() {
             <div className="mb-8 flex flex-col items-center justify-between gap-4 sm:flex-row">
               <h2 className="premium-serif mb-6 text-heading-sub text-white">{t("DetailsPanel.title")}</h2>
               <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-end sm:gap-3">
-                {user && (
-                  <div className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-3.5 py-1.5 backdrop-blur-sm">
-                    <span className="text-tiny font-bold uppercase tracking-[0.2em] text-gold/80">Member ID:</span>
-                    <span className="font-mono text-tiny font-bold tracking-wider text-white">
-                      {user.customerReferenceId || user.referenceId || user.id}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const id = user.customerReferenceId || user.referenceId || user.id;
-                        if (id) {
-                          navigator.clipboard.writeText(id);
-                          setIsMemberIdCopied(true);
-                          setTimeout(() => setIsMemberIdCopied(false), 2000);
-                        }
-                      }}
-                      className="text-gold hover:text-gold-light transition-colors ml-0.5"
-                      title="Copy Member ID"
-                    >
-                      {isMemberIdCopied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
-                    </button>
-                  </div>
-                )}
                 {user?.isVerified && (
                   <StatusBadge tone="green" icon={<BsPatchCheck className="h-4 w-4" />}>
                     {t("Badge.verified")}
@@ -210,12 +185,14 @@ export function ProfileDetailsPanel() {
                 avatarError={errors.avatar}
                 isLoading={isProfileLoading}
                 isImageChanged={isImageChanged}
+                memberId={user?.customerReferenceId || user?.referenceId || (user?.id ? String(user.id) : null)}
                 onOpenSourceModal={() => {
                   setCameraError(null);
                   setIsSourceModalOpen(true);
                 }}
                 onAvatarSelect={handleAvatarSelect}
                 onImageUpdate={handleImageUpdate}
+                onRemoveAvatar={handleRemoveAvatar}
               />
 
               <form className="space-y-8" onSubmit={handlePersonalUpdate} noValidate>

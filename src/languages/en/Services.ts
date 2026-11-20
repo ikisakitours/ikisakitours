@@ -66,6 +66,7 @@ export default {
       "Your booking includes a professional chauffeur and a private, well-maintained vehicle dedicated to your journey.",
     startingFrom: "Starting From",
     perDay: "/ day",
+    perTrip: "/ trip",
     capacity: "Capacity",
     pax: "Pax",
     bags: "Luggages",

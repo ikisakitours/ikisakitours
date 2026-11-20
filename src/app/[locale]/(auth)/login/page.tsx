@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { LoginForm } from "@/components/auth/login/LoginForm";
 import { AuthShell } from "@/components/auth/AuthShell";
 import { getTranslations } from "next-intl/server";
@@ -14,7 +15,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default function LoginPage() {
   return (
     <AuthShell introKey="Login">
-      <LoginForm />
+      <Suspense fallback={null}>
+        <LoginForm />
+      </Suspense>
     </AuthShell>
   );
 }

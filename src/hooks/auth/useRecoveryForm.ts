@@ -42,12 +42,27 @@ export function useRecoveryForm(tAuth: (key: string) => string) {
 
       // Needed by the reset step (backend requires the email there)
       sessionStorage.setItem("reset_email", email.trim());
-      router.push("/password-change");
-    } catch (error) {
+      router.push(`/password-change?email=${encodeURIComponent(email.trim())}`);
+    } catch (error: unknown) {
       console.error("Recovery error:", error);
+      const err = error as {
+        status?: number;
+        error?: string;
+        message?: string;
+        response?: { status?: number; data?: { error?: string; message?: string } };
+        data?: { error?: string; message?: string };
+      };
+
+      const status = err?.status || err?.response?.status;
+      const errorCode = err?.error || err?.data?.error || err?.response?.data?.error;
+
+      if (status === 403 || errorCode === "ACCOUNT_SUSPENDED") {
+        toast.error(toastId, tAuth("Suspension.password_reset_restricted"));
+        setErrors((prev) => ({ ...prev, form: tAuth("Suspension.password_reset_restricted") }));
+        return;
+      }
 
       toast.error(toastId, tToast("error"));
-
       setErrors((prev) => ({ ...prev, form: tErr("recoveryFailed") }));
     } finally {
       setIsLoading(false);

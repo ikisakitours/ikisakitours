@@ -93,6 +93,14 @@ export default {
     deleteFailed: "アカウントの削除に失敗しました。パスワードを確認してください。",
   },
   AuthRequired: {
+    title: "ログインが必要です",
+    description: "続行してアカウントにアクセスするにはログインしてください。",
+    loginBtn: "ログインして続ける",
+    Profile: {
+      title: "ログインが必要です",
+      description: "プロフィールダッシュボードおよびアカウント設定にアクセスするにはログインしてください。",
+      loginBtn: "ログインして続ける",
+    },
     Review: {
       title: "ログインが必要です",
       description: "レビューを投稿し、体験を共有するにはログインしてください。",
@@ -169,6 +177,9 @@ export default {
       loading: "アップロード中",
       success: "画像を更新しました！",
       error: "アップロードに失敗しました。",
+      removing: "写真を削除中...",
+      removeSuccess: "写真を削除しました！",
+      removeError: "写真の削除に失敗しました。",
     },
     BespokeTour: {
       loading: "送信中",
@@ -200,6 +211,13 @@ export default {
       loading: "アカウントを削除中",
       success: "アカウントが削除されました！",
       error: "アカウントの削除に失敗しました。",
+    },
+    TwoFactor: {
+      activated: "2要素認証が有効化されました！",
+      disabled: "2要素認証が無効化されました。",
+      invalidCode: "無効な6桁のコードです。もう一度お試しください。",
+      activating: "2FAを有効化中...",
+      disabling: "2FAを無効化中...",
     },
     ContactForm: {
       loading: "メッセージ送信中",

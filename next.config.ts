@@ -39,6 +39,11 @@ const nextConfig: NextConfig = {
         hostname: "pub-585366a4edf04df8bff9d12bfdba756f.r2.dev",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "**.r2.dev",
+        pathname: "/**",
+      },
     ],
   },
 };

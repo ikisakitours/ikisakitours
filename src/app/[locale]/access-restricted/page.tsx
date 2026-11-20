@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
-import { AccessRestricted } from "@/components/access/AccessRestricted";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Access Restricted",
-  robots: { index: false, follow: false },
-};
+import dynamic from "next/dynamic";
+
+const AccessRestricted = dynamic(
+  () => import("@/components/access/AccessRestricted").then((mod) => mod.AccessRestricted),
+  { ssr: false }
+);
 
 export default function AccessRestrictedPage() {
   return <AccessRestricted />;

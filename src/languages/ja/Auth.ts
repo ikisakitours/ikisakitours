@@ -95,4 +95,42 @@ export default {
     backToLogin: "ログインへ戻る",
     backToSignIn: "ログインへ戻る",
   },
+  TwoFactor: {
+    title: "2要素認証の確認",
+    subtitle: "Google Authenticator、Authy、または認証アプリで生成された6桁のコードを入力してください。",
+    placeholder: "000000",
+    verifyBtn: "確認してログイン",
+    verifyingBtn: "確認中...",
+    backBtn: "← メールアドレスとパスワードに戻る",
+    invalidCode: "無効な6桁の認証コードです。アプリを確認してもう一度お試しください。",
+    codeRequired: "6桁の認証コードを入力してください。",
+  },
+  Suspension: {
+    account_suspended_title: "アカウントの利用が制限されています",
+    account_suspended_message:
+      "管理者によりアカウントの利用が制限されています。リファレンスIDをご用意の上、カスタマーサポートまでお問い合わせください。",
+    reference_id_label: "お客様リファレンスID",
+    social_login_required:
+      "このアカウントはソーシャルログインで登録されています。GoogleまたはFacebookでログインするか、「パスワードをお忘れの方」からパスワードを設定してください。",
+    action_restricted_title: "操作が制限されています",
+    action_restricted_message: "アカウントの利用が制限されているため、この操作を実行できません。",
+    booking_restricted_message: "予約を完了できません：管理者によりアカウントの利用が制限されています。",
+    review_restricted_message: "レビューを投稿できません：管理者によりアカウントの利用が制限されています。",
+    service_restricted_message: "サービスリクエストを送信できません：管理者によりアカウントの利用が制限されています。",
+    profile_restricted_message: "プロフィールを更新できません：管理者によりアカウントの利用が制限されています。",
+    password_reset_restricted: "パスワードのリセットを要求できません：管理者によりアカウントの利用が制限されています。",
+  },
+  account_suspended_title: "アカウントの利用が制限されています",
+  account_suspended_message:
+    "管理者によりアカウントの利用が制限されています。リファレンスIDをご用意の上、カスタマーサポートまでお問い合わせください。",
+  reference_id_label: "お客様リファレンスID",
+  social_login_required:
+    "このアカウントはソーシャルログインで登録されています。GoogleまたはFacebookでログインするか、「パスワードをお忘れの方」からパスワードを設定してください。",
+  action_restricted_title: "操作が制限されています",
+  action_restricted_message: "アカウントの利用が制限されているため、この操作を実行できません。",
+  booking_restricted_message: "予約を完了できません：管理者によりアカウントの利用が制限されています。",
+  review_restricted_message: "レビューを投稿できません：管理者によりアカウントの利用が制限されています。",
+  service_restricted_message: "サービスリクエストを送信できません：管理者によりアカウントの利用が制限されています。",
+  profile_restricted_message: "プロフィールを更新できません：管理者によりアカウントの利用が制限されています。",
+  password_reset_restricted: "パスワードのリセットを要求できません：管理者によりアカウントの利用が制限されています。",
 } as const;

@@ -173,7 +173,7 @@ export default function MapContent({
       }
     };
 
-    handleResize();
+    queueMicrotask(() => handleResize());
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [routePath]);

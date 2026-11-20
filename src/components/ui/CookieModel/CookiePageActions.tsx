@@ -55,7 +55,7 @@ export function CookiePageActions({ onManageCookies, onAcceptAll }: CookiePageAc
       }
     };
 
-    checkPreferences();
+    queueMicrotask(() => checkPreferences());
     window.addEventListener("cookieConsentUpdated", checkPreferences);
 
     return () => {
