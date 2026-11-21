@@ -49,14 +49,16 @@ export default {
     forgotPassword: "パスワードをお忘れですか？",
     twoFactorTitle: "2要素認証 (2FA)",
     twoFactorDesc: "アカウントにさらなるセキュリティを追加します。ログイン時にGoogle Authenticatorが必要になります。",
-    twoFactorActiveDesc: "アカウントはGoogle Authenticatorで保護されています。ログインするたびに6桁のコードが必要です。",
+    twoFactorActiveDesc:
+      "アカウントはGoogle Authenticatorで保護されています。ログインするたびに6桁のコードが必要です。",
     twoFactorStatusDisabled: "無効",
-    twoFactorStatusActive: "有効・保護中 ✓",
+    twoFactorStatusActive: "有効・保護中",
     twoFactorActivateBtn: "2FAを有効にする",
     twoFactorDisableBtn: "2FAを無効にする",
     TwoFactorSetup: {
       modalTitle: "2要素認証を有効化",
-      modalDesc: "Google Authenticator、Authy、または認証アプリでこのQRコードをスキャンしてアカウントを保護してください。",
+      modalDesc:
+        "Google Authenticator、Authy、または認証アプリでこのQRコードをスキャンしてアカウントを保護してください。",
       scanStep: "1. QRコードをスキャン",
       copyKeyLabel: "またはセットアップキーを手動で入力:",
       copyKeyBtn: "キーをコピー",
@@ -84,13 +86,16 @@ export default {
       disablingBtn: "無効化中...",
       cancelBtn: "キャンセル",
       disableFailed: "2FAの無効化に失敗しました。認証情報を確認してもう一度お試しください。",
+      passwordTab: "パスワード",
+      codeTab: "6桁のコード",
     },
     dangerZoneTitle: "危険区域：アカウントの削除",
     dangerZoneDesc:
       "アカウントを削除すると、元に戻すことはできません。すべての個人データとツアー履歴が完全に削除されます。",
     deleteBtn: "アカウントを削除",
     modalTitle: "本当によろしいですか？",
-    modalDesc: "この操作は元に戻すことができません。アカウントの削除を確認するには、現在のパスワードを入力してください。",
+    modalDesc:
+      "この操作は元に戻すことができません。アカウントの削除を確認するには、現在のパスワードを入力してください。",
     passwordPlaceholder: "パスワードを入力",
     cancelBtn: "キャンセル",
     deletingBtn: "削除中。。。",
@@ -122,7 +127,7 @@ export default {
     shareTitle: "ikiSaki Toursに一緒に参加しませんか？",
     shareDesc: "私の招待コードで、スリランカでの初めてのラグジュアリーツアーが10%オフになります。",
   },
-  
+
   Modals: {
     Crop: {
       title: "プロフィール写真の調整",

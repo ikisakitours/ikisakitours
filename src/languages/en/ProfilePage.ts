@@ -50,14 +50,16 @@ export default {
     forgotPassword: "Forgot Password?",
     twoFactorTitle: "Two-Factor Authentication (2FA)",
     twoFactorDesc: "Add an extra layer of defense to your travel account. Requires Google Authenticator on login.",
-    twoFactorActiveDesc: "Your account is secured with Google Authenticator. A 6-digit code is required on every sign-in.",
+    twoFactorActiveDesc:
+      "Your account is secured with Google Authenticator. A 6-digit code is required on every sign-in.",
     twoFactorStatusDisabled: "Disabled",
-    twoFactorStatusActive: "Active & Protected ✓",
+    twoFactorStatusActive: "Active & Protected",
     twoFactorActivateBtn: "Activate 2FA Security",
     twoFactorDisableBtn: "Disable 2FA",
     TwoFactorSetup: {
       modalTitle: "Activate Two-Factor Authentication",
-      modalDesc: "Scan this QR code with Google Authenticator, Authy, or your authenticator app to protect your account.",
+      modalDesc:
+        "Scan this QR code with Google Authenticator, Authy, or your authenticator app to protect your account.",
       scanStep: "1. Scan QR Code",
       copyKeyLabel: "Or enter this setup key manually:",
       copyKeyBtn: "Copy Key",
@@ -75,7 +77,8 @@ export default {
     },
     TwoFactorDisable: {
       modalTitle: "Disable Two-Factor Authentication",
-      modalDesc: "Are you sure you want to turn off Two-Factor Authentication? Your account will only be protected by your password.",
+      modalDesc:
+        "Are you sure you want to turn off Two-Factor Authentication? Your account will only be protected by your password.",
       confirmPrompt: "Enter your current password or 6-digit authenticator code to confirm:",
       passwordLabel: "Current Password",
       codeLabel: "6-Digit Authenticator Code",
@@ -85,6 +88,8 @@ export default {
       disablingBtn: "Disabling...",
       cancelBtn: "Cancel",
       disableFailed: "Failed to disable 2FA. Check your credentials and try again.",
+      passwordTab: "Password",
+      codeTab: "6-Digit Code",
     },
     dangerZoneTitle: "Danger Zone: Delete Account",
     dangerZoneDesc:
@@ -97,12 +102,12 @@ export default {
     deletingBtn: "Deleting...",
     confirmDeleteBtn: "Permanently Delete",
     usePasswordBtn: "Use Password",
-    typeDeleteBtn: "Type \"DELETE\"",
+    typeDeleteBtn: 'Type "DELETE"',
     typeDeleteDesc: "Please type <strong>DELETE</strong> to confirm.",
     typeDeletePlaceholder: "Type DELETE here",
   },
 
-   //future
+  //future
   ReferralPanel: {
     title: "Invite Friends & Earn",
     subtitle: "Share your unique link and unlock premium travel rewards.",
@@ -118,8 +123,8 @@ export default {
       joined: "Friends Booked",
       earned: "Total Earned",
     },
-      // new
-     shareMessage:
+    // new
+    shareMessage:
       "Hey! I found this amazing travel concierge in Sri Lanka. Use my link to get an exclusive discount on your first booking: {link}",
     shareTitle: "Join me on ikiSaki Tours!",
     shareDesc: "Use my invite code to get 10% off on your first luxury tour in Sri Lanka.",

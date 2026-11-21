@@ -97,7 +97,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setAuthenticatedUser(
           baseUser
             ? { ...baseUser, hasAccess: false }
-            : ({ id: "", firstname: "", lastname: "", email: "", country: "", hasAccess: false } as User)
+            : ({ id: "", firstname: "", lastname: "", email: "", country: "", hasAccess: false } as User),
         );
         return;
       }
@@ -130,7 +130,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setAuthenticatedUser(
           baseUser
             ? { ...baseUser, hasAccess: false }
-            : ({ id: "", firstname: "", lastname: "", email: "", country: "", hasAccess: false } as User)
+            : ({ id: "", firstname: "", lastname: "", email: "", country: "", hasAccess: false } as User),
         );
       } else if (err?.status === 401) {
         setAuthenticatedUser(null);
@@ -157,6 +157,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
     }
     if (!raw) return;
+    console.log("🔄 [AuthCheck - Page Load/Refresh] Checking user session with /api/auth/me...");
 
     authService
       .getCurrentUser()
@@ -196,18 +197,38 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
   }, [setAuthenticatedUser]);
 
-  // Window focus listener to re-verify user access in background when returning to tab
+  // Window focus & tab visibility listener to re-verify user access in background
   useEffect(() => {
-    const handleFocus = () => {
-      // Throttle to at most once every 3 seconds to eliminate network spamming
+    const handleTabReturn = () => {
+      // Tab එක hidden නම් (වෙන tab එකක ඉන්නවා නම්) run කරන්න එපා
+      if (document.visibilityState === "hidden") return;
+
+      // User log වෙලා නැත්නම් request යවන්න එපා
+      if (!user) {
+        console.log("⏭️ [AuthCheck - Tab Focus] Skipped (User not logged in)");
+        return;
+      }
+
+      // තත්පර 60ක throttle check එක
       const now = Date.now();
-      if (now - lastFocusCheckRef.current < 60_000) return;
+      const remainingSec = Math.ceil((60_000 - (now - lastFocusCheckRef.current)) / 1000);
+      if (now - lastFocusCheckRef.current < 60_000) {
+        console.log(`⏳ [AuthCheck - Tab Focus] Throttled! Wait ${remainingSec}s before next request.`);
+        return;
+      }
+
       lastFocusCheckRef.current = now;
+      console.log("👀 [AuthCheck - Tab Focus] 60s passed! Sending /api/auth/me request...");
       fetchUser();
     };
-    window.addEventListener("focus", handleFocus);
-    return () => window.removeEventListener("focus", handleFocus);
-  }, [fetchUser]);
+
+    window.addEventListener("focus", handleTabReturn);
+    document.addEventListener("visibilitychange", handleTabReturn);
+    return () => {
+      window.removeEventListener("focus", handleTabReturn);
+      document.removeEventListener("visibilitychange", handleTabReturn);
+    };
+  }, [fetchUser, user]);
 
   // Real-time Route Protection Redirect & URL Lock
   useEffect(() => {
@@ -227,15 +248,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [user, isHydrated, pathname, router]);
 
   // Route change sync to re-verify access whenever user navigates to a new page
+  const isLoggedIn = Boolean(user);
+  const hasAccess = user?.hasAccess;
+  const prevPathnameRef = useRef<string>(pathname);
+
+  // Route change sync to re-verify access whenever user navigates to a new page
   useEffect(() => {
-    if (isHydrated) {
-      if (!user || user.hasAccess === false) return;
-      const timer = setTimeout(() => {
-        fetchUser();
-      }, 0);
-      return () => clearTimeout(timer);
-    }
-  }, [pathname, fetchUser, isHydrated, user]);
+    if (!isHydrated || !isLoggedIn || hasAccess === false) return;
+
+    // Initial page load/refresh එකේදී pathname වෙනස් වෙලා නැති නිසා skip කරන්න
+    if (prevPathnameRef.current === pathname) return;
+    prevPathnameRef.current = pathname;
+
+    const timer = setTimeout(() => {
+      console.log(`🧭 [AuthCheck - Route Change] Navigated to "${pathname}" -> Sending /api/auth/me request...`);
+      fetchUser();
+    }, 0);
+    return () => clearTimeout(timer);
+  }, [pathname, fetchUser, isHydrated, isLoggedIn, hasAccess]);
 
   const loginUser = async () => {
     await fetchUser();
