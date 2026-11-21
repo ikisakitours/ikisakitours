@@ -103,6 +103,8 @@ export function useLoginForm() {
           staySignedIn,
         });
 
+        await loginUser();
+        
         // Sync authenticated user in AuthContext
         if (verifyRes?.user) {
           updateUser(verifyRes.user);

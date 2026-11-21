@@ -132,11 +132,9 @@ export function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoFactorSet
         </button>
 
         {/* Modal Header */}
-        <div className="text-center space-y-1.5 pt-1">
-          <h3 className="text-body font-bold text-white">
-            {t("SecurityPanel.TwoFactorSetup.modalTitle")}
-          </h3>
-          <p className="text-tiny text-slate-300 leading-normal max-w-xs mx-auto">
+         <div className="text-center space-y-1.5 pt-12 sm:pt-12">
+          <h3 className="text-heading-card font-bold text-white">{t("SecurityPanel.TwoFactorSetup.modalTitle")}</h3>
+          <p className="text-body-sm text-slate-300 leading-relaxed ">
             {t("SecurityPanel.TwoFactorSetup.modalDesc")}
           </p>
         </div>
@@ -144,15 +142,11 @@ export function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoFactorSet
         {isLoading ? (
           <div className="py-8 flex flex-col items-center justify-center space-y-2">
             <div className="w-7 h-7 border-2 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin" />
-            <p className="text-tiny text-slate-400">
-              {t("SecurityPanel.TwoFactorSetup.generatingCredentials")}
-            </p>
+            <p className="text-tiny text-slate-400">{t("SecurityPanel.TwoFactorSetup.generatingCredentials")}</p>
           </div>
         ) : error && !qrCodeDataUrl ? (
           <div className="space-y-3 py-3 text-center">
-            <div className="p-2.5 text-xs text-red-300 bg-red-950/40 border border-red-500/30 rounded-xl">
-              {error}
-            </div>
+            <div className="p-2.5 text-xs text-red-300 bg-red-950/40 border border-red-500/30 rounded-xl">{error}</div>
             <button
               type="button"
               onClick={fetchSetupData}
@@ -181,14 +175,12 @@ export function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoFactorSet
             {/* Secret key - Centered & Auto-Width */}
             {secret && (
               <div className="flex flex-col items-center gap-1">
-                <span className="block text-[11px] text-slate-400">
+                <span className="block text-body-sm text-slate-400">
                   {t("SecurityPanel.TwoFactorSetup.copyKeyLabel")}
                 </span>
                 <div className="flex justify-center w-full">
                   <div className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-mono max-w-full">
-                    <span className="truncate text-white select-all tracking-wider font-semibold">
-                      {secret}
-                    </span>
+                    <span className="truncate text-white select-all tracking-wider font-semibold">{secret}</span>
                     <button
                       type="button"
                       onClick={handleCopyKey}
@@ -210,7 +202,7 @@ export function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoFactorSet
             <div className="space-y-1.5 text-center pt-1 border-t border-white/10">
               <label
                 htmlFor="totp-setup-code"
-                className="block text-tiny font-bold uppercase tracking-[0.2em] text-gold"
+                className="mt-2 block text-tiny font-bold uppercase tracking-[0.2em] text-gold"
               >
                 {t("SecurityPanel.TwoFactorSetup.verifyStep")}
               </label>
@@ -228,12 +220,10 @@ export function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoFactorSet
                   if (error) setError(null);
                 }}
                 placeholder={t("SecurityPanel.TwoFactorSetup.verifyPlaceholder")}
-                className="w-44 sm:w-48 mx-auto block text-center tracking-[0.35em] font-mono font-bold py-2 px-3 rounded-xl bg-white/[0.05] border border-white/20 text-white text-lg outline-none focus:bg-white/10 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all placeholder:text-slate-600"
+                className="w-44 sm:w-48 mx-auto block text-center tracking-[0.35em] font-mono font-bold py-2 px-3 rounded-xl bg-white/5 border border-white/20 text-white text-lg outline-none focus:bg-white/10 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all placeholder:text-slate-600"
               />
 
-              {error && (
-                <p className="text-tiny text-red-400 pt-0.5">{error}</p>
-              )}
+              {error && <p className="text-tiny text-red-400 pt-0.5">{error}</p>}
             </div>
 
             {/* Actions: ONLY Submit button (Cancel button removed) */}

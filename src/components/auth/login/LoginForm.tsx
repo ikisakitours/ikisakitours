@@ -8,7 +8,7 @@ import { AuthLegalFooter } from "../AuthLegalFooter";
 import { useLoginForm } from "@/hooks/auth/useLoginForm";
 import { SocialLogin } from "../SocialLogin";
 //Icons
-import { Eye, EyeOff, Mail, ShieldCheck, Smartphone } from "lucide-react";
+import { Eye, EyeOff, Mail, ShieldCheck } from "lucide-react";
 
 const inputClass =
   "disabled:opacity-60 disabled:cursor-not-allowed w-full rounded-2xl border border-white/10 bg-white/[0.03] py-3.5 px-5 text-body-sm text-white outline-none transition-all placeholder:text-slate-700 focus:border-gold focus:bg-gold/5 focus:shadow-[0_0_15px_rgba(197,160,89,0.05)]";
@@ -53,7 +53,9 @@ export function LoginForm() {
             <div className="font-semibold text-base mb-1 text-red-200">
               {tAuth("Suspension.account_suspended_title")}
             </div>
-            <p className="text-slate-300 text-body-sm leading-relaxed">{tAuth("Suspension.account_suspended_message")}</p>
+            <p className="text-slate-300 text-body-sm leading-relaxed">
+              {tAuth("Suspension.account_suspended_message")}
+            </p>
             {suspendedInfo.refId && (
               <p className="mt-2 text-xs font-mono font-medium text-gold tracking-wider">
                 {tAuth("Suspension.reference_id_label")}: {suspendedInfo.refId}
@@ -62,23 +64,11 @@ export function LoginForm() {
           </div>
         )}
 
-        {/* ─── Standard / Social Error Banner ─── */}
-        {errorMessage && (
-          <div className="p-3.5 mb-6 text-sm text-amber-300 bg-amber-950/40 border border-amber-500/30 rounded-2xl shadow-lg backdrop-blur-md animate-fade-in-up">
-            {errorMessage}
-          </div>
-        )}
-
         {isTwoFactorStep ? (
           /* ─── Step 2: Two-Factor Verification ─── */
           <form className="space-y-6 animate-fade-in-up" onSubmit={handleSubmit} noValidate>
             <div className="text-center space-y-3">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 shadow-lg shadow-emerald-500/10">
-                <Smartphone className="h-7 w-7" />
-              </div>
-              <h2 className="premium-serif text-heading-sub text-white">
-                {tAuth("TwoFactor.title")}
-              </h2>
+              <h2 className="premium-serif text-heading-sub text-white">{tAuth("TwoFactor.title")}</h2>
               <p className="text-body-sm text-slate-400 max-w-sm mx-auto leading-relaxed">
                 {tAuth("TwoFactor.subtitle")}
               </p>
@@ -104,7 +94,7 @@ export function LoginForm() {
                 disabled={isLoading}
                 onChange={(e) => handleTotpChange(e.target.value)}
                 placeholder={tAuth("TwoFactor.placeholder")}
-                className="w-48 sm:w-52 mx-auto block text-center tracking-[0.35em] font-mono font-bold py-3 px-4 rounded-xl bg-white/[0.05] border border-white/20 text-white text-2xl outline-none focus:bg-white/10 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all placeholder:text-slate-600"
+                className="w-48 sm:w-52 mx-auto block text-center tracking-[0.35em] font-mono font-bold py-3 px-4 rounded-xl bg-white/5 border border-white/20 text-white text-2xl outline-none focus:bg-white/10 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all placeholder:text-slate-600"
               />
             </div>
 
@@ -218,7 +208,10 @@ export function LoginForm() {
                   </span>
                 </label>
 
-                <Link href="/confirm-email" className="text-body-sm text-slate-500 transition-colors hover:text-red-500">
+                <Link
+                  href="/confirm-email"
+                  className="text-body-sm text-slate-500 transition-colors hover:text-red-500"
+                >
                   {tAuth("Links.forgotPassword")}
                 </Link>
               </div>

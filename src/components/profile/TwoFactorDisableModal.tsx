@@ -17,12 +17,7 @@ interface TwoFactorDisableModalProps {
 const inputClass =
   "disabled:opacity-60 disabled:cursor-not-allowed w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-body-sm text-white outline-none transition-all placeholder:text-slate-500 focus:border-red-500/50";
 
-export function TwoFactorDisableModal({
-  isOpen,
-  onClose,
-  onSuccess,
-  isSocialAuth,
-}: TwoFactorDisableModalProps) {
+export function TwoFactorDisableModal({ isOpen, onClose, onSuccess, isSocialAuth }: TwoFactorDisableModalProps) {
   const t = useTranslations("ProfilePage");
   const tToast = useTranslations("ValidationErrors.ToastMessages");
   const toast = useToast();
@@ -32,7 +27,7 @@ export function TwoFactorDisableModal({
   const [totpCode, setTotpCode] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
+  const [disableMethod, setDisableMethod] = useState<"password" | "totp">("password");
   // Lock background scrolling across all devices (mobile, tablet, desktop)
   React.useEffect(() => {
     if (!isOpen) return;
@@ -108,11 +103,9 @@ export function TwoFactorDisableModal({
         </button>
 
         {/* Modal Header */}
-        <div className="text-center space-y-1.5 pt-1">
-          <h3 className="text-body font-bold text-white">
-            {t("SecurityPanel.TwoFactorDisable.modalTitle")}
-          </h3>
-          <p className="text-tiny text-slate-300 leading-normal max-w-xs mx-auto">
+      <div className="text-center space-y-1.5 pt-12 sm:pt-12">
+          <h3 className="text-heading-card font-bold text-white">{t("SecurityPanel.TwoFactorDisable.modalTitle")}</h3>
+          <p className="text-body-sm text-slate-300 leading-relaxed ">
             {t("SecurityPanel.TwoFactorDisable.modalDesc")}
           </p>
         </div>
@@ -129,57 +122,82 @@ export function TwoFactorDisableModal({
             aria-hidden="true"
             tabIndex={-1}
           />
-          {!isSocialAuth && (
-            <label className="block space-y-1.5">
-              <span className="block text-tiny font-bold uppercase tracking-[0.2em] text-gold">
-                {t("SecurityPanel.TwoFactorDisable.passwordLabel")}
-              </span>
-              <input
-                type="password"
-                value={currentPassword}
-                disabled={isSubmitting}
-                onChange={(e) => {
-                  setCurrentPassword(e.target.value);
-                  if (error) setError(null);
-                }}
-                placeholder={t("SecurityPanel.TwoFactorDisable.passwordPlaceholder")}
-                className={inputClass}
-                autoComplete="current-password"
-              />
-            </label>
-          )}
 
-          <label className="block space-y-1.5">
-            <span className="block text-tiny font-bold uppercase tracking-[0.2em] text-gold text-center">
-              {t("SecurityPanel.TwoFactorDisable.codeLabel")}
-            </span>
-            <input
-              type="text"
-              inputMode="numeric"
-              maxLength={6}
-              value={totpCode}
-              disabled={isSubmitting}
-              onChange={(e) => {
-                setTotpCode(e.target.value.replace(/\D/g, "").slice(0, 6));
-                if (error) setError(null);
-              }}
-              placeholder={t("SecurityPanel.TwoFactorDisable.codePlaceholder")}
-              className="w-44 sm:w-48 mx-auto block text-center tracking-[0.35em] font-mono font-bold py-2 px-3 rounded-xl bg-white/[0.05] border border-white/20 text-white text-lg outline-none focus:bg-white/10 focus:border-red-500 focus:ring-2 focus:ring-red-500/20 transition-all placeholder:text-slate-600"
-            />
-          </label>
+          <div className="grid grid-cols-2 gap-2 rounded-2xl border border-white/10 bg-white/3 p-1">
+            <button
+              type="button"
+              onClick={() => setDisableMethod("password")}
+              className={`rounded-xl py-2.5 text-body-sm font-medium transition-all cursor-pointer ${
+                disableMethod === "password"
+                  ? "bg-gold/20 text-gold border border-gold/40"
+                  : "text-slate-400 hover:text-white border border-transparent"
+              }`}
+            >
+             {t("SecurityPanel.TwoFactorDisable.passwordTab")}
+            </button>
 
-          {error && (
-            <div className="p-2.5 text-xs text-red-300 bg-red-950/40 border border-red-500/30 rounded-xl text-center">
-              {error}
+            <button
+              type="button"
+              onClick={() => setDisableMethod("totp")}
+              className={`rounded-xl py-2.5 text-body-sm font-medium transition-all cursor-pointer ${
+                disableMethod === "totp"
+                  ? "bg-gold/20 text-gold border border-gold/40"
+                  : "text-slate-400 hover:text-white border border-transparent"
+              }`}
+            >
+            {t("SecurityPanel.TwoFactorDisable.codeTab")}
+            </button>
+          </div>
+          {disableMethod === "password" ? (
+            <div>
+              {!isSocialAuth && (
+                <label className="block space-y-2">
+                  <span className="block text-tiny font-bold uppercase tracking-[0.2em] text-gold">
+                    {t("SecurityPanel.TwoFactorDisable.passwordLabel")}
+                  </span>
+                  <input
+                    type="password"
+                    value={currentPassword}
+                    disabled={isSubmitting}
+                    onChange={(e) => {
+                      setCurrentPassword(e.target.value);
+                      if (error) setError(null);
+                    }}
+                    placeholder={t("SecurityPanel.TwoFactorDisable.passwordPlaceholder")}
+                    className={inputClass}
+                    autoComplete="current-password"
+                  />
+                </label>
+              )}
+            </div>
+          ) : (
+            <div>
+              <label className="block space-y-1.5">
+                <span className="block text-tiny font-bold uppercase tracking-[0.2em] text-gold text-center">
+                  {t("SecurityPanel.TwoFactorDisable.codeLabel")}
+                </span>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  maxLength={6}
+                  value={totpCode}
+                  disabled={isSubmitting}
+                  onChange={(e) => {
+                    setTotpCode(e.target.value.replace(/\D/g, "").slice(0, 6));
+                    if (error) setError(null);
+                  }}
+                  placeholder={t("SecurityPanel.TwoFactorDisable.codePlaceholder")}
+                  className="w-44 sm:w-48 mx-auto block text-center tracking-[0.35em] font-mono font-bold py-2 px-3 rounded-xl bg-white/5 border border-white/20 text-white text-lg outline-none focus:bg-white/10 focus:border-red-500 focus:ring-2 focus:ring-red-500/20 transition-all placeholder:text-slate-600"
+                />
+              </label>
             </div>
           )}
-
           {/* Actions: ONLY Confirm Button (Cancel removed) */}
-          <div className="pt-1.5">
+          <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 pt-2">
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3 rounded-xl border border-red-500/40 bg-red-500/20 text-red-300 text-caption font-bold uppercase tracking-widest hover:bg-red-500 hover:text-white hover:border-red-500 transition-all duration-300 disabled:opacity-50 cursor-pointer text-center"
+              className="w-full sm:w-auto px-5 py-3 rounded-xl border border-red-500/40 bg-red-500/20 text-red-300 text-caption font-bold uppercase tracking-widest hover:bg-red-500 hover:text-white hover:border-red-500 transition-all duration-300 disabled:opacity-50 cursor-pointer text-center"
             >
               {isSubmitting
                 ? t("SecurityPanel.TwoFactorDisable.disablingBtn")

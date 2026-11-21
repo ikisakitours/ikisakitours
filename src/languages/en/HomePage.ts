@@ -124,8 +124,8 @@ export default {
     PrivateVehicle: {
       badge: "Private Vehicle Hire",
       titlePart1: "Private Guided Tours",
-      titleAccent: "of",
-      titlePart2: "Sri Lanka",
+      titleAccent: " of",
+      titlePart2: " Sri Lanka",
       description:
         "Our private vehicle charter service in Sri Lanka offers you the freedom to set your own itinerary and choose your destinations. Whether you need airport transfers, travel between cities, or visits to tourist attractions, we provide flexible arrangements tailored to your preferences. With a private vehicle and an experienced driver at your disposal, you can enjoy a comfortable and truly flexible travel experience.",
       nativeFriendlyText: "Native Friendly",
