@@ -24,7 +24,8 @@ export interface PricingCalculationResult {
 
 /**
  * Fully Optimized Dynamic Tour Pricing Calculator
- * Correctly calculates Group Tiers, Couples (2-pax rooms), Child discounts, and Infants.
+ * Industry Standard: Group Discount Tiers are determined strictly by ADULT travelers (adults + couples * 2).
+ * Children and infants pay their configured category rates and do not dilute the adult group tier.
  */
 export function calculateDynamicPricing(
   basePrice: number,
@@ -35,20 +36,18 @@ export function calculateDynamicPricing(
   const fallbackPrice =
     typeof basePrice === "number" && !isNaN(basePrice) ? basePrice : Number(basePrice) || 0;
 
-  // 1. Extract counts safely (handles both singular: 'adult' and plural: 'adults')
+  // 1. Extract counts safely (handles both singular and plural keys)
   const adults = Math.max(0, Number(travelerCounts.adult ?? travelerCounts.adults ?? 0));
-  
-  // In the UI, 'couple' count represents the number of Couples (rooms/pairs, e.g. 2 Couples)
   const coupleCount = Math.max(0, Number(travelerCounts.couple ?? travelerCounts.couples ?? 0));
-  // Each couple consists of 2 adult persons
-  const couplePersons = coupleCount * 2;
-
+  const couplePersons = coupleCount * 2; // 1 couple = 2 adults
   const children = Math.max(0, Number(travelerCounts.child ?? travelerCounts.children ?? 0));
   const infants = Math.max(0, Number(travelerCounts.infant ?? travelerCounts.infants ?? 0));
 
-  // Total paying travelers headcount (determines Group Discount Tier)
-  // Note: Infants travel free on lap and do not count toward paying group discount tiers
-  const totalPax = adults + couplePersons + children;
+  // Industry Standard: Adult pax determines the Group Discount Tier
+  const effectiveAdults = adults + couplePersons;
+
+  // Total paying travelers headcount
+  const totalPax = effectiveAdults + children;
 
   const tiers = pricingConfig?.tiers;
   const passengerPricing = pricingConfig?.passengerPricing;
@@ -57,38 +56,30 @@ export function calculateDynamicPricing(
   let activeTier: PricingTier | undefined;
   let isTierPricingApplied = false;
 
-  // 2. Match Active Group Discount Tier by totalPax
+  // 2. Match Active Group Discount Tier strictly by Adult Travelers
   if (tiers && Array.isArray(tiers) && tiers.length > 0) {
-    if (totalPax > 0) {
-      // Find tier where totalPax falls between minPax and maxPax
-      activeTier = tiers.find(
-        (tier) => totalPax >= Number(tier.minPax) && totalPax <= Number(tier.maxPax)
-      );
+    // When adults are present, match against effectiveAdults; otherwise fallback to 1 for starting tier preview
+    const adultPaxLookup = effectiveAdults > 0 ? effectiveAdults : 1;
+    activeTier = tiers.find(
+      (tier) => adultPaxLookup >= Number(tier.minPax) && adultPaxLookup <= Number(tier.maxPax)
+    );
 
-      // If totalPax exceeds the highest tier, apply the largest group discount rate
-      if (!activeTier) {
-        const sortedAsc = [...tiers].sort((a, b) => Number(a.minPax) - Number(b.minPax));
-        const highestTier = sortedAsc[sortedAsc.length - 1];
-        const lowestTier = sortedAsc[0];
+    // If effectiveAdults exceeds the highest configured tier, apply the largest group discount rate
+    if (!activeTier) {
+      const sortedAsc = [...tiers].sort((a, b) => Number(a.minPax) - Number(b.minPax));
+      const highestTier = sortedAsc[sortedAsc.length - 1];
+      const lowestTier = sortedAsc[0];
 
-        if (totalPax >= Number(highestTier.maxPax || highestTier.minPax)) {
-          activeTier = highestTier;
-        } else {
-          activeTier = lowestTier;
-        }
+      if (adultPaxLookup >= Number(highestTier.maxPax || highestTier.minPax)) {
+        activeTier = highestTier;
+      } else {
+        activeTier = lowestTier;
       }
+    }
 
-      if (activeTier) {
-        unitPrice = Number(activeTier.pricePerPerson) || fallbackPrice;
-        isTierPricingApplied = true;
-      }
-    } else {
-      // If 0 travelers selected, default to Solo (1 pax) tier rate
-      const soloTier = tiers.find((t) => Number(t.minPax) === 1) || tiers[0];
-      if (soloTier) {
-        unitPrice = Number(soloTier.pricePerPerson) || fallbackPrice;
-        activeTier = soloTier;
-      }
+    if (activeTier) {
+      unitPrice = Number(activeTier.pricePerPerson) || fallbackPrice;
+      isTierPricingApplied = effectiveAdults > 0;
     }
   }
 
@@ -96,7 +87,6 @@ export function calculateDynamicPricing(
   const adultTotal = adults * unitPrice;
 
   // 4. Couples Total (2 Adults in 1 Room)
-  // Rate is either Custom Fixed Couple Rate or Auto (2 x active tier rate)
   let coupleUnitRate = unitPrice * 2;
   let coupleTotal = 0;
   let coupleNote = "2 Adults (Shared Room)";
@@ -116,7 +106,7 @@ export function calculateDynamicPricing(
     coupleTotal = coupleCount * coupleUnitRate;
   }
 
-  // 5. Children Total (Percentage discount or fixed rate)
+  // 5. Children Total (Percentage of active Adult Tier or fixed rate)
   let childUnitPrice = unitPrice * 0.5; // Default 50% discount if unconfigured
   let childDiscountNote = "50% of adult rate";
 
@@ -150,7 +140,7 @@ export function calculateDynamicPricing(
   // 7. Final Grand Total
   const totalPrice = adultTotal + coupleTotal + childTotal + infantTotal;
 
-  // 8. Return rounded results to prevent JavaScript floating point decimals
+  // 8. Return rounded results to prevent floating point issues
   return {
     unitPrice: Math.round(unitPrice * 100) / 100,
     totalPrice: Math.round(totalPrice * 100) / 100,
@@ -164,7 +154,7 @@ export function calculateDynamicPricing(
         total: Math.round(adultTotal * 100) / 100,
       },
       couples: {
-        count: coupleCount, // Passes the actual number of Couples (e.g. 2, NOT 4)
+        count: coupleCount,
         unitPrice: Math.round(coupleUnitRate * 100) / 100,
         total: Math.round(coupleTotal * 100) / 100,
         discountNote: coupleNote,
