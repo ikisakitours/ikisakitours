@@ -488,35 +488,40 @@ npm run start
 <div align="center">
 
 <a href="https://pramod-siriwardhana.vercel.app/" target="_blank" rel="noopener noreferrer">
-  <img src="public/Layout-Icons/two2flod-readme-logo.webp" alt="Two2Flod Logo" width="80" height="80" />
+  <img src="public/Layout-Icons/two2flod-readme-logo.webp" alt="Two2Flod Logo" width="84" height="84" />
 </a>
+
+### Luxury Sri Lanka Travel Platform — Client & Engineering
 
 </div>
 
-| Attribute          | Details                                                                            |
-| :----------------- | :--------------------------------------------------------------------------------- |
-| **Client & Owner** | **Ikisaki Tours (Pvt) Ltd** — [www.ikisakitours.com](https://www.ikisakitours.com) |
-| **Powered By**     | [**Two2Flod**](https://pramod-siriwardhana.vercel.app/)                            |
-| **Engineered By**  | [**Pramod_Siriwardhana**](https://pramod-siriwardhana.vercel.app/)                 |
-| **License**        | All rights reserved © 2026 Ikisaki Tours (Pvt) Ltd ([`LICENSE`](./LICENSE))        |
+| Attribute | Entity / Specification | Details |
+| :--- | :--- | :--- |
+| **Client & Business Owner** | **Ikisaki Tours (Private) Limited** | Sri Lanka Luxury Inbound Tour Operator · [www.ikisakitours.com](https://www.ikisakitours.com) · [`info@ikisakitours.com`](mailto:info@ikisakitours.com) |
+| **Technology Partner** | **Two2Flod** | Web Architecture, Bespoke UI/UX Design & Next-Gen Engineering · [Portfolio](https://pramod-siriwardhana.vercel.app/) |
+| **Lead Software Engineer** | **Pramod Siriwardhana** | Full-Stack Architecture, React 19 Engine, Cloudflare R2 Pipeline & Bilingual i18n Suite · [Profile](https://pramod-siriwardhana.vercel.app/) |
+| **Platform Ecosystem** | **Ikisaki Enterprise Suite** | Customer Web Platform (Next.js 16) · Admin CMS Panel (Next.js 16) · Core API (NestJS + PostgreSQL) |
+| **Intellectual Property Rights** | **All Rights Reserved** | Copyright © 2026 Ikisaki Tours (Private) Limited & Two2Flod ([`LICENSE`](./LICENSE)) |
 
 > [!IMPORTANT]
-> **Proprietary Software Notice:** This application and its source code are private, proprietary assets built exclusively for the internal operations of **Ikisaki Tours (Pvt) Ltd**. Unauthorized copying, modification, redistribution, or commercial use of any part of this repository without prior written consent is strictly prohibited.
+> **PROPRIETARY SOFTWARE — STRICTLY CONFIDENTIAL:**  
+> This repository, including all source code, architecture, UI/UX designs, documentation, assets, localization files, and associated materials (collectively, the "Software"), is the exclusive, confidential, and proprietary intellectual property of **Ikisaki Tours (Private) Limited** ([www.ikisakitours.com](https://www.ikisakitours.com) / [`info@ikisakitours.com`](mailto:info@ikisakitours.com)) and **Two2Flod** (the "Rights Holders").  
+> 
+> No license, right, or permission—express or implied—is granted to any third party. Without prior, explicit, written authorization signed by authorized representatives of **BOTH** Ikisaki Tours (Private) Limited and Two2Flod, you are strictly prohibited from:
+> - **(a)** Using, running, or deploying the Software (in whole or in part) in any personal, educational, commercial, or production environment;
+> - **(b)** Copying, cloning, downloading, mirroring, scraping, or reproducing any part of the Software;
+> - **(c)** Modifying, adapting, translating, reverse-engineering, decompiling, or creating derivative works based on the Software;
+> - **(d)** Publishing, redistributing, selling, licensing, sublicensing, or sharing the Software or any modified version thereof on any platform, repository, or hosting service.
 
-> [!NOTE]
-> **Copyright © 2026 Ikisaki Tours (Pvt) Ltd. All rights reserved.**  
-> This repository and its source code, design assets, and localization dictionaries are proprietary and confidential. Unauthorized copying, redistribution, modification, or commercial use is strictly prohibited without prior written consent from Ikisaki Tours (Pvt) Ltd. See [`LICENSE`](./LICENSE) for full terms.
+> [!WARNING]
+> **LEGAL CONSEQUENCES & STATUTORY ENFORCEMENT:**  
+> Any unauthorized access, copying, modification, distribution, deployment, or use of this Software or any portion thereof constitutes willful copyright infringement and misappropriation of proprietary intellectual property. Violators are subject to strict legal action, including but not limited to immediate DMCA takedown notices, injunctions, claims for monetary damages, and civil or criminal penalties under the **Intellectual Property Act, No. 36 of 2003 of Sri Lanka** and applicable international copyright laws and treaties.
 
 ---
 
 <div align="center">
 
-<a href="https://pramod-siriwardhana.vercel.app/" target="_blank" rel="noopener noreferrer">
-  <img src="public/Layout-Icons/two2flod-readme-logo.webp" alt="Two2Flod Logo" width="48" height="48" />
-</a>
-
-<br />
-
-**© 2026 Ikisaki Tours (Pvt) Ltd** · Powered by [**Two2Flod**](https://pramod-siriwardhana.vercel.app/) · Engineered by [**Pramod_Siriwardhana**](https://pramod-siriwardhana.vercel.app/)
+**© 2026 Ikisaki Tours (Private) Limited & Two2Flod** · All Rights Reserved  
+Client: [**Ikisaki Tours (Private) Limited**](https://www.ikisakitours.com) · Engineered by [**Pramod Siriwardhana (Two2Flod)**](https://pramod-siriwardhana.vercel.app/)
 
 </div>
