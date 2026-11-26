@@ -7,6 +7,8 @@ export interface User {
   id: string;
   firstname: string;
   lastname: string;
+  firstName?: string;
+  lastName?: string;
   email: string;
   country: string;
   customerReferenceId?: string;
@@ -20,6 +22,20 @@ export interface User {
   providerId?: string | null;
   isTwoFactorEnabled?: boolean;
   twoFactorEnabled?: boolean;
+}
+
+function normalizeUser(userData: unknown): User | null {
+  if (!userData || typeof userData !== "object") return null;
+  const u = userData as Record<string, unknown>;
+  const firstname = String(u.firstname || u.firstName || "").trim();
+  const lastname = String(u.lastname || u.lastName || "").trim();
+  return {
+    ...(u as unknown as User),
+    firstname,
+    lastname,
+    firstName: (u.firstName as string) || firstname,
+    lastName: (u.lastName as string) || lastname,
+  };
 }
 
 interface AuthContextType {
@@ -56,11 +72,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // 3. Helper to set user, localStorage, AND sync Edge Cookie
   const setAuthenticatedUser = useCallback((userData: User | null) => {
-    setUser(userData);
+    const normalized = userData ? normalizeUser(userData) : null;
+    setUser(normalized);
     if (typeof window !== "undefined") {
-      if (userData) {
-        localStorage.setItem("userData", JSON.stringify(userData));
-        if (userData.hasAccess === false) {
+      if (normalized) {
+        localStorage.setItem("userData", JSON.stringify(normalized));
+        if (normalized.hasAccess === false) {
           document.cookie = "customer_suspended=true; path=/; max-age=2592000; SameSite=Lax";
         } else {
           document.cookie = "customer_suspended=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax";
@@ -102,10 +119,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return;
       }
 
-      const userData = response.user ? response.user : response;
+      const rawUser = response.user ? response.user : response;
+      const normalized = normalizeUser(rawUser);
 
-      if (userData && (userData.id || userData.email)) {
-        setAuthenticatedUser(userData);
+      if (normalized && (normalized.id || normalized.email)) {
+        setAuthenticatedUser(normalized);
       }
     } catch (error: unknown) {
       const err = error as { status?: number; message?: string; error?: string; data?: { error?: string } };
@@ -140,12 +158,40 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [setAuthenticatedUser]);
 
-  // 4. Background re-validation (Silent verification with /api/auth/me)
+  // 4. Background re-validation (Silent verification with /api/auth/me) & Social Login Interception
   useEffect(() => {
     queueMicrotask(() => {
       setIsHydrated(true);
     });
+
+    // Check for social login redirect parameters in URL
+    let isSocialRedirect = false;
+    if (typeof window !== "undefined") {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const socialSuccess = urlParams.get("social_login") === "success";
+        const incomingToken = urlParams.get("token");
+
+        if (incomingToken) {
+          localStorage.setItem("token", incomingToken);
+        }
+
+        if (socialSuccess || incomingToken) {
+          isSocialRedirect = true;
+          // Clean sensitive query parameters from the browser address bar
+          const cleanUrl = new URL(window.location.href);
+          cleanUrl.searchParams.delete("social_login");
+          cleanUrl.searchParams.delete("token");
+          window.history.replaceState(null, "", cleanUrl.pathname + (cleanUrl.search ? cleanUrl.search : "") + cleanUrl.hash);
+        }
+      } catch (e) {
+        console.error("Failed to parse social auth URL params:", e);
+      }
+    }
+
     const raw = typeof window !== "undefined" ? localStorage.getItem("userData") : null;
+    const storedToken = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+
     if (raw) {
       try {
         const parsed = JSON.parse(raw);
@@ -156,7 +202,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         /* ignore */
       }
     }
-    if (!raw) return;
+
+    // Only proceed to check /api/auth/me if user was already logged in (raw), has a token, or arrived via social redirect
+    if (!raw && !isSocialRedirect && !storedToken) return;
+
     console.log("🔄 [AuthCheck - Page Load/Refresh] Checking user session with /api/auth/me...");
 
     authService
@@ -165,7 +214,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (freshUser && freshUser.hasAccess === false) {
           let baseUser: User | null = null;
           try {
-            baseUser = JSON.parse(raw);
+            baseUser = raw ? JSON.parse(raw) : null;
           } catch {
             /* ignore */
           }
@@ -175,16 +224,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           return;
         }
 
-        const userData = freshUser?.user ? freshUser.user : freshUser;
-        if (userData && (userData.id || userData.email)) {
-          setAuthenticatedUser(userData);
+        const rawUser = freshUser?.user ? freshUser.user : freshUser;
+        const normalized = normalizeUser(rawUser);
+        if (normalized && (normalized.id || normalized.email)) {
+          setAuthenticatedUser(normalized);
         }
       })
       .catch((err) => {
         if (err?.status === 403 || err?.error === "ACCOUNT_SUSPENDED") {
           let baseUser: User | null = null;
           try {
-            baseUser = JSON.parse(raw);
+            baseUser = raw ? JSON.parse(raw) : null;
           } catch {
             /* ignore */
           }

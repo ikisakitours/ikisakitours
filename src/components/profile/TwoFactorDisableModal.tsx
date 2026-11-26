@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { useToast } from "@/context/ToastContext";
 import { useAuth } from "@/context/AuthContext";
 import { authService } from "@/services/auth/authService";
-import { ShieldAlert, X } from "lucide-react";
+import { ShieldAlert, X, Eye, EyeOff } from "lucide-react";
 
 interface TwoFactorDisableModalProps {
   isOpen: boolean;
@@ -15,15 +15,17 @@ interface TwoFactorDisableModalProps {
 }
 
 const inputClass =
-  "disabled:opacity-60 disabled:cursor-not-allowed w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-body-sm text-white outline-none transition-all placeholder:text-slate-500 focus:border-red-500/50";
+  "disabled:opacity-60 disabled:cursor-not-allowed w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 pr-12 text-body-sm text-white outline-none transition-all placeholder:text-slate-500 focus:border-red-500/50";
 
 export function TwoFactorDisableModal({ isOpen, onClose, onSuccess, isSocialAuth }: TwoFactorDisableModalProps) {
   const t = useTranslations("ProfilePage");
+  const tForm = useTranslations("SharedForm");
   const tToast = useTranslations("ValidationErrors.ToastMessages");
   const toast = useToast();
   const { user } = useAuth();
 
   const [currentPassword, setCurrentPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [totpCode, setTotpCode] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -155,18 +157,29 @@ export function TwoFactorDisableModal({ isOpen, onClose, onSuccess, isSocialAuth
                   <span className="block text-tiny font-bold uppercase tracking-[0.2em] text-gold">
                     {t("SecurityPanel.TwoFactorDisable.passwordLabel")}
                   </span>
-                  <input
-                    type="password"
-                    value={currentPassword}
-                    disabled={isSubmitting}
-                    onChange={(e) => {
-                      setCurrentPassword(e.target.value);
-                      if (error) setError(null);
-                    }}
-                    placeholder={t("SecurityPanel.TwoFactorDisable.passwordPlaceholder")}
-                    className={inputClass}
-                    autoComplete="current-password"
-                  />
+                  <span className="group relative block">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      value={currentPassword}
+                      disabled={isSubmitting}
+                      onChange={(e) => {
+                        setCurrentPassword(e.target.value);
+                        if (error) setError(null);
+                      }}
+                      placeholder={t("SecurityPanel.TwoFactorDisable.passwordPlaceholder")}
+                      className={inputClass}
+                      autoComplete="current-password"
+                    />
+                    <button
+                      type="button"
+                      disabled={isSubmitting}
+                      aria-label={showPassword ? tForm("Buttons.hidePassword") : tForm("Buttons.showPassword")}
+                      onClick={() => setShowPassword((value) => !value)}
+                      className="outline-none focus:outline-none z-10 absolute active:scale-95 right-3.5 p-2 top-1/2 -translate-y-1/2 text-slate-600 transition-colors hover:text-gold cursor-pointer"
+                    >
+                      {showPassword ? <EyeOff className="h-6 w-6" /> : <Eye className="h-6 w-6" />}
+                    </button>
+                  </span>
                 </label>
               )}
             </div>

@@ -267,7 +267,7 @@ export function Footer() {
                       wrapperClassName="w-full h-full"
                     />
                   ) : (
-                    <div className="relative h-full w-full p-0.5 flex items-center justify-center">
+                    <div className="relative h-full w-full p-1 flex items-center justify-center">
                       <LoadingImage
                         src={BRAND_LOGO_URL}
                         alt={BRAND_NAME}

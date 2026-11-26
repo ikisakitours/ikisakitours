@@ -1,5 +1,16 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
 
+function getAuthHeaders(): Record<string, string> {
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  if (typeof window !== "undefined") {
+    const token = localStorage.getItem("token");
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+  }
+  return headers;
+}
+
 async function parseErrorResponse(res: Response, fallbackMessage: string): Promise<never> {
   let errorData: Record<string, unknown> = {};
   try {
@@ -47,7 +58,7 @@ export const authService = {
   generate2FA: async (): Promise<{ success: boolean; secret?: string; qrCodeDataUrl?: string; qrCode?: string; qrCodeUrl?: string; message?: string }> => {
     const res = await fetch(`${API_URL}/auth/2fa/generate`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       credentials: "include",
     });
     if (!res.ok) await parseErrorResponse(res, "Failed to generate 2FA");
@@ -58,7 +69,7 @@ export const authService = {
   enable2FA: async (totpCode: string): Promise<{ success: boolean; message: string }> => {
     const res = await fetch(`${API_URL}/auth/2fa/enable`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       credentials: "include",
       body: JSON.stringify({ totpCode }),
     });
@@ -70,7 +81,7 @@ export const authService = {
   disable2FA: async (payload: { currentPassword?: string; totpCode?: string }): Promise<{ success: boolean; message: string }> => {
     const res = await fetch(`${API_URL}/auth/2fa/disable`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       credentials: "include",
       body: JSON.stringify(payload),
     });
@@ -95,7 +106,7 @@ export const authService = {
     try {
       const res = await fetch(`${API_URL}/auth/me`, {
         method: "GET",
-        headers: { "Content-Type": "application/json" },
+        headers: getAuthHeaders(),
         credentials: "include",
       });
       if (res.status === 403) {
