@@ -39,6 +39,13 @@ export default {
     free: "Free",
     estimatedTotal: "Estimated Total",
     taxesIncluded: "Taxes & fees included",
+    clickAndRead: "Click & Read",
+    importantPriceNote: "Important Price Notes",
+    PricingNotesModal: {
+      title: "Important Pricing Notes",
+      subtitle: "Key guidelines regarding dynamic rates, group discounts, and booking policies.",
+      closeBtn: "Understood",
+    },
   },
   Modal: {
     reviewBookingDetails: "Review Booking Details",
