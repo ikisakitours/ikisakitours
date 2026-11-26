@@ -77,19 +77,19 @@ flowchart LR
 
 ## Application Routes & Modules
 
-| Module | Route(s) | Capabilities & Features |
-| :--- | :--- | :--- |
-| **Home & Discovery** | `/[locale]` | Cinematic hero with OmniSearch, curated tours showcase, experience highlights, private vehicle fleet, transfers preview, cultural events with `UniversalPlayer`, travel journal preview, client testimonials & contact CTA |
-| **Tour Explorers** | `/[locale]/tours/one-day`, `/[locale]/tours/multi-days` | Interactive tour catalog with category, duration, rating, and price filtering, localized conversion badges (`packageBadge.ts`), and dynamic per-person starting rates |
-| **Tour Booking & Reviews** | `/[locale]/booking/one-day-tours/[slug]`, `/[locale]/booking/multi-days-tours/[slug]`, `.../reviews` | 17 specialized detail sections (`BookingHeader`, `BookingGallery`, `DescriptionSection`, `HighlightsSection`, `ActivityDetails`, `ItinerarySection` with dynamic `meals[]` & `accommodation[]`, `CoveredCitiesRoute` with `#route-map` hash sync, `CoveredDestinations`, `IncludesSection`, `EssentialsSection`, `TourCustomization`, `StoryBanner`, `ReviewsSection`), sticky `BookingNavigation`, dynamic pricing widget, multi-step **Luxury Booking Review Modal**, mobile `StickyBookingBar`, package likes, and verified photo reviews with admin replies |
-| **Chauffeur & Bespoke Services** | `/[locale]/services/bespoke-travel`, `/[locale]/services/private-vehicle`, `/[locale]/services/transfers` | Tailor-made journey planner, private chauffeur charters, and airport/intercity transfers with live backend rate cards, vehicle selectors, multilingual service guidelines, and auth-safe draft recovery |
-| **Destinations & GIS Map** | `/[locale]/destination`, `/[locale]/destination/[slug]` | Interactive **Leaflet + CartoDB** Sri Lanka map (Dark & Light visual moods, custom gold pins, province filters) plus destination guides with GPS coordinates, climate info & galleries |
-| **Cultural Events** | `/[locale]/events`, `/[locale]/events/[slug]` | Sri Lanka heritage festivals (Kandy Esala Perahera, Vesak, Sinhala & Tamil New Year) with `UniversalPlayer` video streaming and high-resolution event sliders |
-| **Travel Journal (Blog)** | `/[locale]/blog`, `/[locale]/blog/[slug]` | Multilingual Sri Lanka travel guides (ETA visa, packing, currency, etiquette, Ayurveda) with category explorer, article likes, and full-screen galleries |
-| **Full-Screen Galleries** | `/[locale]/gallery/[slug]`, `/[locale]/gallery/destination/[slug]` | Full-screen `GalleryLightbox` viewer with thumbnail navigation for tours, blogs, and destinations |
-| **Auth, Profile & Access Gate** | `/[locale]/login`, `/signup`, `/auth-gateway`, `/confirm-email`, `/password-change`, `/profile`, `/access-restricted` | Email/password & Social OAuth login, OTP verification, password strength meter (`usePasswordStrength`), profile dashboard with interactive avatar cropper (`react-easy-crop` → WebP), security settings, dynamic referral panel with branded Member ID, window-focus real-time sync, and **Zero-Flash `AccessGate`** with instant Frame-0 lockout for suspended accounts |
-| **Support, Legal & System** | `/[locale]/about`, `/contact`, `/faq`, `/testimonials`, `/legal/[[...slug]]`, `/[locale]/[...catchAll]` | Company story & leadership, Contact Us inquiry form, accordion FAQs, customer testimonials writer, CMS-driven Privacy/Terms legal pages, and localized **Unsupported Language / 404** (`NotFoundUI`) |
-| **Platform Endpoints** | `/exchange-rates`, `/robots.txt`, `/sitemap.xml` | 12-hour ISR USD exchange rate proxy, dynamic crawler directives, and timeout-guarded multilingual XML sitemap |
+| Module                           | Route(s)                                                                                                              | Capabilities & Features                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| :------------------------------- | :-------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Home & Discovery**             | `/[locale]`                                                                                                           | Cinematic hero with OmniSearch, curated tours showcase, experience highlights, private vehicle fleet, transfers preview, cultural events with `UniversalPlayer`, travel journal preview, client testimonials & contact CTA                                                                                                                                                                                                                                                                                                                                      |
+| **Tour Explorers**               | `/[locale]/tours/one-day`, `/[locale]/tours/multi-days`                                                               | Interactive tour catalog with category, duration, rating, and price filtering, localized conversion badges (`packageBadge.ts`), and dynamic per-person starting rates                                                                                                                                                                                                                                                                                                                                                                                           |
+| **Tour Booking & Reviews**       | `/[locale]/booking/one-day-tours/[slug]`, `/[locale]/booking/multi-days-tours/[slug]`, `.../reviews`                  | 17 specialized detail sections (`BookingHeader`, `BookingGallery`, `DescriptionSection`, `HighlightsSection`, `ActivityDetails`, `ItinerarySection` with dynamic `meals[]` & `accommodation[]`, `CoveredCitiesRoute` with `#route-map` hash sync, `CoveredDestinations`, `IncludesSection`, `EssentialsSection`, `TourCustomization`, `StoryBanner`, `ReviewsSection`), sticky `BookingNavigation`, dynamic pricing widget, multi-step **Luxury Booking Review Modal**, mobile `StickyBookingBar`, package likes, and verified photo reviews with admin replies |
+| **Chauffeur & Bespoke Services** | `/[locale]/services/bespoke-travel`, `/[locale]/services/private-vehicle`, `/[locale]/services/transfers`             | Tailor-made journey planner, private chauffeur charters, and airport/intercity transfers with live backend rate cards, vehicle selectors, multilingual service guidelines, and auth-safe draft recovery                                                                                                                                                                                                                                                                                                                                                         |
+| **Destinations & GIS Map**       | `/[locale]/destination`, `/[locale]/destination/[slug]`                                                               | Interactive **Leaflet + CartoDB** Sri Lanka map (Dark & Light visual moods, custom gold pins, province filters) plus destination guides with GPS coordinates, climate info & galleries                                                                                                                                                                                                                                                                                                                                                                          |
+| **Cultural Events**              | `/[locale]/events`, `/[locale]/events/[slug]`                                                                         | Sri Lanka heritage festivals (Kandy Esala Perahera, Vesak, Sinhala & Tamil New Year) with `UniversalPlayer` video streaming and high-resolution event sliders                                                                                                                                                                                                                                                                                                                                                                                                   |
+| **Travel Journal (Blog)**        | `/[locale]/blog`, `/[locale]/blog/[slug]`                                                                             | Multilingual Sri Lanka travel guides (ETA visa, packing, currency, etiquette, Ayurveda) with category explorer, article likes, and full-screen galleries                                                                                                                                                                                                                                                                                                                                                                                                        |
+| **Full-Screen Galleries**        | `/[locale]/gallery/[slug]`, `/[locale]/gallery/destination/[slug]`                                                    | Full-screen `GalleryLightbox` viewer with thumbnail navigation for tours, blogs, and destinations                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| **Auth, Profile & Access Gate**  | `/[locale]/login`, `/signup`, `/auth-gateway`, `/confirm-email`, `/password-change`, `/profile`, `/access-restricted` | Email/password & Social OAuth login, OTP verification, password strength meter (`usePasswordStrength`), profile dashboard with interactive avatar cropper (`react-easy-crop` → WebP), security settings, dynamic referral panel with branded Member ID, window-focus real-time sync, and **Zero-Flash `AccessGate`** with instant Frame-0 lockout for suspended accounts                                                                                                                                                                                        |
+| **Support, Legal & System**      | `/[locale]/about`, `/contact`, `/faq`, `/testimonials`, `/legal/[[...slug]]`, `/[locale]/[...catchAll]`               | Company story & leadership, Contact Us inquiry form, accordion FAQs, customer testimonials writer, CMS-driven Privacy/Terms legal pages, and localized **Unsupported Language / 404** (`NotFoundUI`)                                                                                                                                                                                                                                                                                                                                                            |
+| **Platform Endpoints**           | `/exchange-rates`, `/robots.txt`, `/sitemap.xml`                                                                      | 12-hour ISR USD exchange rate proxy, dynamic crawler directives, and timeout-guarded multilingual XML sitemap                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 
 ---
 
@@ -164,15 +164,15 @@ sequenceDiagram
 
 #### Complete Domain Coverage (7 Specialized Form Hooks & 5 Draft Modules)
 
-| Domain / Workflow | Form Hook | Draft Storage Module | Storage Key & Payload Features |
-| :--- | :--- | :--- | :--- |
-| **One-Day & Multi-Day Tours** | [`useBookingWidget.ts`](./src/hooks/Booking/useBookingWidget.ts) | [`bookingDraft.ts`](./src/utils/draft/bookingDraft.ts) | `ikisaki_booking_draft_${key}`: Selected dates, adults, couples, rooms, add-ons, pricing breakdown, open drawer state. |
-| **Airport & Intercity Transfers** | [`useTransferBookingForm.ts`](./src/hooks/services/useTransferBookingForm.ts) | [`servicesDraft.ts`](./src/utils/draft/servicesDraft.ts) | `ikisaki_service_draft_transfer`: Pickup/dropoff locations, flight numbers, vehicle category, passenger & luggage counts. |
-| **Private Chauffeur & Vehicle Hire** | [`usePrivateVehicleForm.ts`](./src/hooks/services/usePrivateVehicleForm.ts) | [`servicesDraft.ts`](./src/utils/draft/servicesDraft.ts) | `ikisaki_service_draft_private-vehicle`: Start/end dates, vehicle fleet type, itinerary notes, custom pickup points. |
-| **Bespoke Luxury Journeys** | [`useBespokeForm.ts`](./src/hooks/services/useBespokeForm.ts) | [`servicesDraft.ts`](./src/utils/draft/servicesDraft.ts) | `ikisaki_service_draft_bespoke`: Destinations wishlist, duration, luxury accommodation tier, special concierge requests. |
-| **Concierge Contact Inquiries** | [`useContactForm.ts`](./src/hooks/Contact/useContactForm.ts) | [`contactDraft.ts`](./src/utils/draft/contactDraft.ts) | `ikisaki_contact_draft`: Traveler name, email, dial code, phone number, subject, and detailed message body. |
-| **Tour Package Reviews** | [`usePackageReviewForm.ts`](./src/hooks/Booking/usePackageReviewForm.ts) | [`bookingReviewDraft.ts`](./src/utils/draft/bookingReviewDraft.ts) | `ikisaki_package_review_draft_${slug}`: Star ratings, category ratings, traveler review text, attached photo metadata. |
-| **Website Testimonials** | [`useWriteReviewForm.ts`](./src/hooks/testimonials/useWriteReviewForm.ts) | [`reviewDraft.ts`](./src/utils/draft/reviewDraft.ts) | `ikisaki_write_review_draft`: General satisfaction rating, tour highlights, visitor testimonial comments. |
+| Domain / Workflow                    | Form Hook                                                                     | Draft Storage Module                                               | Storage Key & Payload Features                                                                                            |
+| :----------------------------------- | :---------------------------------------------------------------------------- | :----------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------ |
+| **One-Day & Multi-Day Tours**        | [`useBookingWidget.ts`](./src/hooks/Booking/useBookingWidget.ts)              | [`bookingDraft.ts`](./src/utils/draft/bookingDraft.ts)             | `ikisaki_booking_draft_${key}`: Selected dates, adults, couples, rooms, add-ons, pricing breakdown, open drawer state.    |
+| **Airport & Intercity Transfers**    | [`useTransferBookingForm.ts`](./src/hooks/services/useTransferBookingForm.ts) | [`servicesDraft.ts`](./src/utils/draft/servicesDraft.ts)           | `ikisaki_service_draft_transfer`: Pickup/dropoff locations, flight numbers, vehicle category, passenger & luggage counts. |
+| **Private Chauffeur & Vehicle Hire** | [`usePrivateVehicleForm.ts`](./src/hooks/services/usePrivateVehicleForm.ts)   | [`servicesDraft.ts`](./src/utils/draft/servicesDraft.ts)           | `ikisaki_service_draft_private-vehicle`: Start/end dates, vehicle fleet type, itinerary notes, custom pickup points.      |
+| **Bespoke Luxury Journeys**          | [`useBespokeForm.ts`](./src/hooks/services/useBespokeForm.ts)                 | [`servicesDraft.ts`](./src/utils/draft/servicesDraft.ts)           | `ikisaki_service_draft_bespoke`: Destinations wishlist, duration, luxury accommodation tier, special concierge requests.  |
+| **Concierge Contact Inquiries**      | [`useContactForm.ts`](./src/hooks/Contact/useContactForm.ts)                  | [`contactDraft.ts`](./src/utils/draft/contactDraft.ts)             | `ikisaki_contact_draft`: Traveler name, email, dial code, phone number, subject, and detailed message body.               |
+| **Tour Package Reviews**             | [`usePackageReviewForm.ts`](./src/hooks/Booking/usePackageReviewForm.ts)      | [`bookingReviewDraft.ts`](./src/utils/draft/bookingReviewDraft.ts) | `ikisaki_package_review_draft_${slug}`: Star ratings, category ratings, traveler review text, attached photo metadata.    |
+| **Website Testimonials**             | [`useWriteReviewForm.ts`](./src/hooks/testimonials/useWriteReviewForm.ts)     | [`reviewDraft.ts`](./src/utils/draft/reviewDraft.ts)               | `ikisaki_write_review_draft`: General satisfaction rating, tour highlights, visitor testimonial comments.                 |
 
 #### Geo-Detection & Media Pipeline Assets
 
@@ -312,11 +312,11 @@ Engineered across [`VehicleSelector.tsx`](./src/components/services/VehicleSelec
 
 ## Custom UI Controls & React Hooks
 
-| Category | Key Modules | Purpose |
-| :--- | :--- | :--- |
-| **Luxury Form Pickers** | `CustomDatePicker`, `CustomTimePicker`, `TourDurationPicker`, `TravelerPicker`, `CustomCountrySelect`, `CustomSelect` | Dark/gold themed controls with live closed-date tooltips, tour-type availability rules, and searchable country selection |
-| **Interactive Media & Feedback** | `LoadingImage`, `LoadingVideo`, `UniversalPlayer`, `GalleryLightbox`, `PromoModal`, `ConfettiRain`, `ToastContext` | Session-cached image shimmer, video playback, full-screen lightbox, promotional confetti modal, and global toast alerts |
-| **Core Utility Hooks** | `useBookingWidget`, `useValidationForm`, `useAvailability`, `useUserLocation`, `usePasswordStrength`, `useDocumentTitleNotification`, `useAutoResizeTextarea`, `useDisableIOSZoom` | Shared booking state, bilingual form validation, closed-date availability, geo-IP lookup, password strength rules, dynamic tab alerts, and iOS viewport protection |
+| Category                         | Key Modules                                                                                                                                                                        | Purpose                                                                                                                                                            |
+| :------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Luxury Form Pickers**          | `CustomDatePicker`, `CustomTimePicker`, `TourDurationPicker`, `TravelerPicker`, `CustomCountrySelect`, `CustomSelect`                                                              | Dark/gold themed controls with live closed-date tooltips, tour-type availability rules, and searchable country selection                                           |
+| **Interactive Media & Feedback** | `LoadingImage`, `LoadingVideo`, `UniversalPlayer`, `GalleryLightbox`, `PromoModal`, `ConfettiRain`, `ToastContext`                                                                 | Session-cached image shimmer, video playback, full-screen lightbox, promotional confetti modal, and global toast alerts                                            |
+| **Core Utility Hooks**           | `useBookingWidget`, `useValidationForm`, `useAvailability`, `useUserLocation`, `usePasswordStrength`, `useDocumentTitleNotification`, `useAutoResizeTextarea`, `useDisableIOSZoom` | Shared booking state, bilingual form validation, closed-date availability, geo-IP lookup, password strength rules, dynamic tab alerts, and iOS viewport protection |
 
 ---
 
@@ -324,31 +324,31 @@ Engineered across [`VehicleSelector.tsx`](./src/components/services/VehicleSelec
 
 All backend communication lives in strongly typed modules under [`src/services/`](./src/services):
 
-| Domain | Service Module(s) | Purpose |
-| :--- | :--- | :--- |
-| **Tour Packages & Booking** | `Booking/packageDetails/packageDetailsService.ts`, `Booking/bookingWidgetService.ts`, `Booking/packageLike/packageLikeService.ts`, `tours/packageSummaryService.ts` | Fetch tour summaries & full details (`pricingConfig`, itineraries), create bookings, and toggle package likes |
-| **Package & Site Reviews** | `Booking/PackageReviewService.ts`, `Booking/packageAllReview/FetchReviewService.ts`, `Booking/packageSummaryReview/ReviewSummaryService.ts`, `testimonials/fetchReviewsServices.ts`, `testimonials/writeReviewService.ts` | Submit and fetch package reviews (with photo uploads & admin replies) and global website testimonials |
-| **Date Availability** | `date-availability/availabilityService.ts` | Fetch closed booking dates, tour-type closure rules, and localized calendar notes |
-| **Chauffeur & Bespoke Services** | `services/bespokeService.ts`, `services/privateVehicleService.ts`, `services/transferService.ts`, `services/service-pricing/servicePricingService.ts`, `services/note/serviceNotesService.ts` | Submit custom tour, private chauffeur, and airport transfer requests; fetch live rate cards & multilingual guidelines |
-| **Destinations, Blogs & FAQs** | `destinations/fetchDestinationServices.ts`, `blogs/fetchBlogServices.ts`, `faqs/faqService.ts` | Fetch destination hubs & GPS coordinates, travel journal posts & likes, and localized FAQs |
-| **Auth & User Profile** | `auth/authService.ts`, `profile/profileService.ts` | Login, signup, social OAuth, OTP email confirmation, password recovery, profile/avatar updates & security settings |
-| **Engagement & Compliance** | `Contact/contactService.ts`, `ChatWidget/chatMailService.ts`, `Footer/newsletterService.ts`, `cookies/cookieService.ts`, `legal/legalDocsService.ts` | Contact inquiries, chat email handoff, newsletter signups, cookie consent logging & CMS legal documents |
+| Domain                           | Service Module(s)                                                                                                                                                                                                         | Purpose                                                                                                               |
+| :------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------- |
+| **Tour Packages & Booking**      | `Booking/packageDetails/packageDetailsService.ts`, `Booking/bookingWidgetService.ts`, `Booking/packageLike/packageLikeService.ts`, `tours/packageSummaryService.ts`                                                       | Fetch tour summaries & full details (`pricingConfig`, itineraries), create bookings, and toggle package likes         |
+| **Package & Site Reviews**       | `Booking/PackageReviewService.ts`, `Booking/packageAllReview/FetchReviewService.ts`, `Booking/packageSummaryReview/ReviewSummaryService.ts`, `testimonials/fetchReviewsServices.ts`, `testimonials/writeReviewService.ts` | Submit and fetch package reviews (with photo uploads & admin replies) and global website testimonials                 |
+| **Date Availability**            | `date-availability/availabilityService.ts`                                                                                                                                                                                | Fetch closed booking dates, tour-type closure rules, and localized calendar notes                                     |
+| **Chauffeur & Bespoke Services** | `services/bespokeService.ts`, `services/privateVehicleService.ts`, `services/transferService.ts`, `services/service-pricing/servicePricingService.ts`, `services/note/serviceNotesService.ts`                             | Submit custom tour, private chauffeur, and airport transfer requests; fetch live rate cards & multilingual guidelines |
+| **Destinations, Blogs & FAQs**   | `destinations/fetchDestinationServices.ts`, `blogs/fetchBlogServices.ts`, `faqs/faqService.ts`                                                                                                                            | Fetch destination hubs & GPS coordinates, travel journal posts & likes, and localized FAQs                            |
+| **Auth & User Profile**          | `auth/authService.ts`, `profile/profileService.ts`                                                                                                                                                                        | Login, signup, social OAuth, OTP email confirmation, password recovery, profile/avatar updates & security settings    |
+| **Engagement & Compliance**      | `Contact/contactService.ts`, `ChatWidget/chatMailService.ts`, `Footer/newsletterService.ts`, `cookies/cookieService.ts`, `legal/legalDocsService.ts`                                                                      | Contact inquiries, chat email handoff, newsletter signups, cookie consent logging & CMS legal documents               |
 
 ---
 
 ## Tech Stack
 
-| Layer | Technology |
-| :--- | :--- |
-| **Framework** | Next.js `16.2.10` (App Router, Turbopack, React Compiler via `babel-plugin-react-compiler`) |
-| **UI Library & Styling** | React `19.2.4`, Tailwind CSS `v4` (`@tailwindcss/postcss`), Lucide React, React Icons |
-| **Language** | TypeScript `5.x` |
+| Layer                         | Technology                                                                                                                   |
+| :---------------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
+| **Framework**                 | Next.js `16.2.10` (App Router, Turbopack, React Compiler via `babel-plugin-react-compiler`)                                  |
+| **UI Library & Styling**      | React `19.2.4`, Tailwind CSS `v4` (`@tailwindcss/postcss`), Lucide React, React Icons                                        |
+| **Language**                  | TypeScript `5.x`                                                                                                             |
 | **Localization & Typography** | `next-intl` `4.13`, Google `budoux`, Google Fonts (`Playfair Display`, `Plus Jakarta Sans`, `Noto Sans JP`, `Noto Serif JP`) |
-| **Motion & Interactive UX** | Framer Motion `12.42`, `nextjs-toploader`, `react-easy-crop`, `react-phone-number-input` |
-| **Interactive GIS Mapping** | Leaflet `1.9`, React Leaflet `5.0`, CartoDB Basemaps |
-| **Code Quality & Tooling** | ESLint `9` (`eslint-config-next` `16.2.10`), `knip` (unused code/export analysis), `google-translate-api-x` |
-| **Backend Ecosystem** | NestJS + Drizzle ORM + PostgreSQL + Cloudflare R2 (`NEXT_PUBLIC_API_URL`) |
-| **Deployment** | Vercel |
+| **Motion & Interactive UX**   | Framer Motion `12.42`, `nextjs-toploader`, `react-easy-crop`, `react-phone-number-input`                                     |
+| **Interactive GIS Mapping**   | Leaflet `1.9`, React Leaflet `5.0`, CartoDB Basemaps                                                                         |
+| **Code Quality & Tooling**    | ESLint `9` (`eslint-config-next` `16.2.10`), `knip` (unused code/export analysis), `google-translate-api-x`                  |
+| **Backend Ecosystem**         | NestJS + Drizzle ORM + PostgreSQL + Cloudflare R2 (`NEXT_PUBLIC_API_URL`)                                                    |
+| **Deployment**                | Vercel                                                                                                                       |
 
 ---
 
@@ -421,10 +421,10 @@ npm install
 
 Create `.env.local` in the project root:
 
-| Variable | Required | Description |
-| :--- | :---: | :--- |
-| `NEXT_PUBLIC_API_URL` | Yes | Base URL of the Ikisaki Tours NestJS Backend API (falls back to `/api` if omitted) |
-| `NEXT_PUBLIC_CARTO_API_KEY` | Optional | CartoDB API key for interactive Leaflet dark/voyager destination map tiles |
+| Variable                    | Required | Description                                                                        |
+| :-------------------------- | :------: | :--------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_API_URL`       |   Yes    | Base URL of the Ikisaki Tours NestJS Backend API (falls back to `/api` if omitted) |
+| `NEXT_PUBLIC_CARTO_API_KEY` | Optional | CartoDB API key for interactive Leaflet dark/voyager destination map tiles         |
 
 ```env
 NEXT_PUBLIC_API_URL=https://ikisakitours-backend.vercel.app
@@ -485,12 +485,20 @@ npm run start
 
 ## Credits & License
 
-| Attribute | Details |
-| :--- | :--- |
+<div align="center">
+
+<a href="https://pramod-siriwardhana.vercel.app/" target="_blank" rel="noopener noreferrer">
+  <img src="public/Layout-Icons/two2flod-readme-logo.webp" alt="Two2Flod Logo" width="80" height="80" />
+</a>
+
+</div>
+
+| Attribute          | Details                                                                            |
+| :----------------- | :--------------------------------------------------------------------------------- |
 | **Client & Owner** | **Ikisaki Tours (Pvt) Ltd** — [www.ikisakitours.com](https://www.ikisakitours.com) |
-| **Powered By** | **Aetheria Labs** |
-| **Engineered By** | **Pramod_Siriwardhana** |
-| **License** | All rights reserved © 2026 Ikisaki Tours (Pvt) Ltd ([`LICENSE`](./LICENSE)) |
+| **Powered By**     | [**Two2Flod**](https://pramod-siriwardhana.vercel.app/)                            |
+| **Engineered By**  | [**Pramod_Siriwardhana**](https://pramod-siriwardhana.vercel.app/)                 |
+| **License**        | All rights reserved © 2026 Ikisaki Tours (Pvt) Ltd ([`LICENSE`](./LICENSE))        |
 
 > [!IMPORTANT]
 > **Proprietary Software Notice:** This application and its source code are private, proprietary assets built exclusively for the internal operations of **Ikisaki Tours (Pvt) Ltd**. Unauthorized copying, modification, redistribution, or commercial use of any part of this repository without prior written consent is strictly prohibited.
@@ -503,6 +511,12 @@ npm run start
 
 <div align="center">
 
-**© 2026 Ikisaki Tours (Pvt) Ltd** · Powered by **Aetheria Labs** · Engineered by **Pramod_Siriwardhana** 
+<a href="https://pramod-siriwardhana.vercel.app/" target="_blank" rel="noopener noreferrer">
+  <img src="public/Layout-Icons/two2flod-readme-logo.webp" alt="Two2Flod Logo" width="48" height="48" />
+</a>
+
+<br />
+
+**© 2026 Ikisaki Tours (Pvt) Ltd** · Powered by [**Two2Flod**](https://pramod-siriwardhana.vercel.app/) · Engineered by [**Pramod_Siriwardhana**](https://pramod-siriwardhana.vercel.app/)
 
 </div>
