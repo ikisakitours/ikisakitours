@@ -103,6 +103,12 @@ export function useLoginForm() {
           staySignedIn,
         });
 
+        // Store access_token if returned by backend
+        const verifyToken = (verifyRes as { access_token?: string; token?: string })?.access_token || (verifyRes as { access_token?: string; token?: string })?.token;
+        if (verifyToken && typeof window !== "undefined") {
+          localStorage.setItem("token", String(verifyToken));
+        }
+
         await loginUser();
         
         // Sync authenticated user in AuthContext
@@ -178,6 +184,12 @@ export function useLoginForm() {
         setIsLoading(false);
         toast.dismiss(toastId);
         return;
+      }
+
+      // Store access_token if returned by backend
+      const loginToken = (response as { access_token?: string; token?: string })?.access_token || (response as { access_token?: string; token?: string })?.token;
+      if (loginToken && typeof window !== "undefined") {
+        localStorage.setItem("token", String(loginToken));
       }
 
       await loginUser();
