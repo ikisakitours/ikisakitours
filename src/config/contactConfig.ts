@@ -14,9 +14,9 @@ export const contactConfig = {
 
   //3.  Brand Details
   brand: {
-    name: "AETHERIA LABS",
+    name: "Two2Flod",
     url: "https://pramod-siriwardhana.vercel.app/",
-    logoUrl: "/Layout-Icons/aetheria-logo.mp4",
+    logoUrl: "/Layout-Icons/two2flod-brand-seal.webp",
   },
 
   getWhatsappUrl: (text: string = "") =>

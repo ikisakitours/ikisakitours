@@ -252,7 +252,7 @@ export function Footer() {
             <div className="absolute top-0 left-1/4 right-1/4 h-px bg-linear-to-r from-transparent via-gold/50 to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
 
             {/* Icon / Seal Container */}
-            <div className="relative z-10 flex h-9 w-9 items-center justify-center rounded-full bg-surface border border-white/5 shadow-[0_2px_10px_rgba(0,0,0,0.8)] overflow-hidden transition-all duration-700 group-hover:border-gold/30 group-hover:shadow-[0_0_15px_rgba(197,160,89,0.4)]">
+            <div className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-surface border border-white/5 shadow-[0_2px_10px_rgba(0,0,0,0.8)] overflow-hidden transition-all duration-700 group-hover:border-gold/30 group-hover:shadow-[0_0_15px_rgba(197,160,89,0.4)]">
               <div className="relative flex h-full w-full items-center justify-center">
                 {BRAND_LOGO_URL ? (
                   isVideoLogo ? (
@@ -267,12 +267,13 @@ export function Footer() {
                       wrapperClassName="w-full h-full"
                     />
                   ) : (
-                    <div className="relative h-full w-full p-1.5 flex items-center justify-center">
+                    <div className="relative h-full w-full p-0.5 flex items-center justify-center">
                       <LoadingImage
                         src={BRAND_LOGO_URL}
                         alt={BRAND_NAME}
                         fill
-                        className="object-contain p-1 select-none pointer-events-none"
+                        sizes="40px"
+                        className="object-contain select-none pointer-events-none"
                         wrapperClassName="w-full h-full"
                       />
                     </div>
