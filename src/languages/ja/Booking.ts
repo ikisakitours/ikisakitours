@@ -39,6 +39,13 @@ export default {
     free: "無料",
     estimatedTotal: "お見積り合計",
     taxesIncluded: "税金・手数料込み",
+    clickAndRead: "クリックして確認",
+    importantPriceNote: "料金に関する重要事項",
+    PricingNotesModal: {
+      title: "料金に関する重要事項",
+      subtitle: "グループ割引、人数区分、および旅行代金に関するご案内",
+      closeBtn: "了解しました",
+    },
   },
   Modal: {
     reviewBookingDetails: "ご予約内容の確認",

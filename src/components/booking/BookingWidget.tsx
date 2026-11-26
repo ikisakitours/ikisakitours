@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { useCurrency } from "@/context/CurrencyContext";
 import { LikeButton } from "@/components/ui/LikeButton";
 import { ShareButton } from "@/components/ui/ShareButton";
@@ -13,8 +14,9 @@ import { useAuth } from "@/context/AuthContext";
 import { useAvailability } from "@/hooks/date-availability/useAvailability";
 import { useTogglePackageLike } from "@/hooks/Booking/packageLike/useTogglePackageLike";
 import { useCheckPackageLike } from "@/hooks/Booking/packageLike/useCheckPackageLike";
-import { PricingConfig } from "@/services/Booking/packageDetails/types";
+import { PricingConfig, PricingNoteItem } from "@/services/Booking/packageDetails/types";
 import { calculateDynamicPricing } from "@/services/Booking/packageDetails/pricingUtils";
+import { PricingNotesModal } from "./PricingNotesModal";
 
 type TourType = {
   id?: string;
@@ -24,6 +26,7 @@ type TourType = {
   discount?: number | string;
   likes: number;
   pricingConfig?: PricingConfig;
+  pricingNotes?: PricingNoteItem[];
 };
 
 type BookingWidgetProps = {
@@ -36,6 +39,7 @@ type BookingWidgetProps = {
 const bookingAssurancesIcons = [Zap, Banknote, CalendarDays];
 
 export function BookingWidget({ tour, booking, tourType, className = "" }: BookingWidgetProps) {
+  const [isPriceNotesModalOpen, setIsPriceNotesModalOpen] = useState(false);
   const { formatPrice } = useCurrency();
   const t = useTranslations("Booking.Widget");
   const tForms = useTranslations("SharedForm");
@@ -44,6 +48,9 @@ export function BookingWidget({ tour, booking, tourType, className = "" }: Booki
   const { closedDates, dateDetails, isLoadingDates } = useAvailability();
   const { handlePackageLikeToggle } = useTogglePackageLike();
   const { isLiked } = useCheckPackageLike(tour.id, user?.id);
+
+  const pricingNotes = tour.pricingConfig?.pricingNotes ?? tour.pricingNotes;
+  const hasPricingNotes = Array.isArray(pricingNotes) && pricingNotes.length > 0;
 
   const travelerOptions = [
     {
@@ -227,7 +234,29 @@ export function BookingWidget({ tour, booking, tourType, className = "" }: Booki
 
           {/* ⭐ LIVE PRICE BREAKDOWN & ESTIMATED TOTAL (Updates instantly as travelers change!) */}
           {totalPax > 0 && (
-            <div className="mb-5 rounded-2xl border border-gold/25 bg-white/2 p-4 space-y-2.5 transition-all">
+            <div className="mb-5 space-y-2">
+              {/* Important Price Note Row: Only rendered when dynamic pricingNotes exist from backend */}
+              {hasPricingNotes && (
+                <div className="flex items-center justify-between px-1">
+                  <span className="inline-flex items-center gap-1.5 text-[11px] font-medium tracking-wide text-slate-400 select-none">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold/80 animate-pulse" />
+                    <span>{t("clickAndRead")}</span>
+                  </span>
+
+                  <button
+                    type="button"
+                    onClick={() => setIsPriceNotesModalOpen(true)}
+                    className="group inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-gold/85 hover:text-gold transition-all cursor-pointer"
+                  >
+                    <Info className="h-3.5 w-3.5 text-gold transition-transform group-hover:scale-110" />
+                    <span className="underline underline-offset-4 decoration-gold/40 hover:decoration-gold">
+                      {t("importantPriceNote")}
+                    </span>
+                  </button>
+                </div>
+              )}
+
+              <div className="rounded-2xl border border-gold/25 bg-white/2 p-4 space-y-2.5 transition-all">
               <div className="flex items-center justify-between pb-2 border-b border-white/5">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
                   {t("priceCalculation", { count: totalPax })}
@@ -298,6 +327,7 @@ export function BookingWidget({ tour, booking, tourType, className = "" }: Booki
                 </span>
               </div>
             </div>
+            </div>
           )}
 
           {/* Submit Button */}
@@ -334,6 +364,15 @@ export function BookingWidget({ tour, booking, tourType, className = "" }: Booki
           </div>
         </form>
       </div>
+
+      {/* Important Pricing Notes Modal */}
+      {hasPricingNotes && (
+        <PricingNotesModal
+          isOpen={isPriceNotesModalOpen}
+          onClose={() => setIsPriceNotesModalOpen(false)}
+          pricingNotes={pricingNotes}
+        />
+      )}
     </aside>
   );
 }

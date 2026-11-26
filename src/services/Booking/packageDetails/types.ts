@@ -56,10 +56,17 @@ export interface PassengerPricing {
   couplePricingType: "auto_tier" | "fixed" | string;
 }
 
+export interface PricingNoteItem {
+  id: string;
+  title: Record<string, string>;
+  description: Record<string, string>;
+}
+
 export interface PricingConfig {
   tiers?: PricingTier[];
   options?: PricingOption[];
   passengerPricing?: PassengerPricing;
+  pricingNotes?: PricingNoteItem[];
 }
 
 export interface PackageDetails {
@@ -86,6 +93,7 @@ export interface PackageDetails {
   itinerary: ItineraryDay[];
   destinations: DestinationSummary[];
   pricingConfig?: PricingConfig;
+  pricingNotes?: PricingNoteItem[];
   likes: number;
   createdAt: string;
   updatedAt: string;
